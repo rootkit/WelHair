@@ -1,0 +1,23 @@
+<?php
+$this->headLink()->appendStylesheet($this->baseUrl('css/reset.css'));
+?>
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <title><?php echo $this->translate('default_pagetitle_prefix'); ?></title>
+        <meta name="keywords" content="">
+        <meta name="description" content="">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="viewport" content="width=device-width,initial-scale=1">
+        <?php echo $this->headLink(); ?>
+    </head>
+    <body>
+        <?php echo $this->partial('header.phtml'); ?>
+        <?php echo $this->layout()->content; ?>
+        <?php echo $this->partial('footer.phtml'); ?>
+    </body>
+</html>
