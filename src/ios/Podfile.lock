@@ -1,0 +1,13 @@
+PODS:
+  - EDColor (0.2.1)
+  - ISO8601DateFormatter (0.7)
+
+DEPENDENCIES:
+  - EDColor
+  - ISO8601DateFormatter
+
+SPEC CHECKSUMS:
+  EDColor: d3717ea14cd90bf47591d0dc66aeb871bd6c850d
+  ISO8601DateFormatter: 00944e437ea647f4244454ce8809d313861d08de
+
+COCOAPODS: 0.29.0

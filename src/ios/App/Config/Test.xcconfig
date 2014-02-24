@@ -1,0 +1,10 @@
+//
+//  Test.xcconfig
+//
+//  Created by Patrick Piemonte on 7/22/13.
+//
+
+#include "Base.xcconfig"
+
+GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+GCC_ENABLE_OBJC_EXCEPTIONS = YES;

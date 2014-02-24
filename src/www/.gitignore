@@ -1,0 +1,6 @@
+# OS X
+.DS_Store
+
+var/logs/*
+var/cache/*
+var/compile/*

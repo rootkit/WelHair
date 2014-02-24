@@ -1,0 +1,24 @@
+// ==============================================================================
+//
+// This file is part of the WelSpeak.
+//
+// Create by Welfony <support@welfony.com>
+// Copyright (c) 2013-2014 welfony.com
+//
+// For the full copyright and license information, please view the LICENSE
+// file that was distributed with this source code.
+//
+// ==============================================================================
+
+#import <Availability.h>
+
+#ifndef __IPHONE_3_0
+#warning "This project uses features only available in iOS SDK 3.0 and later."
+#endif
+
+#ifdef __OBJC__
+    #import <UIKit/UIKit.h>
+    #import <Foundation/Foundation.h>
+
+    #import "AppImport.h"
+#endif
