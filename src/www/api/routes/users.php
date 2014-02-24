@@ -11,18 +11,3 @@
 // file that was distributed with this source code.
 //
 // ==============================================================================
-
-use Welfony\Service\UserService;
-
-class IndexController extends Zend_Controller_Action
-{
-
-    public function indexAction()
-    {
-
-        $userService = new UserService();
-        echo $userService->getAllUsersCount();
-
-    }
-
-}

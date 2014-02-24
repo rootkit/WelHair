@@ -17,6 +17,11 @@ namespace Welfony\Utility;
 class Util
 {
 
+    public static function baseAssetUrl($path = '')
+    {
+        return rtrim(\Zend_Controller_Front::getInstance()->getBaseUrl(), '/') . '/static/' . $path;
+    }
+
     public static function genRandomNum($length, $strength = 6)
     {
         $vowels = 'aeuy';

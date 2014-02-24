@@ -41,26 +41,25 @@ $app = new \Slim\Slim(array(
 
 $app->config = $config;
 
-$app->container->singleton('conn', function($app) {
-    $dbConfig = new \Doctrine\DBAL\Configuration();
-    $connectionParams = array(
-        'dbname' => $app['config']['db']['dbname'],
-        'user' => $app['config']['db']['user'],
-        'password' => $app['config']['db']['password'],
-        'host' => $app['config']['db']['host'],
-        'driver' => $app['config']['db']['driver'],
-        'charset' => $app['config']['db']['charset']
-    );
-
-    return \Doctrine\DBAL\DriverManager::getConnection($connectionParams, $dbConfig);
-});
-
 $app->container->singleton('passHash', function($app) {
     $adapter = new \PHPassLib\Hash\Adapter\Pbkdf2(array(
         'iterationCount' => $app['config']['passhash']['iteration_count']
     ));
     return new \PHPassLib\Hash($adapter);
 });
+
+$dbConfig = new \Doctrine\DBAL\Configuration();
+$connectionParams = array(
+    'dbname' => $config['db']['dbname'],
+    'user' => $config['db']['user'],
+    'password' => $config['db']['password'],
+    'host' => $config['db']['host'],
+    'driver' => $config['db']['driver'],
+    'charset' => $config['db']['charset']
+);
+
+$conn = \Doctrine\DBAL\DriverManager::getConnection($connectionParams, $dbConfig);
+Zend_Registry::set('conn', $conn);
 
 foreach (glob($config['app']['routes_path'] . DS . '*php') as $file) {
     require_once $file;

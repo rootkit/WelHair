@@ -12,23 +12,16 @@
 //
 // ==============================================================================
 
-namespace Welfony\Repository;
+namespace Welfony\Repository\Base;
 
-use Welfony\Repository\Base\AbstractRepository;
-
-class UserRepository extends AbstractRepository
+class AbstractRepository
 {
 
-    public function getAllUsersCount()
+    protected $conn;
+
+    public function __construct()
     {
-        $strSql = "SELECT
-                       COUNT(1) `Total`
-                   FROM Users
-                   LIMIT 1";
-
-        $row = $this->conn->fetchAssoc($strSql);
-
-        return $row['Total'];
+        $this->conn = \Zend_Registry::get('conn');
     }
 
 }
