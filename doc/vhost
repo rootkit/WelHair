@@ -1,0 +1,10 @@
+<VirtualHost *:80>
+    ServerAdmin yongjie@kbuuk.com
+    DocumentRoot  "d:/server_core/www/github/welhair/src/www/frontend/public"
+    ServerName welhair.com
+    Alias /static "d:/server_core/www/github/welhair/src/www/static"
+    Alias /api "d:/server_core/www/github/welhair/src/www/api/public"
+    Alias /admin "d:/server_core/www/github/welhair/src/www/backend/public"
+    ErrorLog "logs/welhair.com-error.log"
+    CustomLog "logs/welhair.com-access.log" common
+</VirtualHost>
