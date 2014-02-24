@@ -40,6 +40,7 @@
 
 #define kStatusBarHeight (20.f)
 
+#define kToolBarHeight (44.f)
 #define kTopBarHeight (44.f)
 #define kBottomBarHeight (49.f)
 

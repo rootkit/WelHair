@@ -14,6 +14,7 @@
 #define AppImport_h
 
 #import "Constants.h"
+#import "Macros.h"
 #import "EDColor.h"
 #import "WelKit.h"
 

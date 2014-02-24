@@ -1,6 +1,6 @@
 // ==============================================================================
 //
-// This file is part of the WelSpeak.
+// This file is part of the WelHair
 //
 // Create by Welfony <support@welfony.com>
 // Copyright (c) 2013-2014 welfony.com
@@ -10,6 +10,6 @@
 //
 // ==============================================================================
 
-@interface RootViewController : BaseViewController
+@interface RootViewController : UITabBarController<UITabBarControllerDelegate>
 
 @end
