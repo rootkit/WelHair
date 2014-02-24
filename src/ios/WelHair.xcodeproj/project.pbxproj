@@ -43,6 +43,17 @@
 		18A912E318BB26B6006B9A04 /* RootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A912DE18BB26B6006B9A04 /* RootViewController.m */; };
 		18A912E418BB26B6006B9A04 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A912E118BB26B6006B9A04 /* User.m */; };
 		18A912EC18BB2826006B9A04 /* UIView+WelKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A912E918BB2826006B9A04 /* UIView+WelKit.m */; };
+		4660E68A18BB73B9005B3C7D /* HairStylesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4660E68918BB73B9005B3C7D /* HairStylesViewController.m */; };
+		4660E68D18BB73C8005B3C7D /* HairStylistsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4660E68C18BB73C8005B3C7D /* HairStylistsViewController.m */; };
+		4660E69018BB73E1005B3C7D /* ProductsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4660E68F18BB73E1005B3C7D /* ProductsViewController.m */; };
+		4660E69318BB73F2005B3C7D /* SalonViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4660E69218BB73F2005B3C7D /* SalonViewController.m */; };
+		4660E69618BB73FF005B3C7D /* UserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4660E69518BB73FF005B3C7D /* UserViewController.m */; };
+		4660E6AB18BB7666005B3C7D /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4660E6AA18BB7666005B3C7D /* CoreText.framework */; };
+		46BCD24818BB85FC005C4BD6 /* line@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 46BCD24218BB85FC005C4BD6 /* line@2x.png */; };
+		46BCD24918BB85FC005C4BD6 /* pick_bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 46BCD24318BB85FC005C4BD6 /* pick_bg@2x.png */; };
+		46BCD24A18BB85FC005C4BD6 /* WelQRGeneraterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 46BCD24518BB85FC005C4BD6 /* WelQRGeneraterViewController.m */; };
+		46BCD24B18BB85FC005C4BD6 /* WelQRReaderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 46BCD24718BB85FC005C4BD6 /* WelQRReaderViewController.m */; };
+		46BCD24D18BB927F005C4BD6 /* flush.caf in Resources */ = {isa = PBXBuildFile; fileRef = 46BCD24C18BB91F5005C4BD6 /* flush.caf */; };
 		8D253C7C0D2C41EC8279DF3F /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0DEE8FDE44A64A6986F93371 /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -99,6 +110,25 @@
 		18A912E918BB2826006B9A04 /* UIView+WelKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+WelKit.m"; sourceTree = "<group>"; };
 		18A912EA18BB2826006B9A04 /* WelKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WelKit.h; sourceTree = "<group>"; };
 		18A912EB18BB2826006B9A04 /* WelKitMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WelKitMacros.h; sourceTree = "<group>"; };
+		4660E68818BB73B9005B3C7D /* HairStylesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HairStylesViewController.h; sourceTree = "<group>"; };
+		4660E68918BB73B9005B3C7D /* HairStylesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HairStylesViewController.m; sourceTree = "<group>"; };
+		4660E68B18BB73C8005B3C7D /* HairStylistsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HairStylistsViewController.h; sourceTree = "<group>"; };
+		4660E68C18BB73C8005B3C7D /* HairStylistsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HairStylistsViewController.m; sourceTree = "<group>"; };
+		4660E68E18BB73E1005B3C7D /* ProductsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProductsViewController.h; sourceTree = "<group>"; };
+		4660E68F18BB73E1005B3C7D /* ProductsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProductsViewController.m; sourceTree = "<group>"; };
+		4660E69118BB73F2005B3C7D /* SalonViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SalonViewController.h; sourceTree = "<group>"; };
+		4660E69218BB73F2005B3C7D /* SalonViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SalonViewController.m; sourceTree = "<group>"; };
+		4660E69418BB73FF005B3C7D /* UserViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserViewController.h; sourceTree = "<group>"; };
+		4660E69518BB73FF005B3C7D /* UserViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserViewController.m; sourceTree = "<group>"; };
+		4660E6AA18BB7666005B3C7D /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
+		46BCD23118BB7BF5005C4BD6 /* Macros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Macros.h; sourceTree = "<group>"; };
+		46BCD24218BB85FC005C4BD6 /* line@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "line@2x.png"; sourceTree = "<group>"; };
+		46BCD24318BB85FC005C4BD6 /* pick_bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pick_bg@2x.png"; sourceTree = "<group>"; };
+		46BCD24418BB85FC005C4BD6 /* WelQRGeneraterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WelQRGeneraterViewController.h; sourceTree = "<group>"; };
+		46BCD24518BB85FC005C4BD6 /* WelQRGeneraterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WelQRGeneraterViewController.m; sourceTree = "<group>"; };
+		46BCD24618BB85FC005C4BD6 /* WelQRReaderViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WelQRReaderViewController.h; sourceTree = "<group>"; };
+		46BCD24718BB85FC005C4BD6 /* WelQRReaderViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WelQRReaderViewController.m; sourceTree = "<group>"; };
+		46BCD24C18BB91F5005C4BD6 /* flush.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = flush.caf; sourceTree = "<group>"; };
 		DB57361E9AB145E7AB30BD59 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = ../../Pods/Pods.xcconfig; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -107,6 +137,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4660E6AB18BB7666005B3C7D /* CoreText.framework in Frameworks */,
 				18A9126518BB216E006B9A04 /* CoreGraphics.framework in Frameworks */,
 				18A9126318BB216E006B9A04 /* Foundation.framework in Frameworks */,
 				18A9126718BB216E006B9A04 /* UIKit.framework in Frameworks */,
@@ -137,6 +168,7 @@
 		18A9126118BB216E006B9A04 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				4660E6AA18BB7666005B3C7D /* CoreText.framework */,
 				18A9126218BB216E006B9A04 /* Foundation.framework */,
 				18A9126418BB216E006B9A04 /* CoreGraphics.framework */,
 				18A9126618BB216E006B9A04 /* UIKit.framework */,
@@ -200,6 +232,7 @@
 			children = (
 				18A9129918BB2350006B9A04 /* AppImport.h */,
 				18A9129A18BB2350006B9A04 /* Constants.h */,
+				46BCD23118BB7BF5005C4BD6 /* Macros.h */,
 			);
 			path = Constants;
 			sourceTree = "<group>";
@@ -250,6 +283,11 @@
 		18A912D918BB26B6006B9A04 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				4660E68318BB73A8005B3C7D /* HairStyles */,
+				4660E68418BB73A8005B3C7D /* Hairstylists */,
+				4660E68518BB73A8005B3C7D /* Products */,
+				4660E68618BB73A8005B3C7D /* Salon */,
+				4660E68718BB73A8005B3C7D /* User */,
 				18A912DA18BB26B6006B9A04 /* Base */,
 				18A912DD18BB26B6006B9A04 /* RootViewController.h */,
 				18A912DE18BB26B6006B9A04 /* RootViewController.m */,
@@ -286,6 +324,7 @@
 		18A912E618BB2826006B9A04 /* WelKit */ = {
 			isa = PBXGroup;
 			children = (
+				46BCD24018BB85FC005C4BD6 /* Controls */,
 				18A912E718BB2826006B9A04 /* UIKit */,
 				18A912EA18BB2826006B9A04 /* WelKit.h */,
 				18A912EB18BB2826006B9A04 /* WelKitMacros.h */,
@@ -300,6 +339,73 @@
 				18A912E918BB2826006B9A04 /* UIView+WelKit.m */,
 			);
 			path = UIKit;
+			sourceTree = "<group>";
+		};
+		4660E68318BB73A8005B3C7D /* HairStyles */ = {
+			isa = PBXGroup;
+			children = (
+				4660E68818BB73B9005B3C7D /* HairStylesViewController.h */,
+				4660E68918BB73B9005B3C7D /* HairStylesViewController.m */,
+			);
+			path = HairStyles;
+			sourceTree = "<group>";
+		};
+		4660E68418BB73A8005B3C7D /* Hairstylists */ = {
+			isa = PBXGroup;
+			children = (
+				4660E68B18BB73C8005B3C7D /* HairStylistsViewController.h */,
+				4660E68C18BB73C8005B3C7D /* HairStylistsViewController.m */,
+			);
+			path = Hairstylists;
+			sourceTree = "<group>";
+		};
+		4660E68518BB73A8005B3C7D /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				4660E68E18BB73E1005B3C7D /* ProductsViewController.h */,
+				4660E68F18BB73E1005B3C7D /* ProductsViewController.m */,
+			);
+			path = Products;
+			sourceTree = "<group>";
+		};
+		4660E68618BB73A8005B3C7D /* Salon */ = {
+			isa = PBXGroup;
+			children = (
+				4660E69118BB73F2005B3C7D /* SalonViewController.h */,
+				4660E69218BB73F2005B3C7D /* SalonViewController.m */,
+			);
+			path = Salon;
+			sourceTree = "<group>";
+		};
+		4660E68718BB73A8005B3C7D /* User */ = {
+			isa = PBXGroup;
+			children = (
+				4660E69418BB73FF005B3C7D /* UserViewController.h */,
+				4660E69518BB73FF005B3C7D /* UserViewController.m */,
+			);
+			path = User;
+			sourceTree = "<group>";
+		};
+		46BCD24018BB85FC005C4BD6 /* Controls */ = {
+			isa = PBXGroup;
+			children = (
+				46BCD24118BB85FC005C4BD6 /* WelQRCode */,
+			);
+			path = Controls;
+			sourceTree = "<group>";
+		};
+		46BCD24118BB85FC005C4BD6 /* WelQRCode */ = {
+			isa = PBXGroup;
+			children = (
+				46BCD24218BB85FC005C4BD6 /* line@2x.png */,
+				46BCD24C18BB91F5005C4BD6 /* flush.caf */,
+				46BCD24318BB85FC005C4BD6 /* pick_bg@2x.png */,
+				46BCD24418BB85FC005C4BD6 /* WelQRGeneraterViewController.h */,
+				46BCD24518BB85FC005C4BD6 /* WelQRGeneraterViewController.m */,
+				46BCD24618BB85FC005C4BD6 /* WelQRReaderViewController.h */,
+				46BCD24718BB85FC005C4BD6 /* WelQRReaderViewController.m */,
+			);
+			path = WelQRCode;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -361,6 +467,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				46BCD24D18BB927F005C4BD6 /* flush.caf in Resources */,
+				46BCD24918BB85FC005C4BD6 /* pick_bg@2x.png in Resources */,
+				46BCD24818BB85FC005C4BD6 /* line@2x.png in Resources */,
 				18A912BE18BB25AA006B9A04 /* Icon-40.png in Resources */,
 				18A912C318BB25AA006B9A04 /* Icon-76.png in Resources */,
 				18A912C618BB25AA006B9A04 /* Icon-Small-50@2x.png in Resources */,
@@ -431,12 +540,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4660E69318BB73F2005B3C7D /* SalonViewController.m in Sources */,
+				4660E69018BB73E1005B3C7D /* ProductsViewController.m in Sources */,
 				18A912E418BB26B6006B9A04 /* User.m in Sources */,
 				18A9127318BB216E006B9A04 /* AppDelegate.m in Sources */,
+				4660E68A18BB73B9005B3C7D /* HairStylesViewController.m in Sources */,
 				18A912EC18BB2826006B9A04 /* UIView+WelKit.m in Sources */,
+				46BCD24B18BB85FC005C4BD6 /* WelQRReaderViewController.m in Sources */,
 				18A912E218BB26B6006B9A04 /* BaseViewController.m in Sources */,
 				18A912E318BB26B6006B9A04 /* RootViewController.m in Sources */,
+				46BCD24A18BB85FC005C4BD6 /* WelQRGeneraterViewController.m in Sources */,
 				18A9126F18BB216E006B9A04 /* main.m in Sources */,
+				4660E69618BB73FF005B3C7D /* UserViewController.m in Sources */,
+				4660E68D18BB73C8005B3C7D /* HairStylistsViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -547,6 +663,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/App/Prefix.pch";
+				GCC_TREAT_WARNINGS_AS_ERRORS = NO;
 				INFOPLIST_FILE = "$(SRCROOT)/App/Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
