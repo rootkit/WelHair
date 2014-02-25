@@ -62,3 +62,5 @@ CREATE TABLE IF NOT EXISTS `Social` (
   INDEX `IX_Social_UserId` (`UserId` ASC),
   INDEX `IX_Social_ExternalId` (`ExternalId` ASC)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
