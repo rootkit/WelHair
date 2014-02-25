@@ -13,6 +13,8 @@
 #import "AppDelegate.h"
 #import "UMSocial.h"
 #import "RootViewController.h"
+#import <TencentOpenAPI/QQApiInterface.h> 
+#import <TencentOpenAPI/TencentOAuth.h>
 
 @implementation AppDelegate
 
@@ -20,7 +22,6 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     self.window.backgroundColor = [UIColor whiteColor];
     UINavigationController *rootNav = [[UINavigationController alloc] initWithRootViewController:[RootViewController new]];
@@ -28,11 +29,20 @@
     self.window.rootViewController =rootNav;
     [self.window makeKeyAndVisible];
 
+
+    [self setupSocial];
+    return YES;
+}
+
+- (void)setupSocial
+{
     [UMSocialData setAppKey:UMSOCIAL_APPKEY];
     //设置微信AppId，url地址传nil，将默认使用友盟的网址
     [UMSocialConfig setWXAppId:WECHAT_ID url:nil];
     
-    return YES;
+    [UMSocialConfig setQQAppId:@"100424468" url:nil importClasses:@[[QQApiInterface class],[TencentOAuth class]]];
+    
+    [UMSocialConfig setSupportSinaSSO:YES];
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application

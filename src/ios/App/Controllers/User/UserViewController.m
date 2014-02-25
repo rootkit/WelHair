@@ -13,6 +13,7 @@
 #import "UserViewController.h"
 #import <FontAwesomeKit.h>
 #import "WelQRReaderViewController.h"
+#import "LoginViewController.h"
 @interface UserViewController ()
 
 @end
@@ -24,6 +25,7 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         self.title =  NSLocalizedString(@"UserViewController.Title", nil);
+        self.rightNavItemTitle = NSLocalizedString(@"Login", nil);
     }
     return self;
 }
@@ -50,6 +52,11 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)rightNavItemClick
+{
+    [self.navigationController presentViewController:[[UINavigationController alloc] initWithRootViewController:[LoginViewController new]] animated:YES completion:nil];
 }
 
 - (void)scanClick
