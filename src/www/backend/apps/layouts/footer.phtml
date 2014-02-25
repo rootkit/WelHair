@@ -25,6 +25,10 @@
                 $('.sidebar .lists li').removeClass('on');
             }
         );
+
+        $('.u-btn-submit').click(function() {
+            $(this).parent().parent().parent().submit();
+        });
     });
 </script>
 <footer class="footer cleafix">

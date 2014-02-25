@@ -137,9 +137,17 @@
     margin: 0 10px 40px 0;
 }
 
+.u-sel {
+    width: 212px;
+    height: 30px
+    *height: auto;
+    line-height: 30px;
+    padding: 5px;
+}
+
 .u-ipt {
     padding: 5px;
-    width: 180px;
+    width: 200px;
     height: 17px;
     border: 1px solid #D9D9D9;
     border-top-color: #c0c0c0;
@@ -193,7 +201,7 @@
     text-decoration: none;
 }
 
-.m-form .ipt img {
+.m-form .ipt .verify {
     margin: 0 15px 0 5px;
     height: 32px;
 }
@@ -501,6 +509,18 @@ button.u-btn-sm {
 .m-page-sr i {
     border: 0;
 }
+
+.u-upload{display:inline-block;*display:inline;*zoom:1;position:relative;overflow:hidden;}
+.u-upload button{height:32px;padding:0 10px;border:1px solid #ccc;overflow:visible;font-size:14px;color:#666;background:#ddd;}
+.u-upload input{position:absolute;top:0;right:-1px;font-size:25px;cursor:pointer;opacity:0;filter:alpha(opacity=0);}
+.u-upload:hover button{border-color:#bbb;color:#333;background:#ccc;}
+a.u-upload,a.u-upload:hover{text-decoration:none;}
+
+/* 有边图片容器-默认定宽定高、图片拉伸 */
+.u-img2{display:block;position:relative;width:104px;height:104px;padding:2px;border:1px solid #ddd;}
+.u-img2 img{display:block;width:100%;height:100%;}
+/* 图片高适应 */
+.u-img2-ha,.u-img2-ha img{height:auto;}
 
 .toolbar {
 

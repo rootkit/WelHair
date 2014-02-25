@@ -3,9 +3,11 @@ use \Welfony\Utility\Util;
 
 $this->headLink()
      ->appendStylesheet(Util::baseAssetUrl('css/vendor/normalize/1.1.3/normalize.css'))
+     ->appendStylesheet(Util::baseAssetUrl('css/vendor/jquery.ui/1.9.2/jquery-ui.css'))
      ->appendStylesheet(Util::baseAssetUrl('css/backend/style.css'));
 
 $this->headScript()
+     ->prependFile(Util::baseAssetUrl('js/vendor/jquery.ui/1.9.2/jquery-ui.min.js'))
      ->prependFile(Util::baseAssetUrl('js/vendor/jquery/1.11.0/jquery.min.js'));
 ?>
 <!DOCTYPE html>
