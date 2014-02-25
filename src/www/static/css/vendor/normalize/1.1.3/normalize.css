@@ -118,7 +118,7 @@ button,
 input,
 select,
 textarea {
-  font: 12px/1.5 tahoma,arial,'Hiragino Sans GB',\5b8b\4f53,sans-serif;
+  font: 12px/1.5 tahoma,"microsoft yahei","\5FAE\8F6F\96C5\9ED1";
 }
 button,
 input,
@@ -164,7 +164,7 @@ table {
 }
 /* IE bug fixed: th 不继承 text-align*/
 th {
-  text-align: inherit;
+  text-align: center;
 }
 /* ie6 7 8(q) bug 显示为行内表现 */
 iframe {
@@ -1434,4 +1434,21 @@ a:hover {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+
+@font-face {
+  font-family: "iconfont";
+  src: url("../../../../fonts/iconfont.eot");
+  src: url("../../../../fonts/iconfont.eot?#iefix") format("embedded-opentype"),
+       url("../../../../fonts/iconfont.woff") format("woff"),
+       url("../../../../fonts/iconfont.ttf") format("truetype"),
+       url("../../../../fonts/iconfont.svg#svgFontName") format("svg");
+}
+
+.iconfont {
+  font-family: "iconfont";
+  font-size: 16px;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }

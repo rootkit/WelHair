@@ -1,0 +1,60 @@
+<?php
+
+$request = Zend_Controller_Front::getInstance()->getRequest();
+$module = $request->getModuleName();
+$controller = $request->getControllerName();
+$action = $request->getActionName();
+
+?>
+
+<?php if ($module == 'default'): ?>
+<ul class="lists">
+    <li<?php echo ($controller == 'index' && $action == 'index') ? ' class="active"' : ''; ?>>
+        <a href="<?php echo $this->baseUrl(''); ?>">
+            <i class="iconfont">&#xf012b;</i>
+            后台首页
+        </a>
+    </li>
+    <li></li>
+    <li>
+        <a href="<?php echo $this->baseUrl(''); ?>">
+            <i class="iconfont">&#xf0103;</i>
+            支付方式
+        </a>
+    </li>
+    <li>
+        <a href="<?php echo $this->baseUrl(''); ?>">
+            <i class="iconfont">&#xf018d;</i>
+            系统设置
+        </a>
+    </li>
+</ul>
+<?php endif; ?>
+
+<?php if ($module == 'user'): ?>
+<ul class="lists">
+    <li<?php echo ($controller == 'index' && $action == 'search') ? ' class="active"' : ''; ?>>
+        <a href="<?php echo $this->baseUrl('user/index/search'); ?>">
+            <i class="iconfont">&#x344a;</i>
+            会员列表
+        </a>
+    </li>
+    <li<?php echo ($controller == 'index' && $action == 'info') ? ' class="active"' : ''; ?>>
+        <a href="<?php echo $this->baseUrl('user/index/info'); ?>">
+            <i class="iconfont">&#xf0175;</i>
+            添加会员
+        </a>
+    </li>
+</ul>
+<?php endif; ?>
+
+<?php if ($module == 'order'): ?>
+<ul class="lists">
+    <li>
+        <a href="<?php echo $this->baseUrl('user/index/info'); ?>">
+            <i class="iconfont">&#x344a;</i>
+            订单列表
+        </a>
+    </li>
+</ul>
+<?php endif; ?>

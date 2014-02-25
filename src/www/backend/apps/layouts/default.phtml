@@ -26,14 +26,7 @@ $this->headScript()
         <?php echo $this->partial('header.phtml'); ?>
         <div class="container clearfix">
             <div class="sidebar">
-                <ul class="lists">
-                    <li>
-                        <a href="<?php echo $this->baseUrl('user/index/info'); ?>">会员列表</a>
-                    </li>
-                    <li>
-                        <a>会员提现管理</a>
-                    </li>
-                </ul>
+                <?php echo $this->partial('shared/sidebar.phtml'); ?>
             </div>
             <div class="content">
                 <div class="content-inner">

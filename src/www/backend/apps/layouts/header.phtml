@@ -1,7 +1,7 @@
 <?php
 
 $request = Zend_Controller_Front::getInstance()->getRequest();
-$controller = $request->getModuleName();
+$module = $request->getModuleName();
 
 ?>
 <div class="header container">
@@ -12,19 +12,22 @@ $controller = $request->getModuleName();
         <div class="lnks clearfix">
             <ul class="lnks-li">
                 <li>
-                    <a class="lnk<?php echo $controller == 'user' ? ' on' : ''; ?>" href="<?php echo $this->baseUrl('user/index/search'); ?>">会员</a>
+                    <a class="lnk<?php echo $module == 'user' ? ' on' : ''; ?>" href="<?php echo $this->baseUrl('user/index/search'); ?>">会员</a>
                 </li>
                 <li>
-                    <a class="lnk<?php echo $controller == 'goods' ? ' on' : ''; ?>" href="<?php echo $this->baseUrl('goods/index/search'); ?>">商品</a>
+                    <a class="lnk<?php echo $module == 'company' ? ' on' : ''; ?>" href="<?php echo $this->baseUrl('user/index/search'); ?>">沙龙</a>
                 </li>
                 <li>
-                    <a class="lnk<?php echo $controller == 'reservation' ? ' on' : ''; ?>" href="#">预约</a>
+                    <a class="lnk<?php echo $module == 'goods' ? ' on' : ''; ?>" href="<?php echo $this->baseUrl('goods/index/search'); ?>">商品</a>
                 </li>
                 <li>
-                    <a class="lnk<?php echo $controller == 'order' ? ' on' : ''; ?>" href="<?php echo $this->baseUrl('order/index/search'); ?>">订单</a>
+                    <a class="lnk<?php echo $module == 'reservation' ? ' on' : ''; ?>" href="#">预约</a>
                 </li>
                 <li>
-                    <a class="lnk<?php echo $controller == 'system' ? ' on' : ''; ?>" href="#">系统</a>
+                    <a class="lnk<?php echo $module == 'order' ? ' on' : ''; ?>" href="<?php echo $this->baseUrl('order/index/search'); ?>">订单</a>
+                </li>
+                <li>
+                    <a class="lnk<?php echo $module == 'system' ? ' on' : ''; ?>" href="#">系统</a>
                 </li>
                 <li class="right">
                     <a class="lnk" href="#">退出</a>

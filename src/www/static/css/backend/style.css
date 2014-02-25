@@ -95,8 +95,9 @@
     line-height: 40px;
 }
 
-.sidebar .lists li:hover {
-    background: #fff;
+.sidebar .lists li.active,
+.sidebar .lists li.on {
+    background: #eee;
 }
 
 .sidebar .lists li a {
@@ -499,4 +500,23 @@ button.u-btn-sm {
 
 .m-page-sr i {
     border: 0;
+}
+
+.toolbar {
+
+}
+
+.toolbar ul {
+    display: block;
+    margin: 0 0 10px;
+}
+
+.toolbar ul li {
+    float: left;
+    padding: 0 20px 0 0;
+}
+
+.toolbar ul li a {
+    color: #737383;
+    text-decoration: none;
 }

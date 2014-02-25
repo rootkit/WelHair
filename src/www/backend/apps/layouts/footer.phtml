@@ -15,6 +15,16 @@
         });
 
         changeSizebarHeight();
+
+        $('.sidebar .lists li').hover(
+            function() {
+                $('.sidebar .lists li').removeClass('on');
+                $(this).addClass('on');
+            },
+            function() {
+                $('.sidebar .lists li').removeClass('on');
+            }
+        );
     });
 </script>
 <footer class="footer cleafix">
