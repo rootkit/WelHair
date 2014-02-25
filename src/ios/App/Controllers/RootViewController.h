@@ -10,6 +10,6 @@
 //
 // ==============================================================================
 
-@interface RootViewController : UITabBarController<UITabBarControllerDelegate>
+@interface RootViewController : UITabBarController
 
 @end
