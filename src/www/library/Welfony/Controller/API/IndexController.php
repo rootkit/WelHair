@@ -22,7 +22,7 @@ class IndexController extends AbstractAPIController
     public function index()
     {
         $this->sendResponse(array(
-            'message' => sprintf('%s API service', $this->app->config['app']['name'])
+            'message' => sprintf('%s API service', $this->app->config->app->name)
         ));
     }
 

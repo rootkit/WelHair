@@ -24,8 +24,10 @@ require ROOT_PATH . '/vendor/autoload.php';
 $config = new Zend_Config_Ini(ROOT_PATH . '/backend/apps/configs/application.ini', APP_ENV);
 $options = $config->toArray();
 
-$app = new Zend_Application(
-    APP_ENV,
-    $options
-);
-$app->bootstrap()->run();
+$app = new Zend_Application(APP_ENV, $options);
+
+try {
+    $app->bootstrap()->run();
+} catch (Exception $e) {
+    error_log($e->getTraceAsString());
+}

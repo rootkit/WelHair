@@ -19,7 +19,8 @@ class Util
 
     public static function baseAssetUrl($path = '')
     {
-        return rtrim(\Zend_Controller_Front::getInstance()->getBaseUrl(), '/') . '/static/' . $path;
+        $config = \Zend_Registry::get('config');
+        return $config->asset->baseUrl . '/' . $path;
     }
 
     public static function genRandomNum($length, $strength = 6)
