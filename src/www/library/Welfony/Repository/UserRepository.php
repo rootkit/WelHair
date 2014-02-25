@@ -31,4 +31,28 @@ class UserRepository extends AbstractRepository
         return $row['Total'];
     }
 
+    public function save($data)
+    {
+        try {
+            if ($this->conn->insert('Users', $data)) {
+                return $this->conn->lastInsertId();
+            }
+        } catch (\Exception $e) {
+            $this->logger->log($e, \Zend_Log::ERR);
+            return false;
+        }
+
+        return false;
+    }
+
+    public function update($userId, $data)
+    {
+        try {
+            return $this->conn->update('Users', $data, array('UserId' => $userId));
+        } catch (\Exception $e) {
+            $this->logger->log($e, \Zend_Log::ERR);
+            return false;
+        }
+    }
+
 }

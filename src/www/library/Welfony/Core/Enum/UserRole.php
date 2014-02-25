@@ -12,11 +12,16 @@
 //
 // ==============================================================================
 
-class IndexController extends Zend_Controller_Action
+namespace Welfony\Core\Enum;
+
+use Welfony\Core\Enum;
+
+class UserRole extends Enum
 {
 
-    public function indexAction()
-    {
-    }
+    const Admin = 1;
+    const Manager = 2;
+    const Staff = 3;
+    const Client = 4;
 
 }

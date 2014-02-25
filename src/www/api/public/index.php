@@ -42,6 +42,21 @@ $connectionParams = array(
 $conn = \Doctrine\DBAL\DriverManager::getConnection($connectionParams, $dbConfig);
 Zend_Registry::set('conn', $conn);
 
+$logger = Zend_Log::factory(array(
+    'timestampFormat' => 'Y-m-d',
+    array(
+        'writerName' => 'Stream',
+        'writerParams' => array(
+            'stream' => $config->log->file_path,
+        ),
+        'formatterName' => 'Simple',
+        'formatterParams' => array(
+            'format' => '%timestamp% %priorityName% (%priority%): %message%' . PHP_EOL,
+        )
+    )
+));
+Zend_Registry::set('logger', $logger);
+
 $app = new \Slim\Slim(array(
     'debug' => $config->log->debug,
     'log.enabled' => $config->log->enabled,

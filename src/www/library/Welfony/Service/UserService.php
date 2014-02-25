@@ -19,16 +19,19 @@ use Welfony\Repository\UserRepository;
 class UserService
 {
 
-    private $userRepository;
-
-    public function __construct()
+    public static function signInWithEmail($email, $password)
     {
-        $this->userRepository = new UserRepository();
+
     }
 
-    public function getAllUsersCount()
+    public static function signUpWithEmail()
     {
-        return $this->userRepository->getAllUsersCount();
+
+    }
+
+    public function signInWithSocial($socialExternalId, $socialType)
+    {
+
     }
 
 }

@@ -11,3 +11,11 @@
 // file that was distributed with this source code.
 //
 // ==============================================================================
+
+use Welfony\Controller\API\UserController;
+
+$app->get('/users', function() use($app)
+{
+    $controller = new UserController();
+    $controller->index();
+});

@@ -18,10 +18,22 @@ class AbstractRepository
 {
 
     protected $conn;
+    protected $logger;
+
+    public static function getInstance()
+    {
+        static $instance = null;
+        if (null === $instance) {
+            $instance = new static();
+        }
+
+        return $instance;
+    }
 
     public function __construct()
     {
         $this->conn = \Zend_Registry::get('conn');
+        $this->logger = \Zend_Registry::get('logger');
     }
 
 }

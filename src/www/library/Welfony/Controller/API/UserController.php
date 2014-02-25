@@ -12,10 +12,23 @@
 //
 // ==============================================================================
 
-class IndexController extends Zend_Controller_Action
+namespace Welfony\Controller\API;
+
+use Welfony\Controller\Base\AbstractAPIController;
+use Welfony\Service\UserService;
+
+class UserController extends AbstractAPIController
 {
 
-    public function indexAction()
+    public function signInWithEmail($email, $password)
+    {
+    }
+
+    public function signInWithSocial()
+    {
+    }
+
+    public function signInWithEmail()
     {
     }
 
