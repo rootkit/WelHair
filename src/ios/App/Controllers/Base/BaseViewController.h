@@ -12,4 +12,15 @@
 
 @interface BaseViewController : UIViewController
 
+@property (nonatomic, assign) float topBarOffset;
+
+@property (nonatomic, strong) UIImage *leftNavItemIcon;
+@property (nonatomic, strong) UIImage *rightNavItemIcon;
+
+@property (nonatomic, strong) NSString *leftNavItemTitle;
+@property (nonatomic, strong) NSString *rightNavItemTitle;
+
+- (void)leftNavItemClick;
+
+- (void)rightNavItemClick;
 @end

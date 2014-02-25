@@ -11,3 +11,21 @@
 // ==============================================================================
 
 "Application.Name" = "WelHair";
+
+"Cancel" = "Cancel";
+"Save" = "Save";
+"Register" = "Register";
+"Login" = "Login";
+
+
+"ChatSessionViewController.Title" = "Chat";
+"WorksViewController.Title" = "HairStyle";
+"GroupsViewController.Title" = "Salon";
+"UserViewController.Title" = "User";
+"ProductsViewController.Title" = "Products";
+
+"CommentsViewController.Title" = "Comments";
+
+"CityListViewController.Title" = "Pick City";
+
+"StaffsViewController.Title" = "Staffs";
