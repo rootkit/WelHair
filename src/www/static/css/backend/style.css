@@ -8,6 +8,486 @@
  * file that was distributed with this source code.
 */
 
-body {
+.container {
+    position: relative;
+}
 
+.header {
+    margin: 0;
+}
+
+.header .nav {
+    position: relative;
+    height: 45px;
+    background: #34AADC;
+    color: #fff;
+    font-size: 14px;
+    line-height: 45px;
+}
+
+.header .nav strong {
+    display: inline-block;
+    float: left;
+    width: 229px;
+    border-right: 1px solid #34AADC;
+}
+
+.header .nav strong.brand a {
+    display: block;
+    width: 100%;
+    height: 100%;
+    -webkit-border-radius: 4px 0 0 4px;
+    -moz-border-radius: 4px 0 0 4px;
+    border-radius: 4px 0 0 4px;
+    color: #fff;
+    text-decoration: none;
+    text-indent: 20px;
+    font-weight: 400;
+    cursor: pointer;
+}
+
+.header .nav .lnks .lnks-li li {
+    display: inline-block;
+    float: left;
+}
+
+.header .nav .lnks .lnks-li li.right {
+    float: right;
+}
+
+.header .nav .lnks .lnks-li li a.lnk {
+    display: block;
+    padding: 0px 12px 0px 12px;
+    height: 100%;
+    color: #fff;
+    text-decoration: none;
+}
+
+.header .nav .lnks .lnks-li li a.on {
+    background: #5AC8FB;
+}
+
+.sidebar {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 229px;
+    border-right: 1px solid #eee;
+    background: #fafafa;
+}
+
+.sidebar .lists li {
+    position: relative;
+    height: 40px;
+    border-bottom: 1px solid #eee;
+    vertical-align: bottom;
+    font-size: 14px;
+    line-height: 40px;
+}
+
+.sidebar .lists li:hover {
+    background: #fff;
+}
+
+.sidebar .lists li a {
+    position: absolute;
+    z-index: 1;
+    display: block;
+    width: 100%;
+    color: #974c19;
+    text-decoration: none;
+    text-indent: 20px;
+}
+
+.content {
+    float: right;
+    width: 100%;
+}
+
+.content .content-inner {
+    margin-left: 240px;
+}
+
+.content-header {
+    height: 50px;
+    border-bottom: 1px solid #e6e9ed;
+    margin-bottom: 10px;
+}
+
+.content-header .title {
+    float: left;
+    margin: 0;
+    padding-left: 20px;
+    color: #434a54;
+    font: 400 18px/50px arial,"Hiragino Sans GB","Microsoft YaHei",SimHei,sans-serif;
+}
+
+.content-body {
+    margin-right: 10px;
+}
+
+.u-ipt {
+    padding: 5px;
+    width: 180px;
+    height: 17px;
+    border: 1px solid #D9D9D9;
+    border-top-color: #c0c0c0;
+    background: #fff;
+    color: #777;
+    font-size: 14px;
+    line-height: 17px;
+}
+
+.u-ipt-err {
+    border-color:#c00 #e00 #e00;
+}
+
+.m-form {
+    color: #555;
+    line-height: 29px;
+}
+
+.m-form legend {
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.m-form .formitm {
+    padding: 20px 0 0;
+    line-height: 30px;
+}
+
+.m-form .formitm-1 {
+    padding-left: 100px;
+}
+
+.m-form .lab {
+    float: left;
+    margin-right: -90px;
+    width: 90px;
+    text-align: right;
+    font-weight: bold;
+}
+
+.m-form .ipt {
+    margin-left: 100px;
+}
+
+.m-form .ipt * {
+    vertical-align: middle;
+}
+
+.m-form .ipt a,.m-form .ipt a:hover {
+    color: #3891eb;
+    text-decoration: none;
+}
+
+.m-form .ipt img {
+    margin: 0 15px 0 5px;
+    height: 32px;
+}
+
+.m-form .ipt .domain {
+    margin: 0 0 0 5px;
+    color: #777;
+    font-weight: bold;
+}
+
+.m-form .ipt p {
+    height: 22px;
+    color: #999;
+    line-height: 22px;
+    line-;
+}
+
+.m-form .tip {
+    padding-top: 10px;
+}
+
+.m-form .tip input {
+    margin: 0 5px 3px 0;
+}
+
+/* 通用自定义按钮-默认蓝色 */
+.u-btn {
+    display: inline-block;
+    -webkit-box-sizing: content-box;
+    -moz-box-sizing: content-box;
+    box-sizing: content-box;
+    padding: 0 12px;
+    height: 28px;
+    border: 1px solid #2d88bf;
+    background: #54aede;
+    vertical-align: middle;
+    text-align: center;
+    word-spacing: normal;
+    letter-spacing: 1px;
+    font-size: 12px;
+    line-height: 28px;
+    cursor: pointer;
+    *display: inline;
+    *zoom: 1;
+    *overflow: visible;
+    line-;
+}
+
+button.u-btn {
+    *height: 30px;
+    _line-height: 25px;
+}
+
+.u-btn,.u-btn:hover {
+    color: #fff;
+    text-decoration: none;
+}
+
+.u-btn:hover,.u-btn:focus {
+    background: #399dd8;
+}
+
+.u-btn::-moz-focus-inner {
+    margin: 0;
+    padding: 0;
+    border: 0;
+}
+
+.u-btn .btntxt {
+    margin-right: 3px;
+    _vertical-align: middle;
+}
+
+.u-btn .btnsel {
+    display: inline-block;
+    overflow: hidden;
+    width: 0;
+    height: 0;
+    border-width: 4px 4px 0;
+    border-style: solid dashed dashed;
+    border-color: #fff transparent transparent;
+    vertical-align: middle;
+    *display: inline;
+    *zoom: 1;
+}
+/* 较大 */
+.u-btn-lg {
+    padding: 0 15px;
+    height: 36px;
+    font-size: 18px;
+    line-height: 36px;
+    line-;
+}
+
+button.u-btn-lg {
+    *height: 38px;
+    _line-height: 33px;
+}
+
+.u-btn-lg .btnsel {
+    border-width: 5px 5px 0;
+}
+/* 较小 */
+.u-btn-sm {
+    padding: 0 10px;
+    height: 22px;
+    line-height: 22px;
+    line-;
+}
+
+button.u-btn-sm {
+    *height: 24px;
+    _line-height: 19px;
+}
+/* 红色 */
+.u-btn-c1 {
+    border-color: #9f161b;
+    background: #de2027;
+}
+
+.u-btn-c1:hover,.u-btn-c1:focus {
+    background: #cc1c23;
+}
+/* 黄色 */
+.u-btn-c2 {
+    border-color: #e1962d;
+    background: #faa42b;
+}
+
+.u-btn-c2:hover,.u-btn-c2:focus {
+    background: #f8960a;
+}
+/* 绿色 */
+.u-btn-c3 {
+    border-color: #52a552;
+    background: #5cbc5c;
+}
+
+.u-btn-c3:hover,.u-btn-c3:focus {
+    background: #50b150;
+}
+/* 灰色 */
+.u-btn-c4 {
+    border-color: #d0d0d0;
+    background: #f3f3f3;
+}
+
+.u-btn-c4,.u-btn-c4:hover {
+    color: #333;
+}
+
+.u-btn-c4:hover,.u-btn-c4:focus {
+    background: #e7e7e7;
+}
+
+.u-btn-c4 .btnsel {
+    border-top-color: #555;
+}
+
+.u-btn-c4:hover .btnsel,.u-btn-c4:focus .btnsel {
+    border-top-color: #000;
+}
+
+/* 简易数据表格-格边框 */
+.m-table {
+    table-layout: fixed;
+    width: 100%;
+    line-height: 1.5;
+}
+
+.m-table th, .m-table td {
+    padding: 10px;
+    border: 1px solid #ddd;
+}
+
+.m-table td.col-center {
+    text-align: center;
+}
+
+.m-table th {
+    font-weight: bold;
+    background: #eee;
+}
+
+.m-table tbody tr.even {
+    background: #fafafa;
+}
+
+.m-table tbody tr:hover {
+    background: #f0f0f0;
+}
+
+.m-table .cola {
+    width: 100px;
+}
+
+.m-table .colb {
+    width: 200px;
+}
+
+.m-table .col-chk {
+    width: 30px;
+}
+
+.m-table-row th, .m-table-row td {
+    border-width: 0 0 1px;
+}
+
+/* 普通翻页器-默认居中 */
+.m-page {
+    margin: 10px 0 0;
+    text-align: center;
+    line-height: 32px;
+    font-size: 0;
+    letter-spacing: -0.307em;
+    *letter-spacing: normal;
+    *word-spacing: -1px;
+    word-wrap: normal;
+    white-space: nowrap;
+    color: #999;
+}
+
+.m-page a,.m-page i {
+    display: inline-block;
+    *display: inline;
+    *zoom: 1;
+    vertical-align: top;
+    padding: 0 12px;
+    margin-left: -1px;
+    border: 1px solid #ddd;
+    font-size: 12px;
+    letter-spacing: normal;
+    word-spacing: normal;
+    background: #fff;
+}
+
+.m-page a,.m-page a:hover {
+    text-decoration: none;
+    color: #39c;
+}
+
+.m-page a.first {
+    margin-left: 0;
+}
+
+.m-page a.last {
+    margin-right: 0;
+}
+
+.m-page a .pagearr {
+    font-weight: bold;
+    font-family: \5b8b\4f53;
+    vertical-align: top;
+    *vertical-align: middle;
+}
+
+.m-page a.pageprv .pagearr {
+    margin-right: 3px;
+}
+
+.m-page a.pagenxt .pagearr {
+    margin-left: 3px;
+}
+
+.m-page a:hover {
+    background: #f5f5f5;
+}
+
+.m-page a:active {
+    background: #f0f0f0;
+}
+
+.m-page a.z-crt,.m-page a.z-crt:hover,.m-page a.z-crt:active {
+    cursor: default;
+    color: #999;
+    background: #f5f5f5;
+}
+
+.m-page a.z-dis,.m-page a.z-dis:hover,.m-page a.z-dis:active {
+    cursor: default;
+    color: #ccc;
+    background: #fff;
+}
+/* 居左 */
+.m-page-lt {
+    text-align: left;
+}
+/* 居右 */
+.m-page-rt {
+    text-align: right;
+}
+/* 较小 */
+.m-page-sm {
+    line-height: 22px;
+}
+
+.m-page-sm a,.m-page-sm i {
+    padding: 0 8px;
+}
+/* 分离 */
+.m-page-sr a,.m-page-sr i {
+    margin: 0 3px;
+}
+
+.m-page-sr i {
+    border: 0;
 }

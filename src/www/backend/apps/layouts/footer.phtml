@@ -1,4 +1,13 @@
 <script>
     $('document').ready(function() {
+        function changeSizebarHeight() {
+            $('.sidebar').css('height', $(document).height() - 45);
+        }
+
+        $(window).resize(function() {
+            changeSizebarHeight();
+        });
+
+        changeSizebarHeight();
     });
 </script>

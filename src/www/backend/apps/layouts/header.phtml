@@ -1,0 +1,38 @@
+<?php
+
+$request = Zend_Controller_Front::getInstance()->getRequest();
+$controller = $request->getModuleName();
+
+?>
+<div class="header container">
+    <div class="nav">
+        <strong class="brand">
+            <a href="<?php echo $this->baseUrl(); ?>">打扮吧后台管理系统</a>
+        </strong>
+        <div class="lnks clearfix">
+            <ul class="lnks-li">
+                <li>
+                    <a class="lnk<?php echo $controller == 'user' ? ' on' : ''; ?>" href="<?php echo $this->baseUrl('user/index/search'); ?>">会员</a>
+                </li>
+                <li>
+                    <a class="lnk<?php echo $controller == 'goods' ? ' on' : ''; ?>" href="<?php echo $this->baseUrl('goods/index/search'); ?>">商品</a>
+                </li>
+                <li>
+                    <a class="lnk<?php echo $controller == 'reservation' ? ' on' : ''; ?>" href="#">预约</a>
+                </li>
+                <li>
+                    <a class="lnk<?php echo $controller == 'order' ? ' on' : ''; ?>" href="<?php echo $this->baseUrl('order/index/search'); ?>">订单</a>
+                </li>
+                <li>
+                    <a class="lnk<?php echo $controller == 'system' ? ' on' : ''; ?>" href="#">系统</a>
+                </li>
+                <li class="right">
+                    <a class="lnk" href="#">退出</a>
+                </li>
+                <li class="right">
+                    <a class="lnk" href="#">当前登录：管理员</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
