@@ -10,6 +10,7 @@
 #import "SVProgressHUD.h"
 #import <QuartzCore/QuartzCore.h>
 
+
 @interface SVProgressHUD ()
 
 @property (nonatomic, readwrite) SVProgressHUDMaskType maskType;

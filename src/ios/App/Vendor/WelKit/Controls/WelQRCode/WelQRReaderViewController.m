@@ -9,6 +9,7 @@
 #import "WelQRReaderViewController.h"
 #import <AudioToolbox/AudioToolbox.h>
 #import <AVFoundation/AVFoundation.h>
+#import "SVProgressHUD.h"
 
 @interface WelQRReaderViewController ()
 {
@@ -19,6 +20,8 @@
     ZXCapture *capture;
     BOOL isCaptured;
     UIImageView  *line;
+    
+    UIView *scannerView;
 }
 
 @end
@@ -31,25 +34,17 @@
 {
     [super loadView];
     
-    capture = [[ZXCapture alloc] init];
-    capture.delegate = self;
-    capture.rotation = 90.0f;
+    scannerView = [[UIView alloc] initWithFrame:self.view.bounds];
+    scannerView.backgroundColor = [UIColor blackColor];
+    [self.view addSubview:scannerView];
+    [SVProgressHUD show];
     
-    // Use the back camera
-    capture.camera = capture.back;
-    
-    capture.layer.frame = self.view.bounds;
-    [self.view.layer addSublayer:capture.layer];
-    
-    
-    
-    UILabel * labIntroudction= [[UILabel alloc] initWithFrame:CGRectMake(15, 40, 250, 50)];
+    UILabel * labIntroudction= [[UILabel alloc] initWithFrame:CGRectMake(40, 40, 240, 50)];
     labIntroudction.backgroundColor = [UIColor clearColor];
-    labIntroudction.numberOfLines=2;
+    labIntroudction.numberOfLines=3;
     labIntroudction.textColor=[UIColor whiteColor];
     labIntroudction.text=@"将二维码图像置于矩形方框内，离手机摄像头10CM左右。";
     [self.view addSubview:labIntroudction];
-    
     
     UIImageView * imageView = [[UIImageView alloc]initWithFrame:CGRectMake(60, 100, 200, 200)];
     imageView.image = [UIImage imageNamed:@"pick_bg"];
@@ -59,6 +54,7 @@
     num =0;
     line = [[UIImageView alloc] initWithFrame:CGRectMake(70, 110, 180, 2)];
     line.image = [UIImage imageNamed:@"line.png"];
+    line.hidden = YES;
     [self.view addSubview:line];
     
     UIToolbar *bottomTool = [[UIToolbar alloc] initWithFrame:CGRectMake(0,
@@ -76,8 +72,23 @@
 {
     [super viewDidAppear:animated];
     self.navigationController.navigationBarHidden = YES;
-    
+    [self performSelector:@selector(startScan) withObject:nil afterDelay:1];
+}
+
+- (void)startScan
+{
+    capture = [[ZXCapture alloc] init];
+    capture.delegate = self;
+    capture.rotation = 90.0f;
+    // Use the back camera
+    capture.camera = capture.back;
+    capture.layer.frame = self.view.bounds;
+    [scannerView.layer addSublayer:capture.layer];
+    scannerView.backgroundColor = [UIColor clearColor];
+    line.hidden = NO;
+    [SVProgressHUD dismiss];
     timer = [NSTimer scheduledTimerWithTimeInterval:.02 target:self selector:@selector(lineAnimation) userInfo:nil repeats:YES];
+
 }
 
 //- (BOOL)shouldAutorotate
@@ -109,7 +120,6 @@
             upOrdown = NO;
         }
     }
-    
 }
 
 

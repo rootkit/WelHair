@@ -41,13 +41,13 @@
                            [FAKIonIcons ios7PlusEmptyIconWithSize:40],
                            [FAKIonIcons ios7LightbulbOutlineIconWithSize:30],
                            [FAKIonIcons ios7PersonOutlineIconWithSize:30]];
-    for (NSInteger i =0; i< 5; i++) {
+    for (NSUInteger i =0; i< 5; i++) {
         UIViewController *vc = [tabVCs objectAtIndex:i];
         NSString *tabTitle = [tabVCTitle objectAtIndex:i];
         FAKIcon *tabIcon = [tabImages objectAtIndex:i];
         [tabIcon addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithHexString:@"CCC"]];
         UIImage *tabImg = [tabIcon imageWithSize:CGSizeMake(30,30)];
-        UITabBarItem *tabBar = [[UITabBarItem alloc] initWithTitle:tabTitle image:tabImg tag:i];
+        UITabBarItem *tabBar = [[UITabBarItem alloc] initWithTitle:tabTitle image:tabImg tag:(NSInteger)i];
         vc.tabBarItem = tabBar;
     }
 //    [[UITabBar appearance] setBackgroundImage:[UIImage imageWithColor:[UIColor colorWithHexString:TAB_BAR_COLOR] cornerRadius:0]];

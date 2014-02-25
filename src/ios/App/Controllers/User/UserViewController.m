@@ -55,7 +55,7 @@
     [self.tabBarController.navigationController pushViewController:scanner animated:YES];
 }
 
-#pragma qr code capture delegate
+#pragma mark code capture delegate
 - (void)didCaptureText:(NSString *)result
            welQRReader:(WelQRReaderViewController *)readerVc
 {
