@@ -1,7 +1,13 @@
 <script>
     $('document').ready(function() {
         function changeSizebarHeight() {
-            $('.sidebar').css('height', $(document).height() - 45);
+            var screenHeight = $(window).height();
+
+            $('.content').css('height', 'auto');
+            var documentHeight = $(document).height();
+
+            var contentHeight = (documentHeight > screenHeight ? documentHeight : screenHeight) - 122;
+            $('.content').css('height', contentHeight);
         }
 
         $(window).resize(function() {
@@ -11,3 +17,12 @@
         changeSizebarHeight();
     });
 </script>
+<footer class="footer cleafix">
+    <div class="footer-info">
+        <div class="container">
+            增值电信业务经营许可证A2.B1.B2-20040001 | 鲁ICP备09031924号 <br>
+            Copyright &copy; 打扮吧 版权所有
+        </div>
+    </div>
+
+</footer>
