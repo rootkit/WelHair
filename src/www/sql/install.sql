@@ -116,7 +116,7 @@ CREATE TABLE IF NOT EXISTS `CategoryExtend` (
 
 delimiter $$
 
-CREATE TABLE `Attribute` (
+CREATE TABLE IF NOT EXISTS `Attribute` (
   `AttributeId` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '属性ID',
   `ModelId` int(11) unsigned DEFAULT NULL COMMENT '模型ID',
   `Type` tinyint(1) DEFAULT NULL COMMENT '输入控件的类型,1:单选,2:复选,3:下拉',
@@ -128,7 +128,7 @@ CREATE TABLE `Attribute` (
 
 delimiter $$
 
-CREATE TABLE `Spec` (
+CREATE TABLE IF NOT EXISTS `Spec` (
   `SpecId` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `Name` varchar(50) NOT NULL COMMENT '规格名称',
   `Value` text COMMENT '规格值',
@@ -140,7 +140,7 @@ CREATE TABLE `Spec` (
 
 delimiter $$
 
-CREATE TABLE `Model` (
+CREATE TABLE IF NOT EXISTS `Model` (
   `ModelId` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '模型ID',
   `Name` varchar(50) NOT NULL COMMENT '模型名称',
   `SpecIds` text COMMENT '规格ID逗号分隔',
@@ -149,7 +149,7 @@ CREATE TABLE `Model` (
 
 delimiter $$
 
-CREATE TABLE `Goods` (
+CREATE TABLE IF NOT EXISTS `Goods` (
   `GoodsId` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '商品ID',
   `Name` varchar(50) NOT NULL COMMENT '商品名称',
   `GoodsNo` varchar(20) NOT NULL COMMENT '商品的货号',
@@ -185,7 +185,7 @@ CREATE TABLE `Goods` (
 
 delimiter $$
 
-CREATE TABLE `GoodsAttribute` (
+CREATE TABLE IF NOT EXISTS `GoodsAttribute` (
   `GoodsAttributeId` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `GoodsId` int(11) unsigned NOT NULL COMMENT '商品ID',
   `AttributeId` int(11) unsigned DEFAULT NULL COMMENT '属性ID',
@@ -199,7 +199,7 @@ CREATE TABLE `GoodsAttribute` (
 
 delimiter $$
 
-CREATE TABLE `GoodsPhoto` (
+CREATE TABLE IF NOT EXISTS `GoodsPhoto` (
   `GoodsPhotoId` char(32) NOT NULL COMMENT '图片的md5值',
   `Img` varchar(255) DEFAULT NULL COMMENT '原始图片路径',
   PRIMARY KEY (`GoodsPhotoId`)
@@ -208,7 +208,7 @@ CREATE TABLE `GoodsPhoto` (
 
 delimiter $$
 
-CREATE TABLE `GoodsPhotoRelation` (
+CREATE TABLE IF NOT EXISTS `GoodsPhotoRelation` (
   `GoodsPhotoRelationId` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `GoodsId` int(11) unsigned NOT NULL COMMENT '商品ID',
   `PhotoId` char(32) NOT NULL DEFAULT '' COMMENT '图片ID,图片的md5值',
