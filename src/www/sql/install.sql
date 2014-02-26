@@ -152,7 +152,7 @@ delimiter $$
 CREATE TABLE `Goods` (
   `GoodsId` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '商品ID',
   `Name` varchar(50) NOT NULL COMMENT '商品名称',
-  `Goods_No` varchar(20) NOT NULL COMMENT '商品的货号',
+  `GoodsNo` varchar(20) NOT NULL COMMENT '商品的货号',
   `ModelId` int(11) unsigned NOT NULL COMMENT '模型ID',
   `SellPrice` decimal(15,2) NOT NULL COMMENT '销售价格',
   `MarketPrice` decimal(15,2) DEFAULT NULL COMMENT '市场价格',
