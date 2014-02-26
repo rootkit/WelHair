@@ -14,7 +14,7 @@
 
 use Welfony\Controller\API\UserController;
 
-$app->get('/users', function() use($app)
+$app->post('/upload/image', function() use($app)
 {
     $controller = new UserController();
     $controller->index();

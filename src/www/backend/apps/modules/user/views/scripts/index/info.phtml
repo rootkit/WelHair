@@ -67,7 +67,7 @@ $this->headScript()
                 <div class="ipt">
                     <span class="u-img2">
                         <a href="#">
-                            <img id="avatar-image" src="http://nec.netease.com/img/s/1.jpg" data-ori="http://h.hiphotos.bdimg.com/album/scrop%3D130%3Bq%3D90/sign=56ab49c2d2a20cf442ceb98006347a05/b21bb051f8198618395321c148ed2e738bd4e65b.jpg" alt="">
+                            <img id="avatar-image" src="http://nec.netease.com/img/s/1.jpg" data-ori="http://www.digitaltrends.com/wp-content/uploads/2013/04/Samsung-Galaxy-6-3-sample-image-3.jpg" alt="">
                         </a>
                     </span>
                     <a class="update-thumb" href="#">调整缩略图</a>
@@ -76,7 +76,7 @@ $this->headScript()
             <div class="formitm">
                 <label class="lab"></label>
                 <div class="ipt">
-                    <input id="avatar" name="avatar" type="file"/>
+                    <input id="avatar" name="uploadfile" type="file"/>
                 </div>
             </div>
             <div class="formitm formitm-1">
@@ -119,10 +119,10 @@ $this->headScript()
 
         function getImgSize(imgSrc, imgLoaded) {
             var newImg = new Image();
-            newImg.src = imgSrc;
             $(newImg).load(function(){
                 imgLoaded(newImg.width, newImg.height);
             });
+            newImg.src = imgSrc;
         }
 
         $('.update-thumb').click(function() {
@@ -187,11 +187,14 @@ $this->headScript()
                                 $('input[name="y2"]').val(selection.y2);
                             },
                             onSelectChange: function(img, selection) {
+                                var imgOWith = imgO.width();
+                                var imgOHeight = imgO.height();
+
                                 var scaleX = 110 / (selection.width || 1);
                                 var scaleY = 110 / (selection.height || 1);
                                 imgPreview110.css({
-                                    width: Math.round(scaleX * imgO.width()) + 'px',
-                                    height: Math.round(scaleY * imgO.height()) + 'px',
+                                    width: Math.round(scaleX * imgOWith) + 'px',
+                                    height: Math.round(scaleY * imgOHeight) + 'px',
                                     marginLeft: '-' + Math.round(scaleX * selection.x1) + 'px',
                                     marginTop: '-' + Math.round(scaleY * selection.y1) + 'px'
                                 });
@@ -199,8 +202,8 @@ $this->headScript()
                                 scaleX = 64 / (selection.width || 1);
                                 scaleY = 64 / (selection.height || 1);
                                 imgPreview64.css({
-                                    width: Math.round(scaleX * imgO.width()) + 'px',
-                                    height: Math.round(scaleY * imgO.height()) + 'px',
+                                    width: Math.round(scaleX * imgOWith) + 'px',
+                                    height: Math.round(scaleY * imgOHeight) + 'px',
                                     marginLeft: '-' + Math.round(scaleX * selection.x1) + 'px',
                                     marginTop: '-' + Math.round(scaleY * selection.y1) + 'px'
                                 });
@@ -208,8 +211,8 @@ $this->headScript()
                                 scaleX = 30 / (selection.width || 1);
                                 scaleY = 30 / (selection.height || 1);
                                 imgPreview30.css({
-                                    width: Math.round(scaleX * imgO.width()) + 'px',
-                                    height: Math.round(scaleY * imgO.height()) + 'px',
+                                    width: Math.round(scaleX * imgOWith) + 'px',
+                                    height: Math.round(scaleY * imgOHeight) + 'px',
                                     marginLeft: '-' + Math.round(scaleX * selection.x1) + 'px',
                                     marginTop: '-' + Math.round(scaleY * selection.y1) + 'px'
                                 });
