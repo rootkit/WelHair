@@ -1,3 +1,14 @@
+<?php
+use \Welfony\Utility\Util;
+
+$this->headLink()
+     ->appendStylesheet(Util::baseAssetUrl('css/vendor/jquery.uploadify/3.2.1/jquery.uploadify.css'))
+     ->appendStylesheet(Util::baseAssetUrl('css/vendor/jquery.imgareaselect/0.9.10/imgareaselect-default.css'));
+
+$this->headScript()
+     ->appendFile(Util::baseAssetUrl('js/vendor/jquery.uploadify/3.2.1/jquery.uploadify.min.js'))
+     ->appendFile(Util::baseAssetUrl('js/vendor/jquery.imgareaselect/0.9.10/jquery.imgareaselect.min.js'));
+?>
 <div class="m-form">
     <form method="post">
         <fieldset>
@@ -54,16 +65,18 @@
             <div class="formitm">
                 <label class="lab">头像：</label>
                 <div class="ipt">
-                    <span class="u-img2"><a href="#"><img src="http://nec.netease.com/img/s/1.jpg" alt=""></a></span>
+                    <span class="u-img2">
+                        <a href="#">
+                            <img id="avatar-image" src="http://nec.netease.com/img/s/1.jpg" data-ori="http://www.macmixing.com/wp-content/uploads/2012/09/Wood-Panel-Wallpaper-iPhone-5-4-338x600.jpg" alt="">
+                        </a>
+                    </span>
+                    <a class="update-thumb" href="#">调整缩略图</a>
                 </div>
             </div>
             <div class="formitm">
                 <label class="lab"></label>
                 <div class="ipt">
-                    <span class="u-upload">
-                        <button type="button">上传头像</button>
-                        <input type="file"/>
-                    </span>
+                    <input id="avatar" name="avatar" type="file"/>
                 </div>
             </div>
             <div class="formitm formitm-1">
@@ -74,22 +87,157 @@
     </form>
 </div>
 <script>
-    $(document).ready(function() {
-        $( "input[name=username]" ).datepicker();
-        $( "<p></p>" ).dialog({
-            resizable: false,
-            title: '登录',
-            width: 600,
-            height:400,
-            modal: true,
-            buttons: {
-                "登录": function() {
-                    $( this ).dialog( "close" );
+    $(function() {
+        $('input[name=username]').datepicker();
+
+        var popup = $(' \
+            <div class="crop-container"> \
+                <div class="crop-content"> \
+                    <img class="crop-img-o" src=""/> \
+                    <input type="hidden" name="x1" value="" /> \
+                    <input type="hidden" name="y1" value="" /> \
+                    <input type="hidden" name="x2" value="" /> \
+                    <input type="hidden" name="y2" value="" /> \
+                </div> \
+                <div class="crop-preview"> \
+                    <p>拖拽或缩放曲线框，<br/>生成方形图片。</p> \
+                    <div class="crop-preview-110"> \
+                        <img class="crop-img-preview-110" src="" /> \
+                    </div> \
+                    <p>110*110像素</p> \
+                    <div class="crop-preview-64"> \
+                        <img class="crop-img-preview-64" src="" /> \
+                    </div> \
+                    <p>64*64像素</p> \
+                    <div class="crop-preview-30"> \
+                        <img class="crop-img-preview-30" src="" /> \
+                    </div> \
+                    <p>30*30像素</p> \
+                </div> \
+            </div> \
+        ');
+
+        function getImgSize(imgSrc, imgLoaded) {
+            var newImg = new Image();
+            newImg.src = imgSrc;
+            $(newImg).load(function(){
+                imgLoaded(newImg.width, newImg.height);
+            });
+        }
+
+        $('.update-thumb').click(function() {
+            var crop = null;
+
+            $(popup).dialog({
+                resizable: false,
+                title: '编辑缩略图',
+                width: 600,
+                height:500,
+                modal: true,
+                draggable: false,
+                buttons: {
+                    '保存': function() {
+                        console.log(
+                            $('input[name="x1"]').val() + '-' +
+                            $('input[name="y1"]').val() + '-' +
+                            $('input[name="x2"]').val() + '-' +
+                            $('input[name="y2"]').val()
+                        );
+                    },
+                    '取消': function() {
+                        $(this).dialog('close');
+                    }
                 },
-                "取消": function() {
-                    $( this ).dialog( "close" );
+                open: function() {
+                    var imgUrl = $('#avatar-image').attr('data-ori');
+
+                    var imgO = popup.find('.crop-img-o');
+                    imgO.attr('src', imgUrl);
+
+                    var imgPreview110 = popup.find('.crop-img-preview-110');
+                    imgPreview110.attr('src', imgUrl);
+
+                    var imgPreview64 = popup.find('.crop-img-preview-64');
+                    imgPreview64.attr('src', imgUrl);
+
+                    var imgPreview30 = popup.find('.crop-img-preview-30');
+                    imgPreview30.attr('src', imgUrl);
+
+                    getImgSize(imgUrl, function(width, height) {
+                        if (width >= height) {
+                            imgO.css('width', imgO.parent().width())
+                                .css('height', 'auto')
+                                .css('margin-top', (imgO.parent().height() - imgO.height()) / 2)
+                                .show();
+                        } else {
+                            imgO.css('height', imgO.parent().height())
+                            .css('width', 'auto')
+                            .css('margin-left', (imgO.parent().width() - imgO.width()) / 2)
+                            .show();
+                        }
+
+                        crop = imgO.imgAreaSelect({
+                            instance: true,
+                            handles: true,
+                            aspectRatio: '1:1',
+                            onSelectEnd: function(img, selection) {
+                                $('input[name="x1"]').val(selection.x1);
+                                $('input[name="y1"]').val(selection.y1);
+                                $('input[name="x2"]').val(selection.x2);
+                                $('input[name="y2"]').val(selection.y2);
+                            },
+                            onSelectChange: function(img, selection) {
+                                var scaleX = 110 / (selection.width || 1);
+                                var scaleY = 110 / (selection.height || 1);
+                                imgPreview110.css({
+                                    width: Math.round(scaleX * imgO.width()) + 'px',
+                                    height: Math.round(scaleY * imgO.height()) + 'px',
+                                    marginLeft: '-' + Math.round(scaleX * selection.x1) + 'px',
+                                    marginTop: '-' + Math.round(scaleY * selection.y1) + 'px'
+                                });
+
+                                scaleX = 64 / (selection.width || 1);
+                                scaleY = 64 / (selection.height || 1);
+                                imgPreview64.css({
+                                    width: Math.round(scaleX * imgO.width()) + 'px',
+                                    height: Math.round(scaleY * imgO.height()) + 'px',
+                                    marginLeft: '-' + Math.round(scaleX * selection.x1) + 'px',
+                                    marginTop: '-' + Math.round(scaleY * selection.y1) + 'px'
+                                });
+
+                                scaleX = 30 / (selection.width || 1);
+                                scaleY = 30 / (selection.height || 1);
+                                imgPreview30.css({
+                                    width: Math.round(scaleX * imgO.width()) + 'px',
+                                    height: Math.round(scaleY * imgO.height()) + 'px',
+                                    marginLeft: '-' + Math.round(scaleX * selection.x1) + 'px',
+                                    marginTop: '-' + Math.round(scaleY * selection.y1) + 'px'
+                                });
+                            }
+                        });
+                    });
+                },
+                close: function() {
+                    if (crop) {
+                        crop.remove(true);
+                    }
+                    popup.dialog('destroy').remove();
                 }
-            }
+            });
+
+            return false;
+        });
+
+        $(window).resize(function() {
+            popup.dialog('option', 'position', 'center');
+        });
+
+        $('#avatar').uploadify({
+            width: 78,
+            height: 32,
+            buttonText: '选择文件',
+            swf: globalSetting.staticAssetBaseUrl + '/swf/uploadify.swf',
+            uploader: globalSetting.apiBaseUrl + '/upload/image'
         });
     });
 </script>

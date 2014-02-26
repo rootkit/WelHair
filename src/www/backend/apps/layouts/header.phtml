@@ -3,7 +3,15 @@
 $request = Zend_Controller_Front::getInstance()->getRequest();
 $module = $request->getModuleName();
 
+$config = Zend_Registry::get('config');
+
 ?>
+<script>
+    var globalSetting = {
+        apiBaseUrl: '<?php echo $config->api->baseUrl; ?>',
+        staticAssetBaseUrl: '<?php echo $config->asset->baseUrl; ?>'
+    };
+</script>
 <div class="header container">
     <div class="nav">
         <strong class="brand">

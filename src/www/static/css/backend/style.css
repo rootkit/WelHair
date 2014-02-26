@@ -70,10 +70,10 @@
 
 .footer-info {
     padding: 20px 0;
-    text-align: center;
-    font-size: 12px;
     border-top: 1px solid #dbdbdb;
     color: #8b9396;
+    text-align: center;
+    font-size: 12px;
 }
 
 .sidebar {
@@ -120,9 +120,9 @@
 }
 
 .content-header {
+    margin-bottom: 10px;
     height: 50px;
     border-bottom: 1px solid #e6e9ed;
-    margin-bottom: 10px;
 }
 
 .content-header .title {
@@ -138,11 +138,11 @@
 }
 
 .u-sel {
-    width: 212px;
-    height: 30px
-    *height: auto;
-    line-height: 30px;
     padding: 5px;
+    width: 212px;
+    height: 30px;
+    line-height: 30px;
+    *height: auto;
 }
 
 .u-ipt {
@@ -367,8 +367,8 @@ button.u-btn-sm {
 
 /* 简易数据表格-格边框 */
 .m-table {
-    table-layout: fixed;
     width: 100%;
+    table-layout: fixed;
     line-height: 1.5;
 }
 
@@ -382,8 +382,8 @@ button.u-btn-sm {
 }
 
 .m-table th {
-    font-weight: bold;
     background: #eee;
+    font-weight: bold;
 }
 
 .m-table tbody tr.even {
@@ -413,34 +413,34 @@ button.u-btn-sm {
 /* 普通翻页器-默认居中 */
 .m-page {
     margin: 10px 0 0;
+    color: #999;
     text-align: center;
-    line-height: 32px;
-    font-size: 0;
+    white-space: nowrap;
+    word-wrap: normal;
     letter-spacing: -0.307em;
+    font-size: 0;
+    line-height: 32px;
     *letter-spacing: normal;
     *word-spacing: -1px;
-    word-wrap: normal;
-    white-space: nowrap;
-    color: #999;
 }
 
 .m-page a,.m-page i {
     display: inline-block;
+    margin-left: -1px;
+    padding: 0 12px;
+    border: 1px solid #ddd;
+    background: #fff;
+    vertical-align: top;
+    word-spacing: normal;
+    letter-spacing: normal;
+    font-size: 12px;
     *display: inline;
     *zoom: 1;
-    vertical-align: top;
-    padding: 0 12px;
-    margin-left: -1px;
-    border: 1px solid #ddd;
-    font-size: 12px;
-    letter-spacing: normal;
-    word-spacing: normal;
-    background: #fff;
 }
 
 .m-page a,.m-page a:hover {
-    text-decoration: none;
     color: #39c;
+    text-decoration: none;
 }
 
 .m-page a.first {
@@ -452,9 +452,9 @@ button.u-btn-sm {
 }
 
 .m-page a .pagearr {
+    vertical-align: top;
     font-weight: bold;
     font-family: \5b8b\4f53;
-    vertical-align: top;
     *vertical-align: middle;
 }
 
@@ -475,15 +475,15 @@ button.u-btn-sm {
 }
 
 .m-page a.z-crt,.m-page a.z-crt:hover,.m-page a.z-crt:active {
-    cursor: default;
-    color: #999;
     background: #f5f5f5;
+    color: #999;
+    cursor: default;
 }
 
 .m-page a.z-dis,.m-page a.z-dis:hover,.m-page a.z-dis:active {
-    cursor: default;
-    color: #ccc;
     background: #fff;
+    color: #ccc;
+    cursor: default;
 }
 /* 居左 */
 .m-page-lt {
@@ -510,14 +510,14 @@ button.u-btn-sm {
     border: 0;
 }
 
-.u-upload{display:inline-block;*display:inline;*zoom:1;position:relative;overflow:hidden;}
-.u-upload button{height:32px;padding:0 10px;border:1px solid #ccc;overflow:visible;font-size:14px;color:#666;background:#ddd;}
-.u-upload input{position:absolute;top:0;right:-1px;font-size:25px;cursor:pointer;opacity:0;filter:alpha(opacity=0);}
-.u-upload:hover button{border-color:#bbb;color:#333;background:#ccc;}
+.u-upload{position:relative;display:inline-block;overflow:hidden;*display:inline;*zoom:1;}
+.u-upload button{overflow:visible;padding:0 10px;height:32px;border:1px solid #ccc;background:#ddd;color:#666;font-size:14px;}
+.u-upload input{position:absolute;top:0;right:-1px;font-size:25px;opacity:0;filter:alpha(opacity=0);cursor:pointer;}
+.u-upload:hover button{border-color:#bbb;background:#ccc;color:#333;}
 a.u-upload,a.u-upload:hover{text-decoration:none;}
 
 /* 有边图片容器-默认定宽定高、图片拉伸 */
-.u-img2{display:block;position:relative;width:104px;height:104px;padding:2px;border:1px solid #ddd;}
+.u-img2{position:relative;display:block;padding:2px;width:104px;height:104px;border:1px solid #ddd;}
 .u-img2 img{display:block;width:100%;height:100%;}
 /* 图片高适应 */
 .u-img2-ha,.u-img2-ha img{height:auto;}
@@ -539,4 +539,55 @@ a.u-upload,a.u-upload:hover{text-decoration:none;}
 .toolbar ul li a {
     color: #737383;
     text-decoration: none;
+}
+
+.crop-container {
+
+}
+
+.crop-content {
+    position: relative;
+    float: left;
+    margin: 10px 10px 10px 0;
+    width: 320px;
+    height: 320px;
+    background: #eee;
+}
+
+.crop-content .crop-img-o {
+    display:none;
+    border: none;
+}
+
+.crop-preview {
+    margin: 10px 20px 20px 20px;
+    float: left;
+}
+
+.crop-preview .crop-preview-110 {
+    position: relative;
+    overflow: hidden;
+    width: 110px;
+    height: 110px;
+}
+
+.crop-preview .crop-preview-64 {
+    position: relative;
+    overflow: hidden;
+    width: 64px;
+    height: 64px;
+}
+
+.crop-preview .crop-preview-30 {
+    position: relative;
+    overflow: hidden;
+    width: 30px;
+    height: 30px;
+}
+
+.crop-preview .crop-preview-110 img,
+.crop-preview .crop-preview-64 img,
+.crop-preview .crop-preview-30 img {
+    position: relative;
+    display: block;
 }
