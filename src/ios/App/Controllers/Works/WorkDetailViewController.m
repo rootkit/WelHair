@@ -12,6 +12,7 @@
 #import "WorkDetailViewController.h"
 #import "CommentsViewController.h"
 #import "StaffDetailViewController.h"
+#import "MapViewController.h"
 
 @interface WorkDetailViewController ()
 
@@ -39,16 +40,22 @@
     [self.view addSubview:lbl];
     
     UIButton *staffBtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    staffBtn.frame = CGRectMake(60,200, 80, 50);
+    staffBtn.frame = CGRectMake(60,200, 60, 50);
     [staffBtn setTitle:@"发型师" forState:UIControlStateNormal];
     [staffBtn addTarget:self action:@selector(staffClick) forControlEvents:UIControlEventTouchDown];
     [self.view addSubview:staffBtn];
     
     UIButton *commentBtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    commentBtn.frame = CGRectMake(180,200, 80, 50);
+    commentBtn.frame = CGRectMake(160,200, 60, 50);
     [commentBtn setTitle:@"评论" forState:UIControlStateNormal];
     [commentBtn addTarget:self action:@selector(commentClick) forControlEvents:UIControlEventTouchDown];
     [self.view addSubview:commentBtn];
+    
+    UIButton *mapBtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    mapBtn.frame = CGRectMake(260,200, 60, 50);
+    [mapBtn setTitle:@"地图" forState:UIControlStateNormal];
+    [mapBtn addTarget:self action:@selector(mapClick) forControlEvents:UIControlEventTouchDown];
+    [self.view addSubview:mapBtn];
 }
 
 - (void)viewDidLoad
@@ -71,6 +78,11 @@
 - (void)commentClick
 {
     [self.navigationController pushViewController:[CommentsViewController new] animated:YES];
+}
+
+- (void)mapClick
+{
+    [self.navigationController pushViewController:[MapViewController new] animated:YES];
 }
 
 @end

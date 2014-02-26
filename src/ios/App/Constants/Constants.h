@@ -10,10 +10,15 @@
 //
 // ==============================================================================
 
-#define UMSOCIAL_APPKEY @"530c98ec56240bfad303d2d2"
-#define WECHAT_ID @"wxa3bf1e76d675b23a"
+#define CONFIG_UMSOCIAL_APPKEY @"530c98ec56240bfad303d2d2"
+#define CONFIG_WECHAT_ID @"wxa3bf1e76d675b23a"
+#define CONFIG_QQ_APP_ID  @"100424468"
+#define CONFIG_BAIDU_MAP_KEY  @"mATLLTobcd8XqZIj3xlPt8il"
+
 
 #define kAppBackgroundColor 0xFFFFFF
 
 #define NAV_BAR_ICON_SIZE 25
+
+
 

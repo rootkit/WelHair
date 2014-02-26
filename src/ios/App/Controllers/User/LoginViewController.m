@@ -30,13 +30,13 @@
     [super loadView];
 
     UIButton *sinaLoginBtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    sinaLoginBtn.frame = CGRectMake(60, 100, 40, 40);
+    sinaLoginBtn.frame = CGRectMake(60, 100, 60, 40);
     [sinaLoginBtn addTarget:self action:@selector(sinaSignClick) forControlEvents:UIControlEventTouchUpInside];
     [sinaLoginBtn setTitle:@"Sina Login" forState:UIControlStateNormal];
     [self.view addSubview:sinaLoginBtn];
     
     UIButton *qqLoginBtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    qqLoginBtn.frame = CGRectMake(160, 100, 40, 40);
+    qqLoginBtn.frame = CGRectMake(200, 100, 60, 40);
     [qqLoginBtn addTarget:self action:@selector(qqSignClick) forControlEvents:UIControlEventTouchUpInside];
     [qqLoginBtn setTitle:@"QQ Login" forState:UIControlStateNormal];
     [self.view addSubview:qqLoginBtn];

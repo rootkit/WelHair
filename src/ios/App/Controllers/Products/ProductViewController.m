@@ -34,7 +34,7 @@
     
     //如果得到分享完成回调，需要设置delegate为self
     [UMSocialSnsService presentSnsIconSheetView:self
-                                         appKey:UMSOCIAL_APPKEY
+                                         appKey:CONFIG_UMSOCIAL_APPKEY
                                       shareText:shareText
                                      shareImage:shareImage
                                 shareToSnsNames:[NSArray arrayWithObjects:
