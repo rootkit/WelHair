@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "fd9886e6eca322b3f9b8cc3bcc42444a",
+    "hash": "a03ed42cf6caeaa0c3c0beb1dbba266e",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -475,6 +475,55 @@
             "time": "2013-01-12 18:59:04"
         },
         {
+            "name": "hybridauth/hybridauth",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/hybridauth/hybridauth.git",
+                "reference": "cf04110b7b0da763eb0d08e0d49360d171d586f6"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/hybridauth/hybridauth/zipball/cf04110b7b0da763eb0d08e0d49360d171d586f6",
+                "reference": "cf04110b7b0da763eb0d08e0d49360d171d586f6",
+                "shasum": ""
+            },
+            "require": {
+                "ext-curl": "*",
+                "php": ">=5.2.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Hybrid": "hybridauth/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "(MIT or GPL-3.0+)"
+            ],
+            "authors": [
+                {
+                    "name": "Miled",
+                    "email": "hybridauth@gmail.com"
+                }
+            ],
+            "description": "Open source social sign on PHP library.",
+            "homepage": "http://hybridauth.sourceforge.net",
+            "keywords": [
+                "OpenId",
+                "facebook",
+                "google",
+                "hybridauth",
+                "login",
+                "oauth",
+                "social",
+                "twitter",
+                "yahoo"
+            ],
+            "time": "2014-02-21 15:46:45"
+        },
+        {
             "name": "imagine/imagine",
             "version": "v0.5.0",
             "source": {
@@ -874,6 +923,7 @@
     ],
     "minimum-stability": "stable",
     "stability-flags": {
+        "hybridauth/hybridauth": 20,
         "rych/phpass": 10
     },
     "platform": {

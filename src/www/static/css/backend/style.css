@@ -560,8 +560,8 @@ a.u-upload,a.u-upload:hover{text-decoration:none;}
 }
 
 .crop-preview {
-    margin: 10px 20px 20px 20px;
     float: left;
+    margin: 10px 20px 20px 20px;
 }
 
 .crop-preview .crop-preview-110 {
@@ -574,6 +574,7 @@ a.u-upload,a.u-upload:hover{text-decoration:none;}
 .crop-preview .crop-preview-64 {
     position: relative;
     overflow: hidden;
+    margin-top: 10px;
     width: 64px;
     height: 64px;
 }
@@ -581,6 +582,7 @@ a.u-upload,a.u-upload:hover{text-decoration:none;}
 .crop-preview .crop-preview-30 {
     position: relative;
     overflow: hidden;
+    margin-top: 10px;
     width: 30px;
     height: 30px;
 }
