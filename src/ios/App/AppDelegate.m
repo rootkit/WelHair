@@ -13,8 +13,16 @@
 #import "AppDelegate.h"
 #import "UMSocial.h"
 #import "RootViewController.h"
+#import "BMapKit.h"
 #import <TencentOpenAPI/QQApiInterface.h> 
 #import <TencentOpenAPI/TencentOAuth.h>
+
+@interface AppDelegate()
+{
+     BMKMapManager* _mapManager;
+}
+
+@end
 
 @implementation AppDelegate
 
@@ -28,23 +36,27 @@
     [rootNav setNavigationBarHidden:YES];
     self.window.rootViewController =rootNav;
     [self.window makeKeyAndVisible];
-
-
-    [self setupSocial];
+    
+    [self initialServices];
+    
     return YES;
 }
 
-- (void)setupSocial
+- (void)initialServices
 {
-    [UMSocialData setAppKey:UMSOCIAL_APPKEY];
+    //setup social component
+    [UMSocialData setAppKey:CONFIG_UMSOCIAL_APPKEY];
     //设置微信AppId，url地址传nil，将默认使用友盟的网址
-    [UMSocialConfig setWXAppId:WECHAT_ID url:nil];
-    
-    [UMSocialConfig setQQAppId:@"100424468" url:nil importClasses:@[[QQApiInterface class],[TencentOAuth class]]];
-    
+    [UMSocialConfig setWXAppId:CONFIG_WECHAT_ID url:nil];
+    [UMSocialConfig setQQAppId:CONFIG_QQ_APP_ID url:nil importClasses:@[[QQApiInterface class],[TencentOAuth class]]];
     [UMSocialConfig setSupportSinaSSO:YES];
+    
+    //setup baidu map component
+    _mapManager = [[BMKMapManager alloc]init];
+    // 如果要关注网络及授权验证事件，请设定generalDelegate参数
+    if (![_mapManager start:CONFIG_BAIDU_MAP_KEY  generalDelegate:nil])
+        NSLog(@"manager start failed!");
 }
-
 - (void)applicationWillResignActive:(UIApplication *)application
 {
 }
