@@ -64,29 +64,29 @@ $action = $request->getActionName();
     <li>
         <span>商品管理</span>
         <ul name="menu">
-            <li><a href="/index.php?controller=goods&amp;action=goods_list">商品列表</a></li>
-            <li class="selected"><a href="/index.php?controller=goods&amp;action=goods_edit">商品添加</a></li>
+            <li><a href="<?php echo $this->baseUrl('goods/index/search'); ?>">商品列表</a></li>
+            <li class="selected"><a href="<?php echo $this->baseUrl('goods/index/info'); ?>">商品添加</a></li>
         </ul>
     </li>
     <li>
         <span>商品分类</span>
         <ul name="menu">
-            <li><a href="/index.php?controller=goods&amp;action=category_list">分类列表</a></li>
-            <li><a href="/index.php?controller=goods&amp;action=category_edit">添加分类</a></li>
+            <li><a href="<?php echo $this->baseUrl('goods/category/search'); ?>">分类列表</a></li>
+            <li><a href="<?php echo $this->baseUrl('goods/category/info'); ?>">添加分类</a></li>
         </ul>
     </li>
     <li>
         <span>品牌</span>
         <ul name="menu">
-            <li><a href="/index.php?controller=brand&amp;action=category_list">品牌分类</a></li>
-            <li><a href="/index.php?controller=brand&amp;action=brand_list">品牌列表</a></li>
+            <li><a href="<?php echo $this->baseUrl('goods/brand/categorysearch'); ?>">品牌分类</a></li>
+            <li><a href="<?php echo $this->baseUrl('goods/brand/search'); ?>">品牌列表</a></li>
         </ul>
     </li>
     <li>
         <span>模型</span>
         <ul name="menu">
-            <li><a href="/index.php?controller=goods&amp;action=model_list">模型列表</a></li>
-            <li><a href="/index.php?controller=goods&amp;action=spec_list">规格列表</a></li>
+            <li><a href="<?php echo $this->baseUrl('goods/model/search'); ?>">模型列表</a></li>
+            <li><a href="<?php echo $this->baseUrl('goods/spec/search'); ?>">规格列表</a></li>
         </ul>
     </li>
 </ul>
