@@ -6,16 +6,17 @@ $this->headLink()
      ->appendStylesheet(Util::baseAssetUrl('css/vendor/jquery.imgareaselect/0.9.10/imgareaselect-default.css'));
 
 $this->headScript()
+     ->appendFile(Util::baseAssetUrl('js/vendor/jquery.validform/5.3.2/jquery.validform.min.js'))
      ->appendFile(Util::baseAssetUrl('js/vendor/jquery.uploadify/3.2.1/jquery.uploadify.min.js'))
      ->appendFile(Util::baseAssetUrl('js/vendor/jquery.imgareaselect/0.9.10/jquery.imgareaselect.min.js'));
 ?>
 <div class="m-form">
-    <form method="post">
+    <form id="frm-user-info" method="post">
         <fieldset>
             <div class="formitm">
                 <label class="lab">角色：</label>
                 <div class="ipt">
-                    <select name="userrole" class="u-sel">
+                    <select name="user_role" class="u-sel">
                         <option value="1">超级管理员</option>
                         <option value="2">沙龙管理员</option>
                         <option value="3">发型师</option>
@@ -26,14 +27,14 @@ $this->headScript()
             <div class="formitm">
                 <label class="lab">账号：</label>
                 <div class="ipt">
-                    <input name="username" type="text" class="u-ipt"/>
+                    <input name="username" type="text" value="<?php echo $this->userInfo['Username']; ?>" datatype="s6-8" errormsg="昵称至少6个字符,最多8个字符！" class="u-ipt"/>
                     <p>6~8个字符，包括字母，数字，下划线以字母开头，字母或数字结尾</p>
                 </div>
             </div>
             <div class="formitm">
                 <label class="lab">昵称：</label>
                 <div class="ipt">
-                    <input name="nickname" type="text" class="u-ipt"/>
+                    <input name="nickname" type="text" value="<?php echo $this->userInfo['Nickname']; ?>" class="u-ipt"/>
                 </div>
             </div>
             <div class="formitm">
@@ -46,28 +47,29 @@ $this->headScript()
             <div class="formitm">
                 <label class="lab">确认密码：</label>
                 <div class="ipt">
-                    <input name="passwordrepeate" type="password" class="u-ipt"/>
+                    <input name="password_repeate" type="password" class="u-ipt"/>
                     <p>再次输入密码</p>
                 </div>
             </div>
             <div class="formitm">
                 <label class="lab">邮箱：</label>
                 <div class="ipt">
-                    <input name="email" type="text" class="u-ipt"/>
+                    <input name="email" type="text" value="<?php echo $this->userInfo['Email']; ?>" class="u-ipt"/>
                 </div>
             </div>
             <div class="formitm">
                 <label class="lab">手机：</label>
                 <div class="ipt">
-                    <input name="mobile" type="text" class="u-ipt"/>
+                    <input name="mobile" type="text" value="<?php echo $this->userInfo['Mobile']; ?>" class="u-ipt"/>
                 </div>
             </div>
             <div class="formitm">
                 <label class="lab">头像：</label>
                 <div class="ipt">
                     <span class="u-img2">
-                        <a href="#">
-                            <img id="avatar-image" src="<?php echo Util::baseAssetUrl('img/avatar-default.jpg'); ?>" data-ori="" data-110="" alt="">
+                        <a href="javascript:;">
+                            <img id="avatar-image" src="<?php echo $this->userInfo['AvatarUrl']; ?>" data-ori="<?php echo $this->userInfo['AvatarOriginalUrl']; ?>" data-110="<?php echo $this->userInfo['AvatarThumb110Url']; ?>" alt="">
+                            <input id="avatar-url" type="hidden" name="avatar_url" value="<?php echo $this->userInfo['AvatarUrl']; ?>" />
                         </a>
                     </span>
                     <a class="update-thumb" href="#">调整缩略图</a>
@@ -80,7 +82,7 @@ $this->headScript()
                 </div>
             </div>
             <div class="formitm formitm-1">
-                <input type="hidden" value="<?php echo intval($this->users['UserId']); ?>" />
+                <input type="hidden" name="user_id" value="<?php echo intval($this->userInfo['UserId']); ?>" />
                 <button class="u-btn u-btn-submit" type="button">确定</button>
             </div>
         </fieldset>
@@ -89,6 +91,8 @@ $this->headScript()
 <script>
     $(function() {
         $('input[name=username]').datepicker();
+
+        $('#frm-user-info').Validform();
 
         var popup = $(' \
             <div class="crop-container"> \
@@ -125,8 +129,32 @@ $this->headScript()
             newImg.src = imgSrc;
         }
 
+        function showErrorMessage(msg) {
+            $('<p>' + msg + '</p>').dialog({
+                resizable: false,
+                title: '警告',
+                width: 300,
+                height:200,
+                modal: true,
+                draggable: false,
+                buttons: {
+                    '知道了': function() {
+                        $(this).dialog('close');
+                    }
+                },
+                close: function() {
+                    $(this).dialog('destroy').remove();
+                }
+            });
+        }
+
         $('.update-thumb').click(function() {
             var crop = null;
+            var imgUrl = $('#avatar-image').attr('data-ori');
+            if (!imgUrl) {
+                showErrorMessage('请先上传一张图片');
+                return false;
+            }
 
             $(popup).dialog({
                 resizable: false,
@@ -160,8 +188,6 @@ $this->headScript()
                     }
                 },
                 open: function() {
-                    var imgUrl = $('#avatar-image').attr('data-ori');
-
                     var imgO = popup.find('.crop-img-o');
                     imgO.attr('src', imgUrl);
 
@@ -267,8 +293,9 @@ $this->headScript()
                     $('#avatar-image').attr('src', result.Thumb110Url)
                                       .attr('data-110', result.Thumb110Url)
                                       .attr('data-ori', result.OriginalUrl);
+                    $('#avatar-url').val(result.Thumb480Url);
                 } else {
-                    console.log('a');
+                    showErrorMessage('上传失败，请重试！');
                 }
             }
         });

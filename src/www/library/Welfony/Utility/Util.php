@@ -55,9 +55,15 @@ class Util
         return $password;
     }
 
-    public static function genRandomEmail($prefix = 'ws')
+    public static function genRandomUsername($prefix = 'wh')
     {
-        static $emailFormat = '%s-%s@welstory.com';
+        static $nicknameFormat = '%s-%s';
+        return sprintf($nicknameFormat, $prefix, strtolower(self::genRandomNum(8)));
+    }
+
+    public static function genRandomEmail($prefix = 'wh')
+    {
+        static $emailFormat = '%s-%s@welhair.com';
         return sprintf($emailFormat, $prefix, strtolower(self::genRandomNum(8)));
     }
 

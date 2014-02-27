@@ -31,6 +31,28 @@ class UserRepository extends AbstractRepository
         return $row['Total'];
     }
 
+    public function findUserByEmail($email)
+    {
+        $strSql = 'SELECT
+                       *
+                   FROM Users U
+                   WHERE U.Email = ?
+                   LIMIT 1';
+
+        return $this->conn->fetchAssoc($strSql, array($email));
+    }
+
+    public function findUserByMobile($mobile)
+    {
+        $strSql = 'SELECT
+                       *
+                   FROM Users U
+                   WHERE U.Mobile = ?
+                   LIMIT 1';
+
+        return $this->conn->fetchAssoc($strSql, array($mobile));
+    }
+
     public function save($data)
     {
         try {
