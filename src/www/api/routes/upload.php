@@ -12,10 +12,16 @@
 //
 // ==============================================================================
 
-use Welfony\Controller\API\UserController;
+use Welfony\Controller\API\UploadController;
 
 $app->post('/upload/image', function() use($app)
 {
-    $controller = new UserController();
-    $controller->index();
+    $controller = new UploadController();
+    $controller->image('uploadfile');
+});
+
+$app->post('/upload/image/crop', function() use($app)
+{
+    $controller = new UploadController();
+    $controller->imageCrop();
 });

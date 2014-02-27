@@ -25,10 +25,8 @@ use Welfony\Utility\Validation;
 class UploadController extends AbstractAPIController
 {
 
-    public function image()
+    public function image($fileInputName)
     {
-        $fileInputName = 'uploadfile';
-
         if (empty($_FILES) || !isset($_FILES[$fileInputName])) {
             self::sendResponse(array('success' => false, 'message' => 'No file found!'));
         }
@@ -49,7 +47,7 @@ class UploadController extends AbstractAPIController
         try {
             $fs->mkdir($targetFolder);
         } catch (IOExceptionInterface $e) {
-            // $this->app->log->getWriter()->write('An error occurred while creating your directory at '. $e->getPath(), \Slim\Log::ERROR);
+            $this->app->log->getWriter()->write('An error occurred while creating your directory at '. $e->getPath(), \Slim\Log::ERROR);
         }
 
         if (!$fs->exists($targetFolder)) {
@@ -68,13 +66,66 @@ class UploadController extends AbstractAPIController
         $fileTargetPath = implode(DS, array($this->app->config->file->media->path, date('Y'), date('m'), date('d'), $rtn['HashFileName'] . '.' . $rtn['Extention']));
         move_uploaded_file($rtn['FileTmpPath'], $fileTargetPath);
 
-        if ($type == 'image') {
-            $imagine = new Imagine();
-            $image = $imagine->open($fileTargetPath);
-            $image->thumbnail(new Box(180, 180))->save(str_replace('.' . $rtn['Extention'], '_180x180.' . $rtn['Extention'], $fileTargetPath));
+        $imagine = new Imagine();
+        $image = $imagine->open($fileTargetPath);
 
-            $rtn['ThumbUrl'] = implode('/', array($this->app->config->asset->baseUrl, 'media', date('Y'), date('m'), date('d'), $rtn['HashFileName'] . '_180x180.' . $rtn['Extention']));
+        $size = $image->getSize();
+        $width = $size->getWidth();
+        $height = $size->getHeight();
+
+        if ($width >= $height) {
+            $image->crop(new Point(($width - $height) / 2, 0), new Box($height, $height));
+        } else {
+            $image->crop(new Point(0, ($height - $width) / 2), new Box($width, $width));
         }
+
+        $image->save(str_replace('.' . $rtn['Extention'], '_square.' . $rtn['Extention'], $fileTargetPath));
+        $rtn['SquareUrl'] = implode('/', array($this->app->config->asset->baseUrl, 'media', date('Y'), date('m'), date('d'), $rtn['HashFileName'] . '_square.' . $rtn['Extention']));
+
+        $image->thumbnail(new Box(480, 480))->save(str_replace('.' . $rtn['Extention'], '_480x480.' . $rtn['Extention'], $fileTargetPath));
+        $rtn['Thumb480Url'] = implode('/', array($this->app->config->asset->baseUrl, 'media', date('Y'), date('m'), date('d'), $rtn['HashFileName'] . '_480x480.' . $rtn['Extention']));
+
+        $image->thumbnail(new Box(110, 110))->save(str_replace('.' . $rtn['Extention'], '_110x110.' . $rtn['Extention'], $fileTargetPath));
+        $rtn['Thumb110Url'] = implode('/', array($this->app->config->asset->baseUrl, 'media', date('Y'), date('m'), date('d'), $rtn['HashFileName'] . '_110x110.' . $rtn['Extention']));
+
+        self::sendResponse(array(
+            'OriginalUrl' => $rtn['Url'],
+            'SquareUrl' => $rtn['SquareUrl'],
+            'Thumb480Url' => $rtn['Thumb480Url'],
+            'Thumb110Url' => $rtn['Thumb110Url']
+        ));
+    }
+
+    public function imageCrop()
+    {
+        $x1 = $this->app->request->post('x1');
+        $y1 = $this->app->request->post('y1');
+        $x2 = $this->app->request->post('x2');
+        $y2 = $this->app->request->post('y2');
+
+        $img = $this->app->request->post('img');
+        $img = str_replace($this->app->config->asset->baseUrl . '/media', '', $img);
+
+        $fileOri = $this->app->config->file->media->path . $img;
+        if (!is_file($fileOri)) {
+            self::sendResponse(array('success' => false, 'message' => 'File is not exists!'));
+        }
+
+        $temp = explode('.', $fileOri);
+        $ext = end($temp);
+
+        $imagine = new Imagine();
+        $image = $imagine->open($fileOri);
+
+        $image->crop(new Point($x1, $y1), new Box($x2 - $x1, $y2 - $y1));
+
+        $image->save(str_replace('.' . $ext, '_square.' . $ext, $fileOri));
+        $image->thumbnail(new Box(480, 480))
+              ->save(str_replace('.' . $ext, '_480x480.' . $ext, $fileOri));
+        $image->thumbnail(new Box(110, 110))
+              ->save(str_replace('.' . $ext, '_110x110.' . $ext, $fileOri));
+
+        self::sendResponse(array('success' => true));
     }
 
 }

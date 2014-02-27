@@ -67,7 +67,7 @@ $this->headScript()
                 <div class="ipt">
                     <span class="u-img2">
                         <a href="#">
-                            <img id="avatar-image" src="http://nec.netease.com/img/s/1.jpg" data-ori="http://www.digitaltrends.com/wp-content/uploads/2013/04/Samsung-Galaxy-6-3-sample-image-3.jpg" alt="">
+                            <img id="avatar-image" src="<?php echo Util::baseAssetUrl('img/avatar-default.jpg'); ?>" data-ori="" data-110="" alt="">
                         </a>
                     </span>
                     <a class="update-thumb" href="#">调整缩略图</a>
@@ -76,7 +76,7 @@ $this->headScript()
             <div class="formitm">
                 <label class="lab"></label>
                 <div class="ipt">
-                    <input id="avatar" name="uploadfile" type="file"/>
+                    <input id="avatar" type="file"/>
                 </div>
             </div>
             <div class="formitm formitm-1">
@@ -137,12 +137,23 @@ $this->headScript()
                 draggable: false,
                 buttons: {
                     '保存': function() {
-                        console.log(
-                            $('input[name="x1"]').val() + '-' +
-                            $('input[name="y1"]').val() + '-' +
-                            $('input[name="x2"]').val() + '-' +
-                            $('input[name="y2"]').val()
-                        );
+                        var opts = {
+                            type: 'POST',
+                            url: globalSetting.apiBaseUrl + '/upload/image/crop',
+                            dataType: 'json',
+                            data: {
+                                x1: $('input[name="x1"]').val(),
+                                y1: $('input[name="y1"]').val(),
+                                x2: $('input[name="x2"]').val(),
+                                y2: $('input[name="y2"]').val(),
+                                img: $('#avatar-image').attr('data-ori')
+                            },
+                            success: function(data, textStatus, jqXHR) {
+                                $('#avatar-image').attr('src', $('#avatar-image').attr('data-110') + '?timestamp=' + new Date().getTime());
+                                popup.dialog('close');
+                            }
+                        };
+                        $.ajax(opts);
                     },
                     '取消': function() {
                         $(this).dialog('close');
@@ -181,10 +192,12 @@ $this->headScript()
                             handles: true,
                             aspectRatio: '1:1',
                             onSelectEnd: function(img, selection) {
-                                $('input[name="x1"]').val(selection.x1);
-                                $('input[name="y1"]').val(selection.y1);
-                                $('input[name="x2"]').val(selection.x2);
-                                $('input[name="y2"]').val(selection.y2);
+                                var rate = width / imgO.width();
+
+                                $('input[name="x1"]').val(selection.x1 * rate);
+                                $('input[name="y1"]').val(selection.y1 * rate);
+                                $('input[name="x2"]').val(selection.x2 * rate);
+                                $('input[name="y2"]').val(selection.y2 * rate);
                             },
                             onSelectChange: function(img, selection) {
                                 var imgOWith = imgO.width();
@@ -236,11 +249,28 @@ $this->headScript()
         });
 
         $('#avatar').uploadify({
+            fileObjName: 'uploadfile',
             width: 78,
             height: 32,
+            multi: false,
+            fileExt: '*.jpg;*.jpeg;*.png',
+            fileDesc: 'Image file (.jpg, .jpeg, .png)',
             buttonText: '选择文件',
             swf: globalSetting.staticAssetBaseUrl + '/swf/uploadify.swf',
-            uploader: globalSetting.apiBaseUrl + '/upload/image'
+            uploader: globalSetting.apiBaseUrl + '/upload/image',
+            onUploadError: function(file, errorCode, errorMsg, errorString) {
+                console.log(errorString);
+            },
+            onUploadSuccess: function(file, data, response) {
+                var result = $.parseJSON(data);
+                if (result.success !== false) {
+                    $('#avatar-image').attr('src', result.Thumb110Url)
+                                      .attr('data-110', result.Thumb110Url)
+                                      .attr('data-ori', result.OriginalUrl);
+                } else {
+                    console.log('a');
+                }
+            }
         });
     });
 </script>

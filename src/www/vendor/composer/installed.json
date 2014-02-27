@@ -537,6 +537,56 @@
         ]
     },
     {
+        "name": "rych/phpass",
+        "version": "v3.0.0beta1",
+        "version_normalized": "3.0.0.0-beta1",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/rchouinard/phpass.git",
+            "reference": "f94d30f6ea9ead98ea9497818cbbb28db730ea7d"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/rchouinard/phpass/zipball/f94d30f6ea9ead98ea9497818cbbb28db730ea7d",
+            "reference": "f94d30f6ea9ead98ea9497818cbbb28db730ea7d",
+            "shasum": ""
+        },
+        "require": {
+            "ext-hash": "*",
+            "php": ">=5.3.8"
+        },
+        "suggest": {
+            "ext-mcrypt": "The Mcrypt extension is used as a source of cryptographically strong random data in the absence of ext-openssl.",
+            "ext-openssl": "The OpenSSL extension is used as the default source of cryptographically strong random data."
+        },
+        "time": "2012-08-14 03:45:21",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-0": {
+                "PHPassLib": "src/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Ryan Chouinard",
+                "email": "rchouinard@gmail.com",
+                "homepage": "http://ryanchouinard.com"
+            }
+        ],
+        "description": "PHP Password Library: Easy, secure password management for PHP",
+        "homepage": "https://github.com/rchouinard/phpass",
+        "keywords": [
+            "cryptography",
+            "password",
+            "security"
+        ]
+    },
+    {
         "name": "phpseclib/phpseclib",
         "version": "0.3.6",
         "version_normalized": "0.3.6.0",
@@ -835,107 +885,6 @@
         "keywords": [
             "ZF1",
             "framework"
-        ]
-    },
-    {
-        "name": "rych/phpass",
-        "version": "v3.0.0beta1",
-        "version_normalized": "3.0.0.0-beta1",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/rchouinard/phpass.git",
-            "reference": "f94d30f6ea9ead98ea9497818cbbb28db730ea7d"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/rchouinard/phpass/zipball/f94d30f6ea9ead98ea9497818cbbb28db730ea7d",
-            "reference": "f94d30f6ea9ead98ea9497818cbbb28db730ea7d",
-            "shasum": ""
-        },
-        "require": {
-            "ext-hash": "*",
-            "php": ">=5.3.8"
-        },
-        "suggest": {
-            "ext-mcrypt": "The Mcrypt extension is used as a source of cryptographically strong random data in the absence of ext-openssl.",
-            "ext-openssl": "The OpenSSL extension is used as the default source of cryptographically strong random data."
-        },
-        "time": "2012-08-14 03:45:21",
-        "type": "library",
-        "installation-source": "dist",
-        "autoload": {
-            "psr-0": {
-                "PHPassLib": "src/"
-            }
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "MIT"
-        ],
-        "authors": [
-            {
-                "name": "Ryan Chouinard",
-                "email": "rchouinard@gmail.com",
-                "homepage": "http://ryanchouinard.com"
-            }
-        ],
-        "description": "PHP Password Library: Easy, secure password management for PHP",
-        "homepage": "https://github.com/rchouinard/phpass",
-        "keywords": [
-            "cryptography",
-            "password",
-            "security"
-        ]
-    },
-    {
-        "name": "hybridauth/hybridauth",
-        "version": "dev-master",
-        "version_normalized": "9999999-dev",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/hybridauth/hybridauth.git",
-            "reference": "cf04110b7b0da763eb0d08e0d49360d171d586f6"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/hybridauth/hybridauth/zipball/cf04110b7b0da763eb0d08e0d49360d171d586f6",
-            "reference": "cf04110b7b0da763eb0d08e0d49360d171d586f6",
-            "shasum": ""
-        },
-        "require": {
-            "ext-curl": "*",
-            "php": ">=5.2.0"
-        },
-        "time": "2014-02-21 15:46:45",
-        "type": "library",
-        "installation-source": "source",
-        "autoload": {
-            "psr-0": {
-                "Hybrid": "hybridauth/"
-            }
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "(MIT or GPL-3.0+)"
-        ],
-        "authors": [
-            {
-                "name": "Miled",
-                "email": "hybridauth@gmail.com"
-            }
-        ],
-        "description": "Open source social sign on PHP library.",
-        "homepage": "http://hybridauth.sourceforge.net",
-        "keywords": [
-            "OpenId",
-            "facebook",
-            "google",
-            "hybridauth",
-            "login",
-            "oauth",
-            "social",
-            "twitter",
-            "yahoo"
         ]
     }
 ]
