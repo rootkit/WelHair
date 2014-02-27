@@ -51,10 +51,8 @@
 		46A46FE718BE211F0057F579 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46A46FE618BE211F0057F579 /* QuartzCore.framework */; };
 		46A46FE918BE21280057F579 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46A46FE818BE21280057F579 /* OpenGLES.framework */; };
 		46A46FEE18BE21BB0057F579 /* mapapi.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 46A46FEC18BE21BB0057F579 /* mapapi.bundle */; };
-		46A46FF018BE21DB0057F579 /* RootViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 46A46FEF18BE21DB0057F579 /* RootViewController.mm */; };
 		46A4704818BE23990057F579 /* libbaidumapapi.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 46A4701C18BE23990057F579 /* libbaidumapapi.a */; };
 		46A4704918BE23990057F579 /* libbaidumapapi.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 46A4704718BE23990057F579 /* libbaidumapapi.a */; };
-		46A4704F18BE28DA0057F579 /* MapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 46A4704E18BE28DA0057F579 /* MapViewController.m */; };
 		46B2338618BCC8E000CC27A3 /* ProductViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 46B2338518BCC8E000CC27A3 /* ProductViewController.m */; };
 		46B233B718BCDC4200CC27A3 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 46B233B618BCDC4200CC27A3 /* LoginViewController.m */; };
 		46B233B918BCE58400CC27A3 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46B233B818BCE58400CC27A3 /* Security.framework */; };
@@ -79,6 +77,8 @@
 		46B233F618BCE6E000CC27A3 /* TencentOpenAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46B233E618BCE6E000CC27A3 /* TencentOpenAPI.framework */; };
 		46B233F718BCE6E000CC27A3 /* TencentOpenApi_IOS_Bundle.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 46B233E718BCE6E000CC27A3 /* TencentOpenApi_IOS_Bundle.bundle */; };
 		46B233F818BCE6E000CC27A3 /* UMSocialSDKResourcesNew.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 46B233E818BCE6E000CC27A3 /* UMSocialSDKResourcesNew.bundle */; };
+		46B25AE418BF1CAA0035F425 /* RootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 46B25AE318BF1CAA0035F425 /* RootViewController.m */; };
+		46B25AE618BF1CC60035F425 /* MapViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 46B25AE518BF1CC60035F425 /* MapViewController.mm */; };
 		46BCD24818BB85FC005C4BD6 /* line@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 46BCD24218BB85FC005C4BD6 /* line@2x.png */; };
 		46BCD24918BB85FC005C4BD6 /* pick_bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 46BCD24318BB85FC005C4BD6 /* pick_bg@2x.png */; };
 		46BCD24A18BB85FC005C4BD6 /* WelQRGeneraterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 46BCD24518BB85FC005C4BD6 /* WelQRGeneraterViewController.m */; };
@@ -162,7 +162,6 @@
 		46A46FE618BE211F0057F579 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		46A46FE818BE21280057F579 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		46A46FEC18BE21BB0057F579 /* mapapi.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = mapapi.bundle; sourceTree = "<group>"; };
-		46A46FEF18BE21DB0057F579 /* RootViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = RootViewController.mm; sourceTree = "<group>"; };
 		46A46FF418BE23990057F579 /* BMapKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMapKit.h; sourceTree = "<group>"; };
 		46A46FF518BE23990057F579 /* BMKActionPaopaoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMKActionPaopaoView.h; sourceTree = "<group>"; };
 		46A46FF618BE23990057F579 /* BMKAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMKAnnotation.h; sourceTree = "<group>"; };
@@ -246,7 +245,6 @@
 		46A4704618BE23990057F579 /* BMKVersion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMKVersion.h; sourceTree = "<group>"; };
 		46A4704718BE23990057F579 /* libbaidumapapi.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libbaidumapapi.a; sourceTree = "<group>"; };
 		46A4704D18BE28DA0057F579 /* MapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapViewController.h; sourceTree = "<group>"; };
-		46A4704E18BE28DA0057F579 /* MapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapViewController.m; sourceTree = "<group>"; };
 		46B2338418BCC8E000CC27A3 /* ProductViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProductViewController.h; sourceTree = "<group>"; };
 		46B2338518BCC8E000CC27A3 /* ProductViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProductViewController.m; sourceTree = "<group>"; };
 		46B233B518BCDC4200CC27A3 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
@@ -287,6 +285,8 @@
 		46B233E718BCE6E000CC27A3 /* TencentOpenApi_IOS_Bundle.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = TencentOpenApi_IOS_Bundle.bundle; sourceTree = "<group>"; };
 		46B233E818BCE6E000CC27A3 /* UMSocialSDKResourcesNew.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = UMSocialSDKResourcesNew.bundle; sourceTree = "<group>"; };
 		46B233E918BCE6E000CC27A3 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/UMSocialLocalizable.strings"; sourceTree = "<group>"; };
+		46B25AE318BF1CAA0035F425 /* RootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RootViewController.m; sourceTree = "<group>"; };
+		46B25AE518BF1CC60035F425 /* MapViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MapViewController.mm; sourceTree = "<group>"; };
 		46BCD23118BB7BF5005C4BD6 /* Macros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Macros.h; sourceTree = "<group>"; };
 		46BCD24218BB85FC005C4BD6 /* line@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "line@2x.png"; sourceTree = "<group>"; };
 		46BCD24318BB85FC005C4BD6 /* pick_bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pick_bg@2x.png"; sourceTree = "<group>"; };
@@ -504,7 +504,7 @@
 				4660E68718BB73A8005B3C7D /* User */,
 				18A912DA18BB26B6006B9A04 /* Base */,
 				18A912DD18BB26B6006B9A04 /* RootViewController.h */,
-				46A46FEF18BE21DB0057F579 /* RootViewController.mm */,
+				46B25AE318BF1CAA0035F425 /* RootViewController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -857,7 +857,7 @@
 				4665FD7A18BC7D4700E88C6B /* CommentsViewController.h */,
 				4665FD7B18BC7D4700E88C6B /* CommentsViewController.m */,
 				46A4704D18BE28DA0057F579 /* MapViewController.h */,
-				46A4704E18BE28DA0057F579 /* MapViewController.m */,
+				46B25AE518BF1CC60035F425 /* MapViewController.mm */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -1020,8 +1020,7 @@
 			files = (
 				46BCD25F18BC725D005C4BD6 /* GroupsViewController.m in Sources */,
 				46B233B718BCDC4200CC27A3 /* LoginViewController.m in Sources */,
-				46A46FF018BE21DB0057F579 /* RootViewController.mm in Sources */,
-				46A4704F18BE28DA0057F579 /* MapViewController.m in Sources */,
+				46B25AE418BF1CAA0035F425 /* RootViewController.m in Sources */,
 				4660E69018BB73E1005B3C7D /* ProductsViewController.m in Sources */,
 				46B2338618BCC8E000CC27A3 /* ProductViewController.m in Sources */,
 				18A912E418BB26B6006B9A04 /* User.m in Sources */,
@@ -1036,6 +1035,7 @@
 				46BCD25718BC628E005C4BD6 /* ChatSessionListViewController.m in Sources */,
 				46BCD26618BC796B005C4BD6 /* WorkDetailViewController.m in Sources */,
 				4665FD8518BC801000E88C6B /* Work.m in Sources */,
+				46B25AE618BF1CC60035F425 /* MapViewController.mm in Sources */,
 				18A912E218BB26B6006B9A04 /* BaseViewController.m in Sources */,
 				46BCD27618BC79EB005C4BD6 /* StaffDetailViewController.m in Sources */,
 				46BCD24A18BB85FC005C4BD6 /* WelQRGeneraterViewController.m in Sources */,

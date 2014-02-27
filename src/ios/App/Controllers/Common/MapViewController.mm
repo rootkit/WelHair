@@ -154,18 +154,36 @@
 
 - (void)foodsClick
 {
-    [_search poiSearchNearBy:@"餐厅" center:_mapView.centerCoordinate radius:100 pageIndex:0];
+    // 清楚屏幕中所有的annotation
+    NSArray* array = [NSArray arrayWithArray:_mapView.annotations];
+	[_mapView removeAnnotations:array];
+    
+    BMKPointAnnotation* item = [[BMKPointAnnotation alloc]init];
+    item.coordinate = CLLocationCoordinate2DMake(36.670266,117.149292);
+    item.title = @"haha";
+    [_mapView addAnnotation:item];
+    //将第一个点的坐标移到屏幕中央
+    _mapView.centerCoordinate = item.coordinate;
+	 
+    BMKPointAnnotation* item1 = [[BMKPointAnnotation alloc]init];
+    item1.coordinate = CLLocationCoordinate2DMake(36.669166,117.144945);
+    item1.title = @"heihei";
+    [_mapView addAnnotation:item1];
+
+    //[_search poiSearchNearBy:@"餐厅" center:_mapView.centerCoordinate radius:100 pageIndex:0];
 }
 
 
 - (void)lineClick
 {
+    
+    _mapView.zoomLevel = 13;
  	BMKPlanNode* start = [[BMKPlanNode alloc]init];
 	start.name = @"当前地址";
     start.pt = _mapView.centerCoordinate;
 	BMKPlanNode* end = [[BMKPlanNode alloc]init] ;
     end.name = @"目标地址";
-    end.pt = CLLocationCoordinate2DMake(117.023817,36.669123);
+    end.pt = CLLocationCoordinate2DMake(36.669123,117.023817);
     
 	BOOL flag = [_search drivingSearch:start.name startNode:start endCity:end.name endNode:end];
 	if (flag) {
