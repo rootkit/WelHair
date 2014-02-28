@@ -68,55 +68,35 @@ class Goods_BrandController extends Zend_Controller_Action
 
     public function categoryinfoAction()
     {
-    	/*
-        $this->view->pageTitle = '会员信息';
+    	
+        $this->view->pageTitle = '品牌分类信息';
 
-        $userId = intval($this->_request->getParam('user_id'));
+        $brandCategoryId = intval($this->_request->getParam('brandcategoryid'));
 
-        $user = array(
-            'UserId' => 0,
-            'Username' => Util::genRandomUsername(),
-            'Nickname' => '',
-            'Email' => '',
-            'Mobile' => '',
-            'AvatarUrl' => Util::baseAssetUrl('img/avatar-default.jpg')
+        $brandCategory = array(
+            'BrandCategoryId' => 0
         );
 
         if ($this->_request->isPost()) {
-            $userRole = intval($this->_request->getParam('user_role'));
-            $username = htmlspecialchars($this->_request->getParam('username'));
-            $nickname = htmlspecialchars($this->_request->getParam('nickname'));
-            $email = htmlspecialchars($this->_request->getParam('email'));
-            $password = htmlspecialchars($this->_request->getParam('password'));
-            $passwordRepeate = htmlspecialchars($this->_request->getParam('password_repeate'));
-            $mobile = htmlspecialchars($this->_request->getParam('mobile'));
-            $avatarUrl = $this->_request->getParam('avatar_url');
+            $name = htmlspecialchars($this->_request->getParam('name'));
+           
 
-            $user['Username'] = $username;
-            $user['Role'] = $userRole;
-            $user['Password'] = $password;
-            $user['Nickname'] = $nickname;
-            $user['Email'] = $email;
-            $user['Mobile'] = $mobile;
-            $user['AvatarUrl'] = $avatarUrl;
+            $brandCategory['Name'] = $name;
 
-            $result = UserService::save($user);
+
+            $result = BrandCategoryService::save($brandCategory);
             if ($result['success']) {
 
             } else {
 
             }
         } else {
-            if ($userId > 0) {
-
-            } else {
-                $user['AvatarOriginalUrl'] = '';
-                $user['AvatarThumb110Url'] = '';
-            }
+            if ($brandCategoryId > 0) {
+                $brandCategory = $result = BrandCategoryService::get($brandCategoryId);
+            } 
         }
 
-        $this->view->userInfo = $user;
-        */
+        $this->view->brandCategoryInfo = $brandCategory;
     }
 
 

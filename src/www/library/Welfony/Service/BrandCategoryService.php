@@ -19,6 +19,12 @@ use Welfony\Repository\BrandCategoryRepository;
 class BrandCategoryService
 {
 
+    public static function get($id)
+    {
+        
+        return  BrandCategoryRepository::getInstance()->findCategoryById( $id);           
+      
+    }
    
     public static function list($pageNumber, $pageSize)
     {

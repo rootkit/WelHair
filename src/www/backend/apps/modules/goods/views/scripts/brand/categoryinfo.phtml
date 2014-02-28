@@ -11,12 +11,12 @@ $this->headScript()
      ->appendFile(Util::baseAssetUrl('js/vendor/jquery.imgareaselect/0.9.10/jquery.imgareaselect.min.js'));
 ?>
 <div class="m-form">
-    <form id="frm-user-info" method="post">
+    <form id="frmBrandCategoryInfo" method="post">
         <fieldset>
             <div class="formitm">
                 <label class="lab">分类名称：</label>
                 <div class="ipt">
-                    <input name="nickname" type="text" value="<?php echo $this->brandCategoryInfo['Name']; ?>" class="u-ipt"/>
+                    <input name="name" type="text" value="<?php echo $this->brandCategoryInfo['Name']; ?>" class="u-ipt"/>
                 </div>
             </div>
              <div class="formitm formitm-1">
