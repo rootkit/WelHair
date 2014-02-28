@@ -42,38 +42,11 @@ $(function() {
         </div> \
     ');
 
-    function getImgSize(imgSrc, imgLoaded) {
-        var newImg = new Image();
-        $(newImg).load(function(){
-            imgLoaded(newImg.width, newImg.height);
-        });
-        newImg.src = imgSrc;
-    }
-
-    function showErrorMessage(msg) {
-        $('<p>' + msg + '</p>').dialog({
-            resizable: false,
-            title: '警告',
-            width: 300,
-            height:200,
-            modal: true,
-            draggable: false,
-            buttons: {
-                '知道了': function() {
-                    $(this).dialog('close');
-                }
-            },
-            close: function() {
-                $(this).dialog('destroy').remove();
-            }
-        });
-    }
-
     $('.update-thumb').click(function() {
         var crop = null;
         var imgUrl = $('#avatar-image').attr('data-ori');
         if (!imgUrl) {
-            showErrorMessage('请先上传一张图片');
+            WF.showMessage('error', '注意', '请先上传一张图片');
             return false;
         }
 
@@ -121,7 +94,7 @@ $(function() {
                 var imgPreview30 = popup.find('.crop-img-preview-30');
                 imgPreview30.attr('src', imgUrl);
 
-                getImgSize(imgUrl, function(width, height) {
+                WF.getImgSize(imgUrl, function(width, height) {
                     if (width >= height) {
                         imgO.css('width', imgO.parent().width())
                             .css('height', 'auto')
@@ -203,8 +176,8 @@ $(function() {
         fileExt: '*.jpg;*.jpeg;*.png',
         fileDesc: 'Image file (.jpg, .jpeg, .png)',
         buttonText: '选择文件',
-        swf: globalSetting.staticAssetBaseUrl + '/swf/uploadify.swf',
-        uploader: globalSetting.apiBaseUrl + '/upload/image',
+        swf: WF.setting.staticAssetBaseUrl + '/swf/uploadify.swf',
+        uploader: WF.setting.apiBaseUrl + '/upload/image',
         onUploadError: function(file, errorCode, errorMsg, errorString) {
             console.log(errorString);
         },
@@ -216,7 +189,7 @@ $(function() {
                                   .attr('data-ori', result.OriginalUrl);
                 $('#avatar-url').val(result.Thumb480Url);
             } else {
-                showErrorMessage('上传失败，请重试！');
+                WF.showMessage('error', '错误', '上传失败，请重试！');
             }
         }
     });

@@ -20,10 +20,6 @@ use Welfony\Service\UserService;
 class UserController extends AbstractAPIController
 {
 
-    public function signInWithEmail($email, $password)
-    {
-    }
-
     public function signInWithSocial()
     {
     }
