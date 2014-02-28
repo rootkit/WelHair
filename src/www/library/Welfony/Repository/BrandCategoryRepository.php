@@ -19,11 +19,11 @@ use Welfony\Repository\Base\AbstractRepository;
 class BrandCategoryRepository extends AbstractRepository
 {
 
-    public function getAllUsersCount()
+    public function getAllBrandCategoryCount()
     {
         $strSql = "SELECT
                        COUNT(1) `Total`
-                   FROM Users
+                   FROM BrandCategory
                    LIMIT 1";
 
         $row = $this->conn->fetchAssoc($strSql);
@@ -31,32 +31,44 @@ class BrandCategoryRepository extends AbstractRepository
         return $row['Total'];
     }
 
-    public function findUserByEmail($email)
+    public function getAllBrandCategory()
     {
         $strSql = 'SELECT
                        *
-                   FROM Users U
-                   WHERE U.Email = ?
-                   LIMIT 1';
+                   FROM BrandCategory
+                  ';
 
-        return $this->conn->fetchAssoc($strSql, array($email));
+        return $this->conn->fetchAssoc($strSql);
     }
 
-    public function findUserByMobile($mobile)
+    public function listBrandCategory( $pageNumber, $pageSize )
+    {
+
+        $offset = ($pageNumber - 1) * $pageSize;
+        $sql = "SELECT *
+                FROM BrandCategory
+                      ORDER BY BrandCategoryId
+                      LIMIT $offset, $pageSize ";
+
+        return $this->conn->fetchAssoc($strSql);
+
+    }
+
+    public function findCategoryById($id)
     {
         $strSql = 'SELECT
                        *
-                   FROM Users U
-                   WHERE U.Mobile = ?
+                   FROM BrandCategory BC
+                   WHERE BC.BrandCategoryId = ?
                    LIMIT 1';
 
-        return $this->conn->fetchAssoc($strSql, array($mobile));
+        return $this->conn->fetchAssoc($strSql, array($id));
     }
 
     public function save($data)
     {
         try {
-            if ($this->conn->insert('Users', $data)) {
+            if ($this->conn->insert('BrandCategory', $data)) {
                 return $this->conn->lastInsertId();
             }
         } catch (\Exception $e) {
@@ -67,10 +79,20 @@ class BrandCategoryRepository extends AbstractRepository
         return false;
     }
 
-    public function update($userId, $data)
+    public function update($brandCategoryId, $data)
     {
         try {
-            return $this->conn->update('Users', $data, array('UserId' => $userId));
+            return $this->conn->update('BrandCategory', $data, array('BrandCategoryId' => $brandCategoryId));
+        } catch (\Exception $e) {
+            $this->logger->log($e, \Zend_Log::ERR);
+            return false;
+        }
+    }
+
+    public function delete($brandCategoryId)
+    {
+        try {
+            return $this->conn->executeUpdate(" DELETE FROM BrandCategory WHERE BrandCategoryId  = $brandCategoryId; ");
         } catch (\Exception $e) {
             $this->logger->log($e, \Zend_Log::ERR);
             return false;
