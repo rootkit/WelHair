@@ -1,1 +1,25 @@
-ss
+<div class="login-box" style="border: 1px solid #ddd; margin: 80px auto; padding: 0 0 20px; width: 400px;">
+    <h1 style="background: #eee; padding: 10px; font-size: 16px; border-bottom: 1px solid #ddd;">登录</h1>
+    <p style="text-align: center;"><?php echo $this->errorMessage; ?></p>
+    <div class="m-form">
+        <form id="frm-user-signin" method="post">
+            <fieldset>
+                <div class="formitm">
+                    <label class="lab">邮箱：</label>
+                    <div class="ipt">
+                        <input name="email" type="text" class="u-ipt"/>
+                    </div>
+                </div>
+                <div class="formitm">
+                    <label class="lab">密码：</label>
+                    <div class="ipt">
+                        <input name="password" type="password" class="u-ipt"/>
+                    </div>
+                </div>
+                <div class="formitm formitm-1">
+                    <button class="u-btn u-btn-submit" type="button">登录</button>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+</div>

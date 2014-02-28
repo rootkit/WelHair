@@ -1,93 +1,86 @@
-<?php
+<?php if ($this->currentUser): ?>
+    <?php if ($this->module == 'default'): ?>
+    <ul class="lists">
+        <li<?php echo ($this->controller == 'index' && $this->action == 'index') ? ' class="active"' : ''; ?>>
+            <a href="<?php echo $this->baseUrl(''); ?>">
+                <i class="iconfont">&#xf012b;</i>
+                后台首页
+            </a>
+        </li>
+        <li></li>
+        <li>
+            <a href="<?php echo $this->baseUrl(''); ?>">
+                <i class="iconfont">&#xf0103;</i>
+                支付方式
+            </a>
+        </li>
+        <li>
+            <a href="<?php echo $this->baseUrl(''); ?>">
+                <i class="iconfont">&#xf018d;</i>
+                系统设置
+            </a>
+        </li>
+    </ul>
+    <?php endif; ?>
 
-$request = Zend_Controller_Front::getInstance()->getRequest();
-$module = $request->getModuleName();
-$controller = $request->getControllerName();
-$action = $request->getActionName();
+    <?php if ($this->module == 'user'): ?>
+    <ul class="lists">
+        <li<?php echo ($this->controller == 'index' && $this->action == 'search') ? ' class="active"' : ''; ?>>
+            <a href="<?php echo $this->baseUrl('user/index/search'); ?>">
+                <i class="iconfont">&#x344a;</i>
+                会员列表
+            </a>
+        </li>
+        <li<?php echo ($this->controller == 'index' && $this->action == 'info') ? ' class="active"' : ''; ?>>
+            <a href="<?php echo $this->baseUrl('user/index/info'); ?>">
+                <i class="iconfont">&#xf0175;</i>
+                添加会员
+            </a>
+        </li>
+    </ul>
+    <?php endif; ?>
 
-?>
+    <?php if ($this->module == 'order'): ?>
+    <ul class="lists">
+        <li>
+            <a href="<?php echo $this->baseUrl('user/index/info'); ?>">
+                <i class="iconfont">&#x344a;</i>
+                订单列表
+            </a>
+        </li>
+    </ul>
+    <?php endif; ?>
 
-<?php if ($module == 'default'): ?>
-<ul class="lists">
-    <li<?php echo ($controller == 'index' && $action == 'index') ? ' class="active"' : ''; ?>>
-        <a href="<?php echo $this->baseUrl(''); ?>">
-            <i class="iconfont">&#xf012b;</i>
-            后台首页
-        </a>
-    </li>
-    <li></li>
-    <li>
-        <a href="<?php echo $this->baseUrl(''); ?>">
-            <i class="iconfont">&#xf0103;</i>
-            支付方式
-        </a>
-    </li>
-    <li>
-        <a href="<?php echo $this->baseUrl(''); ?>">
-            <i class="iconfont">&#xf018d;</i>
-            系统设置
-        </a>
-    </li>
-</ul>
-<?php endif; ?>
-
-<?php if ($module == 'user'): ?>
-<ul class="lists">
-    <li<?php echo ($controller == 'index' && $action == 'search') ? ' class="active"' : ''; ?>>
-        <a href="<?php echo $this->baseUrl('user/index/search'); ?>">
-            <i class="iconfont">&#x344a;</i>
-            会员列表
-        </a>
-    </li>
-    <li<?php echo ($controller == 'index' && $action == 'info') ? ' class="active"' : ''; ?>>
-        <a href="<?php echo $this->baseUrl('user/index/info'); ?>">
-            <i class="iconfont">&#xf0175;</i>
-            添加会员
-        </a>
-    </li>
-</ul>
-<?php endif; ?>
-
-<?php if ($module == 'order'): ?>
-<ul class="lists">
-    <li>
-        <a href="<?php echo $this->baseUrl('user/index/info'); ?>">
-            <i class="iconfont">&#x344a;</i>
-            订单列表
-        </a>
-    </li>
-</ul>
-<?php endif; ?>
-
-<?php if ($module == 'goods'): ?>
-<ul class="submenu">
-    <li>
-        <span>商品管理</span>
-        <ul name="menu">
-            <li><a href="<?php echo $this->baseUrl('goods/index/search'); ?>">商品列表</a></li>
-            <li class="selected"><a href="<?php echo $this->baseUrl('goods/index/info'); ?>">商品添加</a></li>
-        </ul>
-    </li>
-    <li>
-        <span>商品分类</span>
-        <ul name="menu">
-            <li><a href="<?php echo $this->baseUrl('goods/category/search'); ?>">分类列表</a></li>
-            <li><a href="<?php echo $this->baseUrl('goods/category/info'); ?>">添加分类</a></li>
-        </ul>
-    </li>
-    <li>
-        <span>品牌</span>
-        <ul name="menu">
-            <li><a href="<?php echo $this->baseUrl('goods/brand/categorysearch'); ?>">品牌分类</a></li>
-            <li><a href="<?php echo $this->baseUrl('goods/brand/search'); ?>">品牌列表</a></li>
-        </ul>
-    </li>
-    <li>
-        <span>模型</span>
-        <ul name="menu">
-            <li><a href="<?php echo $this->baseUrl('goods/model/search'); ?>">模型列表</a></li>
-            <li><a href="<?php echo $this->baseUrl('goods/spec/search'); ?>">规格列表</a></li>
-        </ul>
-    </li>
-</ul>
+    <?php if ($this->module == 'goods'): ?>
+    <ul class="submenu">
+        <li>
+            <span>商品管理</span>
+            <ul name="menu">
+                <li><a href="<?php echo $this->baseUrl('goods/index/search'); ?>">商品列表</a></li>
+                <li class="selected"><a href="<?php echo $this->baseUrl('goods/index/info'); ?>">商品添加</a></li>
+            </ul>
+        </li>
+        <li>
+            <span>商品分类</span>
+            <ul name="menu">
+                <li><a href="<?php echo $this->baseUrl('goods/category/search'); ?>">分类列表</a></li>
+                <li><a href="<?php echo $this->baseUrl('goods/category/info'); ?>">添加分类</a></li>
+            </ul>
+        </li>
+        <li>
+            <span>品牌</span>
+            <ul name="menu">
+                <li><a href="<?php echo $this->baseUrl('goods/brand/categorysearch'); ?>">品牌分类</a></li>
+                <li><a href="<?php echo $this->baseUrl('goods/brand/search'); ?>">品牌列表</a></li>
+            </ul>
+        </li>
+        <li>
+            <span>模型</span>
+            <ul name="menu">
+                <li><a href="<?php echo $this->baseUrl('goods/model/search'); ?>">模型列表</a></li>
+                <li><a href="<?php echo $this->baseUrl('goods/spec/search'); ?>">规格列表</a></li>
+            </ul>
+        </li>
+    </ul>
+    <?php endif; ?>
 <?php endif; ?>

@@ -31,6 +31,40 @@ class UserRepository extends AbstractRepository
         return $row['Total'];
     }
 
+    public function getAllUsers($page, $pageSize)
+    {
+        $offset = ($page - 1) * $pageSize;
+        $strSql = "SELECT
+                       *
+                   FROM Users U
+                   ORDER BY U.UserId DESC
+                   LIMIT $offset, $pageSize";
+
+        return $this->conn->fetchAll($strSql);
+    }
+
+    public function findUserById($userId)
+    {
+        $strSql = 'SELECT
+                       *
+                   FROM Users U
+                   WHERE U.UserId = ?
+                   LIMIT 1';
+
+        return $this->conn->fetchAssoc($strSql, array($userId));
+    }
+
+    public function findUserByUsername($username)
+    {
+        $strSql = 'SELECT
+                       *
+                   FROM Users U
+                   WHERE U.Username = ?
+                   LIMIT 1';
+
+        return $this->conn->fetchAssoc($strSql, array($username));
+    }
+
     public function findUserByEmail($email)
     {
         $strSql = 'SELECT

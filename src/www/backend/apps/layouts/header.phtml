@@ -1,15 +1,7 @@
-<?php
-
-$request = Zend_Controller_Front::getInstance()->getRequest();
-$module = $request->getModuleName();
-
-$config = Zend_Registry::get('config');
-
-?>
 <script>
     var globalSetting = {
-        apiBaseUrl: '<?php echo $config->api->baseUrl; ?>',
-        staticAssetBaseUrl: '<?php echo $config->asset->baseUrl; ?>'
+        apiBaseUrl: '<?php echo $this->config->api->baseUrl; ?>',
+        staticAssetBaseUrl: '<?php echo $this->config->asset->baseUrl; ?>'
     };
 </script>
 <div class="header container">
@@ -17,33 +9,35 @@ $config = Zend_Registry::get('config');
         <strong class="brand">
             <a href="<?php echo $this->baseUrl(); ?>">打扮吧后台管理系统</a>
         </strong>
+        <?php if ($this->currentUser): ?>
         <div class="lnks clearfix">
             <ul class="lnks-li">
                 <li>
-                    <a class="lnk<?php echo $module == 'user' ? ' on' : ''; ?>" href="<?php echo $this->baseUrl('user/index/search'); ?>">会员</a>
+                    <a class="lnk<?php echo $this->module == 'user' ? ' on' : ''; ?>" href="<?php echo $this->baseUrl('user/index/search'); ?>">会员</a>
                 </li>
                 <li>
-                    <a class="lnk<?php echo $module == 'company' ? ' on' : ''; ?>" href="<?php echo $this->baseUrl('user/index/search'); ?>">沙龙</a>
+                    <a class="lnk<?php echo $this->module == 'company' ? ' on' : ''; ?>" href="<?php echo $this->baseUrl('user/index/search'); ?>">沙龙</a>
                 </li>
                 <li>
-                    <a class="lnk<?php echo $module == 'goods' ? ' on' : ''; ?>" href="<?php echo $this->baseUrl('goods/index/search'); ?>">商品</a>
+                    <a class="lnk<?php echo $this->module == 'goods' ? ' on' : ''; ?>" href="<?php echo $this->baseUrl('goods/index/search'); ?>">商品</a>
                 </li>
                 <li>
-                    <a class="lnk<?php echo $module == 'reservation' ? ' on' : ''; ?>" href="#">预约</a>
+                    <a class="lnk<?php echo $this->module == 'reservation' ? ' on' : ''; ?>" href="#">预约</a>
                 </li>
                 <li>
-                    <a class="lnk<?php echo $module == 'order' ? ' on' : ''; ?>" href="<?php echo $this->baseUrl('order/index/search'); ?>">订单</a>
+                    <a class="lnk<?php echo $this->module == 'order' ? ' on' : ''; ?>" href="<?php echo $this->baseUrl('order/index/search'); ?>">订单</a>
                 </li>
                 <li>
-                    <a class="lnk<?php echo $module == 'system' ? ' on' : ''; ?>" href="#">系统</a>
+                    <a class="lnk<?php echo $this->module == 'system' ? ' on' : ''; ?>" href="#">系统</a>
                 </li>
                 <li class="right">
-                    <a class="lnk" href="#">退出</a>
+                    <a class="lnk" href="<?php echo $this->baseUrl('user/auth/signout'); ?>">退出</a>
                 </li>
                 <li class="right">
-                    <a class="lnk" href="#">当前登录：管理员</a>
+                    <a class="lnk" href="javascript:;">当前登录：<?php echo $this->currentUser['Nickname']; ?></a>
                 </li>
             </ul>
         </div>
+        <?php endif; ?>
     </div>
 </div>

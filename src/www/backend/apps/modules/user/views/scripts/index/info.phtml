@@ -8,24 +8,24 @@ use \Welfony\Utility\Util;
                 <label class="lab">角色：</label>
                 <div class="ipt">
                     <select name="user_role" class="u-sel">
-                        <option value="1">超级管理员</option>
-                        <option value="2">沙龙管理员</option>
-                        <option value="3">发型师</option>
-                        <option value="4">普通用户</option>
+                        <option value="1"<?php echo $this->userInfo['Role'] == 1 ? ' selected' : ''; ?>>超级管理员</option>
+                        <option value="2"<?php echo $this->userInfo['Role'] == 2 ? ' selected' : ''; ?>>沙龙管理员</option>
+                        <option value="3"<?php echo $this->userInfo['Role'] == 3 ? ' selected' : ''; ?>>发型师</option>
+                        <option value="4"<?php echo $this->userInfo['Role'] == 4 ? ' selected' : ''; ?>>普通用户</option>
                     </select>
                 </div>
             </div>
             <div class="formitm">
                 <label class="lab">账号：</label>
                 <div class="ipt">
-                    <input name="username" type="text" value="<?php echo $this->userInfo['Username']; ?>" class="u-ipt"/>
-                    <p>6~8个字符，包括字母，数字，下划线以字母开头，字母或数字结尾</p>
+                    <input name="username" type="text" value="<?php echo $this->userInfo['Username']; ?>" datatype="s4-12" errormsg="账号至少4个字符，最多12个字符！" class="u-ipt"/>
+                    <p>6~2个字符，包括字母，数字，下划线以字母开头，字母或数字结尾</p>
                 </div>
             </div>
             <div class="formitm">
                 <label class="lab">昵称：</label>
                 <div class="ipt">
-                    <input name="nickname" type="text" value="<?php echo $this->userInfo['Nickname']; ?>" datatype="s6-8" errormsg="昵称至少6个字符，最多8个字符！" class="u-ipt"/>
+                    <input name="nickname" type="text" value="<?php echo $this->userInfo['Nickname']; ?>" datatype="s2-12" errormsg="昵称至少2个字符，最多12个字符！" class="u-ipt"/>
                 </div>
             </div>
             <div class="formitm">
@@ -45,13 +45,13 @@ use \Welfony\Utility\Util;
             <div class="formitm">
                 <label class="lab">邮箱：</label>
                 <div class="ipt">
-                    <input name="email" type="text" datatype="e" value="<?php echo $this->userInfo['Email']; ?>" class="u-ipt"/>
+                    <input name="email" type="text" datatype="e" ignore="ignore" value="<?php echo $this->userInfo['Email']; ?>" class="u-ipt"/>
                 </div>
             </div>
             <div class="formitm">
                 <label class="lab">手机：</label>
                 <div class="ipt">
-                    <input name="mobile" type="text" datatype="m" value="<?php echo $this->userInfo['Mobile']; ?>" class="u-ipt"/>
+                    <input name="mobile" type="text" datatype="m" ignore="ignore" value="<?php echo $this->userInfo['Mobile']; ?>" class="u-ipt"/>
                 </div>
             </div>
             <div class="formitm">

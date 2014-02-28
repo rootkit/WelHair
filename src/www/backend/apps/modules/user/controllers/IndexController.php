@@ -1,25 +1,48 @@
 <?php
 
+// ==============================================================================
+//
+// This file is part of the WelStory.
+//
+// Create by Welfony Support <support@welfony.com>
+// Copyright (c) 2012-2014 welfony.com
+//
+// For the full copyright and license information, please view the LICENSE
+// file that was distributed with this source code.
+//
+// ==============================================================================
+
+use Welfony\Controller\Base\AbstractAdminController;
+use Welfony\Core\Enum\UserRole;
 use Welfony\Service\UserService;
 use Welfony\Utility\Util;
 
-class User_IndexController extends Zend_Controller_Action
+class User_IndexController extends AbstractAdminController
 {
 
     public function searchAction()
     {
+        static $pageSize = 1;
+
         $this->view->pageTitle = '会员列表';
+
+        $page = intval($this->_request->getParam('page'));
+        $searchResult = UserService::listAllUsers($page, $pageSize);
+
+        $this->view->dataList = $searchResult['users'];
+        $this->view->pager = $this->renderPager($this->view->baseUrl('user/index/search?s='),
+                                                $page,
+                                                ceil($searchResult['total'] / $pageSize));
     }
 
     public function infoAction()
     {
         $this->view->pageTitle = '会员信息';
 
-        $userId = intval($this->_request->getParam('user_id'));
-
         $user = array(
-            'UserId' => 0,
+            'UserId' => intval($this->_request->getParam('user_id')),
             'Username' => Util::genRandomUsername(),
+            'Role' => UserRole::Client,
             'Nickname' => '',
             'Email' => '',
             'Mobile' => '',
@@ -36,6 +59,11 @@ class User_IndexController extends Zend_Controller_Action
             $mobile = htmlspecialchars($this->_request->getParam('mobile'));
             $avatarUrl = $this->_request->getParam('avatar_url');
 
+            if ($password != $passwordRepeate) {
+                echo '两次密码输入不一致！';
+                return;
+            }
+
             $user['Username'] = $username;
             $user['Role'] = $userRole;
             $user['Password'] = $password;
@@ -46,17 +74,20 @@ class User_IndexController extends Zend_Controller_Action
 
             $result = UserService::save($user);
             if ($result['success']) {
-
+                echo '保存用户成功！';
             } else {
-
+                echo $result['message'];
             }
         } else {
-            if ($userId > 0) {
+            if ($user['UserId'] > 0) {
+                $user = UserService::getUserById($user['UserId']);
+                if (!$user) {
 
-            } else {
-                $user['AvatarOriginalUrl'] = '';
-                $user['AvatarThumb110Url'] = '';
+                }
             }
+
+            $user['AvatarOriginalUrl'] = '';
+            $user['AvatarThumb110Url'] = '';
         }
 
         $this->view->userInfo = $user;

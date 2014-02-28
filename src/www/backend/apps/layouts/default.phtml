@@ -31,10 +31,23 @@ $this->headScript()
         ?>
     </head>
     <body>
-        <?php echo $this->partial('header.phtml'); ?>
+        <?php
+        echo $this->partial('header.phtml', array(
+            'module' => $this->module,
+            'config' => $this->config,
+            'currentUser' => $this->currentUser));
+        ?>
         <div class="container clearfix">
+            <?php if ($this->currentUser): ?>
             <div class="sidebar">
-                <?php echo $this->partial('shared/sidebar.phtml'); ?>
+                <?php
+                echo $this->partial('shared/sidebar.phtml', array(
+                    'module' => $this->module,
+                    'controller' => $this->controller,
+                    'action' => $this->action,
+                    'config' => $this->config,
+                    'currentUser' => $this->currentUser));
+                ?>
             </div>
             <div class="content">
                 <div class="content-inner">
@@ -48,6 +61,9 @@ $this->headScript()
                     </div>
                 </div>
             </div>
+            <?php else: ?>
+            <?php echo $this->layout()->content; ?>
+            <?php endif; ?>
         </div>
         <?php echo $this->partial('footer.phtml'); ?>
     </body>

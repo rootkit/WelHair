@@ -57,7 +57,7 @@ class Util
 
     public static function genRandomUsername($prefix = 'wh')
     {
-        static $nicknameFormat = '%s-%s';
+        static $nicknameFormat = '%s%s';
         return sprintf($nicknameFormat, $prefix, strtolower(self::genRandomNum(8)));
     }
 

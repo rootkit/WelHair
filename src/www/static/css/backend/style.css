@@ -8,6 +8,10 @@
  * file that was distributed with this source code.
 */
 
+a {
+    color: #999;
+}
+
 .container {
     position: relative;
     overflow: hidden;

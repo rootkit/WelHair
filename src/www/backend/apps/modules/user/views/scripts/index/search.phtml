@@ -1,3 +1,6 @@
+<?php
+use Welfony\Utility\Converter;
+?>
 <div class="toolbar">
     <ul class="clearfix">
         <li>
@@ -17,97 +20,33 @@
 <table class="m-table">
     <thead>
         <tr>
-            <th class="col-chk"><input type="checkbox" /></th>
-            <th class="cola">订单号</th>
-            <th>详情</th>
-            <th class="cola">收货人</th>
-            <th class="cola">状态</th>
-            <th class="colb">下单日期</th>
+            <th class="col-chk"><input id="chk_all" type="checkbox" /></th>
+            <th class="cola">账号</th>
+            <th class="cola">角色</th>
+            <th>昵称</th>
+            <th>邮箱</th>
+            <th>手机</th>
+            <th>创建时间</th>
         </tr>
     </thead>
     <tbody>
+        <?php foreach ($this->dataList as $data): ?>
         <tr>
-            <td class="col-center"><input type="checkbox" /></td>
-            <td>内容</td>
-            <td>内容内容内容内容内容内容内容</td>
-            <td>内容内容</td>
-            <td>内容内容</td>
-            <td>内容内容内容</td>
+            <td class="col-center"><input name="chk_ids" type="checkbox" /></td>
+            <td class="cola">
+                <a href="<?php echo $this->baseUrl('user/index/info?user_id=' . $data['UserId']); ?>">
+                    <?php echo $data['Username']; ?>
+                </a>
+            </td>
+            <td class="cola">
+                <?php echo Converter::userRoleFromEnumToString($data['Role']); ?>
+            </td>
+            <td><?php echo $data['Nickname']; ?></td>
+            <td><?php echo $data['Email']; ?></td>
+            <td><?php echo $data['Mobile']; ?></td>
+            <td><?php echo $data['CreatedDate']; ?></td>
         </tr>
-        <tr>
-            <td class="col-center"><input type="checkbox" /></td>
-            <td>内容</td>
-            <td>内容内容内容内容内容内容内容</td>
-            <td>内容内容</td>
-            <td>内容内容</td>
-            <td>内容内容内容</td>
-        </tr>
-        <tr>
-            <td class="col-center"><input type="checkbox" /></td>
-            <td>内容</td>
-            <td>内容内容内容内容内容内容内容</td>
-            <td>内容内容</td>
-            <td>内容内容</td>
-            <td>内容内容内容</td>
-        </tr>
-        <tr>
-            <td class="col-center"><input type="checkbox" /></td>
-            <td>内容</td>
-            <td>内容内容内容内容内容内容内容</td>
-            <td>内容内容</td>
-            <td>内容内容</td>
-            <td>内容内容内容</td>
-        </tr>
-        <tr>
-            <td class="col-center"><input type="checkbox" /></td>
-            <td>内容</td>
-            <td>内容内容内容内容内容内容内容</td>
-            <td>内容内容</td>
-            <td>内容内容</td>
-            <td>内容内容内容</td>
-        </tr>
-        <tr>
-            <td class="col-center"><input type="checkbox" /></td>
-            <td>内容</td>
-            <td>内容内容内容内容内容内容内容</td>
-            <td>内容内容</td>
-            <td>内容内容</td>
-            <td>内容内容内容</td>
-        </tr>
-        <tr>
-            <td class="col-center"><input type="checkbox" /></td>
-            <td>内容</td>
-            <td>内容内容内容内容内容内容内容</td>
-            <td>内容内容</td>
-            <td>内容内容</td>
-            <td>内容内容内容</td>
-        </tr>
-        <tr>
-            <td class="col-center"><input type="checkbox" /></td>
-            <td>内容</td>
-            <td>内容内容内容内容内容内容内容</td>
-            <td>内容内容</td>
-            <td>内容内容</td>
-            <td>内容内容内容</td>
-        </tr>
-        <tr>
-            <td class="col-center"><input type="checkbox" /></td>
-            <td>内容</td>
-            <td>内容内容内容内容内容内容内容</td>
-            <td>内容内容</td>
-            <td>内容内容</td>
-            <td>内容内容内容</td>
-        </tr>
+        <?php endforeach; ?>
     </tbody>
 </table>
-
-<div class="m-page m-page-rt">
-    <a href="#" class="first pageprv z-dis">上一页</a>
-    <a href="#">1</a>
-    <a href="#" class="z-crt">2</a>
-    <a href="#">3</a>
-    <a href="#">4</a>
-    <i>...</i>
-    <a href="#">10</a>
-    <a href="#" class="last pagenxt">下一页</a>
-</div>
+<?php echo $this->pager; ?>
