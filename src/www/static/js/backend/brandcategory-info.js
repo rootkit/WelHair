@@ -38,6 +38,11 @@ $(function() {
 
           });
 
-        });
+      });
+
+    $('#btnCancel').click(function(){
+        window.location( WF.BACKEND_URL + '/goods/brand/categorysearch');
+        return;
+    });
    
 });

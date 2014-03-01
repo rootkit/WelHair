@@ -25,7 +25,7 @@ class BrandCategoryService
         return  BrandCategoryRepository::getInstance()->findCategoryById( $id);           
       
     }
-   
+    */
     public static function list($pageNumber, $pageSize)
     {
         $result = array(
@@ -46,7 +46,7 @@ class BrandCategoryService
         $result['total'] = $totalCount;
         return $result;
     }
-    */
+    
 
     public static function save($data)
     {
