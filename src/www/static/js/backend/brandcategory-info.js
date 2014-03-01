@@ -11,13 +11,33 @@
 // ==============================================================================
 
 $(function() {
-    $('#btnSubmit').click( function(){
+     $('#frmBrandCategoryInfo').Validform({
+                tiptype: 3
+     });
 
-        if($('#brandcategoryname').val() == '')
-        {
-            WF.showMessage('error', 'required', '请输入分类名称');
-            return;
-        }
-    });
+
+    $( "#frmBrandCategoryInfo" ).submit(function( event ) {
+
+       
+          event.preventDefault();
+
+          var form = $( this );
+
+          var name = $('#brandcategoryname').val();
+          var id = $('#brandcategoryid').val();
+
+          url = form.attr( "action" );
+
+          var posting = $.post( url, { 'name': name, 'brandcategoryid': id} );
+
+
+          posting.done(function( data ) {             
+
+              window.location( WF.BACKEND_URL + '/goods/brand/categorysearch');
+              return;
+
+          });
+
+        });
    
 });

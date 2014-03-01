@@ -1,4 +1,6 @@
 <?php
+use Welfony\Service\BrandCategoryService;
+use Welfony\Utility\Util;
 
 class Goods_BrandController extends Zend_Controller_Action
 {

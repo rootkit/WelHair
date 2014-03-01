@@ -19,7 +19,7 @@ use Welfony\Repository\BrandCategoryRepository;
 class BrandCategoryService
 {
 
-    public static function get($id)
+    /*public static function get($id)
     {
         
         return  BrandCategoryRepository::getInstance()->findCategoryById( $id);           
@@ -46,6 +46,7 @@ class BrandCategoryService
         $result['total'] = $totalCount;
         return $result;
     }
+    */
 
     public static function save($data)
     {
