@@ -2,19 +2,17 @@
 use \Welfony\Utility\Util;
 ?>
 <div class="m-form">
-    <form id="frmBrandCategoryInfo" method="post">
-        <fieldset>
-            <div class="formitm">
-                <label class="lab">分类名称：</label>
-                <div class="ipt">
-                    <input id="brandcategoryname" name="name" type="text" value="<?php echo $this->brandCategoryInfo['Name']; ?>" class="u-ipt"/>
-                </div>
+    <fieldset>
+        <div class="formitm">
+            <label class="lab">分类名称：</label>
+            <div class="ipt">
+                <input id="brandcategoryname" name="name" type="text" value="<?php echo $this->brandCategoryInfo['Name']; ?>" class="u-ipt"/>
             </div>
-             <div class="formitm formitm-1">
-                <input type="hidden" name="brandcategoryid" value="<?php echo intval($this->brandCategoryInfo['BrandCategoryId']); ?>" />
-                <button class="u-btn u-btn-submit" type="button">确定</button>
-            </div>
-        </fieldset>
-    </form>
+        </div>
+         <div class="formitm formitm-1">
+            <input type="hidden" name="brandcategoryid" value="<?php echo intval($this->brandCategoryInfo['BrandCategoryId']); ?>" />
+            <button id="btnSubmit" class="u-btn" type="button">确定</button>
+        </div>
+    </fieldset>
 </div>
 <script src="<?php echo Util::baseAssetUrl('js/backend/brandcategory-info.js'); ?>"></script>

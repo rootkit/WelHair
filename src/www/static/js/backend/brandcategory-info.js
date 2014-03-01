@@ -11,7 +11,7 @@
 // ==============================================================================
 
 $(function() {
-    $('.u-btn-submit').click( function(){
+    $('#btnSubmit').click( function(){
 
         if($('#brandcategoryname').val() == '')
         {
