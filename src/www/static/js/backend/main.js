@@ -11,6 +11,7 @@
 // ==============================================================================
 
 WF = {
+    BACKEND_URL: 'http://welhair.com/admin', // config
     setting: {},
     init: function(setting) {
         this.setting = $.extend(this.setting, setting);

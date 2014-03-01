@@ -3,17 +3,46 @@
 class Goods_BrandController extends Zend_Controller_Action
 {
 
-    public function searchAction()
-    {
-        $this->view->pageTitle = '品牌列表';
-    }
-
     public function categorysearchAction()
     {
         $this->view->pageTitle = '品牌分类列表';
     }
 
-     public function infoAction()
+    public function categoryinfoAction()
+    {
+        
+        $this->view->pageTitle = '品牌分类信息';
+
+        $brandCategoryId = intval($this->_request->getParam('brandcategoryid'));
+
+        $brandCategory = array(
+            'BrandCategoryId' => 0,
+            'Name' => ''
+        );
+
+        if ($this->_request->isPost()) {
+            $name = htmlspecialchars($this->_request->getParam('name'));
+           
+
+            $brandCategory['Name'] = $name;
+
+
+            $result = BrandCategoryService::save($brandCategory);
+            if ($result['success']) {
+
+            } else {
+
+            }
+        } else {
+            if ($brandCategoryId > 0) {
+                $brandCategory = $result = BrandCategoryService::get($brandCategoryId);
+            } 
+        }
+
+        $this->view->brandCategoryInfo = $brandCategory;
+    }
+
+    public function infoAction()
     {
     	/*
         $this->view->pageTitle = '会员信息';
@@ -66,39 +95,9 @@ class Goods_BrandController extends Zend_Controller_Action
         */
     }
 
-    public function categoryinfoAction()
+    public function searchAction()
     {
-    	
-        $this->view->pageTitle = '品牌分类信息';
-
-        $brandCategoryId = intval($this->_request->getParam('brandcategoryid'));
-
-        $brandCategory = array(
-            'BrandCategoryId' => 0
-        );
-
-        if ($this->_request->isPost()) {
-            $name = htmlspecialchars($this->_request->getParam('name'));
-           
-
-            $brandCategory['Name'] = $name;
-
-
-            $result = BrandCategoryService::save($brandCategory);
-            if ($result['success']) {
-
-            } else {
-
-            }
-        } else {
-            if ($brandCategoryId > 0) {
-                $brandCategory = $result = BrandCategoryService::get($brandCategoryId);
-            } 
-        }
-
-        $this->view->brandCategoryInfo = $brandCategory;
+        $this->view->pageTitle = '品牌列表';
     }
-
-
 
 }
