@@ -28,6 +28,8 @@ class BrandCategoryRepository extends AbstractRepository
 
         $row = $this->conn->fetchAssoc($strSql);
 
+        error_log($row['Total']);
+
         return $row['Total'];
     }
 
@@ -45,7 +47,7 @@ class BrandCategoryRepository extends AbstractRepository
     {
 
         $offset = ($pageNumber - 1) * $pageSize;
-        $sql = "SELECT *
+        $strSql = "SELECT *
                 FROM BrandCategory
                       ORDER BY BrandCategoryId
                       LIMIT $offset, $pageSize ";

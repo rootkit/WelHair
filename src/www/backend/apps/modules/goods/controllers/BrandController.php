@@ -7,7 +7,18 @@ class Goods_BrandController extends Zend_Controller_Action
 
     public function categorysearchAction()
     {
+        
         $this->view->pageTitle = '品牌分类列表';
+        $pageSize = 20;
+        $page =  intval($this->_request->getParam('page'));
+
+        $page =  $page<=0? 1 : $page;
+
+        $result = BrandCategoryService::listBrandCategory($page, $pageSize);
+
+        $this->view->rows = $result['brandcategories'];
+
+        $this->view->pagerHTML =  Util::renderPager( '/goods/brand/brandcategorysearch', $page, ceil($result['total'] / $pageSize));
     }
 
     public function categoryinfoAction()
@@ -37,7 +48,7 @@ class Goods_BrandController extends Zend_Controller_Action
             }
         } else {
             if ($brandCategoryId > 0) {
-                $brandCategory = $result = BrandCategoryService::get($brandCategoryId);
+                $brandCategory = BrandCategoryService::get($brandCategoryId);
             } 
         }
 

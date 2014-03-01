@@ -23,21 +23,16 @@
         </tr>
     </thead>
     <tbody>
+        <?php foreach( $this->rows as $brandCategory) : ?>
         <tr>
             <td class="col-center"><input type="checkbox" /></td>
-            <td>内容</td>
-            <td>内容内容内容内容内容内容内容</td>
+            <td><?php echo $brandCategory['Name']; ?></td>
+            <td></td>
         </tr>
+       <?php endforeach; ?>
     </tbody>
 </table>
 
 <div class="m-page m-page-rt">
-    <a href="#" class="first pageprv z-dis">上一页</a>
-    <a href="#">1</a>
-    <a href="#" class="z-crt">2</a>
-    <a href="#">3</a>
-    <a href="#">4</a>
-    <i>...</i>
-    <a href="#">10</a>
-    <a href="#" class="last pagenxt">下一页</a>
+    <?php echo $this->pagerHTML; ?>
 </div>

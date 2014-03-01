@@ -26,7 +26,7 @@ class BrandCategoryService
       
     }
     */
-    public static function list($pageNumber, $pageSize)
+    public static function listBrandCategory( $pageNumber, $pageSize)
     {
         $result = array(
             'brandcategories' => array(),
@@ -35,6 +35,7 @@ class BrandCategoryService
 
         $totalCount = BrandCategoryRepository::getInstance()->getAllBrandCategoryCount();
         
+       error_log($totalCount);
 
         if ($totalCount > 0 && $pageNumber <= ceil($totalCount / $pageSize)) {
             
