@@ -35,10 +35,10 @@ class UserService
             return $result;
         }
 
-        // if ($user['Password'] != PassHash::hash($password)) {
-        //     $result['message'] = '密码不正确！';
-        //     return $result;
-        // }
+        if (!PassHash::verify($password, $user['Password'])) {
+            $result['message'] = '密码不正确！';
+            return $result;
+        }
 
         $result['success'] = true;
         $result['user'] = $user;

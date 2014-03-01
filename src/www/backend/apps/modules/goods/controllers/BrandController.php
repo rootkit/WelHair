@@ -1,14 +1,28 @@
 <?php
+
+// ==============================================================================
+//
+// This file is part of the WelStory.
+//
+// Create by Welfony Support <support@welfony.com>
+// Copyright (c) 2012-2014 welfony.com
+//
+// For the full copyright and license information, please view the LICENSE
+// file that was distributed with this source code.
+//
+// ==============================================================================
+
+use Welfony\Controller\Base\AbstractAdminController;
 use Welfony\Service\BrandCategoryService;
 use Welfony\Service\BrandService;
 use Welfony\Utility\Util;
 
-class Goods_BrandController extends Zend_Controller_Action
+class Goods_BrandController extends AbstractAdminController
 {
 
     public function categorysearchAction()
     {
-        
+
         $this->view->pageTitle = '品牌分类列表';
         $pageSize = 20;
         $page =  intval($this->_request->getParam('page'));
@@ -19,12 +33,14 @@ class Goods_BrandController extends Zend_Controller_Action
 
         $this->view->rows = $result['brandcategories'];
 
-        $this->view->pagerHTML =  Util::renderPager( '/goods/brand/brandcategorysearch', $page, ceil($result['total'] / $pageSize));
+        $this->view->pagerHTML =  $this->renderPager('/goods/brand/brandcategorysearch',
+                                                     $page,
+                                                     ceil($result['total'] / $pageSize));
     }
 
     public function categoryinfoAction()
     {
-        
+
         $this->view->pageTitle = '品牌分类信息';
 
         $brandCategoryId = intval($this->_request->getParam('brandcategoryid'));
@@ -36,7 +52,7 @@ class Goods_BrandController extends Zend_Controller_Action
 
         if ($this->_request->isPost()) {
             $name = htmlspecialchars($this->_request->getParam('name'));
-           
+
 
             $brandCategory['Name'] = $name;
 
@@ -50,7 +66,7 @@ class Goods_BrandController extends Zend_Controller_Action
         } else {
             if ($brandCategoryId > 0) {
                 $brandCategory = BrandCategoryService::get($brandCategoryId);
-            } 
+            }
         }
 
         $this->view->brandCategoryInfo = $brandCategory;
@@ -122,7 +138,9 @@ class Goods_BrandController extends Zend_Controller_Action
 
         $this->view->rows = $result['brands'];
 
-        $this->view->pagerHTML =  Util::renderPager( '/goods/brand/brandsearch', $page, ceil($result['total'] / $pageSize));
+        $this->view->pagerHTML = $this->renderPager('/goods/brand/brandsearch',
+                                                    $page,
+                                                    ceil($result['total'] / $pageSize));
     }
 
 }

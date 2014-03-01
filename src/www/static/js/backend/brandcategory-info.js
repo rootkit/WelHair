@@ -18,7 +18,7 @@ $(function() {
 
     $( "#frmBrandCategoryInfo" ).submit(function( event ) {
 
-       
+
           event.preventDefault();
 
           var form = $( this );
@@ -31,9 +31,9 @@ $(function() {
           var posting = $.post( url, { 'name': name, 'brandcategoryid': id} );
 
 
-          posting.done(function( data ) {             
+          posting.done(function( data ) {
 
-              window.location( WF.BACKEND_URL + '/goods/brand/categorysearch');
+              window.location = globalSetting.baseUrl + '/goods/brand/categorysearch';
               return;
 
           });
@@ -41,8 +41,8 @@ $(function() {
       });
 
     $('#btnCancel').click(function(){
-        window.location( WF.BACKEND_URL + '/goods/brand/categorysearch');
+        window.location = globalSetting.baseUrl + '/goods/brand/categorysearch';
         return;
     });
-   
+
 });
