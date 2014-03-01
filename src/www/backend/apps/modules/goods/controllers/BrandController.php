@@ -1,5 +1,6 @@
 <?php
 use Welfony\Service\BrandCategoryService;
+use Welfony\Service\BrandService;
 use Welfony\Utility\Util;
 
 class Goods_BrandController extends Zend_Controller_Action
@@ -111,6 +112,17 @@ class Goods_BrandController extends Zend_Controller_Action
     public function searchAction()
     {
         $this->view->pageTitle = '品牌列表';
+
+        $pageSize = 20;
+        $page =  intval($this->_request->getParam('page'));
+
+        $page =  $page<=0? 1 : $page;
+
+        $result = BrandService::listBrand($page, $pageSize);
+
+        $this->view->rows = $result['brands'];
+
+        $this->view->pagerHTML =  Util::renderPager( '/goods/brand/brandsearch', $page, ceil($result['total'] / $pageSize));
     }
 
 }

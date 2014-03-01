@@ -19,11 +19,11 @@ use Welfony\Repository\Base\AbstractRepository;
 class BrandRepository extends AbstractRepository
 {
 
-    public function getAllUsersCount()
+    public function getAllBrandCount()
     {
         $strSql = "SELECT
                        COUNT(1) `Total`
-                   FROM Users
+                   FROM Brand
                    LIMIT 1";
 
         $row = $this->conn->fetchAssoc($strSql);
@@ -31,32 +31,43 @@ class BrandRepository extends AbstractRepository
         return $row['Total'];
     }
 
-    public function findUserByEmail($email)
+    public function getAllBrand()
     {
         $strSql = 'SELECT
                        *
-                   FROM Users U
-                   WHERE U.Email = ?
-                   LIMIT 1';
+                   FROM Brand
+                  ';
 
-        return $this->conn->fetchAssoc($strSql, array($email));
+        return $this->conn->fetchAll($strSql);
     }
 
-    public function findUserByMobile($mobile)
+    public function listBrand( $pageNumber, $pageSize )
+    {
+
+        $offset = ($pageNumber - 1) * $pageSize;
+        $strSql = "SELECT *
+                FROM Brand
+                      ORDER BY BrandId
+                      LIMIT $offset, $pageSize ";
+        return $this->conn->fetchAll($strSql);
+
+    }
+
+    public function findBrandById($id)
     {
         $strSql = 'SELECT
                        *
-                   FROM Users U
-                   WHERE U.Mobile = ?
+                   FROM Brand
+                   WHERE BC.BrandId = ?
                    LIMIT 1';
 
-        return $this->conn->fetchAssoc($strSql, array($mobile));
+        return $this->conn->fetchAssoc($strSql, array($id));
     }
 
     public function save($data)
     {
         try {
-            if ($this->conn->insert('Users', $data)) {
+            if ($this->conn->insert('Brand', $data)) {
                 return $this->conn->lastInsertId();
             }
         } catch (\Exception $e) {
@@ -67,14 +78,23 @@ class BrandRepository extends AbstractRepository
         return false;
     }
 
-    public function update($userId, $data)
+    public function update($brandId, $data)
     {
         try {
-            return $this->conn->update('Users', $data, array('UserId' => $userId));
+            return $this->conn->update('Brand', $data, array('BrandId' => $brandId));
         } catch (\Exception $e) {
             $this->logger->log($e, \Zend_Log::ERR);
             return false;
         }
     }
 
+    public function delete($brandId)
+    {
+        try {
+            return $this->conn->executeUpdate(" DELETE FROM Brand WHERE BrandId  = $brandId; ");
+        } catch (\Exception $e) {
+            $this->logger->log($e, \Zend_Log::ERR);
+            return false;
+        }
+    }
 }
