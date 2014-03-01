@@ -28,8 +28,6 @@ class BrandCategoryRepository extends AbstractRepository
 
         $row = $this->conn->fetchAssoc($strSql);
 
-        error_log($row['Total']);
-
         return $row['Total'];
     }
 
@@ -40,7 +38,7 @@ class BrandCategoryRepository extends AbstractRepository
                    FROM BrandCategory
                   ';
 
-        return $this->conn->fetchAssoc($strSql);
+        return $this->conn->fetchAll($strSql);
     }
 
     public function listBrandCategory( $pageNumber, $pageSize )
@@ -51,8 +49,7 @@ class BrandCategoryRepository extends AbstractRepository
                 FROM BrandCategory
                       ORDER BY BrandCategoryId
                       LIMIT $offset, $pageSize ";
-
-        return $this->conn->fetchAssoc($strSql);
+        return $this->conn->fetchAll($strSql);
 
     }
 

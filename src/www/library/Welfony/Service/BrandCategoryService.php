@@ -35,7 +35,6 @@ class BrandCategoryService
 
         $totalCount = BrandCategoryRepository::getInstance()->getAllBrandCategoryCount();
         
-       error_log($totalCount);
 
         if ($totalCount > 0 && $pageNumber <= ceil($totalCount / $pageSize)) {
             
