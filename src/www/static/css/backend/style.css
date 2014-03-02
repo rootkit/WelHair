@@ -114,6 +114,10 @@ a {
     text-indent: 20px;
 }
 
+.sidebar .lists li.sub-menu a {
+    text-indent: 30px;
+}
+
 .content {
     float: right;
     width: 100%;

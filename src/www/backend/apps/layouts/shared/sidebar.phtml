@@ -52,35 +52,75 @@
     <?php endif; ?>
 
     <?php if ($this->module == 'goods'): ?>
-    <ul class="submenu">
+    <ul class="lists">
         <li>
-            <span>商品管理</span>
-            <ul name="menu">
-                <li><a href="<?php echo $this->baseUrl('goods/index/search'); ?>">商品列表</a></li>
-                <li class="selected"><a href="<?php echo $this->baseUrl('goods/index/info'); ?>">商品添加</a></li>
-            </ul>
+            <a href="<?php echo $this->baseUrl('goods/index/search'); ?>">商品管理</a>
         </li>
+        <?php if ($this->controller == 'index'): ?>
+        <li class="sub-menu<?php echo $this->action == 'search' ? ' active' : ''; ?>">
+            <a href="<?php echo $this->baseUrl('goods/index/search'); ?>">
+                <i class="iconfont">&#x344a;</i>
+                商品列表
+            </a>
+        </li>
+        <li class="sub-menu">
+            <a href="<?php echo $this->baseUrl('goods/index/info'); ?>">
+                <i class="iconfont">&#xf0175;</i>
+                商品添加
+            </a>
+        </li>
+        <?php endif; ?>
         <li>
-            <span>商品分类</span>
-            <ul name="menu">
-                <li><a href="<?php echo $this->baseUrl('goods/category/search'); ?>">分类列表</a></li>
-                <li><a href="<?php echo $this->baseUrl('goods/category/info'); ?>">添加分类</a></li>
-            </ul>
+            <a href="<?php echo $this->baseUrl('goods/category/search'); ?>">商品分类</a>
         </li>
+        <?php if ($this->controller == 'category'): ?>
+        <li class="sub-menu">
+            <a href="<?php echo $this->baseUrl('goods/category/search'); ?>">
+                <i class="iconfont">&#x344a;</i>
+                分类列表
+            </a>
+        </li>
+        <li class="sub-menu">
+            <a href="<?php echo $this->baseUrl('goods/category/info'); ?>">
+                <i class="iconfont">&#xf0175;</i>
+                添加分类
+            </a>
+        </li>
+        <?php endif; ?>
         <li>
-            <span>品牌</span>
-            <ul name="menu">
-                <li><a href="<?php echo $this->baseUrl('goods/brand/categorysearch'); ?>">品牌分类</a></li>
-                <li><a href="<?php echo $this->baseUrl('goods/brand/search'); ?>">品牌列表</a></li>
-            </ul>
+            <a href="<?php echo $this->baseUrl('goods/brand/categorysearch'); ?>">品牌</a>
         </li>
+        <?php if ($this->controller == 'brand'): ?>
+        <li class="sub-menu">
+            <a href="<?php echo $this->baseUrl('goods/brand/categorysearch'); ?>">
+                <i class="iconfont">&#x344a;</i>
+                品牌分类
+            </a>
+        </li>
+        <li class="sub-menu">
+            <a href="<?php echo $this->baseUrl('goods/brand/search'); ?>">
+                <i class="iconfont">&#x344a;</i>
+                品牌列表
+            </a>
+        </li>
+        <?php endif; ?>
         <li>
-            <span>模型</span>
-            <ul name="menu">
-                <li><a href="<?php echo $this->baseUrl('goods/model/search'); ?>">模型列表</a></li>
-                <li><a href="<?php echo $this->baseUrl('goods/spec/search'); ?>">规格列表</a></li>
-            </ul>
+            <a href="<?php echo $this->baseUrl('goods/model/search'); ?>">模型</a>
         </li>
+        <?php if ($this->controller == 'model'): ?>
+        <li class="sub-menu">
+            <a href="<?php echo $this->baseUrl('goods/model/search'); ?>">
+                <i class="iconfont">&#x344a;</i>
+                模型列表
+            </a>
+        </li>
+        <li class="sub-menu">
+            <a href="<?php echo $this->baseUrl('goods/spec/search'); ?>">
+                <i class="iconfont">&#x344a;</i>
+                规格列表
+            </a>
+        </li>
+        <?php endif; ?>
     </ul>
     <?php endif; ?>
 <?php endif; ?>
