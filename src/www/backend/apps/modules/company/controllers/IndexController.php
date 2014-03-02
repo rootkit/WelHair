@@ -14,6 +14,7 @@
 
 use Guzzle\Http\Client;
 use Welfony\Controller\Base\AbstractAdminController;
+use Welfony\Service\AreaService;
 
 class Company_IndexController extends AbstractAdminController
 {
@@ -48,6 +49,8 @@ class Company_IndexController extends AbstractAdminController
             var_dump(json_decode($responseString));
             die();
         }
+
+        $this->view->provinceList = AreaService::listAreaByParent(0);
     }
 
     public function authenticationAction()

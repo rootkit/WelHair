@@ -12,6 +12,8 @@
 //
 // ==============================================================================
 
+@header('Content-type:text/html;charset=UTF-8');
+session_cache_limiter('private, must-revalidate');
 
 defined('APP_ENV') || define('APP_ENV', (getenv('APP_ENV') ? getenv('APP_ENV') : 'development'));
 
