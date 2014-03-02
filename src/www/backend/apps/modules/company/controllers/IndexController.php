@@ -12,6 +12,7 @@
 //
 // ==============================================================================
 
+use Guzzle\Http\Client;
 use Welfony\Controller\Base\AbstractAdminController;
 
 class Company_IndexController extends AbstractAdminController
@@ -27,6 +28,26 @@ class Company_IndexController extends AbstractAdminController
     public function infoAction()
     {
         $this->view->pageTitle = '沙龙信息';
+
+        if ($this->_request->isPost()) {
+            $latitude = doubleval($this->_request->getParam('latitude'));
+            $longitude = doubleval($this->_request->getParam('longitude'));
+
+            $client = new Client($this->config->map->baidu->base_url);
+
+            $responseString = $client->post('poi/create', array(), array(
+                'ak' => $this->config->map->baidu->ak,
+                'title' => '欣欣沙龙',
+                'address' => '上海路1号',
+                'latitude' => $latitude,
+                'longitude' => $longitude,
+                'coord_type' => 3,
+                'geotable_id' => $this->config->map->baidu->geotable_id
+            ))->send()->getBody();
+
+            var_dump(json_decode($responseString));
+            die();
+        }
     }
 
     public function authenticationAction()

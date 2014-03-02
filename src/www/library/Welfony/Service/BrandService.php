@@ -21,12 +21,11 @@ class BrandService
 
     /*public static function get($id)
     {
-        
-        return  BrandCategoryRepository::getInstance()->findCategoryById( $id);           
-      
+        return  BrandCategoryRepository::getInstance()->findCategoryById( $id);
+
     }
     */
-    public static function listBrand( $pageNumber, $pageSize)
+    public static function listBrand($pageNumber, $pageSize)
     {
         $result = array(
             'brands' => array(),
@@ -34,24 +33,22 @@ class BrandService
         );
 
         $totalCount = BrandRepository::getInstance()->getAllBrandCount();
-        
 
         if ($totalCount > 0 && $pageNumber <= ceil($totalCount / $pageSize)) {
-            
+
             $searchResult = BrandRepository::getInstance()->listBrand( $pageNumber, $pageSize);
-           
+
             $result['brands']= $searchResult;
         }
 
         $result['total'] = $totalCount;
+
         return $result;
     }
-    
 
     public static function save($data)
     {
         $result = array('success' => false, 'message' => '');
-
 
         if ($data['BrandId'] == 0) {
 
@@ -65,6 +62,7 @@ class BrandService
                 return $result;
             } else {
                 $result['message'] = '添加品牌失败！';
+
                 return $result;
             }
         } else {
@@ -78,8 +76,10 @@ class BrandService
                 return $result;
             } else {
                 $result['message'] = '更新品牌失败！';
+
                 return $result;
             }
+
             return true;
         }
     }

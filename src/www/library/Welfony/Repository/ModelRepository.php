@@ -61,6 +61,7 @@ class ModelRepository extends AbstractRepository
             }
         } catch (\Exception $e) {
             $this->logger->log($e, \Zend_Log::ERR);
+
             return false;
         }
 
@@ -73,6 +74,7 @@ class ModelRepository extends AbstractRepository
             return $this->conn->update('Users', $data, array('UserId' => $userId));
         } catch (\Exception $e) {
             $this->logger->log($e, \Zend_Log::ERR);
+
             return false;
         }
     }

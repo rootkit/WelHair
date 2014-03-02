@@ -52,6 +52,7 @@ abstract class Enum
     public static function value($key)
     {
         $values = self::values();
+
         return $values[$key];
     }
 

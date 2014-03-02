@@ -41,7 +41,7 @@ class BrandCategoryRepository extends AbstractRepository
         return $this->conn->fetchAll($strSql);
     }
 
-    public function listBrandCategory( $pageNumber, $pageSize )
+    public function listBrandCategory($pageNumber, $pageSize)
     {
 
         $offset = ($pageNumber - 1) * $pageSize;
@@ -49,6 +49,7 @@ class BrandCategoryRepository extends AbstractRepository
                 FROM BrandCategory
                       ORDER BY BrandCategoryId
                       LIMIT $offset, $pageSize ";
+
         return $this->conn->fetchAll($strSql);
 
     }
@@ -72,6 +73,7 @@ class BrandCategoryRepository extends AbstractRepository
             }
         } catch (\Exception $e) {
             $this->logger->log($e, \Zend_Log::ERR);
+
             return false;
         }
 
@@ -84,6 +86,7 @@ class BrandCategoryRepository extends AbstractRepository
             return $this->conn->update('BrandCategory', $data, array('BrandCategoryId' => $brandCategoryId));
         } catch (\Exception $e) {
             $this->logger->log($e, \Zend_Log::ERR);
+
             return false;
         }
     }
@@ -94,6 +97,7 @@ class BrandCategoryRepository extends AbstractRepository
             return $this->conn->executeUpdate(" DELETE FROM BrandCategory WHERE BrandCategoryId  = $brandCategoryId; ");
         } catch (\Exception $e) {
             $this->logger->log($e, \Zend_Log::ERR);
+
             return false;
         }
     }

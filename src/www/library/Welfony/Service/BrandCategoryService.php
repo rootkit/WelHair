@@ -21,12 +21,11 @@ class BrandCategoryService
 
     /*public static function get($id)
     {
-        
-        return  BrandCategoryRepository::getInstance()->findCategoryById( $id);           
-      
+        return  BrandCategoryRepository::getInstance()->findCategoryById( $id);
+
     }
     */
-    public static function listBrandCategory( $pageNumber, $pageSize)
+    public static function listBrandCategory($pageNumber, $pageSize)
     {
         $result = array(
             'brandcategories' => array(),
@@ -34,24 +33,22 @@ class BrandCategoryService
         );
 
         $totalCount = BrandCategoryRepository::getInstance()->getAllBrandCategoryCount();
-        
 
         if ($totalCount > 0 && $pageNumber <= ceil($totalCount / $pageSize)) {
-            
+
             $searchResult = BrandCategoryRepository::getInstance()->listBrandCategory( $pageNumber, $pageSize);
-           
+
             $result['brandcategories']= $searchResult;
         }
 
         $result['total'] = $totalCount;
+
         return $result;
     }
-    
 
     public static function save($data)
     {
         $result = array('success' => false, 'message' => '');
-
 
         if ($data['BrandCategoryId'] == 0) {
 
@@ -65,6 +62,7 @@ class BrandCategoryService
                 return $result;
             } else {
                 $result['message'] = '添加品牌分类失败！';
+
                 return $result;
             }
         } else {
@@ -78,8 +76,10 @@ class BrandCategoryService
                 return $result;
             } else {
                 $result['message'] = '更新品牌分类失败！';
+
                 return $result;
             }
+
             return true;
         }
     }

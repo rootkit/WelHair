@@ -50,6 +50,11 @@ $(function() {
                 WF.showMessage('info', '信息', '没有找到您所输入的区域信息');
             } else {
                  marker.hide();
+
+                 var poi = results.getPoi(0);
+                 if (poi) {
+                    setMapResult(poi.point.lng, poi.point.lat);
+                 }
              }
         });
         local.setMarkersSetCallback(function(pois) {
@@ -69,6 +74,7 @@ $(function() {
             local.search(document.getElementById('map-search-input').value);
         };
         document.getElementById('map-search-input').onkeyup = function(e) {
+            console.log('a');
             var me = this;
             e = e || window.event;
             var keycode = e.keyCode;
@@ -79,7 +85,8 @@ $(function() {
     }
 
     function setMapResult(lng, lat) {
-
+        document.getElementById('latitude').value = lat;
+        document.getElementById('longitude').value = lng;
     }
 
     initMap();

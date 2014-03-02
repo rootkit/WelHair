@@ -35,7 +35,7 @@ class AbstractAPIController
     {
         $reqBody = $this->app->request->getBody();
         $arrData = json_decode($reqBody, true);
-        if($arrData === null) {
+        if ($arrData === null) {
             $this->app->response->setStatus(400);
             $this->sendResponse(array('message' => 'Problems parsing JSON'));
         }

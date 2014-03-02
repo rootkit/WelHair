@@ -15,7 +15,6 @@
 namespace Welfony\Controller\API;
 
 use Welfony\Controller\Base\AbstractAPIController;
-use Welfony\Service\UserService;
 
 class UserController extends AbstractAPIController
 {
