@@ -91,4 +91,13 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         Zend_Registry::set('Zend_Translate', $translate);
     }
 
+    protected function _initRouter()
+    {
+
+
+        $front = Zend_Controller_Front::getInstance();
+        $router = $front->getRouter();
+   
+    }
+
 }

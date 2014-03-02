@@ -24,10 +24,8 @@ class Goods_BrandController extends AbstractAdminController
     {
 
         $this->view->pageTitle = '品牌分类列表';
-        $pageSize = 1;
+        $pageSize = 10;
         $page =  intval($this->_request->getParam('page'));
-
-        error_log($page);
 
         $page =  $page<=0? 1 : $page;
 
@@ -35,7 +33,7 @@ class Goods_BrandController extends AbstractAdminController
 
         $this->view->rows = $result['brandcategories'];
 
-        $this->view->pagerHTML =  $this->renderPager('/goods/brand/brandcategorysearch?',
+        $this->view->pagerHTML =  $this->renderPager($this->view->baseUrl('/goods/brand/categorysearch?'),
                                                      $page,
                                                      ceil($result['total'] / $pageSize));
     }
@@ -140,7 +138,7 @@ class Goods_BrandController extends AbstractAdminController
 
         $this->view->rows = $result['brands'];
 
-        $this->view->pagerHTML = $this->renderPager('/goods/brand/brandsearch',
+        $this->view->pagerHTML = $this->renderPager($this->view->baseUrl('/goods/brand/brandsearch'),
                                                     $page,
                                                     ceil($result['total'] / $pageSize));
     }
