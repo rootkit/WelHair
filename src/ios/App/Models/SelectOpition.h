@@ -9,13 +9,12 @@
 #import <Foundation/Foundation.h>
 #import "OpitionCategory.h"
 
-@interface SelectOpitions : NSObject
+@interface SelectOpition : NSObject
 
 @property (nonatomic, strong) NSArray *opitionCateogries;
-
+@property (nonatomic, strong) NSArray *selectedValues;
 @property (nonatomic) float count;
 
-- (BOOL) isValid;
+- (NSArray *) unselectedCategory;
 
-- (NSArray *)selectedValue;
 @end

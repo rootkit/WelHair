@@ -6,8 +6,26 @@
 //  Copyright (c) 2014 Welfony. All rights reserved.
 //
 
-#import "SelectOpitions.h"
+#import "SelectOpition.h"
 
-@implementation SelectOpitions
+@implementation SelectOpition
 
+
+- (NSArray *)unselectedCategory
+{
+    NSMutableArray *array = [NSMutableArray array];
+    for (OpitionCategory *cate in self.opitionCateogries) {
+        BOOL found = NO;
+        for (OpitionItem *item in self.selectedValues) {
+            if(cate.id == item.categoryId){
+                found = YES;
+                break;
+            }
+        }
+        if(!found){
+            [array addObject:cate.title];
+        }
+    }
+    return array;
+}
 @end

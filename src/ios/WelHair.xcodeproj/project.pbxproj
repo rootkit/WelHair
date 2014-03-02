@@ -98,12 +98,15 @@
 		46E84EBF18C2C7040004C146 /* centerIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 46E84EBA18C2C7040004C146 /* centerIcon@2x.png */; };
 		46E84EC018C2C7040004C146 /* UIScrollView+UzysCircularProgressPullToRefresh.m in Sources */ = {isa = PBXBuildFile; fileRef = 46E84EBC18C2C7040004C146 /* UIScrollView+UzysCircularProgressPullToRefresh.m */; };
 		46E84EC118C2C7040004C146 /* UzysRadialProgressActivityIndicator.m in Sources */ = {isa = PBXBuildFile; fileRef = 46E84EBE18C2C7040004C146 /* UzysRadialProgressActivityIndicator.m */; };
-		46E84EC418C2D7330004C146 /* SelectionPanel.m in Sources */ = {isa = PBXBuildFile; fileRef = 46E84EC318C2D7330004C146 /* SelectionPanel.m */; };
-		46E84EC718C2D7F80004C146 /* SelectOpitions.m in Sources */ = {isa = PBXBuildFile; fileRef = 46E84EC618C2D7F80004C146 /* SelectOpitions.m */; };
 		46E84ECA18C2D9050004C146 /* ProductDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 46E84EC918C2D9050004C146 /* ProductDetailViewController.m */; };
 		46E84ECE18C2DB930004C146 /* UIViewController+KNSemiModal.m in Sources */ = {isa = PBXBuildFile; fileRef = 46E84ECD18C2DB930004C146 /* UIViewController+KNSemiModal.m */; };
 		46E84ED118C2E1550004C146 /* UINavigationBar+WelKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 46E84ED018C2E1550004C146 /* UINavigationBar+WelKit.m */; };
 		46E84ED418C2E1CC0004C146 /* UIImage+WelKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 46E84ED318C2E1CC0004C146 /* UIImage+WelKit.m */; };
+		46E84ED718C2F0380004C146 /* OpitionSelectPanel.m in Sources */ = {isa = PBXBuildFile; fileRef = 46E84ED618C2F0380004C146 /* OpitionSelectPanel.m */; };
+		46E84EDA18C337D70004C146 /* OpitionItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 46E84ED918C337D70004C146 /* OpitionItem.m */; };
+		46E84EDD18C338370004C146 /* OpitionCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 46E84EDC18C338370004C146 /* OpitionCategory.m */; };
+		46E84EE018C33FAC0004C146 /* SelectOpition.m in Sources */ = {isa = PBXBuildFile; fileRef = 46E84EDF18C33FAC0004C146 /* SelectOpition.m */; };
+		46E84EE318C356B30004C146 /* OpitionButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 46E84EE218C356B30004C146 /* OpitionButton.m */; };
 		8D253C7C0D2C41EC8279DF3F /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0DEE8FDE44A64A6986F93371 /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -331,10 +334,6 @@
 		46E84EBC18C2C7040004C146 /* UIScrollView+UzysCircularProgressPullToRefresh.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+UzysCircularProgressPullToRefresh.m"; sourceTree = "<group>"; };
 		46E84EBD18C2C7040004C146 /* UzysRadialProgressActivityIndicator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UzysRadialProgressActivityIndicator.h; sourceTree = "<group>"; };
 		46E84EBE18C2C7040004C146 /* UzysRadialProgressActivityIndicator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UzysRadialProgressActivityIndicator.m; sourceTree = "<group>"; };
-		46E84EC218C2D7330004C146 /* SelectionPanel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectionPanel.h; sourceTree = "<group>"; };
-		46E84EC318C2D7330004C146 /* SelectionPanel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectionPanel.m; sourceTree = "<group>"; };
-		46E84EC518C2D7F80004C146 /* SelectOpitions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectOpitions.h; sourceTree = "<group>"; };
-		46E84EC618C2D7F80004C146 /* SelectOpitions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectOpitions.m; sourceTree = "<group>"; };
 		46E84EC818C2D9050004C146 /* ProductDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProductDetailViewController.h; sourceTree = "<group>"; };
 		46E84EC918C2D9050004C146 /* ProductDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProductDetailViewController.m; sourceTree = "<group>"; };
 		46E84ECC18C2DB930004C146 /* UIViewController+KNSemiModal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+KNSemiModal.h"; sourceTree = "<group>"; };
@@ -343,6 +342,16 @@
 		46E84ED018C2E1550004C146 /* UINavigationBar+WelKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UINavigationBar+WelKit.m"; sourceTree = "<group>"; };
 		46E84ED218C2E1CC0004C146 /* UIImage+WelKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+WelKit.h"; sourceTree = "<group>"; };
 		46E84ED318C2E1CC0004C146 /* UIImage+WelKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+WelKit.m"; sourceTree = "<group>"; };
+		46E84ED518C2F0380004C146 /* OpitionSelectPanel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpitionSelectPanel.h; sourceTree = "<group>"; };
+		46E84ED618C2F0380004C146 /* OpitionSelectPanel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OpitionSelectPanel.m; sourceTree = "<group>"; };
+		46E84ED818C337D70004C146 /* OpitionItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpitionItem.h; sourceTree = "<group>"; };
+		46E84ED918C337D70004C146 /* OpitionItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OpitionItem.m; sourceTree = "<group>"; };
+		46E84EDB18C338370004C146 /* OpitionCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpitionCategory.h; sourceTree = "<group>"; };
+		46E84EDC18C338370004C146 /* OpitionCategory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OpitionCategory.m; sourceTree = "<group>"; };
+		46E84EDE18C33FAC0004C146 /* SelectOpition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectOpition.h; sourceTree = "<group>"; };
+		46E84EDF18C33FAC0004C146 /* SelectOpition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectOpition.m; sourceTree = "<group>"; };
+		46E84EE118C356B30004C146 /* OpitionButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpitionButton.h; sourceTree = "<group>"; };
+		46E84EE218C356B30004C146 /* OpitionButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OpitionButton.m; sourceTree = "<group>"; };
 		DB57361E9AB145E7AB30BD59 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = ../../Pods/Pods.xcconfig; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -551,14 +560,18 @@
 		18A912DF18BB26B6006B9A04 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				46E84EDE18C33FAC0004C146 /* SelectOpition.h */,
+				46E84EDF18C33FAC0004C146 /* SelectOpition.m */,
 				46B25AEE18C185290035F425 /* FakeDataHelper.h */,
 				46B25AEF18C185290035F425 /* FakeDataHelper.m */,
 				18A912E018BB26B6006B9A04 /* User.h */,
 				18A912E118BB26B6006B9A04 /* User.m */,
 				4665FD8318BC801000E88C6B /* Work.h */,
 				4665FD8418BC801000E88C6B /* Work.m */,
-				46E84EC518C2D7F80004C146 /* SelectOpitions.h */,
-				46E84EC618C2D7F80004C146 /* SelectOpitions.m */,
+				46E84ED818C337D70004C146 /* OpitionItem.h */,
+				46E84ED918C337D70004C146 /* OpitionItem.m */,
+				46E84EDB18C338370004C146 /* OpitionCategory.h */,
+				46E84EDC18C338370004C146 /* OpitionCategory.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -831,8 +844,10 @@
 			children = (
 				46B25AEB18C086D30035F425 /* WorkCell.h */,
 				46B25AEC18C086D30035F425 /* WorkCell.m */,
-				46E84EC218C2D7330004C146 /* SelectionPanel.h */,
-				46E84EC318C2D7330004C146 /* SelectionPanel.m */,
+				46E84ED518C2F0380004C146 /* OpitionSelectPanel.h */,
+				46E84ED618C2F0380004C146 /* OpitionSelectPanel.m */,
+				46E84EE118C356B30004C146 /* OpitionButton.h */,
+				46E84EE218C356B30004C146 /* OpitionButton.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1091,9 +1106,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				46E84EE318C356B30004C146 /* OpitionButton.m in Sources */,
+				46E84EE018C33FAC0004C146 /* SelectOpition.m in Sources */,
 				46BCD25F18BC725D005C4BD6 /* GroupsViewController.m in Sources */,
 				46B233B718BCDC4200CC27A3 /* LoginViewController.m in Sources */,
-				46E84EC718C2D7F80004C146 /* SelectOpitions.m in Sources */,
 				46B25AE418BF1CAA0035F425 /* RootViewController.m in Sources */,
 				4660E69018BB73E1005B3C7D /* ProductsViewController.m in Sources */,
 				18A912E418BB26B6006B9A04 /* User.m in Sources */,
@@ -1105,9 +1121,11 @@
 				4665FD7C18BC7D4700E88C6B /* CommentsViewController.m in Sources */,
 				46BCD26318BC7561005C4BD6 /* CityListViewController.m in Sources */,
 				46B25AED18C086D30035F425 /* WorkCell.m in Sources */,
+				46E84EDA18C337D70004C146 /* OpitionItem.m in Sources */,
 				46BCD24B18BB85FC005C4BD6 /* WelQRReaderViewController.m in Sources */,
 				46BCD25718BC628E005C4BD6 /* ChatSessionListViewController.m in Sources */,
 				46BCD26618BC796B005C4BD6 /* WorkDetailViewController.m in Sources */,
+				46E84ED718C2F0380004C146 /* OpitionSelectPanel.m in Sources */,
 				46E84ED118C2E1550004C146 /* UINavigationBar+WelKit.m in Sources */,
 				4665FD8518BC801000E88C6B /* Work.m in Sources */,
 				46B25AE618BF1CC60035F425 /* MapViewController.mm in Sources */,
@@ -1116,7 +1134,7 @@
 				18A912E218BB26B6006B9A04 /* BaseViewController.m in Sources */,
 				46E84EC018C2C7040004C146 /* UIScrollView+UzysCircularProgressPullToRefresh.m in Sources */,
 				46B25AF018C185290035F425 /* FakeDataHelper.m in Sources */,
-				46E84EC418C2D7330004C146 /* SelectionPanel.m in Sources */,
+				46E84EDD18C338370004C146 /* OpitionCategory.m in Sources */,
 				46BCD27618BC79EB005C4BD6 /* StaffDetailViewController.m in Sources */,
 				46BCD24A18BB85FC005C4BD6 /* WelQRGeneraterViewController.m in Sources */,
 				46E84ED418C2E1CC0004C146 /* UIImage+WelKit.m in Sources */,

@@ -12,10 +12,12 @@
 #import "UIImageView+WebCache.h"
 #import "CommentsViewController.h"
 #import "UIViewController+KNSemiModal.h"
-#import "SelectionPanel.h"
+#import "OpitionSelectPanel.h"
 
 @interface ProductDetailViewController ()<UMSocialUIDelegate>
+@property (nonatomic, strong) SelectOpition *selectOpition;
 
+@property (nonatomic, strong) UILabel *optionsLbl;
 @end
 
 @implementation ProductDetailViewController
@@ -83,6 +85,10 @@
     [commentBtn addTarget:self action:@selector(commentClick) forControlEvents:UIControlEventTouchDown];
     [self.view addSubview:commentBtn];
     
+    self.optionsLbl = [[UILabel alloc] initWithFrame:CGRectMake(margin, MaxY(commentBtn), WIDTH(self.view)- 2 *margin, 100)];
+    self.optionsLbl.textColor = [UIColor blackColor];
+    [self.view addSubview:self.optionsLbl];
+    
     
 	// Do any additional setup after loading the view.
 }
@@ -95,11 +101,66 @@
 
 - (void)categoryClick
 {
-    self.navigationController.navigationBar.backgroundColor = [UIColor whiteColor];
-    SelectionPanel *panel = [SelectionPanel new];
-    panel.frame = CGRectMake(0, 0, 320, 300);
-    panel.backgroundColor = [UIColor grayColor];
+    OpitionSelectPanel *panel =
+    [[OpitionSelectPanel alloc] initWithFrame:CGRectMake(0,
+                                                         0,
+                                                         WIDTH(self.view),
+                                                         HEIGHT(self.view) - self.topBarOffset - 100)];
+    
+    
+    [panel setupTitle:@"产品"
+             opitions:[self buildSelectionOpition]
+                  cancel:^(){[self.tabBarController dismissSemiModalView];}
+               submit:^(SelectOpition *opitions){
+                   self.selectOpition =opitions;
+                   [self.tabBarController dismissSemiModalView];
+                   [self getSelectedOpitions:opitions.selectedValues];
+               }];
     [self.tabBarController presentSemiView:panel withOptions:nil];
+}
+
+- (SelectOpition *)buildSelectionOpition
+{
+    int number = 3;
+    if(!self.selectOpition){
+        self.selectOpition = [SelectOpition new];
+        self.selectOpition.count = 1;
+        NSMutableArray *categoryArrays = [NSMutableArray array];
+        for (int i = 0; i < number; i++) {
+            OpitionCategory *category = [OpitionCategory new];
+            category.id = i;
+            category.title = [NSString stringWithFormat:@"Category %d",i];
+            NSMutableArray *items = [NSMutableArray array];
+            for (int j =0; j < number; j++) {
+                OpitionItem *item = [OpitionItem new];
+                item.id = i*10 + j;
+                item.categoryId = category.id;
+                item.title = [NSString stringWithFormat:@"category%d Item%d",i,j];
+                [items addObject:item];
+            }
+            category.opitionItems = items;
+            [categoryArrays addObject:category];
+        }
+        self.selectOpition.opitionCateogries = categoryArrays;
+        self.selectOpition.selectedValues = [NSArray array];
+    }
+
+    return self.selectOpition;
+}
+
+- (void)getSelectedOpitions:(NSArray *)array
+{
+    
+    NSMutableString *str = [NSMutableString string];
+    [str appendString:@"已选择"];
+    for (OpitionItem *item in array) {
+        [str appendFormat:@",%d", item.id];
+    }
+    self.optionsLbl.text = str;
+}
+- (void)serviceOpitionData
+{
+    
 }
 
 - (void)commentClick

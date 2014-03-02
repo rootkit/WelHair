@@ -37,7 +37,6 @@
     [super loadView];
     self.leftNavItemTitle = @"济南";
     self.tableView = [[UITableView alloc] init];
-    self.tableView.frame = CGRectMake(0, self.topBarOffset, WIDTH(self.view), HEIGHT(self.view) - self.topBarOffset - kBottomBarHeight);
     self.tableView.backgroundColor = [UIColor clearColor];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
@@ -58,6 +57,17 @@
 - (void)leftNavItemClick
 {
     [self.navigationController presentViewController:[[UINavigationController alloc] initWithRootViewController:[CityListViewController new]] animated:YES completion:nil];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    if(CGRectEqualToRect(self.tableView.frame, CGRectZero)){
+        self.tableView.frame = CGRectMake(0,
+                                          self.topBarOffset,
+                                          WIDTH(self.view),
+                                          HEIGHT(self.view)- self.topBarOffset - self.bottomBarOffset);
+    }
 }
 
 - (void)viewDidLoad

@@ -14,6 +14,7 @@
 #import "UIImageView+WebCache.h"
 #import "GroupDetailViewController.h"
 #import "UIImageView+WebCache.h"
+#import "UIViewController+KNSemiModal.h"
 
 
 @interface StaffDetailViewController ()
@@ -54,6 +55,12 @@
     [staffBtn setTitle:@"所属沙龙" forState:UIControlStateNormal];
     [staffBtn addTarget:self action:@selector(groupClick) forControlEvents:UIControlEventTouchDown];
     [self.view addSubview:staffBtn];
+    
+    UIButton *orderBtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    orderBtn.frame = CGRectMake(MaxX(staffBtn) + margin,MaxY(imgView) + margin, 100, 50);
+    [orderBtn setTitle:@"预约" forState:UIControlStateNormal];
+    [orderBtn addTarget:self action:@selector(orderClick) forControlEvents:UIControlEventTouchDown];
+    [self.view addSubview:orderBtn];
 }
 
 - (void)viewDidLoad
@@ -66,6 +73,11 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)orderClick
+{
+    
 }
 
 - (void)groupClick

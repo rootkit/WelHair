@@ -10,4 +10,8 @@
 
 @interface OpitionItem : NSObject
 
+@property (nonatomic, strong) NSString *title;
+@property (nonatomic) int id;
+@property (nonatomic) int categoryId;
+
 @end

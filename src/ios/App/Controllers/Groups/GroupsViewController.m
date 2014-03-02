@@ -33,21 +33,17 @@
 - (void) loadView
 {
     [super loadView];
-    self.tableView = [[UITableView alloc] init];
-    self.tableView.frame = CGRectMake(0,
-                                      self.topBarOffset,
-                                      WIDTH(self.view),
-                                      HEIGHT(self.view)- self.topBarOffset - kBottomBarHeight);
-    self.tableView.backgroundColor = [UIColor clearColor];
-    self.tableView.delegate = self;
-    self.tableView.dataSource = self;
-    self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
-    [self.view addSubview:self.tableView];
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.tableView = [[UITableView alloc] init];
+    self.tableView.backgroundColor = [UIColor clearColor];
+    self.tableView.delegate = self;
+    self.tableView.dataSource = self;
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    [self.view addSubview:self.tableView];
     self.datasource = [NSMutableArray arrayWithArray:[FakeDataHelper getFakeHairWorkImgs]];
 //    __weak GroupsViewController *weakSelf = self;
     // setup pull-to-refresh
@@ -61,6 +57,16 @@
 //    }];
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    if(CGRectEqualToRect(self.tableView.frame, CGRectZero)){
+        self.tableView.frame = CGRectMake(0,
+                                          self.topBarOffset,
+                                          WIDTH(self.view),
+                                          HEIGHT(self.view)- self.topBarOffset - self.bottomBarOffset);
+    }
+}
 
 
 - (void)didReceiveMemoryWarning

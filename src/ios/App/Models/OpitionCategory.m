@@ -9,5 +9,4 @@
 #import "OpitionCategory.h"
 
 @implementation OpitionCategory
-
 @end

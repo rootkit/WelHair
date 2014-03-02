@@ -7,7 +7,17 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "SelectOpition.h"
+typedef void(^cancelSelection)(void);
+typedef void(^submitSelection)(SelectOpition *);
 
-@interface OpitionSelectPanel : NSObject
+@interface OpitionSelectPanel : UIView
+
+- (void)setupTitle:(NSString *)title
+          opitions:(SelectOpition *)selectOptioin
+            cancel:(cancelSelection )cancelHandler
+            submit:(submitSelection )submitHandler;
+;
+
 
 @end

@@ -7,7 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "OpitionItem.h"
 @interface OpitionButton : UIButton
+
+@property (nonatomic, strong) OpitionItem *opitionItem;
 
 @end

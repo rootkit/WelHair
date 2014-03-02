@@ -7,7 +7,11 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "OpitionItem.h"
 
 @interface OpitionCategory : NSObject
-
+@property (nonatomic) int id;
+@property (nonatomic, strong) NSString *title;
+@property (nonatomic, strong) NSArray *opitionItems;
+@property (nonatomic, strong) OpitionItem *selectedItem;
 @end

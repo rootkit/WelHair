@@ -25,6 +25,7 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         self.topBarOffset = isIOS7 ? kStatusBarHeight + kTopBarHeight : 0;
+        self.bottomBarOffset = isIOS7 ? kBottomBarHeight : 0;
     }
     return self;
 }

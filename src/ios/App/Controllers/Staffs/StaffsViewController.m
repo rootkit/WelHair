@@ -33,7 +33,6 @@
 {
     [super loadView];
     self.tableView = [[UITableView alloc] init];
-    self.tableView.frame = CGRectMake(0, 0, WIDTH(self.view), HEIGHT(self.view));
     self.tableView.backgroundColor = [UIColor clearColor];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
@@ -41,6 +40,16 @@
     [self.view addSubview:self.tableView];
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    if(CGRectEqualToRect(self.tableView.frame, CGRectZero)){
+        self.tableView.frame = CGRectMake(0,
+                                          self.topBarOffset,
+                                          WIDTH(self.view),
+                                          HEIGHT(self.view)- self.topBarOffset - self.bottomBarOffset);
+    }
+}
 
 - (void)viewDidLoad
 {
