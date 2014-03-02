@@ -198,7 +198,7 @@
             break;
         }
     }
-
+    //用户选择该类别下其他选项
     if(itemUnderSameCategory){
         [selectedValues removeObject:itemUnderSameCategory];
         for (UIView *view in scrollView.subviews) {
@@ -209,7 +209,9 @@
                 }
             }
         }
-    }else{
+    }
+    //用户取消所选option
+    if(itemUnderSameCategory != item){
         [selectedValues addObject:item];
     }
     opition.selectedValues = selectedValues;
