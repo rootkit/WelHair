@@ -1,14 +1,14 @@
 //
-//  SelectionPanel.m
+//  OpitionButton.m
 //  WelHair
 //
 //  Created by lu larry on 3/2/14.
 //  Copyright (c) 2014 Welfony. All rights reserved.
 //
 
-#import "SelectionPanel.h"
+#import "OpitionButton.h"
 
-@implementation SelectionPanel
+@implementation OpitionButton
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -19,14 +19,6 @@
     return self;
 }
 
-- (void)setupOpitions:(SelectOpitions *)selectOptioins
-{
-//    if(selectOptioins.options){
-//        for (NSString *keyItem in dic) {
-//            <#statements#>
-//        }
-//    }
-}
 /*
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.

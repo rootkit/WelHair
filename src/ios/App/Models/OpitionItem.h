@@ -1,5 +1,5 @@
 //
-//  SelectOpitions.h
+//  OpitionItem.h
 //  WelHair
 //
 //  Created by lu larry on 3/2/14.
@@ -8,7 +8,6 @@
 
 #import <Foundation/Foundation.h>
 
-@interface SelectOpitions : NSObject
-@property (nonatomic, strong) NSDictionary *options;
-@property (nonatomic) float initCount;
+@interface OpitionItem : NSObject
+
 @end
