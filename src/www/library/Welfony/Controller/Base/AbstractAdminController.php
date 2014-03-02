@@ -14,6 +14,8 @@
 
 namespace Welfony\Controller\Base;
 
+use Welfony\Core\Enum\UserRole;
+
 class AbstractAdminController extends AbstractController
 {
 
@@ -29,8 +31,10 @@ class AbstractAdminController extends AbstractController
         $nologinList = isset($this->nologinActionList[$this->view->controller]) ? $this->nologinActionList[$this->view->controller] : array();
 
         $auth = \Zend_Auth::getInstance();
-        if (!in_array($this->view->action, $nologinList) && !$this->getCurrentUser()) {
-            $this->gotoLogin();
+        if (!in_array($this->view->action, $nologinList)) {
+            if (!$this->getCurrentUser() || $this->currentUser['Role'] != UserRole::Admin) {
+                $this->gotoLogin();
+            }
         }
     }
 

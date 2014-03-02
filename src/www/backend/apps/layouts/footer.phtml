@@ -1,36 +1,3 @@
-<script>
-    $('document').ready(function() {
-        function changeSizebarHeight() {
-            var screenHeight = $(window).height();
-
-            $('.content').css('height', 'auto');
-            var documentHeight = $(document).height();
-
-            var contentHeight = (documentHeight > screenHeight ? documentHeight : screenHeight) - 122;
-            $('.content').css('height', contentHeight);
-        }
-
-        $(window).resize(function() {
-            changeSizebarHeight();
-        });
-
-        changeSizebarHeight();
-
-        $('.sidebar .lists li').hover(
-            function() {
-                $('.sidebar .lists li').removeClass('on');
-                $(this).addClass('on');
-            },
-            function() {
-                $('.sidebar .lists li').removeClass('on');
-            }
-        );
-
-        $('.u-btn-submit').click(function() {
-            $(this).parent().parent().parent().submit();
-        });
-    });
-</script>
 <footer class="footer cleafix">
     <div class="footer-info">
         <div class="container">

@@ -41,7 +41,7 @@ class User_AuthController extends AbstractAdminController
 
             $result = $auth->authenticate($authAdapter);
             if (!$result->isValid()) {
-                $this->errorMessage = $result->getMessages();
+                $this->view->errorMessage = implode('<br/>', $result->getMessages());
             } else {
                 Zend_Session::rememberMe();
 

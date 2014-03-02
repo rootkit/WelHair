@@ -43,6 +43,8 @@ CREATE TABLE IF NOT EXISTS `Users` (
 ALTER TABLE `Users`
 AUTO_INCREMENT = 1001;
 
+INSERT INTO `Users` VALUES (1,1,'admin','管理员','admin@welhair.com',0,'',0,'$pbkdf2-sha512$12000$O2jQRADP6q6x6Z.SzwR/Wg$NLuLX3ZRllnYq0bH4YqBliUOZVbyX9FbovvS5CN.VEZVnrVoMBTCG2li87szHo.yES6U8aS7d1NB4HTkC5BXxA',NULL,1,'http://welhair.com/static/img/avatar-default.jpg','',NULL,0,'2014-02-28 20:59:21','2014-03-01 00:27:41');
+
 CREATE TABLE IF NOT EXISTS `Social` (
   `SocialId` INT UNSIGNED NOT NULL AUTO_INCREMENT,
   `UserId` INT UNSIGNED NOT NULL,
@@ -67,7 +69,7 @@ CREATE TABLE IF NOT EXISTS `Social` (
 delimiter $$
 
 CREATE TABLE IF NOT EXISTS `BrandCategory` (
-  `BrandCategoryId` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '分类ID',
+  `BrandCategoryId` int unsigned NOT NULL AUTO_INCREMENT COMMENT '分类ID',
   `Name` varchar(255) NOT NULL COMMENT '分类名称',
   PRIMARY KEY (`BrandCategoryId`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COMMENT='品牌分类表'$$
@@ -76,7 +78,7 @@ CREATE TABLE IF NOT EXISTS `BrandCategory` (
 delimiter $$
 
 CREATE TABLE IF NOT EXISTS `Brand` (
-  `BrandId` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '品牌ID',
+  `BrandId` int unsigned NOT NULL AUTO_INCREMENT COMMENT '品牌ID',
   `Name` varchar(255) NOT NULL COMMENT '品牌名称',
   `Logo` varchar(255) DEFAULT NULL COMMENT 'logo地址',
   `Url` varchar(255) DEFAULT NULL COMMENT '网址',
@@ -90,12 +92,12 @@ CREATE TABLE IF NOT EXISTS `Brand` (
 delimiter $$
 
 CREATE TABLE IF NOT EXISTS `Category` (
-  `CategoryId` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '分类ID',
+  `CategoryId` int unsigned NOT NULL AUTO_INCREMENT COMMENT '分类ID',
   `Name` varchar(50) NOT NULL COMMENT '分类名称',
-  `ParentId` int(11) unsigned NOT NULL COMMENT '父分类ID',
+  `ParentId` int unsigned NOT NULL COMMENT '父分类ID',
   `Sort` smallint(5) NOT NULL DEFAULT '0' COMMENT '排序',
   `Visibility` tinyint(1) NOT NULL DEFAULT '1' COMMENT '首页是否显示 1显示 0 不显示',
-  `ModelId` int(11) unsigned NOT NULL COMMENT '默认模型ID',
+  `ModelId` int unsigned NOT NULL COMMENT '默认模型ID',
   `Keywords` varchar(255) DEFAULT NULL COMMENT 'SEO 关键词',
   `Descript` varchar(255) DEFAULT NULL COMMENT 'SEO 描述',
   `Title` varchar(255) DEFAULT NULL COMMENT 'SEO 标题 title',
@@ -106,9 +108,9 @@ CREATE TABLE IF NOT EXISTS `Category` (
 delimiter $$
 
 CREATE TABLE IF NOT EXISTS `CategoryExtend` (
-  `CategoryExtendId` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `GoodsId` int(11) unsigned NOT NULL COMMENT '商品ID',
-  `CategoryId` int(11) unsigned NOT NULL COMMENT '商品分类ID',
+  `CategoryExtendId` int unsigned NOT NULL AUTO_INCREMENT,
+  `GoodsId` int unsigned NOT NULL COMMENT '商品ID',
+  `CategoryId` int unsigned NOT NULL COMMENT '商品分类ID',
   PRIMARY KEY (`CategoryExtendId`),
   KEY `GoodsId` (`GoodsId`),
   KEY `CategoryId` (`CategoryId`)
@@ -117,8 +119,8 @@ CREATE TABLE IF NOT EXISTS `CategoryExtend` (
 delimiter $$
 
 CREATE TABLE IF NOT EXISTS `Attribute` (
-  `AttributeId` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '属性ID',
-  `ModelId` int(11) unsigned DEFAULT NULL COMMENT '模型ID',
+  `AttributeId` int unsigned NOT NULL AUTO_INCREMENT COMMENT '属性ID',
+  `ModelId` int unsigned DEFAULT NULL COMMENT '模型ID',
   `Type` tinyint(1) DEFAULT NULL COMMENT '输入控件的类型,1:单选,2:复选,3:下拉',
   `Name` varchar(50) DEFAULT NULL COMMENT '名称',
   `Value` text COMMENT '属性值(逗号分隔)',
@@ -129,7 +131,7 @@ CREATE TABLE IF NOT EXISTS `Attribute` (
 delimiter $$
 
 CREATE TABLE IF NOT EXISTS `Spec` (
-  `SpecId` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `SpecId` int unsigned NOT NULL AUTO_INCREMENT,
   `Name` varchar(50) NOT NULL COMMENT '规格名称',
   `Value` text COMMENT '规格值',
   `Type` tinyint(1) NOT NULL DEFAULT '1' COMMENT '显示类型 1文字 2图片',
@@ -141,7 +143,7 @@ CREATE TABLE IF NOT EXISTS `Spec` (
 delimiter $$
 
 CREATE TABLE IF NOT EXISTS `Model` (
-  `ModelId` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '模型ID',
+  `ModelId` int unsigned NOT NULL AUTO_INCREMENT COMMENT '模型ID',
   `Name` varchar(50) NOT NULL COMMENT '模型名称',
   `SpecIds` text COMMENT '规格ID逗号分隔',
   PRIMARY KEY (`ModelId`)
@@ -150,17 +152,17 @@ CREATE TABLE IF NOT EXISTS `Model` (
 delimiter $$
 
 CREATE TABLE IF NOT EXISTS `Goods` (
-  `GoodsId` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '商品ID',
+  `GoodsId` int unsigned NOT NULL AUTO_INCREMENT COMMENT '商品ID',
   `Name` varchar(50) NOT NULL COMMENT '商品名称',
   `GoodsNo` varchar(20) NOT NULL COMMENT '商品的货号',
-  `ModelId` int(11) unsigned NOT NULL COMMENT '模型ID',
+  `ModelId` int unsigned NOT NULL COMMENT '模型ID',
   `SellPrice` decimal(15,2) NOT NULL COMMENT '销售价格',
   `MarketPrice` decimal(15,2) DEFAULT NULL COMMENT '市场价格',
   `CostPrice` decimal(15,2) DEFAULT NULL COMMENT '成本价格',
   `UpTime` datetime DEFAULT NULL COMMENT '上架时间',
   `DownTime` datetime DEFAULT NULL COMMENT '下架时间',
   `CreateTime` datetime NOT NULL COMMENT '创建时间',
-  `StoreNums` int(11) NOT NULL DEFAULT '0' COMMENT '库存',
+  `StoreNums` int NOT NULL DEFAULT '0' COMMENT '库存',
   `Img` varchar(255) DEFAULT NULL COMMENT '原图',
   `IsDeleted` tinyint(1) NOT NULL DEFAULT '0' COMMENT '删除 0未删除 1已删除 2下架',
   `Content` text COMMENT '商品描述',
@@ -168,17 +170,17 @@ CREATE TABLE IF NOT EXISTS `Goods` (
   `Description` varchar(255) DEFAULT NULL COMMENT 'SEO描述',
   `SearchWords` text COMMENT '产品搜索词库,逗号分隔',
   `Weight` decimal(15,2) NOT NULL DEFAULT '0.00' COMMENT '重量',
-  `Point` int(11) NOT NULL DEFAULT '0' COMMENT '积分',
+  `Point` int NOT NULL DEFAULT '0' COMMENT '积分',
   `Unit` varchar(10) DEFAULT NULL COMMENT '计量单位',
-  `BrandId` int(11) DEFAULT NULL COMMENT '品牌ID',
-  `Visit` int(11) NOT NULL DEFAULT '0' COMMENT '浏览次数',
-  `Favorite` int(11) NOT NULL DEFAULT '0' COMMENT '收藏次数',
+  `BrandId` int DEFAULT NULL COMMENT '品牌ID',
+  `Visit` int NOT NULL DEFAULT '0' COMMENT '浏览次数',
+  `Favorite` int NOT NULL DEFAULT '0' COMMENT '收藏次数',
   `Sort` smallint(5) NOT NULL DEFAULT '99' COMMENT '排序',
   `SpecArray` text COMMENT '序列化存储规格,key值为规则ID，value为此商品具有的规格值',
-  `Experience` int(11) NOT NULL DEFAULT '0' COMMENT '经验值',
-  `Comments` int(11) NOT NULL DEFAULT '0' COMMENT '评论次数',
-  `Sale` int(11) NOT NULL DEFAULT '0' COMMENT '销量',
-  `Grade` int(11) NOT NULL DEFAULT '0' COMMENT '评分总数',
+  `Experience` int NOT NULL DEFAULT '0' COMMENT '经验值',
+  `Comments` int NOT NULL DEFAULT '0' COMMENT '评论次数',
+  `Sale` int NOT NULL DEFAULT '0' COMMENT '销量',
+  `Grade` int NOT NULL DEFAULT '0' COMMENT '评分总数',
   PRIMARY KEY (`GoodsId`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COMMENT='商品信息表'$$
 
@@ -186,13 +188,13 @@ CREATE TABLE IF NOT EXISTS `Goods` (
 delimiter $$
 
 CREATE TABLE IF NOT EXISTS `GoodsAttribute` (
-  `GoodsAttributeId` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `GoodsId` int(11) unsigned NOT NULL COMMENT '商品ID',
-  `AttributeId` int(11) unsigned DEFAULT NULL COMMENT '属性ID',
+  `GoodsAttributeId` int unsigned NOT NULL AUTO_INCREMENT,
+  `GoodsId` int unsigned NOT NULL COMMENT '商品ID',
+  `AttributeId` int unsigned DEFAULT NULL COMMENT '属性ID',
   `AttributeValue` varchar(255) DEFAULT NULL COMMENT '属性值',
-  `SpecId` int(11) unsigned DEFAULT NULL COMMENT '规格ID',
+  `SpecId` int unsigned DEFAULT NULL COMMENT '规格ID',
   `SpecValue` varchar(255) DEFAULT NULL COMMENT '规格值',
-  `ModelId` int(11) unsigned DEFAULT NULL COMMENT '模型ID',
+  `ModelId` int unsigned DEFAULT NULL COMMENT '模型ID',
   `Sort` smallint(5) NOT NULL DEFAULT '99' COMMENT '排序',
   PRIMARY KEY (`GoodsAttributeId`)
 ) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8 COMMENT='属性值表'$$
@@ -209,8 +211,8 @@ CREATE TABLE IF NOT EXISTS `GoodsPhoto` (
 delimiter $$
 
 CREATE TABLE IF NOT EXISTS `GoodsPhotoRelation` (
-  `GoodsPhotoRelationId` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `GoodsId` int(11) unsigned NOT NULL COMMENT '商品ID',
+  `GoodsPhotoRelationId` int unsigned NOT NULL AUTO_INCREMENT,
+  `GoodsId` int unsigned NOT NULL COMMENT '商品ID',
   `PhotoId` char(32) NOT NULL DEFAULT '' COMMENT '图片ID,图片的md5值',
   PRIMARY KEY (`GoodsPhotoRelationId`)
 ) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8 COMMENT='相册商品关系表'$$
@@ -220,11 +222,11 @@ CREATE TABLE IF NOT EXISTS `GoodsPhotoRelation` (
 delimiter $$
 
 CREATE TABLE IF NOT EXISTS `Products` (
-  `ProductsId` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `GoodsId` int(11) unsigned NOT NULL COMMENT '货品ID',
+  `ProductsId` int unsigned NOT NULL AUTO_INCREMENT,
+  `GoodsId` int unsigned NOT NULL COMMENT '货品ID',
   `ProductsNo` varchar(20) NOT NULL COMMENT '货品的货号(以商品的货号加横线加数字组成)',
   `SpecArray` text COMMENT 'json规格数据',
-  `StoreNums` int(11) NOT NULL DEFAULT '0' COMMENT '库存',
+  `StoreNums` int NOT NULL DEFAULT '0' COMMENT '库存',
   `MarketPrice` decimal(15,2) NOT NULL DEFAULT '0.00' COMMENT '市场价格',
   `SellPrice` decimal(15,2) NOT NULL DEFAULT '0.00' COMMENT '销售价格',
   `CostPrice` decimal(15,2) NOT NULL DEFAULT '0.00' COMMENT '成本价格',

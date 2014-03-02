@@ -61,7 +61,7 @@ $(function() {
                 '保存': function() {
                     var opts = {
                         type: 'POST',
-                        url: globalSetting.apiBaseUrl + '/upload/image/crop',
+                        url: WF.setting.apiBaseUrl + '/upload/image/crop',
                         dataType: 'json',
                         data: {
                             x1: $('input[name="x1"]').val(),
@@ -94,7 +94,7 @@ $(function() {
                 var imgPreview30 = popup.find('.crop-img-preview-30');
                 imgPreview30.attr('src', imgUrl);
 
-                WF.getImgSize(imgUrl, function(width, height) {
+                WF.getImageSize(imgUrl, function(width, height) {
                     if (width >= height) {
                         imgO.css('width', imgO.parent().width())
                             .css('height', 'auto')
@@ -164,15 +164,13 @@ $(function() {
         return false;
     });
 
-    $(window).resize(function() {
-        popup.dialog('option', 'position', 'center');
-    });
-
-    $('#avatar').uploadify({
+    $('#avatar-uploader').uploadify({
         fileObjName: 'uploadfile',
         width: 78,
         height: 32,
         multi: false,
+        checkExisting: false,
+        preventCaching: false,
         fileExt: '*.jpg;*.jpeg;*.png',
         fileDesc: 'Image file (.jpg, .jpeg, .png)',
         buttonText: '选择文件',

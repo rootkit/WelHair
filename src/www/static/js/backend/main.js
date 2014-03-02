@@ -15,6 +15,52 @@ WF = {
     init: function(setting) {
         this.setting = $.extend(this.setting, setting);
         $.pnotify.defaults.styling = 'jqueryui';
+
+        if ($('#errorMessage').text() != '') {
+            this.showMessage('error', '警告', $('#errorMessage').html());
+        }
+
+        this.initUI();
+    },
+    initUI: function() {
+        function changeSizebarHeight() {
+            var screenHeight = $(window).height();
+
+            $('.content').css('height', 'auto');
+            var documentHeight = $(document).height();
+
+            var contentHeight = (documentHeight > screenHeight ? documentHeight : screenHeight) - 122;
+            $('.content').css('height', contentHeight);
+        }
+
+        $(window).resize(function() {
+            changeSizebarHeight();
+        });
+
+        changeSizebarHeight();
+
+        $('.sidebar .lists li').hover(
+            function() {
+                $('.sidebar .lists li').removeClass('on');
+                $(this).addClass('on');
+            },
+            function() {
+                $('.sidebar .lists li').removeClass('on');
+            }
+        );
+
+        $('.u-btn-submit').click(function() {
+            $(this).parent().parent().parent().submit();
+        });
+
+        $('#chk_all').click(function() {
+            var checked_status = this.checked;
+            $('input[name="chk_ids[]"]').each(function()
+            {
+                this.checked = checked_status;
+                $(this).trigger('change');
+            });
+        });
     },
     getImageSize: function(imgSrc, imgLoaded) {
         var newImg = new Image();
@@ -34,3 +80,7 @@ WF = {
         });
     }
 };
+
+$(document).ready(function() {
+    WF.init(globalSetting);
+});
