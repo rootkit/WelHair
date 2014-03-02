@@ -9,6 +9,8 @@
 #import "ProductViewController.h"
 #import <FontAwesomeKit.h>
 #import "UMSocial.h"
+#import "UIImageView+WebCache.h"
+#import "CommentsViewController.h"
 
 @interface ProductViewController ()<UMSocialUIDelegate>
 
@@ -53,6 +55,31 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    float margin = 10;
+    UIImageView *imgView = [[UIImageView alloc] initWithFrame:CGRectMake(margin,
+                                                                         margin + self.topBarOffset,
+                                                                         WIDTH(self.view) - 2 *margin,
+                                                                         WIDTH(self.view) - 2 *margin)];
+    [imgView setImageWithURL:[NSURL URLWithString:[[FakeDataHelper getFakeHairWorkImgs] objectAtIndex:0]]];
+    imgView.contentMode = UIViewContentModeScaleAspectFit;
+    [self.view addSubview:imgView];
+    
+    //    UILabel *lbl = [[UILabel alloc] initWithFrame:CGRectMake(110, 100, 100, 30)];
+    //    lbl.text = @"作品详情";
+    //    lbl.textColor = [UIColor blackColor];
+    //    [self.view addSubview:lbl];
+    
+    UIButton *categoryBtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    categoryBtn.frame = CGRectMake(margin,MaxY(imgView) + margin, 100, 50);
+    [categoryBtn setTitle:@"选择商品参数" forState:UIControlStateNormal];
+    [categoryBtn addTarget:self action:@selector(categoryClick) forControlEvents:UIControlEventTouchDown];
+    [self.view addSubview:categoryBtn];
+    
+    UIButton *commentBtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    commentBtn.frame = CGRectMake(MaxX(categoryBtn) + margin,Y(categoryBtn), 100, 50);
+    [commentBtn setTitle:@"评论" forState:UIControlStateNormal];
+    [commentBtn addTarget:self action:@selector(commentClick) forControlEvents:UIControlEventTouchDown];
+    [self.view addSubview:commentBtn];
 	// Do any additional setup after loading the view.
 }
 
@@ -61,5 +88,16 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+- (void)categoryClick
+{
+//    [self.navigationController pushViewController:[StaffDetailViewController new] animated:YES];
+}
+
+- (void)commentClick
+{
+    [self.navigationController pushViewController:[CommentsViewController new] animated:YES];
+}
+
 
 @end
