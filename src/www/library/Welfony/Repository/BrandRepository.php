@@ -41,7 +41,7 @@ class BrandRepository extends AbstractRepository
         return $this->conn->fetchAll($strSql);
     }
 
-    public function listBrand( $pageNumber, $pageSize )
+    public function listBrand($pageNumber, $pageSize)
     {
 
         $offset = ($pageNumber - 1) * $pageSize;
@@ -49,6 +49,7 @@ class BrandRepository extends AbstractRepository
                 FROM Brand
                       ORDER BY BrandId
                       LIMIT $offset, $pageSize ";
+
         return $this->conn->fetchAll($strSql);
 
     }
@@ -72,6 +73,7 @@ class BrandRepository extends AbstractRepository
             }
         } catch (\Exception $e) {
             $this->logger->log($e, \Zend_Log::ERR);
+
             return false;
         }
 
@@ -84,6 +86,7 @@ class BrandRepository extends AbstractRepository
             return $this->conn->update('Brand', $data, array('BrandId' => $brandId));
         } catch (\Exception $e) {
             $this->logger->log($e, \Zend_Log::ERR);
+
             return false;
         }
     }
@@ -94,6 +97,7 @@ class BrandRepository extends AbstractRepository
             return $this->conn->executeUpdate(" DELETE FROM Brand WHERE BrandId  = $brandId; ");
         } catch (\Exception $e) {
             $this->logger->log($e, \Zend_Log::ERR);
+
             return false;
         }
     }

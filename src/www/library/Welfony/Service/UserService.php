@@ -26,17 +26,20 @@ class UserService
 
         if (empty($email) || empty($password)) {
             $result['message'] = '用户名和密码不能为空！';
+
             return $result;
         }
 
         $user = UserRepository::getInstance()->findUserByEmail($email);
         if (!$user) {
             $result['message'] = '用户不存在！';
+
             return $result;
         }
 
         if (!PassHash::verify($password, $user['Password'])) {
             $result['message'] = '密码不正确！';
+
             return $result;
         }
 
@@ -70,6 +73,7 @@ class UserService
     public static function getUserById($userId)
     {
         $user = UserRepository::getInstance()->findUserById($userId);
+
         return $user;
     }
 
@@ -79,6 +83,7 @@ class UserService
 
         if (empty($data['Email']) && empty($data['Mobile'])) {
             $result['message'] = '邮箱和手机号至少填写一项。';
+
             return $result;
         }
 
@@ -86,6 +91,7 @@ class UserService
             $existedUser = UserRepository::getInstance()->findUserByUsername($data['Username']);
             if ($existedUser && $existedUser['UserId'] != $data['UserId']) {
                 $result['message'] = '账号已被占用。';
+
                 return $result;
             }
         }
@@ -94,6 +100,7 @@ class UserService
             $existedUser = UserRepository::getInstance()->findUserByEmail($data['Email']);
             if ($existedUser && $existedUser['UserId'] != $data['UserId']) {
                 $result['message'] = '邮箱已被占用。';
+
                 return $result;
             }
         }
@@ -102,6 +109,7 @@ class UserService
             $existedUser = UserRepository::getInstance()->findUserByMobile($data['Mobile']);
             if ($existedUser && $existedUser['UserId'] != $data['UserId']) {
                 $result['message'] = '手机号已被注册。';
+
                 return $result;
             }
         }
@@ -109,6 +117,7 @@ class UserService
         if ($data['UserId'] == 0) {
             if (empty($data['Password'])) {
                 $result['message'] = '请输入初始密码。';
+
                 return $result;
             }
 
@@ -125,6 +134,7 @@ class UserService
                 return $result;
             } else {
                 $result['message'] = '添加用户失败！';
+
                 return $result;
             }
         } else {

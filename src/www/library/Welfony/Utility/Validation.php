@@ -20,6 +20,7 @@ class Validation
     public static function isValidDate($str, $format = 'Y-m-d')
     {
         $d = \DateTime::createFromFormat($format, $str);
+
         return $d && $d->format($format) == $str;
     }
 
@@ -92,6 +93,7 @@ class Validation
                 $message = "Unknown upload error";
                 break;
         }
+
         return $message;
     }
 

@@ -64,6 +64,8 @@ $this->headScript()
             </div>
             <div class="formitm formitm-1">
                 <input type="hidden" name="user_id" value="<?php echo intval($this->companyInfo['CompanyId']); ?>" />
+                <input id="latitude" type="hidden" name="latitude" value="<?php echo intval($this->companyInfo['Latitude']); ?>" />
+                <input id="longitude" type="hidden" name="longitude" value="<?php echo intval($this->companyInfo['Longitude']); ?>" />
                 <button class="u-btn u-btn-submit" type="button">确定</button>
             </div>
         </fieldset>

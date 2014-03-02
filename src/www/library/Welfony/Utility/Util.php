@@ -20,6 +20,7 @@ class Util
     public static function baseAssetUrl($path = '')
     {
         $config = \Zend_Registry::get('config');
+
         return $config->asset->baseUrl . '/' . $path;
     }
 
@@ -58,12 +59,14 @@ class Util
     public static function genRandomUsername($prefix = 'wh')
     {
         static $nicknameFormat = '%s%s';
+
         return sprintf($nicknameFormat, $prefix, strtolower(self::genRandomNum(8)));
     }
 
     public static function genRandomEmail($prefix = 'wh')
     {
         static $emailFormat = '%s-%s@welhair.com';
+
         return sprintf($emailFormat, $prefix, strtolower(self::genRandomNum(8)));
     }
 
