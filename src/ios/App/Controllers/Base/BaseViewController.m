@@ -32,6 +32,9 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    if (isIOS7) {
+        self.automaticallyAdjustsScrollViewInsets = NO;
+    }
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -58,7 +61,7 @@
         [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
     }
     if (self.navigationController) {
-        
+        [self.navigationController.navigationBar configureNavigationBarWithColor:[UIColor colorWithHexString:APP_BACKGROUND_COLOR]];
         CGFloat navItemMargin = isIOS7 ? 16 : 0;
         
         if (self.leftNavItemIcon) {
@@ -103,7 +106,7 @@
 
 - (void)leftNavItemClick
 {
-    
+
 }
 
 - (void)rightNavItemClick

@@ -34,7 +34,7 @@
                             barMetrics:(UIBarMetrics) metrics
                           cornerRadius:(CGFloat)cornerRadius;
 
-- (UIImage *)cropImage:(CGRect)rect;
+//- (UIImage *)cropImage:(CGRect)rect;
 
 - (UIImage *)applyBlurWithImage:(UIImage *)theImage;
 

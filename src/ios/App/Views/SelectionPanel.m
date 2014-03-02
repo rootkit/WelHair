@@ -19,6 +19,14 @@
     return self;
 }
 
+- (void)setupOpitions:(SelectOpitions *)selectOptioins
+{
+//    if(selectOptioins.options){
+//        for (NSString *keyItem in dic) {
+//            <#statements#>
+//        }
+//    }
+}
 /*
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.

@@ -16,7 +16,8 @@
 #define CONFIG_BAIDU_MAP_KEY  @"mATLLTobcd8XqZIj3xlPt8il"
 
 
-#define kAppBackgroundColor 0xFFFFFF
+#define APP_BACKGROUND_COLOR @"00a3e1"
+#define LOGIN_BG_COLOR @"009edb"
 
 #define NAV_BAR_ICON_SIZE 25
 

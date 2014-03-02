@@ -13,6 +13,7 @@
 #import "CommentsViewController.h"
 #import "StaffDetailViewController.h"
 #import "MapViewController.h"
+#import "UIImageView+WebCache.h"
 
 @interface WorkDetailViewController ()
 
@@ -34,28 +35,32 @@
 - (void)loadView
 {
     [super loadView];
-    UILabel *lbl = [[UILabel alloc] initWithFrame:CGRectMake(110, 100, 100, 30)];
-    lbl.text = @"作品详情";
-    lbl.textColor = [UIColor blackColor];
-    [self.view addSubview:lbl];
+    float margin = 10;
+    UIImageView *imgView = [[UIImageView alloc] initWithFrame:CGRectMake(margin,
+                                                                        margin + self.topBarOffset,
+                                                                        WIDTH(self.view) - 2 *margin,
+                                                                         WIDTH(self.view) - 2 *margin)];
+    [imgView setImageWithURL:[NSURL URLWithString:[[FakeDataHelper getFakeHairWorkImgs] objectAtIndex:0]]];
+    imgView.contentMode = UIViewContentModeScaleAspectFit;
+    [self.view addSubview:imgView];
+    
+//    UILabel *lbl = [[UILabel alloc] initWithFrame:CGRectMake(110, 100, 100, 30)];
+//    lbl.text = @"作品详情";
+//    lbl.textColor = [UIColor blackColor];
+//    [self.view addSubview:lbl];
     
     UIButton *staffBtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    staffBtn.frame = CGRectMake(60,200, 60, 50);
+    staffBtn.frame = CGRectMake(margin,MaxY(imgView) + margin, 100, 50);
     [staffBtn setTitle:@"发型师" forState:UIControlStateNormal];
     [staffBtn addTarget:self action:@selector(staffClick) forControlEvents:UIControlEventTouchDown];
     [self.view addSubview:staffBtn];
     
     UIButton *commentBtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    commentBtn.frame = CGRectMake(160,200, 60, 50);
+    commentBtn.frame = CGRectMake(MaxX(staffBtn) + margin,Y(staffBtn), 100, 50);
     [commentBtn setTitle:@"评论" forState:UIControlStateNormal];
     [commentBtn addTarget:self action:@selector(commentClick) forControlEvents:UIControlEventTouchDown];
     [self.view addSubview:commentBtn];
-    
-    UIButton *mapBtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    mapBtn.frame = CGRectMake(260,200, 60, 50);
-    [mapBtn setTitle:@"地图" forState:UIControlStateNormal];
-    [mapBtn addTarget:self action:@selector(mapClick) forControlEvents:UIControlEventTouchDown];
-    [self.view addSubview:mapBtn];
+//    
 }
 
 - (void)viewDidLoad

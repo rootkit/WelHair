@@ -29,3 +29,5 @@
 "CityListViewController.Title" = "选择城市";
 
 "StaffsViewController.Title" = "发型师";
+
+"NetworkError" = "网络连接失败，请检查网络！";

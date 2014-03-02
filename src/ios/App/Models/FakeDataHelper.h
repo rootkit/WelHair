@@ -10,4 +10,8 @@
 
 @interface FakeDataHelper : NSObject
 
++(id)SharedInstance;
+
++(NSArray *)getFakeHairWorkImgs;
+
 @end

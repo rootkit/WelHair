@@ -8,6 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
+typedef void (^imgTapHandler)(int);
+
 @interface WorkCell : UITableViewCell
+
+- (void)setupWithLeftData:(NSString *)leftData
+                rightData:(NSString *)rightData
+               tapHandler:(imgTapHandler)tapHandler;
 
 @end

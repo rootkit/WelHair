@@ -6,17 +6,19 @@
 //  Copyright (c) 2014 Welfony. All rights reserved.
 //
 
-#import "ProductViewController.h"
+#import "ProductDetailViewController.h"
 #import <FontAwesomeKit.h>
 #import "UMSocial.h"
 #import "UIImageView+WebCache.h"
 #import "CommentsViewController.h"
+#import "UIViewController+KNSemiModal.h"
+#import "SelectionPanel.h"
 
-@interface ProductViewController ()<UMSocialUIDelegate>
+@interface ProductDetailViewController ()<UMSocialUIDelegate>
 
 @end
 
-@implementation ProductViewController
+@implementation ProductDetailViewController
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -80,6 +82,8 @@
     [commentBtn setTitle:@"评论" forState:UIControlStateNormal];
     [commentBtn addTarget:self action:@selector(commentClick) forControlEvents:UIControlEventTouchDown];
     [self.view addSubview:commentBtn];
+    
+    
 	// Do any additional setup after loading the view.
 }
 
@@ -91,7 +95,11 @@
 
 - (void)categoryClick
 {
-//    [self.navigationController pushViewController:[StaffDetailViewController new] animated:YES];
+    self.navigationController.navigationBar.backgroundColor = [UIColor whiteColor];
+    SelectionPanel *panel = [SelectionPanel new];
+    panel.frame = CGRectMake(0, 0, 320, 300);
+    panel.backgroundColor = [UIColor grayColor];
+    [self.tabBarController presentSemiView:panel withOptions:nil];
 }
 
 - (void)commentClick

@@ -12,8 +12,8 @@
 #import <Accelerate/Accelerate.h>
 #import "UIImage+WelKit.h"
 
-CGFloat DegreesToRadians(CGFloat degrees);
-CGFloat RadiansToDegrees(CGFloat radians);
+//CGFloat DegreesToRadians(CGFloat degrees);
+//CGFloat RadiansToDegrees(CGFloat radians);
 
 static int16_t gaussianblur_kernel[13] = {
     1, 12, 66, 220, 495, 792, 924, 792, 495, 220, 66, 12, 1
@@ -221,29 +221,29 @@ static CGFloat edgeSizeFromCornerRadius(CGFloat cornerRadius)
     return path;
 }
 
-- (UIImage *)cropImage:(CGRect)rect
-{
-    CGAffineTransform rectTransform;
-    switch (self.imageOrientation) {
-        case UIImageOrientationLeft:
-            rectTransform = CGAffineTransformTranslate(CGAffineTransformMakeRotation(DegreesToRadians(90)), 0, -self.size.height);
-            break;
-        case UIImageOrientationRight:
-            rectTransform = CGAffineTransformTranslate(CGAffineTransformMakeRotation(DegreesToRadians(-90)), -self.size.width, 0);
-            break;
-        case UIImageOrientationDown:
-            rectTransform = CGAffineTransformTranslate(CGAffineTransformMakeRotation(DegreesToRadians(-180)), -self.size.width, -self.size.height);
-            break;
-        default:
-            rectTransform = CGAffineTransformIdentity;
-    };
-    rectTransform = CGAffineTransformScale(rectTransform, self.scale, self.scale);
-    
-    CGImageRef imageRef = CGImageCreateWithImageInRect([self CGImage], CGRectApplyAffineTransform(rect, rectTransform));
-    UIImage *result = [UIImage imageWithCGImage:imageRef scale:self.scale orientation:self.imageOrientation];
-    CGImageRelease(imageRef);
-    return result;
-}
+//- (UIImage *)cropImage:(CGRect)rect
+//{
+//    CGAffineTransform rectTransform;
+//    switch (self.imageOrientation) {
+//        case UIImageOrientationLeft:
+//            rectTransform = CGAffineTransformTranslate(CGAffineTransformMakeRotation(DegreesToRadians(90)), 0, -self.size.height);
+//            break;
+//        case UIImageOrientationRight:
+//            rectTransform = CGAffineTransformTranslate(CGAffineTransformMakeRotation(DegreesToRadians(-90)), -self.size.width, 0);
+//            break;
+//        case UIImageOrientationDown:
+//            rectTransform = CGAffineTransformTranslate(CGAffineTransformMakeRotation(DegreesToRadians(-180)), -self.size.width, -self.size.height);
+//            break;
+//        default:
+//            rectTransform = CGAffineTransformIdentity;
+//    };
+//    rectTransform = CGAffineTransformScale(rectTransform, self.scale, self.scale);
+//    
+//    CGImageRef imageRef = CGImageCreateWithImageInRect([self CGImage], CGRectApplyAffineTransform(rect, rectTransform));
+//    UIImage *result = [UIImage imageWithCGImage:imageRef scale:self.scale orientation:self.imageOrientation];
+//    CGImageRelease(imageRef);
+//    return result;
+//}
 
 - (UIImage*)resizedImageToSize:(CGSize)dstSize
 {
@@ -373,38 +373,38 @@ static CGFloat edgeSizeFromCornerRadius(CGFloat cornerRadius)
 }
 
 
-- (UIImage *)imageRotatedByRadians:(CGFloat)radians
-{
-    return [self imageRotatedByDegrees:RadiansToDegrees(radians)];
-}
+//- (UIImage *)imageRotatedByRadians:(CGFloat)radians
+//{
+//    return [self imageRotatedByDegrees:RadiansToDegrees(radians)];
+//}
 
-- (UIImage *)imageRotatedByDegrees:(CGFloat)degrees
-{
-    // calculate the size of the rotated view's containing box for our drawing space
-    UIView *rotatedViewBox = [[UIView alloc] initWithFrame:CGRectMake(0,0,self.size.width, self.size.height)];
-    CGAffineTransform t = CGAffineTransformMakeRotation(DegreesToRadians(degrees));
-    rotatedViewBox.transform = t;
-    CGSize rotatedSize = rotatedViewBox.frame.size;
-    
-    // Create the bitmap context
-    UIGraphicsBeginImageContextWithOptions(rotatedSize, NO, self.scale);
-    CGContextRef bitmap = UIGraphicsGetCurrentContext();
-    
-    // Move the origin to the middle of the image so we will rotate and scale around the center.
-    CGContextTranslateCTM(bitmap, rotatedSize.width/2, rotatedSize.height/2);
-    
-    //   // Rotate the image context
-    CGContextRotateCTM(bitmap, DegreesToRadians(degrees));
-    
-    // Now, draw the rotated/scaled image into the context
-    CGContextScaleCTM(bitmap, 1.0, -1.0);
-    CGContextDrawImage(bitmap, CGRectMake(-self.size.width / 2, -self.size.height / 2, self.size.width, self.size.height), [self CGImage]);
-    
-    UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-
-    return newImage;
-}
+//- (UIImage *)imageRotatedByDegrees:(CGFloat)degrees
+//{
+//    // calculate the size of the rotated view's containing box for our drawing space
+//    UIView *rotatedViewBox = [[UIView alloc] initWithFrame:CGRectMake(0,0,self.size.width, self.size.height)];
+//    CGAffineTransform t = CGAffineTransformMakeRotation(DegreesToRadians(degrees));
+//    rotatedViewBox.transform = t;
+//    CGSize rotatedSize = rotatedViewBox.frame.size;
+//    
+//    // Create the bitmap context
+//    UIGraphicsBeginImageContextWithOptions(rotatedSize, NO, self.scale);
+//    CGContextRef bitmap = UIGraphicsGetCurrentContext();
+//    
+//    // Move the origin to the middle of the image so we will rotate and scale around the center.
+//    CGContextTranslateCTM(bitmap, rotatedSize.width/2, rotatedSize.height/2);
+//    
+//    //   // Rotate the image context
+//    CGContextRotateCTM(bitmap, DegreesToRadians(degrees));
+//    
+//    // Now, draw the rotated/scaled image into the context
+//    CGContextScaleCTM(bitmap, 1.0, -1.0);
+//    CGContextDrawImage(bitmap, CGRectMake(-self.size.width / 2, -self.size.height / 2, self.size.width, self.size.height), [self CGImage]);
+//    
+//    UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
+//    UIGraphicsEndImageContext();
+//
+//    return newImage;
+//}
 
 - (UIImage *)fixOrientation
 {
@@ -661,5 +661,5 @@ static CGFloat edgeSizeFromCornerRadius(CGFloat cornerRadius)
 
 @end
 
-CGFloat DegreesToRadians(CGFloat degrees) {return degrees * M_PI / 180;};
-CGFloat RadiansToDegrees(CGFloat radians) {return radians * 180/M_PI;};
+//CGFloat DegreesToRadians(CGFloat degrees) {return degrees * M_PI / 180;};
+//CGFloat RadiansToDegrees(CGFloat radians) {return radians * 180/M_PI;};

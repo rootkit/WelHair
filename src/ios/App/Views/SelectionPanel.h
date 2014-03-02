@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "SelectOpitions.h"
 
 @interface SelectionPanel : UIView
 

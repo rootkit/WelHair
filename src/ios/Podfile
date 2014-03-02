@@ -8,3 +8,8 @@ pod 'FMDB', '2.1'
 pod 'SDWebImage', '3.5.1'
 pod 'EDColor', '0.2.1'
 pod 'FontAwesomeKit', '2.1.4'
+#pod 'KNSemiModalViewController', '~> 0.3'
+
+#pod 'SVPullToRefresh', '0.4.1'
+#pod 'CocoaLumberjack', '~> 1.8.1'
+#pod 'EGODatabase', '~> 2.0'
