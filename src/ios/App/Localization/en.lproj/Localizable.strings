@@ -29,3 +29,5 @@
 "CityListViewController.Title" = "Pick City";
 
 "StaffsViewController.Title" = "Staffs";
+
+"NetworkError" = "Network issue！";

@@ -53,7 +53,6 @@
 		46A46FEE18BE21BB0057F579 /* mapapi.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 46A46FEC18BE21BB0057F579 /* mapapi.bundle */; };
 		46A4704818BE23990057F579 /* libbaidumapapi.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 46A4701C18BE23990057F579 /* libbaidumapapi.a */; };
 		46A4704918BE23990057F579 /* libbaidumapapi.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 46A4704718BE23990057F579 /* libbaidumapapi.a */; };
-		46B2338618BCC8E000CC27A3 /* ProductViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 46B2338518BCC8E000CC27A3 /* ProductViewController.m */; };
 		46B233B718BCDC4200CC27A3 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 46B233B618BCDC4200CC27A3 /* LoginViewController.m */; };
 		46B233B918BCE58400CC27A3 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46B233B818BCE58400CC27A3 /* Security.framework */; };
 		46B233BB18BCE58E00CC27A3 /* libiconv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 46B233BA18BCE58E00CC27A3 /* libiconv.dylib */; };
@@ -79,6 +78,8 @@
 		46B233F818BCE6E000CC27A3 /* UMSocialSDKResourcesNew.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 46B233E818BCE6E000CC27A3 /* UMSocialSDKResourcesNew.bundle */; };
 		46B25AE418BF1CAA0035F425 /* RootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 46B25AE318BF1CAA0035F425 /* RootViewController.m */; };
 		46B25AE618BF1CC60035F425 /* MapViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 46B25AE518BF1CC60035F425 /* MapViewController.mm */; };
+		46B25AED18C086D30035F425 /* WorkCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 46B25AEC18C086D30035F425 /* WorkCell.m */; };
+		46B25AF018C185290035F425 /* FakeDataHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 46B25AEF18C185290035F425 /* FakeDataHelper.m */; };
 		46BCD24818BB85FC005C4BD6 /* line@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 46BCD24218BB85FC005C4BD6 /* line@2x.png */; };
 		46BCD24918BB85FC005C4BD6 /* pick_bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 46BCD24318BB85FC005C4BD6 /* pick_bg@2x.png */; };
 		46BCD24A18BB85FC005C4BD6 /* WelQRGeneraterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 46BCD24518BB85FC005C4BD6 /* WelQRGeneraterViewController.m */; };
@@ -94,6 +95,18 @@
 		46BCD26918BC797B005C4BD6 /* GroupDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 46BCD26818BC797B005C4BD6 /* GroupDetailViewController.m */; };
 		46BCD27318BC79E0005C4BD6 /* StaffsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 46BCD27218BC79E0005C4BD6 /* StaffsViewController.m */; };
 		46BCD27618BC79EB005C4BD6 /* StaffDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 46BCD27518BC79EB005C4BD6 /* StaffDetailViewController.m */; };
+		46E84EBF18C2C7040004C146 /* centerIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 46E84EBA18C2C7040004C146 /* centerIcon@2x.png */; };
+		46E84EC018C2C7040004C146 /* UIScrollView+UzysCircularProgressPullToRefresh.m in Sources */ = {isa = PBXBuildFile; fileRef = 46E84EBC18C2C7040004C146 /* UIScrollView+UzysCircularProgressPullToRefresh.m */; };
+		46E84EC118C2C7040004C146 /* UzysRadialProgressActivityIndicator.m in Sources */ = {isa = PBXBuildFile; fileRef = 46E84EBE18C2C7040004C146 /* UzysRadialProgressActivityIndicator.m */; };
+		46E84ECA18C2D9050004C146 /* ProductDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 46E84EC918C2D9050004C146 /* ProductDetailViewController.m */; };
+		46E84ECE18C2DB930004C146 /* UIViewController+KNSemiModal.m in Sources */ = {isa = PBXBuildFile; fileRef = 46E84ECD18C2DB930004C146 /* UIViewController+KNSemiModal.m */; };
+		46E84ED118C2E1550004C146 /* UINavigationBar+WelKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 46E84ED018C2E1550004C146 /* UINavigationBar+WelKit.m */; };
+		46E84ED418C2E1CC0004C146 /* UIImage+WelKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 46E84ED318C2E1CC0004C146 /* UIImage+WelKit.m */; };
+		46E84ED718C2F0380004C146 /* OpitionSelectPanel.m in Sources */ = {isa = PBXBuildFile; fileRef = 46E84ED618C2F0380004C146 /* OpitionSelectPanel.m */; };
+		46E84EDA18C337D70004C146 /* OpitionItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 46E84ED918C337D70004C146 /* OpitionItem.m */; };
+		46E84EDD18C338370004C146 /* OpitionCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 46E84EDC18C338370004C146 /* OpitionCategory.m */; };
+		46E84EE018C33FAC0004C146 /* SelectOpition.m in Sources */ = {isa = PBXBuildFile; fileRef = 46E84EDF18C33FAC0004C146 /* SelectOpition.m */; };
+		46E84EE318C356B30004C146 /* OpitionButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 46E84EE218C356B30004C146 /* OpitionButton.m */; };
 		8D253C7C0D2C41EC8279DF3F /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0DEE8FDE44A64A6986F93371 /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -245,8 +258,6 @@
 		46A4704618BE23990057F579 /* BMKVersion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMKVersion.h; sourceTree = "<group>"; };
 		46A4704718BE23990057F579 /* libbaidumapapi.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libbaidumapapi.a; sourceTree = "<group>"; };
 		46A4704D18BE28DA0057F579 /* MapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapViewController.h; sourceTree = "<group>"; };
-		46B2338418BCC8E000CC27A3 /* ProductViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProductViewController.h; sourceTree = "<group>"; };
-		46B2338518BCC8E000CC27A3 /* ProductViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProductViewController.m; sourceTree = "<group>"; };
 		46B233B518BCDC4200CC27A3 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
 		46B233B618BCDC4200CC27A3 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 		46B233B818BCE58400CC27A3 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
@@ -287,6 +298,10 @@
 		46B233E918BCE6E000CC27A3 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/UMSocialLocalizable.strings"; sourceTree = "<group>"; };
 		46B25AE318BF1CAA0035F425 /* RootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RootViewController.m; sourceTree = "<group>"; };
 		46B25AE518BF1CC60035F425 /* MapViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MapViewController.mm; sourceTree = "<group>"; };
+		46B25AEB18C086D30035F425 /* WorkCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WorkCell.h; sourceTree = "<group>"; };
+		46B25AEC18C086D30035F425 /* WorkCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WorkCell.m; sourceTree = "<group>"; };
+		46B25AEE18C185290035F425 /* FakeDataHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FakeDataHelper.h; sourceTree = "<group>"; };
+		46B25AEF18C185290035F425 /* FakeDataHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FakeDataHelper.m; sourceTree = "<group>"; };
 		46BCD23118BB7BF5005C4BD6 /* Macros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Macros.h; sourceTree = "<group>"; };
 		46BCD24218BB85FC005C4BD6 /* line@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "line@2x.png"; sourceTree = "<group>"; };
 		46BCD24318BB85FC005C4BD6 /* pick_bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pick_bg@2x.png"; sourceTree = "<group>"; };
@@ -314,6 +329,29 @@
 		46BCD27218BC79E0005C4BD6 /* StaffsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StaffsViewController.m; sourceTree = "<group>"; };
 		46BCD27418BC79EB005C4BD6 /* StaffDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StaffDetailViewController.h; sourceTree = "<group>"; };
 		46BCD27518BC79EB005C4BD6 /* StaffDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StaffDetailViewController.m; sourceTree = "<group>"; };
+		46E84EBA18C2C7040004C146 /* centerIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "centerIcon@2x.png"; sourceTree = "<group>"; };
+		46E84EBB18C2C7040004C146 /* UIScrollView+UzysCircularProgressPullToRefresh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+UzysCircularProgressPullToRefresh.h"; sourceTree = "<group>"; };
+		46E84EBC18C2C7040004C146 /* UIScrollView+UzysCircularProgressPullToRefresh.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+UzysCircularProgressPullToRefresh.m"; sourceTree = "<group>"; };
+		46E84EBD18C2C7040004C146 /* UzysRadialProgressActivityIndicator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UzysRadialProgressActivityIndicator.h; sourceTree = "<group>"; };
+		46E84EBE18C2C7040004C146 /* UzysRadialProgressActivityIndicator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UzysRadialProgressActivityIndicator.m; sourceTree = "<group>"; };
+		46E84EC818C2D9050004C146 /* ProductDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProductDetailViewController.h; sourceTree = "<group>"; };
+		46E84EC918C2D9050004C146 /* ProductDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProductDetailViewController.m; sourceTree = "<group>"; };
+		46E84ECC18C2DB930004C146 /* UIViewController+KNSemiModal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+KNSemiModal.h"; sourceTree = "<group>"; };
+		46E84ECD18C2DB930004C146 /* UIViewController+KNSemiModal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+KNSemiModal.m"; sourceTree = "<group>"; };
+		46E84ECF18C2E1550004C146 /* UINavigationBar+WelKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UINavigationBar+WelKit.h"; sourceTree = "<group>"; };
+		46E84ED018C2E1550004C146 /* UINavigationBar+WelKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UINavigationBar+WelKit.m"; sourceTree = "<group>"; };
+		46E84ED218C2E1CC0004C146 /* UIImage+WelKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+WelKit.h"; sourceTree = "<group>"; };
+		46E84ED318C2E1CC0004C146 /* UIImage+WelKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+WelKit.m"; sourceTree = "<group>"; };
+		46E84ED518C2F0380004C146 /* OpitionSelectPanel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpitionSelectPanel.h; sourceTree = "<group>"; };
+		46E84ED618C2F0380004C146 /* OpitionSelectPanel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OpitionSelectPanel.m; sourceTree = "<group>"; };
+		46E84ED818C337D70004C146 /* OpitionItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpitionItem.h; sourceTree = "<group>"; };
+		46E84ED918C337D70004C146 /* OpitionItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OpitionItem.m; sourceTree = "<group>"; };
+		46E84EDB18C338370004C146 /* OpitionCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpitionCategory.h; sourceTree = "<group>"; };
+		46E84EDC18C338370004C146 /* OpitionCategory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OpitionCategory.m; sourceTree = "<group>"; };
+		46E84EDE18C33FAC0004C146 /* SelectOpition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectOpition.h; sourceTree = "<group>"; };
+		46E84EDF18C33FAC0004C146 /* SelectOpition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectOpition.m; sourceTree = "<group>"; };
+		46E84EE118C356B30004C146 /* OpitionButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpitionButton.h; sourceTree = "<group>"; };
+		46E84EE218C356B30004C146 /* OpitionButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OpitionButton.m; sourceTree = "<group>"; };
 		DB57361E9AB145E7AB30BD59 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = ../../Pods/Pods.xcconfig; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -392,6 +430,8 @@
 		18A9126818BB216E006B9A04 /* App */ = {
 			isa = PBXGroup;
 			children = (
+				18A9127118BB216E006B9A04 /* AppDelegate.h */,
+				18A9127218BB216E006B9A04 /* AppDelegate.m */,
 				18A9129118BB2350006B9A04 /* Assets */,
 				18A9129818BB2350006B9A04 /* Constants */,
 				18A912D918BB26B6006B9A04 /* Controllers */,
@@ -399,8 +439,7 @@
 				18A912DF18BB26B6006B9A04 /* Models */,
 				18A9126918BB216E006B9A04 /* Supporting Files */,
 				18A912E518BB2826006B9A04 /* Vendor */,
-				18A9127118BB216E006B9A04 /* AppDelegate.h */,
-				18A9127218BB216E006B9A04 /* AppDelegate.m */,
+				46B25AE718C0716E0035F425 /* Views */,
 			);
 			path = App;
 			sourceTree = "<group>";
@@ -521,10 +560,18 @@
 		18A912DF18BB26B6006B9A04 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				46E84EDE18C33FAC0004C146 /* SelectOpition.h */,
+				46E84EDF18C33FAC0004C146 /* SelectOpition.m */,
+				46B25AEE18C185290035F425 /* FakeDataHelper.h */,
+				46B25AEF18C185290035F425 /* FakeDataHelper.m */,
 				18A912E018BB26B6006B9A04 /* User.h */,
 				18A912E118BB26B6006B9A04 /* User.m */,
 				4665FD8318BC801000E88C6B /* Work.h */,
 				4665FD8418BC801000E88C6B /* Work.m */,
+				46E84ED818C337D70004C146 /* OpitionItem.h */,
+				46E84ED918C337D70004C146 /* OpitionItem.m */,
+				46E84EDB18C338370004C146 /* OpitionCategory.h */,
+				46E84EDC18C338370004C146 /* OpitionCategory.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -532,6 +579,8 @@
 		18A912E518BB2826006B9A04 /* Vendor */ = {
 			isa = PBXGroup;
 			children = (
+				46E84ECB18C2DB930004C146 /* KNSemiModalViewController */,
+				46E84EB918C2C7040004C146 /* UzysCircularProgressPullToRefresh */,
 				46B233C618BCE6E000CC27A3 /* UMSocial_Sdk_3.3.3 */,
 				46BCD24E18BC3B4F005C4BD6 /* SVProgressHUD */,
 				18A912E618BB2826006B9A04 /* WelKit */,
@@ -553,6 +602,10 @@
 		18A912E718BB2826006B9A04 /* UIKit */ = {
 			isa = PBXGroup;
 			children = (
+				46E84ED218C2E1CC0004C146 /* UIImage+WelKit.h */,
+				46E84ED318C2E1CC0004C146 /* UIImage+WelKit.m */,
+				46E84ECF18C2E1550004C146 /* UINavigationBar+WelKit.h */,
+				46E84ED018C2E1550004C146 /* UINavigationBar+WelKit.m */,
 				18A912E818BB2826006B9A04 /* UIView+WelKit.h */,
 				18A912E918BB2826006B9A04 /* UIView+WelKit.m */,
 			);
@@ -564,8 +617,8 @@
 			children = (
 				4660E68E18BB73E1005B3C7D /* ProductsViewController.h */,
 				4660E68F18BB73E1005B3C7D /* ProductsViewController.m */,
-				46B2338418BCC8E000CC27A3 /* ProductViewController.h */,
-				46B2338518BCC8E000CC27A3 /* ProductViewController.m */,
+				46E84EC818C2D9050004C146 /* ProductDetailViewController.h */,
+				46E84EC918C2D9050004C146 /* ProductDetailViewController.m */,
 			);
 			path = Products;
 			sourceTree = "<group>";
@@ -786,6 +839,19 @@
 			path = TencentOpenAPI;
 			sourceTree = "<group>";
 		};
+		46B25AE718C0716E0035F425 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				46B25AEB18C086D30035F425 /* WorkCell.h */,
+				46B25AEC18C086D30035F425 /* WorkCell.m */,
+				46E84ED518C2F0380004C146 /* OpitionSelectPanel.h */,
+				46E84ED618C2F0380004C146 /* OpitionSelectPanel.m */,
+				46E84EE118C356B30004C146 /* OpitionButton.h */,
+				46E84EE218C356B30004C146 /* OpitionButton.m */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		46BCD24018BB85FC005C4BD6 /* Controls */ = {
 			isa = PBXGroup;
 			children = (
@@ -871,6 +937,27 @@
 				46BCD27518BC79EB005C4BD6 /* StaffDetailViewController.m */,
 			);
 			path = Staffs;
+			sourceTree = "<group>";
+		};
+		46E84EB918C2C7040004C146 /* UzysCircularProgressPullToRefresh */ = {
+			isa = PBXGroup;
+			children = (
+				46E84EBA18C2C7040004C146 /* centerIcon@2x.png */,
+				46E84EBB18C2C7040004C146 /* UIScrollView+UzysCircularProgressPullToRefresh.h */,
+				46E84EBC18C2C7040004C146 /* UIScrollView+UzysCircularProgressPullToRefresh.m */,
+				46E84EBD18C2C7040004C146 /* UzysRadialProgressActivityIndicator.h */,
+				46E84EBE18C2C7040004C146 /* UzysRadialProgressActivityIndicator.m */,
+			);
+			path = UzysCircularProgressPullToRefresh;
+			sourceTree = "<group>";
+		};
+		46E84ECB18C2DB930004C146 /* KNSemiModalViewController */ = {
+			isa = PBXGroup;
+			children = (
+				46E84ECC18C2DB930004C146 /* UIViewController+KNSemiModal.h */,
+				46E84ECD18C2DB930004C146 /* UIViewController+KNSemiModal.m */,
+			);
+			path = KNSemiModalViewController;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -964,6 +1051,7 @@
 				46B233F218BCE6E000CC27A3 /* UMShareEditViewControlleriPad.xib in Resources */,
 				18A912C918BB25AA006B9A04 /* Icon.png in Resources */,
 				18A912D318BB2670006B9A04 /* Default-Landscape@2x~ipad.png in Resources */,
+				46E84EBF18C2C7040004C146 /* centerIcon@2x.png in Resources */,
 				18A912BF18BB25AA006B9A04 /* Icon-40@2x.png in Resources */,
 				18A912C718BB25AA006B9A04 /* Icon-Small.png in Resources */,
 				18A912AE18BB2552006B9A04 /* Images.xcassets in Resources */,
@@ -1018,11 +1106,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				46E84EE318C356B30004C146 /* OpitionButton.m in Sources */,
+				46E84EE018C33FAC0004C146 /* SelectOpition.m in Sources */,
 				46BCD25F18BC725D005C4BD6 /* GroupsViewController.m in Sources */,
 				46B233B718BCDC4200CC27A3 /* LoginViewController.m in Sources */,
 				46B25AE418BF1CAA0035F425 /* RootViewController.m in Sources */,
 				4660E69018BB73E1005B3C7D /* ProductsViewController.m in Sources */,
-				46B2338618BCC8E000CC27A3 /* ProductViewController.m in Sources */,
 				18A912E418BB26B6006B9A04 /* User.m in Sources */,
 				46BCD25318BC3B4F005C4BD6 /* SVProgressHUD.m in Sources */,
 				18A9127318BB216E006B9A04 /* AppDelegate.m in Sources */,
@@ -1031,14 +1120,25 @@
 				18A912EC18BB2826006B9A04 /* UIView+WelKit.m in Sources */,
 				4665FD7C18BC7D4700E88C6B /* CommentsViewController.m in Sources */,
 				46BCD26318BC7561005C4BD6 /* CityListViewController.m in Sources */,
+				46B25AED18C086D30035F425 /* WorkCell.m in Sources */,
+				46E84EDA18C337D70004C146 /* OpitionItem.m in Sources */,
 				46BCD24B18BB85FC005C4BD6 /* WelQRReaderViewController.m in Sources */,
 				46BCD25718BC628E005C4BD6 /* ChatSessionListViewController.m in Sources */,
 				46BCD26618BC796B005C4BD6 /* WorkDetailViewController.m in Sources */,
+				46E84ED718C2F0380004C146 /* OpitionSelectPanel.m in Sources */,
+				46E84ED118C2E1550004C146 /* UINavigationBar+WelKit.m in Sources */,
 				4665FD8518BC801000E88C6B /* Work.m in Sources */,
 				46B25AE618BF1CC60035F425 /* MapViewController.mm in Sources */,
+				46E84EC118C2C7040004C146 /* UzysRadialProgressActivityIndicator.m in Sources */,
+				46E84ECE18C2DB930004C146 /* UIViewController+KNSemiModal.m in Sources */,
 				18A912E218BB26B6006B9A04 /* BaseViewController.m in Sources */,
+				46E84EC018C2C7040004C146 /* UIScrollView+UzysCircularProgressPullToRefresh.m in Sources */,
+				46B25AF018C185290035F425 /* FakeDataHelper.m in Sources */,
+				46E84EDD18C338370004C146 /* OpitionCategory.m in Sources */,
 				46BCD27618BC79EB005C4BD6 /* StaffDetailViewController.m in Sources */,
 				46BCD24A18BB85FC005C4BD6 /* WelQRGeneraterViewController.m in Sources */,
+				46E84ED418C2E1CC0004C146 /* UIImage+WelKit.m in Sources */,
+				46E84ECA18C2D9050004C146 /* ProductDetailViewController.m in Sources */,
 				18A9126F18BB216E006B9A04 /* main.m in Sources */,
 				4660E69618BB73FF005B3C7D /* UserViewController.m in Sources */,
 				46BCD27318BC79E0005C4BD6 /* StaffsViewController.m in Sources */,

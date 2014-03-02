@@ -27,3 +27,4 @@
 #endif
 
 #import "UIView+WelKit.h"
+#import "UINavigationBar+WelKit.h"

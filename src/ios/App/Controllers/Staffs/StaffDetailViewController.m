@@ -11,6 +11,11 @@
 // ==============================================================================
 
 #import "StaffDetailViewController.h"
+#import "UIImageView+WebCache.h"
+#import "GroupDetailViewController.h"
+#import "UIImageView+WebCache.h"
+#import "UIViewController+KNSemiModal.h"
+
 
 @interface StaffDetailViewController ()
 
@@ -30,10 +35,32 @@
 - (void)loadView
 {
     [super loadView];
-    UILabel *lbl = [[UILabel alloc] initWithFrame:CGRectMake(110, 100, 100, 30)];
+    float margin = 10;
+    
+    UIImageView *imgView = [[UIImageView alloc] initWithFrame:CGRectMake(margin,
+                                                                         margin + self.topBarOffset,
+                                                                         WIDTH(self.view) - 2 *margin,
+                                                                         WIDTH(self.view) - 2 *margin)];
+    [imgView setImageWithURL:[NSURL URLWithString:[[FakeDataHelper getFakeHairWorkImgs] objectAtIndex:0]]];
+    imgView.contentMode = UIViewContentModeScaleAspectFit;
+    [self.view addSubview:imgView];
+    
+    UILabel *lbl = [[UILabel alloc] initWithFrame:CGRectMake(margin, MaxY(imgView) + margin, 100, 30)];
     lbl.text = @"设计师Danny";
     lbl.textColor = [UIColor blackColor];
     [self.view addSubview:lbl];
+    
+    UIButton *staffBtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    staffBtn.frame = CGRectMake(MaxX(lbl) + margin,MaxY(imgView) + margin, 100, 50);
+    [staffBtn setTitle:@"所属沙龙" forState:UIControlStateNormal];
+    [staffBtn addTarget:self action:@selector(groupClick) forControlEvents:UIControlEventTouchDown];
+    [self.view addSubview:staffBtn];
+    
+    UIButton *orderBtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    orderBtn.frame = CGRectMake(MaxX(staffBtn) + margin,MaxY(imgView) + margin, 100, 50);
+    [orderBtn setTitle:@"预约" forState:UIControlStateNormal];
+    [orderBtn addTarget:self action:@selector(orderClick) forControlEvents:UIControlEventTouchDown];
+    [self.view addSubview:orderBtn];
 }
 
 - (void)viewDidLoad
@@ -47,5 +74,16 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+- (void)orderClick
+{
+    
+}
+
+- (void)groupClick
+{
+    [self.navigationController pushViewController:[GroupDetailViewController new] animated:YES];
+}
+
 
 @end

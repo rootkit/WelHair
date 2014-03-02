@@ -8,6 +8,7 @@
 
 #import "LoginViewController.h"
 #import "UMSocial.h"
+#import <QuartzCore/QuartzCore.h>
 
 @interface LoginViewController ()
 
@@ -28,7 +29,6 @@
 - (void)loadView
 {
     [super loadView];
-
     UIButton *sinaLoginBtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     sinaLoginBtn.frame = CGRectMake(60, 100, 60, 40);
     [sinaLoginBtn addTarget:self action:@selector(sinaSignClick) forControlEvents:UIControlEventTouchUpInside];
