@@ -8,6 +8,7 @@
 --  file that was distributed with this source code.
 --
 -- ==============================================================================
+
 CREATE DATABASE IF NOT EXISTS welhair DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
 
 GRANT ALL PRIVILEGES ON welhair.* TO whusr@'%' IDENTIFIED BY 'black123' WITH GRANT OPTION;
@@ -65,6 +66,13 @@ CREATE TABLE IF NOT EXISTS `Social` (
   INDEX `IX_Social_ExternalId` (`ExternalId` ASC)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+CREATE TABLE IF NOT EXISTS `Area` (
+  `AreaId` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `ParentId` INT UNSIGNED NOT NULL DEFAULT 0,
+  `Name`VARCHAR(50) NOT NULL,
+  `Sort` INT NOT NULL DEFAULT 99,
+  PRIMARY KEY (`AreaId`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 delimiter $$
 

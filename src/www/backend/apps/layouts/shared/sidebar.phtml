@@ -40,6 +40,45 @@
     </ul>
     <?php endif; ?>
 
+    <?php if ($this->module == 'company'): ?>
+    <ul class="lists">
+        <li>
+            <a href="<?php echo $this->baseUrl('company/index/search'); ?>">沙龙管理</a>
+        </li>
+        <?php if ($this->controller == 'index'): ?>
+        <li class="sub-menu<?php echo $this->action == 'search' ? ' active' : ''; ?>">
+            <a href="<?php echo $this->baseUrl('company/index/search'); ?>">
+                <i class="iconfont">&#x344a;</i>
+                沙龙列表
+            </a>
+        </li>
+        <li class="sub-menu">
+            <a href="<?php echo $this->baseUrl('company/index/authentication'); ?>">
+                <i class="iconfont">&#xf00b2;</i>
+                沙龙认证
+            </a>
+        </li>
+        <?php endif; ?>
+        <li>
+            <a href="<?php echo $this->baseUrl('company/staff/search'); ?>">发型师管理</a>
+        </li>
+        <?php if ($this->controller == 'staff'): ?>
+        <li class="sub-menu<?php echo $this->action == 'search' ? ' active' : ''; ?>">
+            <a href="<?php echo $this->baseUrl('company/staff/search'); ?>">
+                <i class="iconfont">&#x344a;</i>
+                发型师列表
+            </a>
+        </li>
+        <li class="sub-menu">
+            <a href="<?php echo $this->baseUrl('company/staff/authentication'); ?>">
+                <i class="iconfont">&#xf00b2;</i>
+                发型师认证
+            </a>
+        </li>
+        <?php endif; ?>
+    </ul>
+    <?php endif; ?>
+
     <?php if ($this->module == 'order'): ?>
     <ul class="lists">
         <li>

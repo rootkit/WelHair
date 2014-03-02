@@ -1,0 +1,72 @@
+<?php
+use \Welfony\Utility\Util;
+
+
+$this->headScript()
+     ->appendFile('http://api.map.baidu.com/api?v=2.0&ak=3998daac6ca53a8067263f139b4aadf4');
+?>
+<div class="m-form">
+    <form id="frm-company-info" method="post">
+        <fieldset>
+            <div class="formitm">
+                <label class="lab">沙龙名称：</label>
+                <div class="ipt">
+                    <input name="companyname" type="text" value="<?php echo $this->companyInfo['Name']; ?>" datatype="s4-30" errormsg="沙龙名称至少4个字符，最多30个字符！" class="u-ipt"/>
+                    <p>4~30个字符，包括字母，数字，下划线以字母开头，字母或数字结尾</p>
+                </div>
+            </div>
+            <div class="formitm">
+                <label class="lab">联系电话：</label>
+                <div class="ipt">
+                    <input name="phone" type="text" value="<?php echo $this->companyInfo['Phone']; ?>" datatype="s4-30" errormsg="沙龙名称至少4个字符，最多30个字符！" class="u-ipt"/>
+                    <p>格式：（地区号-）用户号（-分机号）如010-66668888-123</p>
+                </div>
+            </div>
+            <div class="formitm">
+                <label class="lab">地区：</label>
+                <div class="ipt">
+                    <select name="province" class="u-sel">
+                    </select>
+                    <select name="city" class="u-sel">
+                    </select>
+                    <select name="area" class="u-sel">
+                    </select>
+                    <p>正确设置地区有利于无GPS用户搜索</p>
+                </div>
+            </div>
+            <div class="formitm">
+                <label class="lab">详细地址：</label>
+                <div class="ipt">
+                    <input name="address" type="text" value="<?php echo $this->companyInfo['Address']; ?>" datatype="*" class="u-ipt"/>
+                </div>
+            </div>
+            <div class="formitm">
+                <label class="lab">区域：</label>
+                <div class="ipt">
+                    <input id="map-search-input" type="text" class="u-ipt"/>
+                    <button id="map-search" class="u-btn u-btn-c3" type="button">
+                        <i class="iconfont">&#xf012c;</i>
+                    </button>
+                    <p>点击地图或标注获取坐标</p>
+                </div>
+            </div>
+            <div class="formitm">
+                <label class="lab"></label>
+                <div class="ipt">
+                    <div id="company-map" class="map"></div>
+                </div>
+            </div>
+            <div class="formitm">
+                <label class="lab"></label>
+                <div class="ipt">
+                    <div id="company-pic-uploader"></div>
+                </div>
+            </div>
+            <div class="formitm formitm-1">
+                <input type="hidden" name="user_id" value="<?php echo intval($this->companyInfo['CompanyId']); ?>" />
+                <button class="u-btn u-btn-submit" type="button">确定</button>
+            </div>
+        </fieldset>
+    </form>
+</div>
+<script src="<?php echo Util::baseAssetUrl('js/backend/company-info.js'); ?>"></script>

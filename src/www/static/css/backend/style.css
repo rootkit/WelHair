@@ -651,86 +651,11 @@ a.u-upload,a.u-upload:hover {
     display: block;
 }
 
-.x-message-shadow {
-    background: #666;
-    position: absolute;
-    z-index: 1025;
-    border-bottom-right-radius: 8px;
-    border-bottom-left-radius: 8px;
-    -moz-border-radius-bottomright: 8px;
-    -moz-border-radius-bottomleft: 8px;
-    -webkit-border-bottom-right-radius: 10px;
-    -webkit-border-bottom-left-radius: 10px;
-    opacity: .6;
+.map {
+    width: 600px;
+    height: 400px;
 }
 
-.x-message-box .x-message-content {
-    background: #fff;
-    z-index: 1026;
-    position: absolute;
-    padding: 20px 50px 20px 50px;
-    border-bottom-right-radius: 8px;
-    border-bottom-left-radius: 8px;
-    -moz-border-radius-bottomright: 8px;
-    -moz-border-radius-bottomleft: 8px;
-    -webkit-border-bottom-right-radius: 8px;
-    -webkit-border-bottom-left-radius: 8px;
-    left: 4px;
-    display: block;
+.map img {
+    vertical-align: baseline !important;
 }
-
-.x-message-box .x-message-content .x-message-icon {
-    width: 24px;
-    height: 24px;
-    background: url(/static/qbase/img/qui/message-icon.png);
-    text-indent: -9999px;
-    display: inline-block;
-    position: absolute;
-    left: 50px;
-    z-index: 1027;
-}
-
-.x-message-box .x-message-content .x-message-text {
-    line-height: 24px;
-    padding-left: 34px;
-    font-size: 18px;
-    display: block;
-}
-
-.x-message-box .x-message-content .x-message-text pre {
-    font-size: 18px;
-}
-
-.x-message-box.x-message-status-alert .x-message-content {
-    background: #fffcf0;
-}
-
-.x-message-box.x-message-status-alert .x-message-content .x-message-icon {
-    background-position: -24px 0;
-}
-
-.x-message-box.x-message-status-error .x-message-content {
-    background: #fffcf0;
-}
-
-.x-message-box.x-message-status-error .x-message-content .x-message-icon {
-    background-position: -48px 0;
-}
-
-.x-message-box.x-message-status-notice .x-message-content .x-message-icon {
-    background-position: -72px 0;
-}
-
-.x-message-box.x-message-status-question .x-message-content .x-message-icon {
-    background-position: -96px 0;
-}
-
-.x-message-box.x-message-status-forbidden .x-message-content {
-    background: #fffcf0;
-}
-
-.x-message-box.x-message-status-forbidden .x-message-content .x-message-icon {
-    background-position: -120px 0;
-}
-
-.border-radius-6,.border-radius-10,.custom-scroll-bar::-webkit-scrollbar,.custom-scroll-bar::-webkit-scrollbar-thumb,.x-message-shadow,.x-message-box .x-message-content{-moz-background-clip:padding;-webkit-background-clip:padding-box;background-clip:padding-box}
