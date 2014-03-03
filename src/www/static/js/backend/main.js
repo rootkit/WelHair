@@ -39,6 +39,8 @@ WF = {
 
         changeSizebarHeight();
 
+        $.Datatype.tel = /^((\d{3,4})|\d{3,4}-)?\d{7,8}(-\d+)*$/i;
+
         $('.sidebar .lists li').hover(
             function() {
                 $('.sidebar .lists li').removeClass('on');

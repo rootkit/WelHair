@@ -18,13 +18,19 @@ $this->headScript()
             <div class="formitm">
                 <label class="lab">联系电话：</label>
                 <div class="ipt">
-                    <input name="phone" type="text" value="<?php echo $this->companyInfo['Phone']; ?>" datatype="s4-30" errormsg="沙龙名称至少4个字符，最多30个字符！" class="u-ipt"/>
+                    <input name="tel" type="text" value="<?php echo $this->companyInfo['Tel']; ?>" datatype="tel" class="u-ipt"/>
                     <p>格式：（地区号-）用户号（-分机号）如010-66668888-123</p>
                 </div>
             </div>
             <div class="formitm">
-                <label class="lab">地区：</label>
+                <label class="lab">手机：</label>
                 <div class="ipt">
+                    <input name="mobile" type="text" value="<?php echo $this->companyInfo['Mobile']; ?>" datatype="m" class="u-ipt"/>
+                </div>
+            </div>
+            <div class="formitm">
+                <label class="lab">地区：</label>
+                <div class="ipt v-l-650">
                     <select id="sel-province" name="province" class="u-sel">
                         <option value="">请选择</option>
                         <?php foreach ($this->provinceList as $province): ?>
@@ -37,7 +43,7 @@ $this->headScript()
                         <option value="<?php echo $city['AreaId']; ?>"><?php echo $city['Name']; ?></option>
                         <?php endforeach; ?>
                     </select>
-                    <select id="sel-district" name="district" class="u-sel">
+                    <select id="sel-district" name="district" class="u-sel" datatype="*">
                         <option value="">请选择</option>
                         <?php foreach ($this->districtList as $district): ?>
                         <option value="<?php echo $district['AreaId']; ?>"><?php echo $district['Name']; ?></option>
