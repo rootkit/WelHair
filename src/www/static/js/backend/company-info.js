@@ -90,4 +90,5 @@ $(function() {
     }
 
     initMap();
+    WF.initAreaSelector();
 });

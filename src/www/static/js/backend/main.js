@@ -62,6 +62,38 @@ WF = {
             });
         });
     },
+    initAreaSelector: function() {
+        function fillAreaSel(parentId, target) {
+            target.empty().append('<option value="">请选择</option>');
+            $('#sel-district').empty().append('<option value="">请选择</option>');
+
+            if (!parentId) {
+                return;
+            }
+
+            var opts = {
+                type: "GET",
+                url: WF.setting.baseUrl + '/ajax/area/list',
+                contentType: "application/json",
+                data: "pid=" + parentId,
+                success: function(data) {
+                    if (data.length > 0) {
+                        for (var i = 0; i < data.length; i++) {
+                            target.append('<option value="' + data[i].AreaId + '">' + data[i].Name + '</option>');
+                        }
+                    }
+                    target.val('').change();
+                }
+            };
+            $.ajax(opts);
+        }
+        $('#sel-province').change(function() {
+            fillAreaSel($(this).val(), $('#sel-city'));
+        });
+        $('#sel-city').change(function() {
+            fillAreaSel($(this).val(), $('#sel-district'));
+        });
+    },
     getImageSize: function(imgSrc, imgLoaded) {
         var newImg = new Image();
         $(newImg).load(function(){

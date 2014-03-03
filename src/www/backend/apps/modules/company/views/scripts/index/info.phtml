@@ -25,11 +25,23 @@ $this->headScript()
             <div class="formitm">
                 <label class="lab">地区：</label>
                 <div class="ipt">
-                    <select name="province" class="u-sel">
+                    <select id="sel-province" name="province" class="u-sel">
+                        <option value="">请选择</option>
+                        <?php foreach ($this->provinceList as $province): ?>
+                        <option value="<?php echo $province['AreaId']; ?>"><?php echo $province['Name']; ?></option>
+                        <?php endforeach; ?>
                     </select>
-                    <select name="city" class="u-sel">
+                    <select id="sel-city" name="city" class="u-sel">
+                        <option value="">请选择</option>
+                        <?php foreach ($this->cityList as $city): ?>
+                        <option value="<?php echo $city['AreaId']; ?>"><?php echo $city['Name']; ?></option>
+                        <?php endforeach; ?>
                     </select>
-                    <select name="area" class="u-sel">
+                    <select id="sel-district" name="district" class="u-sel">
+                        <option value="">请选择</option>
+                        <?php foreach ($this->districtList as $district): ?>
+                        <option value="<?php echo $district['AreaId']; ?>"><?php echo $district['Name']; ?></option>
+                        <?php endforeach; ?>
                     </select>
                     <p>正确设置地区有利于无GPS用户搜索</p>
                 </div>
