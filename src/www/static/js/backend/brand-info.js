@@ -15,7 +15,7 @@ $(function() {
         tiptype: 3
     });   
 
-    $('#avatar-uploader').uploadify({
+    $('#brand-uploader').uploadify({
         fileObjName: 'uploadfile',
         width: 78,
         height: 32,
@@ -33,11 +33,40 @@ $(function() {
         onUploadSuccess: function(file, data, response) {
             var result = $.parseJSON(data);
             if (result.success !== false) {
-                $('#avatar-image').attr('src', result.OriginalUrl);
-                $('#avatar-url').val(result.Thumb480Url);
+                $('#brand-image').attr('src', result.OriginalUrl);
+                $('#brand-url').val(result.OriginalUrl);
             } else {
                 WF.showMessage('error', '错误', '上传失败，请重试！');
             }
         }
+    });
+
+    $( "#frmBrandCategoryInfo" ).submit(function( event ) {
+
+
+          event.preventDefault();
+
+          var form = $( this );
+
+          var name = $('#brandcategoryname').val();
+          var id = $('#brandcategoryid').val();
+
+          url = form.attr( "action" );
+
+          var posting = $.post( url, { 'name': name, 'brandcategoryid': id} );
+
+
+          posting.done(function( data ) {
+
+              window.location = globalSetting.baseUrl + '/goods/brand/categorysearch';
+              return;
+
+          });
+
+      });
+
+    $('#btnCancel').click(function(){
+        window.location = globalSetting.baseUrl + '/goods/brand/categorysearch';
+        return;
     });
 });
