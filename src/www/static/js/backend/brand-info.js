@@ -70,7 +70,7 @@ $(function() {
 
           posting.done(function( data ) {
 
-              window.location = globalSetting.baseUrl + '/goods/brand/info';
+              window.location = globalSetting.baseUrl + '/goods/brand/search';
               return;
 
           });

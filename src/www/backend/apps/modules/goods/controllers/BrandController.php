@@ -94,7 +94,7 @@ class Goods_BrandController extends AbstractAdminController
             $sort = htmlspecialchars($this->_request->getParam('sort'));
             $url = htmlspecialchars($this->_request->getParam('url'));
             $logo = htmlspecialchars($this->_request->getParam('logo'));
-            $brandCategory = implode(',', $this->_request->getParam('category'));
+            $brandCategory = $this->_request->getParam('category');
             $description = htmlspecialchars($this->_request->getParam('description'));
       
             $brand['Name'] = $brandname;
@@ -104,7 +104,7 @@ class Goods_BrandController extends AbstractAdminController
             $brand['Sort'] = $sort;
             $brand['BrandCategoryIds'] = $brandCategory;
 
-            $result = BrandService::save($user);
+            $result = BrandService::save($brand);
             if ($result['success']) {
 
             } else {
