@@ -15,8 +15,8 @@
 @property (nonatomic, assign) float topBarOffset;
 @property (nonatomic, assign) float bottomBarOffset;
 
-@property (nonatomic, strong) UIImage *leftNavItemIcon;
-@property (nonatomic, strong) UIImage *rightNavItemIcon;
+@property (nonatomic, strong) UIImage *leftNavItemImg;
+@property (nonatomic, strong) UIImage *rightNavItemImg;
 
 @property (nonatomic, strong) NSString *leftNavItemTitle;
 @property (nonatomic, strong) NSString *rightNavItemTitle;

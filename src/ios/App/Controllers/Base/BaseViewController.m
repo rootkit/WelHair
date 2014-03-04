@@ -56,20 +56,19 @@
     }else{
         isAppearanceSetup = YES;
     }
-    self.view.backgroundColor = [UIColor whiteColor];
     
     if (isIOS7) {
         [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
     }
     if (self.navigationController) {
-        [self.navigationController.navigationBar configureNavigationBarWithColor:[UIColor colorWithHexString:APP_BACKGROUND_COLOR]];
+        [self.navigationController.navigationBar configureNavigationBarWithColor:[UIColor colorWithHexString:APP_NAVIGATIONBAR_COLOR]];
         CGFloat navItemMargin = isIOS7 ? 16 : 0;
         
-        if (self.leftNavItemIcon) {
+        if (self.leftNavItemImg) {
             UIButton *leftItemButton = [UIButton buttonWithType:UIButtonTypeCustom];
             leftItemButton.frame = CGRectMake(0, 0, kTopBarHeight, kTopBarHeight);
             [leftItemButton addTarget:self action:@selector(leftNavItemClick) forControlEvents:UIControlEventTouchUpInside];
-            [leftItemButton setImage:_leftNavItemIcon forState:UIControlStateNormal];
+            [leftItemButton setImage:self.leftNavItemImg forState:UIControlStateNormal];
             
             UIView *leftItemView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, WIDTH(leftItemButton), HEIGHT(leftItemButton))];
             [leftItemView addSubview:leftItemButton];
@@ -80,15 +79,20 @@
             [negativeSpacer setWidth:-navItemMargin];
             self.navigationItem.leftBarButtonItems = [NSArray arrayWithObjects:negativeSpacer, self.navigationItem.leftBarButtonItem, nil];
         }else if(self.leftNavItemTitle.length >0){
-            self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:self.leftNavItemTitle style:UIBarButtonItemStylePlain target:self action:@selector(leftNavItemClick)];
-            self.navigationItem.leftBarButtonItem.tintColor = [UIColor blackColor];
+            UIButton *leftItemButton = [UIButton buttonWithType:UIButtonTypeCustom];
+            leftItemButton.frame = CGRectMake(0, 0, kTopBarHeight, kTopBarHeight);
+            [leftItemButton addTarget:self action:@selector(leftNavItemClick) forControlEvents:UIControlEventTouchUpInside];
+            [leftItemButton setTitle:self.leftNavItemTitle forState:UIControlStateNormal];
+            self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:leftItemButton];
+            self.navigationItem.leftBarButtonItem.tintColor = [UIColor clearColor];
         }
         
-        if (self.rightNavItemIcon) {
+        if (self.rightNavItemImg) {
             UIButton *rightItemButton = [UIButton buttonWithType:UIButtonTypeCustom];
-            rightItemButton.frame = CGRectMake(0, 0, kTopBarHeight, kTopBarHeight);
+            UIImageView *img = [[UIImageView alloc] initWithImage:self.rightNavItemImg];
+            rightItemButton.frame = CGRectMake(0, 0, img.frame.size.width, img.frame.size.height);
             [rightItemButton addTarget:self action:@selector(rightNavItemClick) forControlEvents:UIControlEventTouchUpInside];
-            [rightItemButton setImage:_rightNavItemIcon forState:UIControlStateNormal];
+            [rightItemButton setImage:_rightNavItemImg forState:UIControlStateNormal];
             
             UIView *rightItemView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, WIDTH(rightItemButton), HEIGHT(rightItemButton))];
             [rightItemView addSubview:rightItemButton];
@@ -99,8 +103,12 @@
             [negativeSpacer setWidth:-navItemMargin];
             self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:negativeSpacer, self.navigationItem.rightBarButtonItem, nil];
         }else if(self.rightNavItemTitle.length >0){
-            self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:self.rightNavItemTitle style:UIBarButtonItemStylePlain target:self action:@selector(rightNavItemClick)];
-            self.navigationItem.rightBarButtonItem.tintColor = [UIColor blackColor];
+            UIButton *rightItemButton = [UIButton buttonWithType:UIButtonTypeCustom];
+            rightItemButton.frame = CGRectMake(0, 0, kTopBarHeight, kTopBarHeight);
+            [rightItemButton addTarget:self action:@selector(rightNavItemClick) forControlEvents:UIControlEventTouchUpInside];
+            [rightItemButton setTitle:self.rightNavItemTitle forState:UIControlStateNormal];
+            self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:rightItemButton];
+            self.navigationItem.rightBarButtonItem.tintColor = [UIColor clearColor];
         }
     }
 }

@@ -28,7 +28,7 @@
     if (self) {
         FAKIcon *searchIcon = [FAKIonIcons ios7RedoOutlineIconWithSize:NAV_BAR_ICON_SIZE];
         [searchIcon addAttribute:NSForegroundColorAttributeName value:[UIColor grayColor]];
-        self.rightNavItemIcon = [searchIcon imageWithSize:CGSizeMake(NAV_BAR_ICON_SIZE, NAV_BAR_ICON_SIZE)];
+        self.rightNavItemImg = [searchIcon imageWithSize:CGSizeMake(NAV_BAR_ICON_SIZE, NAV_BAR_ICON_SIZE)];
     }
     return self;
 }

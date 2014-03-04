@@ -17,6 +17,7 @@
 #import "Macros.h"
 #import "EDColor.h"
 #import "WelKit.h"
+#import "FAKIonIcons.h"
 #import "BaseViewController.h"
 
 #import "FakeDataHelper.h"
