@@ -48,17 +48,29 @@ $(function() {
 
           var form = $( this );
 
-          var name = $('#brandcategoryname').val();
-          var id = $('#brandcategoryid').val();
+          var name = $('input[name=brandname]').val();
+          var sort = $('input[name=sort]').val();
+          var url = $('input[name=url]').val();
+          var logo = $('#brand-image').attr('src');
+          var brandcategories = $("input[name='category[]']").val();
+          var description = $('input[name=description]').val();
+
 
           url = form.attr( "action" );
 
-          var posting = $.post( url, { 'name': name, 'brandcategoryid': id} );
+          var posting = $.post( url, { 
+                'name': name, 
+                'sort': sort,
+                'url' : url,
+                'logo' : logo,
+                'category' : brandcategories,
+                'description' :description
+            } );
 
 
           posting.done(function( data ) {
 
-              window.location = globalSetting.baseUrl + '/goods/brand/categorysearch';
+              window.location = globalSetting.baseUrl + '/goods/brand/info';
               return;
 
           });
@@ -66,7 +78,7 @@ $(function() {
       });
 
     $('#btnCancel').click(function(){
-        window.location = globalSetting.baseUrl + '/goods/brand/categorysearch';
+        window.location = globalSetting.baseUrl + '/goods/brand/search';
         return;
     });
 });

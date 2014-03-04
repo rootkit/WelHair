@@ -29,7 +29,7 @@ use \Welfony\Utility\Util;
                 <div class="ipt">
                     <span class="u-img2">
                         <a href="javascript:;">
-                            <img id="brand-image" src="<?php echo $this->userInfo['AvatarUrl']; ?>" data-ori="<?php echo $this->userInfo['AvatarOriginalUrl']; ?>" data-110="<?php echo $this->userInfo['AvatarThumb110Url']; ?>" alt="">
+                            <img id="brand-image" src="<?php echo $this->baseUrl( $this->brandInfo['Logo']); ?>"  alt="">
                             <input id="brand-url" type="hidden" name="logo_url" value="<?php echo $this->baseUrl( $this->brandInfo['Logo']); ?>" />
                         </a>
                     </span>
@@ -55,7 +55,7 @@ use \Welfony\Utility\Util;
              <div class="formitm">
                 <label class="lab">描述：</label>
                 <div class="ipt">
-                    <textarea name="brandname"    value="<?php echo $this->brandInfo['Description']; ?>" class="u-ipt"></textarea> 
+                    <textarea name="description"    value="<?php echo $this->brandInfo['Description']; ?>" class="u-ipt"></textarea> 
                 </div>
             </div>
             <div class="formitm formitm-1">
