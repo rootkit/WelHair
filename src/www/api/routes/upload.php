@@ -25,3 +25,9 @@ $app->post('/upload/image/crop', function() use($app)
     $controller = new UploadController();
     $controller->imageCrop();
 });
+
+$app->post('/upload/image/original', function() use($app)
+{
+    $controller = new UploadController();
+    $controller->image('uploadfile', 1);
+});
