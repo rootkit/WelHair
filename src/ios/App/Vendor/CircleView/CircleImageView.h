@@ -1,8 +1,8 @@
 // ==============================================================================
 //
-// This file is part of the WelSpeak.
+// This file is part of the WelStory.
 //
-// Create by Welfony <support@welfony.com>
+// Create by Welfony Support <support@welfony.com>
 // Copyright (c) 2013-2014 welfony.com
 //
 // For the full copyright and license information, please view the LICENSE
@@ -10,15 +10,9 @@
 //
 // ==============================================================================
 
-#ifndef AppImport_h
-#define AppImport_h
+@interface CircleImageView : UIImageView
 
-#import "Constants.h"
-#import "Macros.h"
-#import "EDColor.h"
-#import "WelKit.h"
-#import "FAKIonIcons.h"
-#import "BaseViewController.h"
+@property (nonatomic, strong) UIColor *borderColor;
+@property (nonatomic, assign) float borderWidth;
 
-#import "FakeDataHelper.h"
-#endif
+@end

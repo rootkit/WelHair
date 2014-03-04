@@ -46,6 +46,15 @@ class BrandCategoryService
         return $result;
     }
 
+
+    public static function listAllBrandCategory()
+    {
+        
+       return BrandCategoryRepository::getInstance()->getAllBrandCategory();         
+
+    }
+        
+
     public static function save($data)
     {
         $result = array('success' => false, 'message' => '');

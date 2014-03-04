@@ -9,9 +9,13 @@
 #import "LoginViewController.h"
 #import "UMSocial.h"
 #import <QuartzCore/QuartzCore.h>
+#import "UITextField+Shake.h"
 
-@interface LoginViewController ()
-
+static const float KOffsetY = 100;
+@interface LoginViewController ()<UITextFieldDelegate, UIGestureRecognizerDelegate>
+@property (nonatomic, strong) UIView * viewContainer;
+@property (nonatomic, strong) UITextField * userNameTxt;
+@property (nonatomic, strong) UITextField * pwdTxt;
 @end
 
 @implementation LoginViewController
@@ -21,7 +25,11 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
-        self.rightNavItemTitle = @"Cancel";
+        FAKIcon *leftIcon = [FAKIonIcons ios7ArrowBackIconWithSize:NAV_BAR_ICON_SIZE];
+        [leftIcon addAttribute:NSForegroundColorAttributeName value:[UIColor whiteColor]];
+        self.leftNavItemImg =[leftIcon imageWithSize:CGSizeMake(NAV_BAR_ICON_SIZE, NAV_BAR_ICON_SIZE)];
+
+        self.rightNavItemTitle = NSLocalizedString(@"Register", nil);
     }
     return self;
 }
@@ -29,23 +37,96 @@
 - (void)loadView
 {
     [super loadView];
-    UIButton *sinaLoginBtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    sinaLoginBtn.frame = CGRectMake(60, 100, 60, 40);
-    [sinaLoginBtn addTarget:self action:@selector(sinaSignClick) forControlEvents:UIControlEventTouchUpInside];
-    [sinaLoginBtn setTitle:@"Sina Login" forState:UIControlStateNormal];
-    [self.view addSubview:sinaLoginBtn];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardWillShow:)
+                                                 name:UIKeyboardWillShowNotification
+                                               object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardWillHide:)
+                                                 name:UIKeyboardWillHideNotification
+                                               object:nil];
     
-    UIButton *qqLoginBtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    qqLoginBtn.frame = CGRectMake(200, 100, 60, 40);
-    [qqLoginBtn addTarget:self action:@selector(qqSignClick) forControlEvents:UIControlEventTouchUpInside];
-    [qqLoginBtn setTitle:@"QQ Login" forState:UIControlStateNormal];
-    [self.view addSubview:qqLoginBtn];
+    self.viewContainer = [[UIView alloc] initWithFrame:CGRectMake(0, self.topBarOffset, WIDTH(self.view), HEIGHT(self.view) - self.topBarOffset)];
+    self.viewContainer.backgroundColor = [UIColor colorWithHexString:APP_BASE_COLOR];
+    [self.viewContainer addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(backgroundTapped)]];
+    [self.view addSubview:self.viewContainer];
+    
+    float margin = 40;
+    UIImageView *logoIcon = [[UIImageView alloc] initWithFrame:CGRectMake(130, 40, 100, 100)];
+    logoIcon.image = [UIImage imageNamed:@""];
+    [self.viewContainer addSubview:logoIcon];
+    
+    self.userNameTxt = [[UITextField alloc] initWithFrame:CGRectMake(margin, MaxY(logoIcon) + margin, WIDTH(self.view) - 2 * margin, 35)];
+    self.userNameTxt.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
+    self.userNameTxt.backgroundColor = [UIColor whiteColor];
+    self.userNameTxt.placeholder = @"  用户名/手机号";
+    self.userNameTxt.delegate = self;
+    [self.viewContainer addSubview:self.userNameTxt];
+    self.pwdTxt = [[UITextField alloc] initWithFrame:CGRectMake(margin, MaxY(self.userNameTxt) + 10, WIDTH(self.userNameTxt), 35)];
+    self.pwdTxt.backgroundColor = [UIColor whiteColor];
+    self.pwdTxt.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
+    self.pwdTxt.placeholder = @"  密码";
+    self.pwdTxt.secureTextEntry = YES;
+    self.pwdTxt.delegate = self;
+    [self.viewContainer addSubview:self.pwdTxt];
+    
+    UIButton *loginBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    loginBtn.frame = CGRectMake(margin, MaxY(self.pwdTxt) + 20, WIDTH(self.userNameTxt), 40);
+    loginBtn.backgroundColor = [UIColor colorWithHexString:@"e4393c"];
+    [loginBtn setTitle:@"Login" forState:UIControlStateNormal];
+    [loginBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    loginBtn.titleLabel.font = [UIFont systemFontOfSize:18];
+    [loginBtn addTarget:self action:@selector(loginClick) forControlEvents:UIControlEventTouchDown];
+    [self.viewContainer addSubview:loginBtn];
+    
+    UIView *leftLineView = [[UIView alloc] initWithFrame:CGRectMake(margin,MaxY(loginBtn) + 20, 40, 1)];
+    leftLineView.backgroundColor = [UIColor whiteColor];
+    [self.viewContainer addSubview:leftLineView];
+    
+    UILabel *socialLoginLbl = [[UILabel alloc] initWithFrame:CGRectMake(MaxX(leftLineView) + 20,MaxY(loginBtn) +  10, 120,20)];
+    socialLoginLbl.text = @"或以下方式登录";
+    socialLoginLbl.textAlignment = NSTextAlignmentCenter;
+    socialLoginLbl.textColor = [UIColor whiteColor];
+    socialLoginLbl.font = [UIFont systemFontOfSize:14];
+    socialLoginLbl.backgroundColor = [UIColor clearColor];
+    [self.viewContainer addSubview:socialLoginLbl];
+    
+    UIView *rightLineView = [[UIView alloc] initWithFrame:CGRectMake(WIDTH(self.view) - margin - 40, MaxY(loginBtn) + 20, 40, 1)];
+    rightLineView.backgroundColor = [UIColor whiteColor];
+    [self.viewContainer addSubview:rightLineView];
+    
+    
+    UIButton *sinaBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    sinaBtn.frame = CGRectMake(70, MaxY(socialLoginLbl) + 10, 30, 30);
+    [sinaBtn setTitle:@"SN" forState:UIControlStateNormal];
+    [sinaBtn addTarget:self action:@selector(sinaSignClick) forControlEvents:UIControlEventTouchDown];
+    [self.viewContainer addSubview:sinaBtn];
+    
+    UIView *vLine1 = [[UIView alloc] initWithFrame:CGRectMake(MaxX(sinaBtn) + 22,MaxY(socialLoginLbl) + 10, 1, 30)];
+    vLine1.backgroundColor = [UIColor grayColor];
+    [self.viewContainer addSubview:vLine1];
+    
+    UIButton *qqBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    qqBtn.frame = CGRectMake(MaxX(sinaBtn) + 45, MaxY(socialLoginLbl) + 10, 30, 30);
+    [qqBtn setTitle:@"QQ" forState:UIControlStateNormal];
+    [qqBtn addTarget:self action:@selector(qqSignClick) forControlEvents:UIControlEventTouchDown];
+    [self.viewContainer addSubview:qqBtn];
+    
+    UIView *vLine2 = [[UIView alloc] initWithFrame:CGRectMake(MaxX(qqBtn) + 22, MaxY(socialLoginLbl) + 10, 1, 30)];
+    vLine2.backgroundColor = [UIColor grayColor];
+    [self.viewContainer addSubview:vLine2];
+    
+    UIButton *tecentWeiboBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    tecentWeiboBtn.frame = CGRectMake(MaxX(qqBtn) + 45, MaxY(socialLoginLbl) + 10, 30, 30);
+    [tecentWeiboBtn setTitle:@"WB" forState:UIControlStateNormal];
+    [tecentWeiboBtn addTarget:self action:@selector(sinaSignClick) forControlEvents:UIControlEventTouchDown];
+    [self.viewContainer addSubview:tecentWeiboBtn];
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view.
+    self.view.backgroundColor = [UIColor colorWithHexString:APP_BASE_COLOR];
 }
 
 - (void)didReceiveMemoryWarning
@@ -54,11 +135,89 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (void)rightNavItemClick
+- (void)leftNavItemClick
 {
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
+- (void)rightNavItemClick
+{
+    NSLog(@"register clicked");
+}
+
+- (void)backgroundTapped
+{
+    [self.userNameTxt resignFirstResponder];
+    [self.pwdTxt resignFirstResponder];
+}
+
+- (void)keyboardWillShow:(NSNotification *)aNotification
+{
+    NSDictionary *userInfo = aNotification.userInfo;
+    
+    NSNumber *durationValue = userInfo[UIKeyboardAnimationDurationUserInfoKey];
+    NSTimeInterval animationDuration = durationValue.doubleValue;
+    
+    NSNumber *curveValue = userInfo[UIKeyboardAnimationCurveUserInfoKey];
+    UIViewAnimationCurve animationCurve = curveValue.intValue;
+    
+    void (^animations)() = ^() {
+        self.viewContainer.frame = CGRectMake(0, -KOffsetY, WIDTH(self.viewContainer), HEIGHT(self.viewContainer));
+    };
+    
+    [UIView animateWithDuration:animationDuration
+                          delay:0.0
+                        options:(animationCurve << 16)
+                     animations:animations
+                     completion:nil];
+}
+
+- (void)keyboardWillHide:(NSNotification *)aNotification
+{
+    NSDictionary *userInfo = aNotification.userInfo;
+    
+    NSNumber *durationValue = userInfo[UIKeyboardAnimationDurationUserInfoKey];
+    NSTimeInterval animationDuration = durationValue.doubleValue;
+    
+    NSNumber *curveValue = userInfo[UIKeyboardAnimationCurveUserInfoKey];
+    UIViewAnimationCurve animationCurve = curveValue.intValue;
+    
+    void (^animations)() = ^() {
+        self.viewContainer.frame = CGRectMake(0,0, WIDTH(self.viewContainer), HEIGHT(self.viewContainer));
+    };
+    
+    [UIView animateWithDuration:animationDuration
+                          delay:0.0
+                        options:(animationCurve << 16)
+                     animations:animations
+                     completion:nil];
+}
+
+- (void)loginClick
+{
+    if([self validInput]){
+        
+    }
+}
+
+
+- (BOOL)validInput
+{
+    if(self.userNameTxt.text.length == 0){
+        [self.userNameTxt shake:10
+                    withDelta:5
+                     andSpeed:0.01
+               shakeDirection:ShakeDirectionHorizontal];
+        return NO;
+    }else if(self.pwdTxt.text.length == 0){
+        [self.pwdTxt shake:10
+                      withDelta:5
+                       andSpeed:0.01
+                 shakeDirection:ShakeDirectionHorizontal];
+        return NO;
+    }
+    return YES;
+}
 - (void)sinaSignClick
 {
     //`snsName` 代表各个支持云端分享的平台名，有`UMShareToSina`,`UMShareToTencent`等五个。

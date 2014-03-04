@@ -42,6 +42,9 @@
 		18A912E218BB26B6006B9A04 /* BaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A912DC18BB26B6006B9A04 /* BaseViewController.m */; };
 		18A912E418BB26B6006B9A04 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A912E118BB26B6006B9A04 /* User.m */; };
 		18A912EC18BB2826006B9A04 /* UIView+WelKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A912E918BB2826006B9A04 /* UIView+WelKit.m */; };
+		4630D13218C5F43C00DA7CAD /* UITextField+Shake.m in Sources */ = {isa = PBXBuildFile; fileRef = 4630D13118C5F43C00DA7CAD /* UITextField+Shake.m */; };
+		4630D13618C5FB7500DA7CAD /* registerBtnImg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4630D13518C5FB7500DA7CAD /* registerBtnImg@2x.png */; };
+		4630D13A18C603B000DA7CAD /* CircleImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4630D13918C603B000DA7CAD /* CircleImageView.m */; };
 		4660E69018BB73E1005B3C7D /* ProductsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4660E68F18BB73E1005B3C7D /* ProductsViewController.m */; };
 		4660E69618BB73FF005B3C7D /* UserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4660E69518BB73FF005B3C7D /* UserViewController.m */; };
 		4660E6AB18BB7666005B3C7D /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4660E6AA18BB7666005B3C7D /* CoreText.framework */; };
@@ -162,6 +165,11 @@
 		18A912E918BB2826006B9A04 /* UIView+WelKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+WelKit.m"; sourceTree = "<group>"; };
 		18A912EA18BB2826006B9A04 /* WelKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WelKit.h; sourceTree = "<group>"; };
 		18A912EB18BB2826006B9A04 /* WelKitMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WelKitMacros.h; sourceTree = "<group>"; };
+		4630D13018C5F43C00DA7CAD /* UITextField+Shake.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITextField+Shake.h"; sourceTree = "<group>"; };
+		4630D13118C5F43C00DA7CAD /* UITextField+Shake.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITextField+Shake.m"; sourceTree = "<group>"; };
+		4630D13518C5FB7500DA7CAD /* registerBtnImg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "registerBtnImg@2x.png"; sourceTree = "<group>"; };
+		4630D13818C603B000DA7CAD /* CircleImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CircleImageView.h; sourceTree = "<group>"; };
+		4630D13918C603B000DA7CAD /* CircleImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CircleImageView.m; sourceTree = "<group>"; };
 		4660E68E18BB73E1005B3C7D /* ProductsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProductsViewController.h; sourceTree = "<group>"; };
 		4660E68F18BB73E1005B3C7D /* ProductsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProductsViewController.m; sourceTree = "<group>"; };
 		4660E69418BB73FF005B3C7D /* UserViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserViewController.h; sourceTree = "<group>"; };
@@ -458,6 +466,7 @@
 		18A9129118BB2350006B9A04 /* Assets */ = {
 			isa = PBXGroup;
 			children = (
+				4630D13318C5FB7500DA7CAD /* Images */,
 				46A46FEA18BE21BB0057F579 /* BaiduMap */,
 				18A912AF18BB2591006B9A04 /* AppIcon */,
 				18A912B018BB259B006B9A04 /* LaunchImage */,
@@ -579,6 +588,8 @@
 		18A912E518BB2826006B9A04 /* Vendor */ = {
 			isa = PBXGroup;
 			children = (
+				4630D13718C603B000DA7CAD /* CircleView */,
+				4630D12F18C5F43C00DA7CAD /* UITextField-Shake */,
 				46E84ECB18C2DB930004C146 /* KNSemiModalViewController */,
 				46E84EB918C2C7040004C146 /* UzysCircularProgressPullToRefresh */,
 				46B233C618BCE6E000CC27A3 /* UMSocial_Sdk_3.3.3 */,
@@ -610,6 +621,40 @@
 				18A912E918BB2826006B9A04 /* UIView+WelKit.m */,
 			);
 			path = UIKit;
+			sourceTree = "<group>";
+		};
+		4630D12F18C5F43C00DA7CAD /* UITextField-Shake */ = {
+			isa = PBXGroup;
+			children = (
+				4630D13018C5F43C00DA7CAD /* UITextField+Shake.h */,
+				4630D13118C5F43C00DA7CAD /* UITextField+Shake.m */,
+			);
+			path = "UITextField-Shake";
+			sourceTree = "<group>";
+		};
+		4630D13318C5FB7500DA7CAD /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				4630D13418C5FB7500DA7CAD /* Buttons */,
+			);
+			path = Images;
+			sourceTree = "<group>";
+		};
+		4630D13418C5FB7500DA7CAD /* Buttons */ = {
+			isa = PBXGroup;
+			children = (
+				4630D13518C5FB7500DA7CAD /* registerBtnImg@2x.png */,
+			);
+			path = Buttons;
+			sourceTree = "<group>";
+		};
+		4630D13718C603B000DA7CAD /* CircleView */ = {
+			isa = PBXGroup;
+			children = (
+				4630D13818C603B000DA7CAD /* CircleImageView.h */,
+				4630D13918C603B000DA7CAD /* CircleImageView.m */,
+			);
+			path = CircleView;
 			sourceTree = "<group>";
 		};
 		4660E68518BB73A8005B3C7D /* Products */ = {
@@ -1063,6 +1108,7 @@
 				46B233F718BCE6E000CC27A3 /* TencentOpenApi_IOS_Bundle.bundle in Resources */,
 				18A9129C18BB2350006B9A04 /* Base.xcconfig in Resources */,
 				18A9129E18BB2350006B9A04 /* Release.xcconfig in Resources */,
+				4630D13618C5FB7500DA7CAD /* registerBtnImg@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1110,6 +1156,7 @@
 				46E84EE018C33FAC0004C146 /* SelectOpition.m in Sources */,
 				46BCD25F18BC725D005C4BD6 /* GroupsViewController.m in Sources */,
 				46B233B718BCDC4200CC27A3 /* LoginViewController.m in Sources */,
+				4630D13218C5F43C00DA7CAD /* UITextField+Shake.m in Sources */,
 				46B25AE418BF1CAA0035F425 /* RootViewController.m in Sources */,
 				4660E69018BB73E1005B3C7D /* ProductsViewController.m in Sources */,
 				18A912E418BB26B6006B9A04 /* User.m in Sources */,
@@ -1129,6 +1176,7 @@
 				46E84ED118C2E1550004C146 /* UINavigationBar+WelKit.m in Sources */,
 				4665FD8518BC801000E88C6B /* Work.m in Sources */,
 				46B25AE618BF1CC60035F425 /* MapViewController.mm in Sources */,
+				4630D13A18C603B000DA7CAD /* CircleImageView.m in Sources */,
 				46E84EC118C2C7040004C146 /* UzysRadialProgressActivityIndicator.m in Sources */,
 				46E84ECE18C2DB930004C146 /* UIViewController+KNSemiModal.m in Sources */,
 				18A912E218BB26B6006B9A04 /* BaseViewController.m in Sources */,

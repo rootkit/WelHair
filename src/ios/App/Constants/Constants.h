@@ -16,10 +16,10 @@
 #define CONFIG_BAIDU_MAP_KEY  @"mATLLTobcd8XqZIj3xlPt8il"
 
 
-#define APP_BACKGROUND_COLOR @"00a3e1"
-#define LOGIN_BG_COLOR @"009edb"
+#define APP_BASE_COLOR              @"206ba7"
+#define APP_NAVIGATIONBAR_COLOR     @"206ba7"
 
-#define NAV_BAR_ICON_SIZE 25
+#define NAV_BAR_ICON_SIZE 30
 
 
 

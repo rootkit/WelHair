@@ -177,6 +177,17 @@ a {
     border-color: #c00 #e00 #e00;
 }
 
+textarea.u-ipt
+{
+    border: 1px solid #D2D2D2;
+    color: #333333;
+    font-size: 12px;
+    height: 65px;
+    line-height: 24px;
+    padding: 0 0 0 5px;
+    width: 465px;
+}
+
 .m-form {
     color: #555;
     line-height: 29px;

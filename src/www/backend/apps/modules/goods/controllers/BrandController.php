@@ -74,55 +74,55 @@ class Goods_BrandController extends AbstractAdminController
 
     public function infoAction()
     {
-    	/*
-        $this->view->pageTitle = '会员信息';
+    	
+        $this->view->pageTitle = '品牌信息';
 
-        $userId = intval($this->_request->getParam('user_id'));
+        $brandId = intval($this->_request->getParam('brand_id'));
 
-        $user = array(
-            'UserId' => 0,
-            'Username' => Util::genRandomUsername(),
-            'Nickname' => '',
-            'Email' => '',
-            'Mobile' => '',
-            'AvatarUrl' => Util::baseAssetUrl('img/avatar-default.jpg')
-        );
+       
+        $brand = array();
+        $brand['Name'] = '';
+        $brand['Logo'] = '';
+        $brand['Url'] = '';
+        $brand['Description'] = '';
+        $brand['Sort'] = '';
+        $brand['BrandCategoryIds'] = '';
+
 
         if ($this->_request->isPost()) {
-            $userRole = intval($this->_request->getParam('user_role'));
-            $username = htmlspecialchars($this->_request->getParam('username'));
-            $nickname = htmlspecialchars($this->_request->getParam('nickname'));
-            $email = htmlspecialchars($this->_request->getParam('email'));
-            $password = htmlspecialchars($this->_request->getParam('password'));
-            $passwordRepeate = htmlspecialchars($this->_request->getParam('password_repeate'));
-            $mobile = htmlspecialchars($this->_request->getParam('mobile'));
-            $avatarUrl = $this->_request->getParam('avatar_url');
+            $brandname = htmlspecialchars($this->_request->getParam('name'));
+            $sort = htmlspecialchars($this->_request->getParam('sort'));
+            $url = htmlspecialchars($this->_request->getParam('url'));
+            $logo = htmlspecialchars($this->_request->getParam('logo'));
+            $brandCategory = $this->_request->getParam('category');
+            $description = htmlspecialchars($this->_request->getParam('description'));
+      
+            $brand['Name'] = $brandname;
+            $brand['Logo'] = $logo;
+            $brand['Url'] = $url;
+            $brand['Description'] = $description;
+            $brand['Sort'] = $sort;
+            $brand['BrandCategoryIds'] = $brandCategory;
 
-            $user['Username'] = $username;
-            $user['Role'] = $userRole;
-            $user['Password'] = $password;
-            $user['Nickname'] = $nickname;
-            $user['Email'] = $email;
-            $user['Mobile'] = $mobile;
-            $user['AvatarUrl'] = $avatarUrl;
-
-            $result = UserService::save($user);
+            $result = BrandService::save($brand);
             if ($result['success']) {
 
             } else {
 
             }
         } else {
-            if ($userId > 0) {
 
-            } else {
-                $user['AvatarOriginalUrl'] = '';
-                $user['AvatarThumb110Url'] = '';
-            }
+             $allCategories = BrandCategoryService::listAllBrandCategory();
+
+             $this->view->brandcategories = $allCategories;
+
+            if ($brandId > 0) {
+
+            } 
         }
 
-        $this->view->userInfo = $user;
-        */
+        $this->view->brandInfo = $brand;
+    
     }
 
     public function searchAction()
