@@ -8,6 +8,10 @@
  * file that was distributed with this source code.
 */
 
+* {
+    outline: none;
+}
+
 a {
     color: #999;
 }
@@ -241,6 +245,7 @@ a {
 }
 
 /* 通用自定义按钮-默认蓝色 */
+
 .u-btn {
     display: inline-block;
     -webkit-box-sizing: content-box;
@@ -376,6 +381,18 @@ button.u-btn-sm {
 
 .u-btn-c4:hover .btnsel,.u-btn-c4:focus .btnsel {
     border-top-color: #000;
+}
+
+.u-btns {
+    display: inline-block;
+    position: relative;
+    padding-left: 1px;
+}
+
+.u-btns .u-btn {
+    float: left;
+    margin-left: -1px;
+    border-radius: 0;
 }
 
 /* 简易数据表格-格边框 */
@@ -658,4 +675,17 @@ a.u-upload,a.u-upload:hover {
 
 .map img {
     vertical-align: baseline !important;
+}
+
+.formimglst {
+    display: block;
+}
+
+.formimglst li {
+    float: left;
+    margin-right: 10px;
+}
+
+.remove-thumb {
+    margin-left: 20px;
 }

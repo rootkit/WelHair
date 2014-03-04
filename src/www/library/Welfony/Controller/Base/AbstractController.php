@@ -24,6 +24,7 @@ class AbstractController extends \Zend_Controller_Action
 
     protected static $loginUrl = '/user/auth/signin';
 
+    protected $successMessage;
     protected $errorMessage;
     protected $config;
     protected $nologinActionList = array(

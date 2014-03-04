@@ -34,19 +34,19 @@ $this->headScript()
                     <select id="sel-province" name="province" class="u-sel">
                         <option value="">请选择</option>
                         <?php foreach ($this->provinceList as $province): ?>
-                        <option value="<?php echo $province['AreaId']; ?>"><?php echo $province['Name']; ?></option>
+                        <option value="<?php echo $province['AreaId']; ?>"<?php echo $this->companyInfo['Province'] == $province['AreaId'] ? ' selected' : ''; ?>><?php echo $province['Name']; ?></option>
                         <?php endforeach; ?>
                     </select>
                     <select id="sel-city" name="city" class="u-sel">
                         <option value="">请选择</option>
                         <?php foreach ($this->cityList as $city): ?>
-                        <option value="<?php echo $city['AreaId']; ?>"><?php echo $city['Name']; ?></option>
+                        <option value="<?php echo $city['AreaId']; ?>"<?php echo $this->companyInfo['City'] == $city['AreaId'] ? ' selected' : ''; ?>><?php echo $city['Name']; ?></option>
                         <?php endforeach; ?>
                     </select>
                     <select id="sel-district" name="district" class="u-sel" datatype="*">
                         <option value="">请选择</option>
                         <?php foreach ($this->districtList as $district): ?>
-                        <option value="<?php echo $district['AreaId']; ?>"><?php echo $district['Name']; ?></option>
+                        <option value="<?php echo $district['AreaId']; ?>"<?php echo $this->companyInfo['District'] == $district['AreaId'] ? ' selected' : ''; ?>><?php echo $district['Name']; ?></option>
                         <?php endforeach; ?>
                     </select>
                     <p>正确设置地区有利于无GPS用户搜索</p>
@@ -71,6 +71,8 @@ $this->headScript()
             <div class="formitm">
                 <label class="lab"></label>
                 <div class="ipt">
+                    <input id="latitude" type="hidden" name="latitude" value="<?php echo doubleval($this->companyInfo['Latitude']); ?>" />
+                    <input id="longitude" type="hidden" name="longitude" value="<?php echo doubleval($this->companyInfo['Longitude']); ?>" />
                     <div id="company-map" class="map"></div>
                 </div>
             </div>
@@ -80,10 +82,42 @@ $this->headScript()
                     <div id="company-pic-uploader"></div>
                 </div>
             </div>
+            <div class="formitm">
+                <label class="lab">沙龙展示图：</label>
+                <div class="ipt">
+                    <ul class="formimglst clearfix">
+                        <?php foreach ($this->companyInfo['PictureUrl'] as $pic): ?>
+                        <li>
+                            <span class="u-img2">
+                                <a href="javascript:;">
+                                    <img class="company-picture" src="<?php echo $pic; ?>" />
+                                </a>
+                            </span>
+                            <input type="hidden" value="<?php echo $pic; ?>" name="company_picture_url[]" />
+                            <a style="visibility: hidden;" href="#">调整缩略图</a>
+                            <a class="remove-thumb" href="#">移除</a>
+                        </li>
+                        <?php endforeach; ?>
+                        <li<?php echo count($this->companyInfo['PictureUrl']) >= 3 ? ' style="display: none;"' : ''; ?>>
+                            <span class="u-img2">
+                                <a id="company-image-uploader"></a>
+                            </span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="formitm">
+                <label class="lab">认证：</label>
+                <div class="ipt">
+                    <span class="u-btns" data-type="radio">
+                        <span class="u-btn u-btn-c<?php echo $this->companyInfo['Status'] == 1 ? '3' : '4'; ?>" data-value="1">通过</span>
+                        <span class="u-btn u-btn-c<?php echo $this->companyInfo['Status'] == 1 ? '4' : '3'; ?>" data-value="0">未通过</span>
+                        <input type="hidden" name="status" value="<?php echo $this->companyInfo['Status']; ?>" />
+                    </span>
+                </div>
+            </div>
             <div class="formitm formitm-1">
-                <input type="hidden" name="user_id" value="<?php echo intval($this->companyInfo['CompanyId']); ?>" />
-                <input id="latitude" type="hidden" name="latitude" value="<?php echo intval($this->companyInfo['Latitude']); ?>" />
-                <input id="longitude" type="hidden" name="longitude" value="<?php echo intval($this->companyInfo['Longitude']); ?>" />
+                <input type="hidden" name="company_id" value="<?php echo intval($this->companyInfo['CompanyId']); ?>" />
                 <button class="u-btn u-btn-submit" type="button">确定</button>
             </div>
         </fieldset>

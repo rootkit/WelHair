@@ -60,7 +60,7 @@ class User_IndexController extends AbstractAdminController
             $avatarUrl = $this->_request->getParam('avatar_url');
 
             if ($password != $passwordRepeate) {
-                echo '两次密码输入不一致！';
+                $this->view->errorMessage = '两次密码输入不一致！';
                 return;
             }
 
@@ -74,15 +74,15 @@ class User_IndexController extends AbstractAdminController
 
             $result = UserService::save($user);
             if ($result['success']) {
-                echo '保存用户成功！';
+                $this->view->successMessage = '保存用户成功！';
             } else {
-                echo $result['message'];
+                $this->view->errorMessage = $result['message'];
             }
         } else {
             if ($user['UserId'] > 0) {
                 $user = UserService::getUserById($user['UserId']);
                 if (!$user) {
-
+                    // process not exist logic;
                 }
             }
 

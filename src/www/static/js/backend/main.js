@@ -63,6 +63,23 @@ WF = {
                 $(this).trigger('change');
             });
         });
+
+        $('.u-btns').find('span').click(function() {
+            var cur = $(this);
+            var group = cur.parent();
+            if (group.attr('data-type') == 'radio') {
+                group.find('span').each(function() {
+                    var el = $(this);
+                    if (el.get(0) == cur.get(0)) {
+                        el.removeClass('u-btn-c4').addClass('u-btn-c3');
+                    } else {
+                        el.removeClass('u-btn-c3').addClass('u-btn-c4');
+                    }
+                });
+
+                group.find('input[type=hidden]').val(cur.attr('data-value'));
+            }
+        });
     },
     initAreaSelector: function() {
         function fillAreaSel(parentId, target) {

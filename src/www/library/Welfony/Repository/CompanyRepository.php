@@ -19,6 +19,53 @@ use Welfony\Repository\Base\AbstractRepository;
 class CompanyRepository extends AbstractRepository
 {
 
+    public function getAllCompaniesCount()
+    {
+        $strSql = "SELECT
+                       COUNT(1) `Total`
+                   FROM Company
+                   LIMIT 1";
+
+        $row = $this->conn->fetchAssoc($strSql);
+
+        return $row['Total'];
+    }
+
+    public function getAllCompanies($page, $pageSize)
+    {
+        $offset = ($page - 1) * $pageSize;
+        $strSql = "SELECT
+                       C.*,
+                       PA.Name ProvinceName,
+                       PC.Name CityName,
+                       PD.Name DistrictName
+                   FROM Company C
+                   INNER JOIN Area PA ON PA.AreaId = C.Province
+                   INNER JOIN Area PC ON PC.AreaId = C.City
+                   INNER JOIN Area PD ON PD.AreaId = C.District
+                   ORDER BY C.CompanyId DESC
+                   LIMIT $offset, $pageSize";
+
+        return $this->conn->fetchAll($strSql);
+    }
+
+    public function findCompanyById($companyId)
+    {
+        $strSql = 'SELECT
+                       C.*,
+                       PA.Name ProvinceName,
+                       PC.Name CityName,
+                       PD.Name DistrictName
+                   FROM Company C
+                   INNER JOIN Area PA ON PA.AreaId = C.Province
+                   INNER JOIN Area PC ON PC.AreaId = C.City
+                   INNER JOIN Area PD ON PD.AreaId = C.District
+                   WHERE C.CompanyId = ?
+                   LIMIT 1';
+
+        return $this->conn->fetchAssoc($strSql, array($companyId));
+    }
+
     public function save($data)
     {
         try {
