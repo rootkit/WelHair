@@ -42,9 +42,8 @@
 		18A912E218BB26B6006B9A04 /* BaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A912DC18BB26B6006B9A04 /* BaseViewController.m */; };
 		18A912E418BB26B6006B9A04 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A912E118BB26B6006B9A04 /* User.m */; };
 		18A912EC18BB2826006B9A04 /* UIView+WelKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A912E918BB2826006B9A04 /* UIView+WelKit.m */; };
-		4630D13218C5F43C00DA7CAD /* UITextField+Shake.m in Sources */ = {isa = PBXBuildFile; fileRef = 4630D13118C5F43C00DA7CAD /* UITextField+Shake.m */; };
-		4630D13618C5FB7500DA7CAD /* registerBtnImg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4630D13518C5FB7500DA7CAD /* registerBtnImg@2x.png */; };
 		4630D13A18C603B000DA7CAD /* CircleImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4630D13918C603B000DA7CAD /* CircleImageView.m */; };
+		46439C9118C763EF00F01691 /* MapPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 46439C9018C763EF00F01691 /* MapPickerViewController.m */; };
 		4660E69018BB73E1005B3C7D /* ProductsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4660E68F18BB73E1005B3C7D /* ProductsViewController.m */; };
 		4660E69618BB73FF005B3C7D /* UserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4660E69518BB73FF005B3C7D /* UserViewController.m */; };
 		4660E6AB18BB7666005B3C7D /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4660E6AA18BB7666005B3C7D /* CoreText.framework */; };
@@ -56,6 +55,7 @@
 		46A46FEE18BE21BB0057F579 /* mapapi.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 46A46FEC18BE21BB0057F579 /* mapapi.bundle */; };
 		46A4704818BE23990057F579 /* libbaidumapapi.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 46A4701C18BE23990057F579 /* libbaidumapapi.a */; };
 		46A4704918BE23990057F579 /* libbaidumapapi.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 46A4704718BE23990057F579 /* libbaidumapapi.a */; };
+		46AE3F9218C759BB00C0CC3F /* UITextField+WelKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 46AE3F9118C759BB00C0CC3F /* UITextField+WelKit.m */; };
 		46B233B718BCDC4200CC27A3 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 46B233B618BCDC4200CC27A3 /* LoginViewController.m */; };
 		46B233B918BCE58400CC27A3 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46B233B818BCE58400CC27A3 /* Security.framework */; };
 		46B233BB18BCE58E00CC27A3 /* libiconv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 46B233BA18BCE58E00CC27A3 /* libiconv.dylib */; };
@@ -165,11 +165,10 @@
 		18A912E918BB2826006B9A04 /* UIView+WelKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+WelKit.m"; sourceTree = "<group>"; };
 		18A912EA18BB2826006B9A04 /* WelKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WelKit.h; sourceTree = "<group>"; };
 		18A912EB18BB2826006B9A04 /* WelKitMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WelKitMacros.h; sourceTree = "<group>"; };
-		4630D13018C5F43C00DA7CAD /* UITextField+Shake.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITextField+Shake.h"; sourceTree = "<group>"; };
-		4630D13118C5F43C00DA7CAD /* UITextField+Shake.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITextField+Shake.m"; sourceTree = "<group>"; };
-		4630D13518C5FB7500DA7CAD /* registerBtnImg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "registerBtnImg@2x.png"; sourceTree = "<group>"; };
 		4630D13818C603B000DA7CAD /* CircleImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CircleImageView.h; sourceTree = "<group>"; };
 		4630D13918C603B000DA7CAD /* CircleImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CircleImageView.m; sourceTree = "<group>"; };
+		46439C8F18C763EF00F01691 /* MapPickerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapPickerViewController.h; sourceTree = "<group>"; };
+		46439C9018C763EF00F01691 /* MapPickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapPickerViewController.m; sourceTree = "<group>"; };
 		4660E68E18BB73E1005B3C7D /* ProductsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProductsViewController.h; sourceTree = "<group>"; };
 		4660E68F18BB73E1005B3C7D /* ProductsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProductsViewController.m; sourceTree = "<group>"; };
 		4660E69418BB73FF005B3C7D /* UserViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserViewController.h; sourceTree = "<group>"; };
@@ -266,6 +265,8 @@
 		46A4704618BE23990057F579 /* BMKVersion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMKVersion.h; sourceTree = "<group>"; };
 		46A4704718BE23990057F579 /* libbaidumapapi.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libbaidumapapi.a; sourceTree = "<group>"; };
 		46A4704D18BE28DA0057F579 /* MapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapViewController.h; sourceTree = "<group>"; };
+		46AE3F9018C759BB00C0CC3F /* UITextField+WelKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITextField+WelKit.h"; sourceTree = "<group>"; };
+		46AE3F9118C759BB00C0CC3F /* UITextField+WelKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITextField+WelKit.m"; sourceTree = "<group>"; };
 		46B233B518BCDC4200CC27A3 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
 		46B233B618BCDC4200CC27A3 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 		46B233B818BCE58400CC27A3 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
@@ -589,7 +590,6 @@
 			isa = PBXGroup;
 			children = (
 				4630D13718C603B000DA7CAD /* CircleView */,
-				4630D12F18C5F43C00DA7CAD /* UITextField-Shake */,
 				46E84ECB18C2DB930004C146 /* KNSemiModalViewController */,
 				46E84EB918C2C7040004C146 /* UzysCircularProgressPullToRefresh */,
 				46B233C618BCE6E000CC27A3 /* UMSocial_Sdk_3.3.3 */,
@@ -619,17 +619,10 @@
 				46E84ED018C2E1550004C146 /* UINavigationBar+WelKit.m */,
 				18A912E818BB2826006B9A04 /* UIView+WelKit.h */,
 				18A912E918BB2826006B9A04 /* UIView+WelKit.m */,
+				46AE3F9018C759BB00C0CC3F /* UITextField+WelKit.h */,
+				46AE3F9118C759BB00C0CC3F /* UITextField+WelKit.m */,
 			);
 			path = UIKit;
-			sourceTree = "<group>";
-		};
-		4630D12F18C5F43C00DA7CAD /* UITextField-Shake */ = {
-			isa = PBXGroup;
-			children = (
-				4630D13018C5F43C00DA7CAD /* UITextField+Shake.h */,
-				4630D13118C5F43C00DA7CAD /* UITextField+Shake.m */,
-			);
-			path = "UITextField-Shake";
 			sourceTree = "<group>";
 		};
 		4630D13318C5FB7500DA7CAD /* Images */ = {
@@ -643,7 +636,6 @@
 		4630D13418C5FB7500DA7CAD /* Buttons */ = {
 			isa = PBXGroup;
 			children = (
-				4630D13518C5FB7500DA7CAD /* registerBtnImg@2x.png */,
 			);
 			path = Buttons;
 			sourceTree = "<group>";
@@ -969,6 +961,8 @@
 				4665FD7B18BC7D4700E88C6B /* CommentsViewController.m */,
 				46A4704D18BE28DA0057F579 /* MapViewController.h */,
 				46B25AE518BF1CC60035F425 /* MapViewController.mm */,
+				46439C8F18C763EF00F01691 /* MapPickerViewController.h */,
+				46439C9018C763EF00F01691 /* MapPickerViewController.m */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -1108,7 +1102,6 @@
 				46B233F718BCE6E000CC27A3 /* TencentOpenApi_IOS_Bundle.bundle in Resources */,
 				18A9129C18BB2350006B9A04 /* Base.xcconfig in Resources */,
 				18A9129E18BB2350006B9A04 /* Release.xcconfig in Resources */,
-				4630D13618C5FB7500DA7CAD /* registerBtnImg@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1156,7 +1149,6 @@
 				46E84EE018C33FAC0004C146 /* SelectOpition.m in Sources */,
 				46BCD25F18BC725D005C4BD6 /* GroupsViewController.m in Sources */,
 				46B233B718BCDC4200CC27A3 /* LoginViewController.m in Sources */,
-				4630D13218C5F43C00DA7CAD /* UITextField+Shake.m in Sources */,
 				46B25AE418BF1CAA0035F425 /* RootViewController.m in Sources */,
 				4660E69018BB73E1005B3C7D /* ProductsViewController.m in Sources */,
 				18A912E418BB26B6006B9A04 /* User.m in Sources */,
@@ -1183,7 +1175,9 @@
 				46E84EC018C2C7040004C146 /* UIScrollView+UzysCircularProgressPullToRefresh.m in Sources */,
 				46B25AF018C185290035F425 /* FakeDataHelper.m in Sources */,
 				46E84EDD18C338370004C146 /* OpitionCategory.m in Sources */,
+				46439C9118C763EF00F01691 /* MapPickerViewController.m in Sources */,
 				46BCD27618BC79EB005C4BD6 /* StaffDetailViewController.m in Sources */,
+				46AE3F9218C759BB00C0CC3F /* UITextField+WelKit.m in Sources */,
 				46BCD24A18BB85FC005C4BD6 /* WelQRGeneraterViewController.m in Sources */,
 				46E84ED418C2E1CC0004C146 /* UIImage+WelKit.m in Sources */,
 				46E84ECA18C2D9050004C146 /* ProductDetailViewController.m in Sources */,

@@ -14,8 +14,9 @@
 #import "StaffDetailViewController.h"
 #import "UIImageView+WebCache.h"
 #import "MapViewController.h"
-@interface GroupDetailViewController ()
-
+#import "MapPickerViewController.h"
+@interface GroupDetailViewController ()<MapPickViewDelegate>
+@property (nonatomic, strong) UILabel *addressLbl;
 @end
 
 @implementation GroupDetailViewController
@@ -41,14 +42,9 @@
     imgView.contentMode = UIViewContentModeScaleAspectFit;
     [self.view addSubview:imgView];
     
-//    UILabel *lbl = [[UILabel alloc] initWithFrame:CGRectMake(margin, MaxY(imgView) + margin, 100, 30)];
-//    lbl.text = @"设计师Danny";
-//    lbl.textColor = [UIColor blackColor];
-//    [self.view addSubview:lbl];
-    
     UIButton *staffBtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    staffBtn.frame = CGRectMake( margin,MaxY(imgView) + margin, 200, 50);
-    [staffBtn setTitle:@"沙龙的设计师列表" forState:UIControlStateNormal];
+    staffBtn.frame = CGRectMake(0,MaxY(imgView) + margin, 150, 50);
+    [staffBtn setTitle:@"沙龙设计师列表" forState:UIControlStateNormal];
     [staffBtn addTarget:self action:@selector(staffClick) forControlEvents:UIControlEventTouchDown];
     [self.view addSubview:staffBtn];
     
@@ -57,7 +53,17 @@
     [mapBtn setTitle:@"地图" forState:UIControlStateNormal];
     [mapBtn addTarget:self action:@selector(mapClick) forControlEvents:UIControlEventTouchDown];
     [self.view addSubview:mapBtn];
+    
+    UIButton *pickPointBtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    pickPointBtn.frame = CGRectMake(MaxX(mapBtn) + margin,MaxY(imgView) + margin, 50, 50);
+    [pickPointBtn setTitle:@"选坐标" forState:UIControlStateNormal];
+    [pickPointBtn addTarget:self action:@selector(pickPointClick) forControlEvents:UIControlEventTouchDown];
+    [self.view addSubview:pickPointBtn];
 
+    self.addressLbl = [[UILabel alloc] initWithFrame:CGRectMake(margin, MaxY(pickPointBtn) + margin, 200, 30)];
+    self.addressLbl.text = @"";
+    self.addressLbl.textColor = [UIColor blackColor];
+    [self.view addSubview:self.addressLbl];
 }
 
 - (void)viewDidLoad
@@ -77,10 +83,23 @@
     [self.navigationController pushViewController:[StaffDetailViewController new] animated:YES];
 }
 
-
 - (void)mapClick
 {
     [self.navigationController pushViewController:[MapViewController new] animated:YES];
+}
+
+- (void)pickPointClick
+{
+    
+    MapPickViewController *picker = [MapPickViewController new];
+    picker.delegate = self;
+    [self.navigationController pushViewController:picker animated:YES];
+}
+
+#pragma pick map delegate
+- (void)didPickLocation:(CLLocation *)location
+{
+    self.addressLbl.text = [NSString stringWithFormat:@"la:%f, lo:%f",location.coordinate.latitude, location.coordinate.longitude];
 }
 
 @end

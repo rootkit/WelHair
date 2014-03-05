@@ -31,6 +31,7 @@
         [shadow setShadowColor:[UIColor clearColor]];
         [titleTextAttributes setObject:shadow forKey:NSShadowAttributeName];
         [titleTextAttributes setValue:[UIColor whiteColor] forKey:NSForegroundColorAttributeName];
+        [titleTextAttributes setValue:[UIFont systemFontOfSize:20] forKey:NSFontAttributeName];
     } else {
         // Pre-iOS6 methods
         [titleTextAttributes setValue:[UIColor clearColor] forKey:UITextAttributeTextShadowColor];

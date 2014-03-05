@@ -1,5 +1,5 @@
 //
-//  MapPickerViewController.h
+//  MapPickPointViewController.h
 //  WelHair
 //
 //  Created by lu larry on 3/5/14.
@@ -7,7 +7,13 @@
 //
 
 #import "BaseViewController.h"
+#import <CoreLocation/CoreLocation.h>
+@protocol MapPickViewDelegate
 
-@interface MapPickerViewController : BaseViewController
+- (void) didPickLocation:(CLLocation *)location;
+
+@end
+@interface MapPickViewController : BaseViewController
+@property (nonatomic, weak) id<MapPickViewDelegate> delegate;
 
 @end

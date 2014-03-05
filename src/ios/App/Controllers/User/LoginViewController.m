@@ -9,7 +9,6 @@
 #import "LoginViewController.h"
 #import "UMSocial.h"
 #import <QuartzCore/QuartzCore.h>
-#import "UITextField+Shake.h"
 
 static const float KOffsetY = 100;
 @interface LoginViewController ()<UITextFieldDelegate, UIGestureRecognizerDelegate>
@@ -56,13 +55,23 @@ static const float KOffsetY = 100;
     logoIcon.image = [UIImage imageNamed:@""];
     [self.viewContainer addSubview:logoIcon];
     
-    self.userNameTxt = [[UITextField alloc] initWithFrame:CGRectMake(margin, MaxY(logoIcon) + margin, WIDTH(self.view) - 2 * margin, 35)];
+    
+    self.userNameTxt =  [UITextField plainTextField:CGRectMake(margin,
+                                                               MaxY(logoIcon) + margin,
+                                                               WIDTH(self.view) - 2 * margin,
+                                                               35)
+                                        leftPadding:5];
     self.userNameTxt.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
     self.userNameTxt.backgroundColor = [UIColor whiteColor];
     self.userNameTxt.placeholder = @"  用户名/手机号";
     self.userNameTxt.delegate = self;
     [self.viewContainer addSubview:self.userNameTxt];
-    self.pwdTxt = [[UITextField alloc] initWithFrame:CGRectMake(margin, MaxY(self.userNameTxt) + 10, WIDTH(self.userNameTxt), 35)];
+    
+    self.pwdTxt =  [UITextField plainTextField:CGRectMake(margin,
+                                                          MaxY(self.userNameTxt) + 10,
+                                                          WIDTH(self.userNameTxt),
+                                                          35)
+                                   leftPadding:5];
     self.pwdTxt.backgroundColor = [UIColor whiteColor];
     self.pwdTxt.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
     self.pwdTxt.placeholder = @"  密码";
@@ -206,13 +215,13 @@ static const float KOffsetY = 100;
     if(self.userNameTxt.text.length == 0){
         [self.userNameTxt shake:10
                     withDelta:5
-                     andSpeed:0.01
+                     andSpeed:0.04
                shakeDirection:ShakeDirectionHorizontal];
         return NO;
     }else if(self.pwdTxt.text.length == 0){
         [self.pwdTxt shake:10
                       withDelta:5
-                       andSpeed:0.01
+                       andSpeed:0.04
                  shakeDirection:ShakeDirectionHorizontal];
         return NO;
     }

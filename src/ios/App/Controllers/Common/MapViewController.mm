@@ -94,6 +94,7 @@
 
 -(void)viewWillAppear:(BOOL)animated
 {
+    [super viewWillAppear:animated];
     [_mapView viewWillAppear];
     _mapView.delegate = self; // 此处记得不用的时候需要置nil，否则影响内存的释放
     _search.delegate = self; // 此处记得不用的时候需要置nil，否则影响内存的释放
@@ -101,6 +102,7 @@
 
 -(void)viewWillDisappear:(BOOL)animated
 {
+    [super viewWillDisappear:animated];
     [_mapView viewWillDisappear];
     _mapView.delegate = nil; // 不用时，置nil
     _search.delegate = nil; // 此处记得不用的时候需要置nil，否则影响内存的释放
@@ -484,5 +486,21 @@
     }
 }
 
+
+/**
+ *长按地图时会回调此接口
+ *@param mapview 地图View
+ *@param coordinate 返回长按事件坐标点的经纬度
+ */
+- (void)mapview:(BMKMapView *)mapView onLongClick:(CLLocationCoordinate2D)coordinate
+{
+    NSLog(@"onLongClick-latitude==%f,longitude==%f",coordinate.latitude,coordinate.longitude);
+    
+    BMKPointAnnotation* item1 = [[BMKPointAnnotation alloc]init];
+    item1.coordinate = coordinate;
+    item1.title = @"选中坐标";
+    [_mapView addAnnotation:item1];
+    
+}
 
 @end
