@@ -41,7 +41,7 @@ $(function() {
         }
     });
 
-    $( "#frmBrandCategoryInfo" ).submit(function( event ) {
+    $( "#frm-brand-info" ).submit(function( event ) {
 
 
           event.preventDefault();
@@ -50,10 +50,13 @@ $(function() {
 
           var name = $('input[name=brandname]').val();
           var sort = $('input[name=sort]').val();
-          var url = $('input[name=url]').val();
+          var brandurl = $('#url').val();
           var logo = $('#brand-image').attr('src');
-          var brandcategories = $("input[name='category[]']").val();
-          var description = $('input[name=description]').val();
+          var brandcategories  = $('input[name="category[]"]:checked').map(function(i,n) {
+                return $(n).val();
+            }).get();
+         
+          var description = $('textarea#description').val();
 
 
           url = form.attr( "action" );
@@ -61,7 +64,7 @@ $(function() {
           var posting = $.post( url, { 
                 'name': name, 
                 'sort': sort,
-                'url' : url,
+                'brandurl' : brandurl,
                 'logo' : logo,
                 'category' : brandcategories,
                 'description' :description
@@ -70,7 +73,7 @@ $(function() {
 
           posting.done(function( data ) {
 
-              window.location = globalSetting.baseUrl + '/goods/brand/search';
+              //window.location = globalSetting.baseUrl + '/goods/brand/search';
               return;
 
           });

@@ -19,7 +19,7 @@ use \Welfony\Utility\Util;
             <div class="formitm">
                 <label class="lab">网址：</label>
                 <div class="ipt">
-                    <input name="url" type="text" value="<?php echo $this->brandInfo['Url']; ?>" datatype="url" errormsg="账号至少4个字符，最多12个字符！" class="u-ipt"/>
+                    <input id='url' name="url" type="text" value="<?php echo $this->brandInfo['Url']; ?>" datatype="url" errormsg="请输入正确的URL." class="u-ipt"/>
                     <p>完整的URL链接地址，如：http://www.welhair.com</p>
                 </div>
             </div>
@@ -55,11 +55,11 @@ use \Welfony\Utility\Util;
              <div class="formitm">
                 <label class="lab">描述：</label>
                 <div class="ipt">
-                    <textarea name="description"    value="<?php echo $this->brandInfo['Description']; ?>" class="u-ipt"></textarea> 
+                    <textarea id = "description" name="description"    value="<?php echo $this->brandInfo['Description']; ?>" class="u-ipt"></textarea> 
                 </div>
             </div>
             <div class="formitm formitm-1">
-                <input type="hidden" name="user_id" value="<?php echo intval($this->userInfo['UserId']); ?>" />
+                <input type="hidden" name="brand_id" value="<?php echo intval($this->brandInfo['BrandId']); ?>" />
                 <button class="u-btn u-btn-submit" type="button">确定</button>
                 <button class="u-btn" id="btnCancel" type="button">取消</button>
             </div>
