@@ -42,6 +42,10 @@
 		18A912E218BB26B6006B9A04 /* BaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A912DC18BB26B6006B9A04 /* BaseViewController.m */; };
 		18A912E418BB26B6006B9A04 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A912E118BB26B6006B9A04 /* User.m */; };
 		18A912EC18BB2826006B9A04 /* UIView+WelKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A912E918BB2826006B9A04 /* UIView+WelKit.m */; };
+		4630251518C76EF1000E0B51 /* CalendarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4630251418C76EF1000E0B51 /* CalendarViewController.m */; };
+		4630251C18C77695000E0B51 /* OrderListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4630251B18C77695000E0B51 /* OrderListViewController.m */; };
+		4630251F18C777A2000E0B51 /* OrderDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4630251E18C777A2000E0B51 /* OrderDetailViewController.m */; };
+		4630252218C7781A000E0B51 /* PayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4630252118C7781A000E0B51 /* PayViewController.m */; };
 		4630D13A18C603B000DA7CAD /* CircleImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4630D13918C603B000DA7CAD /* CircleImageView.m */; };
 		46439C9118C763EF00F01691 /* MapPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 46439C9018C763EF00F01691 /* MapPickerViewController.m */; };
 		4660E69018BB73E1005B3C7D /* ProductsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4660E68F18BB73E1005B3C7D /* ProductsViewController.m */; };
@@ -165,6 +169,14 @@
 		18A912E918BB2826006B9A04 /* UIView+WelKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+WelKit.m"; sourceTree = "<group>"; };
 		18A912EA18BB2826006B9A04 /* WelKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WelKit.h; sourceTree = "<group>"; };
 		18A912EB18BB2826006B9A04 /* WelKitMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WelKitMacros.h; sourceTree = "<group>"; };
+		4630251318C76EF1000E0B51 /* CalendarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CalendarViewController.h; sourceTree = "<group>"; };
+		4630251418C76EF1000E0B51 /* CalendarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CalendarViewController.m; sourceTree = "<group>"; };
+		4630251A18C77695000E0B51 /* OrderListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderListViewController.h; sourceTree = "<group>"; };
+		4630251B18C77695000E0B51 /* OrderListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderListViewController.m; sourceTree = "<group>"; };
+		4630251D18C777A2000E0B51 /* OrderDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderDetailViewController.h; sourceTree = "<group>"; };
+		4630251E18C777A2000E0B51 /* OrderDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderDetailViewController.m; sourceTree = "<group>"; };
+		4630252018C7781A000E0B51 /* PayViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PayViewController.h; sourceTree = "<group>"; };
+		4630252118C7781A000E0B51 /* PayViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PayViewController.m; sourceTree = "<group>"; };
 		4630D13818C603B000DA7CAD /* CircleImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CircleImageView.h; sourceTree = "<group>"; };
 		4630D13918C603B000DA7CAD /* CircleImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CircleImageView.m; sourceTree = "<group>"; };
 		46439C8F18C763EF00F01691 /* MapPickerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapPickerViewController.h; sourceTree = "<group>"; };
@@ -544,6 +556,7 @@
 		18A912D918BB26B6006B9A04 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				4630251618C7764E000E0B51 /* Order */,
 				46BCD27018BC79D3005C4BD6 /* Staffs */,
 				46BCD26018BC7533005C4BD6 /* Common */,
 				46BCD25C18BC724E005C4BD6 /* Groups */,
@@ -623,6 +636,19 @@
 				46AE3F9118C759BB00C0CC3F /* UITextField+WelKit.m */,
 			);
 			path = UIKit;
+			sourceTree = "<group>";
+		};
+		4630251618C7764E000E0B51 /* Order */ = {
+			isa = PBXGroup;
+			children = (
+				4630251A18C77695000E0B51 /* OrderListViewController.h */,
+				4630251B18C77695000E0B51 /* OrderListViewController.m */,
+				4630251D18C777A2000E0B51 /* OrderDetailViewController.h */,
+				4630251E18C777A2000E0B51 /* OrderDetailViewController.m */,
+				4630252018C7781A000E0B51 /* PayViewController.h */,
+				4630252118C7781A000E0B51 /* PayViewController.m */,
+			);
+			path = Order;
 			sourceTree = "<group>";
 		};
 		4630D13318C5FB7500DA7CAD /* Images */ = {
@@ -963,6 +989,8 @@
 				46B25AE518BF1CC60035F425 /* MapViewController.mm */,
 				46439C8F18C763EF00F01691 /* MapPickerViewController.h */,
 				46439C9018C763EF00F01691 /* MapPickerViewController.m */,
+				4630251318C76EF1000E0B51 /* CalendarViewController.h */,
+				4630251418C76EF1000E0B51 /* CalendarViewController.m */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -1146,6 +1174,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				46E84EE318C356B30004C146 /* OpitionButton.m in Sources */,
+				4630251F18C777A2000E0B51 /* OrderDetailViewController.m in Sources */,
 				46E84EE018C33FAC0004C146 /* SelectOpition.m in Sources */,
 				46BCD25F18BC725D005C4BD6 /* GroupsViewController.m in Sources */,
 				46B233B718BCDC4200CC27A3 /* LoginViewController.m in Sources */,
@@ -1164,6 +1193,7 @@
 				46BCD24B18BB85FC005C4BD6 /* WelQRReaderViewController.m in Sources */,
 				46BCD25718BC628E005C4BD6 /* ChatSessionListViewController.m in Sources */,
 				46BCD26618BC796B005C4BD6 /* WorkDetailViewController.m in Sources */,
+				4630251C18C77695000E0B51 /* OrderListViewController.m in Sources */,
 				46E84ED718C2F0380004C146 /* OpitionSelectPanel.m in Sources */,
 				46E84ED118C2E1550004C146 /* UINavigationBar+WelKit.m in Sources */,
 				4665FD8518BC801000E88C6B /* Work.m in Sources */,
@@ -1173,8 +1203,10 @@
 				46E84ECE18C2DB930004C146 /* UIViewController+KNSemiModal.m in Sources */,
 				18A912E218BB26B6006B9A04 /* BaseViewController.m in Sources */,
 				46E84EC018C2C7040004C146 /* UIScrollView+UzysCircularProgressPullToRefresh.m in Sources */,
+				4630251518C76EF1000E0B51 /* CalendarViewController.m in Sources */,
 				46B25AF018C185290035F425 /* FakeDataHelper.m in Sources */,
 				46E84EDD18C338370004C146 /* OpitionCategory.m in Sources */,
+				4630252218C7781A000E0B51 /* PayViewController.m in Sources */,
 				46439C9118C763EF00F01691 /* MapPickerViewController.m in Sources */,
 				46BCD27618BC79EB005C4BD6 /* StaffDetailViewController.m in Sources */,
 				46AE3F9218C759BB00C0CC3F /* UITextField+WelKit.m in Sources */,

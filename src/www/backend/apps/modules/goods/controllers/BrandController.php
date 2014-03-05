@@ -77,10 +77,16 @@ class Goods_BrandController extends AbstractAdminController
     	
         $this->view->pageTitle = '品牌信息';
 
+        $allCategories = BrandCategoryService::listAllBrandCategory();
+
+        $this->view->brandcategories = $allCategories;
+
+
         $brandId = intval($this->_request->getParam('brand_id'));
 
-       
+
         $brand = array();
+        $brand['BrandId'] = $brandId;
         $brand['Name'] = '';
         $brand['Logo'] = '';
         $brand['Url'] = '';
@@ -92,11 +98,11 @@ class Goods_BrandController extends AbstractAdminController
         if ($this->_request->isPost()) {
             $brandname = htmlspecialchars($this->_request->getParam('name'));
             $sort = htmlspecialchars($this->_request->getParam('sort'));
-            $url = htmlspecialchars($this->_request->getParam('url'));
+            $url = htmlspecialchars($this->_request->getParam('brandurl'));
             $logo = htmlspecialchars($this->_request->getParam('logo'));
-            $brandCategory = $this->_request->getParam('category');
+            $brandCategory = implode(',',  $this->_request->getParam('category'));
             $description = htmlspecialchars($this->_request->getParam('description'));
-      
+
             $brand['Name'] = $brandname;
             $brand['Logo'] = $logo;
             $brand['Url'] = $url;
@@ -112,10 +118,7 @@ class Goods_BrandController extends AbstractAdminController
             }
         } else {
 
-             $allCategories = BrandCategoryService::listAllBrandCategory();
-
-             $this->view->brandcategories = $allCategories;
-
+            
             if ($brandId > 0) {
 
             } 
@@ -127,9 +130,19 @@ class Goods_BrandController extends AbstractAdminController
 
     public function searchAction()
     {
+        $allCategories = BrandCategoryService::listAllBrandCategory();
+
+        $categoryies = array();
+
+        foreach ($allCategories as $cat) {
+            $categoryies[$cat['BrandCategoryId']] = $cat['Name'];
+        }
+        $this->view->brandcategories = $categoryies;
+
+
         $this->view->pageTitle = '品牌列表';
 
-        $pageSize = 20;
+        $pageSize = 10;
         $page =  intval($this->_request->getParam('page'));
 
         $page =  $page<=0? 1 : $page;

@@ -13,6 +13,7 @@
 #import "CommentsViewController.h"
 #import "UIViewController+KNSemiModal.h"
 #import "OpitionSelectPanel.h"
+#import "OrderDetailViewController.h"
 
 @interface ProductDetailViewController ()<UMSocialUIDelegate>
 @property (nonatomic, strong) SelectOpition *selectOpition;
@@ -26,6 +27,7 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
+        self.title = @"产品详情";
         FAKIcon *searchIcon = [FAKIonIcons ios7RedoOutlineIconWithSize:NAV_BAR_ICON_SIZE];
         [searchIcon addAttribute:NSForegroundColorAttributeName value:[UIColor grayColor]];
         self.rightNavItemImg = [searchIcon imageWithSize:CGSizeMake(NAV_BAR_ICON_SIZE, NAV_BAR_ICON_SIZE)];
@@ -80,10 +82,16 @@
     [self.view addSubview:categoryBtn];
     
     UIButton *commentBtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    commentBtn.frame = CGRectMake(MaxX(categoryBtn) + margin,Y(categoryBtn), 100, 50);
+    commentBtn.frame = CGRectMake(MaxX(categoryBtn) + margin,Y(categoryBtn), 50, 50);
     [commentBtn setTitle:@"评论" forState:UIControlStateNormal];
     [commentBtn addTarget:self action:@selector(commentClick) forControlEvents:UIControlEventTouchDown];
     [self.view addSubview:commentBtn];
+    
+    UIButton *orderBtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    orderBtn.frame = CGRectMake(MaxX(commentBtn) + margin,Y(categoryBtn), 50, 50);
+    [orderBtn setTitle:@"下订单" forState:UIControlStateNormal];
+    [orderBtn addTarget:self action:@selector(orderClick) forControlEvents:UIControlEventTouchDown];
+    [self.view addSubview:orderBtn];
     
     self.optionsLbl = [[UILabel alloc] initWithFrame:CGRectMake(margin, MaxY(commentBtn), WIDTH(self.view)- 2 *margin, 100)];
     self.optionsLbl.textColor = [UIColor blackColor];
@@ -158,6 +166,7 @@
     }
     self.optionsLbl.text = str;
 }
+
 - (void)serviceOpitionData
 {
     
@@ -168,5 +177,9 @@
     [self.navigationController pushViewController:[CommentsViewController new] animated:YES];
 }
 
+- (void)orderClick
+{
+    [self.navigationController pushViewController:[OrderDetailViewController new] animated:YES];
+}
 
 @end
