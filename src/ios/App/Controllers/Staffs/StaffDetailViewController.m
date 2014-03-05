@@ -15,7 +15,7 @@
 #import "GroupDetailViewController.h"
 #import "UIImageView+WebCache.h"
 #import "UIViewController+KNSemiModal.h"
-
+#import "CalendarViewController.h"
 
 @interface StaffDetailViewController ()
 
@@ -77,7 +77,7 @@
 
 - (void)orderClick
 {
-    
+    [self.navigationController presentViewController:[[UINavigationController alloc] initWithRootViewController:[CalendarViewController new]] animated:YES completion:nil];
 }
 
 - (void)groupClick

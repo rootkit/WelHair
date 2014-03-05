@@ -18,9 +18,15 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        // Custom initialization
+        self.title = @"付款页面";
+        self.leftNavItemTitle = @"取消";
     }
     return self;
+}
+
+- (void)leftNavItemClick
+{
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void)viewDidLoad

@@ -7,7 +7,7 @@
 //
 
 #import "OrderDetailViewController.h"
-
+#import "PayViewController.h"
 @interface OrderDetailViewController ()
 
 @end
@@ -18,7 +18,7 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        // Custom initialization
+        self.title = @"订单详情";
     }
     return self;
 }
@@ -26,7 +26,16 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view.
+    UIButton *payBtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    payBtn.frame = CGRectMake(50,200, 100, 50);
+    [payBtn setTitle:@"付款" forState:UIControlStateNormal];
+    [payBtn addTarget:self action:@selector(payClick) forControlEvents:UIControlEventTouchDown];
+    [self.view addSubview:payBtn];
+}
+
+- (void) payClick
+{
+    [self.navigationController presentViewController:[[UINavigationController alloc] initWithRootViewController:[PayViewController new] ] animated:YES completion:nil];
 }
 
 - (void)didReceiveMemoryWarning
