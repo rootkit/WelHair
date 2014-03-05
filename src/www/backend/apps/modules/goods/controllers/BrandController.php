@@ -130,9 +130,19 @@ class Goods_BrandController extends AbstractAdminController
 
     public function searchAction()
     {
+        $allCategories = BrandCategoryService::listAllBrandCategory();
+
+        $categoryies = array();
+
+        foreach ($allCategories as $cat) {
+            $categoryies[$cat['BrandCategoryId']] = $cat['Name'];
+        }
+        $this->view->brandcategories = $categoryies;
+
+
         $this->view->pageTitle = '品牌列表';
 
-        $pageSize = 20;
+        $pageSize = 10;
         $page =  intval($this->_request->getParam('page'));
 
         $page =  $page<=0? 1 : $page;

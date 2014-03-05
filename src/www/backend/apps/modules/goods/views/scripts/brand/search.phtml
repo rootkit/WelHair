@@ -18,22 +18,33 @@
     <thead>
         <tr>
             <th class="col-chk"><input type="checkbox" /></th>
-            <th class="cola">格边框</th>
-            <th>表头</th>
-            <th class="cola">表头</th>
-            <th class="cola">表头</th>
-            <th class="colb">表头</th>
+            <th class="cola">排序</th>
+            <th class="cola">品牌名称</th>
+            <th class="cola">网址</th>
+            <th class="cola">品牌分类</th>
+            <th class="colb">操作</th>
         </tr>
     </thead>
     <tbody>
+        <?php foreach( $this->rows as $brand) : ?>
         <tr>
             <td class="col-center"><input type="checkbox" /></td>
-            <td>内容</td>
-            <td>内容内容内容内容内容内容内容</td>
-            <td>内容内容</td>
-            <td>内容内容</td>
-            <td>内容内容内容</td>
+            <td><?php echo $brand['Sort']; ?></td>
+            <td><?php echo $brand['Name']; ?></td>
+            <td><?php echo $brand['Url']; ?></td>
+            <td><?php  
+                $cats = explode(',', $brand['BrandCategoryIds']);
+                $names= array();
+                foreach ($cats as $cat) {
+                    if( isset($this->brandcategories[$cat]) )
+                    $names[] = $this->brandcategories[$cat];
+                }
+                echo implode(',', $names);
+            ?>
+            </td>
+            <td></td>
         </tr>
+        <?php endforeach; ?>
     </tbody>
 </table>
 
