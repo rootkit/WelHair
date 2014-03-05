@@ -82,8 +82,13 @@ class CompanyService
 
         $total = CompanyRepository::getInstance()->getAllCompaniesCount();
         $companyList = CompanyRepository::getInstance()->getAllCompanies($page, $pageSize);
+        $companies = array();
+        foreach ($companyList as $company) {
+            $company['PictureUrl'] = json_decode($company['PictureUrl']);
+            $companies[] = $company;
+        }
 
-        return array('total' => $total, 'companies' => $companyList);
+        return array('total' => $total, 'companies' => $companies);
     }
 
     public static function getCompanyById($companyId)
