@@ -16,6 +16,12 @@ use Welfony\Controller\API\UserController;
 
 $app->get('/users', function() use($app)
 {
-    $controller = new UserController();
-    $controller->index();
+    $ctrl = new UserController();
+    $ctrl->index();
+});
+
+$app->post('/users/signin', function() use($app)
+{
+    $ctrl = new UserController();
+    $ctrl->signInWithEmail();
 });

@@ -15,9 +15,14 @@
 namespace Welfony\Controller\API;
 
 use Welfony\Controller\Base\AbstractAPIController;
+use Welfony\Service\UserService;
 
 class UserController extends AbstractAPIController
 {
+
+    public function index()
+    {
+    }
 
     public function signInWithSocial()
     {
@@ -25,6 +30,27 @@ class UserController extends AbstractAPIController
 
     public function signInWithEmail()
     {
+        $reqData = $this->getDataFromRequestWithJsonFormat();
+
+        $email = htmlspecialchars($reqData['Email']);
+        $password = $reqData['Password'];
+
+        $response = array('success' => false);
+
+        if (empty($email)) {
+            $error = '请输入邮箱！';
+        }
+        if (empty($password)) {
+            $error = '请输入密码！';
+        }
+
+        if (!empty($error)) {
+            $response['message'] = $error;
+        } else {
+            $result = UserService::signInWithEmail($email, $password);
+        }
+
+        $this->sendResponse($result);
     }
 
 }
