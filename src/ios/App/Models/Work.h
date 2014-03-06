@@ -11,9 +11,14 @@
 // ==============================================================================
 
 #import <Foundation/Foundation.h>
-
+#import "Staff.h"
 @interface Work : NSObject
 @property (nonatomic) int Id;
-@property (nonatomic, strong) NSString *Name;
-@property (nonatomic) int staffId;
+@property (nonatomic, strong) NSString *name;
+@property (nonatomic, strong) NSArray *imgsUrl;
+
+@property (nonatomic, strong) Staff *creator;
+@property (nonatomic, strong) NSArray *comments;
+
+
 @end

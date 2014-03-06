@@ -10,7 +10,7 @@
 #import "UMSocial.h"
 #import <QuartzCore/QuartzCore.h>
 
-static const float KOffsetY = 100;
+static const float KOffsetY = 50;
 @interface LoginViewController ()<UITextFieldDelegate, UIGestureRecognizerDelegate>
 @property (nonatomic, strong) UIView * viewContainer;
 @property (nonatomic, strong) UITextField * userNameTxt;
@@ -51,8 +51,8 @@ static const float KOffsetY = 100;
     [self.view addSubview:self.viewContainer];
     
     float margin = 40;
-    UIImageView *logoIcon = [[UIImageView alloc] initWithFrame:CGRectMake(130, 40, 100, 100)];
-    logoIcon.image = [UIImage imageNamed:@""];
+    UIImageView *logoIcon = [[UIImageView alloc] initWithFrame:CGRectMake(110, 20, 100, 100)];
+    logoIcon.image = [UIImage imageNamed:@"Logo"];
     [self.viewContainer addSubview:logoIcon];
     
     
@@ -87,49 +87,60 @@ static const float KOffsetY = 100;
     loginBtn.titleLabel.font = [UIFont systemFontOfSize:18];
     [loginBtn addTarget:self action:@selector(loginClick) forControlEvents:UIControlEventTouchDown];
     [self.viewContainer addSubview:loginBtn];
+
     
-    UIView *leftLineView = [[UIView alloc] initWithFrame:CGRectMake(margin,MaxY(loginBtn) + 20, 40, 1)];
+    float bottomHeight = 80;
+    UIView *bottomView =
+    [[UIView alloc] initWithFrame:CGRectMake(0,
+                                             HEIGHT(self.viewContainer) - bottomHeight,
+                                             WIDTH(self.viewContainer),
+                                             bottomHeight)];
+    [self.viewContainer addSubview:bottomView];
+    
+    UIView *leftLineView = [[UIView alloc] initWithFrame:CGRectMake(margin, 20, 40, 1)];
     leftLineView.backgroundColor = [UIColor whiteColor];
-    [self.viewContainer addSubview:leftLineView];
+    [bottomView addSubview:leftLineView];
     
-    UILabel *socialLoginLbl = [[UILabel alloc] initWithFrame:CGRectMake(MaxX(leftLineView) + 20,MaxY(loginBtn) +  10, 120,20)];
+    
+    UILabel *socialLoginLbl = [[UILabel alloc] initWithFrame:CGRectMake(MaxX(leftLineView) + 20,10, 120,20)];
     socialLoginLbl.text = @"或以下方式登录";
     socialLoginLbl.textAlignment = NSTextAlignmentCenter;
     socialLoginLbl.textColor = [UIColor whiteColor];
     socialLoginLbl.font = [UIFont systemFontOfSize:14];
     socialLoginLbl.backgroundColor = [UIColor clearColor];
-    [self.viewContainer addSubview:socialLoginLbl];
+    [bottomView addSubview:socialLoginLbl];
     
-    UIView *rightLineView = [[UIView alloc] initWithFrame:CGRectMake(WIDTH(self.view) - margin - 40, MaxY(loginBtn) + 20, 40, 1)];
+    UIView *rightLineView = [[UIView alloc] initWithFrame:CGRectMake(WIDTH(self.view) - margin - 40, 20, 40, 1)];
     rightLineView.backgroundColor = [UIColor whiteColor];
-    [self.viewContainer addSubview:rightLineView];
+    [bottomView addSubview:rightLineView];
     
     
+    float socialBtnSize = 28;
     UIButton *sinaBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    sinaBtn.frame = CGRectMake(70, MaxY(socialLoginLbl) + 10, 30, 30);
-    [sinaBtn setTitle:@"SN" forState:UIControlStateNormal];
+    sinaBtn.frame = CGRectMake(70, MaxY(socialLoginLbl) + 10, socialBtnSize, socialBtnSize);
+    [sinaBtn setImage:[UIImage imageNamed:@"SinaWeibo"] forState:UIControlStateNormal];
     [sinaBtn addTarget:self action:@selector(sinaSignClick) forControlEvents:UIControlEventTouchDown];
-    [self.viewContainer addSubview:sinaBtn];
+    [bottomView addSubview:sinaBtn];
     
     UIView *vLine1 = [[UIView alloc] initWithFrame:CGRectMake(MaxX(sinaBtn) + 22,MaxY(socialLoginLbl) + 10, 1, 30)];
     vLine1.backgroundColor = [UIColor grayColor];
-    [self.viewContainer addSubview:vLine1];
+    [bottomView addSubview:vLine1];
     
     UIButton *qqBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    qqBtn.frame = CGRectMake(MaxX(sinaBtn) + 45, MaxY(socialLoginLbl) + 10, 30, 30);
-    [qqBtn setTitle:@"QQ" forState:UIControlStateNormal];
+    qqBtn.frame = CGRectMake(MaxX(sinaBtn) + 45, MaxY(socialLoginLbl) + 10, socialBtnSize, socialBtnSize);
+    [qqBtn setImage:[UIImage imageNamed:@"QQIcon"] forState:UIControlStateNormal];
     [qqBtn addTarget:self action:@selector(qqSignClick) forControlEvents:UIControlEventTouchDown];
-    [self.viewContainer addSubview:qqBtn];
+    [bottomView addSubview:qqBtn];
     
     UIView *vLine2 = [[UIView alloc] initWithFrame:CGRectMake(MaxX(qqBtn) + 22, MaxY(socialLoginLbl) + 10, 1, 30)];
     vLine2.backgroundColor = [UIColor grayColor];
-    [self.viewContainer addSubview:vLine2];
+    [bottomView addSubview:vLine2];
     
     UIButton *tecentWeiboBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    tecentWeiboBtn.frame = CGRectMake(MaxX(qqBtn) + 45, MaxY(socialLoginLbl) + 10, 30, 30);
-    [tecentWeiboBtn setTitle:@"WB" forState:UIControlStateNormal];
+    tecentWeiboBtn.frame = CGRectMake(MaxX(qqBtn) + 45, MaxY(socialLoginLbl) + 10, socialBtnSize, socialBtnSize);
+    [tecentWeiboBtn setImage:[UIImage imageNamed:@"QQWeiboIcon"] forState:UIControlStateNormal];
     [tecentWeiboBtn addTarget:self action:@selector(sinaSignClick) forControlEvents:UIControlEventTouchDown];
-    [self.viewContainer addSubview:tecentWeiboBtn];
+    [bottomView addSubview:tecentWeiboBtn];
 }
 
 - (void)viewDidLoad
@@ -192,7 +203,7 @@ static const float KOffsetY = 100;
     UIViewAnimationCurve animationCurve = curveValue.intValue;
     
     void (^animations)() = ^() {
-        self.viewContainer.frame = CGRectMake(0,0, WIDTH(self.viewContainer), HEIGHT(self.viewContainer));
+        self.viewContainer.frame = CGRectMake(0,self.topBarOffset, WIDTH(self.viewContainer), HEIGHT(self.viewContainer));
     };
     
     [UIView animateWithDuration:animationDuration
@@ -205,7 +216,7 @@ static const float KOffsetY = 100;
 - (void)loginClick
 {
     if([self validInput]){
-        
+        [self dismissViewControllerAnimated:YES completion:nil];
     }
 }
 

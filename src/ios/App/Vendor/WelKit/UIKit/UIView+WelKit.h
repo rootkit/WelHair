@@ -39,5 +39,7 @@
 - (CGFloat)right;
 - (void)setRight:(CGFloat)right;
 
+- (void)drawBottomShadowOffset:(float)offset
+                       opacity:(float)opacity;
 
 @end

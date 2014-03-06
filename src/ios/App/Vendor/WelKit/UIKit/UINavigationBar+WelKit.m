@@ -23,7 +23,6 @@
     if (!titleTextAttributes) {
         titleTextAttributes = [NSMutableDictionary dictionary];
     }
-    
     if (&NSShadowAttributeName != NULL) {
         // iOS6 methods
         NSShadow *shadow = [[NSShadow alloc] init];

@@ -104,5 +104,14 @@
     self.frame = CGRectMake(right - self.width, self.y, self.width, self.height);
 }
 
+- (void)drawBottomShadowOffset:(float)offset
+                       opacity:(float)opacity
+{
+    self.layer.masksToBounds = NO;
+    self.layer.shadowColor = [[UIColor lightGrayColor] CGColor];
+    self.layer.shadowOffset = CGSizeMake(0, offset);
+    self.layer.shadowRadius = 1;
+    self.layer.shadowOpacity = offset;
+}
 @end
 

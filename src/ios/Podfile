@@ -9,6 +9,7 @@ pod 'SDWebImage', '3.5.1'
 pod 'EDColor', '0.2.1'
 pod 'FontAwesomeKit', '2.1.4'
 pod 'MNCalendarView', '~> 0.0.1'
+pod 'JSONModel', '~> 0.12.0'
 
 #pod 'KNSemiModalViewController', '~> 0.3'
 

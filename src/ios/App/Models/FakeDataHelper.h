@@ -13,5 +13,5 @@
 +(id)SharedInstance;
 
 +(NSArray *)getFakeHairWorkImgs;
-
++(NSArray *)getFakeWorkList;
 @end

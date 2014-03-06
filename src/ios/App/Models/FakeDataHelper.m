@@ -7,7 +7,8 @@
 //
 
 #import "FakeDataHelper.h"
-
+#import "Work.h"
+#import "Comment.h"
 @implementation FakeDataHelper
 
 
@@ -33,6 +34,29 @@
              @"http://pic.mf08s.com/201106/13/b27.jpg",
              @"http://pic.mf08s.com/201011/20/c80.jpg",
              @"http://pic.mf08s.com/201011/18/t30.jpg"];
+}
+
++(NSArray *)getFakeWorkList
+{
+    NSMutableArray *ar = [NSMutableArray array];
+    for (int i = 0; i < 10 ; i++) {
+        Work *work = [Work new];
+        
+        work.imgsUrl = @[@"http://www.sssik.com/uploads/allimg/130609/20130125033623270.jpg"];
+
+        Comment *comment = [Comment new];
+        comment.title = @"[ 发型不错，明天也去炸一个]";
+        comment.commentorName = @"Andy";
+        comment.commentorAvatorUrl = @"http://www.sssik.com/uploads/allimg/130609/20130125033623270.jpg";
+        work.comments = @[comment];
+        
+        Staff *staff = [Staff new];
+        staff.name = @"Larry";
+        staff.avatorUrl = @"http://www.sssik.com/uploads/allimg/130609/20130125033623270.jpg";
+        work.creator = staff;
+        [ar addObject:work];
+    }
+    return ar;
 }
 
 @end

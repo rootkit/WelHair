@@ -10,7 +10,8 @@
 //
 // ==============================================================================
 #import <UIKit/UIKit.h>
-
+#import "Work.h"
 @interface WorkDetailViewController : BaseViewController
 
+@property (nonatomic, strong) Work *work;
 @end

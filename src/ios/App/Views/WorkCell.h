@@ -7,13 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Work.h"
 
-typedef void (^imgTapHandler)(int);
+typedef void (^CardTapHandler)(Work *);
 
 @interface WorkCell : UITableViewCell
 
-- (void)setupWithLeftData:(NSString *)leftData
-                rightData:(NSString *)rightData
-               tapHandler:(imgTapHandler)tapHandler;
+- (void)setupWithLeftData:(Work *)leftData
+                rightData:(Work *)rightData
+               tapHandler:(CardTapHandler)tapHandler;
 
 @end
