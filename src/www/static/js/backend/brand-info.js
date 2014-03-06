@@ -73,7 +73,7 @@ $(function() {
 
           posting.done(function( data ) {
 
-              //window.location = globalSetting.baseUrl + '/goods/brand/search';
+              window.location = globalSetting.baseUrl + '/goods/brand/search';
               return;
 
           });
