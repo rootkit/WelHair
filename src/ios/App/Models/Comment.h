@@ -9,5 +9,10 @@
 #import <Foundation/Foundation.h>
 
 @interface Comment : NSObject
-
+@property (nonatomic) int id;
+@property (nonatomic, strong) NSString *title;
+@property (nonatomic, strong) NSDate *createdDate;
+@property (nonatomic, strong) NSString *commentorId;
+@property (nonatomic, strong) NSString *commentorAvatorUrl;
+@property (nonatomic, strong) NSString *commentorName;
 @end

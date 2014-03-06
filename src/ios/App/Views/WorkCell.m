@@ -7,13 +7,16 @@
 //
 
 #import "WorkCell.h"
+#import "WorkCardView.h"
 #import "UIImageView+WebCache.h"
 
 @interface WorkCell ()
 
-@property (nonatomic, strong) UIImageView *leftImg;
-@property (nonatomic, strong) UIImageView *rightImg;
-@property (nonatomic, strong) imgTapHandler imgTapHandler;
+@property (nonatomic, strong) WorkCardView *leftCardView;
+@property (nonatomic, strong) WorkCardView *rightCardView;
+@property (nonatomic, strong) Work *leftWorkData;
+@property (nonatomic, strong) Work *rightWorkData;
+@property (nonatomic, strong) CardTapHandler cardTapHandler;
 
 @end
 
@@ -32,44 +35,39 @@
     [super setSelected:selected animated:animated];
 }
 
-- (void)setupWithLeftData:(NSString *)leftData
-                rightData:(NSString *)rightData
-           tapHandler:(imgTapHandler)tapHandler
+- (void)setupWithLeftData:(Work *)leftData
+                rightData:(Work *)rightData
+               tapHandler:(CardTapHandler)tapHandler
 {
-    int margin = 5;
-    self.imgTapHandler = tapHandler;
-    if(!self.leftImg){
-        self.leftImg = [[UIImageView alloc] init];
-        self.leftImg.contentMode = UIViewContentModeScaleAspectFit;
-        self.leftImg.frame = CGRectMake(margin,
-                                        margin,
-                                        (WIDTH(self) - 4* margin)/2,
-                                        (WIDTH(self) - 4* margin)/2);
-        self.leftImg.userInteractionEnabled = YES;
-        [self.leftImg addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(imgTapped:)]];
-        [self addSubview:self.leftImg];
+    self.leftWorkData = leftData;
+    self.rightWorkData = rightData;
+    self.cardTapHandler = tapHandler;
+    
+    if(!self.leftCardView){
+        self.leftCardView = [WorkCardView new];
+        self.leftCardView.frame = CGRectMake(10, 5, 140, 250);
+        [self addSubview:self.leftCardView];
+        self.leftCardView.tag = 0;
+        [self.leftCardView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(cardTapped:)]];
     }
-    [self.leftImg setImageWithURL:[NSURL URLWithString:leftData]];
+    [self.leftCardView setupWithData:leftData width:140];
 
-
-
-    if(!self.rightImg){
-        self.rightImg = [[UIImageView alloc] init];
-        self.rightImg.contentMode = UIViewContentModeScaleAspectFit;
-        self.rightImg.frame = CGRectMake(MaxX(self.leftImg) + 2 *margin,
-                                         margin,
-                                         (WIDTH(self) - 4* margin)/2,
-                                         (WIDTH(self) - 4* margin)/2);
-        self.rightImg.userInteractionEnabled = YES;
-        [self.rightImg addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(imgTapped:)]];
-        [self addSubview:self.rightImg];
+    if(!self.rightCardView){
+        self.rightCardView = [WorkCardView new];
+        self.rightCardView.frame = CGRectMake(MaxX(self.leftCardView) + 20, 5, 140, 250);
+        [self addSubview:self.rightCardView];
+        self.rightCardView.tag = 1;
+        [self.rightCardView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(cardTapped:)]];
     }
-    [self.rightImg setImageWithURL:[NSURL URLWithString:rightData]];
+    [self.rightCardView setupWithData:rightData width:140];
 }
 
-- (void)imgTapped:(id)sender
+- (void)cardTapped:(id)sender
 {
-    self.imgTapHandler(0);
+    UITapGestureRecognizer *tapView = (UITapGestureRecognizer *)sender;
+    UIView *cardView = tapView.view;
+    Work *work = cardView.tag == 0 ? self.leftWorkData : self.rightWorkData;
+    self.cardTapHandler(work);
 }
 
 @end

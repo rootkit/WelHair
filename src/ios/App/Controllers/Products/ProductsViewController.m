@@ -104,7 +104,7 @@
         cell = [[WorkCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
-    imgTapHandler tapHandler = ^(int workId){
+    CardTapHandler tapHandler = ^(Work *work){
         [self pushToDetial];
     };
     

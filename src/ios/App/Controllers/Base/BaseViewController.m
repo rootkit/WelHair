@@ -80,7 +80,8 @@
             self.navigationItem.leftBarButtonItems = [NSArray arrayWithObjects:negativeSpacer, self.navigationItem.leftBarButtonItem, nil];
         }else if(self.leftNavItemTitle.length >0){
             UIButton *leftItemButton = [UIButton buttonWithType:UIButtonTypeCustom];
-            leftItemButton.frame = CGRectMake(0, 0, kTopBarHeight, kTopBarHeight);
+            leftItemButton.frame = CGRectMake(0, 0, 100, kTopBarHeight);
+            leftItemButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
             [leftItemButton addTarget:self action:@selector(leftNavItemClick) forControlEvents:UIControlEventTouchUpInside];
             [leftItemButton setTitle:self.leftNavItemTitle forState:UIControlStateNormal];
             self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:leftItemButton];
@@ -104,7 +105,8 @@
             self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:negativeSpacer, self.navigationItem.rightBarButtonItem, nil];
         }else if(self.rightNavItemTitle.length >0){
             UIButton *rightItemButton = [UIButton buttonWithType:UIButtonTypeCustom];
-            rightItemButton.frame = CGRectMake(0, 0, kTopBarHeight, kTopBarHeight);
+            rightItemButton.frame = CGRectMake(0, 0, 100, kTopBarHeight);
+            rightItemButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
             [rightItemButton addTarget:self action:@selector(rightNavItemClick) forControlEvents:UIControlEventTouchUpInside];
             [rightItemButton setTitle:self.rightNavItemTitle forState:UIControlStateNormal];
             self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:rightItemButton];

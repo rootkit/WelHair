@@ -36,12 +36,44 @@
 {
     [super loadView];
     self.leftNavItemTitle = @"济南";
+    
+    float topTabButtonWidth = WIDTH(self.view)/3;
+    float topTabButtonHeight = 40;
+    UIView *topTabView = [[UIView alloc] initWithFrame:CGRectMake(0, self.topBarOffset,WIDTH(self.view),topTabButtonHeight)];
+    [self.view addSubview:topTabView];
+    topTabView.backgroundColor = [UIColor colorWithHexString:@"f5f5f5"];
+    UIButton *areaBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [areaBtn setTitleColor:[UIColor colorWithHexString:@"666666"] forState:UIControlStateNormal];
+    areaBtn.frame = CGRectMake(0, 0, topTabButtonWidth, topTabButtonHeight);
+    [areaBtn setTitle:@"地区" forState:UIControlStateNormal];
+    [topTabView addSubview:areaBtn];
+    
+    UIButton *colorBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [colorBtn setTitleColor:[UIColor colorWithHexString:@"666666"] forState:UIControlStateNormal];
+    colorBtn.frame = CGRectMake(MaxX(areaBtn), 0, topTabButtonWidth, topTabButtonHeight);
+    [colorBtn setTitle:@"颜色" forState:UIControlStateNormal];
+    [topTabView addSubview:colorBtn];
+    UIView *shadowView = [[UIView alloc] initWithFrame:CGRectMake(0, topTabButtonHeight -1, WIDTH(topTabView), 1)];
+    shadowView.backgroundColor = [UIColor lightGrayColor];
+    [topTabView addSubview:shadowView];
+    topTabView.backgroundColor = [UIColor colorWithWhite:255 alpha:0.7];
+    
+    UIButton *lengthBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [lengthBtn setTitleColor:[UIColor colorWithHexString:@"666666"] forState:UIControlStateNormal];
+    lengthBtn.frame = CGRectMake(MaxX(colorBtn), 0, topTabButtonWidth, topTabButtonHeight);
+    [lengthBtn setTitle:@"长度" forState:UIControlStateNormal];
+    [topTabView addSubview:lengthBtn];
+    [topTabView drawBottomShadowOffset:1 opacity:0.7];;
     self.tableView = [[UITableView alloc] init];
+    self.tableView.frame = CGRectMake(0,
+                                      MaxY(topTabView),
+                                      WIDTH(self.view) + 1,
+                                      HEIGHT(self.view)- MaxY(topTabView) - self.bottomBarOffset -1);
     self.tableView.backgroundColor = [UIColor clearColor];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    
+    self.tableView.backgroundColor = [UIColor colorWithHexString:@"f2f2f2"];
     __weak typeof(self) weakSelf = self;
     [self.tableView addPullToRefreshActionHandler:^{
         [weakSelf insertRowAtTop];
@@ -62,18 +94,15 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    if(CGRectEqualToRect(self.tableView.frame, CGRectZero)){
-        self.tableView.frame = CGRectMake(0,
-                                          self.topBarOffset,
-                                          WIDTH(self.view),
-                                          HEIGHT(self.view)- self.topBarOffset - self.bottomBarOffset);
-    }
+//    if(CGRectEqualToRect(self.tableView.frame, CGRectZero)){
+//        
+//    }
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];    
-    self.datasource = [NSMutableArray arrayWithArray:[FakeDataHelper getFakeHairWorkImgs]];
+    self.datasource = [NSMutableArray arrayWithArray:[FakeDataHelper getFakeWorkList]];
 
 }
 
@@ -95,7 +124,7 @@
 #pragma mark UITableView delegate
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return (WIDTH(self.view) - 20)/2;
+    return 260;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -110,17 +139,16 @@
     if (!cell) {
         cell = [[WorkCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        cell.backgroundColor = [UIColor clearColor];
     }
-    imgTapHandler tapHandler = ^(int workId){
-        [self pushToDetial];
-    };
     
-    NSString *left = [self.datasource objectAtIndex: (2 * indexPath.row)];
-    NSString *right = nil;
+    Work *leftdata = [self.datasource objectAtIndex: (2 * indexPath.row)];
+    Work *rightdata = nil;
     if(2 * (indexPath.row + 1) <= self.datasource.count){
-        right = [self.datasource objectAtIndex: (2 * indexPath.row)];
+        rightdata = [self.datasource objectAtIndex: (2 * indexPath.row)];
     }
-    [cell setupWithLeftData:left rightData:right tapHandler:tapHandler];
+    __weak WorksViewController *selfDelegate = self;
+    [cell setupWithLeftData:leftdata rightData:rightdata tapHandler:^(Work *work){[selfDelegate pushToDetial:work];}];
     return cell;
 }
 
@@ -128,9 +156,10 @@
 {
 }
 
-- (void)pushToDetial
+- (void)pushToDetial:(Work *)work
 {
     WorkDetailViewController *workVc = [[WorkDetailViewController alloc] init];;
+    workVc.work = work;
     workVc.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:workVc animated:YES];
 }

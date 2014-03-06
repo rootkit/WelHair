@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "Work.h"
 @interface WorkCardView : UIView
+
+- (float) setupWithData:(Work *)workData
+                  width:(float)width;
 
 @end

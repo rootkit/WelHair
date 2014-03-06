@@ -117,7 +117,7 @@
         cell = [[WorkCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
-    imgTapHandler tapHandler = ^(int id){
+    CardTapHandler tapHandler = ^(Work *work){
         [self pushToWorkDetail];
     };
     if((indexPath.row + 1) * 2 <= self.datasource.count){

@@ -9,5 +9,7 @@
 #import <Foundation/Foundation.h>
 
 @interface Staff : NSObject
-
+@property (nonatomic) int id;
+@property (nonatomic, strong) NSString *name;
+@property (nonatomic, strong) NSString *avatorUrl;
 @end
