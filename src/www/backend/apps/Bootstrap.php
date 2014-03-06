@@ -29,6 +29,22 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         Zend_Session::start();
     }
 
+    protected function _initRouter()
+    {
+        $front = Zend_Controller_Front::getInstance();
+        $router = $front->getRouter();
+
+        $companyStaffWorkinfoRoute = new Zend_Controller_Router_Route_Regex(
+            'company/staff/work/info', array(
+                'module' => 'company',
+                'controller' => 'staff',
+                'action' => 'workinfo'
+            ), array(),
+            'company/staff/work/info'
+        );
+        $router->addRoute('company_staff_workinfo', $companyStaffWorkinfoRoute);
+    }
+
     protected function _initDatabase()
     {
         $dbConfig = new \Doctrine\DBAL\Configuration();
@@ -89,15 +105,6 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         $translate->setLocale('zh_cn');
 
         Zend_Registry::set('Zend_Translate', $translate);
-    }
-
-    protected function _initRouter()
-    {
-
-
-        $front = Zend_Controller_Front::getInstance();
-        $router = $front->getRouter();
-   
     }
 
 }

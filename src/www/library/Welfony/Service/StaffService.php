@@ -58,7 +58,7 @@ class StaffService
             $existedItem['LastModifiedDate'] = date('Y-m-d H:i:s');
 
             if (CompanyUserRepository::getInstance()->update($existedItem['CompanyUserId'], $existedItem)) {
-                UserService::update($staff['UserId'], $staff);
+                UserRepository::getInstance()->update($staff['UserId'], $staff);
                 return $existedItem;
             }
         } else {
@@ -71,7 +71,7 @@ class StaffService
 
             $saveResult = CompanyUserRepository::getInstance()->save($data);
             if ($saveResult) {
-                UserService::update($staff['UserId'], $staff);
+                UserRepository::getInstance()->update($staff['UserId'], $staff);
 
                 $data['CompanyUserId'] = $saveResult;
                 return $data;

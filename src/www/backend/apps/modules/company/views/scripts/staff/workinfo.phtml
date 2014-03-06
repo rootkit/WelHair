@@ -1,0 +1,94 @@
+<?php
+use \Welfony\Utility\Util;
+?>
+<div class="m-form">
+    <form id="frm-work-info" method="post">
+        <fieldset>
+            <div class="formitm">
+                <label class="lab">作品图：</label>
+                <div class="ipt">
+                    <ul class="formimglst clearfix">
+                        <?php foreach ($this->workInfo['PictureUrl'] as $pic): ?>
+                        <li>
+                            <span class="u-img2">
+                                <a href="javascript:;">
+                                    <img class="work-picture" src="<?php echo $pic; ?>" />
+                                </a>
+                            </span>
+                            <input type="hidden" value="<?php echo $pic; ?>" name="work_picture_url[]" />
+                            <a style="visibility: hidden;" href="#">调整缩略图</a>
+                            <a class="remove-thumb" href="#">移除</a>
+                        </li>
+                        <?php endforeach; ?>
+                        <li<?php echo count($this->workInfo['PictureUrl']) >= 6 ? ' style="display: none;"' : ''; ?>>
+                            <span class="u-img2">
+                                <a id="work-image-uploader"></a>
+                            </span>
+                        </li>
+                    </ul>
+                    <p>多角度展示作品，仅限同一款发型作品哦。</p>
+                </div>
+            </div>
+            <div class="formitm">
+                <label class="lab">标题：</label>
+                <div class="ipt">
+                    <input name="title" type="text" value="<?php echo $this->workInfo['Title']; ?>" datatype="*" class="u-ipt"/>
+                </div>
+            </div>
+            <div class="formitm">
+                <label class="lab">性别：</label>
+                <div class="ipt">
+                    <span class="u-btns" data-type="radio">
+                        <span class="u-btn u-btn-c<?php echo $this->workInfo['Gender'] == 1 ? '3' : '4'; ?>" data-value="1">男</span>
+                        <span class="u-btn u-btn-c<?php echo $this->workInfo['Gender'] == 2 ? '3' : '4'; ?>" data-value="2">女</span>
+                        <input type="hidden" name="gender" value="<?php echo $this->workInfo['Gender']; ?>" />
+                    </span>
+                </div>
+            </div>
+            <div class="formitm">
+                <label class="lab">脸型：</label>
+                <div class="ipt">
+                    <?php
+                    $hairSelected = explode(',', $this->workInfo['Face']);
+                    ?>
+                    <span class="u-btns" data-type="checkbox">
+                        <span class="u-btn u-btn-c<?php echo in_array(1, $hairSelected) ? '3' : '4'; ?>" data-value="1">圆脸</span>
+                        <span class="u-btn u-btn-c<?php echo in_array(2, $hairSelected) ? '3' : '4'; ?>" data-value="2">瓜子脸</span>
+                        <span class="u-btn u-btn-c<?php echo in_array(3, $hairSelected) ? '3' : '4'; ?>" data-value="3">方脸</span>
+                        <span class="u-btn u-btn-c<?php echo in_array(4, $hairSelected) ? '3' : '4'; ?>" data-value="4">长脸</span>
+                        <input type="hidden" name="face" datatype="*" value="<?php echo $this->workInfo['Face']; ?>" />
+                    </span>
+                </div>
+            </div>
+            <div class="formitm">
+                <label class="lab">发型：</label>
+                <div class="ipt">
+                    <span class="u-btns" data-type="radio">
+                        <span class="u-btn u-btn-c<?php echo $this->workInfo['HairStyle'] == 1 ? '3' : '4'; ?>" data-value="1">短发</span>
+                        <span class="u-btn u-btn-c<?php echo $this->workInfo['HairStyle'] == 2 ? '3' : '4'; ?>" data-value="2">长发</span>
+                        <span class="u-btn u-btn-c<?php echo $this->workInfo['HairStyle'] == 3 ? '3' : '4'; ?>" data-value="3">编发</span>
+                        <span class="u-btn u-btn-c<?php echo $this->workInfo['HairStyle'] == 4 ? '3' : '4'; ?>" data-value="4">中发</span>
+                        <input type="hidden" name="hair_style" value="<?php echo $this->workInfo['HairStyle']; ?>" />
+                    </span>
+                </div>
+            </div>
+            <div class="formitm">
+                <label class="lab">发量：</label>
+                <div class="ipt">
+                    <span class="u-btns" data-type="radio">
+                        <span class="u-btn u-btn-c<?php echo $this->workInfo['HairAmount'] == 1 ? '3' : '4'; ?>" data-value="1">多密</span>
+                        <span class="u-btn u-btn-c<?php echo $this->workInfo['HairAmount'] == 2 ? '3' : '4'; ?>" data-value="2">中等</span>
+                        <span class="u-btn u-btn-c<?php echo $this->workInfo['HairAmount'] == 3 ? '3' : '4'; ?>" data-value="3">偏少</span>
+                        <input type="hidden" name="hair_amount" value="<?php echo $this->workInfo['HairAmount']; ?>" />
+                    </span>
+                </div>
+            </div>
+            <div class="formitm formitm-1">
+                <input type="hidden" name="work_id" value="<?php echo intval($this->workInfo['WorkId']); ?>" />
+                <input type="hidden" name="staff_id" value="<?php echo intval($this->workInfo['UserId']); ?>" />
+                <button class="u-btn u-btn-submit" type="button">确定</button>
+            </div>
+        </fieldset>
+    </form>
+</div>
+<script src="<?php echo Util::baseAssetUrl('js/backend/work-info.js'); ?>"></script>

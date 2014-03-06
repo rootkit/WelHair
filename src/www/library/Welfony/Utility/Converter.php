@@ -14,6 +14,9 @@
 
 namespace Welfony\Utility;
 
+use Welfony\Core\Enum\Face;
+use Welfony\Core\Enum\HairAmount;
+use Welfony\Core\Enum\HairStyle;
 use Welfony\Core\Enum\UserRole;
 
 class Converter
@@ -41,6 +44,75 @@ class Converter
         }
 
         return $stringRole;
+    }
+
+    public static function faceFromEnumToString($face)
+    {
+        $str = '';
+
+        switch ($face) {
+            case Face::Round:
+                $str = '圆脸';
+                break;
+            case Face::Oval:
+                $str = '瓜子脸';
+                break;
+            case Face::Square:
+                $str = '方脸';
+                break;
+            case Face::Long:
+                $str = '长脸';
+                break;
+            default:
+                break;
+        }
+
+        return $str;
+    }
+
+    public static function hairStyleFromEnumToString($hairStyle)
+    {
+        $str = '';
+
+        switch ($hairStyle) {
+            case HairStyle::Short:
+                $str = '短发';
+                break;
+            case HairStyle::Long:
+                $str = '长发';
+                break;
+            case HairStyle::Plait:
+                $str = '编发';
+                break;
+            case HairStyle::Normal:
+                $str = '中发';
+                break;
+            default:
+                break;
+        }
+
+        return $str;
+    }
+
+    public static function hairAmountFromEnumToString($hairAmount)
+    {
+        $str = '';
+
+        switch ($hairAmount) {
+            case HairAmount::Lot:
+                $str = '多密';
+                break;
+            case HairAmount::Normal:
+                $str = '中等';
+                break;
+            case HairAmount::Less:
+                $str = '偏少';
+                break;
+            default:
+                break;
+        }
+
+        return $str;
     }
 
 }

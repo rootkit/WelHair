@@ -70,6 +70,7 @@ WF = {
         $('.u-btns').find('span').click(function() {
             var cur = $(this);
             var group = cur.parent();
+
             if (group.attr('data-type') == 'radio') {
                 group.find('span').each(function() {
                     var el = $(this);
@@ -81,6 +82,22 @@ WF = {
                 });
 
                 group.find('input[type=hidden]').val(cur.attr('data-value'));
+            }
+
+            if (group.attr('data-type') == 'checkbox') {
+                if (cur.hasClass('u-btn-c3')) {
+                    cur.removeClass('u-btn-c3').addClass('u-btn-c4');
+                } else {
+                    cur.removeClass('u-btn-c4').addClass('u-btn-c3');
+                }
+
+                var values = [];
+                group.find('span.u-btn-c3').each(function() {
+                    var el = $(this);
+                    values.push(el.attr('data-value'));
+                });
+
+                group.find('input[type=hidden]').val(values.join(','));
             }
         });
     },
