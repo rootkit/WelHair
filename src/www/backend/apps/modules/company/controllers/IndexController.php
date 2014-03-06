@@ -76,7 +76,7 @@ class Company_IndexController extends AbstractAdminController
             $company['Address'] = $address;
             $company['Latitude'] = $latitude;
             $company['Longitude'] = $longitude;
-            $company['PictureUrl'] = $pictureUrl;
+            $company['PictureUrl'] = $pictureUrl ? $pictureUrl : array();
             $company['Status'] = $status;
 
             $result = CompanyService::save($company);

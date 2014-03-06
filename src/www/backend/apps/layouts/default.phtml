@@ -38,7 +38,8 @@ $this->headScript()
         ?>
     </head>
     <body>
-        <div id="errorMessage"><?php echo $this->errorMessage; ?></div>
+        <div id="error-message"><?php echo $this->errorMessage; ?></div>
+        <div id="success-message"><?php echo $this->successMessage; ?></div>
         <?php
         echo $this->partial('header.phtml', array(
             'module' => $this->module,

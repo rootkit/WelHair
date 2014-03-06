@@ -16,8 +16,11 @@ WF = {
         this.setting = $.extend(this.setting, setting);
         $.pnotify.defaults.styling = 'jqueryui';
 
-        if ($('#errorMessage').text() != '') {
-            this.showMessage('error', '警告', $('#errorMessage').html());
+        if ($('#error-message').text() != '') {
+            this.showMessage('error', '警告', $('#error-message').html());
+        }
+        if ($('#success-message').text() != '') {
+            this.showMessage('success', '信息', $('#success-message').html());
         }
 
         this.initUI();

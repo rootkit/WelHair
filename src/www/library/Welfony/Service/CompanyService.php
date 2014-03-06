@@ -47,7 +47,14 @@ class CompanyService
             return $result;
         }
 
-        $data['PictureUrl'] = json_encode($data['PictureUrl'] ? $data['PictureUrl'] : array());
+        if (count($data['PictureUrl']) <= 0) {
+            $result['message'] = '请至少选择一张沙龙图片。';
+
+            return $result;
+        }
+
+
+        $data['PictureUrl'] = json_encode($data['PictureUrl']);
 
         if ($data['CompanyId'] == 0) {
             $data['CreatedDate'] = date('Y-m-d H:i:s');

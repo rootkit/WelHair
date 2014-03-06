@@ -28,6 +28,7 @@
         </tr>
     </thead>
     <tbody>
+        <?php if (count($this->dataList) > 0): ?>
         <?php foreach ($this->dataList as $data): ?>
         <tr>
             <td class="col-center"><input name="chk_ids[]" type="checkbox" /></td>
@@ -59,6 +60,11 @@
             </td>
         </tr>
         <?php endforeach; ?>
+        <?php else: ?>
+        <tr>
+            <td class="col-center" colspan="8">您还没有添加任何记录</td>
+        </tr>
+        <?php endif; ?>
     </tbody>
 </table>
 <?php echo $this->pager; ?>
