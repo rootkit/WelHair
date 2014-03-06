@@ -1,97 +1,47 @@
+<div class="toolbar">
+    <ul class="clearfix">
+        <li>
+            <a href="<?php echo $this->baseUrl('goods/model/info'); ?>">
+                <i class="iconfont">&#xf0175;</i>
+                添加
+            </a>
+        </li>
+        <li>
+            <a href="#">
+                <i class="iconfont">&#xf013f;</i>
+                删除
+            </a>
+        </li>
+    </ul>
+</div>
 <table class="m-table">
     <thead>
         <tr>
             <th class="col-chk"><input type="checkbox" /></th>
-            <th class="cola">格边框</th>
-            <th>表头</th>
-            <th class="cola">表头</th>
-            <th class="cola">表头</th>
-            <th class="colb">表头</th>
+            <th class="cola">模型名称</th>
         </tr>
     </thead>
     <tbody>
+        <?php foreach( $this->rows as $model) : ?>
         <tr>
             <td class="col-center"><input type="checkbox" /></td>
-            <td>内容</td>
-            <td>内容内容内容内容内容内容内容</td>
-            <td>内容内容</td>
-            <td>内容内容</td>
-            <td>内容内容内容</td>
+            <td><?php echo $model['Name']; ?></td>
+            <td><?php  
+                $specs = explode(',', $model['SpecIds']);
+                $names= array();
+                foreach ($specs as $spec) {
+                    if( isset($this->allspec[$spec]) )
+                    $names[] = $this->allspec[$spec];
+                }
+                echo implode(',', $names);
+            ?>
+            </td>
+            <td></td>
         </tr>
-        <tr>
-            <td class="col-center"><input type="checkbox" /></td>
-            <td>内容</td>
-            <td>内容内容内容内容内容内容内容</td>
-            <td>内容内容</td>
-            <td>内容内容</td>
-            <td>内容内容内容</td>
-        </tr>
-        <tr>
-            <td class="col-center"><input type="checkbox" /></td>
-            <td>内容</td>
-            <td>内容内容内容内容内容内容内容</td>
-            <td>内容内容</td>
-            <td>内容内容</td>
-            <td>内容内容内容</td>
-        </tr>
-        <tr>
-            <td class="col-center"><input type="checkbox" /></td>
-            <td>内容</td>
-            <td>内容内容内容内容内容内容内容</td>
-            <td>内容内容</td>
-            <td>内容内容</td>
-            <td>内容内容内容</td>
-        </tr>
-        <tr>
-            <td class="col-center"><input type="checkbox" /></td>
-            <td>内容</td>
-            <td>内容内容内容内容内容内容内容</td>
-            <td>内容内容</td>
-            <td>内容内容</td>
-            <td>内容内容内容</td>
-        </tr>
-        <tr>
-            <td class="col-center"><input type="checkbox" /></td>
-            <td>内容</td>
-            <td>内容内容内容内容内容内容内容</td>
-            <td>内容内容</td>
-            <td>内容内容</td>
-            <td>内容内容内容</td>
-        </tr>
-        <tr>
-            <td class="col-center"><input type="checkbox" /></td>
-            <td>内容</td>
-            <td>内容内容内容内容内容内容内容</td>
-            <td>内容内容</td>
-            <td>内容内容</td>
-            <td>内容内容内容</td>
-        </tr>
-        <tr>
-            <td class="col-center"><input type="checkbox" /></td>
-            <td>内容</td>
-            <td>内容内容内容内容内容内容内容</td>
-            <td>内容内容</td>
-            <td>内容内容</td>
-            <td>内容内容内容</td>
-        </tr>
-        <tr>
-            <td class="col-center"><input type="checkbox" /></td>
-            <td>内容</td>
-            <td>内容内容内容内容内容内容内容</td>
-            <td>内容内容</td>
-            <td>内容内容</td>
-            <td>内容内容内容</td>
-        </tr>
+        <?php endforeach; ?>
     </tbody>
 </table>
 
 <div class="m-page m-page-rt">
-    <a href="#" class="first pageprv z-dis">上一页</a>
-    <a href="#">1</a>
-    <a href="#" class="z-crt">2</a>
-    <a href="#">3</a>
-    <a href="#">4</a>
-    <i>...</i>
-    <a href="#">10</a>
-    <a href="#" class="last pagenxt">下一页</a>
+    <?php echo $this->pagerHTML; ?>
 </div>

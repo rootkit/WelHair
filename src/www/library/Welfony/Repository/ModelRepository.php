@@ -19,11 +19,11 @@ use Welfony\Repository\Base\AbstractRepository;
 class ModelRepository extends AbstractRepository
 {
 
-    public function getAllUsersCount()
+    public function getAllModelCount()
     {
         $strSql = "SELECT
                        COUNT(1) `Total`
-                   FROM Users
+                   FROM Model
                    LIMIT 1";
 
         $row = $this->conn->fetchAssoc($strSql);
@@ -31,32 +31,44 @@ class ModelRepository extends AbstractRepository
         return $row['Total'];
     }
 
-    public function findUserByEmail($email)
+    public function getAllModel()
     {
         $strSql = 'SELECT
                        *
-                   FROM Users U
-                   WHERE U.Email = ?
-                   LIMIT 1';
+                   FROM Model
+                  ';
 
-        return $this->conn->fetchAssoc($strSql, array($email));
+        return $this->conn->fetchAll($strSql);
     }
 
-    public function findUserByMobile($mobile)
+    public function listModel($pageNumber, $pageSize)
+    {
+
+        $offset = ($pageNumber - 1) * $pageSize;
+        $strSql = "SELECT *
+                   FROM Model
+                   ORDER BY BrandId
+                   LIMIT $offset, $pageSize ";
+
+        return $this->conn->fetchAll($strSql);
+
+    }
+
+    public function findModelById($id)
     {
         $strSql = 'SELECT
                        *
-                   FROM Users U
-                   WHERE U.Mobile = ?
+                   FROM Model
+                   WHERE ModelId = ?
                    LIMIT 1';
 
-        return $this->conn->fetchAssoc($strSql, array($mobile));
+        return $this->conn->fetchAssoc($strSql, array($id));
     }
 
     public function save($data)
     {
         try {
-            if ($this->conn->insert('Users', $data)) {
+            if ($this->conn->insert('Brand', $data)) {
                 return $this->conn->lastInsertId();
             }
         } catch (\Exception $e) {
@@ -68,10 +80,21 @@ class ModelRepository extends AbstractRepository
         return false;
     }
 
-    public function update($userId, $data)
+    public function update($brandId, $data)
     {
         try {
-            return $this->conn->update('Users', $data, array('UserId' => $userId));
+            return $this->conn->update('Brand', $data, array('BrandId' => $brandId));
+        } catch (\Exception $e) {
+            $this->logger->log($e, \Zend_Log::ERR);
+
+            return false;
+        }
+    }
+
+    public function delete($brandId)
+    {
+        try {
+            return $this->conn->executeUpdate(" DELETE FROM Brand WHERE BrandId  = $brandId; ");
         } catch (\Exception $e) {
             $this->logger->log($e, \Zend_Log::ERR);
 

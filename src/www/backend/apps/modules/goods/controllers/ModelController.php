@@ -13,6 +13,8 @@
 // ==============================================================================
 
 use Welfony\Controller\Base\AbstractAdminController;
+use Welfony\Service\ModelService;
+use Welfony\Utility\Util;
 
 class Goods_ModelController extends AbstractAdminController
 {
@@ -20,6 +22,30 @@ class Goods_ModelController extends AbstractAdminController
     public function searchAction()
     {
         $this->view->pageTitle = '模型列表';
+
+        //$allspecs = BrandCategoryService::listAllBrandCategory();
+
+        //$categoryies = array();
+
+        //foreach ($allCategories as $cat) {
+        //    $categoryies[$cat['BrandCategoryId']] = $cat['Name'];
+        //}
+        //$this->view->brandcategories = $categoryies;
+
+        $this->view->allspec = array();
+
+        $pageSize = 10;
+        $page =  intval($this->_request->getParam('page'));
+
+        $page =  $page<=0? 1 : $page;
+
+        $result = ModelService::listModel($page, $pageSize);
+
+        $this->view->rows = $result['models'];
+
+        $this->view->pagerHTML = $this->renderPager($this->view->baseUrl('/goods/model/search'),
+                                                    $page,
+                                                    ceil($result['total'] / $pageSize));
     }
 
      public function infoAction()

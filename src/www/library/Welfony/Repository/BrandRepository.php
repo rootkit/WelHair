@@ -59,7 +59,7 @@ class BrandRepository extends AbstractRepository
         $strSql = 'SELECT
                        *
                    FROM Brand
-                   WHERE BC.BrandId = ?
+                   WHERE BrandId = ?
                    LIMIT 1';
 
         return $this->conn->fetchAssoc($strSql, array($id));
@@ -68,7 +68,7 @@ class BrandRepository extends AbstractRepository
     public function save($data)
     {
         try {
-            if ($this->conn->insert('Brand', $data)) {
+            if ($this->conn->insert('Model', $data)) {
                 return $this->conn->lastInsertId();
             }
         } catch (\Exception $e) {
@@ -80,10 +80,10 @@ class BrandRepository extends AbstractRepository
         return false;
     }
 
-    public function update($brandId, $data)
+    public function update($modelId, $data)
     {
         try {
-            return $this->conn->update('Brand', $data, array('BrandId' => $brandId));
+            return $this->conn->update('Model', $data, array('ModelId' => $modelId));
         } catch (\Exception $e) {
             $this->logger->log($e, \Zend_Log::ERR);
 
@@ -91,10 +91,10 @@ class BrandRepository extends AbstractRepository
         }
     }
 
-    public function delete($brandId)
+    public function delete($modelId)
     {
         try {
-            return $this->conn->executeUpdate(" DELETE FROM Brand WHERE BrandId  = $brandId; ");
+            return $this->conn->executeUpdate(" DELETE FROM Model WHERE ModelId  = $modelId; ");
         } catch (\Exception $e) {
             $this->logger->log($e, \Zend_Log::ERR);
 
