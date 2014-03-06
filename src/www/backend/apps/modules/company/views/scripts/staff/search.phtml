@@ -12,7 +12,19 @@ use Welfony\Utility\Converter;
         <li>
             <a href="#">
                 <i class="iconfont">&#xf013f;</i>
-                删除
+                踢出沙龙
+            </a>
+        </li>
+        <li>
+            <a href="#">
+                <i class="iconfont">&#xf00b2;</i>
+                批量通过认证
+            </a>
+        </li>
+        <li>
+            <a href="#">
+                <i class="iconfont">&#xf00b3;</i>
+                批量不通过认证
             </a>
         </li>
     </ul>
@@ -21,13 +33,12 @@ use Welfony\Utility\Converter;
     <thead>
         <tr>
             <th class="col-chk"><input id="chk_all" type="checkbox" /></th>
-            <th class="cola">账号</th>
-            <th class="cola">角色</th>
+            <th class="cola">沙龙</th>
+            <th>账号</th>
             <th>昵称</th>
-            <th>邮箱</th>
-            <th>手机</th>
+            <th>认证</th>
             <th>创建时间</th>
-            <th></th>
+            <th class="colb"></th>
         </tr>
     </thead>
     <tbody>
@@ -35,19 +46,31 @@ use Welfony\Utility\Converter;
         <?php foreach ($this->dataList as $data): ?>
         <tr>
             <td class="col-center"><input name="chk_ids[]" type="checkbox" /></td>
-            <td class="cola">
+            <td><?php echo $data['CompanyName']; ?></td>
+            <td>
                 <a href="<?php echo $this->baseUrl('user/index/info?user_id=' . $data['UserId']); ?>">
                     <?php echo $data['Username']; ?>
                 </a>
             </td>
-            <td class="cola">
-                <?php echo Converter::userRoleFromEnumToString($data['Role']); ?>
-            </td>
             <td><?php echo $data['Nickname']; ?></td>
-            <td><?php echo $data['Email']; ?></td>
-            <td><?php echo $data['Mobile']; ?></td>
-            <td><?php echo $data['CreatedDate']; ?></td>
-            <td></td>
+            <td class="col-center"><?php echo $data['IsApproved'] == 1 ? '通过' : '未通过'; ?></td>
+            <td><?php echo date('Y-m-d', strtotime($data['StaffCreatedDate'])); ?></td>
+            <td>
+                <a href="<?php echo $this->baseUrl('company/staff/search?company_id=' . $data['CompanyId']); ?>">
+                    <i class="iconfont">&#xf0198;</i>&nbsp;
+                    作品
+                </a>
+                &nbsp;&nbsp;
+                <a href="#">
+                    <i class="iconfont">&#xf0020;</i>&nbsp;
+                    服务
+                </a>
+                &nbsp;&nbsp;
+                <a href="#">
+                    <i class="iconfont">&#xf0152;</i>&nbsp;
+                    预约
+                </a>
+            </td>
         </tr>
         <?php endforeach; ?>
         <?php else: ?>

@@ -14,6 +14,7 @@
 
 use Welfony\Controller\Base\AbstractAdminController;
 use Welfony\Service\CompanyService;
+use Welfony\Service\StaffService;
 
 class Company_StaffController extends AbstractAdminController
 {
@@ -35,6 +36,14 @@ class Company_StaffController extends AbstractAdminController
         }
 
         $this->view->companyInfo = $company;
+
+        $page = intval($this->_request->getParam('page'));
+        $searchResult = StaffService::listAllStaff($page, $pageSize, $companyId);
+
+        $this->view->dataList = $searchResult['staffes'];
+        $this->view->pager = $this->renderPager($this->view->baseUrl('company/staff/search?s=' . ($companyId > 0 ? '&company_id=' . $companyId : '')),
+                                                $page,
+                                                ceil($searchResult['total'] / $pageSize));
     }
 
     public function addAction()
@@ -55,6 +64,21 @@ class Company_StaffController extends AbstractAdminController
         }
 
         $this->view->companyInfo = $company;
+
+        if ($this->_request->isPost()) {
+            $staffId = intval($this->_request->getParam('staff_id'));
+            if ($companyId <= 0 || $staffId <= 0) {
+                $this->view->errorMessage = "请选择沙龙或者发型师。";
+                return;
+            }
+
+            $result = StaffService::saveCompanyStaff($staffId, $companyId, 1);
+            if ($result) {
+                $this->getResponse()->setRedirect($this->view->baseUrl('company/staff/search?company_id=' . $companyId));
+            } else {
+                $this->view->errorMessage = '保存失败！';
+            }
+        }
 
     }
 

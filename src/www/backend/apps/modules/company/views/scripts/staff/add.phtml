@@ -9,9 +9,11 @@ use \Welfony\Utility\Util;
                 <div class="ipt">
                     <input id="company-search" type="text" class="u-ipt"<?php echo $this->companyInfo['CompanyId'] > 0 ? ' style="display: none;"' : '"'; ?>/>
                     <div id="company-search-result" class="autocomplete-search-result"<?php echo $this->companyInfo['CompanyId'] > 0 ? '' : ' style="display: none;"'; ?>>
+                        <?php if ($this->companyInfo['CompanyId'] <= 0): ?>
                         <a class="close"><i class="iconfont">&#xf00b3;</i></a>
+                        <?php endif; ?>
                         <a class="autocomplete-item">
-                            <img class="autocomplete-item-icon" src="" />
+                            <img class="autocomplete-item-icon" src="<?php echo $this->companyInfo['PictureUrl'][0]; ?>" />
                             <strong class="autocomplete-item-label"><?php echo $this->companyInfo['Name']; ?></strong>
                             <span class="autocomplete-item-detail">
                                 <?php echo $this->companyInfo['ProvinceName'] . ' - ' . $this->companyInfo['CityName'] . ' - ' . $this->companyInfo['DistrictName']; ?>
