@@ -3,7 +3,7 @@ use \Welfony\Utility\Util;
 
 
 $this->headScript()
-     ->appendFile('http://api.map.baidu.com/api?v=2.0&ak=3998daac6ca53a8067263f139b4aadf4');
+     ->appendFile('http://api.map.baidu.com/api?v=2.0&ak=' . $this->config->map->baidu->ak);
 ?>
 <div class="m-form">
     <form id="frm-company-info" method="post">

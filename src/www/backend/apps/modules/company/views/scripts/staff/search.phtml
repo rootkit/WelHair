@@ -1,0 +1,60 @@
+<?php
+use Welfony\Utility\Converter;
+?>
+<div class="toolbar">
+    <ul class="clearfix">
+        <li>
+            <a href="<?php echo $this->baseUrl('company/staff/add' . ($this->companyInfo['CompanyId'] > 0 ? '?company_id=' . $this->companyInfo['CompanyId'] : '')); ?>">
+                <i class="iconfont">&#xf0175;</i>
+                添加
+            </a>
+        </li>
+        <li>
+            <a href="#">
+                <i class="iconfont">&#xf013f;</i>
+                删除
+            </a>
+        </li>
+    </ul>
+</div>
+<table class="m-table">
+    <thead>
+        <tr>
+            <th class="col-chk"><input id="chk_all" type="checkbox" /></th>
+            <th class="cola">账号</th>
+            <th class="cola">角色</th>
+            <th>昵称</th>
+            <th>邮箱</th>
+            <th>手机</th>
+            <th>创建时间</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php if (count($this->dataList) > 0): ?>
+        <?php foreach ($this->dataList as $data): ?>
+        <tr>
+            <td class="col-center"><input name="chk_ids[]" type="checkbox" /></td>
+            <td class="cola">
+                <a href="<?php echo $this->baseUrl('user/index/info?user_id=' . $data['UserId']); ?>">
+                    <?php echo $data['Username']; ?>
+                </a>
+            </td>
+            <td class="cola">
+                <?php echo Converter::userRoleFromEnumToString($data['Role']); ?>
+            </td>
+            <td><?php echo $data['Nickname']; ?></td>
+            <td><?php echo $data['Email']; ?></td>
+            <td><?php echo $data['Mobile']; ?></td>
+            <td><?php echo $data['CreatedDate']; ?></td>
+            <td></td>
+        </tr>
+        <?php endforeach; ?>
+        <?php else: ?>
+        <tr>
+            <td class="col-center" colspan="8">您还没有添加任何记录</td>
+        </tr>
+        <?php endif; ?>
+    </tbody>
+</table>
+<?php echo $this->pager; ?>

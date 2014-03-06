@@ -179,13 +179,13 @@ a {
 
 textarea.u-ipt
 {
+    padding: 0 0 0 5px;
+    width: 465px;
+    height: 65px;
     border: 1px solid #D2D2D2;
     color: #333333;
     font-size: 12px;
-    height: 65px;
     line-height: 24px;
-    padding: 0 0 0 5px;
-    width: 465px;
 }
 
 .m-form {
@@ -216,8 +216,8 @@ textarea.u-ipt
 }
 
 .m-form .ipt {
-    margin-left: 100px;
     position: relative;
+    margin-left: 100px;
 }
 
 .m-form .ipt * {
@@ -395,8 +395,8 @@ button.u-btn-sm {
 }
 
 .u-btns {
-    display: inline-block;
     position: relative;
+    display: inline-block;
     padding-left: 1px;
 }
 
@@ -699,4 +699,46 @@ a.u-upload,a.u-upload:hover {
 
 .remove-thumb {
     margin-left: 20px;
+}
+
+.autocomplete-item {
+    display: block;
+    width: 300px;
+    height: 40px;
+}
+
+.autocomplete-item-icon {
+    float: left;
+    margin: 2px 10px 2px 2px;
+    width: 30px;
+    height: 30px;
+}
+
+.autocomplete-item-label {
+    display: block;
+}
+
+.autocomplete-item-detail {
+    display: block;
+    color: #ccc;
+}
+
+.autocomplete-search-result {
+    position: relative;
+    width: 300px;
+    height: 70px;
+    border: 1px solid #eee;
+}
+
+.autocomplete-search-result .autocomplete-item-icon {
+    margin: 4px 10px 4px 4px;
+    width: 62px;
+    height: 62px;
+}
+
+.autocomplete-search-result .close {
+    position: absolute;
+    top: 0;
+    right: 4px;
+    cursor: pointer;
 }

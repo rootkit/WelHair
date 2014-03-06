@@ -82,6 +82,18 @@ class CompanyService
         }
     }
 
+    public static function seachByNameAndPhone($searchText)
+    {
+        $companyList = CompanyRepository::getInstance()->seachByNameAndPhone($searchText);
+        $companies = array();
+        foreach ($companyList as $company) {
+            $company['PictureUrl'] = json_decode($company['PictureUrl']);
+            $companies[] = $company;
+        }
+
+        return $companies;
+    }
+
     public static function listAllCompanies($page, $pageSize)
     {
         $page = $page <= 0 ? 1 : $page;

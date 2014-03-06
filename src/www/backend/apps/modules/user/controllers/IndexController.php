@@ -22,7 +22,7 @@ class User_IndexController extends AbstractAdminController
 
     public function searchAction()
     {
-        static $pageSize = 1;
+        static $pageSize = 10;
 
         $this->view->pageTitle = '会员列表';
 
@@ -74,6 +74,9 @@ class User_IndexController extends AbstractAdminController
 
             $result = UserService::save($user);
             if ($result['success']) {
+                if ($user['UserId'] <= 0) {
+                    $user['UserId'] = $result['user']['UserId'];
+                }
                 $this->view->successMessage = '保存用户成功！';
             } else {
                 $this->view->errorMessage = $result['message'];

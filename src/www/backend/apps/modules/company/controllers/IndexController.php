@@ -22,7 +22,7 @@ class Company_IndexController extends AbstractAdminController
 
     public function searchAction()
     {
-        static $pageSize = 1;
+        static $pageSize = 10;
 
         $this->view->pageTitle = '沙龙列表';
 
@@ -81,6 +81,10 @@ class Company_IndexController extends AbstractAdminController
 
             $result = CompanyService::save($company);
             if ($result['success']) {
+                if ($company['CompanyId'] <= 0) {
+                    $company['CompanyId'] = $result['company']['CompanyId'];
+                }
+
                 $this->view->successMessage = '保存用户成功！';
             } else {
                 $this->view->errorMessage = $result['message'];

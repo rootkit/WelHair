@@ -48,7 +48,7 @@
             </td>
             <td><?php echo $data['CreatedDate']; ?></td>
             <td>
-                <a href="#">
+                <a href="<?php echo $this->baseUrl('company/staff/search?company_id=' . $data['CompanyId']); ?>">
                     <i class="iconfont">&#xf00ec;</i>&nbsp;&nbsp;
                     设计师
                 </a>

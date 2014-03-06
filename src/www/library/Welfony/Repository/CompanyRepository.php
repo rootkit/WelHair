@@ -49,6 +49,24 @@ class CompanyRepository extends AbstractRepository
         return $this->conn->fetchAll($strSql);
     }
 
+    public function seachByNameAndPhone($searchText)
+    {
+        $strSql = "SELECT
+                       C.*,
+                       PA.Name ProvinceName,
+                       PC.Name CityName,
+                       PD.Name DistrictName
+                   FROM Company C
+                   INNER JOIN Area PA ON PA.AreaId = C.Province
+                   INNER JOIN Area PC ON PC.AreaId = C.City
+                   INNER JOIN Area PD ON PD.AreaId = C.District
+                   WHERE C.Name LIKE '%$searchText%' OR C.Tel LIKE '%$searchText%' OR C.Mobile LIKE '%$searchText%'
+                   ORDER BY C.CompanyId DESC
+                   LIMIT 5";
+
+        return $this->conn->fetchAll($strSql);
+    }
+
     public function findCompanyById($companyId)
     {
         $strSql = 'SELECT

@@ -13,20 +13,54 @@
 // ==============================================================================
 
 use Welfony\Controller\Base\AbstractAdminController;
+use Welfony\Service\CompanyService;
 
 class Company_StaffController extends AbstractAdminController
 {
 
     public function searchAction()
     {
-        static $pageSize = 1;
+        static $pageSize = 10;
 
         $this->view->pageTitle = '发型师列表';
+
+        $company = array(
+            'CompanyId' => 0
+        );
+
+        $companyId = intval($this->_request->getParam('company_id'));
+        if ($companyId > 0) {
+            $company = CompanyService::getCompanyById($companyId);
+            $this->view->pageTitle .= (' - ' . $company['Name']);
+        }
+
+        $this->view->companyInfo = $company;
+    }
+
+    public function addAction()
+    {
+        $this->view->pageTitle = '发型师';
+
+        $company = array(
+            'CompanyId' => 0,
+            'Name' => '',
+            'ProvinceName' => '',
+            'CityName' => '',
+            'DistrictName' => ''
+        );
+
+        $companyId = intval($this->_request->getParam('company_id'));
+        if ($companyId > 0) {
+            $company = CompanyService::getCompanyById($companyId);
+        }
+
+        $this->view->companyInfo = $company;
+
     }
 
     public function authenticationAction()
     {
-        static $pageSize = 1;
+        static $pageSize = 10;
 
         $this->view->pageTitle = '发型师认证';
     }

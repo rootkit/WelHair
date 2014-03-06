@@ -14,6 +14,7 @@
 
 namespace Welfony\Repository;
 
+use Welfony\Core\Enum\UserRole;
 use Welfony\Repository\Base\AbstractRepository;
 
 class UserRepository extends AbstractRepository
@@ -111,6 +112,17 @@ class UserRepository extends AbstractRepository
 
             return false;
         }
+    }
+
+    public function seachByNameAndPhoneAndEmail($searchText)
+    {
+        $strSql = "SELECT
+                       *
+                   FROM Users U
+                   WHERE U.Role = ? AND (U.Username LIKE '%$searchText%' OR U.Nickname LIKE '%$searchText%' OR U.Email LIKE '%$searchText%' OR U.Mobile LIKE '%$searchText%')
+                   LIMIT 5";
+
+        return $this->conn->fetchAll($strSql, array(UserRole::Client));
     }
 
 }
