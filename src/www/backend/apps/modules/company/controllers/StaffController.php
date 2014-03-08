@@ -95,6 +95,13 @@ class Company_StaffController extends AbstractAdminController
         $this->view->pageTitle = '发型师认证';
     }
 
+    public function serviceAction()
+    {
+        static $pageSize = 10;
+
+        $this->view->pageTitle = '发型师服务';
+    }
+
     public function workAction()
     {
         static $pageSize = 10;
