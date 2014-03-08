@@ -175,7 +175,6 @@
 - (void)pushToDetial:(Product *)product
 {
     ProductDetailViewController *workVc = [[ProductDetailViewController alloc] init];;
-    workVc.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:workVc animated:YES];
 }
 @end

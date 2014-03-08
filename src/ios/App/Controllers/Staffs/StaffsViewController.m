@@ -90,7 +90,6 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     StaffDetailViewController *staffVc = [StaffDetailViewController new];
-    staffVc.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:staffVc animated:YES];
     
 }
