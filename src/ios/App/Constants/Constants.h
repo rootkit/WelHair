@@ -19,7 +19,9 @@
 #define APP_BASE_COLOR              @"206ba7"
 #define APP_NAVIGATIONBAR_COLOR     @"206aa7"
 
-#define NAV_BAR_ICON_SIZE 30
+#define NAV_BAR_ICON_SIZE  30
+#define TOP_TAB_BAR_HEIGHT  40
+#define CUSTOME_BOTTOMBAR_HEIGHT  53
 
 
 

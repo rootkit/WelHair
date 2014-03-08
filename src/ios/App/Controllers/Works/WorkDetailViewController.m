@@ -84,20 +84,20 @@
                                                                          WIDTH(self.view),
                                                                          WIDTH(self.view))];
     [self.scrollView addSubview:imgView];
-    NSString *imgUrl = self.work.imgsUrl.count > 0? self.work.imgsUrl[0] : nil;
+    NSString *imgUrl = self.work.imgUrlList.count > 0? self.work.imgUrlList[0] : nil;
     [imgView setImageWithURL:[NSURL URLWithString:imgUrl]];
     
 #pragma staffView
     UIView *staffView = [[UIView alloc] initWithFrame:CGRectMake(0, MaxY(imgView) - 80, WIDTH(imgView) / 2, 80)];
     [self.scrollView addSubview:staffView];
     staffView.backgroundColor = [UIColor clearColor];
-    UIView *staffOverlayview = [[UIView alloc] initWithFrame:CGRectMake(0, 20, WIDTH(staffView), HEIGHT(staffView) -20)];
-    staffOverlayview.backgroundColor = [UIColor grayColor];
-    staffOverlayview.alpha = 0.5;
+    UIImageView *staffOverlayview = [[UIImageView alloc] initWithFrame:CGRectMake(0, 20, WIDTH(staffView), HEIGHT(staffView) -20)];
+    staffOverlayview.image = [UIImage imageNamed:@"WD_AuthorLayerBg@2x"];
     [staffView addSubview:staffOverlayview];
     
     self.staffImgView = [[CircleImageView alloc] initWithFrame:CGRectMake(15, 0, 50, 50)];
     [staffView addSubview:self.staffImgView];
+    [staffView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(staffTapped)]];
     self.staffNameLbl = [[UILabel alloc] initWithFrame:CGRectMake(X(self.staffImgView), MaxY(self.staffImgView) + 2,WIDTH(self.staffImgView), 20)];
     self.staffNameLbl.textAlignment = NSTextAlignmentCenter;
     self.staffNameLbl.textColor = [UIColor whiteColor];
@@ -106,43 +106,28 @@
     
     [staffView addSubview:self.staffNameLbl];
     
-    UIImageView *heartImgView = [[UIImageView alloc] initWithFrame:CGRectMake(MaxY(self.staffImgView) + 50, 25, 25, 25)];
+    UIImageView *heartImgView = [[UIImageView alloc] initWithFrame:CGRectMake(MaxX(self.staffImgView) + 30, 20, 30, 30)];
     [staffView addSubview:heartImgView];
-    FAKIcon *heartIcon = [FAKIonIcons heartIconWithSize:25];
+    FAKIcon *heartIcon = [FAKIonIcons heartIconWithSize:30];
     [heartIcon addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithHexString:@"e43a3d"]];
-    heartImgView.image = [heartIcon imageWithSize:CGSizeMake(25, 25)];
+    heartImgView.image = [heartIcon imageWithSize:CGSizeMake(30, 30)];
     
-    UIImageView *locationImg = [[UIImageView alloc] initWithFrame:CGRectMake(MaxY(self.staffImgView) + 40, Y(self.staffNameLbl),HEIGHT(self.staffNameLbl),HEIGHT(self.staffNameLbl))];
+    UIImageView *locationImg = [[UIImageView alloc] initWithFrame:CGRectMake(MaxX(self.staffImgView) + 20, Y(self.staffNameLbl),20,20)];
     FAKIcon *locationIcon = [FAKIonIcons locationIconWithSize:20];
     [locationIcon addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithHexString:@"FFF"]];
     locationImg.image = [locationIcon imageWithSize:CGSizeMake(20, 20)];
     [staffView addSubview:locationImg];
     
     self.distanceLbl = [[UILabel alloc] initWithFrame:CGRectMake(MaxX(locationImg) + 2, Y(locationImg),WIDTH(staffView) - MaxX(locationImg), HEIGHT(locationImg))];
-    self.distanceLbl.textAlignment = NSTextAlignmentCenter;
+    self.distanceLbl.textAlignment = NSTextAlignmentLeft;
     self.distanceLbl.textColor = [UIColor whiteColor];
     self.distanceLbl.font = [UIFont systemFontOfSize:14];
     self.distanceLbl.backgroundColor = [UIColor clearColor];
     self.distanceLbl.font = [UIFont systemFontOfSize:14];
     [staffView addSubview:self.distanceLbl];
     
-//    UILabel *lbl = [[UILabel alloc] initWithFrame:CGRectMake(110, 100, 100, 30)];
-//    lbl.text = @"作品详情";
-//    lbl.textColor = [UIColor blackColor];
-//    [self.view addSubview:lbl];
+#pragma work detail view
     
-//    UIButton *staffBtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-//    staffBtn.frame = CGRectMake(margin,MaxY(imgView) + margin, 100, 50);
-//    [staffBtn setTitle:@"发型师" forState:UIControlStateNormal];
-//    [staffBtn addTarget:self action:@selector(staffClick) forControlEvents:UIControlEventTouchDown];
-//    [self.view addSubview:staffBtn];
-//    
-//    UIButton *commentBtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-//    commentBtn.frame = CGRectMake(MaxX(staffBtn) + margin,Y(staffBtn), 100, 50);
-//    [commentBtn setTitle:@"评论" forState:UIControlStateNormal];
-//    [commentBtn addTarget:self action:@selector(commentClick) forControlEvents:UIControlEventTouchDown];
-//    [self.view addSubview:commentBtn];
-//
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -200,7 +185,7 @@
                                        delegate:self];
 }
 
-- (void)staffClick
+- (void)staffTapped
 {
     [self.navigationController pushViewController:[StaffDetailViewController new] animated:YES];
 }

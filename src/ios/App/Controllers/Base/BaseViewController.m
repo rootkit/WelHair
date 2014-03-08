@@ -34,6 +34,7 @@
 {
     [super viewDidLoad];
     if (isIOS7) {
+//        self.edgesForExtendedLayout = UIRectEdgeNone;
         self.automaticallyAdjustsScrollViewInsets = NO;
     }
 }

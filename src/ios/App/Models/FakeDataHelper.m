@@ -9,6 +9,7 @@
 #import "FakeDataHelper.h"
 #import "Work.h"
 #import "Comment.h"
+#import "Group.h"
 @implementation FakeDataHelper
 
 
@@ -42,19 +43,34 @@
     for (int i = 0; i < 10 ; i++) {
         Work *work = [Work new];
         
-        work.imgsUrl = @[@"http://www.sssik.com/uploads/allimg/130609/20130125033623270.jpg"];
+        work.imgUrlList = @[@"http://www.sssik.com/uploads/allimg/130609/20130125033623270.jpg"];
 
         Comment *comment = [Comment new];
         comment.title = @"[ 发型不错，明天也去炸一个]";
         comment.commentorName = @"Andy";
         comment.commentorAvatorUrl = @"http://www.sssik.com/uploads/allimg/130609/20130125033623270.jpg";
-        work.comments = @[comment];
+        work.commentList = @[comment];
         
         Staff *staff = [Staff new];
         staff.name = @"Larry";
         staff.avatorUrl = @"http://www.sssik.com/uploads/allimg/130609/20130125033623270.jpg";
         work.creator = staff;
         [ar addObject:work];
+    }
+    return ar;
+}
+
++(NSArray *)getFakeGroupList
+{
+    NSMutableArray *ar = [NSMutableArray array];
+    for (int i = 0; i < 10 ; i++) {
+        Group *group = [Group new];
+        
+        group.imgUrl = @"http://www.sssik.com/uploads/allimg/130609/20130125033623270.jpg";
+        group.name = @"一剪美工作室";
+        group.address = @"济南高新区牛王庄路西";
+        group.distance = 1;
+        [ar addObject:group];
     }
     return ar;
 }

@@ -7,9 +7,9 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "BaseModel.h"
+@interface Staff : BaseModel
 
-@interface Staff : NSObject
-@property (nonatomic) int id;
-@property (nonatomic, strong) NSString *name;
 @property (nonatomic, strong) NSString *avatorUrl;
+
 @end

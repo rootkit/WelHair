@@ -1,4 +1,4 @@
-// ==============================================================================
+// ==========================================================================
 //
 // This file is part of the WelHair
 //
@@ -8,7 +8,7 @@
 // For the full copyright and license information, please view the LICENSE
 // file that was distributed with this source code.
 //
-// ==============================================================================
+// ==========================================================================
 
 #import "RootViewController.h"
 #import "WorksViewController.h"
@@ -18,7 +18,7 @@
 #import "UserViewController.h"
 #import <FontAwesomeKit.h>
 
-@interface RootViewController ()
+@interface RootViewController ()<UINavigationControllerDelegate>
 
 @end
 
@@ -33,15 +33,22 @@
 {
     [super viewDidLoad];
     WorksViewController *worksVc = [WorksViewController new];
+    UINavigationController *workNav = [[UINavigationController alloc] initWithRootViewController:worksVc];
+    workNav.delegate = self;
     GroupsViewController *groupsVc = [GroupsViewController new];
+    UINavigationController *groupsNav = [[UINavigationController alloc] initWithRootViewController:groupsVc];
+    groupsNav.delegate = self;
     ChatSessionListViewController *chatVc = [ChatSessionListViewController new];
+    UINavigationController *chatNav = [[UINavigationController alloc] initWithRootViewController:chatVc];
+    chatNav.delegate = self;
     ProductsViewController *productVc = [ProductsViewController new];
+    UINavigationController *productNav = [[UINavigationController alloc] initWithRootViewController:productVc];
+    productNav.delegate  = self;
     UserViewController *userVc = [UserViewController new];
-    NSArray *viewControls = @[[[UINavigationController alloc] initWithRootViewController:worksVc],
-                              [[UINavigationController alloc] initWithRootViewController:groupsVc],
-                              [[UINavigationController alloc] initWithRootViewController:chatVc],
-                              [[UINavigationController alloc] initWithRootViewController:productVc],
-                              [[UINavigationController alloc] initWithRootViewController:userVc]];
+    UINavigationController *userNav = [[UINavigationController alloc] initWithRootViewController:userVc];
+    userNav.delegate = self;
+
+    NSArray *viewControls = @[workNav,groupsNav,chatNav,productNav,userNav];
     NSArray *tabNormalImages = @[[UIImage imageNamed:@"RootBottomTab1"],
                                  [UIImage imageNamed:@"RootBottomTab2"],
                                  [UIImage imageNamed:@"RootBottomTab3"],
@@ -53,7 +60,7 @@
                                    [UIImage imageNamed:@"RootBottomTab4"],
                                    [UIImage imageNamed:@"RootBottomTab5"]];
     [self setupViewControls:viewControls
-                           tabHeight:49
+                           tabHeight:CUSTOME_BOTTOMBAR_HEIGHT
                      tabNormalImages:tabNormalImages
                    tabSelectedImages:tabSelectedImages];
 }
@@ -71,5 +78,17 @@
     return UIInterfaceOrientationPortrait;
 }
 
+- (void)navigationController:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController animated:(BOOL)animated
+{   
+    if([viewController isKindOfClass:[WorksViewController class]] ||
+       [viewController isKindOfClass:[GroupsViewController class]] ||
+       [viewController isKindOfClass:[ChatSessionListViewController class]] ||
+       [viewController isKindOfClass:[ProductsViewController class]] ||
+       [viewController isKindOfClass:[UserViewController class]] ){
+        [self showTabBarAnimation:YES];
+    }else{
+        [self hideTabBarAnimation:YES];
+    }
+}
 
 @end

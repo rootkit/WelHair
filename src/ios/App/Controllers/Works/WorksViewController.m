@@ -37,40 +37,53 @@
 - (void) loadView
 {
     [super loadView];
+
+}
+
+- (void)leftNavItemClick
+{
+    [self.navigationController presentViewController:[[UINavigationController alloc] initWithRootViewController:[CityListViewController new]] animated:YES completion:nil];
+}
+
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
     self.leftNavItemTitle = @"济南";
-    
     float topTabButtonWidth = WIDTH(self.view)/3;
-    float topTabButtonHeight = 40;
-    UIView *topTabView = [[UIView alloc] initWithFrame:CGRectMake(0, self.topBarOffset,WIDTH(self.view),topTabButtonHeight)];
+    UIView *topTabView = [[UIView alloc] initWithFrame:CGRectMake(0, self.topBarOffset,WIDTH(self.view),TOP_TAB_BAR_HEIGHT)];
     [self.view addSubview:topTabView];
     topTabView.backgroundColor = [UIColor colorWithHexString:@"f5f5f5"];
     UIButton *areaBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [areaBtn setTitleColor:[UIColor colorWithHexString:@"666666"] forState:UIControlStateNormal];
-    areaBtn.frame = CGRectMake(0, 0, topTabButtonWidth, topTabButtonHeight);
+    areaBtn.frame = CGRectMake(0, 0, topTabButtonWidth, TOP_TAB_BAR_HEIGHT);
     [areaBtn setTitle:@"地区" forState:UIControlStateNormal];
     [topTabView addSubview:areaBtn];
     
     UIButton *colorBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [colorBtn setTitleColor:[UIColor colorWithHexString:@"666666"] forState:UIControlStateNormal];
-    colorBtn.frame = CGRectMake(MaxX(areaBtn), 0, topTabButtonWidth, topTabButtonHeight);
+    colorBtn.frame = CGRectMake(MaxX(areaBtn), 0, topTabButtonWidth, TOP_TAB_BAR_HEIGHT);
     [colorBtn setTitle:@"颜色" forState:UIControlStateNormal];
     [topTabView addSubview:colorBtn];
-    UIView *shadowView = [[UIView alloc] initWithFrame:CGRectMake(0, topTabButtonHeight -1, WIDTH(topTabView), 1)];
+    UIView *shadowView = [[UIView alloc] initWithFrame:CGRectMake(0, TOP_TAB_BAR_HEIGHT -1, WIDTH(topTabView), 1)];
     shadowView.backgroundColor = [UIColor lightGrayColor];
     [topTabView addSubview:shadowView];
     topTabView.backgroundColor = [UIColor colorWithWhite:255 alpha:0.7];
     
     UIButton *lengthBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [lengthBtn setTitleColor:[UIColor colorWithHexString:@"666666"] forState:UIControlStateNormal];
-    lengthBtn.frame = CGRectMake(MaxX(colorBtn), 0, topTabButtonWidth, topTabButtonHeight);
+    lengthBtn.frame = CGRectMake(MaxX(colorBtn), 0, topTabButtonWidth, TOP_TAB_BAR_HEIGHT);
     [lengthBtn setTitle:@"长度" forState:UIControlStateNormal];
     [topTabView addSubview:lengthBtn];
     [topTabView drawBottomShadowOffset:1 opacity:0.7];;
     self.tableView = [[UITableView alloc] init];
+    float tableHeight = isIOS7 ?
+    HEIGHT(self.view) - MaxY(topTabView) - kBottomBarHeight :
+    HEIGHT(self.view) - kTopBarHeight - MaxY(topTabView)  - kBottomBarHeight ;
     self.tableView.frame = CGRectMake(0,
                                       MaxY(topTabView),
-                                      WIDTH(self.view) + 1,
-                                      HEIGHT(self.view)- MaxY(topTabView) - self.bottomBarOffset -1);
+                                      WIDTH(self.view) ,
+                                      tableHeight);
+    NSLog(@"%f",MaxY(topTabView));
     self.tableView.backgroundColor = [UIColor clearColor];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
@@ -85,20 +98,11 @@
     [self.tableView.pullToRefreshView setBorderWidth:2];
     [self.tableView.pullToRefreshView setBorderColor:[UIColor whiteColor]];
     [self.tableView.pullToRefreshView setImageIcon:[UIImage imageNamed:@"pull_to_refresh_loading"]];
-        [self.view addSubview:self.tableView];
-}
-
-- (void)leftNavItemClick
-{
-    [self.navigationController presentViewController:[[UINavigationController alloc] initWithRootViewController:[CityListViewController new]] animated:YES completion:nil];
-}
-
-- (void)viewDidLoad
-{
-    [super viewDidLoad];    
+    [self.view addSubview:self.tableView];
     self.datasource = [NSMutableArray arrayWithArray:[FakeDataHelper getFakeWorkList]];
 
 }
+
 
 - (void)insertRowAtTop
 {
@@ -154,8 +158,9 @@
 {
     WorkDetailViewController *workVc = [[WorkDetailViewController alloc] init];;
     workVc.work = work;
-    
     [self.navigationController pushViewController:workVc animated:YES];
 }
+
+
 
 @end

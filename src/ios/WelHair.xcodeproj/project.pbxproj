@@ -49,6 +49,9 @@
 		460C2F3A18C8D66300AD16E6 /* RootBottomTab4@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 460C2F3618C8D66300AD16E6 /* RootBottomTab4@2x.png */; };
 		460C2F3B18C8D66300AD16E6 /* RootBottomTab5@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 460C2F3718C8D66300AD16E6 /* RootBottomTab5@2x.png */; };
 		460C2F4118CAAF8F00AD16E6 /* WelTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 460C2F4018CAAF8F00AD16E6 /* WelTabBarController.m */; };
+		460C2F4718CAF44B00AD16E6 /* WD_AuthorLayerBg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 460C2F4618CAF44B00AD16E6 /* WD_AuthorLayerBg@2x.png */; };
+		460C2F4A18CAFDB200AD16E6 /* GroupCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 460C2F4918CAFDB200AD16E6 /* GroupCell.m */; };
+		460C2F4D18CAFEBF00AD16E6 /* Group.m in Sources */ = {isa = PBXBuildFile; fileRef = 460C2F4C18CAFEBF00AD16E6 /* Group.m */; };
 		4630251518C76EF1000E0B51 /* CalendarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4630251418C76EF1000E0B51 /* CalendarViewController.m */; };
 		4630251C18C77695000E0B51 /* OrderListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4630251B18C77695000E0B51 /* OrderListViewController.m */; };
 		4630251F18C777A2000E0B51 /* OrderDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4630251E18C777A2000E0B51 /* OrderDetailViewController.m */; };
@@ -66,6 +69,7 @@
 		4660E6AB18BB7666005B3C7D /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4660E6AA18BB7666005B3C7D /* CoreText.framework */; };
 		4665FD7C18BC7D4700E88C6B /* CommentsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4665FD7B18BC7D4700E88C6B /* CommentsViewController.m */; };
 		4665FD8518BC801000E88C6B /* Work.m in Sources */ = {isa = PBXBuildFile; fileRef = 4665FD8418BC801000E88C6B /* Work.m */; };
+		467F0EAF18CB0F54009FFE08 /* BaseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 467F0EAE18CB0F54009FFE08 /* BaseModel.m */; };
 		46A46FE518BE21160057F579 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46A46FE418BE21160057F579 /* CoreLocation.framework */; };
 		46A46FE718BE211F0057F579 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46A46FE618BE211F0057F579 /* QuartzCore.framework */; };
 		46A46FE918BE21280057F579 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46A46FE818BE21280057F579 /* OpenGLES.framework */; };
@@ -191,6 +195,11 @@
 		460C2F3718C8D66300AD16E6 /* RootBottomTab5@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "RootBottomTab5@2x.png"; sourceTree = "<group>"; };
 		460C2F3F18CAAF8F00AD16E6 /* WelTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WelTabBarController.h; sourceTree = "<group>"; };
 		460C2F4018CAAF8F00AD16E6 /* WelTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WelTabBarController.m; sourceTree = "<group>"; };
+		460C2F4618CAF44B00AD16E6 /* WD_AuthorLayerBg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "WD_AuthorLayerBg@2x.png"; sourceTree = "<group>"; };
+		460C2F4818CAFDB200AD16E6 /* GroupCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroupCell.h; sourceTree = "<group>"; };
+		460C2F4918CAFDB200AD16E6 /* GroupCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GroupCell.m; sourceTree = "<group>"; };
+		460C2F4B18CAFEBF00AD16E6 /* Group.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Group.h; sourceTree = "<group>"; };
+		460C2F4C18CAFEBF00AD16E6 /* Group.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Group.m; sourceTree = "<group>"; };
 		4630251318C76EF1000E0B51 /* CalendarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CalendarViewController.h; sourceTree = "<group>"; };
 		4630251418C76EF1000E0B51 /* CalendarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CalendarViewController.m; sourceTree = "<group>"; };
 		4630251A18C77695000E0B51 /* OrderListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderListViewController.h; sourceTree = "<group>"; };
@@ -220,6 +229,8 @@
 		4665FD7B18BC7D4700E88C6B /* CommentsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommentsViewController.m; sourceTree = "<group>"; };
 		4665FD8318BC801000E88C6B /* Work.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Work.h; sourceTree = "<group>"; };
 		4665FD8418BC801000E88C6B /* Work.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Work.m; sourceTree = "<group>"; };
+		467F0EAD18CB0F54009FFE08 /* BaseModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseModel.h; sourceTree = "<group>"; };
+		467F0EAE18CB0F54009FFE08 /* BaseModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseModel.m; sourceTree = "<group>"; };
 		46A46FE418BE21160057F579 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		46A46FE618BE211F0057F579 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		46A46FE818BE21280057F579 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
@@ -509,6 +520,7 @@
 		18A9129118BB2350006B9A04 /* Assets */ = {
 			isa = PBXGroup;
 			children = (
+				460C2F4418CAF44B00AD16E6 /* Views */,
 				4630D13318C5FB7500DA7CAD /* Images */,
 				46A46FEA18BE21BB0057F579 /* BaiduMap */,
 				18A912AF18BB2591006B9A04 /* AppIcon */,
@@ -629,6 +641,10 @@
 				4630253018C849FD000E0B51 /* Staff.m */,
 				460C2F2818C8BFFF00AD16E6 /* Comment.h */,
 				460C2F2918C8BFFF00AD16E6 /* Comment.m */,
+				460C2F4B18CAFEBF00AD16E6 /* Group.h */,
+				460C2F4C18CAFEBF00AD16E6 /* Group.m */,
+				467F0EAD18CB0F54009FFE08 /* BaseModel.h */,
+				467F0EAE18CB0F54009FFE08 /* BaseModel.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -682,6 +698,23 @@
 				460C2F3218C8D62600AD16E6 /* RootBottomTab2@2x.png */,
 			);
 			path = TabBar;
+			sourceTree = "<group>";
+		};
+		460C2F4418CAF44B00AD16E6 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				460C2F4518CAF44B00AD16E6 /* WorkDetail */,
+			);
+			name = Views;
+			path = Images/Views;
+			sourceTree = "<group>";
+		};
+		460C2F4518CAF44B00AD16E6 /* WorkDetail */ = {
+			isa = PBXGroup;
+			children = (
+				460C2F4618CAF44B00AD16E6 /* WD_AuthorLayerBg@2x.png */,
+			);
+			path = WorkDetail;
 			sourceTree = "<group>";
 		};
 		4630251618C7764E000E0B51 /* Order */ = {
@@ -972,6 +1005,8 @@
 				46E84EE218C356B30004C146 /* OpitionButton.m */,
 				4630252C18C848EB000E0B51 /* WorkCardView.h */,
 				4630252D18C848EB000E0B51 /* WorkCardView.m */,
+				460C2F4818CAFDB200AD16E6 /* GroupCell.h */,
+				460C2F4918CAFDB200AD16E6 /* GroupCell.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1162,6 +1197,7 @@
 				46B233F818BCE6E000CC27A3 /* UMSocialSDKResourcesNew.bundle in Resources */,
 				18A912C318BB25AA006B9A04 /* Icon-76.png in Resources */,
 				46B233F418BCE6E000CC27A3 /* UMSnsAccountViewController.xib in Resources */,
+				460C2F4718CAF44B00AD16E6 /* WD_AuthorLayerBg@2x.png in Resources */,
 				18A912C618BB25AA006B9A04 /* Icon-Small-50@2x.png in Resources */,
 				460C2F3318C8D62600AD16E6 /* RootBottomTab2@2x.png in Resources */,
 				18A912D818BB2670006B9A04 /* Default@2x.png in Resources */,
@@ -1248,11 +1284,13 @@
 				46E84EE318C356B30004C146 /* OpitionButton.m in Sources */,
 				4630251F18C777A2000E0B51 /* OrderDetailViewController.m in Sources */,
 				46E84EE018C33FAC0004C146 /* SelectOpition.m in Sources */,
+				460C2F4A18CAFDB200AD16E6 /* GroupCell.m in Sources */,
 				46BCD25F18BC725D005C4BD6 /* GroupsViewController.m in Sources */,
 				46B233B718BCDC4200CC27A3 /* LoginViewController.m in Sources */,
 				46B25AE418BF1CAA0035F425 /* RootViewController.m in Sources */,
 				4660E69018BB73E1005B3C7D /* ProductsViewController.m in Sources */,
 				18A912E418BB26B6006B9A04 /* User.m in Sources */,
+				460C2F4D18CAFEBF00AD16E6 /* Group.m in Sources */,
 				46BCD25318BC3B4F005C4BD6 /* SVProgressHUD.m in Sources */,
 				18A9127318BB216E006B9A04 /* AppDelegate.m in Sources */,
 				46BCD25B18BC7162005C4BD6 /* WorksViewController.m in Sources */,
@@ -1291,6 +1329,7 @@
 				460C2F4118CAAF8F00AD16E6 /* WelTabBarController.m in Sources */,
 				4630252E18C848EB000E0B51 /* WorkCardView.m in Sources */,
 				4660E69618BB73FF005B3C7D /* UserViewController.m in Sources */,
+				467F0EAF18CB0F54009FFE08 /* BaseModel.m in Sources */,
 				46BCD27318BC79E0005C4BD6 /* StaffsViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

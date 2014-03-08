@@ -36,14 +36,14 @@
     self.workData = workData;
     float height = width;
     UIImageView *hairImgView = [[UIImageView alloc] initWithFrame:CGRectMake(1, 1, width -2, width-2)];
-    [hairImgView setImageWithURL:[NSURL URLWithString:workData.imgsUrl[0]]];
+    [hairImgView setImageWithURL:[NSURL URLWithString:workData.imgUrlList[0]]];
     [self addSubview:hairImgView];
     
     UILabel * commentCountLbl = [[UILabel alloc] initWithFrame:CGRectMake(10, MaxY(hairImgView) + 5, width/2 ,20)];
     commentCountLbl.font = [UIFont systemFontOfSize:14];
     commentCountLbl.backgroundColor = [UIColor clearColor];
     commentCountLbl.textColor = [UIColor colorWithHexString:@"1f6ba7"];
-    commentCountLbl.text = [NSString stringWithFormat:@"评论(%d)",workData.comments.count];
+    commentCountLbl.text = [NSString stringWithFormat:@"评论(%d)",workData.commentList.count];
     [self addSubview:commentCountLbl];
     
     FAKIcon *heartIcon = [FAKIonIcons heartIconWithSize:25];
@@ -66,7 +66,7 @@
     [self addSubview:staffImgView];
     
     // comment
-    Comment *comment = workData.comments.count > 0? workData.comments[0] : nil;
+    Comment *comment = workData.commentList.count > 0? workData.commentList[0] : nil;
     UILabel * commentorNameLbl =
     [[UILabel alloc] initWithFrame:CGRectMake(MaxX(staffImgView) + 5,
                                               MaxY(linerView) + 5,

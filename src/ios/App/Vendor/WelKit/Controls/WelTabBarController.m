@@ -29,7 +29,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [self hideTabBar];
+    [self.tabBar setHidden:YES];
     self.tabButtons = [NSMutableArray array];
 }
 
@@ -51,6 +51,7 @@
     self.selectedTabImages = tabSelectedImages;
     [self setupTabs:tabHeight];
     [self setTabSelected:0];
+    self.view.autoresizingMask =  UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
 }
 
 - (void)setupTabs:(float)tabHeight
@@ -59,9 +60,8 @@
                                                             HEIGHT(self.view) - tabHeight,
                                                             WIDTH(self.view),
                                                             tabHeight)];
-    self.tabView.backgroundColor = [UIColor clearColor];
     [self.view addSubview:self.tabView];
-
+    self.tabView.backgroundColor = [UIColor clearColor];
     int tabNum= MAX(self.normalTabImages.count, self.selectedTabImages.count);
     float tabWidth = WIDTH(self.view)/tabNum;
     for (int i=0; i < tabNum; i++) {
@@ -96,25 +96,15 @@
     [selectingTab setSelected:YES];
 }
 
-- (void)hideTabBar
-{
-    self.view.backgroundColor = [UIColor whiteColor];
-	for(UIView *view in self.view.subviews)
-	{
-		if([view isKindOfClass:[UITabBar class]])
-		{
-            view.hidden = YES;
-			break;
-		}
-	}
-}
-
 - (void)hideTabBarAnimation:(BOOL)animation
 {
-    float duration = animation? 0.5 : 0;
+    if(Y(self.tabView) >=HEIGHT(self.view)){
+        return;
+    }
+    float duration = animation? 0.3 : 0;
     [UIView transitionWithView:self.tabView
                       duration:duration
-                       options:UIViewAnimationOptionCurveEaseOut
+                       options:UIViewAnimationOptionCurveLinear
                     animations:
      ^{
          self.tabView.transform = CGAffineTransformMakeTranslation(0,HEIGHT(self.tabView));
@@ -125,10 +115,13 @@
 
 - (void)showTabBarAnimation:(BOOL)animation
 {
-    float duration = animation? 0.5 : 0;
+    if(Y(self.tabView) <HEIGHT(self.view)){
+        return;
+    }
+    float duration = animation? 0.3 : 0;
     [UIView transitionWithView:self.tabView
                       duration:duration
-                       options:UIViewAnimationOptionCurveEaseIn
+                       options:UIViewAnimationOptionCurveLinear
                     animations:
      ^{
          self.tabView.transform = CGAffineTransformMakeTranslation(0,0);
