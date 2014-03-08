@@ -17,6 +17,17 @@ namespace Welfony\Utility;
 class Util
 {
 
+    public static function keyValueExistedInArray($arr, $key, $value)
+    {
+        foreach ($arr as $idx => $row) {
+            if ($row[$key] == $value) {
+                return $idx;
+            }
+        }
+
+        return false;
+    }
+
     public static function baseAssetUrl($path = '')
     {
         $config = \Zend_Registry::get('config');

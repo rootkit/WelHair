@@ -8,19 +8,17 @@
 // For the full copyright and license information, please view the LICENSE
 // file that was distributed with this source code.
 //
-// ===========================================================================
+// ==============================================================================
 
 $(function() {
-    $('#frm-staff-add').Validform({
-        tiptype: 3
-    });
-
     function bindClose() {
         $('.autocomplete-search-result .close').click(function() {
             var iptContainer = $(this).parent().parent();
             iptContainer.find('.autocomplete-search-result').hide();
-            iptContainer.find('input[type=text]').show();
+            iptContainer.find('input[type=text]').val('').show();
             iptContainer.find('input[type=hidden]').val(0);
+
+            $('#service-list tbody tr').remove();
         });
     }
 
@@ -32,7 +30,7 @@ $(function() {
               url: WF.setting.baseUrl + '/ajax/' + $type + '/search',
               data: {
                 search: $('#' + $type + '-search').val(),
-                include_client: 1
+                include_client: 0
               },
               success: function(data) {
                 response($.map(data, function(item) {
@@ -51,8 +49,24 @@ $(function() {
             var resultBlock = $('#' + $type + '-search-result');
             resultBlock.find('.autocomplete-item-icon').attr('src', ui.item.icon);
             resultBlock.find('.autocomplete-item-label').html(ui.item.title);
-            resultBlock.find('.autocomplete-item-detail').html(ui.item.detail);
+            resultBlock.find('.autocomplete-item-detail').html(ui.item.company.Name);
             resultBlock.show();
+
+            $tbody = $('#service-list tbody');
+            $tbody.find('tr').remove();
+
+            $(ui.item.services).each(function(idx, el) {
+                $tbody.append(' \
+                    <tr> \
+                        <td class="col-center"> \
+                            <input type="radio" name="service_id" value="' + el.ServiceId + '" /> \
+                        </td> \
+                        <td>' + el.Title + '</td> \
+                        <td>' + el.OldPrice + '</td> \
+                        <td>' + el.Price + '</td> \
+                    </tr>');
+            });
+
 
             return false;
           }
@@ -62,14 +76,12 @@ $(function() {
             .append('<a class="autocomplete-item"> \
                         <img class="autocomplete-item-icon" src="' + item.icon + '" /> \
                         <strong class="autocomplete-item-label">' + item.title + '</strong> \
-                        <span class="autocomplete-item-detail">' + item.detail + '</span> \
+                        <span class="autocomplete-item-detail">' + item.company.Name + '</span> \
                     </a>')
             .appendTo(ul);
         };
     }
 
-    bindAutoComplete('company');
     bindAutoComplete('staff');
     bindClose();
-
 });

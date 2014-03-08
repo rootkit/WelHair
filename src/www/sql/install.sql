@@ -127,7 +127,7 @@ CREATE TABLE IF NOT EXISTS `Service` (
   PRIMARY KEY (`ServiceId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-CREATE TABLE `PaymentTransaction` (
+CREATE TABLE IF NOT EXISTS `PaymentTransaction` (
   `PaymentTransactionId` INT UNSIGNED NOT NULL AUTO_INCREMENT,
   `PaymentSystem` SMALLINT(1) NOT NULL DEFAULT 1,
   `ExternalId` VARCHAR(255) NOT NULL DEFAULT '',

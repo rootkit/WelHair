@@ -16,13 +16,13 @@ namespace Welfony\Core\Enum;
 
 use Welfony\Core\Enum;
 
-class UserRole extends Enum
+class AppointmentStatus extends Enum
 {
 
-    const Unknown = 0;
-    const Admin = 1;
-    const Manager = 2;
-    const Staff = 3;
-    const Client = 4;
+    const Pending = 0;
+    const Paid = 1;
+    const Completed = 2;
+    const Refund = 3;
+    const Cancelled = 4;
 
 }

@@ -79,6 +79,23 @@
     </ul>
     <?php endif; ?>
 
+    <?php if ($this->module == 'appointment'): ?>
+    <ul class="lists">
+        <li<?php echo ($this->controller == 'index' && $this->action == 'search') ? ' class="active"' : ''; ?>>
+            <a href="<?php echo $this->baseUrl('appointment/index/search'); ?>">
+                <i class="iconfont">&#x344a;</i>
+                预约列表
+            </a>
+        </li>
+        <li<?php echo ($this->controller == 'index' && $this->action == 'info') ? ' class="active"' : ''; ?>>
+            <a href="<?php echo $this->baseUrl('appointment/index/info'); ?>">
+                <i class="iconfont">&#xf0175;</i>
+                添加预约
+            </a>
+        </li>
+    </ul>
+    <?php endif; ?>
+
     <?php if ($this->module == 'order'): ?>
     <ul class="lists">
         <li>

@@ -12,17 +12,11 @@
 //
 // ==============================================================================
 
-namespace Welfony\Core\Enum;
+namespace Welfony\Service;
 
-use Welfony\Core\Enum;
+use Welfony\Repository\AppointmentRepository;
 
-class UserRole extends Enum
+class AppointmentService
 {
-
-    const Unknown = 0;
-    const Admin = 1;
-    const Manager = 2;
-    const Staff = 3;
-    const Client = 4;
 
 }

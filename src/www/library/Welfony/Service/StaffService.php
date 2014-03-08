@@ -16,10 +16,20 @@ namespace Welfony\Service;
 
 use Welfony\Core\Enum\UserRole;
 use Welfony\Repository\CompanyUserRepository;
+use Welfony\Repository\StaffRepository;
 use Welfony\Repository\UserRepository;
+use Welfony\Utility\Util;
 
 class StaffService
 {
+
+    public static function getStaffDetail($staffId)
+    {
+        $resultSet = StaffRepository::getInstance()->findStaffDetailById($staffId);
+        $staffDataset = self::composeStaffDetail($resultSet);
+
+        return $staffDataset[0];
+    }
 
     public static function listAllStaff($page, $pageSize, $companyId)
     {
@@ -36,16 +46,11 @@ class StaffService
         return array('total' => $total, 'staffes' => $staffes);
     }
 
-    public static function seachByNameAndPhone($searchText)
+    public static function seachByNameAndPhone($searchText, $includeClient)
     {
-        $staffList = UserRepository::getInstance()->seachByNameAndPhoneAndEmail($searchText);
-        $result = array();
-        foreach ($staffList as $staff) {
-            unset($staff['Password']);
-            $result[] = $staff;
-        }
+        $resultSet = StaffRepository::getInstance()->seachByNameAndPhoneAndEmail($searchText, $includeClient);
 
-        return $result;
+        return self::composeStaffDetail($resultSet);
     }
 
     public static function saveCompanyStaff($staffId, $companyId, $isApproved = false)
@@ -79,6 +84,60 @@ class StaffService
         }
 
         return false;
+    }
+
+    private static function composeStaffDetail($dataset)
+    {
+        $result = array();
+
+        foreach ($dataset as $row) {
+            $staffDetailIndex = Util::keyValueExistedInArray($result, 'UserId', $row['UserId']);
+            if ($staffDetailIndex === false) {
+                $staffDetail = array(
+                    'UserId' => 0,
+                    'Company' => array(),
+                    'Services' => array(),
+                    'Works' => array()
+                );
+            } else {
+                $staffDetail = $result[$staffDetailIndex];
+            }
+
+            $staffDetail['UserId'] = $row['UserId'];
+            $staffDetail['Username'] = $row['Username'];
+            $staffDetail['Nickname'] = $row['Nickname'];
+            $staffDetail['AvatarUrl'] = $row['AvatarUrl'];
+
+            if ($row['CompanyId'] > 0) {
+                $staffDetail['Company']['CompanyId'] =  $row['CompanyId'];
+                $staffDetail['Company']['Name'] = $row['CompanyName'];
+            }
+
+            if ($row['ServiceId'] > 0 && Util::keyValueExistedInArray($staffDetail['Services'], 'ServiceId', $row['ServiceId']) === false) {
+                $staffDetail['Services'][] = array(
+                    'ServiceId' => $row['ServiceId'],
+                    'Title' => $row['ServiceTitle'],
+                    'OldPrice' => $row['OldPrice'],
+                    'Price' => $row['Price']
+                );
+            }
+
+            if ($row['WorkId'] > 0 && Util::keyValueExistedInArray($staffDetail['Works'], 'WorkId', $row['WorkId']) === false) {
+                $staffDetail['Works'][] = array(
+                    'WorkId' => $row['WorkId'],
+                    'Title' => $row['WorkTitle'],
+                    'PictureUrl' => $row['WorkPictureUrl']
+                );
+            }
+
+            if ($staffDetailIndex === false) {
+                $result[] = $staffDetail;
+            } else {
+                $result[$staffDetailIndex] = $staffDetail;
+            }
+        }
+
+        return $result;
     }
 
 }

@@ -21,15 +21,18 @@ class Ajax_StaffController extends AbstractAdminController
     public function searchAction()
     {
         $searchText = htmlspecialchars($this->_request->getParam('search'));
+        $includeClient = intval($this->_request->getParam('include_client'));
         $response = array();
 
-        $userList = StaffService::seachByNameAndPhone($searchText);
+        $userList = StaffService::seachByNameAndPhone($searchText, $includeClient);
         foreach ($userList as $user) {
             $response[] = array(
                 'value' => $user['UserId'],
                 'title' => $user['Nickname'],
                 'detail' => $user['Username'],
-                'icon' => $user['AvatarUrl']
+                'icon' => $user['AvatarUrl'],
+                'company' => $user['Company'],
+                'services' => $user['Services']
             );
         }
         $this->_helper->json->sendJson($response);
