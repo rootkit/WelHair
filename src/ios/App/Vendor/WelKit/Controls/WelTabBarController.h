@@ -8,6 +8,15 @@
 
 #import <UIKit/UIKit.h>
 
-@interface WelTabBarController : UITabBarController
+@interface WelTabBarController : UITabBarController {
+}
+
+-(void)setupViewControls:(NSArray *)viewControls
+               tabHeight:(float)tabHeight
+         tabNormalImages:(NSArray *)tabNormalImages
+       tabSelectedImages:(NSArray *)tabSelectedImages;
+
+- (void)hideTabBarAnimation:(BOOL)animation;
+- (void)showTabBarAnimation:(BOOL)animation;
 
 @end

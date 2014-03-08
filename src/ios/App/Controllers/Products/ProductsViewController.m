@@ -113,7 +113,7 @@
     if(2 * (indexPath.row + 1) <= self.datasource.count){
         right = [self.datasource objectAtIndex: (2 * indexPath.row)];
     }
-    [cell setupWithLeftData:left rightData:right tapHandler:tapHandler];
+//    [cell setupWithLeftData:left rightData:right tapHandler:tapHandler];
     return cell;
 }
 

@@ -9,7 +9,7 @@
 // file that was distributed with this source code.
 //
 // ==============================================================================
-
-@interface RootViewController : UITabBarController
+#import "WelTabBarController.h"
+@interface RootViewController : WelTabBarController
 
 @end

@@ -16,6 +16,8 @@
 #import "StaffDetailViewController.h"
 #import "WorkCell.h"
 #import "UIScrollView+UzysCircularProgressPullToRefresh.h"
+#import "WelTabBarController.h"
+
 @interface WorksViewController ()<UITableViewDataSource, UITableViewDelegate>
 @property (nonatomic, strong) NSMutableArray *datasource;
 @property (nonatomic, strong) UITableView *tableView;
@@ -91,14 +93,6 @@
     [self.navigationController presentViewController:[[UINavigationController alloc] initWithRootViewController:[CityListViewController new]] animated:YES completion:nil];
 }
 
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-//    if(CGRectEqualToRect(self.tableView.frame, CGRectZero)){
-//        
-//    }
-}
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];    
@@ -160,7 +154,7 @@
 {
     WorkDetailViewController *workVc = [[WorkDetailViewController alloc] init];;
     workVc.work = work;
-    workVc.hidesBottomBarWhenPushed = YES;
+    
     [self.navigationController pushViewController:workVc animated:YES];
 }
 

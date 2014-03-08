@@ -27,44 +27,35 @@
 - (void)loadView
 {
     [super loadView];
-    
-    WorksViewController *worksVc = [WorksViewController new];
-    GroupsViewController *groupsVc = [GroupsViewController new];
-    ChatSessionListViewController *chatVc = [ChatSessionListViewController new];
-    ProductsViewController *productVc = [ProductsViewController new];
-    UserViewController *userVc = [UserViewController new];
-
-    NSArray *tabVCs = @[worksVc,groupsVc,chatVc,productVc,userVc];
-    NSArray *tabVCTitle = @[NSLocalizedString(@"WorksViewController.Title", nil),
-                            NSLocalizedString(@"GroupsViewController.Title", nil),
-                            NSLocalizedString(@"ChatSessionViewController.Title", nil),
-                            NSLocalizedString(@"ProductsViewController.Title", nil),
-                            NSLocalizedString(@"UserViewController.Title", nil)];
-    
-    NSArray *tabImages = @[[FAKIonIcons homeIconWithSize:30],
-                           [FAKIonIcons ios7CogOutlineIconWithSize:30],
-                           [FAKIonIcons ios7PlusEmptyIconWithSize:40],
-                           [FAKIonIcons ios7LightbulbOutlineIconWithSize:30],
-                           [FAKIonIcons ios7PersonOutlineIconWithSize:30]];
-    for (NSUInteger i =0; i< 5; i++) {
-        UIViewController *vc = [tabVCs objectAtIndex:i];
-        NSString *tabTitle = [tabVCTitle objectAtIndex:i];
-        FAKIcon *tabIcon = [tabImages objectAtIndex:i];
-        [tabIcon addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithHexString:@"CCC"]];
-        UIImage *tabImg = [tabIcon imageWithSize:CGSizeMake(30,30)];
-        UITabBarItem *tabBar = [[UITabBarItem alloc] initWithTitle:tabTitle image:tabImg tag:(NSInteger)i];
-        vc.tabBarItem = tabBar;
-    }
-    [self setViewControllers:@[[[UINavigationController alloc] initWithRootViewController:worksVc],
-                               [[UINavigationController alloc] initWithRootViewController:groupsVc],
-                               [[UINavigationController alloc] initWithRootViewController:chatVc],
-                               [[UINavigationController alloc] initWithRootViewController:productVc],
-                               [[UINavigationController alloc] initWithRootViewController:userVc]]];
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    WorksViewController *worksVc = [WorksViewController new];
+    GroupsViewController *groupsVc = [GroupsViewController new];
+    ChatSessionListViewController *chatVc = [ChatSessionListViewController new];
+    ProductsViewController *productVc = [ProductsViewController new];
+    UserViewController *userVc = [UserViewController new];
+    NSArray *viewControls = @[[[UINavigationController alloc] initWithRootViewController:worksVc],
+                              [[UINavigationController alloc] initWithRootViewController:groupsVc],
+                              [[UINavigationController alloc] initWithRootViewController:chatVc],
+                              [[UINavigationController alloc] initWithRootViewController:productVc],
+                              [[UINavigationController alloc] initWithRootViewController:userVc]];
+    NSArray *tabNormalImages = @[[UIImage imageNamed:@"RootBottomTab1"],
+                                 [UIImage imageNamed:@"RootBottomTab2"],
+                                 [UIImage imageNamed:@"RootBottomTab3"],
+                                 [UIImage imageNamed:@"RootBottomTab4"],
+                                 [UIImage imageNamed:@"RootBottomTab5"]];
+    NSArray *tabSelectedImages = @[[UIImage imageNamed:@"RootBottomTab1"],
+                                   [UIImage imageNamed:@"RootBottomTab2"],
+                                   [UIImage imageNamed:@"RootBottomTab3"],
+                                   [UIImage imageNamed:@"RootBottomTab4"],
+                                   [UIImage imageNamed:@"RootBottomTab5"]];
+    [self setupViewControls:viewControls
+                           tabHeight:49
+                     tabNormalImages:tabNormalImages
+                   tabSelectedImages:tabSelectedImages];
 }
 
 -(NSUInteger)supportedInterfaceOrientations {

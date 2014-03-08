@@ -120,15 +120,15 @@
     CardTapHandler tapHandler = ^(Work *work){
         [self pushToWorkDetail];
     };
-    if((indexPath.row + 1) * 2 <= self.datasource.count){
-        [cell setupWithLeftData:[self.datasource objectAtIndex:indexPath.row]
-                      rightData:[self.datasource objectAtIndex:indexPath.row + 1]
-                     tapHandler:tapHandler];
-    }else{
-        [cell setupWithLeftData:[self.datasource objectAtIndex:indexPath.row]
-                      rightData:nil
-                     tapHandler:tapHandler];
-    }
+//    if((indexPath.row + 1) * 2 <= self.datasource.count){
+//        [cell setupWithLeftData:[self.datasource objectAtIndex:indexPath.row]
+//                      rightData:[self.datasource objectAtIndex:indexPath.row + 1]
+//                     tapHandler:tapHandler];
+//    }else{
+//        [cell setupWithLeftData:[self.datasource objectAtIndex:indexPath.row]
+//                      rightData:nil
+//                     tapHandler:tapHandler];
+//    }
     return cell;
 }
 

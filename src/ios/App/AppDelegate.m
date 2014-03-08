@@ -17,6 +17,13 @@
 #import <TencentOpenAPI/QQApiInterface.h> 
 #import <TencentOpenAPI/TencentOAuth.h>
 
+#import "WelTabBarController.h"
+#import "WorksViewController.h"
+#import "GroupsViewController.h"
+#import "ChatSessionListViewController.h"
+#import "ProductsViewController.h"
+#import "UserViewController.h"
+
 @interface AppDelegate()
 {
      BMKMapManager* _mapManager;
@@ -32,9 +39,10 @@
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     self.window.backgroundColor = [UIColor whiteColor];
-    UINavigationController *rootNav = [[UINavigationController alloc] initWithRootViewController:[RootViewController new]];
-    [rootNav setNavigationBarHidden:YES];
-    self.window.rootViewController =rootNav;
+
+    UINavigationController *rootNav = [[UINavigationController alloc]  initWithRootViewController:[RootViewController new]];
+    rootNav.navigationBarHidden = YES;
+    self.window.rootViewController = rootNav;
     [self.window makeKeyAndVisible];
     
     [self initialServices];
