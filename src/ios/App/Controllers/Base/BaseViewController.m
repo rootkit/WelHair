@@ -103,7 +103,7 @@
             
             UIBarButtonItem *negativeSpacer = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
             [negativeSpacer setWidth:-navItemMargin];
-            self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:negativeSpacer, self.navigationItem.rightBarButtonItem, nil];
+            self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects: self.navigationItem.rightBarButtonItem,negativeSpacer, nil];
         }else if(self.rightNavItemTitle.length >0){
             UIButton *rightItemButton = [UIButton buttonWithType:UIButtonTypeCustom];
             rightItemButton.frame = CGRectMake(0, 0, 100, kTopBarHeight);

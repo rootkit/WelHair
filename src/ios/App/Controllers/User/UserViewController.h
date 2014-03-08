@@ -11,7 +11,6 @@
 // ==============================================================================
 
 #import <UIKit/UIKit.h>
-#import "WelQRReaderViewController.h"
-@interface UserViewController : BaseViewController<WelQRReaderDelegate>
+@interface UserViewController : BaseViewController
 
 @end

@@ -18,8 +18,8 @@
 @protocol WelQRReaderDelegate
 
 - (void) didCaptureText:(NSString *)result
-            welQRReader:(WelQRReaderViewController *)readerVc;
+            welQRReaderViewController:(WelQRReaderViewController *)readerVc;
 
-- (void) didCancelWe:(WelQRReaderViewController *)readerVc;
+- (void) didCancelWelQRReaderViewController:(WelQRReaderViewController *)readerVc;
 @end
 

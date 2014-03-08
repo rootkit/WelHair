@@ -57,7 +57,13 @@
     colorBtn.frame = CGRectMake(MaxX(areaBtn), 0, topTabButtonWidth, TOP_TAB_BAR_HEIGHT);
     [colorBtn setTitle:@"热度" forState:UIControlStateNormal];
     [topTabView addSubview:colorBtn];
-    [topTabView drawBottomShadowOffset:1 opacity:0.7];
+
+    // draw shadow
+    UIView *shadowView = [[UIView alloc] initWithFrame:CGRectMake(0, TOP_TAB_BAR_HEIGHT -1, WIDTH(topTabView), 1)];
+    shadowView.backgroundColor = [UIColor lightGrayColor];
+    [topTabView addSubview:shadowView];
+    topTabView.backgroundColor = [UIColor colorWithWhite:255 alpha:0.7];
+    
     self.tableView = [[UITableView alloc] init];
     float tableHeight = isIOS7 ?
     HEIGHT(self.view) - MaxY(topTabView) - kBottomBarHeight :

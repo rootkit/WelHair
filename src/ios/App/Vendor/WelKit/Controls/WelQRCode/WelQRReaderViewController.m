@@ -130,7 +130,7 @@
         isCaptured = YES;
         [self playSound];
         [self cancel];
-        [self.delegate didCaptureText:result.text welQRReader:self];
+        [self.delegate didCaptureText:result.text welQRReaderViewController:self];
     }
 }
 
@@ -153,6 +153,6 @@
     [timer invalidate];
     [capture.layer removeFromSuperlayer];
     [capture stop];
-    [self.delegate didCancelWe:self];
+    [self.delegate didCancelWelQRReaderViewController:self];
 }
 @end

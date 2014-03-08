@@ -64,17 +64,18 @@
     colorBtn.frame = CGRectMake(MaxX(areaBtn), 0, topTabButtonWidth, TOP_TAB_BAR_HEIGHT);
     [colorBtn setTitle:@"颜色" forState:UIControlStateNormal];
     [topTabView addSubview:colorBtn];
-    UIView *shadowView = [[UIView alloc] initWithFrame:CGRectMake(0, TOP_TAB_BAR_HEIGHT -1, WIDTH(topTabView), 1)];
-    shadowView.backgroundColor = [UIColor lightGrayColor];
-    [topTabView addSubview:shadowView];
-    topTabView.backgroundColor = [UIColor colorWithWhite:255 alpha:0.7];
     
     UIButton *lengthBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [lengthBtn setTitleColor:[UIColor colorWithHexString:@"666666"] forState:UIControlStateNormal];
     lengthBtn.frame = CGRectMake(MaxX(colorBtn), 0, topTabButtonWidth, TOP_TAB_BAR_HEIGHT);
     [lengthBtn setTitle:@"长度" forState:UIControlStateNormal];
     [topTabView addSubview:lengthBtn];
-    [topTabView drawBottomShadowOffset:1 opacity:0.7];;
+    // draw shadow
+    UIView *shadowView = [[UIView alloc] initWithFrame:CGRectMake(0, TOP_TAB_BAR_HEIGHT -1, WIDTH(topTabView), 1)];
+    shadowView.backgroundColor = [UIColor lightGrayColor];
+    [topTabView addSubview:shadowView];
+    topTabView.backgroundColor = [UIColor colorWithWhite:255 alpha:0.7];
+    
     self.tableView = [[UITableView alloc] init];
     float tableHeight = isIOS7 ?
     HEIGHT(self.view) - MaxY(topTabView) - kBottomBarHeight :

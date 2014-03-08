@@ -14,8 +14,11 @@
 #import "ProductDetailViewController.h"
 #import "ProductCell.h"
 #import "Product.h"
+#import <FontAwesomeKit.h>
 #import "UIScrollView+UzysCircularProgressPullToRefresh.h"
-@interface ProductsViewController ()<UITableViewDataSource, UITableViewDelegate>
+#import "WelQRReaderViewController.h"
+
+@interface ProductsViewController ()<UITableViewDataSource, UITableViewDelegate,WelQRReaderDelegate>
 @property (nonatomic, strong) NSMutableArray *datasource;
 @property (nonatomic, strong) UITableView *tableView;
 @end
@@ -27,9 +30,21 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         self.title = NSLocalizedString(@"ProductsViewController.Title", nil);
+        FAKIcon *searchIcon = [FAKFontAwesome qrcodeIconWithSize:NAV_BAR_ICON_SIZE];
+        [searchIcon addAttribute:NSForegroundColorAttributeName value:[UIColor whiteColor]];
+        self.rightNavItemImg = [searchIcon imageWithSize:CGSizeMake(NAV_BAR_ICON_SIZE, NAV_BAR_ICON_SIZE)];
+        
     }
     return self;
 }
+
+- (void)rightNavItemClick
+{
+    WelQRReaderViewController *scanner = [WelQRReaderViewController new];
+    scanner.delegate = self;
+    [self.navigationController presentViewController:scanner animated:YES completion:nil];
+}
+
 
 - (void)viewDidLoad
 {
@@ -50,12 +65,13 @@
     colorBtn.frame = CGRectMake(MaxX(areaBtn), 0, topTabButtonWidth, TOP_TAB_BAR_HEIGHT);
     [colorBtn setTitle:@"热度" forState:UIControlStateNormal];
     [topTabView addSubview:colorBtn];
+
+    // draw shadow
     UIView *shadowView = [[UIView alloc] initWithFrame:CGRectMake(0, TOP_TAB_BAR_HEIGHT -1, WIDTH(topTabView), 1)];
     shadowView.backgroundColor = [UIColor lightGrayColor];
     [topTabView addSubview:shadowView];
     topTabView.backgroundColor = [UIColor colorWithWhite:255 alpha:0.7];
     
-    [topTabView drawBottomShadowOffset:1 opacity:0.7];;
     self.tableView = [[UITableView alloc] init];
     float tableHeight = isIOS7 ?
     HEIGHT(self.view) - MaxY(topTabView) - kBottomBarHeight :
@@ -97,6 +113,24 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+#pragma mark code capture delegate
+- (void)didCaptureText:(NSString *)result
+           welQRReaderViewController:(WelQRReaderViewController *)readerVc
+{
+    [readerVc dismissViewControllerAnimated:YES completion:nil];
+    [[[UIAlertView alloc] initWithTitle:@"qrcode content"
+                                message:result
+                               delegate:self
+                      cancelButtonTitle:@"I see"
+                      otherButtonTitles:nil] show];
+    
+}
+
+- (void)didCancelWelQRReaderViewController:(WelQRReaderViewController *)readerVc
+{
+    [readerVc dismissViewControllerAnimated:YES completion:nil];
 }
 
 #pragma mark UITableView delegate

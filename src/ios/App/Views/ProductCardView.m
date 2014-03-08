@@ -52,8 +52,8 @@
         
         float heartIconSize = 15;
         FAKIcon *heartIcon = [FAKIonIcons locationIconWithSize:heartIconSize];
-        [heartIcon addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithHexString:@"e43a3d"]];
-        UIImageView *heartImg = [[UIImageView alloc] initWithFrame:CGRectMake(MaxX(self.priceLbl), Y(self.priceLbl)+10,heartIconSize, heartIconSize)];
+        [heartIcon addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithHexString:@"b7bcc2"]];
+        UIImageView *heartImg = [[UIImageView alloc] initWithFrame:CGRectMake(MaxX(self.priceLbl)+10, Y(self.priceLbl),heartIconSize, heartIconSize)];
         heartImg.image = [heartIcon imageWithSize:CGSizeMake(heartIconSize,heartIconSize)];
         [self addSubview:heartImg];
         
