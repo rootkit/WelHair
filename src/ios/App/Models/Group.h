@@ -7,7 +7,12 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "BaseModel.h"
+@interface Group : BaseModel
 
-@interface Group : NSObject
+@property (nonatomic, strong) NSString *imgUrl;
+@property (nonatomic, strong) NSString *address;
+@property (nonatomic, strong) NSArray *staffList;
+@property (nonatomic, strong) NSArray *commentList;
 
 @end

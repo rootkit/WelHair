@@ -9,7 +9,7 @@
 // file that was distributed with this source code.
 //
 // ==============================================================================
-
-@interface User : NSObject
+#import "BaseModel.h"
+@interface User : BaseModel
 
 @end

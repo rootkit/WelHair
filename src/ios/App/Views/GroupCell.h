@@ -7,7 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "Group.h"
 @interface GroupCell : UITableViewCell
+
+- (void)setup:(Group *)group;
 
 @end

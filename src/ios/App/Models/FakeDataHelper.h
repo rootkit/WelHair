@@ -14,4 +14,5 @@
 
 +(NSArray *)getFakeHairWorkImgs;
 +(NSArray *)getFakeWorkList;
++(NSArray *)getFakeGroupList;
 @end

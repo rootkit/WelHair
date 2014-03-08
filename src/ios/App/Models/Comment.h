@@ -7,9 +7,9 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "BaseModel.h"
+@interface Comment : BaseModel
 
-@interface Comment : NSObject
-@property (nonatomic) int id;
 @property (nonatomic, strong) NSString *title;
 @property (nonatomic, strong) NSDate *createdDate;
 @property (nonatomic, strong) NSString *commentorId;

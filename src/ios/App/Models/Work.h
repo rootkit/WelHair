@@ -12,13 +12,12 @@
 
 #import <Foundation/Foundation.h>
 #import "Staff.h"
-@interface Work : NSObject
-@property (nonatomic) int Id;
-@property (nonatomic, strong) NSString *name;
-@property (nonatomic, strong) NSArray *imgsUrl;
+#import "BaseModel.h"
+@interface Work : BaseModel
+@property (nonatomic, strong) NSArray *imgUrlList;
 
 @property (nonatomic, strong) Staff *creator;
-@property (nonatomic, strong) NSArray *comments;
+@property (nonatomic, strong) NSArray *commentList;
 
 
 @end

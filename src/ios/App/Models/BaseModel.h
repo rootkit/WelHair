@@ -10,4 +10,8 @@
 
 @interface BaseModel : NSObject
 
+@property (nonatomic) int id;
+@property (nonatomic, strong) NSString *name;
+@property (nonatomic) float distance;
+
 @end
