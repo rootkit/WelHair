@@ -11,6 +11,9 @@
 // ==============================================================================
 
 #import "ChatSessionListViewController.h"
+#import "UIScrollView+UzysCircularProgressPullToRefresh.h"
+#import "ChatSession.h"
+#import "ChatGroupCell.h"
 
 @interface ChatSessionListViewController ()<UITableViewDataSource, UITableViewDelegate>
 @property (nonatomic, strong) NSMutableArray *datasource;
@@ -28,22 +31,44 @@
     return self;
 }
 
-- (void) loadView
+- (void)viewDidLoad
 {
-    [super loadView];
+    [super viewDidLoad];
+    
     self.tableView = [[UITableView alloc] init];
-    self.tableView.frame = CGRectMake(0, 0, WIDTH(self.view), HEIGHT(self.view));
+    float tableHeight = isIOS7 ?
+    HEIGHT(self.view) - self.topBarOffset - kBottomBarHeight :
+    HEIGHT(self.view) - kTopBarHeight  - kBottomBarHeight ;
+    self.tableView.frame = CGRectMake(0,
+                                      self.topBarOffset,
+                                      WIDTH(self.view) ,
+                                      tableHeight);
     self.tableView.backgroundColor = [UIColor clearColor];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
+    self.tableView.backgroundColor = [UIColor whiteColor];//[UIColor colorWithHexString:@"f2f2f2"];
+    __weak typeof(self) weakSelf = self;
+//    [self.tableView addPullToRefreshActionHandler:^{
+////        [weakSelf insertRowAtTop];
+//    }];
+    
+    [self.tableView.pullToRefreshView setSize:CGSizeMake(25, 25)];
+    [self.tableView.pullToRefreshView setBorderWidth:2];
+    [self.tableView.pullToRefreshView setBorderColor:[UIColor whiteColor]];
+    [self.tableView.pullToRefreshView setImageIcon:[UIImage imageNamed:@"pull_to_refresh_loading"]];
     [self.view addSubview:self.tableView];
+    self.datasource = [NSMutableArray arrayWithArray:[FakeDataHelper getFakeChatGroupList]];
+    
 }
 
-- (void)viewDidLoad
+- (void)insertRowAtTop
 {
-    [super viewDidLoad];
-    self.datasource = [NSMutableArray arrayWithArray:@[@"item 1"]];
+    int64_t delayInSeconds = 1.2;
+    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
+    dispatch_after(popTime, dispatch_get_main_queue(), ^(void) {
+        [self.tableView stopRefreshAnimation];
+    });
 }
 
 - (void)didReceiveMemoryWarning
@@ -52,33 +77,42 @@
     // Dispose of any resources that can be recreated.
 }
 
+
 #pragma mark UITableView delegate
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 50;
+    return 60;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return  (NSInteger)self.datasource.count;
+    return  self.datasource.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString * cellIdentifier = @"SessionCellIdentifier";
-    UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+    static NSString * cellIdentifier = @"ChatGroupCellIdentifier";
+    ChatGroupCell * cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
     if (!cell) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
+        cell = [[ChatGroupCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        cell.textLabel.text = [self.datasource objectAtIndex:indexPath.row];
-        cell.textLabel.textColor = [UIColor blackColor];
+        cell.backgroundColor = [UIColor clearColor];
     }
+    ChatSession *data = [self.datasource objectAtIndex: indexPath.row];
+    [cell setup:data];
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     
+}
+
+- (void)pushToDetial:(ChatSession *)product
+{
+//    ProductDetailViewController *workVc = [[ProductDetailViewController alloc] init];;
+//    workVc.hidesBottomBarWhenPushed = YES;
+//    [self.navigationController pushViewController:workVc animated:YES];
 }
 
 @end

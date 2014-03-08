@@ -16,4 +16,5 @@
 +(NSArray *)getFakeWorkList;
 +(NSArray *)getFakeGroupList;
 +(NSArray *)getFakeProductList;
++(NSArray *)getFakeChatGroupList;
 @end

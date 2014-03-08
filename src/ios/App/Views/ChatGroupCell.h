@@ -7,7 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "ChatSession.h"
 @interface ChatGroupCell : UITableViewCell
+
+- (void)setup:(ChatSession *)session;
 
 @end

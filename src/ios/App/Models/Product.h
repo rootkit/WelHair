@@ -12,7 +12,6 @@
 @interface Product : BaseModel
 
 @property (nonatomic) float price;
-@property (nonatomic, strong) NSString *description;
 @property (nonatomic, strong) Group *group;
 @property (nonatomic, strong) NSArray *commentList;
 @property (nonatomic, strong) NSArray *imgUrlList;

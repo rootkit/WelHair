@@ -16,7 +16,6 @@
 #import "StaffDetailViewController.h"
 #import "WorkCell.h"
 #import "UIScrollView+UzysCircularProgressPullToRefresh.h"
-#import "WelTabBarController.h"
 
 @interface WorksViewController ()<UITableViewDataSource, UITableViewDelegate>
 @property (nonatomic, strong) NSMutableArray *datasource;

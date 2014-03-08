@@ -9,5 +9,6 @@
 #import "BaseModel.h"
 
 @interface ChatSession : BaseModel
-
+@property (nonatomic, strong) NSString *imgUrl;
+@property (nonatomic, strong) NSDate *lastDate;
 @end

@@ -73,6 +73,8 @@
 		467F0EB218CB16EB009FFE08 /* ProductCardView.m in Sources */ = {isa = PBXBuildFile; fileRef = 467F0EB118CB16EB009FFE08 /* ProductCardView.m */; };
 		467F0EB518CB1721009FFE08 /* Product.m in Sources */ = {isa = PBXBuildFile; fileRef = 467F0EB418CB1721009FFE08 /* Product.m */; };
 		467F0EB818CB2164009FFE08 /* ProductCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 467F0EB718CB2164009FFE08 /* ProductCell.m */; };
+		467F0EBB18CB3956009FFE08 /* ChatGroupCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 467F0EBA18CB3956009FFE08 /* ChatGroupCell.m */; };
+		467F0EBE18CB3CC3009FFE08 /* ChatSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 467F0EBD18CB3CC3009FFE08 /* ChatSession.m */; };
 		46A46FE518BE21160057F579 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46A46FE418BE21160057F579 /* CoreLocation.framework */; };
 		46A46FE718BE211F0057F579 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46A46FE618BE211F0057F579 /* QuartzCore.framework */; };
 		46A46FE918BE21280057F579 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46A46FE818BE21280057F579 /* OpenGLES.framework */; };
@@ -240,6 +242,10 @@
 		467F0EB418CB1721009FFE08 /* Product.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Product.m; sourceTree = "<group>"; };
 		467F0EB618CB2164009FFE08 /* ProductCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProductCell.h; sourceTree = "<group>"; };
 		467F0EB718CB2164009FFE08 /* ProductCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProductCell.m; sourceTree = "<group>"; };
+		467F0EB918CB3956009FFE08 /* ChatGroupCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatGroupCell.h; sourceTree = "<group>"; };
+		467F0EBA18CB3956009FFE08 /* ChatGroupCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatGroupCell.m; sourceTree = "<group>"; };
+		467F0EBC18CB3CC3009FFE08 /* ChatSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatSession.h; sourceTree = "<group>"; };
+		467F0EBD18CB3CC3009FFE08 /* ChatSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatSession.m; sourceTree = "<group>"; };
 		46A46FE418BE21160057F579 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		46A46FE618BE211F0057F579 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		46A46FE818BE21280057F579 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
@@ -656,6 +662,8 @@
 				467F0EAE18CB0F54009FFE08 /* BaseModel.m */,
 				467F0EB318CB1721009FFE08 /* Product.h */,
 				467F0EB418CB1721009FFE08 /* Product.m */,
+				467F0EBC18CB3CC3009FFE08 /* ChatSession.h */,
+				467F0EBD18CB3CC3009FFE08 /* ChatSession.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -1022,6 +1030,8 @@
 				467F0EB118CB16EB009FFE08 /* ProductCardView.m */,
 				467F0EB618CB2164009FFE08 /* ProductCell.h */,
 				467F0EB718CB2164009FFE08 /* ProductCell.m */,
+				467F0EB918CB3956009FFE08 /* ChatGroupCell.h */,
+				467F0EBA18CB3956009FFE08 /* ChatGroupCell.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1313,6 +1323,7 @@
 				46BCD25B18BC7162005C4BD6 /* WorksViewController.m in Sources */,
 				46BCD26918BC797B005C4BD6 /* GroupDetailViewController.m in Sources */,
 				18A912EC18BB2826006B9A04 /* UIView+WelKit.m in Sources */,
+				467F0EBB18CB3956009FFE08 /* ChatGroupCell.m in Sources */,
 				467F0EB818CB2164009FFE08 /* ProductCell.m in Sources */,
 				4665FD7C18BC7D4700E88C6B /* CommentsViewController.m in Sources */,
 				46BCD26318BC7561005C4BD6 /* CityListViewController.m in Sources */,
@@ -1333,6 +1344,7 @@
 				460C2F2A18C8BFFF00AD16E6 /* Comment.m in Sources */,
 				46E84EC018C2C7040004C146 /* UIScrollView+UzysCircularProgressPullToRefresh.m in Sources */,
 				4630251518C76EF1000E0B51 /* CalendarViewController.m in Sources */,
+				467F0EBE18CB3CC3009FFE08 /* ChatSession.m in Sources */,
 				46B25AF018C185290035F425 /* FakeDataHelper.m in Sources */,
 				46E84EDD18C338370004C146 /* OpitionCategory.m in Sources */,
 				4630252218C7781A000E0B51 /* PayViewController.m in Sources */,

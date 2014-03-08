@@ -12,6 +12,7 @@
 
 @property (nonatomic) int id;
 @property (nonatomic, strong) NSString *name;
+@property (nonatomic, strong) NSString *description;
 @property (nonatomic) float distance;
 
 @end
