@@ -1,0 +1,40 @@
+<?php
+use \Welfony\Utility\Util;
+?>
+<div class="m-form">
+    <form id="frm-service-info" method="post">
+        <fieldset>
+            <div class="formitm">
+                <label class="lab">服务名称：</label>
+                <div class="ipt">
+                    <input name="title" type="text" value="<?php echo $this->serviceInfo['Title']; ?>" datatype="*" class="u-ipt"/>
+                    <p>例如：精剪，烫发。</p>
+                </div>
+            </div>
+            <div class="formitm">
+                <label class="lab">原价：</label>
+                <div class="ipt">
+                    <input name="old_price" type="text" value="<?php echo $this->serviceInfo['OldPrice']; ?>" datatype="float" class="u-ipt"/>
+                </div>
+            </div>
+            <div class="formitm">
+                <label class="lab">服务价格：</label>
+                <div class="ipt">
+                    <input name="price" type="text" value="<?php echo $this->serviceInfo['Price']; ?>" datatype="float" class="u-ipt"/>
+                </div>
+            </div>
+            <div class="formitm formitm-1">
+                <input type="hidden" name="service_id" value="<?php echo intval($this->serviceInfo['ServiceId']); ?>" />
+                <input type="hidden" name="staff_id" value="<?php echo intval($this->serviceInfo['UserId']); ?>" />
+                <button class="u-btn u-btn-submit" type="button">确定</button>
+            </div>
+        </fieldset>
+    </form>
+</div>
+<script>
+$(function() {
+    $('#frm-service-info').Validform({
+        tiptype: 3
+    });
+});
+</script>

@@ -16,7 +16,8 @@ a {
     color: #999;
 }
 
-#errorMessage {
+#error-message,
+#success-message {
     display: none;
 }
 

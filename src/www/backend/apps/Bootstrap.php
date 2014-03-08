@@ -43,6 +43,16 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
             'company/staff/work/info'
         );
         $router->addRoute('company_staff_workinfo', $companyStaffWorkinfoRoute);
+
+        $companyStaffServiceinfoRoute = new Zend_Controller_Router_Route_Regex(
+            'company/staff/service/info', array(
+                'module' => 'company',
+                'controller' => 'staff',
+                'action' => 'serviceinfo'
+            ), array(),
+            'company/staff/service/info'
+        );
+        $router->addRoute('company_staff_serviceinfo', $companyStaffServiceinfoRoute);
     }
 
     protected function _initDatabase()

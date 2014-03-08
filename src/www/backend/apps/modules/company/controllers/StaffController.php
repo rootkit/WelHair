@@ -18,6 +18,7 @@ use Welfony\Core\Enum\Gender;
 use Welfony\Core\Enum\HairAmount;
 use Welfony\Core\Enum\HairStyle;
 use Welfony\Service\CompanyService;
+use Welfony\Service\ServiceService;
 use Welfony\Service\StaffService;
 use Welfony\Service\UserService;
 use Welfony\Service\WorkService;
@@ -100,6 +101,69 @@ class Company_StaffController extends AbstractAdminController
         static $pageSize = 10;
 
         $this->view->pageTitle = '发型师服务';
+
+        $staff = array(
+            'UserId' => 0
+        );
+
+        $staffId = intval($this->_request->getParam('staff_id'));
+        if ($staffId > 0) {
+            $staff = UserService::getUserById($staffId);
+            $this->view->pageTitle = $staff['Nickname'] . '的服务项目';
+        }
+
+        $this->view->staffInfo = $staff;
+
+        $page = intval($this->_request->getParam('page'));
+        $searchResult = ServiceService::listAllServices($page, $pageSize, $staffId);
+
+        $this->view->dataList = $searchResult['services'];
+        $this->view->pager = $this->renderPager($this->view->baseUrl('company/staff/service?s=' . ($staffId > 0 ? '&staff_id=' . $staffId : '')),
+                                                $page,
+                                                ceil($searchResult['total'] / $pageSize));
+    }
+
+    public function serviceinfoAction()
+    {
+        $this->view->pageTitle = '发型师服务';
+
+        $service = array(
+            'ServiceId' => intval($this->_request->getParam('service_id')),
+            'UserId' => intval($this->_request->getParam('staff_id')),
+            'Title' => '',
+            'OldPrice' => 0,
+            'Price' => 0
+        );
+
+        if ($this->_request->isPost()) {
+            $title = htmlspecialchars($this->_request->getParam('title'));
+            $oldPrice = floatval($this->_request->getParam('old_price'));
+            $price = floatval($this->_request->getParam('price'));
+
+            $service['Title'] = $title;
+            $service['OldPrice'] = $oldPrice;
+            $service['Price'] = $price;
+
+            $result = ServiceService::save($service);
+            if ($result['success']) {
+                if ($service['ServiceId'] <= 0) {
+                    $service['ServiceId'] = $result['service']['ServiceId'];
+                }
+
+                $this->view->successMessage = '保存作品成功！';
+            } else {
+                $this->view->errorMessage = $result['message'];
+            }
+        } else {
+            if ($service['ServiceId'] > 0) {
+                $service = ServiceService::getServiceById($service['ServiceId']);
+                if (!$service) {
+                    // process not exist logic;
+                }
+            }
+        }
+
+        $this->view->serviceInfo = $service;
     }
 
     public function workAction()
