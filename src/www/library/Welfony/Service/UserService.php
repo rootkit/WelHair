@@ -152,4 +152,9 @@ class UserService
         }
     }
 
+    public static function seachByNameAndPhone($searchText)
+    {
+        return UserRepository::getInstance()->seachByNameAndPhoneAndEmail($searchText);
+    }
+
 }

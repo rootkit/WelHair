@@ -1,7 +1,10 @@
+<?php
+use Welfony\Utility\Converter;
+?>
 <div class="toolbar">
     <ul class="clearfix">
         <li>
-            <a href="<?php echo $this->baseUrl('appointment/index/info' . ($this->staffInfo ? '?staff_id=' . $this->staffInfo['UserId'] : '')); ?>">
+            <a href="<?php echo $this->baseUrl('appointment/index/info' . ($this->staffInfo['UserId'] > 0 ? '?staff_id=' . $this->staffInfo['UserId'] : '')); ?>">
                 <i class="iconfont">&#xf0175;</i>
                 添加
             </a>
@@ -12,13 +15,13 @@
     <thead>
         <tr>
             <th class="col-chk"><input id="chk_all" type="checkbox" /></th>
-            <th class="cola">名字</th>
-            <th>地址</th>
-            <th>联系电话</th>
-            <th class="cola">手机</th>
-            <th class="cola">验证</th>
+            <th>服务</th>
+            <th class="cola">预约人</th>
+            <th>发型师</th>
+            <th class="cola">服务费</th>
+            <th class="cola">状态</th>
+            <th>预约时间</th>
             <th>创建时间</th>
-            <th class="cola"></th>
         </tr>
     </thead>
     <tbody>
@@ -27,31 +30,22 @@
         <tr>
             <td class="col-center"><input name="chk_ids[]" type="checkbox" /></td>
             <td>
-                <a href="<?php echo $this->baseUrl('company/index/info?company_id=' . $data['CompanyId']); ?>">
-                    <?php echo $data['Name']; ?>
+                <a href="<?php echo $this->baseUrl('appointment/index/info?appointment_id=' . $data['AppointmentId']); ?>">
+                    <?php echo $data['ServiceTitle']; ?>
                 </a>
             </td>
             <td>
-                <?php echo $data['ProvinceName']; ?> - <?php echo $data['CityName']; ?> - <?php echo $data['DistrictName']; ?>
-                <p><?php echo $data['Address']; ?></p>
+                <?php echo $data['Nickname'] . '（' . $data['Username'] . '）'; ?>
             </td>
-            <td><?php echo $data['Tel']; ?></td>
-            <td><?php echo $data['Mobile']; ?></td>
+            <td>
+                <?php echo $data['StaffName'] . '（' . $data['CompanyName'] . '）'; ?>
+            </td>
+            <td class="col-center"><?php echo number_format($data['Price'], 2); ?></td>
             <td class="col-center">
-                <?php echo $data['Status'] == 1 ? '通过' : '未通过'; ?>
+                <?php echo Converter::appointmentStatusFromEnumToString($data['Status']); ?>
             </td>
-            <td><?php echo $data['CreatedDate']; ?></td>
-            <td>
-                <a href="<?php echo $this->baseUrl('company/staff/search?company_id=' . $data['CompanyId']); ?>">
-                    <i class="iconfont">&#xf00ec;</i>&nbsp;&nbsp;
-                    设计师
-                </a>
-                <br/>
-                <a href="#">
-                    <i class="iconfont">&#xf0148;</i>&nbsp;&nbsp;
-                    商品
-                </a>
-            </td>
+            <td><?php echo date('Y-m-d H:i', strtotime($data['AppointmentDate'])); ?></td>
+            <td><?php echo date('Y-m-d', strtotime($data['CreatedDate'])); ?></td>
         </tr>
         <?php endforeach; ?>
         <?php else: ?>

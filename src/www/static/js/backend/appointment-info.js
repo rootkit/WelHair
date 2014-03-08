@@ -18,7 +18,9 @@ $(function() {
             iptContainer.find('input[type=text]').val('').show();
             iptContainer.find('input[type=hidden]').val(0);
 
-            $('#service-list tbody tr').remove();
+            if (iptContainer.find('.autocomplete-search-result').attr('id') == 'staff-search-result') {
+              $('#service-list tbody tr').remove();
+            }
         });
     }
 
@@ -49,24 +51,25 @@ $(function() {
             var resultBlock = $('#' + $type + '-search-result');
             resultBlock.find('.autocomplete-item-icon').attr('src', ui.item.icon);
             resultBlock.find('.autocomplete-item-label').html(ui.item.title);
-            resultBlock.find('.autocomplete-item-detail').html(ui.item.company.Name);
+            resultBlock.find('.autocomplete-item-detail').html($type == 'staff' ? ui.item.company.Name : ui.item.detail);
             resultBlock.show();
 
-            $tbody = $('#service-list tbody');
-            $tbody.find('tr').remove();
+            if ($type == 'staff') {
+              $tbody = $('#service-list tbody');
+              $tbody.find('tr').remove();
 
-            $(ui.item.services).each(function(idx, el) {
-                $tbody.append(' \
-                    <tr> \
-                        <td class="col-center"> \
-                            <input type="radio" name="service_id" value="' + el.ServiceId + '" /> \
-                        </td> \
-                        <td>' + el.Title + '</td> \
-                        <td>' + el.OldPrice + '</td> \
-                        <td>' + el.Price + '</td> \
-                    </tr>');
-            });
-
+              $(ui.item.services).each(function(idx, el) {
+                  $tbody.append(' \
+                      <tr> \
+                          <td class="col-center"> \
+                              <input type="radio" name="service_id" value="' + el.ServiceId + '" /> \
+                          </td> \
+                          <td>' + el.Title + '</td> \
+                          <td class="col-center">' + el.OldPrice + '</td> \
+                          <td class="col-center">' + el.Price + '</td> \
+                      </tr>');
+              });
+            }
 
             return false;
           }
@@ -76,12 +79,13 @@ $(function() {
             .append('<a class="autocomplete-item"> \
                         <img class="autocomplete-item-icon" src="' + item.icon + '" /> \
                         <strong class="autocomplete-item-label">' + item.title + '</strong> \
-                        <span class="autocomplete-item-detail">' + item.company.Name + '</span> \
+                        <span class="autocomplete-item-detail">' + ($type == 'staff' ? item.company.Name : item.detail) + '</span> \
                     </a>')
             .appendTo(ul);
         };
     }
 
+    bindAutoComplete('user');
     bindAutoComplete('staff');
     bindClose();
 });

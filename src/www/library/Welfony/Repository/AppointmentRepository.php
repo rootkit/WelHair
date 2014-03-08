@@ -19,6 +19,45 @@ use Welfony\Repository\Base\AbstractRepository;
 class AppointmentRepository extends AbstractRepository
 {
 
+    public function getAllAppointmentsCount($staffId)
+    {
+        $filter = '';
+        if ($staffId > 0) {
+            $filter = "AND A.StaffId = $staffId";
+        }
+
+        $strSql = "SELECT
+                       COUNT(1) `Total`
+                   FROM Appointment A
+                   WHERE A.UserId > 0 $filter
+                   LIMIT 1";
+
+        $row = $this->conn->fetchAssoc($strSql);
+
+        return $row['Total'];
+    }
+
+    public function getAllAppointments($page, $pageSize, $staffId)
+    {
+        $filter = '';
+        if ($staffId > 0) {
+            $filter = "AND A.StaffId = $staffId";
+        }
+
+        $offset = ($page - 1) * $pageSize;
+        $strSql = "SELECT
+                       A.*,
+                       U.Nickname,
+                       U.Username
+                   FROM Appointment A
+                   INNER JOIN Users U ON U.UserId = A.UserId
+                   WHERE A.UserId > 0 $filter
+                   ORDER BY A.AppointmentId DESC
+                   LIMIT $offset, $pageSize";
+
+        return $this->conn->fetchAll($strSql);
+    }
+
     public function findAppointmentById($appointmentId)
     {
         $strSql = 'SELECT

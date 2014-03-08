@@ -14,6 +14,7 @@
 
 namespace Welfony\Utility;
 
+use Welfony\Core\Enum\AppointmentStatus;
 use Welfony\Core\Enum\Face;
 use Welfony\Core\Enum\HairAmount;
 use Welfony\Core\Enum\HairStyle;
@@ -21,6 +22,33 @@ use Welfony\Core\Enum\UserRole;
 
 class Converter
 {
+
+    public static function appointmentStatusFromEnumToString($appointmentStatus)
+    {
+        $stringRole = '';
+
+        switch ($appointmentStatus) {
+            case AppointmentStatus::Pending:
+                $stringRole = '未付款';
+                break;
+            case AppointmentStatus::Paid:
+                $stringRole = '已付款';
+                break;
+            case AppointmentStatus::Completed:
+                $stringRole = '已完成';
+                break;
+            case AppointmentStatus::Refund:
+                $stringRole = '已退款';
+                break;
+            case AppointmentStatus::Cancelled:
+                $stringRole = '已取消';
+                break;
+            default:
+                break;
+        }
+
+        return $stringRole;
+    }
 
     public static function userRoleFromEnumToString($userRole)
     {

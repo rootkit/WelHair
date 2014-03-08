@@ -111,6 +111,7 @@ class StaffService
             if ($row['CompanyId'] > 0) {
                 $staffDetail['Company']['CompanyId'] =  $row['CompanyId'];
                 $staffDetail['Company']['Name'] = $row['CompanyName'];
+                $staffDetail['Company']['Address'] = $row['CompanyAddress'];
             }
 
             if ($row['ServiceId'] > 0 && Util::keyValueExistedInArray($staffDetail['Services'], 'ServiceId', $row['ServiceId']) === false) {

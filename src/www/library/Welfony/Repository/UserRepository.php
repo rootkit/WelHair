@@ -114,4 +114,20 @@ class UserRepository extends AbstractRepository
         }
     }
 
+    public function seachByNameAndPhoneAndEmail($searchText)
+    {
+        $filter = "(U.Role = " . UserRole::Client . ") AND";
+
+        $strSql = "SELECT
+                       U.UserId,
+                       U.Username,
+                       U.Nickname,
+                       U.AvatarUrl
+                   FROM Users U
+                   WHERE $filter (U.Username LIKE '%$searchText%' OR U.Nickname LIKE '%$searchText%' OR U.Email LIKE '%$searchText%' OR U.Mobile LIKE '%$searchText%')
+                   LIMIT 5";
+
+        return $this->conn->fetchAll($strSql);
+    }
+
 }

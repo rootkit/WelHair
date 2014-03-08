@@ -37,6 +37,7 @@ class StaffRepository extends AbstractRepository
 
                        C.CompanyId,
                        C.Name CompanyName,
+                       C.Address CompanyAddress,
 
                        S.ServiceId,
                        S.Title ServiceTitle,
@@ -68,6 +69,7 @@ class StaffRepository extends AbstractRepository
 
                        C.CompanyId,
                        C.Name CompanyName,
+                       C.Address CompanyAddress,
 
                        S.ServiceId,
                        S.Title ServiceTitle,
