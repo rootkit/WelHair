@@ -37,8 +37,18 @@
 - (void) loadView
 {
     [super loadView];
+
+}
+
+- (void)leftNavItemClick
+{
+    [self.navigationController presentViewController:[[UINavigationController alloc] initWithRootViewController:[CityListViewController new]] animated:YES completion:nil];
+}
+
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
     self.leftNavItemTitle = @"济南";
-    
     float topTabButtonWidth = WIDTH(self.view)/3;
     float topTabButtonHeight = 40;
     UIView *topTabView = [[UIView alloc] initWithFrame:CGRectMake(0, self.topBarOffset,WIDTH(self.view),topTabButtonHeight)];
@@ -67,10 +77,14 @@
     [topTabView addSubview:lengthBtn];
     [topTabView drawBottomShadowOffset:1 opacity:0.7];;
     self.tableView = [[UITableView alloc] init];
+    float tableHeight = isIOS7 ?
+    HEIGHT(self.view) - MaxY(topTabView) - kBottomBarHeight :
+    HEIGHT(self.view) - kTopBarHeight - MaxY(topTabView)  - kBottomBarHeight ;
     self.tableView.frame = CGRectMake(0,
                                       MaxY(topTabView),
-                                      WIDTH(self.view) + 1,
-                                      HEIGHT(self.view)- MaxY(topTabView) - self.bottomBarOffset -1);
+                                      WIDTH(self.view) ,
+                                      tableHeight);
+    NSLog(@"%f",MaxY(topTabView));
     self.tableView.backgroundColor = [UIColor clearColor];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
@@ -85,20 +99,11 @@
     [self.tableView.pullToRefreshView setBorderWidth:2];
     [self.tableView.pullToRefreshView setBorderColor:[UIColor whiteColor]];
     [self.tableView.pullToRefreshView setImageIcon:[UIImage imageNamed:@"pull_to_refresh_loading"]];
-        [self.view addSubview:self.tableView];
-}
-
-- (void)leftNavItemClick
-{
-    [self.navigationController presentViewController:[[UINavigationController alloc] initWithRootViewController:[CityListViewController new]] animated:YES completion:nil];
-}
-
-- (void)viewDidLoad
-{
-    [super viewDidLoad];    
+    [self.view addSubview:self.tableView];
     self.datasource = [NSMutableArray arrayWithArray:[FakeDataHelper getFakeWorkList]];
 
 }
+
 
 - (void)insertRowAtTop
 {
@@ -154,8 +159,9 @@
 {
     WorkDetailViewController *workVc = [[WorkDetailViewController alloc] init];;
     workVc.work = work;
-    
     [self.navigationController pushViewController:workVc animated:YES];
 }
+
+
 
 @end
