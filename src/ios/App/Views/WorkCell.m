@@ -44,22 +44,20 @@
     self.cardTapHandler = tapHandler;
     
     if(!self.leftCardView){
-        self.leftCardView = [WorkCardView new];
-        self.leftCardView.frame = CGRectMake(10, 5, 140, 250);
+        self.leftCardView = [[WorkCardView alloc] initWithFrame:CGRectMake(10, 5, 140, 250)];
         [self addSubview:self.leftCardView];
         self.leftCardView.tag = 0;
         [self.leftCardView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(cardTapped:)]];
     }
-    [self.leftCardView setupWithData:leftData width:140];
+    [self.leftCardView setupWithData:leftData];
 
     if(!self.rightCardView){
-        self.rightCardView = [WorkCardView new];
-        self.rightCardView.frame = CGRectMake(MaxX(self.leftCardView) + 20, 5, 140, 250);
+        self.rightCardView = [[WorkCardView alloc] initWithFrame:CGRectMake(MaxX(self.leftCardView) + 20, 5, 140, 250)];
         [self addSubview:self.rightCardView];
         self.rightCardView.tag = 1;
         [self.rightCardView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(cardTapped:)]];
     }
-    [self.rightCardView setupWithData:rightData width:140];
+    [self.rightCardView setupWithData:rightData];
 }
 
 - (void)cardTapped:(id)sender

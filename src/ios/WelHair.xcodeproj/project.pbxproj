@@ -70,6 +70,9 @@
 		4665FD7C18BC7D4700E88C6B /* CommentsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4665FD7B18BC7D4700E88C6B /* CommentsViewController.m */; };
 		4665FD8518BC801000E88C6B /* Work.m in Sources */ = {isa = PBXBuildFile; fileRef = 4665FD8418BC801000E88C6B /* Work.m */; };
 		467F0EAF18CB0F54009FFE08 /* BaseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 467F0EAE18CB0F54009FFE08 /* BaseModel.m */; };
+		467F0EB218CB16EB009FFE08 /* ProductCardView.m in Sources */ = {isa = PBXBuildFile; fileRef = 467F0EB118CB16EB009FFE08 /* ProductCardView.m */; };
+		467F0EB518CB1721009FFE08 /* Product.m in Sources */ = {isa = PBXBuildFile; fileRef = 467F0EB418CB1721009FFE08 /* Product.m */; };
+		467F0EB818CB2164009FFE08 /* ProductCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 467F0EB718CB2164009FFE08 /* ProductCell.m */; };
 		46A46FE518BE21160057F579 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46A46FE418BE21160057F579 /* CoreLocation.framework */; };
 		46A46FE718BE211F0057F579 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46A46FE618BE211F0057F579 /* QuartzCore.framework */; };
 		46A46FE918BE21280057F579 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46A46FE818BE21280057F579 /* OpenGLES.framework */; };
@@ -231,6 +234,12 @@
 		4665FD8418BC801000E88C6B /* Work.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Work.m; sourceTree = "<group>"; };
 		467F0EAD18CB0F54009FFE08 /* BaseModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseModel.h; sourceTree = "<group>"; };
 		467F0EAE18CB0F54009FFE08 /* BaseModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseModel.m; sourceTree = "<group>"; };
+		467F0EB018CB16EB009FFE08 /* ProductCardView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProductCardView.h; sourceTree = "<group>"; };
+		467F0EB118CB16EB009FFE08 /* ProductCardView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProductCardView.m; sourceTree = "<group>"; };
+		467F0EB318CB1721009FFE08 /* Product.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Product.h; sourceTree = "<group>"; };
+		467F0EB418CB1721009FFE08 /* Product.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Product.m; sourceTree = "<group>"; };
+		467F0EB618CB2164009FFE08 /* ProductCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProductCell.h; sourceTree = "<group>"; };
+		467F0EB718CB2164009FFE08 /* ProductCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProductCell.m; sourceTree = "<group>"; };
 		46A46FE418BE21160057F579 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		46A46FE618BE211F0057F579 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		46A46FE818BE21280057F579 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
@@ -645,6 +654,8 @@
 				460C2F4C18CAFEBF00AD16E6 /* Group.m */,
 				467F0EAD18CB0F54009FFE08 /* BaseModel.h */,
 				467F0EAE18CB0F54009FFE08 /* BaseModel.m */,
+				467F0EB318CB1721009FFE08 /* Product.h */,
+				467F0EB418CB1721009FFE08 /* Product.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -1007,6 +1018,10 @@
 				4630252D18C848EB000E0B51 /* WorkCardView.m */,
 				460C2F4818CAFDB200AD16E6 /* GroupCell.h */,
 				460C2F4918CAFDB200AD16E6 /* GroupCell.m */,
+				467F0EB018CB16EB009FFE08 /* ProductCardView.h */,
+				467F0EB118CB16EB009FFE08 /* ProductCardView.m */,
+				467F0EB618CB2164009FFE08 /* ProductCell.h */,
+				467F0EB718CB2164009FFE08 /* ProductCell.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1282,7 +1297,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				46E84EE318C356B30004C146 /* OpitionButton.m in Sources */,
+				467F0EB518CB1721009FFE08 /* Product.m in Sources */,
 				4630251F18C777A2000E0B51 /* OrderDetailViewController.m in Sources */,
+				467F0EB218CB16EB009FFE08 /* ProductCardView.m in Sources */,
 				46E84EE018C33FAC0004C146 /* SelectOpition.m in Sources */,
 				460C2F4A18CAFDB200AD16E6 /* GroupCell.m in Sources */,
 				46BCD25F18BC725D005C4BD6 /* GroupsViewController.m in Sources */,
@@ -1296,6 +1313,7 @@
 				46BCD25B18BC7162005C4BD6 /* WorksViewController.m in Sources */,
 				46BCD26918BC797B005C4BD6 /* GroupDetailViewController.m in Sources */,
 				18A912EC18BB2826006B9A04 /* UIView+WelKit.m in Sources */,
+				467F0EB818CB2164009FFE08 /* ProductCell.m in Sources */,
 				4665FD7C18BC7D4700E88C6B /* CommentsViewController.m in Sources */,
 				46BCD26318BC7561005C4BD6 /* CityListViewController.m in Sources */,
 				46B25AED18C086D30035F425 /* WorkCell.m in Sources */,

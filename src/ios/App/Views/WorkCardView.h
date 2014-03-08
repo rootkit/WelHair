@@ -10,7 +10,6 @@
 #import "Work.h"
 @interface WorkCardView : UIView
 
-- (float) setupWithData:(Work *)workData
-                  width:(float)width;
+- (float) setupWithData:(Work *)workData;
 
 @end

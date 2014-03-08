@@ -9,8 +9,6 @@
 #import <UIKit/UIKit.h>
 #import "Work.h"
 
-typedef void (^CardTapHandler)(Work *);
-
 @interface WorkCell : UITableViewCell
 
 - (void)setupWithLeftData:(Work *)leftData

@@ -7,7 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Product.h"
 
 @interface ProductCell : UITableViewCell
+
+- (void)setupWithLeftData:(Product *)leftData
+                rightData:(Product *)rightData
+               tapHandler:(CardTapHandler)tapHandler;
 
 @end

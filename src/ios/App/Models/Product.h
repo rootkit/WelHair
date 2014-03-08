@@ -7,7 +7,14 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "BaseModel.h"
+#import "Group.h"
+@interface Product : BaseModel
 
-@interface Product : NSObject
+@property (nonatomic) float price;
+@property (nonatomic, strong) NSString *description;
+@property (nonatomic, strong) Group *group;
+@property (nonatomic, strong) NSArray *commentList;
+@property (nonatomic, strong) NSArray *imgUrlList;
 
 @end

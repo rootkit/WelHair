@@ -10,6 +10,7 @@
 #import "Work.h"
 #import "Comment.h"
 #import "Group.h"
+#import "Product.h"
 @implementation FakeDataHelper
 
 
@@ -71,6 +72,22 @@
         group.address = @"济南高新区牛王庄路西";
         group.distance = 1;
         [ar addObject:group];
+    }
+    return ar;
+}
+
++(NSArray *)getFakeProductList
+{
+    NSMutableArray *ar = [NSMutableArray array];
+    for (int i = 0; i < 10 ; i++) {
+        Product *product = [Product new];
+        product.name = @"护发素，洗发水";
+        Group *group = [Group new];
+        group.name = @"永琪";
+        product.group = group;
+        product.price = 87.9;
+        product.imgUrlList = @[@"http://4.xiustatic.com/upload/goods20111107/65002396/650023960001/g1_600_600.1339481667492.jpg"];
+        [ar addObject:product];
     }
     return ar;
 }

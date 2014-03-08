@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "Product.h"
 @interface ProductCardView : UIView
 
+- (void) setupWithData:(Product *)productData;
 @end

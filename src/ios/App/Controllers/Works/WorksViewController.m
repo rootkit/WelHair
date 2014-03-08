@@ -146,7 +146,10 @@
         rightdata = [self.datasource objectAtIndex: (2 * indexPath.row)];
     }
     __weak WorksViewController *selfDelegate = self;
-    [cell setupWithLeftData:leftdata rightData:rightdata tapHandler:^(Work *work){[selfDelegate pushToDetial:work];}];
+    [cell setupWithLeftData:leftdata rightData:rightdata tapHandler:^(id model){
+        Work *work = (Work *)model;
+        [selfDelegate pushToDetial:work];}
+     ];
     return cell;
 }
 
