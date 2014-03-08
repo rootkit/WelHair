@@ -13,6 +13,8 @@
 "Application.Name" = "WelHair";
 
 "Cancel" = "Cancel";
+"Camera" = "Camera";
+"Album" = "Album";
 "Save" = "Save";
 "Register" = "Register";
 "Login" = "Login";

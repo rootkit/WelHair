@@ -41,14 +41,12 @@
 		18A912D818BB2670006B9A04 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18A912D118BB2670006B9A04 /* Default@2x.png */; };
 		18A912E218BB26B6006B9A04 /* BaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A912DC18BB26B6006B9A04 /* BaseViewController.m */; };
 		18A912E418BB26B6006B9A04 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A912E118BB26B6006B9A04 /* User.m */; };
-		18A912EC18BB2826006B9A04 /* UIView+WelKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A912E918BB2826006B9A04 /* UIView+WelKit.m */; };
 		460C2F2A18C8BFFF00AD16E6 /* Comment.m in Sources */ = {isa = PBXBuildFile; fileRef = 460C2F2918C8BFFF00AD16E6 /* Comment.m */; };
 		460C2F3318C8D62600AD16E6 /* RootBottomTab2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 460C2F3218C8D62600AD16E6 /* RootBottomTab2@2x.png */; };
 		460C2F3818C8D66300AD16E6 /* RootBottomTab1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 460C2F3418C8D66300AD16E6 /* RootBottomTab1@2x.png */; };
 		460C2F3918C8D66300AD16E6 /* RootBottomTab3@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 460C2F3518C8D66300AD16E6 /* RootBottomTab3@2x.png */; };
 		460C2F3A18C8D66300AD16E6 /* RootBottomTab4@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 460C2F3618C8D66300AD16E6 /* RootBottomTab4@2x.png */; };
 		460C2F3B18C8D66300AD16E6 /* RootBottomTab5@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 460C2F3718C8D66300AD16E6 /* RootBottomTab5@2x.png */; };
-		460C2F4118CAAF8F00AD16E6 /* WelTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 460C2F4018CAAF8F00AD16E6 /* WelTabBarController.m */; };
 		460C2F4718CAF44B00AD16E6 /* WD_AuthorLayerBg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 460C2F4618CAF44B00AD16E6 /* WD_AuthorLayerBg@2x.png */; };
 		460C2F4A18CAFDB200AD16E6 /* GroupCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 460C2F4918CAFDB200AD16E6 /* GroupCell.m */; };
 		460C2F4D18CAFEBF00AD16E6 /* Group.m in Sources */ = {isa = PBXBuildFile; fileRef = 460C2F4C18CAFEBF00AD16E6 /* Group.m */; };
@@ -75,13 +73,29 @@
 		467F0EB818CB2164009FFE08 /* ProductCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 467F0EB718CB2164009FFE08 /* ProductCell.m */; };
 		467F0EBB18CB3956009FFE08 /* ChatGroupCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 467F0EBA18CB3956009FFE08 /* ChatGroupCell.m */; };
 		467F0EBE18CB3CC3009FFE08 /* ChatSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 467F0EBD18CB3CC3009FFE08 /* ChatSession.m */; };
+		467F0EE718CB4FCF009FFE08 /* NSDate+WelKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 467F0ED218CB4FCF009FFE08 /* NSDate+WelKit.m */; };
+		467F0EE818CB4FCF009FFE08 /* flush.caf in Resources */ = {isa = PBXBuildFile; fileRef = 467F0ED618CB4FCF009FFE08 /* flush.caf */; };
+		467F0EE918CB4FCF009FFE08 /* line@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 467F0ED718CB4FCF009FFE08 /* line@2x.png */; };
+		467F0EEA18CB4FCF009FFE08 /* pick_bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 467F0ED818CB4FCF009FFE08 /* pick_bg@2x.png */; };
+		467F0EEB18CB4FCF009FFE08 /* WelQRGeneraterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 467F0EDA18CB4FCF009FFE08 /* WelQRGeneraterViewController.m */; };
+		467F0EEC18CB4FCF009FFE08 /* WelQRReaderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 467F0EDC18CB4FCF009FFE08 /* WelQRReaderViewController.m */; };
+		467F0EED18CB4FCF009FFE08 /* WelTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 467F0EDE18CB4FCF009FFE08 /* WelTabBarController.m */; };
+		467F0EEE18CB4FCF009FFE08 /* UIImage+WelKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 467F0EE018CB4FCF009FFE08 /* UIImage+WelKit.m */; };
+		467F0EEF18CB4FCF009FFE08 /* UINavigationBar+WelKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 467F0EE218CB4FCF009FFE08 /* UINavigationBar+WelKit.m */; };
+		467F0EF018CB4FCF009FFE08 /* UITextField+WelKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 467F0EE418CB4FCF009FFE08 /* UITextField+WelKit.m */; };
+		467F0EF118CB4FCF009FFE08 /* UIView+WelKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 467F0EE618CB4FCF009FFE08 /* UIView+WelKit.m */; };
+		467F0EF418CB5777009FFE08 /* UserViewControl_TabBg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 467F0EF318CB5777009FFE08 /* UserViewControl_TabBg@2x.png */; };
+		467F0EF718CB5A4A009FFE08 /* AppointmentsViewControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 467F0EF618CB5A4A009FFE08 /* AppointmentsViewControl.m */; };
+		467F0EFA18CB5A58009FFE08 /* OrdersViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 467F0EF918CB5A58009FFE08 /* OrdersViewController.m */; };
+		467F0EFD18CB5A8C009FFE08 /* FavoritesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 467F0EFC18CB5A8C009FFE08 /* FavoritesViewController.m */; };
+		467F0EFF18CB5B8E009FFE08 /* UserViewControl_Profile_Bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 467F0EFE18CB5B8E009FFE08 /* UserViewControl_Profile_Bg@2x.png */; };
+		467F0F0318CB610F009FFE08 /* SettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 467F0F0218CB610F009FFE08 /* SettingViewController.m */; };
 		46A46FE518BE21160057F579 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46A46FE418BE21160057F579 /* CoreLocation.framework */; };
 		46A46FE718BE211F0057F579 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46A46FE618BE211F0057F579 /* QuartzCore.framework */; };
 		46A46FE918BE21280057F579 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46A46FE818BE21280057F579 /* OpenGLES.framework */; };
 		46A46FEE18BE21BB0057F579 /* mapapi.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 46A46FEC18BE21BB0057F579 /* mapapi.bundle */; };
 		46A4704818BE23990057F579 /* libbaidumapapi.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 46A4701C18BE23990057F579 /* libbaidumapapi.a */; };
 		46A4704918BE23990057F579 /* libbaidumapapi.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 46A4704718BE23990057F579 /* libbaidumapapi.a */; };
-		46AE3F9218C759BB00C0CC3F /* UITextField+WelKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 46AE3F9118C759BB00C0CC3F /* UITextField+WelKit.m */; };
 		46B233B718BCDC4200CC27A3 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 46B233B618BCDC4200CC27A3 /* LoginViewController.m */; };
 		46B233B918BCE58400CC27A3 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46B233B818BCE58400CC27A3 /* Security.framework */; };
 		46B233BB18BCE58E00CC27A3 /* libiconv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 46B233BA18BCE58E00CC27A3 /* libiconv.dylib */; };
@@ -109,11 +123,6 @@
 		46B25AE618BF1CC60035F425 /* MapViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 46B25AE518BF1CC60035F425 /* MapViewController.mm */; };
 		46B25AED18C086D30035F425 /* WorkCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 46B25AEC18C086D30035F425 /* WorkCell.m */; };
 		46B25AF018C185290035F425 /* FakeDataHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 46B25AEF18C185290035F425 /* FakeDataHelper.m */; };
-		46BCD24818BB85FC005C4BD6 /* line@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 46BCD24218BB85FC005C4BD6 /* line@2x.png */; };
-		46BCD24918BB85FC005C4BD6 /* pick_bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 46BCD24318BB85FC005C4BD6 /* pick_bg@2x.png */; };
-		46BCD24A18BB85FC005C4BD6 /* WelQRGeneraterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 46BCD24518BB85FC005C4BD6 /* WelQRGeneraterViewController.m */; };
-		46BCD24B18BB85FC005C4BD6 /* WelQRReaderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 46BCD24718BB85FC005C4BD6 /* WelQRReaderViewController.m */; };
-		46BCD24D18BB927F005C4BD6 /* flush.caf in Resources */ = {isa = PBXBuildFile; fileRef = 46BCD24C18BB91F5005C4BD6 /* flush.caf */; };
 		46BCD25218BC3B4F005C4BD6 /* SVProgressHUD.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 46BCD24F18BC3B4F005C4BD6 /* SVProgressHUD.bundle */; };
 		46BCD25318BC3B4F005C4BD6 /* SVProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 46BCD25118BC3B4F005C4BD6 /* SVProgressHUD.m */; settings = {COMPILER_FLAGS = "-w"; }; };
 		46BCD25718BC628E005C4BD6 /* ChatSessionListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 46BCD25618BC628E005C4BD6 /* ChatSessionListViewController.m */; };
@@ -129,8 +138,6 @@
 		46E84EC118C2C7040004C146 /* UzysRadialProgressActivityIndicator.m in Sources */ = {isa = PBXBuildFile; fileRef = 46E84EBE18C2C7040004C146 /* UzysRadialProgressActivityIndicator.m */; };
 		46E84ECA18C2D9050004C146 /* ProductDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 46E84EC918C2D9050004C146 /* ProductDetailViewController.m */; };
 		46E84ECE18C2DB930004C146 /* UIViewController+KNSemiModal.m in Sources */ = {isa = PBXBuildFile; fileRef = 46E84ECD18C2DB930004C146 /* UIViewController+KNSemiModal.m */; };
-		46E84ED118C2E1550004C146 /* UINavigationBar+WelKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 46E84ED018C2E1550004C146 /* UINavigationBar+WelKit.m */; };
-		46E84ED418C2E1CC0004C146 /* UIImage+WelKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 46E84ED318C2E1CC0004C146 /* UIImage+WelKit.m */; };
 		46E84ED718C2F0380004C146 /* OpitionSelectPanel.m in Sources */ = {isa = PBXBuildFile; fileRef = 46E84ED618C2F0380004C146 /* OpitionSelectPanel.m */; };
 		46E84EDA18C337D70004C146 /* OpitionItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 46E84ED918C337D70004C146 /* OpitionItem.m */; };
 		46E84EDD18C338370004C146 /* OpitionCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 46E84EDC18C338370004C146 /* OpitionCategory.m */; };
@@ -187,8 +194,6 @@
 		18A912DD18BB26B6006B9A04 /* RootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RootViewController.h; sourceTree = "<group>"; };
 		18A912E018BB26B6006B9A04 /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
 		18A912E118BB26B6006B9A04 /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
-		18A912E818BB2826006B9A04 /* UIView+WelKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+WelKit.h"; sourceTree = "<group>"; };
-		18A912E918BB2826006B9A04 /* UIView+WelKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+WelKit.m"; sourceTree = "<group>"; };
 		18A912EA18BB2826006B9A04 /* WelKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WelKit.h; sourceTree = "<group>"; };
 		18A912EB18BB2826006B9A04 /* WelKitMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WelKitMacros.h; sourceTree = "<group>"; };
 		460C2F2818C8BFFF00AD16E6 /* Comment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Comment.h; sourceTree = "<group>"; };
@@ -198,8 +203,6 @@
 		460C2F3518C8D66300AD16E6 /* RootBottomTab3@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "RootBottomTab3@2x.png"; sourceTree = "<group>"; };
 		460C2F3618C8D66300AD16E6 /* RootBottomTab4@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "RootBottomTab4@2x.png"; sourceTree = "<group>"; };
 		460C2F3718C8D66300AD16E6 /* RootBottomTab5@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "RootBottomTab5@2x.png"; sourceTree = "<group>"; };
-		460C2F3F18CAAF8F00AD16E6 /* WelTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WelTabBarController.h; sourceTree = "<group>"; };
-		460C2F4018CAAF8F00AD16E6 /* WelTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WelTabBarController.m; sourceTree = "<group>"; };
 		460C2F4618CAF44B00AD16E6 /* WD_AuthorLayerBg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "WD_AuthorLayerBg@2x.png"; sourceTree = "<group>"; };
 		460C2F4818CAFDB200AD16E6 /* GroupCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroupCell.h; sourceTree = "<group>"; };
 		460C2F4918CAFDB200AD16E6 /* GroupCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GroupCell.m; sourceTree = "<group>"; };
@@ -246,6 +249,35 @@
 		467F0EBA18CB3956009FFE08 /* ChatGroupCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatGroupCell.m; sourceTree = "<group>"; };
 		467F0EBC18CB3CC3009FFE08 /* ChatSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatSession.h; sourceTree = "<group>"; };
 		467F0EBD18CB3CC3009FFE08 /* ChatSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatSession.m; sourceTree = "<group>"; };
+		467F0ED118CB4FCF009FFE08 /* NSDate+WelKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+WelKit.h"; sourceTree = "<group>"; };
+		467F0ED218CB4FCF009FFE08 /* NSDate+WelKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+WelKit.m"; sourceTree = "<group>"; };
+		467F0ED618CB4FCF009FFE08 /* flush.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = flush.caf; sourceTree = "<group>"; };
+		467F0ED718CB4FCF009FFE08 /* line@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "line@2x.png"; sourceTree = "<group>"; };
+		467F0ED818CB4FCF009FFE08 /* pick_bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pick_bg@2x.png"; sourceTree = "<group>"; };
+		467F0ED918CB4FCF009FFE08 /* WelQRGeneraterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WelQRGeneraterViewController.h; sourceTree = "<group>"; };
+		467F0EDA18CB4FCF009FFE08 /* WelQRGeneraterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WelQRGeneraterViewController.m; sourceTree = "<group>"; };
+		467F0EDB18CB4FCF009FFE08 /* WelQRReaderViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WelQRReaderViewController.h; sourceTree = "<group>"; };
+		467F0EDC18CB4FCF009FFE08 /* WelQRReaderViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WelQRReaderViewController.m; sourceTree = "<group>"; };
+		467F0EDD18CB4FCF009FFE08 /* WelTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WelTabBarController.h; sourceTree = "<group>"; };
+		467F0EDE18CB4FCF009FFE08 /* WelTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WelTabBarController.m; sourceTree = "<group>"; };
+		467F0EDF18CB4FCF009FFE08 /* UIImage+WelKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+WelKit.h"; sourceTree = "<group>"; };
+		467F0EE018CB4FCF009FFE08 /* UIImage+WelKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+WelKit.m"; sourceTree = "<group>"; };
+		467F0EE118CB4FCF009FFE08 /* UINavigationBar+WelKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UINavigationBar+WelKit.h"; sourceTree = "<group>"; };
+		467F0EE218CB4FCF009FFE08 /* UINavigationBar+WelKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UINavigationBar+WelKit.m"; sourceTree = "<group>"; };
+		467F0EE318CB4FCF009FFE08 /* UITextField+WelKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITextField+WelKit.h"; sourceTree = "<group>"; };
+		467F0EE418CB4FCF009FFE08 /* UITextField+WelKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITextField+WelKit.m"; sourceTree = "<group>"; };
+		467F0EE518CB4FCF009FFE08 /* UIView+WelKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+WelKit.h"; sourceTree = "<group>"; };
+		467F0EE618CB4FCF009FFE08 /* UIView+WelKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+WelKit.m"; sourceTree = "<group>"; };
+		467F0EF318CB5777009FFE08 /* UserViewControl_TabBg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "UserViewControl_TabBg@2x.png"; sourceTree = "<group>"; };
+		467F0EF518CB5A49009FFE08 /* AppointmentsViewControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppointmentsViewControl.h; sourceTree = "<group>"; };
+		467F0EF618CB5A4A009FFE08 /* AppointmentsViewControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppointmentsViewControl.m; sourceTree = "<group>"; };
+		467F0EF818CB5A58009FFE08 /* OrdersViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrdersViewController.h; sourceTree = "<group>"; };
+		467F0EF918CB5A58009FFE08 /* OrdersViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrdersViewController.m; sourceTree = "<group>"; };
+		467F0EFB18CB5A8C009FFE08 /* FavoritesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FavoritesViewController.h; sourceTree = "<group>"; };
+		467F0EFC18CB5A8C009FFE08 /* FavoritesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FavoritesViewController.m; sourceTree = "<group>"; };
+		467F0EFE18CB5B8E009FFE08 /* UserViewControl_Profile_Bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "UserViewControl_Profile_Bg@2x.png"; sourceTree = "<group>"; };
+		467F0F0118CB610F009FFE08 /* SettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingViewController.h; sourceTree = "<group>"; };
+		467F0F0218CB610F009FFE08 /* SettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingViewController.m; sourceTree = "<group>"; };
 		46A46FE418BE21160057F579 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		46A46FE618BE211F0057F579 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		46A46FE818BE21280057F579 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
@@ -333,8 +365,6 @@
 		46A4704618BE23990057F579 /* BMKVersion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMKVersion.h; sourceTree = "<group>"; };
 		46A4704718BE23990057F579 /* libbaidumapapi.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libbaidumapapi.a; sourceTree = "<group>"; };
 		46A4704D18BE28DA0057F579 /* MapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapViewController.h; sourceTree = "<group>"; };
-		46AE3F9018C759BB00C0CC3F /* UITextField+WelKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITextField+WelKit.h"; sourceTree = "<group>"; };
-		46AE3F9118C759BB00C0CC3F /* UITextField+WelKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITextField+WelKit.m"; sourceTree = "<group>"; };
 		46B233B518BCDC4200CC27A3 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
 		46B233B618BCDC4200CC27A3 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 		46B233B818BCE58400CC27A3 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
@@ -380,13 +410,6 @@
 		46B25AEE18C185290035F425 /* FakeDataHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FakeDataHelper.h; sourceTree = "<group>"; };
 		46B25AEF18C185290035F425 /* FakeDataHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FakeDataHelper.m; sourceTree = "<group>"; };
 		46BCD23118BB7BF5005C4BD6 /* Macros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Macros.h; sourceTree = "<group>"; };
-		46BCD24218BB85FC005C4BD6 /* line@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "line@2x.png"; sourceTree = "<group>"; };
-		46BCD24318BB85FC005C4BD6 /* pick_bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pick_bg@2x.png"; sourceTree = "<group>"; };
-		46BCD24418BB85FC005C4BD6 /* WelQRGeneraterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WelQRGeneraterViewController.h; sourceTree = "<group>"; };
-		46BCD24518BB85FC005C4BD6 /* WelQRGeneraterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WelQRGeneraterViewController.m; sourceTree = "<group>"; };
-		46BCD24618BB85FC005C4BD6 /* WelQRReaderViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WelQRReaderViewController.h; sourceTree = "<group>"; };
-		46BCD24718BB85FC005C4BD6 /* WelQRReaderViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WelQRReaderViewController.m; sourceTree = "<group>"; };
-		46BCD24C18BB91F5005C4BD6 /* flush.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = flush.caf; sourceTree = "<group>"; };
 		46BCD24F18BC3B4F005C4BD6 /* SVProgressHUD.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = SVProgressHUD.bundle; sourceTree = "<group>"; };
 		46BCD25018BC3B4F005C4BD6 /* SVProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVProgressHUD.h; sourceTree = "<group>"; };
 		46BCD25118BC3B4F005C4BD6 /* SVProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVProgressHUD.m; sourceTree = "<group>"; };
@@ -415,10 +438,6 @@
 		46E84EC918C2D9050004C146 /* ProductDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProductDetailViewController.m; sourceTree = "<group>"; };
 		46E84ECC18C2DB930004C146 /* UIViewController+KNSemiModal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+KNSemiModal.h"; sourceTree = "<group>"; };
 		46E84ECD18C2DB930004C146 /* UIViewController+KNSemiModal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+KNSemiModal.m"; sourceTree = "<group>"; };
-		46E84ECF18C2E1550004C146 /* UINavigationBar+WelKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UINavigationBar+WelKit.h"; sourceTree = "<group>"; };
-		46E84ED018C2E1550004C146 /* UINavigationBar+WelKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UINavigationBar+WelKit.m"; sourceTree = "<group>"; };
-		46E84ED218C2E1CC0004C146 /* UIImage+WelKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+WelKit.h"; sourceTree = "<group>"; };
-		46E84ED318C2E1CC0004C146 /* UIImage+WelKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+WelKit.m"; sourceTree = "<group>"; };
 		46E84ED518C2F0380004C146 /* OpitionSelectPanel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpitionSelectPanel.h; sourceTree = "<group>"; };
 		46E84ED618C2F0380004C146 /* OpitionSelectPanel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OpitionSelectPanel.m; sourceTree = "<group>"; };
 		46E84ED818C337D70004C146 /* OpitionItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpitionItem.h; sourceTree = "<group>"; };
@@ -613,6 +632,7 @@
 		18A912D918BB26B6006B9A04 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				467F0F0018CB60E0009FFE08 /* Settings */,
 				4630251618C7764E000E0B51 /* Order */,
 				46BCD27018BC79D3005C4BD6 /* Staffs */,
 				46BCD26018BC7533005C4BD6 /* Common */,
@@ -684,27 +704,12 @@
 		18A912E618BB2826006B9A04 /* WelKit */ = {
 			isa = PBXGroup;
 			children = (
-				46BCD24018BB85FC005C4BD6 /* Controls */,
-				18A912E718BB2826006B9A04 /* UIKit */,
+				467F0ED018CB4FCF009FFE08 /* Foundation */,
+				467F0ED318CB4FCF009FFE08 /* UIKit */,
 				18A912EA18BB2826006B9A04 /* WelKit.h */,
 				18A912EB18BB2826006B9A04 /* WelKitMacros.h */,
 			);
 			path = WelKit;
-			sourceTree = "<group>";
-		};
-		18A912E718BB2826006B9A04 /* UIKit */ = {
-			isa = PBXGroup;
-			children = (
-				46E84ED218C2E1CC0004C146 /* UIImage+WelKit.h */,
-				46E84ED318C2E1CC0004C146 /* UIImage+WelKit.m */,
-				46E84ECF18C2E1550004C146 /* UINavigationBar+WelKit.h */,
-				46E84ED018C2E1550004C146 /* UINavigationBar+WelKit.m */,
-				18A912E818BB2826006B9A04 /* UIView+WelKit.h */,
-				18A912E918BB2826006B9A04 /* UIView+WelKit.m */,
-				46AE3F9018C759BB00C0CC3F /* UITextField+WelKit.h */,
-				46AE3F9118C759BB00C0CC3F /* UITextField+WelKit.m */,
-			);
-			path = UIKit;
 			sourceTree = "<group>";
 		};
 		460C2F3118C8D62600AD16E6 /* TabBar */ = {
@@ -722,6 +727,7 @@
 		460C2F4418CAF44B00AD16E6 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				467F0EF218CB5777009FFE08 /* UserViewControl */,
 				460C2F4518CAF44B00AD16E6 /* WorkDetail */,
 			);
 			name = Views;
@@ -804,8 +810,81 @@
 				4660E69518BB73FF005B3C7D /* UserViewController.m */,
 				46B233B518BCDC4200CC27A3 /* LoginViewController.h */,
 				46B233B618BCDC4200CC27A3 /* LoginViewController.m */,
+				467F0EF518CB5A49009FFE08 /* AppointmentsViewControl.h */,
+				467F0EF618CB5A4A009FFE08 /* AppointmentsViewControl.m */,
+				467F0EF818CB5A58009FFE08 /* OrdersViewController.h */,
+				467F0EF918CB5A58009FFE08 /* OrdersViewController.m */,
+				467F0EFB18CB5A8C009FFE08 /* FavoritesViewController.h */,
+				467F0EFC18CB5A8C009FFE08 /* FavoritesViewController.m */,
 			);
 			path = User;
+			sourceTree = "<group>";
+		};
+		467F0ED018CB4FCF009FFE08 /* Foundation */ = {
+			isa = PBXGroup;
+			children = (
+				467F0ED118CB4FCF009FFE08 /* NSDate+WelKit.h */,
+				467F0ED218CB4FCF009FFE08 /* NSDate+WelKit.m */,
+			);
+			path = Foundation;
+			sourceTree = "<group>";
+		};
+		467F0ED318CB4FCF009FFE08 /* UIKit */ = {
+			isa = PBXGroup;
+			children = (
+				467F0ED418CB4FCF009FFE08 /* Controls */,
+				467F0EDF18CB4FCF009FFE08 /* UIImage+WelKit.h */,
+				467F0EE018CB4FCF009FFE08 /* UIImage+WelKit.m */,
+				467F0EE118CB4FCF009FFE08 /* UINavigationBar+WelKit.h */,
+				467F0EE218CB4FCF009FFE08 /* UINavigationBar+WelKit.m */,
+				467F0EE318CB4FCF009FFE08 /* UITextField+WelKit.h */,
+				467F0EE418CB4FCF009FFE08 /* UITextField+WelKit.m */,
+				467F0EE518CB4FCF009FFE08 /* UIView+WelKit.h */,
+				467F0EE618CB4FCF009FFE08 /* UIView+WelKit.m */,
+			);
+			path = UIKit;
+			sourceTree = "<group>";
+		};
+		467F0ED418CB4FCF009FFE08 /* Controls */ = {
+			isa = PBXGroup;
+			children = (
+				467F0ED518CB4FCF009FFE08 /* WelQRCode */,
+				467F0EDD18CB4FCF009FFE08 /* WelTabBarController.h */,
+				467F0EDE18CB4FCF009FFE08 /* WelTabBarController.m */,
+			);
+			path = Controls;
+			sourceTree = "<group>";
+		};
+		467F0ED518CB4FCF009FFE08 /* WelQRCode */ = {
+			isa = PBXGroup;
+			children = (
+				467F0ED618CB4FCF009FFE08 /* flush.caf */,
+				467F0ED718CB4FCF009FFE08 /* line@2x.png */,
+				467F0ED818CB4FCF009FFE08 /* pick_bg@2x.png */,
+				467F0ED918CB4FCF009FFE08 /* WelQRGeneraterViewController.h */,
+				467F0EDA18CB4FCF009FFE08 /* WelQRGeneraterViewController.m */,
+				467F0EDB18CB4FCF009FFE08 /* WelQRReaderViewController.h */,
+				467F0EDC18CB4FCF009FFE08 /* WelQRReaderViewController.m */,
+			);
+			path = WelQRCode;
+			sourceTree = "<group>";
+		};
+		467F0EF218CB5777009FFE08 /* UserViewControl */ = {
+			isa = PBXGroup;
+			children = (
+				467F0EFE18CB5B8E009FFE08 /* UserViewControl_Profile_Bg@2x.png */,
+				467F0EF318CB5777009FFE08 /* UserViewControl_TabBg@2x.png */,
+			);
+			path = UserViewControl;
+			sourceTree = "<group>";
+		};
+		467F0F0018CB60E0009FFE08 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				467F0F0118CB610F009FFE08 /* SettingViewController.h */,
+				467F0F0218CB610F009FFE08 /* SettingViewController.m */,
+			);
+			path = Settings;
 			sourceTree = "<group>";
 		};
 		46A46FEA18BE21BB0057F579 /* BaiduMap */ = {
@@ -1036,30 +1115,6 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
-		46BCD24018BB85FC005C4BD6 /* Controls */ = {
-			isa = PBXGroup;
-			children = (
-				46BCD24118BB85FC005C4BD6 /* WelQRCode */,
-				460C2F3F18CAAF8F00AD16E6 /* WelTabBarController.h */,
-				460C2F4018CAAF8F00AD16E6 /* WelTabBarController.m */,
-			);
-			path = Controls;
-			sourceTree = "<group>";
-		};
-		46BCD24118BB85FC005C4BD6 /* WelQRCode */ = {
-			isa = PBXGroup;
-			children = (
-				46BCD24218BB85FC005C4BD6 /* line@2x.png */,
-				46BCD24C18BB91F5005C4BD6 /* flush.caf */,
-				46BCD24318BB85FC005C4BD6 /* pick_bg@2x.png */,
-				46BCD24418BB85FC005C4BD6 /* WelQRGeneraterViewController.h */,
-				46BCD24518BB85FC005C4BD6 /* WelQRGeneraterViewController.m */,
-				46BCD24618BB85FC005C4BD6 /* WelQRReaderViewController.h */,
-				46BCD24718BB85FC005C4BD6 /* WelQRReaderViewController.m */,
-			);
-			path = WelQRCode;
-			sourceTree = "<group>";
-		};
 		46BCD24E18BC3B4F005C4BD6 /* SVProgressHUD */ = {
 			isa = PBXGroup;
 			children = (
@@ -1209,12 +1264,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				46BCD24D18BB927F005C4BD6 /* flush.caf in Resources */,
 				460C2F3818C8D66300AD16E6 /* RootBottomTab1@2x.png in Resources */,
-				46BCD24918BB85FC005C4BD6 /* pick_bg@2x.png in Resources */,
 				46B233F318BCE6E000CC27A3 /* UMSLoginViewController.xib in Resources */,
 				46A46FEE18BE21BB0057F579 /* mapapi.bundle in Resources */,
-				46BCD24818BB85FC005C4BD6 /* line@2x.png in Resources */,
+				467F0EE818CB4FCF009FFE08 /* flush.caf in Resources */,
 				460C2F3B18C8D66300AD16E6 /* RootBottomTab5@2x.png in Resources */,
 				46B233F018BCE6E000CC27A3 /* UMSCommentInputControlleriPad.xib in Resources */,
 				18A912BE18BB25AA006B9A04 /* Icon-40.png in Resources */,
@@ -1245,6 +1298,7 @@
 				46BCD25218BC3B4F005C4BD6 /* SVProgressHUD.bundle in Resources */,
 				4630252818C81F1B000E0B51 /* QQIcon@2x.png in Resources */,
 				18A912D518BB2670006B9A04 /* Default-Portrait@2x~ipad.png in Resources */,
+				467F0EF418CB5777009FFE08 /* UserViewControl_TabBg@2x.png in Resources */,
 				18A912A518BB249A006B9A04 /* InfoPlist.strings in Resources */,
 				460C2F3918C8D66300AD16E6 /* RootBottomTab3@2x.png in Resources */,
 				46B233F218BCE6E000CC27A3 /* UMShareEditViewControlleriPad.xib in Resources */,
@@ -1257,8 +1311,11 @@
 				18A912A818BB249E006B9A04 /* Localizable.strings in Resources */,
 				18A9129F18BB2350006B9A04 /* Test.xcconfig in Resources */,
 				46B233F518BCE6E000CC27A3 /* UMSShareListController.xib in Resources */,
+				467F0EEA18CB4FCF009FFE08 /* pick_bg@2x.png in Resources */,
 				46B233F118BCE6E000CC27A3 /* UMShareEditViewController.xib in Resources */,
 				18A912C518BB25AA006B9A04 /* Icon-Small-50.png in Resources */,
+				467F0EE918CB4FCF009FFE08 /* line@2x.png in Resources */,
+				467F0EFF18CB5B8E009FFE08 /* UserViewControl_Profile_Bg@2x.png in Resources */,
 				46B233F718BCE6E000CC27A3 /* TencentOpenApi_IOS_Bundle.bundle in Resources */,
 				18A9129C18BB2350006B9A04 /* Base.xcconfig in Resources */,
 				4630252718C81F1B000E0B51 /* SinaWeibo@2x.png in Resources */,
@@ -1306,10 +1363,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				467F0EEB18CB4FCF009FFE08 /* WelQRGeneraterViewController.m in Sources */,
 				46E84EE318C356B30004C146 /* OpitionButton.m in Sources */,
 				467F0EB518CB1721009FFE08 /* Product.m in Sources */,
 				4630251F18C777A2000E0B51 /* OrderDetailViewController.m in Sources */,
+				467F0EE718CB4FCF009FFE08 /* NSDate+WelKit.m in Sources */,
 				467F0EB218CB16EB009FFE08 /* ProductCardView.m in Sources */,
+				467F0EF118CB4FCF009FFE08 /* UIView+WelKit.m in Sources */,
 				46E84EE018C33FAC0004C146 /* SelectOpition.m in Sources */,
 				460C2F4A18CAFDB200AD16E6 /* GroupCell.m in Sources */,
 				46BCD25F18BC725D005C4BD6 /* GroupsViewController.m in Sources */,
@@ -1320,22 +1380,23 @@
 				460C2F4D18CAFEBF00AD16E6 /* Group.m in Sources */,
 				46BCD25318BC3B4F005C4BD6 /* SVProgressHUD.m in Sources */,
 				18A9127318BB216E006B9A04 /* AppDelegate.m in Sources */,
+				467F0EF718CB5A4A009FFE08 /* AppointmentsViewControl.m in Sources */,
 				46BCD25B18BC7162005C4BD6 /* WorksViewController.m in Sources */,
 				46BCD26918BC797B005C4BD6 /* GroupDetailViewController.m in Sources */,
-				18A912EC18BB2826006B9A04 /* UIView+WelKit.m in Sources */,
+				467F0EF018CB4FCF009FFE08 /* UITextField+WelKit.m in Sources */,
 				467F0EBB18CB3956009FFE08 /* ChatGroupCell.m in Sources */,
 				467F0EB818CB2164009FFE08 /* ProductCell.m in Sources */,
+				467F0EEC18CB4FCF009FFE08 /* WelQRReaderViewController.m in Sources */,
 				4665FD7C18BC7D4700E88C6B /* CommentsViewController.m in Sources */,
 				46BCD26318BC7561005C4BD6 /* CityListViewController.m in Sources */,
 				46B25AED18C086D30035F425 /* WorkCell.m in Sources */,
 				46E84EDA18C337D70004C146 /* OpitionItem.m in Sources */,
-				46BCD24B18BB85FC005C4BD6 /* WelQRReaderViewController.m in Sources */,
 				46BCD25718BC628E005C4BD6 /* ChatSessionListViewController.m in Sources */,
 				46BCD26618BC796B005C4BD6 /* WorkDetailViewController.m in Sources */,
 				4630251C18C77695000E0B51 /* OrderListViewController.m in Sources */,
 				46E84ED718C2F0380004C146 /* OpitionSelectPanel.m in Sources */,
-				46E84ED118C2E1550004C146 /* UINavigationBar+WelKit.m in Sources */,
 				4665FD8518BC801000E88C6B /* Work.m in Sources */,
+				467F0EFA18CB5A58009FFE08 /* OrdersViewController.m in Sources */,
 				46B25AE618BF1CC60035F425 /* MapViewController.mm in Sources */,
 				4630D13A18C603B000DA7CAD /* CircleImageView.m in Sources */,
 				46E84EC118C2C7040004C146 /* UzysRadialProgressActivityIndicator.m in Sources */,
@@ -1347,20 +1408,21 @@
 				467F0EBE18CB3CC3009FFE08 /* ChatSession.m in Sources */,
 				46B25AF018C185290035F425 /* FakeDataHelper.m in Sources */,
 				46E84EDD18C338370004C146 /* OpitionCategory.m in Sources */,
+				467F0EFD18CB5A8C009FFE08 /* FavoritesViewController.m in Sources */,
 				4630252218C7781A000E0B51 /* PayViewController.m in Sources */,
 				46439C9118C763EF00F01691 /* MapPickerViewController.m in Sources */,
 				46BCD27618BC79EB005C4BD6 /* StaffDetailViewController.m in Sources */,
-				46AE3F9218C759BB00C0CC3F /* UITextField+WelKit.m in Sources */,
-				46BCD24A18BB85FC005C4BD6 /* WelQRGeneraterViewController.m in Sources */,
-				46E84ED418C2E1CC0004C146 /* UIImage+WelKit.m in Sources */,
+				467F0EED18CB4FCF009FFE08 /* WelTabBarController.m in Sources */,
 				4630253118C849FD000E0B51 /* Staff.m in Sources */,
 				46E84ECA18C2D9050004C146 /* ProductDetailViewController.m in Sources */,
 				18A9126F18BB216E006B9A04 /* main.m in Sources */,
-				460C2F4118CAAF8F00AD16E6 /* WelTabBarController.m in Sources */,
 				4630252E18C848EB000E0B51 /* WorkCardView.m in Sources */,
 				4660E69618BB73FF005B3C7D /* UserViewController.m in Sources */,
 				467F0EAF18CB0F54009FFE08 /* BaseModel.m in Sources */,
+				467F0EEF18CB4FCF009FFE08 /* UINavigationBar+WelKit.m in Sources */,
 				46BCD27318BC79E0005C4BD6 /* StaffsViewController.m in Sources */,
+				467F0EEE18CB4FCF009FFE08 /* UIImage+WelKit.m in Sources */,
+				467F0F0318CB610F009FFE08 /* SettingViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

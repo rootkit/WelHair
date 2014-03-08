@@ -28,7 +28,7 @@
         self.backgroundColor = [UIColor whiteColor];
         self.imgView = [[CircleImageView alloc] initWithFrame:CGRectMake(15,5,50, 50)];
         [self addSubview:self.imgView];
-        float dateLblWidth = 60;
+        float dateLblWidth = 100;
         self.titleLbl = [[UILabel alloc] initWithFrame:CGRectMake(MaxX(self.imgView)+10,
                                                                   Y(self.imgView),
                                                                   WIDTH(self) - MaxY(self.imgView) - 15 - dateLblWidth ,
@@ -48,8 +48,8 @@
         self.descriptionLbl.textColor = [UIColor grayColor];
         [self addSubview:self.descriptionLbl];
         
-        self.dateLbl = [[UILabel alloc] initWithFrame:CGRectMake(MaxX(self.titleLbl) + 5 , Y(self.titleLbl), dateLblWidth,15)];
-        self.dateLbl.font = [UIFont systemFontOfSize:10];
+        self.dateLbl = [[UILabel alloc] initWithFrame:CGRectMake(MaxX(self.titleLbl), Y(self.titleLbl), dateLblWidth,15)];
+        self.dateLbl.font = [UIFont systemFontOfSize:8];
         self.dateLbl.textAlignment = NSTextAlignmentLeft;
         self.dateLbl.backgroundColor = [UIColor clearColor];
         self.dateLbl.textColor = [UIColor blackColor];
@@ -70,7 +70,7 @@
     [self.imgView setImageWithURL:[NSURL URLWithString:session.imgUrl]];
     self.titleLbl.text = session.name;
     self.descriptionLbl.text = session.description;
-//    self.dateLbl.text = [session.lastDate dat]
+    self.dateLbl.text = [[NSDate dateFormatter] stringFromDate:session.lastDate];
 }
 
 @end

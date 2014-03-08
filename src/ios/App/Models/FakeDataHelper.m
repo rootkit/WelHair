@@ -101,7 +101,6 @@
         session.name = @"金三胖儿，奥巴马";
         session.description = @"最近咋样，老哥?";
         session.lastDate = [NSDate date];
-        
         session.imgUrl = @"http://www.sssik.com/uploads/allimg/130609/20130125033623270.jpg";
         [ar addObject:session];
     }

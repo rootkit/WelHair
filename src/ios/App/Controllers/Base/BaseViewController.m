@@ -57,7 +57,7 @@
     }else{
         isAppearanceSetup = YES;
     }
-    
+    self.view.backgroundColor = [UIColor colorWithHexString:@"f2f2f2"];
     if (isIOS7) {
         [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
     }
