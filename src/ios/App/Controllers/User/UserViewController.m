@@ -41,9 +41,9 @@ static const   float profileViewHeight = 80;
     if (self) {
         self.title =  NSLocalizedString(@"UserViewController.Title", nil);
         
-        FAKIcon *leftIcon = [FAKIonIcons ios7GearOutlineIconWithSize:NAV_BAR_ICON_SIZE];
-        [leftIcon addAttribute:NSForegroundColorAttributeName value:[UIColor whiteColor]];
-        self.rightNavItemImg =[leftIcon imageWithSize:CGSizeMake(NAV_BAR_ICON_SIZE, NAV_BAR_ICON_SIZE)];
+        FAKIcon *rightIcon = [FAKIonIcons ios7GearOutlineIconWithSize:NAV_BAR_ICON_SIZE];
+        [rightIcon addAttribute:NSForegroundColorAttributeName value:[UIColor whiteColor]];
+        self.rightNavItemImg =[rightIcon imageWithSize:CGSizeMake(NAV_BAR_ICON_SIZE, NAV_BAR_ICON_SIZE)];
     }
     return self;
 }
@@ -201,19 +201,31 @@ static const   float profileViewHeight = 80;
 {
     UIButton *btn = (UIButton *)sender;
     switch (btn.tag) {
-        case 0:
-            [self.navigationController pushViewController:[AppointmentsViewControl new] animated:YES];
+        case 0:{
+            AppointmentsViewControl *vc = [AppointmentsViewControl new];
+            vc.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:vc animated:YES];
             break;
-        case 1:
-            [self.navigationController pushViewController:[OrdersViewController new] animated:YES];
+        }
+        case 1:{
+            OrdersViewController *vc = [OrdersViewController new];
+            vc.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:vc animated:YES];
             break;
-        case 2:
-//            [self.navigationController pushViewController:[AppointmentsViewControl new] animated:YES];
+        }
+        case 2:{
+            FavoritesViewController *vc = [FavoritesViewController new];
+            vc.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:vc animated:YES];
             break;
-        case 3:
-            [self.navigationController pushViewController:[FavoritesViewController new] animated:YES];
+        }
             break;
-            
+        case 3:{
+            FavoritesViewController *vc = [FavoritesViewController new];
+            vc.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:vc animated:YES];
+            break;
+        }
         default:
             break;
     }

@@ -44,6 +44,10 @@
     [self.navigationController presentViewController:[[UINavigationController alloc] initWithRootViewController:[CityListViewController new]] animated:YES completion:nil];
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+}
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -161,9 +165,9 @@
 {
     WorkDetailViewController *workVc = [[WorkDetailViewController alloc] init];;
     workVc.work = work;
+    workVc.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:workVc animated:YES];
 }
-
 
 
 @end

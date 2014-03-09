@@ -57,7 +57,7 @@
     
     UIView *topNavbgView = [[UIView alloc] initWithFrame:topNavView.bounds];
     topNavbgView.backgroundColor = [UIColor lightGrayColor];
-    topNavbgView.alpha = 0.2;
+    topNavbgView.alpha = 0.4;
     [topNavView addSubview:topNavbgView];
     // top left button
     FAKIcon *leftIcon = [FAKIonIcons ios7ArrowBackIconWithSize:NAV_BAR_ICON_SIZE];
@@ -69,17 +69,15 @@
     [leftBtn setImage:leftImg forState:UIControlStateNormal];
     [topNavView addSubview:leftBtn];
     // top right button
-    FAKIcon *rightIcon = [FAKIonIcons ios7RedoOutlineIconWithSize:NAV_BAR_ICON_SIZE];
-    [rightIcon addAttribute:NSForegroundColorAttributeName value:[UIColor whiteColor]];
-    UIImage *rightImg =[rightIcon imageWithSize:CGSizeMake(NAV_BAR_ICON_SIZE, NAV_BAR_ICON_SIZE)];
+    
+    UIImage *rightImg = [UIImage imageNamed:@"ShareIcon"];
     UIButton *rightBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    rightBtn.frame = CGRectMake(WIDTH(topNavView) - 30 , topViewHeight - 35, NAV_BAR_ICON_SIZE, NAV_BAR_ICON_SIZE);
+    rightBtn.frame = CGRectMake(WIDTH(topNavView) - 40 , topViewHeight - 35, NAV_BAR_ICON_SIZE, NAV_BAR_ICON_SIZE);
     [rightBtn addTarget:self action:@selector(rightBtnClick) forControlEvents:UIControlEventTouchUpInside];
     [rightBtn setImage:rightImg forState:UIControlStateNormal];
     [topNavView addSubview:rightBtn];
     
     self.scrollView.backgroundColor = [UIColor colorWithHexString:@"f6fbfe"];
-    
     UIImageView *imgView = [[UIImageView alloc] initWithFrame:CGRectMake(0,0,
                                                                          WIDTH(self.view),
                                                                          WIDTH(self.view))];

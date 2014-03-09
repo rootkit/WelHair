@@ -85,10 +85,12 @@
        [viewController isKindOfClass:[ChatSessionListViewController class]] ||
        [viewController isKindOfClass:[ProductsViewController class]] ||
        [viewController isKindOfClass:[UserViewController class]] ){
+        [self.tabBar setHidden:YES];
         [self showTabBarAnimation:YES];
     }else{
         [self hideTabBarAnimation:YES];
     }
 }
+
 
 @end

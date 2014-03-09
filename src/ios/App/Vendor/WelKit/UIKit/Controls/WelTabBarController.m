@@ -29,7 +29,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [self.tabBar setHidden:YES];
+//    [self.tabBar setHidden:YES];
     self.tabButtons = [NSMutableArray array];
 }
 
