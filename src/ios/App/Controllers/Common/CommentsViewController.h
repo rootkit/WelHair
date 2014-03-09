@@ -12,6 +12,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface CommentsViewController : UIViewController
+@interface CommentsViewController : BaseViewController
 
 @end

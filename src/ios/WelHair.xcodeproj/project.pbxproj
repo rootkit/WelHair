@@ -98,6 +98,7 @@
 		467F0F1D18CC219B009FFE08 /* TripleCoverCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 467F0F1C18CC219B009FFE08 /* TripleCoverCell.m */; };
 		467F0F1F18CC2386009FFE08 /* WorksViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 467F0F1E18CC2386009FFE08 /* WorksViewController.m */; };
 		467F0F2218CC7939009FFE08 /* DropDownView.m in Sources */ = {isa = PBXBuildFile; fileRef = 467F0F2118CC7938009FFE08 /* DropDownView.m */; };
+		467F0F2518CC8FFB009FFE08 /* CommentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 467F0F2418CC8FFB009FFE08 /* CommentCell.m */; };
 		46A46FE518BE21160057F579 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46A46FE418BE21160057F579 /* CoreLocation.framework */; };
 		46A46FE718BE211F0057F579 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46A46FE618BE211F0057F579 /* QuartzCore.framework */; };
 		46A46FE918BE21280057F579 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46A46FE818BE21280057F579 /* OpenGLES.framework */; };
@@ -296,6 +297,8 @@
 		467F0F1E18CC2386009FFE08 /* WorksViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WorksViewController.m; sourceTree = "<group>"; };
 		467F0F2018CC7938009FFE08 /* DropDownView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DropDownView.h; sourceTree = "<group>"; };
 		467F0F2118CC7938009FFE08 /* DropDownView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DropDownView.m; sourceTree = "<group>"; };
+		467F0F2318CC8FFB009FFE08 /* CommentCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommentCell.h; sourceTree = "<group>"; };
+		467F0F2418CC8FFB009FFE08 /* CommentCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommentCell.m; sourceTree = "<group>"; };
 		46A46FE418BE21160057F579 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		46A46FE618BE211F0057F579 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		46A46FE818BE21280057F579 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
@@ -1145,6 +1148,8 @@
 				467F0F1C18CC219B009FFE08 /* TripleCoverCell.m */,
 				467F0F2018CC7938009FFE08 /* DropDownView.h */,
 				467F0F2118CC7938009FFE08 /* DropDownView.m */,
+				467F0F2318CC8FFB009FFE08 /* CommentCell.h */,
+				467F0F2418CC8FFB009FFE08 /* CommentCell.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1460,6 +1465,7 @@
 				4660E69618BB73FF005B3C7D /* UserViewController.m in Sources */,
 				467F0EAF18CB0F54009FFE08 /* BaseModel.m in Sources */,
 				467F0F1F18CC2386009FFE08 /* WorksViewController.m in Sources */,
+				467F0F2518CC8FFB009FFE08 /* CommentCell.m in Sources */,
 				467F0EEF18CB4FCF009FFE08 /* UINavigationBar+WelKit.m in Sources */,
 				46BCD27318BC79E0005C4BD6 /* StaffsViewController.m in Sources */,
 				467F0EEE18CB4FCF009FFE08 /* UIImage+WelKit.m in Sources */,

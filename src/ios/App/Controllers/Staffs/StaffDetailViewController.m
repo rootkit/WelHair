@@ -19,6 +19,7 @@
 #import "CircleImageView.h"
 #import "TripleCoverCell.h"
 #import "WorkDetailViewController.h"
+#import "CommentsViewController.h"
 
 @interface StaffDetailViewController ()<UITableViewDataSource, UITableViewDelegate>
 @property (nonatomic, strong) UIImageView *headerBackgroundView;
@@ -154,6 +155,7 @@ static const   float profileViewHeight = 80;
     [infoView addSubview:detailCellView];
     
     UIView *commentCellView = [[UIView alloc] initWithFrame:CGRectMake(0, MaxY(detailCellView) + 10, WIDTH(headerView_), 40)];
+    [commentCellView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(commentsTapped)]];
     commentCellView.backgroundColor = [UIColor whiteColor];
     UILabel *commentLbl =[[UILabel alloc] initWithFrame:CGRectMake(20, 10, 100,20)];
     commentLbl.font = [UIFont systemFontOfSize:14];
@@ -209,16 +211,10 @@ static const   float profileViewHeight = 80;
     
 }
 
-- (void)orderClick
+- (void)commentsTapped
 {
-    [self.navigationController presentViewController:[[UINavigationController alloc] initWithRootViewController:[CalendarViewController new]] animated:YES completion:nil];
+    [self.navigationController pushViewController:[CommentsViewController new] animated:YES];
 }
-
-- (void)groupClick
-{
-    [self.navigationController pushViewController:[GroupDetailViewController new] animated:YES];
-}
-
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {

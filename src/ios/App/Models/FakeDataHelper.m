@@ -107,4 +107,18 @@
     return ar;
 }
 
++(NSArray *)getFakeCommentList
+{
+    NSMutableArray *ar = [NSMutableArray array];
+    for (int i = 0; i < 10 ; i++) {
+        Comment *comment = [Comment new];
+        comment.commentorName = @"美女A";
+        comment.description = @"这个化妆水厉害,能易容";
+        comment.createdDate = [NSDate date];
+        comment.commentorAvatorUrl = @"http://www.sssik.com/uploads/allimg/130609/20130125033623270.jpg";
+        [ar addObject:comment];
+    }
+    return ar;
+}
+
 @end

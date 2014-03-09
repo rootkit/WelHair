@@ -7,7 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Comment.h"
+@interface CommentCell : UITableViewCell
 
-@interface CommentCell : UIView
+- (void)setup:(Comment *)comment;
 
 @end
