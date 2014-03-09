@@ -44,7 +44,21 @@ CREATE TABLE IF NOT EXISTS `Users` (
 ALTER TABLE `Users`
 AUTO_INCREMENT = 1001;
 
-INSERT INTO `Users` VALUES (1,1,'admin','管理员','admin@welhair.com',0,'',0,'$pbkdf2-sha512$12000$O2jQRADP6q6x6Z.SzwR/Wg$NLuLX3ZRllnYq0bH4YqBliUOZVbyX9FbovvS5CN.VEZVnrVoMBTCG2li87szHo.yES6U8aS7d1NB4HTkC5BXxA',NULL,1,'http://welhair.com/static/img/avatar-default.jpg','',NULL,0,'2014-02-28 20:59:21','2014-03-01 00:27:41');
+DELIMITER ;;
+CREATE PROCEDURE `sp_update_table_data`()
+BEGIN
+		IF NOT EXISTS(
+			SELECT 1
+			FROM `Users`
+			WHERE `UserId` = 1
+	) THEN
+		INSERT INTO `Users` VALUES (1,1,'admin','管理员','admin@welhair.com',0,'',0,'$pbkdf2-sha512$12000$O2jQRADP6q6x6Z.SzwR/Wg$NLuLX3ZRllnYq0bH4YqBliUOZVbyX9FbovvS5CN.VEZVnrVoMBTCG2li87szHo.yES6U8aS7d1NB4HTkC5BXxA',NULL,1,'http://welhair.com/static/img/avatar-default.jpg','',NULL,0,'2014-02-28 20:59:21','2014-03-01 00:27:41');
+	END IF;
+END;;
+
+DELIMITER ;
+CALL sp_update_table_data();
+DROP PROCEDURE IF EXISTS `sp_update_table_data`;
 
 CREATE TABLE IF NOT EXISTS `Social` (
   `SocialId` INT UNSIGNED NOT NULL AUTO_INCREMENT,
@@ -326,5 +340,135 @@ CREATE TABLE IF NOT EXISTS `Products` (
   `Weight` decimal(15,2) NOT NULL DEFAULT '0.00' COMMENT '重量',
   PRIMARY KEY (`ProductsId`)
 ) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8 COMMENT='货品表'$$
+
+delimiter $$
+CREATE TABLE IF NOT EXISTS `CouponType` (
+  `CouponTypeId` int unsigned NOT NULL,
+  `TypeName` varchar(20) NOT NULL COMMENT '优惠券类型：代金券，减免券',
+  `Description` varchar(200) NULL COMMENT '类型描述',
+  `IsActive` tinyint(1) NOT NULL DEFAULT '1' COMMENT '是否有效',
+  PRIMARY KEY (`CouponTypeId`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='优惠券类型'$$
+
+DELIMITER ;;
+CREATE PROCEDURE `sp_update_table_data`()
+  BEGIN
+	IF NOT EXISTS(
+			SELECT 1
+			FROM `CouponType`
+			WHERE `TypeName` = '减免券' AND `CouponTypeId` = 1
+	) THEN
+	  INSERT INTO `CouponType` (`CouponTypeId`, `TypeName`, `Description`, `IsActive`)
+		VALUES (1, '减免券', '满xx元减xx元，如：满200元减20元', 1);
+	END IF;
+	IF NOT EXISTS(
+			SELECT 1
+			FROM `CouponType`
+			WHERE `TypeName` = '代金券' AND `CouponTypeId` = 2
+	) THEN
+	  INSERT INTO `CouponType` (`CouponTypeId`, `TypeName`, `Description`, `IsActive`)
+		VALUES (2, '代金券', '代金券，xx元，如：20元', 1);
+	END IF;
+END;;
+
+DELIMITER ;
+CALL sp_update_table_data();
+DROP PROCEDURE IF EXISTS `sp_update_table_data`;
+
+
+delimiter $$
+CREATE TABLE IF NOT EXISTS `CouponAmountLimitType` (
+  `CouponAmountLimitTypeId` int unsigned NOT NULL,
+  `TypeName` varchar(20) NOT NULL COMMENT '每个账户一张，每个账户每天一张，不限制',
+  `Description` varchar(200) NULL COMMENT '类型描述',
+  PRIMARY KEY (`CouponAmountLimitTypeId`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='领取数量限制'$$
+
+DELIMITER ;;
+CREATE PROCEDURE `sp_update_table_data`()
+  BEGIN
+	IF NOT EXISTS(
+			SELECT 1
+			FROM `CouponAmountLimitType`
+			WHERE `TypeName` = '每个账户一张' AND `CouponAmountLimitTypeId` = 1
+	) THEN
+	  INSERT INTO `CouponAmountLimitType` (`CouponAmountLimitTypeId`, `TypeName`, `Description`)
+		VALUES (1, '每个账户一张', '每个账户一张');
+	END IF;
+	IF NOT EXISTS(
+			SELECT 1
+			FROM `CouponAmountLimitType`
+			WHERE `TypeName` = '每个账户每天一张' AND `CouponAmountLimitTypeId` = 2
+	) THEN
+	  INSERT INTO `CouponAmountLimitType` (`CouponAmountLimitTypeId`, `TypeName`, `Description`)
+		VALUES (2, '每个账户每天一张', '每个账户每天一张');
+	END IF;
+	IF NOT EXISTS(
+			SELECT 1
+			FROM `CouponAmountLimitType`
+			WHERE `TypeName` = '不限制' AND `CouponAmountLimitTypeId` = 3
+	) THEN
+	  INSERT INTO `CouponAmountLimitType` (`CouponAmountLimitTypeId`, `TypeName`, `Description`)
+		VALUES (3, '不限制', '不限制');
+	END IF;
+END;;
+
+DELIMITER ;
+CALL sp_update_table_data();
+DROP PROCEDURE IF EXISTS `sp_update_table_data`;
+
+
+delimiter $$
+CREATE TABLE IF NOT EXISTS `CouponAccountLimitType` (
+  `CouponAccountLimitTypeId` int unsigned NOT NULL,
+  `TypeName` varchar(20) NOT NULL COMMENT '不限制,仅QQ帐号登陆可领取,仅新浪微博帐号登陆可领取,仅淘宝帐号登陆可领取',
+  `Description` varchar(200) NULL COMMENT '类型描述',
+  PRIMARY KEY (`CouponAccountLimitTypeId`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='领取帐号限制'$$
+
+DELIMITER ;;
+CREATE PROCEDURE `sp_update_table_data`()
+  BEGIN
+	IF NOT EXISTS(
+			SELECT 1
+			FROM `CouponAccountLimitType`
+			WHERE `TypeName` = '不限制' AND `CouponAccountLimitTypeId` = 1
+	) THEN
+	  INSERT INTO `CouponAccountLimitType` (`CouponAccountLimitTypeId`, `TypeName`, `Description`)
+		VALUES (1, '不限制', '不限制');
+	END IF;
+	IF NOT EXISTS(
+			SELECT 1
+			FROM `CouponAccountLimitType`
+			WHERE `TypeName` = '仅QQ帐号登陆可领取' AND `CouponAccountLimitTypeId` = 2
+	) THEN
+		  INSERT INTO `CouponAccountLimitType` (`CouponAccountLimitTypeId`, `TypeName`, `Description`)
+			VALUES (2, '仅QQ帐号登陆可领取', '仅QQ帐号登陆可领取');
+	END IF;
+	IF NOT EXISTS(
+			SELECT 1
+			FROM `CouponAccountLimitType`
+			WHERE `TypeName` = '仅新浪微博帐号登陆可领取' AND `CouponAccountLimitTypeId` = 3
+	) THEN
+	  INSERT INTO `CouponAccountLimitType` (`CouponAccountLimitTypeId`, `TypeName`, `Description`)
+		VALUES (3, '仅新浪微博帐号登陆可领取', '仅新浪微博帐号登陆可领取');
+	END IF;
+	IF NOT EXISTS(
+			SELECT 1
+			FROM `CouponAccountLimitType`
+			WHERE `TypeName` = '仅淘宝帐号登陆可领取' AND `CouponAccountLimitTypeId` = 4
+	) THEN
+	  INSERT INTO `CouponAccountLimitType` (`CouponAccountLimitTypeId`, `TypeName`, `Description`)
+		VALUES (4, '仅淘宝帐号登陆可领取', '仅淘宝帐号登陆可领取');
+	END IF;
+END;;
+
+DELIMITER ;
+CALL sp_update_table_data();
+DROP PROCEDURE IF EXISTS `sp_update_table_data`;
+
+
+
+
 
 
