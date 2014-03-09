@@ -45,7 +45,10 @@
     for (int i = 0; i < 10 ; i++) {
         Work *work = [Work new];
         
-        work.imgUrlList = @[@"http://www.sssik.com/uploads/allimg/130609/20130125033623270.jpg"];
+        work.imgUrlList = @[@"http://www.sssik.com/uploads/allimg/130609/20130125033623270.jpg",
+                            @"http://4.xiustatic.com/upload/goods20111107/65002396/650023960001/g1_600_600.1339481667492.jpg",
+                            @"http://www.sssik.com/uploads/allimg/130609/20130125033623270.jpg",
+                            @"http://4.xiustatic.com/upload/goods20111107/65002396/650023960001/g1_600_600.1339481667492.jpg"];
 
         Comment *comment = [Comment new];
         comment.title = @"[ 发型不错，明天也去炸一个]";

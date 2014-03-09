@@ -9,9 +9,16 @@
 #import "JOLImageSlider.h"
 #import "UIImageView+WebCache.h"
 
+@interface JOLImageSlider()
+{
+    NSArray *slideArray;
+}
+@property (nonatomic, retain) NSArray *slideArray;
+
+@end
+
 @implementation JOLImageSlider
 
-@synthesize slideArray = _slideArray;
 @synthesize scrollView = _scrollView;
 @synthesize contentMode = _contentMode;
 @synthesize placeholderImage = _placeholderImage;
@@ -22,12 +29,12 @@
 @synthesize delegate = _delegate;
 
 
-- (id)initWithFrame:(CGRect)frame andSlides:(NSArray *)slideSet
+- (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
     if (self) {
         // Initialization code
-        _slideArray = [[NSArray alloc] initWithArray: slideSet];
+        _slideArray = [NSArray array];
         _autoSlide = NO;
         
         
@@ -36,6 +43,11 @@
         
     }
     return self;
+}
+
+- (void)setSlides:(NSArray *)slideSet
+{
+    _slideArray = slideSet;
 }
 
 - (void) layoutSubviews {
@@ -62,8 +74,6 @@
     _scrollView.showsVerticalScrollIndicator = NO;
     _scrollView.autoresizingMask = self.autoresizingMask;
     [self addSubview:_scrollView];
-    _pageControl =[[UIPageControl alloc] initWithFrame:CGRectMake(WIDTH(self) - 50, <#CGFloat y#>, <#CGFloat width#>, <#CGFloat height#>)];
-    [self addSubview:_pageControl];
     
     [self loadData];
 }

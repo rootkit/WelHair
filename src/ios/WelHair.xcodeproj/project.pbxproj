@@ -99,6 +99,9 @@
 		467F0F1F18CC2386009FFE08 /* WorksViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 467F0F1E18CC2386009FFE08 /* WorksViewController.m */; };
 		467F0F2218CC7939009FFE08 /* DropDownView.m in Sources */ = {isa = PBXBuildFile; fileRef = 467F0F2118CC7938009FFE08 /* DropDownView.m */; };
 		467F0F2518CC8FFB009FFE08 /* CommentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 467F0F2418CC8FFB009FFE08 /* CommentCell.m */; };
+		467F0F2B18CC95CA009FFE08 /* JOLImageSlide.m in Sources */ = {isa = PBXBuildFile; fileRef = 467F0F2818CC95CA009FFE08 /* JOLImageSlide.m */; };
+		467F0F2C18CC95CA009FFE08 /* JOLImageSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = 467F0F2A18CC95CA009FFE08 /* JOLImageSlider.m */; };
+		467F0F2E18CC9B79009FFE08 /* TempBg1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 467F0F2D18CC9B79009FFE08 /* TempBg1@2x.png */; };
 		46A46FE518BE21160057F579 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46A46FE418BE21160057F579 /* CoreLocation.framework */; };
 		46A46FE718BE211F0057F579 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46A46FE618BE211F0057F579 /* QuartzCore.framework */; };
 		46A46FE918BE21280057F579 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46A46FE818BE21280057F579 /* OpenGLES.framework */; };
@@ -299,6 +302,11 @@
 		467F0F2118CC7938009FFE08 /* DropDownView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DropDownView.m; sourceTree = "<group>"; };
 		467F0F2318CC8FFB009FFE08 /* CommentCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommentCell.h; sourceTree = "<group>"; };
 		467F0F2418CC8FFB009FFE08 /* CommentCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommentCell.m; sourceTree = "<group>"; };
+		467F0F2718CC95CA009FFE08 /* JOLImageSlide.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JOLImageSlide.h; sourceTree = "<group>"; };
+		467F0F2818CC95CA009FFE08 /* JOLImageSlide.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JOLImageSlide.m; sourceTree = "<group>"; };
+		467F0F2918CC95CA009FFE08 /* JOLImageSlider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JOLImageSlider.h; sourceTree = "<group>"; };
+		467F0F2A18CC95CA009FFE08 /* JOLImageSlider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JOLImageSlider.m; sourceTree = "<group>"; };
+		467F0F2D18CC9B79009FFE08 /* TempBg1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TempBg1@2x.png"; sourceTree = "<group>"; };
 		46A46FE418BE21160057F579 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		46A46FE618BE211F0057F579 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		46A46FE818BE21280057F579 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
@@ -710,6 +718,7 @@
 		18A912E518BB2826006B9A04 /* Vendor */ = {
 			isa = PBXGroup;
 			children = (
+				467F0F2618CC95CA009FFE08 /* JOLImageSlider */,
 				4630D13718C603B000DA7CAD /* CircleView */,
 				46E84ECB18C2DB930004C146 /* KNSemiModalViewController */,
 				46E84EB918C2C7040004C146 /* UzysCircularProgressPullToRefresh */,
@@ -787,6 +796,7 @@
 		4630D13318C5FB7500DA7CAD /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				467F0F2D18CC9B79009FFE08 /* TempBg1@2x.png */,
 				460C2F4418CAF44B00AD16E6 /* Views */,
 				460C2F3118C8D62600AD16E6 /* TabBar */,
 				4630252918C8238E000E0B51 /* Application */,
@@ -916,6 +926,17 @@
 				467F0F0D18CC1046009FFE08 /* StaffDetailViewControl_WorkBanner@2x.png */,
 			);
 			path = StaffDetailViewControl;
+			sourceTree = "<group>";
+		};
+		467F0F2618CC95CA009FFE08 /* JOLImageSlider */ = {
+			isa = PBXGroup;
+			children = (
+				467F0F2718CC95CA009FFE08 /* JOLImageSlide.h */,
+				467F0F2818CC95CA009FFE08 /* JOLImageSlide.m */,
+				467F0F2918CC95CA009FFE08 /* JOLImageSlider.h */,
+				467F0F2A18CC95CA009FFE08 /* JOLImageSlider.m */,
+			);
+			path = JOLImageSlider;
 			sourceTree = "<group>";
 		};
 		46A46FEA18BE21BB0057F579 /* BaiduMap */ = {
@@ -1342,6 +1363,7 @@
 				467F0F0E18CC1046009FFE08 /* StaffDetailViewControl_WorkBanner@2x.png in Resources */,
 				467F0EF418CB5777009FFE08 /* UserViewControl_TabBg@2x.png in Resources */,
 				18A912A518BB249A006B9A04 /* InfoPlist.strings in Resources */,
+				467F0F2E18CC9B79009FFE08 /* TempBg1@2x.png in Resources */,
 				460C2F3918C8D66300AD16E6 /* RootBottomTab3@2x.png in Resources */,
 				46B233F218BCE6E000CC27A3 /* UMShareEditViewControlleriPad.xib in Resources */,
 				18A912C918BB25AA006B9A04 /* Icon.png in Resources */,
@@ -1416,6 +1438,7 @@
 				46E84EE018C33FAC0004C146 /* SelectOpition.m in Sources */,
 				460C2F4A18CAFDB200AD16E6 /* GroupCell.m in Sources */,
 				46BCD25F18BC725D005C4BD6 /* GroupsViewController.m in Sources */,
+				467F0F2C18CC95CA009FFE08 /* JOLImageSlider.m in Sources */,
 				46B233B718BCDC4200CC27A3 /* LoginViewController.m in Sources */,
 				46B25AE418BF1CAA0035F425 /* RootViewController.m in Sources */,
 				4660E69018BB73E1005B3C7D /* ProductsViewController.m in Sources */,
@@ -1450,6 +1473,7 @@
 				460C2F2A18C8BFFF00AD16E6 /* Comment.m in Sources */,
 				46E84EC018C2C7040004C146 /* UIScrollView+UzysCircularProgressPullToRefresh.m in Sources */,
 				4630251518C76EF1000E0B51 /* CalendarViewController.m in Sources */,
+				467F0F2B18CC95CA009FFE08 /* JOLImageSlide.m in Sources */,
 				467F0EBE18CB3CC3009FFE08 /* ChatSession.m in Sources */,
 				46B25AF018C185290035F425 /* FakeDataHelper.m in Sources */,
 				46E84EDD18C338370004C146 /* OpitionCategory.m in Sources */,

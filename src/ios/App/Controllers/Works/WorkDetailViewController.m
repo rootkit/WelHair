@@ -17,12 +17,17 @@
 #import "Work.h"
 #import "UMSocial.h"
 #import "CircleImageView.h"
+#import "JOLImageSlider.h"
+#import "CommentsViewController.h"
+#import "MWPhotoBrowser.h"
 
-@interface WorkDetailViewController ()<UMSocialUIDelegate>
+@interface WorkDetailViewController ()<UMSocialUIDelegate,JOLImageSliderDelegate,MWPhotoBrowserDelegate>
 @property (nonatomic, strong) UIScrollView *scrollView;
+@property (nonatomic, strong) JOLImageSlider *imgSlider;
 @property (nonatomic, strong) UIImageView *staffImgView;
 @property (nonatomic, strong) UILabel *staffNameLbl;
 @property (nonatomic, strong) UILabel *distanceLbl;
+@property (nonatomic, strong) NSMutableArray *workImgs;
 @end
 
 @implementation WorkDetailViewController
@@ -78,15 +83,14 @@
     [topNavView addSubview:rightBtn];
     
     self.scrollView.backgroundColor = [UIColor colorWithHexString:@"f6fbfe"];
-    UIImageView *imgView = [[UIImageView alloc] initWithFrame:CGRectMake(0,0,
-                                                                         WIDTH(self.view),
-                                                                         WIDTH(self.view))];
-    [self.scrollView addSubview:imgView];
-    NSString *imgUrl = self.work.imgUrlList.count > 0? self.work.imgUrlList[0] : nil;
-    [imgView setImageWithURL:[NSURL URLWithString:imgUrl]];
     
+    self.imgSlider = [[JOLImageSlider alloc] initWithFrame:CGRectMake(0, 0, WIDTH(self.view), WIDTH(self.view))];
+    self.imgSlider.delegate = self;
+    [self.imgSlider setAutoSlide: YES];
+    [self.imgSlider setContentMode: UIViewContentModeScaleAspectFill];
+    [self.scrollView addSubview:self.imgSlider];
 #pragma staffView
-    UIView *staffView = [[UIView alloc] initWithFrame:CGRectMake(0, MaxY(imgView) - 80, WIDTH(imgView) / 2, 80)];
+    UIView *staffView = [[UIView alloc] initWithFrame:CGRectMake(0, MaxY(self.imgSlider) - 80, WIDTH(self.imgSlider) / 2, 80)];
     [self.scrollView addSubview:staffView];
     staffView.backgroundColor = [UIColor clearColor];
     UIImageView *staffOverlayview = [[UIImageView alloc] initWithFrame:CGRectMake(0, 20, WIDTH(staffView), HEIGHT(staffView) -20)];
@@ -124,7 +128,27 @@
     self.distanceLbl.font = [UIFont systemFontOfSize:14];
     [staffView addSubview:self.distanceLbl];
     
-#pragma work detail view
+#pragma comment view
+    UIImageView *tempImg = [[UIImageView alloc] initWithFrame:CGRectMake(15, MaxY(self.imgSlider )+10, WIDTH(self.view) - 30, 87)];
+    tempImg.image = [UIImage imageNamed:@"TempBg1"];
+    [self.scrollView addSubview:tempImg];
+    
+    UIView *commentCellView = [[UIView alloc] initWithFrame:CGRectMake(15, MaxY(tempImg) + 10, WIDTH(tempImg    ), 40)];
+    [commentCellView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(commentsTapped)]];
+    commentCellView.backgroundColor = [UIColor whiteColor];
+    UILabel *commentLbl =[[UILabel alloc] initWithFrame:CGRectMake(20, 10, 100,20)];
+    commentLbl.font = [UIFont systemFontOfSize:14];
+    commentLbl.textAlignment = NSTextAlignmentLeft;
+    commentLbl.backgroundColor = [UIColor clearColor];
+    commentLbl.textColor = [UIColor grayColor];
+    commentLbl.text = @"评论信息";
+    [commentCellView addSubview:commentLbl];
+    FAKIcon *commentIcon = [FAKIonIcons ios7ArrowForwardIconWithSize:20];
+    [commentIcon addAttribute:NSForegroundColorAttributeName value:[UIColor grayColor]];
+    UIImageView *commentImgView = [[UIImageView alloc] initWithFrame:CGRectMake(WIDTH(commentCellView) - 40, 10, 20, 20)];
+    commentImgView.image = [commentIcon imageWithSize:CGSizeMake(20, 20)];
+    [commentCellView addSubview:commentImgView];
+    [self.scrollView addSubview:commentCellView];
     
 }
 
@@ -148,6 +172,18 @@
     [self.staffImgView setImageWithURL:[NSURL URLWithString:self.work.creator.avatorUrl]];
     self.staffNameLbl.text = self.work.creator.name;
     self.distanceLbl.text = @"1千米";
+    NSMutableArray *sliderArray = [NSMutableArray array];
+    for (NSString *item in self.work.imgUrlList) {
+        JOLImageSlide * slideImg= [[JOLImageSlide alloc] init];
+        slideImg.image = item;
+        [sliderArray addObject:slideImg];
+    }
+    [self.imgSlider setSlides:sliderArray];
+    
+    self.workImgs = [NSMutableArray array];
+    for (NSString *item in self.work.imgUrlList) {
+        [self.workImgs addObject:[MWPhoto photoWithURL:[NSURL URLWithString:item]]];
+    }
 }
 
 - (void)didReceiveMemoryWarning
@@ -159,6 +195,15 @@
 - (void)leftBtnClick
 {
     [self.navigationController popViewControllerAnimated:YES];
+}
+
+- (void)commentsTapped
+{
+    [self.navigationController pushViewController:[CommentsViewController new] animated:YES];
+}
+
+- (void) imagePager:(JOLImageSlider *)imagePager didSelectImageAtIndex:(NSUInteger)index {
+    [self OpenImageGallery];
 }
 
 - (void)rightBtnClick
@@ -198,5 +243,47 @@
     [self.navigationController pushViewController:[MapViewController new] animated:YES];
 }
 
+- (void) OpenImageGallery
+{
+    MWPhotoBrowser *browser = [[MWPhotoBrowser alloc] initWithDelegate:self];
+    browser.displayActionButton = NO;
+    browser.displayNavArrows = YES;
+    browser.displaySelectionButtons = NO;
+    browser.alwaysShowControls = NO;
+    browser.wantsFullScreenLayout = YES;
+    browser.zoomPhotosToFill = YES;
+    browser.enableGrid = NO;
+    browser.startOnGrid = NO;
+    [browser setCurrentPhotoIndex:0];
+    
+    UINavigationController *nc = [[UINavigationController alloc] initWithRootViewController:browser];
+    nc.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+    [self.navigationController presentViewController:nc animated:YES completion:Nil];
+}
+
+#pragma mark - MWPhotoBrowserDelegate
+- (NSUInteger)numberOfPhotosInPhotoBrowser:(MWPhotoBrowser *)photoBrowser {
+    return self.workImgs.count;
+}
+
+- (id <MWPhoto>)photoBrowser:(MWPhotoBrowser *)photoBrowser photoAtIndex:(NSUInteger)index {
+    if (index < self.workImgs.count)
+        return [self.workImgs objectAtIndex:index];
+    return nil;
+}
+
+- (MWCaptionView *)photoBrowser:(MWPhotoBrowser *)photoBrowser captionViewForPhotoAtIndex:(NSUInteger)index {
+    MWPhoto *photo = [self.workImgs objectAtIndex:index];
+    MWCaptionView *captionView = [[MWCaptionView alloc] initWithPhoto:photo];
+    return captionView ;
+}
+
+- (void)photoBrowser:(MWPhotoBrowser *)photoBrowser actionButtonPressedForPhotoAtIndex:(NSUInteger)index {
+    NSLog(@"ACTION!");
+}
+
+- (void)photoBrowser:(MWPhotoBrowser *)photoBrowser didDisplayPhotoAtIndex:(NSUInteger)index {
+    NSLog(@"Did start viewing photo at index %lu", (unsigned long)index);
+}
 
 @end

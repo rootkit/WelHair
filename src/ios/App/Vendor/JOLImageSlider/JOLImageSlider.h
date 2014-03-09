@@ -25,7 +25,7 @@
 
 @interface JOLImageSlider : UIView <UIScrollViewDelegate> {
     
-    NSArray *slideArray;
+
     UIScrollView *scrollView;
     UIPageControl *pageControl;
     UIViewContentMode contentMode;
@@ -39,7 +39,7 @@
     
 }
 
-@property (nonatomic, retain) NSArray *slideArray;
+
 @property (nonatomic, retain) UIScrollView *scrollView;
 @property (nonatomic, retain) UIPageControl *pageControl;
 @property (nonatomic) UIViewContentMode contentMode;
@@ -52,7 +52,7 @@
 
 @property (nonatomic, weak) id <JOLImageSliderDelegate> delegate;
 
-- (id)initWithFrame:(CGRect)frame andSlides:(NSArray *)slideSet;
+- (void)setSlides:(NSArray *)slideSet;
 
 @end
 
