@@ -50,14 +50,14 @@
         self.priceLbl.textColor = [UIColor colorWithHexString:@"206aa7"];
         [self addSubview:self.priceLbl];
         
-        float heartIconSize = 15;
-        FAKIcon *heartIcon = [FAKIonIcons locationIconWithSize:heartIconSize];
-        [heartIcon addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithHexString:@"b7bcc2"]];
-        UIImageView *heartImg = [[UIImageView alloc] initWithFrame:CGRectMake(MaxX(self.priceLbl)+10, Y(self.priceLbl),heartIconSize, heartIconSize)];
-        heartImg.image = [heartIcon imageWithSize:CGSizeMake(heartIconSize,heartIconSize)];
-        [self addSubview:heartImg];
+        float locationIconSize = 15;
+        FAKIcon *locationIcon = [FAKIonIcons locationIconWithSize:locationIconSize];
+        [locationIcon addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithHexString:@"b7bcc2"]];
+        UIImageView *locationImg = [[UIImageView alloc] initWithFrame:CGRectMake(MaxX(self.priceLbl)+10, Y(self.priceLbl),locationIconSize, locationIconSize)];
+        locationImg.image = [locationIcon imageWithSize:CGSizeMake(locationIconSize,locationIconSize)];
+        [self addSubview:locationImg];
         
-        self.distanceLbl = [[UILabel alloc] initWithFrame:CGRectMake(MaxX(heartImg), Y(heartImg), 30,20)];
+        self.distanceLbl = [[UILabel alloc] initWithFrame:CGRectMake(MaxX(locationImg), Y(locationImg), 30,20)];
         self.distanceLbl.font = [UIFont systemFontOfSize:10];
         self.distanceLbl.textAlignment = NSTextAlignmentRight;
         self.distanceLbl.backgroundColor = [UIColor clearColor];

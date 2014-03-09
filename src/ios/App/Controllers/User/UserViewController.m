@@ -20,6 +20,9 @@
 #import "FavoritesViewController.h"
 #import "OrdersViewController.h"
 #import "SettingViewController.h"
+#import "Work.h"
+#import "WorkDetailViewController.h"
+#import "DoubleCoverCell.h"
 
 @interface UserViewController ()<UITableViewDataSource, UITableViewDelegate, UIActionSheetDelegate, UIImagePickerControllerDelegate,UINavigationControllerDelegate>
 
@@ -62,7 +65,7 @@ static const   float profileViewHeight = 80;
     
     self.headerBackgroundView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, WIDTH
                                                                               (self.view), profileViewHeight)];
-    self.headerBackgroundView.image = [UIImage imageNamed:@"UserViewControl_Profile_Bg"];
+    self.headerBackgroundView.image = [UIImage imageNamed:@"Profile_Banner_Bg@2x"];
     [self.view addSubview:self.headerBackgroundView];
     
     self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, self.topBarOffset, WIDTH(self.view), HEIGHT(self.view) - self.topBarOffset)];
@@ -122,6 +125,7 @@ static const   float profileViewHeight = 80;
     }
     [headerView_ addSubview:tabView_];
     self.tableView.tableHeaderView = headerView_;
+    self.datasource = [FakeDataHelper getFakeWorkList];
 }
 
 - (void)viewDidLoad
@@ -234,26 +238,40 @@ static const   float profileViewHeight = 80;
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 100;
+    return 150;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return self.datasource.count;
+    return ceil(self.datasource.count/2.0);
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString * cellIdentifier = @"CellIdentifier";
-    UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+    static NSString * cellIdentifier = @"StaffTripleCellIdentifier";
+    DoubleCoverCell * cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
     if (!cell) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
+        cell = [[DoubleCoverCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
-    
+    Work *leftdata = [self.datasource objectAtIndex: (2 * indexPath.row)];
+    Work *rightData;
+    if(self.datasource.count > indexPath.row * 2 + 1){
+        rightData = [self.datasource objectAtIndex:indexPath.row * 2 + 1];
+    }
+       __weak UserViewController *selfDelegate = self;
+    [cell setupWithLeftData:leftdata rightData:rightData tapHandler:^(id model){
+        Work *work = (Work *)model;
+        [selfDelegate pushToDetial:work];}
+     ];
     return cell;
 }
 
-
-
+- (void)pushToDetial:(Work *)work
+{
+    WorkDetailViewController *workVc = [[WorkDetailViewController alloc] init];;
+    workVc.work = work;
+    workVc.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:workVc animated:YES];
+}
 @end

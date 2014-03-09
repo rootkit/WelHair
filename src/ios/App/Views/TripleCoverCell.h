@@ -7,7 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Work.h"
 
 @interface TripleCoverCell : UITableViewCell
+
+- (void)setupWithLeftData:(Work *)leftData
+                middleData:(Work *)middleData
+                rightData:(Work *)rightData
+               tapHandler:(CardTapHandler)tapHandler;
+
 
 @end

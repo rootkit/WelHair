@@ -88,9 +88,15 @@
 		467F0EF718CB5A4A009FFE08 /* AppointmentsViewControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 467F0EF618CB5A4A009FFE08 /* AppointmentsViewControl.m */; };
 		467F0EFA18CB5A58009FFE08 /* OrdersViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 467F0EF918CB5A58009FFE08 /* OrdersViewController.m */; };
 		467F0EFD18CB5A8C009FFE08 /* FavoritesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 467F0EFC18CB5A8C009FFE08 /* FavoritesViewController.m */; };
-		467F0EFF18CB5B8E009FFE08 /* UserViewControl_Profile_Bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 467F0EFE18CB5B8E009FFE08 /* UserViewControl_Profile_Bg@2x.png */; };
 		467F0F0318CB610F009FFE08 /* SettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 467F0F0218CB610F009FFE08 /* SettingViewController.m */; };
 		467F0F0518CBFDB5009FFE08 /* ShareIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 467F0F0418CBFDB5009FFE08 /* ShareIcon@2x.png */; };
+		467F0F0718CC073D009FFE08 /* Profile_Banner_Bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 467F0F0618CC073D009FFE08 /* Profile_Banner_Bg@2x.png */; };
+		467F0F0918CC0B53009FFE08 /* Profile_Bottom_Bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 467F0F0818CC0B53009FFE08 /* Profile_Bottom_Bg@2x.png */; };
+		467F0F0B18CC0CB8009FFE08 /* AppointmentBtn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 467F0F0A18CC0CB8009FFE08 /* AppointmentBtn@2x.png */; };
+		467F0F0E18CC1046009FFE08 /* StaffDetailViewControl_WorkBanner@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 467F0F0D18CC1046009FFE08 /* StaffDetailViewControl_WorkBanner@2x.png */; };
+		467F0F1418CC1EAE009FFE08 /* DoubleCoverCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 467F0F1318CC1EAE009FFE08 /* DoubleCoverCell.m */; };
+		467F0F1D18CC219B009FFE08 /* TripleCoverCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 467F0F1C18CC219B009FFE08 /* TripleCoverCell.m */; };
+		467F0F1F18CC2386009FFE08 /* WorksViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 467F0F1E18CC2386009FFE08 /* WorksViewController.m */; };
 		46A46FE518BE21160057F579 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46A46FE418BE21160057F579 /* CoreLocation.framework */; };
 		46A46FE718BE211F0057F579 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46A46FE618BE211F0057F579 /* QuartzCore.framework */; };
 		46A46FE918BE21280057F579 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46A46FE818BE21280057F579 /* OpenGLES.framework */; };
@@ -127,7 +133,6 @@
 		46BCD25218BC3B4F005C4BD6 /* SVProgressHUD.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 46BCD24F18BC3B4F005C4BD6 /* SVProgressHUD.bundle */; };
 		46BCD25318BC3B4F005C4BD6 /* SVProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 46BCD25118BC3B4F005C4BD6 /* SVProgressHUD.m */; settings = {COMPILER_FLAGS = "-w"; }; };
 		46BCD25718BC628E005C4BD6 /* ChatSessionListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 46BCD25618BC628E005C4BD6 /* ChatSessionListViewController.m */; };
-		46BCD25B18BC7162005C4BD6 /* WorksViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 46BCD25A18BC7162005C4BD6 /* WorksViewController.m */; };
 		46BCD25F18BC725D005C4BD6 /* GroupsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 46BCD25E18BC725D005C4BD6 /* GroupsViewController.m */; };
 		46BCD26318BC7561005C4BD6 /* CityListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 46BCD26218BC7561005C4BD6 /* CityListViewController.m */; };
 		46BCD26618BC796B005C4BD6 /* WorkDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 46BCD26518BC796B005C4BD6 /* WorkDetailViewController.m */; };
@@ -276,10 +281,18 @@
 		467F0EF918CB5A58009FFE08 /* OrdersViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrdersViewController.m; sourceTree = "<group>"; };
 		467F0EFB18CB5A8C009FFE08 /* FavoritesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FavoritesViewController.h; sourceTree = "<group>"; };
 		467F0EFC18CB5A8C009FFE08 /* FavoritesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FavoritesViewController.m; sourceTree = "<group>"; };
-		467F0EFE18CB5B8E009FFE08 /* UserViewControl_Profile_Bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "UserViewControl_Profile_Bg@2x.png"; sourceTree = "<group>"; };
 		467F0F0118CB610F009FFE08 /* SettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingViewController.h; sourceTree = "<group>"; };
 		467F0F0218CB610F009FFE08 /* SettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingViewController.m; sourceTree = "<group>"; };
 		467F0F0418CBFDB5009FFE08 /* ShareIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ShareIcon@2x.png"; sourceTree = "<group>"; };
+		467F0F0618CC073D009FFE08 /* Profile_Banner_Bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Profile_Banner_Bg@2x.png"; sourceTree = "<group>"; };
+		467F0F0818CC0B53009FFE08 /* Profile_Bottom_Bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Profile_Bottom_Bg@2x.png"; sourceTree = "<group>"; };
+		467F0F0A18CC0CB8009FFE08 /* AppointmentBtn@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "AppointmentBtn@2x.png"; sourceTree = "<group>"; };
+		467F0F0D18CC1046009FFE08 /* StaffDetailViewControl_WorkBanner@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "StaffDetailViewControl_WorkBanner@2x.png"; sourceTree = "<group>"; };
+		467F0F1218CC1EAE009FFE08 /* DoubleCoverCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DoubleCoverCell.h; sourceTree = "<group>"; };
+		467F0F1318CC1EAE009FFE08 /* DoubleCoverCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DoubleCoverCell.m; sourceTree = "<group>"; };
+		467F0F1B18CC219B009FFE08 /* TripleCoverCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TripleCoverCell.h; sourceTree = "<group>"; };
+		467F0F1C18CC219B009FFE08 /* TripleCoverCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TripleCoverCell.m; sourceTree = "<group>"; };
+		467F0F1E18CC2386009FFE08 /* WorksViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WorksViewController.m; sourceTree = "<group>"; };
 		46A46FE418BE21160057F579 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		46A46FE618BE211F0057F579 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		46A46FE818BE21280057F579 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
@@ -418,7 +431,6 @@
 		46BCD25518BC628E005C4BD6 /* ChatSessionListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatSessionListViewController.h; sourceTree = "<group>"; };
 		46BCD25618BC628E005C4BD6 /* ChatSessionListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatSessionListViewController.m; sourceTree = "<group>"; };
 		46BCD25918BC7162005C4BD6 /* WorksViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WorksViewController.h; sourceTree = "<group>"; };
-		46BCD25A18BC7162005C4BD6 /* WorksViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WorksViewController.m; sourceTree = "<group>"; };
 		46BCD25D18BC725D005C4BD6 /* GroupsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroupsViewController.h; sourceTree = "<group>"; };
 		46BCD25E18BC725D005C4BD6 /* GroupsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GroupsViewController.m; sourceTree = "<group>"; };
 		46BCD26118BC7561005C4BD6 /* CityListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CityListViewController.h; sourceTree = "<group>"; };
@@ -556,7 +568,6 @@
 		18A9129118BB2350006B9A04 /* Assets */ = {
 			isa = PBXGroup;
 			children = (
-				460C2F4418CAF44B00AD16E6 /* Views */,
 				4630D13318C5FB7500DA7CAD /* Images */,
 				46A46FEA18BE21BB0057F579 /* BaiduMap */,
 				18A912AF18BB2591006B9A04 /* AppIcon */,
@@ -729,11 +740,13 @@
 		460C2F4418CAF44B00AD16E6 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				467F0F0C18CC1046009FFE08 /* StaffDetailViewControl */,
+				467F0F0818CC0B53009FFE08 /* Profile_Bottom_Bg@2x.png */,
+				467F0F0618CC073D009FFE08 /* Profile_Banner_Bg@2x.png */,
 				467F0EF218CB5777009FFE08 /* UserViewControl */,
 				460C2F4518CAF44B00AD16E6 /* WorkDetail */,
 			);
-			name = Views;
-			path = Images/Views;
+			path = Views;
 			sourceTree = "<group>";
 		};
 		460C2F4518CAF44B00AD16E6 /* WorkDetail */ = {
@@ -768,6 +781,7 @@
 		4630D13318C5FB7500DA7CAD /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				460C2F4418CAF44B00AD16E6 /* Views */,
 				460C2F3118C8D62600AD16E6 /* TabBar */,
 				4630252918C8238E000E0B51 /* Application */,
 				4630D13418C5FB7500DA7CAD /* Buttons */,
@@ -778,6 +792,7 @@
 		4630D13418C5FB7500DA7CAD /* Buttons */ = {
 			isa = PBXGroup;
 			children = (
+				467F0F0A18CC0CB8009FFE08 /* AppointmentBtn@2x.png */,
 				467F0F0418CBFDB5009FFE08 /* ShareIcon@2x.png */,
 				4630252318C81F1B000E0B51 /* QQWeiboIcon@2x.png */,
 				4630252418C81F1B000E0B51 /* SinaWeibo@2x.png */,
@@ -875,7 +890,6 @@
 		467F0EF218CB5777009FFE08 /* UserViewControl */ = {
 			isa = PBXGroup;
 			children = (
-				467F0EFE18CB5B8E009FFE08 /* UserViewControl_Profile_Bg@2x.png */,
 				467F0EF318CB5777009FFE08 /* UserViewControl_TabBg@2x.png */,
 			);
 			path = UserViewControl;
@@ -888,6 +902,14 @@
 				467F0F0218CB610F009FFE08 /* SettingViewController.m */,
 			);
 			path = Settings;
+			sourceTree = "<group>";
+		};
+		467F0F0C18CC1046009FFE08 /* StaffDetailViewControl */ = {
+			isa = PBXGroup;
+			children = (
+				467F0F0D18CC1046009FFE08 /* StaffDetailViewControl_WorkBanner@2x.png */,
+			);
+			path = StaffDetailViewControl;
 			sourceTree = "<group>";
 		};
 		46A46FEA18BE21BB0057F579 /* BaiduMap */ = {
@@ -1114,6 +1136,10 @@
 				467F0EB718CB2164009FFE08 /* ProductCell.m */,
 				467F0EB918CB3956009FFE08 /* ChatGroupCell.h */,
 				467F0EBA18CB3956009FFE08 /* ChatGroupCell.m */,
+				467F0F1218CC1EAE009FFE08 /* DoubleCoverCell.h */,
+				467F0F1318CC1EAE009FFE08 /* DoubleCoverCell.m */,
+				467F0F1B18CC219B009FFE08 /* TripleCoverCell.h */,
+				467F0F1C18CC219B009FFE08 /* TripleCoverCell.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1140,8 +1166,8 @@
 		46BCD25818BC7146005C4BD6 /* Works */ = {
 			isa = PBXGroup;
 			children = (
+				467F0F1E18CC2386009FFE08 /* WorksViewController.m */,
 				46BCD25918BC7162005C4BD6 /* WorksViewController.h */,
-				46BCD25A18BC7162005C4BD6 /* WorksViewController.m */,
 				46BCD26418BC796B005C4BD6 /* WorkDetailViewController.h */,
 				46BCD26518BC796B005C4BD6 /* WorkDetailViewController.m */,
 			);
@@ -1295,6 +1321,7 @@
 				18A9129D18BB2350006B9A04 /* Debug.xcconfig in Resources */,
 				18A912C118BB25AA006B9A04 /* Icon-72.png in Resources */,
 				4630252B18C8238E000E0B51 /* Logo@2x.png in Resources */,
+				467F0F0718CC073D009FFE08 /* Profile_Banner_Bg@2x.png in Resources */,
 				18A912CA18BB25AA006B9A04 /* Icon@2x.png in Resources */,
 				46B233EA18BCE6E000CC27A3 /* UMSocialLocalizable.strings in Resources */,
 				460C2F3A18C8D66300AD16E6 /* RootBottomTab4@2x.png in Resources */,
@@ -1302,6 +1329,7 @@
 				4630252818C81F1B000E0B51 /* QQIcon@2x.png in Resources */,
 				18A912D518BB2670006B9A04 /* Default-Portrait@2x~ipad.png in Resources */,
 				467F0F0518CBFDB5009FFE08 /* ShareIcon@2x.png in Resources */,
+				467F0F0E18CC1046009FFE08 /* StaffDetailViewControl_WorkBanner@2x.png in Resources */,
 				467F0EF418CB5777009FFE08 /* UserViewControl_TabBg@2x.png in Resources */,
 				18A912A518BB249A006B9A04 /* InfoPlist.strings in Resources */,
 				460C2F3918C8D66300AD16E6 /* RootBottomTab3@2x.png in Resources */,
@@ -1312,6 +1340,8 @@
 				18A912BF18BB25AA006B9A04 /* Icon-40@2x.png in Resources */,
 				18A912C718BB25AA006B9A04 /* Icon-Small.png in Resources */,
 				18A912AE18BB2552006B9A04 /* Images.xcassets in Resources */,
+				467F0F0B18CC0CB8009FFE08 /* AppointmentBtn@2x.png in Resources */,
+				467F0F0918CC0B53009FFE08 /* Profile_Bottom_Bg@2x.png in Resources */,
 				18A912A818BB249E006B9A04 /* Localizable.strings in Resources */,
 				18A9129F18BB2350006B9A04 /* Test.xcconfig in Resources */,
 				46B233F518BCE6E000CC27A3 /* UMSShareListController.xib in Resources */,
@@ -1319,7 +1349,6 @@
 				46B233F118BCE6E000CC27A3 /* UMShareEditViewController.xib in Resources */,
 				18A912C518BB25AA006B9A04 /* Icon-Small-50.png in Resources */,
 				467F0EE918CB4FCF009FFE08 /* line@2x.png in Resources */,
-				467F0EFF18CB5B8E009FFE08 /* UserViewControl_Profile_Bg@2x.png in Resources */,
 				46B233F718BCE6E000CC27A3 /* TencentOpenApi_IOS_Bundle.bundle in Resources */,
 				18A9129C18BB2350006B9A04 /* Base.xcconfig in Resources */,
 				4630252718C81F1B000E0B51 /* SinaWeibo@2x.png in Resources */,
@@ -1385,10 +1414,10 @@
 				46BCD25318BC3B4F005C4BD6 /* SVProgressHUD.m in Sources */,
 				18A9127318BB216E006B9A04 /* AppDelegate.m in Sources */,
 				467F0EF718CB5A4A009FFE08 /* AppointmentsViewControl.m in Sources */,
-				46BCD25B18BC7162005C4BD6 /* WorksViewController.m in Sources */,
 				46BCD26918BC797B005C4BD6 /* GroupDetailViewController.m in Sources */,
 				467F0EF018CB4FCF009FFE08 /* UITextField+WelKit.m in Sources */,
 				467F0EBB18CB3956009FFE08 /* ChatGroupCell.m in Sources */,
+				467F0F1418CC1EAE009FFE08 /* DoubleCoverCell.m in Sources */,
 				467F0EB818CB2164009FFE08 /* ProductCell.m in Sources */,
 				467F0EEC18CB4FCF009FFE08 /* WelQRReaderViewController.m in Sources */,
 				4665FD7C18BC7D4700E88C6B /* CommentsViewController.m in Sources */,
@@ -1402,6 +1431,7 @@
 				4665FD8518BC801000E88C6B /* Work.m in Sources */,
 				467F0EFA18CB5A58009FFE08 /* OrdersViewController.m in Sources */,
 				46B25AE618BF1CC60035F425 /* MapViewController.mm in Sources */,
+				467F0F1D18CC219B009FFE08 /* TripleCoverCell.m in Sources */,
 				4630D13A18C603B000DA7CAD /* CircleImageView.m in Sources */,
 				46E84EC118C2C7040004C146 /* UzysRadialProgressActivityIndicator.m in Sources */,
 				46E84ECE18C2DB930004C146 /* UIViewController+KNSemiModal.m in Sources */,
@@ -1423,6 +1453,7 @@
 				4630252E18C848EB000E0B51 /* WorkCardView.m in Sources */,
 				4660E69618BB73FF005B3C7D /* UserViewController.m in Sources */,
 				467F0EAF18CB0F54009FFE08 /* BaseModel.m in Sources */,
+				467F0F1F18CC2386009FFE08 /* WorksViewController.m in Sources */,
 				467F0EEF18CB4FCF009FFE08 /* UINavigationBar+WelKit.m in Sources */,
 				46BCD27318BC79E0005C4BD6 /* StaffsViewController.m in Sources */,
 				467F0EEE18CB4FCF009FFE08 /* UIImage+WelKit.m in Sources */,

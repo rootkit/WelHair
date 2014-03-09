@@ -7,7 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Work.h"
 
 @interface DoubleCoverCell : UITableViewCell
+
+- (void)setupWithLeftData:(Work *)leftData
+                rightData:(Work *)rightData
+               tapHandler:(CardTapHandler)tapHandler;
 
 @end
