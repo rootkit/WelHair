@@ -81,6 +81,25 @@ class CouponCodeRepository extends AbstractRepository
         return false;
     }
 
+    public function batchsave($data)
+    {
+        $conn->beginTransaction();
+        try {
+            foreach( $data as $row )
+            {
+              $this->conn->insert('CouponCode', $row);
+            }
+            $conn->commit();
+        } catch (\Exception $e) {
+            $conn->rollback();
+            $this->logger->log($e, \Zend_Log::ERR);
+
+            return false;
+        }
+
+        return true;
+    }
+
     public function update($couponId, $data)
     {
         try {
