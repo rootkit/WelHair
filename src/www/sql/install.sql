@@ -467,8 +467,82 @@ DELIMITER ;
 CALL sp_update_table_data();
 DROP PROCEDURE IF EXISTS `sp_update_table_data`;
 
+delimiter $$
+CREATE TABLE IF NOT EXISTS `CouponPaymentType` (
+  `CouponPaymentTypeId` int unsigned NOT NULL,
+  `TypeName` varchar(20) NOT NULL COMMENT '免费,付费,积分',
+  `Description` varchar(200) NULL COMMENT '类型描述',
+  PRIMARY KEY (`CouponPaymentTypeId`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='付费'$$
 
+DELIMITER ;;
+CREATE PROCEDURE `sp_update_table_data`()
+  BEGIN
+	IF NOT EXISTS(
+			SELECT 1
+			FROM `CouponPaymentType`
+			WHERE `TypeName` = '免费' AND `CouponPaymentTypeId` = 1
+	) THEN
+	  INSERT INTO `CouponPaymentType` (`CouponPaymentTypeId`, `TypeName`, `Description`)
+		VALUES (1, '免费', '免费');
+	END IF;
+	IF NOT EXISTS(
+			SELECT 1
+			FROM `CouponPaymentType`
+			WHERE `TypeName` = '付费' AND `CouponPaymentTypeId` = 2
+	) THEN
+		  INSERT INTO `CouponPaymentType` (`CouponPaymentTypeId`, `TypeName`, `Description`)
+			VALUES (2, '付费', '付费');
+	END IF;
+	IF NOT EXISTS(
+			SELECT 1
+			FROM `CouponPaymentType`
+			WHERE `TypeName` = '积分' AND `CouponPaymentTypeId` = 3
+	) THEN
+	  INSERT INTO `CouponPaymentType` (`CouponPaymentTypeId`, `TypeName`, `Description`)
+		VALUES (3, '积分', '积分');
+	END IF;
+END;;
 
+DELIMITER ;
+CALL sp_update_table_data();
+DROP PROCEDURE IF EXISTS `sp_update_table_data`;
 
+delimiter $$
+CREATE TABLE IF NOT EXISTS `Coupon` (
+  `CouponId` INT unsigned NOT NULL AUTO_INCREMENT,
+  `CouponName` varchar(20) NOT NULL COMMENT '优惠券名称',
+  `CompanyId` INT NOT NULL COMMENT '商家ID',
+  `CompanyName` varchar(200) NULL COMMENT '商家名称',
+  `CouponTypeId` INT NOT NULL COMMENT '优惠券类型',
+  `CouponTypeValue` varchar(500) COMMENT '用逗号分隔的类型值200,20，满200减20',
+  `IsLiveActivity` tinyint(1) NOT NULL DEFAULT '0' COMMENT '是否现场活动',
+  `LiveActivityAmount` INT NOT NULL COMMENT '现场活动数量',
+  `LiveActivityAddress` INT NOT NULL COMMENT '现场活动领取地址',
+  `HasExpire` tinyint(1) NOT NULL DEFAULT '0' COMMENT '是否有限制日期',
+  `ExpireDate`  DATETIME NULL COMMENT '限制日期',
+  `CouponAmountLimitTypeId` INT NOT NULL COMMENT '领取数量限制',
+  `CouponAccountLimitTypeId` INT NOT NULL COMMENT '领取帐号限制',
+  `CouponPyamentTypeId` INT NOT NULL COMMENT '付费',
+  `CouponPyamentValue` INT NULL COMMENT '付费值',  
+  `Usage` TEXT COMMENT '使用说明',
+  `Comments` TEXT COMMENT '温馨提示',
+  `IsCouponCodeSecret` tinyint(1) NOT NULL DEFAULT '0' COMMENT '优惠码是否保密',
+  `IsDeleted` tinyint(1) NOT NULL DEFAULT '0' COMMENT '是否删除',
+  PRIMARY KEY (`CouponId`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='优惠券'$$
 
+delimiter $$
+CREATE TABLE IF NOT EXISTS `CouponCode` (
+  `CouponCodeId` int unsigned NOT NULL AUTO_INCREMENT,
+  `CouponId` int NOT NULL COMMENT '优惠券ID',
+  `CouponName` varchar(20) NOT NULL COMMENT '优惠券名称',
+  `Code` varchar(100) NOT NULL COMMENT '优惠码',
+  `PassCode` varchar(100) NOT NULL COMMENT '优惠码',
+  `ReceiveId` int NULL COMMENT '领取人ID',
+  `ReceiverName` varchar(50) COMMENT '领取人名字',
+  `ReceiveTime` DATETIME NULL COMMENT '领取时间', 
+  `IsDeleted` tinyint(1) NOT NULL DEFAULT '0' COMMENT '是否删除',
+  PRIMARY KEY (`CouponCodeId`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='优惠码'$$
 
