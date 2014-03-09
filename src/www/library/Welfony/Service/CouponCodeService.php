@@ -75,13 +75,18 @@ class CouponCodeService
 
                 return $result;
             } else {
-                $result['message'] = '更新品牌失败！';
+                $result['message'] = '优惠券码失败！';
 
                 return $result;
             }
 
             return true;
         }
+    }
+
+    public static function batchsave( )
+    {
+        return CouponCodeRepository::getInstance()->batchsave($data);
     }
 
 }
