@@ -63,7 +63,7 @@
     _mapManager = [[BMKMapManager alloc]init];
     // 如果要关注网络及授权验证事件，请设定generalDelegate参数
     if (![_mapManager start:CONFIG_BAIDU_MAP_KEY  generalDelegate:nil])
-        NSLog(@"manager start failed!");
+        debugLog(@"manager start failed!");
 }
 - (void)applicationWillResignActive:(UIApplication *)application
 {

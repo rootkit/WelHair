@@ -15,10 +15,20 @@
 #import "GroupDetailViewController.h"
 #import "GroupCell.h"
 #import "Group.h"
+#import "DropDownView.h"
 
-@interface GroupsViewController ()<UITableViewDataSource, UITableViewDelegate>
+@interface GroupsViewController ()<UITableViewDataSource, UITableViewDelegate, DropDownDelegate>
 @property (nonatomic, strong) NSMutableArray *datasource;
 @property (nonatomic, strong) UITableView *tableView;
+
+@property (nonatomic, strong) UIButton *areaBtn;
+@property (nonatomic, strong) UIButton *hotBtn;
+
+@property (nonatomic, strong) DropDownView *dropDownPicker;
+@property (nonatomic, strong) NSArray *areaDatasource;
+@property (nonatomic, strong) NSArray *hotDatasource;
+@property (nonatomic) int areaSelectedIndex;
+@property (nonatomic) int hotSelectedIndex;
 @end
 
 @implementation GroupsViewController
@@ -46,17 +56,27 @@
     UIView *topTabView = [[UIView alloc] initWithFrame:CGRectMake(0, self.topBarOffset,WIDTH(self.view),TOP_TAB_BAR_HEIGHT)];
     [self.view addSubview:topTabView];
     topTabView.backgroundColor = [UIColor colorWithHexString:@"f5f5f5"];
-    UIButton *areaBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [areaBtn setTitleColor:[UIColor colorWithHexString:@"666666"] forState:UIControlStateNormal];
-    areaBtn.frame = CGRectMake(0, 0, topTabButtonWidth, TOP_TAB_BAR_HEIGHT);
-    [areaBtn setTitle:@"地区" forState:UIControlStateNormal];
-    [topTabView addSubview:areaBtn];
+    self.areaBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [self.areaBtn setTitleColor:[UIColor colorWithHexString:@"666666"] forState:UIControlStateNormal];
+    self.areaBtn.frame = CGRectMake(0, 0, topTabButtonWidth, TOP_TAB_BAR_HEIGHT);
+    [self.areaBtn setTitle:@"地区" forState:UIControlStateNormal];
+    self.areaBtn.tag = 0;
+    self.areaBtn.backgroundColor = [UIColor whiteColor];
+    [self.areaBtn addTarget:self action:@selector(dropDownBtnClick:) forControlEvents:UIControlEventTouchDown];
+    [topTabView addSubview:self.areaBtn];
     
-    UIButton *colorBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [colorBtn setTitleColor:[UIColor colorWithHexString:@"666666"] forState:UIControlStateNormal];
-    colorBtn.frame = CGRectMake(MaxX(areaBtn), 0, topTabButtonWidth, TOP_TAB_BAR_HEIGHT);
-    [colorBtn setTitle:@"热度" forState:UIControlStateNormal];
-    [topTabView addSubview:colorBtn];
+    UIView *separatorView = [[UIView alloc] initWithFrame:CGRectMake(MaxX(self.areaBtn), 10, 1, 20)];
+    separatorView.backgroundColor = [UIColor grayColor];
+    [topTabView addSubview:separatorView];
+    
+    self.hotBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [self.hotBtn setTitleColor:[UIColor colorWithHexString:@"666666"] forState:UIControlStateNormal];
+    self.hotBtn.frame = CGRectMake(MaxX(self.areaBtn)+1, 0, topTabButtonWidth, TOP_TAB_BAR_HEIGHT);
+    [self.hotBtn setTitle:@"热度" forState:UIControlStateNormal];
+    self.hotBtn.backgroundColor = [UIColor whiteColor];
+    self.hotBtn.tag = 1;
+    [self.hotBtn addTarget:self action:@selector(dropDownBtnClick:) forControlEvents:UIControlEventTouchDown];
+    [topTabView addSubview:self.hotBtn];
 
     // draw shadow
     UIView *shadowView = [[UIView alloc] initWithFrame:CGRectMake(0, TOP_TAB_BAR_HEIGHT -1, WIDTH(topTabView), 1)];
@@ -72,7 +92,7 @@
                                       MaxY(topTabView),
                                       WIDTH(self.view) ,
                                       tableHeight);
-    NSLog(@"%f",MaxY(topTabView));
+    debugLog(@"%f",MaxY(topTabView));
     self.tableView.backgroundColor = [UIColor clearColor];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
@@ -88,12 +108,61 @@
     [self.tableView.pullToRefreshView setBorderColor:[UIColor whiteColor]];
     [self.tableView.pullToRefreshView setImageIcon:[UIImage imageNamed:@"pull_to_refresh_loading"]];
     [self.view addSubview:self.tableView];
-    self.datasource = [NSMutableArray arrayWithArray:[FakeDataHelper getFakeGroupList]];}
+    self.datasource = [NSMutableArray arrayWithArray:[FakeDataHelper getFakeGroupList]];
+
+    
+    self.areaDatasource = @[@"高新区",@"历下区",@"历城区",@"市中区"];
+    self.hotDatasource = @[@"默认",@"好评",@"评价",@"销量"];
+    
+    float dropDownHeight = tableHeight + kBottomBarHeight;
+    self.dropDownPicker = [[DropDownView alloc] initWithFrame:CGRectMake(0,
+                                                                         self.topBarOffset + HEIGHT(self.areaBtn),
+                                                                         WIDTH(self.view),
+                                                                         dropDownHeight)
+                                                contentHeight:dropDownHeight/2];
+    self.dropDownPicker.delegate = self;
+    [self.view addSubview:self.dropDownPicker];
+    [self.view bringSubviewToFront:topTabView];
+}
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+
+- (void)dropDownBtnClick:(id)sender
+{
+    [self.dropDownPicker hide];
+    UIButton *btn = (UIButton *)sender;
+    switch (btn.tag) {
+        case 0:
+            [self.dropDownPicker showData:self.areaDatasource
+                            selectedIndex:self.areaSelectedIndex
+                              pointToView:btn];
+            break;
+        case 1:
+            [self.dropDownPicker showData:self.hotDatasource
+                            selectedIndex:self.hotSelectedIndex
+                              pointToView:btn];
+            break;
+        default:
+            break;
+    }
+}
+
+- (void)didPickItemAtIndex:(int)index forView:(UIView *)view
+{
+    if([view isEqual:self.areaBtn]){
+        self.areaSelectedIndex  = index;
+        NSString *title = [self.areaDatasource objectAtIndex:index];
+        [self.areaBtn setTitle:title forState:UIControlStateNormal];
+    }else if([view isEqual:self.hotBtn]){
+        self.hotSelectedIndex  = index;
+        NSString *title = [self.hotDatasource objectAtIndex:index];
+        [self.hotBtn setTitle:title forState:UIControlStateNormal];
+    }
 }
 
 

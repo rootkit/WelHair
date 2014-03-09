@@ -103,7 +103,7 @@ static const   float profileViewHeight = 80;
     addressBg.image = [UIImage imageNamed:@"Profile_Bottom_Bg"];
     [addressView addSubview:addressBg];
     
-    self.groupNameLbl = [[UILabel alloc] initWithFrame:CGRectMake(15, 5,150 ,20)];
+    self.groupNameLbl = [[UILabel alloc] initWithFrame:CGRectMake(15, 5,180 ,20)];
     self.groupNameLbl.font = [UIFont systemFontOfSize:12];
     self.groupNameLbl.backgroundColor = [UIColor clearColor];
     self.groupNameLbl.textColor = [UIColor grayColor];
@@ -120,7 +120,7 @@ static const   float profileViewHeight = 80;
     float locationIconSize = 15;
     FAKIcon *locationIcon = [FAKIonIcons locationIconWithSize:locationIconSize];
     [locationIcon addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithHexString:@"b7bcc2"]];
-    UIImageView *locationImg = [[UIImageView alloc] initWithFrame:CGRectMake(MaxX(self.addressLbl)+10, Y(self.addressLbl),locationIconSize, locationIconSize)];
+    UIImageView *locationImg = [[UIImageView alloc] initWithFrame:CGRectMake(WIDTH(headerView_) - 100, Y(self.addressLbl),locationIconSize, locationIconSize)];
     locationImg.image = [locationIcon imageWithSize:CGSizeMake(locationIconSize,locationIconSize)];
     [addressView addSubview:locationImg];
     

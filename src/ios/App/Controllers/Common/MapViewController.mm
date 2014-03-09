@@ -147,7 +147,7 @@
 - (void)locateClick
 {
     //普通态
-    NSLog(@"进入普通定位态");
+    debugLog(@"进入普通定位态");
     _mapView.showsUserLocation = NO;
     _mapView.userTrackingMode = BMKUserTrackingModeFollow;
     _mapView.zoomLevel = 16;
@@ -189,10 +189,10 @@
     
 	BOOL flag = [_search drivingSearch:start.name startNode:start endCity:end.name endNode:end];
 	if (flag) {
-		NSLog(@"search success.");
+		debugLog(@"search success.");
 	}
     else{
-        NSLog(@"search failed!");
+        debugLog(@"search failed!");
     }
 }
 
@@ -239,7 +239,7 @@
 }
 - (void)mapView:(BMKMapView *)mapView didAddAnnotationViews:(NSArray *)views
 {
-    NSLog(@"didAddAnnotationViews");
+    debugLog(@"didAddAnnotationViews");
 }
 
 - (void)mapView:(BMKMapView *)mapView annotationViewForBubble:(BMKAnnotationView *)view
@@ -271,7 +271,7 @@
             }
 		}
 	} else if (error == BMKErrorRouteAddr){
-        NSLog(@"起始点有歧义");
+        debugLog(@"起始点有歧义");
     } else {
         // 各种情况的判断。。。
     }
@@ -284,7 +284,7 @@
  */
 - (void)mapViewWillStartLocatingUser:(BMKMapView *)mapView
 {
-	NSLog(@"start locate");
+	debugLog(@"start locate");
 }
 
 /**
@@ -296,7 +296,7 @@
 - (void)mapView:(BMKMapView *)mapView didUpdateUserLocation:(BMKUserLocation *)userLocation
 {
 	if (userLocation != nil) {
-		NSLog(@"%f %f", userLocation.location.coordinate.latitude, userLocation.location.coordinate.longitude);
+		debugLog(@"%f %f", userLocation.location.coordinate.latitude, userLocation.location.coordinate.longitude);
 	}
 }
 
@@ -494,7 +494,7 @@
  */
 - (void)mapview:(BMKMapView *)mapView onLongClick:(CLLocationCoordinate2D)coordinate
 {
-    NSLog(@"onLongClick-latitude==%f,longitude==%f",coordinate.latitude,coordinate.longitude);
+    debugLog(@"onLongClick-latitude==%f,longitude==%f",coordinate.latitude,coordinate.longitude);
     
     BMKPointAnnotation* item1 = [[BMKPointAnnotation alloc]init];
     item1.coordinate = coordinate;

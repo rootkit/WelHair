@@ -80,7 +80,7 @@
                                       MaxY(topTabView),
                                       WIDTH(self.view) ,
                                       tableHeight);
-    NSLog(@"%f",MaxY(topTabView));
+    debugLog(@"%f",MaxY(topTabView));
     self.tableView.backgroundColor = [UIColor clearColor];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;

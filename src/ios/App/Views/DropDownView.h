@@ -7,7 +7,22 @@
 //
 
 #import <UIKit/UIKit.h>
+@protocol DropDownDelegate
+
+- (void)didPickItemAtIndex:(int)index
+                   forView:(UIView *)view;
+
+@end
 
 @interface DropDownView : UIView
+@property (nonatomic, weak) id<DropDownDelegate> delegate;
 
+- (id)initWithFrame:(CGRect)frame
+      contentHeight:(float) contentHeight;
+
+- (void)showData:(NSArray *)datasource
+   selectedIndex:(int)selectedIndex
+     pointToView:(UIView *)view;
+
+- (void)hide;
 @end

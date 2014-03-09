@@ -162,7 +162,7 @@ static const float KOffsetY = 50;
 
 - (void)rightNavItemClick
 {
-    NSLog(@"register clicked");
+    debugLog(@"register clicked");
 }
 
 - (void)backgroundTapped
@@ -246,7 +246,7 @@ static const float KOffsetY = 50;
                                   {
                                       if (response.responseCode == UMSResponseCodeSuccess) {
                                           UMSocialAccountEntity *snsAccount = [[UMSocialAccountManager socialAccountDictionary] valueForKey:UMShareToSina];
-                                          NSLog(@"username is %@, uid is %@, token is %@",snsAccount.userName,snsAccount.usid,snsAccount.accessToken);
+                                          debugLog(@"username is %@, uid is %@, token is %@",snsAccount.userName,snsAccount.usid,snsAccount.accessToken);
                                       }
                                   });
 }
@@ -257,11 +257,11 @@ static const float KOffsetY = 50;
     UMSocialSnsPlatform *snsPlatform = [UMSocialSnsPlatformManager getSocialPlatformWithName:UMShareToQQ];
     snsPlatform.loginClickHandler(self,[UMSocialControllerService defaultControllerService],YES,^(UMSocialResponseEntity *response)
                                   {
-                                      NSLog(@"response is %@",response);
+                                      debugLog(@"response is %@",response);
                                       //如果是授权到新浪微博，SSO之后如果想获取用户的昵称、头像等需要再次获取一次账户信息
 //                                      if ([platformName isEqualToString:UMShareToSina]) {
 //                                          [[UMSocialDataService defaultDataService] requestSocialAccountWithCompletion:^(UMSocialResponseEntity *accountResponse){
-//                                              NSLog(@"SinaWeibo's user name is %@",[[[accountResponse.data objectForKey:@"accounts"] objectForKey:UMShareToSina] objectForKey:@"username"]);
+//                                              debugLog(@"SinaWeibo's user name is %@",[[[accountResponse.data objectForKey:@"accounts"] objectForKey:UMShareToSina] objectForKey:@"username"]);
 //                                          }];
 //                                      }
                                       
@@ -269,7 +269,7 @@ static const float KOffsetY = 50;
                                       /*
                                        else if ([platformName isEqualToString:UMShareToTencent]) {
                                        [[UMSocialDataService defaultDataService] requestSnsInformation:UMShareToTencent completion:^(UMSocialResponseEntity *respose){
-                                       NSLog(@"get openid  response is %@",respose);
+                                       debugLog(@"get openid  response is %@",respose);
                                        }];
                                        }
                                        */

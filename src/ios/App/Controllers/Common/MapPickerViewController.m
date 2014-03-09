@@ -87,7 +87,7 @@
 - (void)locateClick
 {
     //普通态
-    NSLog(@"进入普通定位态");
+    debugLog(@"进入普通定位态");
     _mapView.showsUserLocation = NO;
     _mapView.userTrackingMode = BMKUserTrackingModeFollow;
     _mapView.zoomLevel = 16;
@@ -143,7 +143,7 @@
     NSMutableArray *annotationMArray = [[NSArray arrayWithArray:mapView.annotations] mutableCopy];
     [mapView removeAnnotations:annotationMArray];
     
-    NSLog(@"onLongClick-latitude==%f,longitude==%f",coordinate.latitude,coordinate.longitude);
+    debugLog(@"onLongClick-latitude==%f,longitude==%f",coordinate.latitude,coordinate.longitude);
     BMKPointAnnotation* item = [[BMKPointAnnotation alloc]init];
     item.coordinate = coordinate;
     

@@ -68,7 +68,15 @@ static const   float profileViewHeight = 80;
     self.headerBackgroundView.image = [UIImage imageNamed:@"Profile_Banner_Bg@2x"];
     [self.view addSubview:self.headerBackgroundView];
     
-    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, self.topBarOffset, WIDTH(self.view), HEIGHT(self.view) - self.topBarOffset)];
+    float tableHeight = isIOS7 ?
+    HEIGHT(self.view) - self.topBarOffset - kBottomBarHeight :
+    HEIGHT(self.view) - kTopBarHeight  - kBottomBarHeight ;
+    self.tableView.frame = CGRectMake(0,
+                                      self.topBarOffset,
+                                      WIDTH(self.view) ,
+                                      tableHeight);
+    
+    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, self.topBarOffset, WIDTH(self.view), tableHeight)];
     self.tableView.backgroundColor = [UIColor clearColor];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
