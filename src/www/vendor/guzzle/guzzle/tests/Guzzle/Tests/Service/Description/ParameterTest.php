@@ -323,17 +323,22 @@ class ParameterTest extends \Guzzle\Tests\GuzzleTestCase
 
     public function testResolvesRefKeysRecursively()
     {
+        $jarJar = array('type' => 'string', 'default' => 'Mesa address tha senate!');
+        $anakin = array('type' => 'array', 'items' => array('$ref' => 'JarJar'));
         $description = new ServiceDescription(array(
             'models' => array(
-                'JarJar' => array('type' => 'string', 'default' => 'Mesa address tha senate!'),
-                'Anakin' => array('type' => 'array', 'items' => array('$ref' => 'JarJar'))
+                'JarJar' => $jarJar,
+                'Anakin' => $anakin
             )
         ));
-        $p = new Parameter(array('$ref' => 'Anakin', 'description' => 'added'), $description);
+        // description attribute will be removed
+        $p = new Parameter(array('$ref' => 'Anakin', 'description' => 'missing'), $description);
         $this->assertEquals(array(
-            'type' => 'array',
-            'items' => array('type' => 'string', 'default' => 'Mesa address tha senate!'),
-            'description' => 'added'
+            'type'  => 'array',
+            'items' => array(
+                'type'    => 'string',
+                'default' => 'Mesa address tha senate!'
+            )
         ), $p->toArray());
     }
 

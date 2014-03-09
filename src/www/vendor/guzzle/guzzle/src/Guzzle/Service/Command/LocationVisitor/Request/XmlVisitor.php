@@ -15,6 +15,9 @@ class XmlVisitor extends AbstractRequestVisitor
     /** @var \SplObjectStorage Data object for persisting XML data */
     protected $data;
 
+    /** @var \XMLWriter XML writer resource */
+    protected $writer;
+
     /** @var bool Content-Type header added when XML is found */
     protected $contentType = 'application/xml';
 
@@ -53,7 +56,7 @@ class XmlVisitor extends AbstractRequestVisitor
 
         // If data was found that needs to be serialized, then do so
         if (isset($this->data[$command])) {
-            $xml = $this->finishDocument($this->data[$command]);
+            $xml = $this->finishDocument($this->writer);
             unset($this->data[$command]);
         } else {
             // Check if XML should always be sent for the command
@@ -187,7 +190,7 @@ class XmlVisitor extends AbstractRequestVisitor
     }
 
     /**
-     * Create a new xml writer and start a document
+     * Create a new xml writier and start a document
      *
      * @param  string $encoding document encoding
      *
@@ -195,11 +198,11 @@ class XmlVisitor extends AbstractRequestVisitor
      */
     protected function startDocument($encoding)
     {
-        $xmlWriter = new \XMLWriter();
-        $xmlWriter->openMemory();
-        $xmlWriter->startDocument('1.0', $encoding);
+        $this->writer = new \XMLWriter();
+        $this->writer->openMemory();
+        $this->writer->startDocument('1.0', $encoding);
 
-        return $xmlWriter;
+        return $this->writer;
     }
 
     /**
@@ -234,7 +237,7 @@ class XmlVisitor extends AbstractRequestVisitor
     protected function addXmlObject(\XMLWriter $xmlWriter, Parameter $param, &$value)
     {
         $noAttributes = array();
-        // add values which have attributes
+        // add values which have attriutes
         foreach ($value as $name => $v) {
             if ($property = $param->getProperty($name)) {
                 if ($property->getData('xmlAttribute')) {

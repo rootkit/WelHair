@@ -8,6 +8,7 @@ use Guzzle\Log\MessageFormatter;
 use Guzzle\Log\ClosureLogAdapter;
 use Guzzle\Http\EntityBody;
 use Guzzle\Http\Message\EntityEnclosingRequestInterface;
+use Guzzle\Http\Message\Response;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**

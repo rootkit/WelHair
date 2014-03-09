@@ -4,6 +4,7 @@ namespace Guzzle\Service\Command;
 
 use Guzzle\Common\Collection;
 use Guzzle\Common\Exception\InvalidArgumentException;
+use Guzzle\Http\Message\Response;
 use Guzzle\Http\Message\RequestInterface;
 use Guzzle\Http\Curl\CurlHandle;
 use Guzzle\Service\Client;
@@ -373,18 +374,5 @@ abstract class AbstractCommand extends Collection implements CommandInterface
         }
 
         return $this->validator;
-    }
-
-    /**
-     * Get array of any validation errors
-     * If no validator has been set then return false
-     */
-    public function getValidationErrors()
-    {
-        if (!$this->validator) {
-            return false;
-        }
-
-        return $this->validator->getErrors();
     }
 }

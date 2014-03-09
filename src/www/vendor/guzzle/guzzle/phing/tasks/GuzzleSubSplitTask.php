@@ -226,7 +226,7 @@ class GuzzleSubSplitTask extends GitBaseTask
         $cmd = $this->client->getCommand('subsplit');
         $cmd->addArgument('update');
         try {
-            $cmd->execute();
+            $output = $cmd->execute();
         } catch (Exception $e) {
             throw new BuildException('git subsplit update failed'. $e);
         }

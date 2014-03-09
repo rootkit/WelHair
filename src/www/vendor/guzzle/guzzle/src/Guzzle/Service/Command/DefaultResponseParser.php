@@ -45,7 +45,7 @@ class DefaultResponseParser implements ResponseParserInterface
         if ($result->getBody()) {
             if (stripos($contentType, 'json') !== false) {
                 $result = $result->json();
-            } elseif (stripos($contentType, 'xml') !== false) {
+            } if (stripos($contentType, 'xml') !== false) {
                 $result = $result->xml();
             }
         }

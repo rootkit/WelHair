@@ -7,6 +7,7 @@ use Guzzle\Http\EntityBodyInterface;
 use Guzzle\Http\QueryString;
 use Guzzle\Http\RedirectPlugin;
 use Guzzle\Http\Exception\RequestException;
+use Guzzle\Http\Mimetypes;
 
 /**
  * HTTP request that sends an entity-body in the request message (POST, PUT, PATCH, DELETE)
@@ -180,7 +181,7 @@ class EntityEnclosingRequest extends Request implements EntityEnclosingRequestIn
         return $this;
     }
 
-    public function addPostFile($field, $filename = null, $contentType = null, $postname = null)
+    public function addPostFile($field, $filename = null, $contentType = null)
     {
         $data = null;
 
@@ -196,7 +197,7 @@ class EntityEnclosingRequest extends Request implements EntityEnclosingRequestIn
             throw new RequestException('The path to a file must be a string');
         } elseif (!empty($filename)) {
             // Adding an empty file will cause cURL to error out
-            $data = new PostFile($field, $filename, $contentType, $postname);
+            $data = new PostFile($field, $filename, $contentType);
         }
 
         if ($data) {

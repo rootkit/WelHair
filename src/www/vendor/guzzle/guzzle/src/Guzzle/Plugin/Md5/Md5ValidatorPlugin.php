@@ -4,6 +4,7 @@ namespace Guzzle\Plugin\Md5;
 
 use Guzzle\Common\Event;
 use Guzzle\Common\Exception\UnexpectedValueException;
+use Guzzle\Http\Message\Response;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
