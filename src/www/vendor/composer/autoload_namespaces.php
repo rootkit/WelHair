@@ -6,7 +6,7 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
-    'Zend' => array($vendorDir . '/zendframework/zendframework1/library'),
+    'Zend_' => array($vendorDir . '/zendframework/zendframework1/library'),
     'Welfony' => array($baseDir . '/library'),
     'Twig_Extensions_' => array($vendorDir . '/slim/extras/Views/Extension'),
     'Symfony\\Component\\Routing\\' => array($vendorDir . '/symfony/routing'),

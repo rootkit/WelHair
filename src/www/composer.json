@@ -16,7 +16,7 @@
         "slim/slim": "2.*",
         "slim/extras": "2.*",
         "symfony/filesystem": "~2.0",
-        "zendframework/zendframework1": "1.12.3"
+        "zendframework/zendframework1": "1.*"
     },
     "authors": [
         {
