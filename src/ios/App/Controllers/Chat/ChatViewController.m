@@ -10,6 +10,7 @@
 //
 // ==============================================================================
 
+#import "CircleImageView.h"
 #import "ChatViewController.h"
 
 @interface ChatViewController ()
@@ -21,24 +22,47 @@
 
 @implementation ChatViewController
 
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+{
+    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    if (self) {
+        FAKIcon *leftIcon = [FAKIonIcons ios7ArrowBackIconWithSize:NAV_BAR_ICON_SIZE];
+        [leftIcon addAttribute:NSForegroundColorAttributeName value:[UIColor whiteColor]];
+        self.leftNavItemImg =[leftIcon imageWithSize:CGSizeMake(NAV_BAR_ICON_SIZE, NAV_BAR_ICON_SIZE)];
+
+        self.messages = [[NSMutableArray alloc] init];
+        [self.messages addObject:@"1"];
+        [self.messages addObject:@"1"];
+        [self.messages addObject:@"1"];
+        [self.messages addObject:@"1"];
+        [self.messages addObject:@"1"];
+        [self.messages addObject:@"1"];
+        [self.messages addObject:@"1"];
+        [self.messages addObject:@"1"];
+
+        self.delegate = self;
+        self.dataSource = self;
+    }
+    return self;
+}
+
+- (void)leftNavItemClick
+{
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
 #pragma mark - View lifecycle
 
 - (void)viewDidLoad
 {
-    self.delegate = self;
-    self.dataSource = self;
     [super viewDidLoad];
 
     [[JSBubbleView appearance] setFont:[UIFont systemFontOfSize:16.0f]];
 
-    self.title = @"Messages";
-    self.messageInputView.textView.placeHolder = @"New Message";
+    self.title = @"聊天";
+    self.messageInputView.textView.placeHolder = @"说点儿什么吧？";
 
     [self setBackgroundColor:[UIColor whiteColor]];
-
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFastForward
-                                                                                           target:self
-                                                                                           action:@selector(buttonPressed:)];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -76,7 +100,7 @@
 - (void)configureCell:(JSBubbleMessageCell *)cell atIndexPath:(NSIndexPath *)indexPath
 {
     if ([cell messageType] == JSBubbleMessageTypeOutgoing) {
-        cell.bubbleView.textView.textColor = [UIColor whiteColor];
+        cell.bubbleView.textView.textColor = [UIColor blackColor];
 
         if ([cell.bubbleView.textView respondsToSelector:@selector(linkTextAttributes)]) {
             NSMutableDictionary *attrs = [cell.bubbleView.textView.linkTextAttributes mutableCopy];
@@ -136,6 +160,15 @@
     [self scrollToBottomAnimated:YES];
 }
 
+- (void)cameraPressed:(id)sender
+{
+    UIImagePickerController *picker = [[UIImagePickerController alloc] init];
+    picker.delegate = self;
+    picker.allowsEditing = YES;
+    picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+    [self presentViewController:picker animated:YES completion:NULL];
+}
+
 - (JSBubbleMessageType)messageTypeForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     return (indexPath.row % 2) ? JSBubbleMessageTypeIncoming : JSBubbleMessageTypeOutgoing;
@@ -145,12 +178,10 @@
                        forRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.row % 2) {
-        return [JSBubbleImageViewFactory bubbleImageViewForType:type
-                                                          color:[UIColor js_bubbleLightGrayColor]];
+        return [JSBubbleImageViewFactory classicBubbleImageViewForType:type style:JSBubbleImageViewStyleClassicSquareGray];
     }
 
-    return [JSBubbleImageViewFactory bubbleImageViewForType:type
-                                                      color:[UIColor js_bubbleBlueColor]];
+    return [JSBubbleImageViewFactory classicBubbleImageViewForType:type style:JSBubbleImageViewStyleClassicSquareBlue];
 }
 
 - (JSMessagesViewTimestampPolicy)timestampPolicy
@@ -165,7 +196,7 @@
 
 - (JSMessagesViewSubtitlePolicy)subtitlePolicy
 {
-    return JSMessagesViewSubtitlePolicyNone;
+    return JSMessagesViewSubtitlePolicyAll;
 }
 
 - (JSMessageInputViewStyle)inputViewStyle
@@ -176,7 +207,7 @@
 
 - (NSString *)textForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return @"haha";
+    return @"我们子这里，在这里啊在这里。我们子这里，在这里啊在这里。\n我们子这里，在这里啊在haoma 这里。我们子这里，在这里啊在这里。我们子这里，在这里啊在这里。我们子这里，在这里啊在这里。我们子这里，在这里啊在这里。";
 }
 
 - (NSDate *)timestampForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -186,12 +217,28 @@
 
 - (UIImageView *)avatarImageViewForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return nil;
+    UIImageView *imgView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 50, 50)];
+    [imgView setImage:[UIImage imageNamed:@"avatar-placeholder"]];
+    
+    return imgView;
 }
 
 - (NSString *)subtitleForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return nil;
+    return @"hh";
+}
+
+#pragma UIImagePicker Delegate
+
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
+{
+    [self dismissViewControllerAnimated:YES completion:NULL];
+}
+
+- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker
+{
+    [self dismissViewControllerAnimated:YES completion:NULL];
+
 }
 
 @end

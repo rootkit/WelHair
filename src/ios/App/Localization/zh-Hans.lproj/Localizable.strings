@@ -19,6 +19,8 @@
 "Register" = "注册";
 "Login" = "登录";
 
+"Send" = "发送";
+
 
 "ChatSessionViewController.Title" = "聊天";
 "WorksViewController.Title" = "发型";

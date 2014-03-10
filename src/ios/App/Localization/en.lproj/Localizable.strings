@@ -19,6 +19,7 @@
 "Register" = "Register";
 "Login" = "Login";
 
+"Send" = "Send";
 
 "ChatSessionViewController.Title" = "Chat";
 "WorksViewController.Title" = "HairStyle";
