@@ -45,20 +45,20 @@
     for (int i = 0; i < 10 ; i++) {
         Work *work = [Work new];
         
-        work.imgUrlList = @[@"http://www.sssik.com/uploads/allimg/130609/20130125033623270.jpg",
+        work.imgUrlList = @[@"http://images-fast.digu365.com/sp/width/736/2fed77ea4898439f94729cd9df5ee5ca0001.jpg",
                             @"http://4.xiustatic.com/upload/goods20111107/65002396/650023960001/g1_600_600.1339481667492.jpg",
-                            @"http://www.sssik.com/uploads/allimg/130609/20130125033623270.jpg",
+                            @"http://images-fast.digu365.com/sp/width/736/2fed77ea4898439f94729cd9df5ee5ca0001.jpg",
                             @"http://4.xiustatic.com/upload/goods20111107/65002396/650023960001/g1_600_600.1339481667492.jpg"];
 
         Comment *comment = [Comment new];
         comment.title = @"[ 发型不错，明天也去炸一个]";
         comment.commentorName = @"Andy";
-        comment.commentorAvatorUrl = @"http://www.sssik.com/uploads/allimg/130609/20130125033623270.jpg";
+        comment.commentorAvatorUrl = @"http://images-fast.digu365.com/sp/width/736/2fed77ea4898439f94729cd9df5ee5ca0001.jpg";
         work.commentList = @[comment];
         
         Staff *staff = [Staff new];
         staff.name = @"Larry";
-        staff.avatorUrl = @"http://www.sssik.com/uploads/allimg/130609/20130125033623270.jpg";
+        staff.avatorUrl = @"http://images-fast.digu365.com/sp/width/736/2fed77ea4898439f94729cd9df5ee5ca0001.jpg";
         work.creator = staff;
         [ar addObject:work];
     }
@@ -71,7 +71,7 @@
     for (int i = 0; i < 10 ; i++) {
         Group *group = [Group new];
         
-        group.imgUrl = @"http://www.sssik.com/uploads/allimg/130609/20130125033623270.jpg";
+        group.imgUrl = @"http://images-fast.digu365.com/sp/width/736/2fed77ea4898439f94729cd9df5ee5ca0001.jpg";
         group.name = @"一剪美工作室";
         group.address = @"济南高新区牛王庄路西";
         group.distance = 1;
@@ -104,7 +104,7 @@
         session.name = @"金三胖儿，奥巴马";
         session.description = @"最近咋样，老哥?";
         session.lastDate = [NSDate date];
-        session.imgUrl = @"http://www.sssik.com/uploads/allimg/130609/20130125033623270.jpg";
+        session.imgUrl = @"http://images-fast.digu365.com/sp/width/736/2fed77ea4898439f94729cd9df5ee5ca0001.jpg";
         [ar addObject:session];
     }
     return ar;
@@ -118,7 +118,7 @@
         comment.commentorName = @"美女A";
         comment.description = @"这个化妆水厉害,能易容";
         comment.createdDate = [NSDate date];
-        comment.commentorAvatorUrl = @"http://www.sssik.com/uploads/allimg/130609/20130125033623270.jpg";
+        comment.commentorAvatorUrl = @"http://images-fast.digu365.com/sp/width/736/2fed77ea4898439f94729cd9df5ee5ca0001.jpg";
         [ar addObject:comment];
     }
     return ar;
