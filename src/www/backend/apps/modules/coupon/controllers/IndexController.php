@@ -25,6 +25,16 @@ class Coupon_IndexController extends AbstractAdminController
     public function infoAction()
     {
     	$this->view->pageTitle = '添加优惠券';
+
+    	$couponInfo = array(
+    		'CouponId' => 0,
+    		'CompanyName' => '',
+    		'CompanyId' => '',
+    		'CouponName' => '',
+    	);
+
+
+    	$this->view->couponInfo = $couponInfo;
     }
 
 }

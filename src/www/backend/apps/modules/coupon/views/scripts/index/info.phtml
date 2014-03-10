@@ -11,9 +11,109 @@ $this->headScript()
      ->appendFile(Util::baseAssetUrl('js/vendor/jquery.imgareaselect/0.9.10/jquery.imgareaselect.min.js'));
 ?>
 <div class="m-form">
-    <form id="frm-user-info" method="post">
+    <form id="frm-coupon-info" method="post">
         <fieldset>
-            
+             <div class="formitm">
+                <label class="lab">沙龙名称：</label>
+                <div class="ipt">
+                    <input name="companyname" type="text" value="<?php echo $this->couponInfo['CompanyName']; ?>" datatype="s4-30" errormsg="沙龙名称至少4个字符，最多30个字符！" class="u-ipt"/>
+                    <a id="btnSelectCompany" class="u-btn u-btn-c3" >选择沙龙</a>
+                    <p></p>
+                   
+                </div>
+            </div>
+            <div class="formitm">
+                <label class="lab">名称：</label>
+                <div class="ipt">
+                    <input name="tel" type="text" value="<?php echo $this->couponInfo['CouponName']; ?>" datatype="tel" class="u-ipt"/>
+                    <p>设定名称后优惠券标题将优先显示为该名称</p>
+                </div>
+            </div>
+            <div class="formitm">
+                <label class="lab">类型：</label>
+                <div class="ipt">
+	                     <select id="coupon-type"  class="u-sel">
+	                        <option value=""></option>
+	                     </select>
+	                     <div>金额：<input  type="text"  datatype="n" class="u-ipt"/>元</div>
+	                     <div>满<input  type="text"  datatype="n" class="u-ipt"/>元 减<input  type="text"  datatype="n" class="u-ipt"/>元</div>
+                    <p></p>
+                </div>
+            </div>
+            <div class="formitm">
+                <label class="lab">活动券：</label>
+                <div class="ipt">
+	                     <select id=""  class="u-sel">
+	                        <option value=""></option>
+	                     </select>
+	                     <div>优惠券数量：<input  type="text"  datatype="n" class="u-ipt"/> 领取地址：<input  type="text"  datatype="n" class="u-ipt"/></div>
+                    <p></p>
+                </div>
+            </div>
+            <div class="formitm">
+                <label class="lab">有效期：</label>
+                <div class="ipt">
+	                     <select id=""  class="u-sel">
+	                        <option value=""></option>
+	                     </select>
+	                     <div>有效期至：<input  type="text"  datatype="n" class="u-ipt"/> </div>
+                    <p></p>
+                </div>
+            </div>
+            <div class="formitm">
+                <label class="lab">领取数量限制：</label>
+                <div class="ipt">
+	                     <select id=""  class="u-sel">
+	                        <option value=""></option>
+	                     </select>
+                    <p></p>
+                </div>
+            </div>
+            <div class="formitm">
+                <label class="lab">领取账户限制：</label>
+                <div class="ipt">
+	                     <select id=""  class="u-sel">
+	                        <option value=""></option>
+	                     </select>
+                    <p></p>
+                </div>
+            </div>
+            <div class="formitm">
+                <label class="lab">付费：</label>
+                <div class="ipt">
+	                     <select id=""  class="u-sel">
+	                        <option value=""></option>
+	                     </select>
+	                     <div>数量：<input  type="text"  datatype="n" class="u-ipt"/> </div>
+	                     <div>积分：<input  type="text"  datatype="n" class="u-ipt"/> </div>
+                    <p></p>
+                </div>
+            </div>
+            <div class="formitm">
+                <label class="lab">使用说明：</label>
+                <div class="ipt">
+	                <textarea  type="text"  datatype="n" class="u-ipt"></textarea>
+                    <p></p>
+                </div>
+            </div>
+            <div class="formitm">
+                <label class="lab">温馨提示：</label>
+                <div class="ipt">
+	                <textarea  type="text"  datatype="n" class="u-ipt"></textarea>
+                    <p></p>
+                </div>
+            </div>
+            <div class="formitm">
+                <label class="lab">优惠券代码保密：</label>
+                <div class="ipt">
+	                 <span class="u-btns" data-type="radio">
+                        <span class="u-btn u-btn-c3" data-value="1">是</span>
+                        <span class="u-btn u-btn-c4" data-value="0">否</span>
+                    </span>
+                    <p></p>
+                </div>
+            </div>
         </fieldset>
     </form>
 </div>
+<script src="<?php echo Util::baseAssetUrl('js/backend/coupon-info.js'); ?>"></script>
