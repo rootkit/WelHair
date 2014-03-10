@@ -1,0 +1,19 @@
+<?php
+use \Welfony\Utility\Util;
+
+$this->headLink()
+     ->appendStylesheet(Util::baseAssetUrl('css/vendor/jquery.uploadify/3.2.1/jquery.uploadify.css'))
+     ->appendStylesheet(Util::baseAssetUrl('css/vendor/jquery.imgareaselect/0.9.10/imgareaselect-default.css'));
+
+$this->headScript()
+     ->appendFile(Util::baseAssetUrl('js/vendor/jquery.validform/5.3.2/jquery.validform.min.js'))
+     ->appendFile(Util::baseAssetUrl('js/vendor/jquery.uploadify/3.2.1/jquery.uploadify.min.js'))
+     ->appendFile(Util::baseAssetUrl('js/vendor/jquery.imgareaselect/0.9.10/jquery.imgareaselect.min.js'));
+?>
+<div class="m-form">
+    <form id="frm-user-info" method="post">
+        <fieldset>
+            
+        </fieldset>
+    </form>
+</div>

@@ -79,6 +79,29 @@
     </ul>
     <?php endif; ?>
 
+    <?php if ($this->module == 'coupon'): ?>
+    <ul class="lists">
+        <li>
+            <a href="<?php echo $this->baseUrl('coupon/index/search'); ?>">优惠券管理</a>
+        </li>
+
+        <li class="sub-menu<?php echo $this->action == 'search' ? ' active' : ''; ?>">
+            <a href="<?php echo $this->baseUrl('coupon/index/search'); ?>">
+                <i class="iconfont">&#x344a;</i>
+                优惠券列表
+            </a>
+        </li>
+        <li class="sub-menu">
+            <a href="<?php echo $this->baseUrl('coupon/index/info'); ?>">
+                <i class="iconfont">&#xf0175;</i>
+                添加优惠券
+            </a>
+        </li>
+        
+    </ul>
+    <?php endif; ?>
+
+
     <?php if ($this->module == 'appointment'): ?>
     <ul class="lists">
         <li<?php echo ($this->controller == 'index' && $this->action == 'search') ? ' class="active"' : ''; ?>>
