@@ -109,7 +109,6 @@
     
     self.tableView = [[UITableView alloc] init];
     float tableHeight = isIOS7 ?
-    
     HEIGHT(self.view) - MaxY(topTabView) - kBottomBarHeight :
     HEIGHT(self.view) - kTopBarHeight - MaxY(topTabView)  - kBottomBarHeight ;
     self.tableView.frame = CGRectMake(0,

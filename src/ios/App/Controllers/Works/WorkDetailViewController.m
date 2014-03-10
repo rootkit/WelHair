@@ -128,12 +128,159 @@
     self.distanceLbl.font = [UIFont systemFontOfSize:14];
     [staffView addSubview:self.distanceLbl];
     
-#pragma comment view
-    UIImageView *tempImg = [[UIImageView alloc] initWithFrame:CGRectMake(15, MaxY(self.imgSlider )+10, WIDTH(self.view) - 30, 87)];
-    tempImg.image = [UIImage imageNamed:@"TempBg1"];
-    [self.scrollView addSubview:tempImg];
+
+//    UIImageView *tempImg = [[UIImageView alloc] initWithFrame:CGRectMake(15, MaxY(self.imgSlider )+10, WIDTH(self.view) - 30, 87)];
+//    tempImg.image = [UIImage imageNamed:@"TempBg1"];
+//    [self.scrollView addSubview:tempImg];
     
-    UIView *commentCellView = [[UIView alloc] initWithFrame:CGRectMake(15, MaxY(tempImg) + 10, WIDTH(tempImg    ), 40)];
+#pragma people  view
+    UIView *peopleView = [[UIView alloc] initWithFrame:CGRectMake(15, MaxY(self.imgSlider )+ 20, 280, 160)];
+    peopleView.layer.borderColor = [[UIColor colorWithHexString:@"e1e1e1"] CGColor];
+    peopleView.layer.borderWidth = 1.0;
+    peopleView.layer.cornerRadius = 5;
+    [self.scrollView addSubview:peopleView];
+
+    peopleView.backgroundColor = [UIColor whiteColor];
+    UILabel *peopleTitleLbl =[[UILabel alloc] initWithFrame:CGRectMake(10, 15, 100,20)];
+    peopleTitleLbl.font = [UIFont systemFontOfSize:14];
+    peopleTitleLbl.textAlignment = NSTextAlignmentLeft;
+    peopleTitleLbl.backgroundColor = [UIColor clearColor];
+    peopleTitleLbl.textColor = [UIColor blackColor];
+    peopleTitleLbl.text = @"适合人群";
+    [peopleView addSubview:peopleTitleLbl];
+    UIView *peopleLinerView = [[UIView alloc] initWithFrame:CGRectMake(0, MaxY(peopleTitleLbl) + 15, WIDTH(peopleView), 1)];
+    peopleLinerView.backgroundColor = [UIColor colorWithHexString:@"e1e1e1"];
+    [peopleView addSubview:peopleLinerView];
+    
+    float leftlblWidth = 40;
+    UIColor *opitionBgColor = [UIColor colorWithHexString:@"787878"];
+    UIColor *opitionSelectedBgColor = [UIColor colorWithHexString:APP_BASE_COLOR];
+    float opitionMargin = 10;
+    float opitionWidth = 45;
+    
+    peopleView.backgroundColor = [UIColor whiteColor];
+#pragma nature cell view
+    UILabel *natureLbl =[[UILabel alloc] initWithFrame:CGRectMake(0,MaxY(peopleLinerView) + 10,leftlblWidth,20)];
+    natureLbl.font = [UIFont systemFontOfSize:14];
+    natureLbl.textAlignment = NSTextAlignmentRight;
+    natureLbl.backgroundColor = [UIColor clearColor];
+    natureLbl.textColor = [UIColor grayColor];
+    natureLbl.text = @"发质:";
+    [peopleView addSubview:natureLbl];
+    
+    UILabel *nature1Lbl =[[UILabel alloc] initWithFrame:CGRectMake(MaxX(natureLbl) + opitionMargin,Y(natureLbl),opitionWidth,20)];
+    nature1Lbl.font = [UIFont systemFontOfSize:14];
+    nature1Lbl.textAlignment = NSTextAlignmentCenter;
+    nature1Lbl.backgroundColor = opitionSelectedBgColor;
+    nature1Lbl.textColor = [UIColor whiteColor];
+    nature1Lbl.text = @"短发";
+    [peopleView addSubview:nature1Lbl];
+    
+    UILabel *nature2Lbl =[[UILabel alloc] initWithFrame:CGRectMake(MaxX(nature1Lbl) + opitionMargin,Y(natureLbl),opitionWidth,20)];
+    nature2Lbl.font = [UIFont systemFontOfSize:14];
+    nature2Lbl.textAlignment = NSTextAlignmentCenter;
+    nature2Lbl.backgroundColor = opitionBgColor;
+    nature2Lbl.textColor = [UIColor whiteColor];
+    nature2Lbl.text = @"长发";
+    [peopleView addSubview:nature2Lbl];
+    
+    UILabel *nature3Lbl =[[UILabel alloc] initWithFrame:CGRectMake(MaxX(nature2Lbl) + opitionMargin,Y(natureLbl),opitionWidth,20)];
+    nature3Lbl.font = [UIFont systemFontOfSize:14];
+    nature3Lbl.textAlignment = NSTextAlignmentCenter;
+    nature3Lbl.backgroundColor = opitionBgColor;
+    nature3Lbl.textColor = [UIColor whiteColor];
+    nature3Lbl.text = @"编发";
+    [peopleView addSubview:nature3Lbl];
+    
+    UILabel *nature4Lbl =[[UILabel alloc] initWithFrame:CGRectMake(MaxX(nature3Lbl) + opitionMargin,Y(natureLbl),opitionWidth,20)];
+    nature4Lbl.font = [UIFont systemFontOfSize:14];
+    nature4Lbl.textAlignment = NSTextAlignmentCenter;
+    nature4Lbl.backgroundColor = [UIColor grayColor];
+    nature4Lbl.textColor = [UIColor whiteColor];
+    nature4Lbl.text = @"中发";
+    [peopleView addSubview:nature4Lbl];
+
+    
+#pragma amount cell view
+    UILabel *hairAmountLbl =[[UILabel alloc] initWithFrame:CGRectMake(0,MaxY(natureLbl) + 10,leftlblWidth,20)];
+    hairAmountLbl.font = [UIFont systemFontOfSize:14];
+    hairAmountLbl.textAlignment = NSTextAlignmentRight;
+    hairAmountLbl.backgroundColor = [UIColor clearColor];
+    hairAmountLbl.textColor = [UIColor grayColor];
+    hairAmountLbl.text = @"发量:";
+    [peopleView addSubview:hairAmountLbl];
+    
+    UILabel *amount1Lbl =[[UILabel alloc] initWithFrame:CGRectMake(MaxX(hairAmountLbl) + opitionMargin,Y(hairAmountLbl),opitionWidth,20)];
+    amount1Lbl.font = [UIFont systemFontOfSize:14];
+    amount1Lbl.textAlignment = NSTextAlignmentCenter;
+    amount1Lbl.backgroundColor = opitionSelectedBgColor;
+    amount1Lbl.textColor = [UIColor whiteColor];
+    amount1Lbl.text = @"多密";
+    [peopleView addSubview:amount1Lbl];
+    
+    UILabel *amount2Lbl =[[UILabel alloc] initWithFrame:CGRectMake(MaxX(amount1Lbl) + opitionMargin,Y(hairAmountLbl),opitionWidth,20)];
+    amount2Lbl.font = [UIFont systemFontOfSize:14];
+    amount2Lbl.textAlignment = NSTextAlignmentCenter;
+    amount2Lbl.backgroundColor = opitionBgColor;
+    amount2Lbl.textColor = [UIColor whiteColor];
+    amount2Lbl.text = @"中等";
+    [peopleView addSubview:amount2Lbl];
+    
+    UILabel *amount3Lbl =[[UILabel alloc] initWithFrame:CGRectMake(MaxX(amount2Lbl) + opitionMargin,Y(hairAmountLbl),opitionWidth,20)];
+    amount3Lbl.font = [UIFont systemFontOfSize:14];
+    amount3Lbl.textAlignment = NSTextAlignmentCenter;
+    amount3Lbl.backgroundColor = opitionBgColor;
+    amount3Lbl.textColor = [UIColor whiteColor];
+    amount3Lbl.text = @"偏少";
+    [peopleView addSubview:amount3Lbl];
+    
+#pragma face frame cell view
+    UILabel *faceFrameLbl =[[UILabel alloc] initWithFrame:CGRectMake(0,MaxY(hairAmountLbl) + 10,leftlblWidth,20)];
+    faceFrameLbl.font = [UIFont systemFontOfSize:14];
+    faceFrameLbl.textAlignment = NSTextAlignmentRight;
+    faceFrameLbl.backgroundColor = [UIColor clearColor];
+    faceFrameLbl.textColor = [UIColor grayColor];
+    faceFrameLbl.text = @"脸型:";
+    [peopleView addSubview:faceFrameLbl];
+    
+    UILabel *faceFrame1Lbl =[[UILabel alloc] initWithFrame:CGRectMake(MaxX(faceFrameLbl) + opitionMargin,Y(faceFrameLbl),opitionWidth,20)];
+    faceFrame1Lbl.font = [UIFont systemFontOfSize:14];
+    faceFrame1Lbl.textAlignment = NSTextAlignmentCenter;
+    faceFrame1Lbl.backgroundColor = opitionBgColor;
+    faceFrame1Lbl.textColor = [UIColor whiteColor];
+    faceFrame1Lbl.text = @"圆脸";
+    [peopleView addSubview:faceFrame1Lbl];
+    
+    UILabel *faceFrame2Lbl =[[UILabel alloc] initWithFrame:CGRectMake(MaxX(faceFrame1Lbl) + opitionMargin,Y(faceFrameLbl),opitionWidth,20)];
+    faceFrame2Lbl.font = [UIFont systemFontOfSize:14];
+    faceFrame2Lbl.textAlignment = NSTextAlignmentCenter;
+    faceFrame2Lbl.backgroundColor = opitionSelectedBgColor;
+    faceFrame2Lbl.textColor = [UIColor whiteColor];
+    faceFrame2Lbl.text = @"长脸";
+    [peopleView addSubview:faceFrame2Lbl];
+    
+    UILabel *faceFrame3Lbl =[[UILabel alloc] initWithFrame:CGRectMake(MaxX(faceFrame2Lbl) + opitionMargin,Y(faceFrameLbl),opitionWidth,20)];
+    faceFrame3Lbl.font = [UIFont systemFontOfSize:14];
+    faceFrame3Lbl.textAlignment = NSTextAlignmentCenter;
+    faceFrame3Lbl.backgroundColor = opitionBgColor;
+    faceFrame3Lbl.textColor = [UIColor whiteColor];
+    faceFrame3Lbl.text = @"方脸";
+    [peopleView addSubview:faceFrame3Lbl];
+    
+    UILabel *faceFrame4Lbl =[[UILabel alloc] initWithFrame:CGRectMake(MaxX(faceFrame3Lbl) + opitionMargin,Y(faceFrameLbl),opitionWidth,20)];
+    faceFrame4Lbl.font = [UIFont systemFontOfSize:14];
+    faceFrame4Lbl.textAlignment = NSTextAlignmentCenter;
+    faceFrame4Lbl.backgroundColor = [UIColor grayColor];
+    faceFrame4Lbl.textColor = [UIColor whiteColor];
+    faceFrame4Lbl.text = @"瓜子脸";
+    [peopleView addSubview:faceFrame4Lbl];
+
+
+#pragma comment view
+    UIView *commentCellView = [[UIView alloc] initWithFrame:CGRectMake(15, MaxY(peopleView) + 20, WIDTH(peopleView), 40)];
+    commentCellView.layer.borderColor = [[UIColor colorWithHexString:@"e1e1e1"] CGColor];
+    commentCellView.layer.borderWidth = 1.0;
+    commentCellView.layer.cornerRadius = 5;
     [commentCellView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(commentsTapped)]];
     commentCellView.backgroundColor = [UIColor whiteColor];
     UILabel *commentLbl =[[UILabel alloc] initWithFrame:CGRectMake(20, 10, 100,20)];
@@ -149,6 +296,8 @@
     commentImgView.image = [commentIcon imageWithSize:CGSizeMake(20, 20)];
     [commentCellView addSubview:commentImgView];
     [self.scrollView addSubview:commentCellView];
+    self.scrollView.scrollEnabled = YES;
+    self.scrollView.contentSize = CGSizeMake(WIDTH(self.view), MaxY(commentCellView) + 10);
     
 }
 

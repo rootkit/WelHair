@@ -108,6 +108,11 @@
 		460C2F4718CAF44B00AD16E6 /* WD_AuthorLayerBg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 460C2F4618CAF44B00AD16E6 /* WD_AuthorLayerBg@2x.png */; };
 		460C2F4A18CAFDB200AD16E6 /* GroupCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 460C2F4918CAFDB200AD16E6 /* GroupCell.m */; };
 		460C2F4D18CAFEBF00AD16E6 /* Group.m in Sources */ = {isa = PBXBuildFile; fileRef = 460C2F4C18CAFEBF00AD16E6 /* Group.m */; };
+		462F845118CDE78600CADA98 /* RootBottomTab3Selected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 462F844C18CDE78600CADA98 /* RootBottomTab3Selected@2x.png */; };
+		462F845218CDE78600CADA98 /* RootBottomTab4Selected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 462F844D18CDE78600CADA98 /* RootBottomTab4Selected@2x.png */; };
+		462F845318CDE78600CADA98 /* RootBottomTab5Selected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 462F844E18CDE78600CADA98 /* RootBottomTab5Selected@2x.png */; };
+		462F845418CDE78600CADA98 /* RootBottomTab2Selected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 462F844F18CDE78600CADA98 /* RootBottomTab2Selected@2x.png */; };
+		462F845518CDE78600CADA98 /* RootBottomTab1Selected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 462F845018CDE78600CADA98 /* RootBottomTab1Selected@2x.png */; };
 		4630251518C76EF1000E0B51 /* CalendarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4630251418C76EF1000E0B51 /* CalendarViewController.m */; };
 		4630251C18C77695000E0B51 /* OrderListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4630251B18C77695000E0B51 /* OrderListViewController.m */; };
 		4630251F18C777A2000E0B51 /* OrderDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4630251E18C777A2000E0B51 /* OrderDetailViewController.m */; };
@@ -349,6 +354,11 @@
 		460C2F4918CAFDB200AD16E6 /* GroupCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GroupCell.m; sourceTree = "<group>"; };
 		460C2F4B18CAFEBF00AD16E6 /* Group.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Group.h; sourceTree = "<group>"; };
 		460C2F4C18CAFEBF00AD16E6 /* Group.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Group.m; sourceTree = "<group>"; };
+		462F844C18CDE78600CADA98 /* RootBottomTab3Selected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "RootBottomTab3Selected@2x.png"; sourceTree = "<group>"; };
+		462F844D18CDE78600CADA98 /* RootBottomTab4Selected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "RootBottomTab4Selected@2x.png"; sourceTree = "<group>"; };
+		462F844E18CDE78600CADA98 /* RootBottomTab5Selected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "RootBottomTab5Selected@2x.png"; sourceTree = "<group>"; };
+		462F844F18CDE78600CADA98 /* RootBottomTab2Selected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "RootBottomTab2Selected@2x.png"; sourceTree = "<group>"; };
+		462F845018CDE78600CADA98 /* RootBottomTab1Selected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "RootBottomTab1Selected@2x.png"; sourceTree = "<group>"; };
 		4630251318C76EF1000E0B51 /* CalendarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CalendarViewController.h; sourceTree = "<group>"; };
 		4630251418C76EF1000E0B51 /* CalendarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CalendarViewController.m; sourceTree = "<group>"; };
 		4630251A18C77695000E0B51 /* OrderListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderListViewController.h; sourceTree = "<group>"; };
@@ -1055,6 +1065,11 @@
 		460C2F3118C8D62600AD16E6 /* TabBar */ = {
 			isa = PBXGroup;
 			children = (
+				462F844C18CDE78600CADA98 /* RootBottomTab3Selected@2x.png */,
+				462F844D18CDE78600CADA98 /* RootBottomTab4Selected@2x.png */,
+				462F844E18CDE78600CADA98 /* RootBottomTab5Selected@2x.png */,
+				462F844F18CDE78600CADA98 /* RootBottomTab2Selected@2x.png */,
+				462F845018CDE78600CADA98 /* RootBottomTab1Selected@2x.png */,
 				460C2F3418C8D66300AD16E6 /* RootBottomTab1@2x.png */,
 				460C2F3518C8D66300AD16E6 /* RootBottomTab3@2x.png */,
 				460C2F3618C8D66300AD16E6 /* RootBottomTab4@2x.png */,
@@ -1650,6 +1665,7 @@
 				18AC390A18CD95C800328A78 /* input-field-cover@2x.png in Resources */,
 				18AC390318CD95C800328A78 /* bubble-tailless.png in Resources */,
 				46B233F018BCE6E000CC27A3 /* UMSCommentInputControlleriPad.xib in Resources */,
+				462F845318CDE78600CADA98 /* RootBottomTab5Selected@2x.png in Resources */,
 				18AC390718CD95C800328A78 /* input-bar-background.png in Resources */,
 				18A912BE18BB25AA006B9A04 /* Icon-40.png in Resources */,
 				4630252618C81F1B000E0B51 /* QQWeiboIcon@2x.png in Resources */,
@@ -1668,6 +1684,7 @@
 				18A912D218BB2670006B9A04 /* Default-568h@2x.png in Resources */,
 				18AC38F418CD95C800328A78 /* bubble-classic-typing@2x.png in Resources */,
 				18A912C218BB25AA006B9A04 /* Icon-72@2x.png in Resources */,
+				462F845118CDE78600CADA98 /* RootBottomTab3Selected@2x.png in Resources */,
 				18A912D718BB2670006B9A04 /* Default.png in Resources */,
 				18AC38FF18CD95C800328A78 /* bubble-stroked-tailless.png in Resources */,
 				46B233EF18BCE6E000CC27A3 /* UMSCommentInputController.xib in Resources */,
@@ -1676,6 +1693,7 @@
 				18AC390618CD95C800328A78 /* bubble@2x.png in Resources */,
 				18A912C418BB25AA006B9A04 /* Icon-76@2x.png in Resources */,
 				18AC38E918CD95C800328A78 /* avatar-placeholder.png in Resources */,
+				462F845518CDE78600CADA98 /* RootBottomTab1Selected@2x.png in Resources */,
 				46B233EE18BCE6E000CC27A3 /* UMSCommentDetailController.xib in Resources */,
 				18AC38F618CD95C800328A78 /* bubble-classic-square-blue@2x.png in Resources */,
 				18AC38EB18CD95C800328A78 /* bubble-classic-blue.png in Resources */,
@@ -1708,7 +1726,9 @@
 				46B233F218BCE6E000CC27A3 /* UMShareEditViewControlleriPad.xib in Resources */,
 				18A912C918BB25AA006B9A04 /* Icon.png in Resources */,
 				18A912D318BB2670006B9A04 /* Default-Landscape@2x~ipad.png in Resources */,
+				462F845418CDE78600CADA98 /* RootBottomTab2Selected@2x.png in Resources */,
 				18AC38F818CD95C800328A78 /* bubble-classic-square-gray@2x.png in Resources */,
+				462F845218CDE78600CADA98 /* RootBottomTab4Selected@2x.png in Resources */,
 				18AC390918CD95C800328A78 /* input-field-cover.png in Resources */,
 				18AC390818CD95C800328A78 /* input-bar-background@2x.png in Resources */,
 				46E84EBF18C2C7040004C146 /* centerIcon@2x.png in Resources */,

@@ -54,11 +54,11 @@
                                  [UIImage imageNamed:@"RootBottomTab3"],
                                  [UIImage imageNamed:@"RootBottomTab4"],
                                  [UIImage imageNamed:@"RootBottomTab5"]];
-    NSArray *tabSelectedImages = @[[UIImage imageNamed:@"RootBottomTab1"],
-                                   [UIImage imageNamed:@"RootBottomTab2"],
-                                   [UIImage imageNamed:@"RootBottomTab3"],
-                                   [UIImage imageNamed:@"RootBottomTab4"],
-                                   [UIImage imageNamed:@"RootBottomTab5"]];
+    NSArray *tabSelectedImages = @[[UIImage imageNamed:@"RootBottomTab1Selected"],
+                                   [UIImage imageNamed:@"RootBottomTab2Selected"],
+                                   [UIImage imageNamed:@"RootBottomTab3Selected"],
+                                   [UIImage imageNamed:@"RootBottomTab4Selected"],
+                                   [UIImage imageNamed:@"RootBottomTab5Selected"]];
     [self setupViewControls:viewControls
                            tabHeight:CUSTOME_BOTTOMBAR_HEIGHT
                      tabNormalImages:tabNormalImages
