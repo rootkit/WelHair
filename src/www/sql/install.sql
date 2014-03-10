@@ -47,13 +47,13 @@ AUTO_INCREMENT = 1001;
 DELIMITER ;;
 CREATE PROCEDURE `sp_update_table_data`()
 BEGIN
-		IF NOT EXISTS(
-			SELECT 1
-			FROM `Users`
-			WHERE `UserId` = 1
-	) THEN
-		INSERT INTO `Users` VALUES (1,1,'admin','管理员','admin@welhair.com',0,'',0,'$pbkdf2-sha512$12000$O2jQRADP6q6x6Z.SzwR/Wg$NLuLX3ZRllnYq0bH4YqBliUOZVbyX9FbovvS5CN.VEZVnrVoMBTCG2li87szHo.yES6U8aS7d1NB4HTkC5BXxA',NULL,1,'http://welhair.com/static/img/avatar-default.jpg','',NULL,0,'2014-02-28 20:59:21','2014-03-01 00:27:41');
-	END IF;
+    IF NOT EXISTS(
+      SELECT 1
+      FROM `Users`
+      WHERE `UserId` = 1
+  ) THEN
+    INSERT INTO `Users` VALUES (1,1,'admin','管理员','admin@welhair.com',0,'',0,'$pbkdf2-sha512$12000$O2jQRADP6q6x6Z.SzwR/Wg$NLuLX3ZRllnYq0bH4YqBliUOZVbyX9FbovvS5CN.VEZVnrVoMBTCG2li87szHo.yES6U8aS7d1NB4HTkC5BXxA',NULL,1,'http://welhair.com/static/img/avatar-default.jpg','',NULL,0,'2014-02-28 20:59:21','2014-03-01 00:27:41');
+  END IF;
 END;;
 
 DELIMITER ;
@@ -353,22 +353,22 @@ CREATE TABLE IF NOT EXISTS `CouponType` (
 DELIMITER ;;
 CREATE PROCEDURE `sp_update_table_data`()
   BEGIN
-	IF NOT EXISTS(
-			SELECT 1
-			FROM `CouponType`
-			WHERE `TypeName` = '减免券' AND `CouponTypeId` = 1
-	) THEN
-	  INSERT INTO `CouponType` (`CouponTypeId`, `TypeName`, `Description`, `IsActive`)
-		VALUES (1, '减免券', '满xx元减xx元，如：满200元减20元', 1);
-	END IF;
-	IF NOT EXISTS(
-			SELECT 1
-			FROM `CouponType`
-			WHERE `TypeName` = '代金券' AND `CouponTypeId` = 2
-	) THEN
-	  INSERT INTO `CouponType` (`CouponTypeId`, `TypeName`, `Description`, `IsActive`)
-		VALUES (2, '代金券', '代金券，xx元，如：20元', 1);
-	END IF;
+  IF NOT EXISTS(
+      SELECT 1
+      FROM `CouponType`
+      WHERE `TypeName` = '减免券' AND `CouponTypeId` = 1
+  ) THEN
+    INSERT INTO `CouponType` (`CouponTypeId`, `TypeName`, `Description`, `IsActive`)
+    VALUES (1, '减免券', '满xx元减xx元，如：满200元减20元', 1);
+  END IF;
+  IF NOT EXISTS(
+      SELECT 1
+      FROM `CouponType`
+      WHERE `TypeName` = '代金券' AND `CouponTypeId` = 2
+  ) THEN
+    INSERT INTO `CouponType` (`CouponTypeId`, `TypeName`, `Description`, `IsActive`)
+    VALUES (2, '代金券', '代金券，xx元，如：20元', 1);
+  END IF;
 END;;
 
 DELIMITER ;
@@ -387,30 +387,30 @@ CREATE TABLE IF NOT EXISTS `CouponAmountLimitType` (
 DELIMITER ;;
 CREATE PROCEDURE `sp_update_table_data`()
   BEGIN
-	IF NOT EXISTS(
-			SELECT 1
-			FROM `CouponAmountLimitType`
-			WHERE `TypeName` = '每个账户一张' AND `CouponAmountLimitTypeId` = 1
-	) THEN
-	  INSERT INTO `CouponAmountLimitType` (`CouponAmountLimitTypeId`, `TypeName`, `Description`)
-		VALUES (1, '每个账户一张', '每个账户一张');
-	END IF;
-	IF NOT EXISTS(
-			SELECT 1
-			FROM `CouponAmountLimitType`
-			WHERE `TypeName` = '每个账户每天一张' AND `CouponAmountLimitTypeId` = 2
-	) THEN
-	  INSERT INTO `CouponAmountLimitType` (`CouponAmountLimitTypeId`, `TypeName`, `Description`)
-		VALUES (2, '每个账户每天一张', '每个账户每天一张');
-	END IF;
-	IF NOT EXISTS(
-			SELECT 1
-			FROM `CouponAmountLimitType`
-			WHERE `TypeName` = '不限制' AND `CouponAmountLimitTypeId` = 3
-	) THEN
-	  INSERT INTO `CouponAmountLimitType` (`CouponAmountLimitTypeId`, `TypeName`, `Description`)
-		VALUES (3, '不限制', '不限制');
-	END IF;
+  IF NOT EXISTS(
+      SELECT 1
+      FROM `CouponAmountLimitType`
+      WHERE `TypeName` = '每个账户一张' AND `CouponAmountLimitTypeId` = 1
+  ) THEN
+    INSERT INTO `CouponAmountLimitType` (`CouponAmountLimitTypeId`, `TypeName`, `Description`)
+    VALUES (1, '每个账户一张', '每个账户一张');
+  END IF;
+  IF NOT EXISTS(
+      SELECT 1
+      FROM `CouponAmountLimitType`
+      WHERE `TypeName` = '每个账户每天一张' AND `CouponAmountLimitTypeId` = 2
+  ) THEN
+    INSERT INTO `CouponAmountLimitType` (`CouponAmountLimitTypeId`, `TypeName`, `Description`)
+    VALUES (2, '每个账户每天一张', '每个账户每天一张');
+  END IF;
+  IF NOT EXISTS(
+      SELECT 1
+      FROM `CouponAmountLimitType`
+      WHERE `TypeName` = '不限制' AND `CouponAmountLimitTypeId` = 3
+  ) THEN
+    INSERT INTO `CouponAmountLimitType` (`CouponAmountLimitTypeId`, `TypeName`, `Description`)
+    VALUES (3, '不限制', '不限制');
+  END IF;
 END;;
 
 DELIMITER ;
@@ -429,38 +429,38 @@ CREATE TABLE IF NOT EXISTS `CouponAccountLimitType` (
 DELIMITER ;;
 CREATE PROCEDURE `sp_update_table_data`()
   BEGIN
-	IF NOT EXISTS(
-			SELECT 1
-			FROM `CouponAccountLimitType`
-			WHERE `TypeName` = '不限制' AND `CouponAccountLimitTypeId` = 1
-	) THEN
-	  INSERT INTO `CouponAccountLimitType` (`CouponAccountLimitTypeId`, `TypeName`, `Description`)
-		VALUES (1, '不限制', '不限制');
-	END IF;
-	IF NOT EXISTS(
-			SELECT 1
-			FROM `CouponAccountLimitType`
-			WHERE `TypeName` = '仅QQ帐号登陆可领取' AND `CouponAccountLimitTypeId` = 2
-	) THEN
-		  INSERT INTO `CouponAccountLimitType` (`CouponAccountLimitTypeId`, `TypeName`, `Description`)
-			VALUES (2, '仅QQ帐号登陆可领取', '仅QQ帐号登陆可领取');
-	END IF;
-	IF NOT EXISTS(
-			SELECT 1
-			FROM `CouponAccountLimitType`
-			WHERE `TypeName` = '仅新浪微博帐号登陆可领取' AND `CouponAccountLimitTypeId` = 3
-	) THEN
-	  INSERT INTO `CouponAccountLimitType` (`CouponAccountLimitTypeId`, `TypeName`, `Description`)
-		VALUES (3, '仅新浪微博帐号登陆可领取', '仅新浪微博帐号登陆可领取');
-	END IF;
-	IF NOT EXISTS(
-			SELECT 1
-			FROM `CouponAccountLimitType`
-			WHERE `TypeName` = '仅淘宝帐号登陆可领取' AND `CouponAccountLimitTypeId` = 4
-	) THEN
-	  INSERT INTO `CouponAccountLimitType` (`CouponAccountLimitTypeId`, `TypeName`, `Description`)
-		VALUES (4, '仅淘宝帐号登陆可领取', '仅淘宝帐号登陆可领取');
-	END IF;
+  IF NOT EXISTS(
+      SELECT 1
+      FROM `CouponAccountLimitType`
+      WHERE `TypeName` = '不限制' AND `CouponAccountLimitTypeId` = 1
+  ) THEN
+    INSERT INTO `CouponAccountLimitType` (`CouponAccountLimitTypeId`, `TypeName`, `Description`)
+    VALUES (1, '不限制', '不限制');
+  END IF;
+  IF NOT EXISTS(
+      SELECT 1
+      FROM `CouponAccountLimitType`
+      WHERE `TypeName` = '仅QQ帐号登陆可领取' AND `CouponAccountLimitTypeId` = 2
+  ) THEN
+      INSERT INTO `CouponAccountLimitType` (`CouponAccountLimitTypeId`, `TypeName`, `Description`)
+      VALUES (2, '仅QQ帐号登陆可领取', '仅QQ帐号登陆可领取');
+  END IF;
+  IF NOT EXISTS(
+      SELECT 1
+      FROM `CouponAccountLimitType`
+      WHERE `TypeName` = '仅新浪微博帐号登陆可领取' AND `CouponAccountLimitTypeId` = 3
+  ) THEN
+    INSERT INTO `CouponAccountLimitType` (`CouponAccountLimitTypeId`, `TypeName`, `Description`)
+    VALUES (3, '仅新浪微博帐号登陆可领取', '仅新浪微博帐号登陆可领取');
+  END IF;
+  IF NOT EXISTS(
+      SELECT 1
+      FROM `CouponAccountLimitType`
+      WHERE `TypeName` = '仅淘宝帐号登陆可领取' AND `CouponAccountLimitTypeId` = 4
+  ) THEN
+    INSERT INTO `CouponAccountLimitType` (`CouponAccountLimitTypeId`, `TypeName`, `Description`)
+    VALUES (4, '仅淘宝帐号登陆可领取', '仅淘宝帐号登陆可领取');
+  END IF;
 END;;
 
 DELIMITER ;
@@ -478,30 +478,30 @@ CREATE TABLE IF NOT EXISTS `CouponPaymentType` (
 DELIMITER ;;
 CREATE PROCEDURE `sp_update_table_data`()
   BEGIN
-	IF NOT EXISTS(
-			SELECT 1
-			FROM `CouponPaymentType`
-			WHERE `TypeName` = '免费' AND `CouponPaymentTypeId` = 1
-	) THEN
-	  INSERT INTO `CouponPaymentType` (`CouponPaymentTypeId`, `TypeName`, `Description`)
-		VALUES (1, '免费', '免费');
-	END IF;
-	IF NOT EXISTS(
-			SELECT 1
-			FROM `CouponPaymentType`
-			WHERE `TypeName` = '付费' AND `CouponPaymentTypeId` = 2
-	) THEN
-		  INSERT INTO `CouponPaymentType` (`CouponPaymentTypeId`, `TypeName`, `Description`)
-			VALUES (2, '付费', '付费');
-	END IF;
-	IF NOT EXISTS(
-			SELECT 1
-			FROM `CouponPaymentType`
-			WHERE `TypeName` = '积分' AND `CouponPaymentTypeId` = 3
-	) THEN
-	  INSERT INTO `CouponPaymentType` (`CouponPaymentTypeId`, `TypeName`, `Description`)
-		VALUES (3, '积分', '积分');
-	END IF;
+  IF NOT EXISTS(
+      SELECT 1
+      FROM `CouponPaymentType`
+      WHERE `TypeName` = '免费' AND `CouponPaymentTypeId` = 1
+  ) THEN
+    INSERT INTO `CouponPaymentType` (`CouponPaymentTypeId`, `TypeName`, `Description`)
+    VALUES (1, '免费', '免费');
+  END IF;
+  IF NOT EXISTS(
+      SELECT 1
+      FROM `CouponPaymentType`
+      WHERE `TypeName` = '付费' AND `CouponPaymentTypeId` = 2
+  ) THEN
+      INSERT INTO `CouponPaymentType` (`CouponPaymentTypeId`, `TypeName`, `Description`)
+      VALUES (2, '付费', '付费');
+  END IF;
+  IF NOT EXISTS(
+      SELECT 1
+      FROM `CouponPaymentType`
+      WHERE `TypeName` = '积分' AND `CouponPaymentTypeId` = 3
+  ) THEN
+    INSERT INTO `CouponPaymentType` (`CouponPaymentTypeId`, `TypeName`, `Description`)
+    VALUES (3, '积分', '积分');
+  END IF;
 END;;
 
 DELIMITER ;
@@ -524,7 +524,7 @@ CREATE TABLE IF NOT EXISTS `Coupon` (
   `CouponAmountLimitTypeId` INT NOT NULL COMMENT '领取数量限制',
   `CouponAccountLimitTypeId` INT NOT NULL COMMENT '领取帐号限制',
   `CouponPyamentTypeId` INT NOT NULL COMMENT '付费',
-  `CouponPyamentValue` INT NULL COMMENT '付费值',  
+  `CouponPyamentValue` INT NULL COMMENT '付费值',
   `Usage` TEXT COMMENT '使用说明',
   `Comments` TEXT COMMENT '温馨提示',
   `IsCouponCodeSecret` tinyint(1) NOT NULL DEFAULT '0' COMMENT '优惠码是否保密',
@@ -541,8 +541,32 @@ CREATE TABLE IF NOT EXISTS `CouponCode` (
   `PassCode` varchar(100) NOT NULL COMMENT '优惠码',
   `ReceiveId` int NULL COMMENT '领取人ID',
   `ReceiverName` varchar(50) COMMENT '领取人名字',
-  `ReceiveTime` DATETIME NULL COMMENT '领取时间', 
+  `ReceiveTime` DATETIME NULL COMMENT '领取时间',
   `IsDeleted` tinyint(1) NOT NULL DEFAULT '0' COMMENT '是否删除',
   PRIMARY KEY (`CouponCodeId`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='优惠码'$$
+
+-- ==============================================================================
+
+DROP PROCEDURE IF EXISTS `sp_update_table_field`;
+DELIMITER ;;
+
+CREATE PROCEDURE `sp_update_table_field`()
+BEGIN
+  IF NOT EXISTS (
+      SELECT 1
+      FROM information_schema.COLUMNS
+      WHERE lower(TABLE_SCHEMA) = 'welhair'
+        AND lower(TABLE_NAME) ='company'
+        AND lower(COLUMN_NAME) ='logourl'
+  ) THEN
+    ALTER TABLE `Company` ADD `LogoUrl` VARCHAR(255) NOT NULL DEFAULT '' AFTER `Name`;
+  END IF;
+END;;
+
+DELIMITER ;
+CALL sp_update_table_field();
+DROP PROCEDURE IF EXISTS `sp_update_table_field`;
+
+-- ==============================================================================
 

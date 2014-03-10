@@ -41,6 +41,7 @@ class Company_IndexController extends AbstractAdminController
 
         $company = array(
             'CompanyId' => intval($this->_request->getParam('company_id')),
+            'LogoUrl' => '',
             'Name' => '',
             'Status' => CompanyStatus::Invalid,
             'Tel' => '',
@@ -56,6 +57,7 @@ class Company_IndexController extends AbstractAdminController
 
         if ($this->_request->isPost()) {
             $companyName = htmlspecialchars($this->_request->getParam('companyname'));
+            $logoUrl = $this->_request->getParam('logo_url');
             $tel = htmlspecialchars($this->_request->getParam('tel'));
             $mobile = htmlspecialchars($this->_request->getParam('mobile'));
             $province = intval($this->_request->getParam('province'));
@@ -68,6 +70,7 @@ class Company_IndexController extends AbstractAdminController
             $status = htmlspecialchars($this->_request->getParam('status'));
 
             $company['Name'] = $companyName;
+            $company['LogoUrl'] = $logoUrl;
             $company['Tel'] = $tel;
             $company['Mobile'] = $mobile;
             $company['Province'] = $province;

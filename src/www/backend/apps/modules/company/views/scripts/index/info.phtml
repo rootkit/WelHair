@@ -9,6 +9,24 @@ $this->headScript()
     <form id="frm-company-info" method="post">
         <fieldset>
             <div class="formitm">
+                <label class="lab">Logo：</label>
+                <div class="ipt">
+                    <span class="u-img2">
+                        <a href="javascript:;">
+                            <img id="complany-logo-image" src="<?php echo $this->companyInfo['LogoUrl']; ?>" alt="">
+                            <input id="complany-logo-url" type="hidden" name="logo_url" value="<?php echo $this->companyInfo['LogoUrl']; ?>" />
+                        </a>
+                    </span>
+                    <a id="complany-logo-update-thumb" class="update-thumb" href="#">调整缩略图</a>
+                </div>
+            </div>
+            <div class="formitm">
+                <label class="lab"></label>
+                <div class="ipt">
+                    <div id="complany-logo-uploader"></div>
+                </div>
+            </div>
+            <div class="formitm">
                 <label class="lab">沙龙名称：</label>
                 <div class="ipt">
                     <input name="companyname" type="text" value="<?php echo $this->companyInfo['Name']; ?>" datatype="s4-30" errormsg="沙龙名称至少4个字符，最多30个字符！" class="u-ipt"/>
