@@ -22,6 +22,17 @@ class UserController extends AbstractAPIController
 
     public function index()
     {
+        $result = array();
+
+        $search = htmlspecialchars($this->app->request->get('search'));
+        if ($search) {
+            $existedUser = UserService::getUserByUsernameOrMobile($search);
+            if ($existedUser) {
+                $result[] = $existedUser;
+            }
+        }
+
+        $this->sendResponse($result);
     }
 
     public function signInWithSocial()

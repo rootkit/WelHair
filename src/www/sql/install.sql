@@ -570,3 +570,44 @@ DROP PROCEDURE IF EXISTS `sp_update_table_field`;
 
 -- ==============================================================================
 
+CREATE TABLE IF NOT EXISTS `Roster` (
+  `RosterId` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `FromId` INT UNSIGNED NOT NULL,
+  `ToId` INT UNSIGNED NOT NULL,
+  `Status` SMALLINT(1) NOT NULL DEFAULT 0,
+  `CreatedDate` DATETIME NOT NULL,
+  `LastModifiedDate` DATETIME NULL,
+  PRIMARY KEY (`RosterId`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS `Room` (
+  `RoomId` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `Name` VARCHAR(50) NOT NULL DEFAULT '',
+  `CreatedBy` INT UNSIGNED NOT NULL,
+  `CreatedDate` DATETIME NOT NULL,
+  `LastModifiedDate` DATETIME NULL,
+  PRIMARY KEY (`RoomId`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS `RoomUser` (
+  `RoomUserId` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `DisplayName` VARCHAR(50) NOT NULL DEFAULT '',
+  `RoomId` INT UNSIGNED NOT NULL,
+  `UserId` INT UNSIGNED NOT NULL,
+  PRIMARY KEY (`RoomUserId`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS `Message` (
+  `MessageId` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `Type` SMALLINT(1) NOT NULL DEFAULT 1,
+  `FromId` INT UNSIGNED NOT NULL,
+  `ToId` INT UNSIGNED NOT NULL,
+  `RoomId` INT UNSIGNED NOT NULL,
+  `Body` VARCHAR(500) NULL,
+  `Status` SMALLINT(1) NOT NULL DEFAULT 0,
+  `CreatedDate` DATETIME NOT NULL,
+  PRIMARY KEY (`MessageId`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ==============================================================================
+

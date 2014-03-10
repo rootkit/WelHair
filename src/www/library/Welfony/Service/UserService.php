@@ -15,6 +15,7 @@
 namespace Welfony\Service;
 
 use PHPassLib\Hash\PBKDF2 as PassHash;
+use Welfony\Core\Enum\UserRole;
 use Welfony\Repository\UserRepository;
 
 class UserService
@@ -75,6 +76,30 @@ class UserService
         $user = UserRepository::getInstance()->findUserById($userId);
 
         return $user;
+    }
+
+    public static function getUserByUsernameOrMobile($usernameOrMobile)
+    {
+        if (empty($usernameOrMobile)) {
+            return null;
+        }
+
+        $existedUser = UserRepository::getInstance()->findUserByUsername($usernameOrMobile);
+        if (!$existedUser) {
+            $existedUser = UserRepository::getInstance()->findUserByMobile($usernameOrMobile);
+        }
+
+        if ($existedUser) {
+            if ($existedUser['Role'] == UserRole::Admin) {
+                return null;
+            }
+
+            unset($existedUser['Password']);
+            unset($existedUser['EmailVerified']);
+            unset($existedUser['MobileVerified']);
+        }
+
+        return $existedUser;
     }
 
     public static function save($data)
