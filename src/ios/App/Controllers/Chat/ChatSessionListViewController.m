@@ -10,10 +10,11 @@
 //
 // ==============================================================================
 
-#import "ChatSessionListViewController.h"
-#import "UIScrollView+UzysCircularProgressPullToRefresh.h"
-#import "ChatSession.h"
+#import "ChatViewController.h"
 #import "ChatGroupCell.h"
+#import "ChatSessionListViewController.h"
+#import "ChatSession.h"
+#import "UIScrollView+UzysCircularProgressPullToRefresh.h"
 
 @interface ChatSessionListViewController ()<UITableViewDataSource, UITableViewDelegate>
 @property (nonatomic, strong) NSMutableArray *datasource;
@@ -114,13 +115,13 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    
+    [self pushToDetial:nil];
 }
 
 - (void)pushToDetial:(ChatSession *)product
 {
-//    ProductDetailViewController *workVc = [[ProductDetailViewController alloc] init];;
-//    [self.navigationController pushViewController:workVc animated:YES];
+    ChatViewController *chatVc = [[ChatViewController alloc] init];;
+    [self.navigationController pushViewController:chatVc animated:YES];
 }
 
 @end

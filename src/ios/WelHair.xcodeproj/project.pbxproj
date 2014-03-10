@@ -41,6 +41,8 @@
 		18A912D818BB2670006B9A04 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18A912D118BB2670006B9A04 /* Default@2x.png */; };
 		18A912E218BB26B6006B9A04 /* BaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A912DC18BB26B6006B9A04 /* BaseViewController.m */; };
 		18A912E418BB26B6006B9A04 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A912E118BB26B6006B9A04 /* User.m */; };
+		18AC388818CD685C00328A78 /* WebSocketUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 18AC388718CD685C00328A78 /* WebSocketUtil.m */; };
+		18AC388B18CD762600328A78 /* ChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18AC388A18CD762600328A78 /* ChatViewController.m */; };
 		460C2F2A18C8BFFF00AD16E6 /* Comment.m in Sources */ = {isa = PBXBuildFile; fileRef = 460C2F2918C8BFFF00AD16E6 /* Comment.m */; };
 		460C2F3318C8D62600AD16E6 /* RootBottomTab2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 460C2F3218C8D62600AD16E6 /* RootBottomTab2@2x.png */; };
 		460C2F3818C8D66300AD16E6 /* RootBottomTab1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 460C2F3418C8D66300AD16E6 /* RootBottomTab1@2x.png */; };
@@ -207,6 +209,10 @@
 		18A912E118BB26B6006B9A04 /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
 		18A912EA18BB2826006B9A04 /* WelKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WelKit.h; sourceTree = "<group>"; };
 		18A912EB18BB2826006B9A04 /* WelKitMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WelKitMacros.h; sourceTree = "<group>"; };
+		18AC388618CD685C00328A78 /* WebSocketUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebSocketUtil.h; sourceTree = "<group>"; };
+		18AC388718CD685C00328A78 /* WebSocketUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebSocketUtil.m; sourceTree = "<group>"; };
+		18AC388918CD762600328A78 /* ChatViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatViewController.h; sourceTree = "<group>"; };
+		18AC388A18CD762600328A78 /* ChatViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatViewController.m; sourceTree = "<group>"; };
 		460C2F2818C8BFFF00AD16E6 /* Comment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Comment.h; sourceTree = "<group>"; };
 		460C2F2918C8BFFF00AD16E6 /* Comment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Comment.m; sourceTree = "<group>"; };
 		460C2F3218C8D62600AD16E6 /* RootBottomTab2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "RootBottomTab2@2x.png"; sourceTree = "<group>"; };
@@ -557,6 +563,7 @@
 				18A9127118BB216E006B9A04 /* AppDelegate.h */,
 				18A9127218BB216E006B9A04 /* AppDelegate.m */,
 				18A9129118BB2350006B9A04 /* Assets */,
+				18AC388518CD683200328A78 /* Common */,
 				18A9129818BB2350006B9A04 /* Constants */,
 				18A912D918BB26B6006B9A04 /* Controllers */,
 				18A912A018BB23FA006B9A04 /* Localization */,
@@ -659,16 +666,16 @@
 		18A912D918BB26B6006B9A04 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				467F0F0018CB60E0009FFE08 /* Settings */,
-				4630251618C7764E000E0B51 /* Order */,
-				46BCD27018BC79D3005C4BD6 /* Staffs */,
+				18A912DA18BB26B6006B9A04 /* Base */,
+				46BCD25418BC6271005C4BD6 /* Chat */,
 				46BCD26018BC7533005C4BD6 /* Common */,
 				46BCD25C18BC724E005C4BD6 /* Groups */,
-				46BCD25818BC7146005C4BD6 /* Works */,
-				46BCD25418BC6271005C4BD6 /* Chat */,
+				4630251618C7764E000E0B51 /* Order */,
 				4660E68518BB73A8005B3C7D /* Products */,
+				467F0F0018CB60E0009FFE08 /* Settings */,
+				46BCD27018BC79D3005C4BD6 /* Staffs */,
 				4660E68718BB73A8005B3C7D /* User */,
-				18A912DA18BB26B6006B9A04 /* Base */,
+				46BCD25818BC7146005C4BD6 /* Works */,
 				18A912DD18BB26B6006B9A04 /* RootViewController.h */,
 				46B25AE318BF1CAA0035F425 /* RootViewController.m */,
 			);
@@ -687,30 +694,30 @@
 		18A912DF18BB26B6006B9A04 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				46E84EDE18C33FAC0004C146 /* SelectOpition.h */,
-				46E84EDF18C33FAC0004C146 /* SelectOpition.m */,
+				467F0EAD18CB0F54009FFE08 /* BaseModel.h */,
+				467F0EAE18CB0F54009FFE08 /* BaseModel.m */,
+				467F0EBC18CB3CC3009FFE08 /* ChatSession.h */,
+				467F0EBD18CB3CC3009FFE08 /* ChatSession.m */,
+				460C2F2818C8BFFF00AD16E6 /* Comment.h */,
+				460C2F2918C8BFFF00AD16E6 /* Comment.m */,
 				46B25AEE18C185290035F425 /* FakeDataHelper.h */,
 				46B25AEF18C185290035F425 /* FakeDataHelper.m */,
+				460C2F4B18CAFEBF00AD16E6 /* Group.h */,
+				460C2F4C18CAFEBF00AD16E6 /* Group.m */,
+				46E84EDB18C338370004C146 /* OpitionCategory.h */,
+				46E84EDC18C338370004C146 /* OpitionCategory.m */,
+				46E84ED818C337D70004C146 /* OpitionItem.h */,
+				46E84ED918C337D70004C146 /* OpitionItem.m */,
+				467F0EB318CB1721009FFE08 /* Product.h */,
+				467F0EB418CB1721009FFE08 /* Product.m */,
+				46E84EDE18C33FAC0004C146 /* SelectOpition.h */,
+				46E84EDF18C33FAC0004C146 /* SelectOpition.m */,
+				4630252F18C849FD000E0B51 /* Staff.h */,
+				4630253018C849FD000E0B51 /* Staff.m */,
 				18A912E018BB26B6006B9A04 /* User.h */,
 				18A912E118BB26B6006B9A04 /* User.m */,
 				4665FD8318BC801000E88C6B /* Work.h */,
 				4665FD8418BC801000E88C6B /* Work.m */,
-				46E84ED818C337D70004C146 /* OpitionItem.h */,
-				46E84ED918C337D70004C146 /* OpitionItem.m */,
-				46E84EDB18C338370004C146 /* OpitionCategory.h */,
-				46E84EDC18C338370004C146 /* OpitionCategory.m */,
-				4630252F18C849FD000E0B51 /* Staff.h */,
-				4630253018C849FD000E0B51 /* Staff.m */,
-				460C2F2818C8BFFF00AD16E6 /* Comment.h */,
-				460C2F2918C8BFFF00AD16E6 /* Comment.m */,
-				460C2F4B18CAFEBF00AD16E6 /* Group.h */,
-				460C2F4C18CAFEBF00AD16E6 /* Group.m */,
-				467F0EAD18CB0F54009FFE08 /* BaseModel.h */,
-				467F0EAE18CB0F54009FFE08 /* BaseModel.m */,
-				467F0EB318CB1721009FFE08 /* Product.h */,
-				467F0EB418CB1721009FFE08 /* Product.m */,
-				467F0EBC18CB3CC3009FFE08 /* ChatSession.h */,
-				467F0EBD18CB3CC3009FFE08 /* ChatSession.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -738,6 +745,15 @@
 				18A912EB18BB2826006B9A04 /* WelKitMacros.h */,
 			);
 			path = WelKit;
+			sourceTree = "<group>";
+		};
+		18AC388518CD683200328A78 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				18AC388618CD685C00328A78 /* WebSocketUtil.h */,
+				18AC388718CD685C00328A78 /* WebSocketUtil.m */,
+			);
+			path = Common;
 			sourceTree = "<group>";
 		};
 		460C2F3118C8D62600AD16E6 /* TabBar */ = {
@@ -1190,6 +1206,8 @@
 			children = (
 				46BCD25518BC628E005C4BD6 /* ChatSessionListViewController.h */,
 				46BCD25618BC628E005C4BD6 /* ChatSessionListViewController.m */,
+				18AC388918CD762600328A78 /* ChatViewController.h */,
+				18AC388A18CD762600328A78 /* ChatViewController.m */,
 			);
 			path = Chat;
 			sourceTree = "<group>";
@@ -1442,6 +1460,7 @@
 				46B233B718BCDC4200CC27A3 /* LoginViewController.m in Sources */,
 				46B25AE418BF1CAA0035F425 /* RootViewController.m in Sources */,
 				4660E69018BB73E1005B3C7D /* ProductsViewController.m in Sources */,
+				18AC388B18CD762600328A78 /* ChatViewController.m in Sources */,
 				18A912E418BB26B6006B9A04 /* User.m in Sources */,
 				460C2F4D18CAFEBF00AD16E6 /* Group.m in Sources */,
 				46BCD25318BC3B4F005C4BD6 /* SVProgressHUD.m in Sources */,
@@ -1450,6 +1469,7 @@
 				46BCD26918BC797B005C4BD6 /* GroupDetailViewController.m in Sources */,
 				467F0EF018CB4FCF009FFE08 /* UITextField+WelKit.m in Sources */,
 				467F0EBB18CB3956009FFE08 /* ChatGroupCell.m in Sources */,
+				18AC388818CD685C00328A78 /* WebSocketUtil.m in Sources */,
 				467F0F1418CC1EAE009FFE08 /* DoubleCoverCell.m in Sources */,
 				467F0EB818CB2164009FFE08 /* ProductCell.m in Sources */,
 				467F0EEC18CB4FCF009FFE08 /* WelQRReaderViewController.m in Sources */,

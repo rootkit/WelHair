@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_Controller
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id$
  */
@@ -45,7 +45,7 @@ require_once 'Zend/View/Interface.php';
  * @category   Zend
  * @package    Zend_Controller
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @group      Zend_Controller
  * @group      Zend_Controller_Action
@@ -475,20 +475,6 @@ class Zend_Controller_Action_Helper_ContextSwitchTest extends PHPUnit_Framework_
         $this->request->setParam('format', 'xml')
                       ->setActionName('foo');
         $this->helper->initContext();
-        $this->checkNothingIsDone();
-    }
-
-    public function testInitContextThrowsExceptionIfControllerContextsIsInvalid()
-    {
-        $this->controller->contexts = 'foo';
-        $this->request->setParam('format', 'xml')
-                      ->setActionName('foo');
-        try {
-            $this->helper->initContext();
-            $this->fail('Invalid contexts array should cause failure');
-        } catch (Zend_Controller_Exception $e) {
-            $this->assertContains('Invalid', $e->getMessage());
-        }
         $this->checkNothingIsDone();
     }
 
