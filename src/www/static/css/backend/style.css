@@ -178,6 +178,12 @@ a {
     border-color: #c00 #e00 #e00;
 }
 
+.ipt-inner-div
+{
+    width: auto;
+    display: inline-block;
+}
+
 textarea.u-ipt
 {
     padding: 0 0 0 5px;
