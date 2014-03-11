@@ -14,5 +14,7 @@ $(function() {
     $('#frm-coupon-info').Validform({
         tiptype: 3
     });
-
+    $('#btnSelectCompany').click(function(){
+    	$('#companyList').dialog({"modal": true, "width":800, "height":640}).open();
+    });
 });
