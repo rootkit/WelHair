@@ -1,0 +1,44 @@
+
+
+<table class="m-table">
+    <thead>
+        <tr>
+            <th class="col-chk"></th>
+            <th class="cola">名字</th>
+            <th>地址</th>
+            <th>联系电话</th>
+            <th class="cola">手机</th>
+            <th class="cola">验证</th>
+            <th>创建时间</th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php if (count($this->dataList) > 0): ?>
+        <?php foreach ($this->dataList as $data): ?>
+        <tr>
+            <td class="col-center"><input name="chk_ids[]" type="radio"  data-name="<?php echo $data['Name']; ?>" data-id="<?php echo $data['CompanyId']; ?>"/></td>
+            <td>
+                <a href="<?php echo $this->baseUrl('company/index/info?company_id=' . $data['CompanyId']); ?>">
+                    <?php echo $data['Name']; ?>
+                </a>
+            </td>
+            <td>
+                <?php echo $data['ProvinceName']; ?> - <?php echo $data['CityName']; ?> - <?php echo $data['DistrictName']; ?>
+                <p><?php echo $data['Address']; ?></p>
+            </td>
+            <td><?php echo $data['Tel']; ?></td>
+            <td><?php echo $data['Mobile']; ?></td>
+            <td class="col-center">
+                <?php echo $data['Status'] == 1 ? '通过' : '未通过'; ?>
+            </td>
+            <td><?php echo $data['CreatedDate']; ?></td>
+        </tr>
+        <?php endforeach; ?>
+        <?php else: ?>
+        <tr>
+            <td class="col-center" colspan="8">您还没有添加任何记录</td>
+        </tr>
+        <?php endif; ?>
+    </tbody>
+</table>
+<?php echo $this->pager; ?>
