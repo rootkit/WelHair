@@ -13,6 +13,8 @@
 // ==============================================================================
 
 use Welfony\Controller\Base\AbstractAdminController;
+use Welfony\Service\CompanyService;
+use Welfony\Service\CouponService;
 
 class Coupon_IndexController extends AbstractAdminController
 {
@@ -35,6 +37,20 @@ class Coupon_IndexController extends AbstractAdminController
 
 
     	$this->view->couponInfo = $couponInfo;
+    }
+
+    public function selectcompanyAction()
+    {
+        static $pageSize = 10;
+
+
+        $page = intval($this->_request->getParam('page'));
+        $searchResult = CompanyService::listAllCompanies($page, $pageSize);
+
+        $this->view->dataList = $searchResult['companies'];
+        $this->view->pager = $this->renderPager($this->view->baseUrl('company/index/search?s='),
+                                                $page,
+                                                ceil($searchResult['total'] / $pageSize));
     }
 
 }

@@ -114,4 +114,22 @@ class Company_IndexController extends AbstractAdminController
         $this->view->pageTitle = '沙龙认证';
     }
 
+    public function selectAction()
+    {
+        //$this->_helper->viewRenderer->setNoRender(true);
+        $this->_helper->layout->disableLayout();
+
+        static $pageSize = 10;
+
+
+        $page = intval($this->_request->getParam('page'));
+        $func = intval($this->_request->getParam('func'));
+        $searchResult = CompanyService::listAllCompanies($page, $pageSize);
+
+        $this->view->dataList = $searchResult['companies'];
+        $this->view->pager = $this->renderPager('',
+                                                $page,
+                                                ceil($searchResult['total'] / $pageSize), $func);
+    }
+
 }

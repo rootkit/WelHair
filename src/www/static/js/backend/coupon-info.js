@@ -10,11 +10,29 @@
 //
 // ==============================================================================
 
+WF.Coupon = {
+	updateCompanyList :function(page)
+	{
+		 var url =globalSetting.baseUrl + '/company/index/select?page=' + page + '&func= WF.Coupon.updateCompanyList';
+		 $.get( url, function(data) {
+			$('#companyList').empty();
+			$('#companyList').html(data);
+
+			$('#companyList input[type=radio]').click(function(){
+				$('#companyname').val($(this).attr('data-name'));
+				$('#companyid').val($(this).attr('data-id'));
+				$('#companyList').dialog("close");
+			});
+		 });
+
+	}
+};
 $(function() {
     $('#frm-coupon-info').Validform({
         tiptype: 3
     });
     $('#btnSelectCompany').click(function(){
-    	$('#companyList').dialog({"modal": true, "width":800, "height":640}).open();
+    	$('#companyList').dialog({"modal": true, "width":800, "height":640});
+    	WF.Coupon.updateCompanyList(1);
     });
 });
