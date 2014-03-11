@@ -15,6 +15,7 @@
 namespace Welfony\Service;
 
 use Welfony\Repository\CouponRepository;
+use Welfony\Repository\CouponTypeRepository;
 
 class CouponService
 {
@@ -83,5 +84,34 @@ class CouponService
             return true;
         }
     }
+
+    public static function listCouponType()
+    {
+        $searchResult = CouponRepository::getInstance()->getAllCouponType();       
+        return $searchResult;
+    }
+
+    public static function listCouponPaymentType()
+    {
+        
+        $searchResult = CouponRepository::getInstance()->getAllCouponPaymentType();       
+        return $searchResult;
+    }
+
+    public static function listCouponAmountLimitType()
+    {
+        
+        $searchResult = CouponRepository::getInstance()->getAllCouponAmountLimitType();       
+        return $searchResult;
+    }
+
+    public static function listCouponAccountLimitType()
+    {
+    
+        $searchResult = CouponRepository::getInstance()->getAllCouponAccountLimitType();       
+        return $searchResult;
+    }
+
+
 
 }

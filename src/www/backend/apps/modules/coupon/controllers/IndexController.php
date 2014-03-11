@@ -35,22 +35,13 @@ class Coupon_IndexController extends AbstractAdminController
     		'CouponName' => '',
     	);
 
-
+        $this->view->couponTypes = CouponService::listCouponType();
+        $this->view->couponPaymentTypes = CouponService::listCouponPaymentType();
+        $this->view->couponAmountLimitTypes = CouponService::listCouponAmountLimitType();
+        $this->view->couponAccountLimitTypes = CouponService::listCouponAccountLimitType();
     	$this->view->couponInfo = $couponInfo;
     }
 
-    public function selectcompanyAction()
-    {
-        static $pageSize = 10;
-
-
-        $page = intval($this->_request->getParam('page'));
-        $searchResult = CompanyService::listAllCompanies($page, $pageSize);
-
-        $this->view->dataList = $searchResult['companies'];
-        $this->view->pager = $this->renderPager($this->view->baseUrl('company/index/search?s='),
-                                                $page,
-                                                ceil($searchResult['total'] / $pageSize));
-    }
+    
 
 }

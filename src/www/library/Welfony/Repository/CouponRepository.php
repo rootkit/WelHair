@@ -101,4 +101,45 @@ class CouponRepository extends AbstractRepository
             return false;
         }
     }
+
+    public function getAllCouponType()
+    {
+        $strSql = 'SELECT
+                       *
+                   FROM CouponType
+                  ';
+
+        return $this->conn->fetchAll($strSql);
+    }
+
+    public function getAllCouponPaymentType()
+    {
+        $strSql = 'SELECT
+                       *
+                   FROM CouponPaymentType
+                  ';
+
+        return $this->conn->fetchAll($strSql);
+    }
+
+    public function getAllCouponAmountLimitType()
+    {
+        $strSql = 'SELECT
+                       *
+                   FROM CouponAmountLimitType
+                  ';
+
+        return $this->conn->fetchAll($strSql);
+    }
+
+    public function getAllCouponAccountLimitType()
+    {
+        $strSql = 'SELECT
+                       *
+                   FROM CouponAccountLimitType
+                  ';
+
+        return $this->conn->fetchAll($strSql);
+    }
+
 }

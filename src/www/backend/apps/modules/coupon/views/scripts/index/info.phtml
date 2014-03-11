@@ -34,7 +34,9 @@ $this->headScript()
                 <label class="lab">类型：</label>
                 <div class="ipt">
 	                     <select id="coupon-type"  class="u-sel">
-	                        <option value=""></option>
+                          <?php foreach( $this->couponTypes as $couponType) :?>
+	                        <option value="<?php echo $couponType['TypeId']; ?>"><?php echo $couponType['TypeName']; ?></option>
+                          <?php endforeach; ?>
 	                     </select>
 	                     <div>金额：<input  type="text"  datatype="n" class="u-ipt"/>元</div>
 	                     <div>满<input  type="text"  datatype="n" class="u-ipt"/>元 减<input  type="text"  datatype="n" class="u-ipt"/>元</div>
@@ -45,7 +47,9 @@ $this->headScript()
                 <label class="lab">活动券：</label>
                 <div class="ipt">
 	                     <select id=""  class="u-sel">
-	                        <option value=""></option>
+                            <option value="0">否</option>
+	                        <option value="1">是</option>
+                           
 	                     </select>
 	                     <div>优惠券数量：<input  type="text"  datatype="n" class="u-ipt"/> 领取地址：<input  type="text"  datatype="n" class="u-ipt"/></div>
                     <p></p>
@@ -55,7 +59,8 @@ $this->headScript()
                 <label class="lab">有效期：</label>
                 <div class="ipt">
 	                     <select id=""  class="u-sel">
-	                        <option value=""></option>
+	                        <option value="1">有限制</option>
+                            <option value="0">无限制</option>
 	                     </select>
 	                     <div>有效期至：<input  type="text"  datatype="n" class="u-ipt"/> </div>
                     <p></p>
@@ -65,7 +70,9 @@ $this->headScript()
                 <label class="lab">领取数量限制：</label>
                 <div class="ipt">
 	                     <select id=""  class="u-sel">
-	                        <option value=""></option>
+	                     <?php foreach( $this->couponAmountLimitTypes as $couponAmountLimitType) :?>
+                            <option value="<?php echo $couponAmountLimitType['CouponAmountTypeId']; ?>"><?php echo $couponAmountLimitType['TypeName']; ?></option>
+                          <?php endforeach; ?>
 	                     </select>
                     <p></p>
                 </div>
@@ -74,7 +81,9 @@ $this->headScript()
                 <label class="lab">领取账户限制：</label>
                 <div class="ipt">
 	                     <select id=""  class="u-sel">
-	                        <option value=""></option>
+	                      <?php foreach( $this->couponAccountLimitTypes as $couponAccountLimitType) :?>
+                            <option value="<?php echo $couponAccountLimitType['CouponAccountTypeId']; ?>"><?php echo $couponAccountLimitType['TypeName']; ?></option>
+                          <?php endforeach; ?>
 	                     </select>
                     <p></p>
                 </div>
@@ -83,7 +92,9 @@ $this->headScript()
                 <label class="lab">付费：</label>
                 <div class="ipt">
 	                     <select id=""  class="u-sel">
-	                        <option value=""></option>
+	                      <?php foreach( $this->couponPaymentTypes as $couponPaymentType) :?>
+                            <option value="<?php echo $couponPaymentType['CouponPaymentTypeId']; ?>"><?php echo $couponPaymentType['TypeName']; ?></option>
+                          <?php endforeach; ?>
 	                     </select>
 	                     <div>数量：<input  type="text"  datatype="n" class="u-ipt"/> </div>
 	                     <div>积分：<input  type="text"  datatype="n" class="u-ipt"/> </div>
