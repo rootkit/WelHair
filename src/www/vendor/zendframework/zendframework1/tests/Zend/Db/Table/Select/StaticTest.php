@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_Db
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id$
  */
@@ -31,7 +31,7 @@ require_once 'Zend/Db/Select/TestCommon.php';
  * @category   Zend
  * @package    Zend_Db
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @group      Zend_Db
  * @group      Zend_Db_Table
@@ -63,7 +63,7 @@ class Zend_Db_Table_Select_StaticTest extends Zend_Db_Select_TestCommon
         $this->assertEquals('SELECT "zfproducts".* FROM "zfproducts"', $sql);
         $stmt = $select->query();
         Zend_Loader::loadClass('Zend_Db_Statement_Static');
-        $this->assertType('Zend_Db_Statement_Static', $stmt);
+        $this->assertTrue($stmt instanceof Zend_Db_Statement_Static);
     }
 
     /**
@@ -79,7 +79,7 @@ class Zend_Db_Table_Select_StaticTest extends Zend_Db_Select_TestCommon
 
         $stmt = $select->query();
         Zend_Loader::loadClass('Zend_Db_Statement_Static');
-        $this->assertType('Zend_Db_Statement_Static', $stmt);
+        $this->assertTrue($stmt instanceof Zend_Db_Statement_Static);
     }
 
     /**

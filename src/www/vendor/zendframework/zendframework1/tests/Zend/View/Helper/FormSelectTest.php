@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_View
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id$
  */
@@ -34,7 +34,7 @@ require_once 'Zend/View.php';
  * @category   Zend
  * @package    Zend_View
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @group      Zend_View
  * @group      Zend_View_Helper
@@ -92,11 +92,11 @@ class Zend_View_Helper_FormSelectTest extends PHPUnit_Framework_TestCase
         );
 
         $expected = '<select name="foo" id="foo">'
-                  . PHP_EOL
+                  . "\n"
                   . '    <option value="bar">Bar</option>'
-                  . PHP_EOL
+                  . "\n"
                   . '    <option value="baz">Baz</option>'
-                  . PHP_EOL
+                  . "\n"
                   . '</select>';
 
         $this->assertSame($expected, $html);
