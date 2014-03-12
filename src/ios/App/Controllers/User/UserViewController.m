@@ -89,7 +89,7 @@ static const   float profileViewHeight = 80;
     self.avatorImgView = [[CircleImageView alloc] initWithFrame:CGRectMake(20, 15, avatorSize, avatorSize)];
     self.avatorImgView.borderColor = [UIColor whiteColor];
     self.avatorImgView.borderWidth = 1;
-    [self.avatorImgView setImageWithURL:[NSURL URLWithString:@"http://www.sssik.com/uploads/allimg/130609/20130125033623270.jpg"]];
+    [self.avatorImgView setImageWithURL:[NSURL URLWithString:@"http://images-fast.digu365.com/sp/width/736/2fed77ea4898439f94729cd9df5ee5ca0001.jpg"]];
     [profileIconView_ addSubview:self.avatorImgView];
     
     UIButton *overlayBtn = [UIButton buttonWithType:UIButtonTypeCustom];

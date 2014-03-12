@@ -81,7 +81,7 @@
 - (void)setup:(Group *)group
 {
     self.groupData = group;
-    [self.imgView setImageWithURL:[NSURL URLWithString:self.groupData.imgUrl]];
+    [self.imgView setImageWithURL:[NSURL URLWithString:self.groupData.imgUrls[0]]];
     self.nameLbl.text = [NSString stringWithFormat:@"%@:",group.name];
     self.rateControl.rating = 0.8;
     self.addressLbl.text = [NSString stringWithFormat:@"%@:",group.address];

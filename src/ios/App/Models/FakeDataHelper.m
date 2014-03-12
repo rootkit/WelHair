@@ -71,13 +71,24 @@
     for (int i = 0; i < 10 ; i++) {
         Group *group = [Group new];
         
-        group.imgUrl = @"http://images-fast.digu365.com/sp/width/736/2fed77ea4898439f94729cd9df5ee5ca0001.jpg";
+        group.imgUrls = @[@"http://images-fast.digu365.com/sp/width/736/2fed77ea4898439f94729cd9df5ee5ca0001.jpg"];
         group.name = @"一剪美工作室";
         group.address = @"济南高新区牛王庄路西";
         group.distance = 1;
         [ar addObject:group];
     }
     return ar;
+}
+
++ (Group *)getFakeGroup
+{
+    Group *group = [Group new];
+    
+    group.imgUrls = @[@"http://images-fast.digu365.com/sp/width/736/2fed77ea4898439f94729cd9df5ee5ca0001.jpg",@"http://images-fast.digu365.com/sp/width/736/2fed77ea4898439f94729cd9df5ee5ca0001.jpg"];
+    group.name = @"一剪美工作室";
+    group.address = @"济南高新区牛王庄路西";
+    group.distance = 1;
+    return group;
 }
 
 +(NSArray *)getFakeProductList
