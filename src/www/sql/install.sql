@@ -611,3 +611,22 @@ CREATE TABLE IF NOT EXISTS `Message` (
 
 -- ==============================================================================
 
+DELIMITER ;;
+
+CREATE PROCEDURE `sp_update_table_field`()
+BEGIN
+  IF NOT EXISTS (
+      SELECT 1
+      FROM information_schema.COLUMNS
+      WHERE lower(TABLE_SCHEMA) = 'welhair'
+        AND lower(TABLE_NAME) ='coupon'
+        AND lower(COLUMN_NAME) ='imageurl'
+  ) THEN
+    ALTER TABLE `Coupon` ADD `ImageUrl` VARCHAR(500) NOT NULL DEFAULT '' AFTER `CouponName`;
+  END IF;
+END;;
+
+DELIMITER ;
+CALL sp_update_table_field();
+DROP PROCEDURE IF EXISTS `sp_update_table_field`;
+
