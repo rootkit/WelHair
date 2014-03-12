@@ -2,96 +2,34 @@
     <thead>
         <tr>
             <th class="col-chk"><input type="checkbox" /></th>
-            <th class="cola">格边框</th>
-            <th>表头</th>
-            <th class="cola">表头</th>
-            <th class="cola">表头</th>
-            <th class="colb">表头</th>
+            <th class="cola">名称</th>
+            <th class="cola">有效期</th>
+            <th class="cola">价格</th>
+            <th class="cola">数量</th>
+            <th class="cola">已领取数量</th>
+            <th class="cola">剩余数量</th>
+            <th class="cola">激活</th>
+            <th class="colb"></th>
         </tr>
     </thead>
     <tbody>
+         <?php foreach( $this->rows as $coupon) : ?>
         <tr>
             <td class="col-center"><input type="checkbox" /></td>
-            <td>内容</td>
-            <td>内容内容内容内容内容内容内容</td>
-            <td>内容内容</td>
-            <td>内容内容</td>
-            <td>内容内容内容</td>
+            <td><?php echo $coupon['CouponName']; ?></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+
         </tr>
-        <tr>
-            <td class="col-center"><input type="checkbox" /></td>
-            <td>内容</td>
-            <td>内容内容内容内容内容内容内容</td>
-            <td>内容内容</td>
-            <td>内容内容</td>
-            <td>内容内容内容</td>
-        </tr>
-        <tr>
-            <td class="col-center"><input type="checkbox" /></td>
-            <td>内容</td>
-            <td>内容内容内容内容内容内容内容</td>
-            <td>内容内容</td>
-            <td>内容内容</td>
-            <td>内容内容内容</td>
-        </tr>
-        <tr>
-            <td class="col-center"><input type="checkbox" /></td>
-            <td>内容</td>
-            <td>内容内容内容内容内容内容内容</td>
-            <td>内容内容</td>
-            <td>内容内容</td>
-            <td>内容内容内容</td>
-        </tr>
-        <tr>
-            <td class="col-center"><input type="checkbox" /></td>
-            <td>内容</td>
-            <td>内容内容内容内容内容内容内容</td>
-            <td>内容内容</td>
-            <td>内容内容</td>
-            <td>内容内容内容</td>
-        </tr>
-        <tr>
-            <td class="col-center"><input type="checkbox" /></td>
-            <td>内容</td>
-            <td>内容内容内容内容内容内容内容</td>
-            <td>内容内容</td>
-            <td>内容内容</td>
-            <td>内容内容内容</td>
-        </tr>
-        <tr>
-            <td class="col-center"><input type="checkbox" /></td>
-            <td>内容</td>
-            <td>内容内容内容内容内容内容内容</td>
-            <td>内容内容</td>
-            <td>内容内容</td>
-            <td>内容内容内容</td>
-        </tr>
-        <tr>
-            <td class="col-center"><input type="checkbox" /></td>
-            <td>内容</td>
-            <td>内容内容内容内容内容内容内容</td>
-            <td>内容内容</td>
-            <td>内容内容</td>
-            <td>内容内容内容</td>
-        </tr>
-        <tr>
-            <td class="col-center"><input type="checkbox" /></td>
-            <td>内容</td>
-            <td>内容内容内容内容内容内容内容</td>
-            <td>内容内容</td>
-            <td>内容内容</td>
-            <td>内容内容内容</td>
-        </tr>
+        <?php endforeach; ?>
     </tbody>
 </table>
 
 <div class="m-page m-page-rt">
-    <a href="#" class="first pageprv z-dis">上一页</a>
-    <a href="#">1</a>
-    <a href="#" class="z-crt">2</a>
-    <a href="#">3</a>
-    <a href="#">4</a>
-    <i>...</i>
-    <a href="#">10</a>
-    <a href="#" class="last pagenxt">下一页</a>
+    <?php echo $this->pagerHTML; ?>
 </div>

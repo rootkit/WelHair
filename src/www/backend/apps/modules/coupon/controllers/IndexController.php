@@ -22,6 +22,21 @@ class Coupon_IndexController extends AbstractAdminController
     public function searchAction()
     {
         $this->view->pageTitle = '优惠券列表';
+
+        $pageSize = 10;
+        $page =  intval($this->_request->getParam('page'));
+
+        $page =  $page<=0? 1 : $page;
+
+        $result = CouponService::listCoupon($page, $pageSize);
+
+        $this->view->rows = $result['coupons'];
+
+        $this->view->pagerHTML =  $this->renderPager($this->view->baseUrl('/coupon/index/search?'),
+                                                     $page,
+                                                     ceil($result['total'] / $pageSize));
+
+
     }
 
     public function infoAction()

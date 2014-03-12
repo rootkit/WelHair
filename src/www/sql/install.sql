@@ -630,3 +630,23 @@ DELIMITER ;
 CALL sp_update_table_field();
 DROP PROCEDURE IF EXISTS `sp_update_table_field`;
 
+
+DELIMITER ;;
+
+CREATE PROCEDURE `sp_update_table_field`()
+BEGIN
+  IF NOT EXISTS (
+      SELECT 1
+      FROM information_schema.COLUMNS
+      WHERE lower(TABLE_SCHEMA) = 'welhair'
+        AND lower(TABLE_NAME) ='coupon'
+        AND lower(COLUMN_NAME) ='isactive'
+  ) THEN
+    ALTER TABLE `Coupon` ADD `IsActive` SMALLINT(1) NOT NULL DEFAULT 1;
+  END IF;
+END;;
+
+DELIMITER ;
+CALL sp_update_table_field();
+DROP PROCEDURE IF EXISTS `sp_update_table_field`;
+
