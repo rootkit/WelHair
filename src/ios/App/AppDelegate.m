@@ -14,8 +14,8 @@
 #import "UMSocial.h"
 #import "RootViewController.h"
 #import "BMapKit.h"
-#import <TencentOpenAPI/QQApiInterface.h> 
-#import <TencentOpenAPI/TencentOAuth.h>
+//#import <TencentOpenAPI/QQApiInterface.h> 
+//#import <TencentOpenAPI/TencentOAuth.h>
 
 #import "WebSocketUtil.h"
 
@@ -57,8 +57,8 @@
     //setup social component
     [UMSocialData setAppKey:CONFIG_UMSOCIAL_APPKEY];
     //设置微信AppId，url地址传nil，将默认使用友盟的网址
-    [UMSocialConfig setWXAppId:CONFIG_WECHAT_ID url:nil];
-    [UMSocialConfig setQQAppId:CONFIG_QQ_APP_ID url:nil importClasses:@[[QQApiInterface class],[TencentOAuth class]]];
+//    [UMSocialConfig setWXAppId:CONFIG_WECHAT_ID url:nil];
+//    [UMSocialConfig setQQAppId:CONFIG_QQ_APP_ID url:nil importClasses:@[[QQApiInterface class],[TencentOAuth class]]];
     [UMSocialConfig setSupportSinaSSO:YES];
     
     //setup baidu map component

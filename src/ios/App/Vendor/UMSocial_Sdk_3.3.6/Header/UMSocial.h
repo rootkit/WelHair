@@ -17,4 +17,4 @@
 #import "UMSocialConfig.h"                      //sdk配置类
 #import "UMSocialSnsData.h"                     //区分不同平台设置不同分享内容
 
-#import "WXApi.h"                               //微信SDK
+//#import "WXApi.h"                               //微信SDK

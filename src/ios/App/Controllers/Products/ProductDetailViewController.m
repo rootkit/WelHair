@@ -45,11 +45,8 @@
                                       shareText:shareText
                                      shareImage:shareImage
                                 shareToSnsNames:[NSArray arrayWithObjects:
-                                                 UMShareToWechatSession,
-                                                 UMShareToWechatTimeline,
                                                  UMShareToTencent,
                                                  UMShareToQQ,
-                                                 UMShareToQzone,
                                                  UMShareToSina,
                                                  UMShareToRenren,
                                                  UMShareToSms,nil]

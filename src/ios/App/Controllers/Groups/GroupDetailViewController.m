@@ -66,11 +66,8 @@ static const   float profileViewHeight = 80;
                                       shareText:shareText
                                      shareImage:shareImage
                                 shareToSnsNames:[NSArray arrayWithObjects:
-                                                 UMShareToWechatSession,
-                                                 UMShareToWechatTimeline,
                                                  UMShareToTencent,
                                                  UMShareToQQ,
-                                                 UMShareToQzone,
                                                  UMShareToSina,
                                                  UMShareToRenren,
                                                  UMShareToSms,nil]
