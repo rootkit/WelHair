@@ -213,6 +213,7 @@
 		46BDF12418D0B40E00999F50 /* Coupon.m in Sources */ = {isa = PBXBuildFile; fileRef = 46BDF12318D0B40E00999F50 /* Coupon.m */; };
 		46BDF12718D0B51C00999F50 /* CouponDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 46BDF12618D0B51C00999F50 /* CouponDetailViewController.m */; };
 		46BDF12A18D0B53200999F50 /* CouponCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 46BDF12918D0B53200999F50 /* CouponCell.m */; };
+		46BDF12D18D0BAD700999F50 /* CouponDetailViewControl_Coupon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 46BDF12C18D0BAD700999F50 /* CouponDetailViewControl_Coupon@2x.png */; };
 		46E84EBF18C2C7040004C146 /* centerIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 46E84EBA18C2C7040004C146 /* centerIcon@2x.png */; };
 		46E84EC018C2C7040004C146 /* UIScrollView+UzysCircularProgressPullToRefresh.m in Sources */ = {isa = PBXBuildFile; fileRef = 46E84EBC18C2C7040004C146 /* UIScrollView+UzysCircularProgressPullToRefresh.m */; };
 		46E84EC118C2C7040004C146 /* UzysRadialProgressActivityIndicator.m in Sources */ = {isa = PBXBuildFile; fileRef = 46E84EBE18C2C7040004C146 /* UzysRadialProgressActivityIndicator.m */; };
@@ -615,6 +616,7 @@
 		46BDF12618D0B51C00999F50 /* CouponDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CouponDetailViewController.m; sourceTree = "<group>"; };
 		46BDF12818D0B53200999F50 /* CouponCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CouponCell.h; sourceTree = "<group>"; };
 		46BDF12918D0B53200999F50 /* CouponCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CouponCell.m; sourceTree = "<group>"; };
+		46BDF12C18D0BAD700999F50 /* CouponDetailViewControl_Coupon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "CouponDetailViewControl_Coupon@2x.png"; sourceTree = "<group>"; };
 		46E84EBA18C2C7040004C146 /* centerIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "centerIcon@2x.png"; sourceTree = "<group>"; };
 		46E84EBB18C2C7040004C146 /* UIScrollView+UzysCircularProgressPullToRefresh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+UzysCircularProgressPullToRefresh.h"; sourceTree = "<group>"; };
 		46E84EBC18C2C7040004C146 /* UIScrollView+UzysCircularProgressPullToRefresh.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+UzysCircularProgressPullToRefresh.m"; sourceTree = "<group>"; };
@@ -1100,6 +1102,7 @@
 		460C2F4418CAF44B00AD16E6 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				46BDF12B18D0BAD700999F50 /* CouponDetailViewControl */,
 				46BDF11918D09AB800999F50 /* AppointmentPreviewViewController */,
 				467F0F0C18CC1046009FFE08 /* StaffDetailViewControl */,
 				467F0F0818CC0B53009FFE08 /* Profile_Bottom_Bg@2x.png */,
@@ -1592,6 +1595,14 @@
 			path = Coupon;
 			sourceTree = "<group>";
 		};
+		46BDF12B18D0BAD700999F50 /* CouponDetailViewControl */ = {
+			isa = PBXGroup;
+			children = (
+				46BDF12C18D0BAD700999F50 /* CouponDetailViewControl_Coupon@2x.png */,
+			);
+			path = CouponDetailViewControl;
+			sourceTree = "<group>";
+		};
 		46E84EB918C2C7040004C146 /* UzysCircularProgressPullToRefresh */ = {
 			isa = PBXGroup;
 			children = (
@@ -1728,6 +1739,7 @@
 				46BDF11B18D09AB800999F50 /* AppointmentPreviewViewController_Bg@2x.png in Resources */,
 				46BDF11D18D0B1B200999F50 /* ZanBtn@2x.png in Resources */,
 				18AC38FE18CD95C800328A78 /* bubble-min@2x.png in Resources */,
+				46BDF12D18D0BAD700999F50 /* CouponDetailViewControl_Coupon@2x.png in Resources */,
 				18AC38F218CD95C800328A78 /* bubble-classic-selected@2x.png in Resources */,
 				46BCD25218BC3B4F005C4BD6 /* SVProgressHUD.bundle in Resources */,
 				4630252818C81F1B000E0B51 /* QQIcon@2x.png in Resources */,

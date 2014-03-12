@@ -51,12 +51,12 @@ static const   float profileViewHeight = 320;
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        self.title = @"沙龙详情";
-        FAKIcon *leftIcon = [FAKIonIcons ios7ArrowBackIconWithSize:NAV_BAR_ICON_SIZE];
-        [leftIcon addAttribute:NSForegroundColorAttributeName value:[UIColor whiteColor]];
-        self.leftNavItemImg =[leftIcon imageWithSize:CGSizeMake(NAV_BAR_ICON_SIZE, NAV_BAR_ICON_SIZE)];
-        
-        self.rightNavItemImg  = [UIImage imageNamed:@"ShareIcon"];
+//        self.title = @"沙龙详情";
+//        FAKIcon *leftIcon = [FAKIonIcons ios7ArrowBackIconWithSize:NAV_BAR_ICON_SIZE];
+//        [leftIcon addAttribute:NSForegroundColorAttributeName value:[UIColor whiteColor]];
+//        self.leftNavItemImg =[leftIcon imageWithSize:CGSizeMake(NAV_BAR_ICON_SIZE, NAV_BAR_ICON_SIZE)];
+//        
+//        self.rightNavItemImg  = [UIImage imageNamed:@"ShareIcon"];
     
     }
     return self;
