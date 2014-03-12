@@ -206,6 +206,8 @@
 		46BDF11118D076F400999F50 /* UMSShareListController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 46BDF10518D076F400999F50 /* UMSShareListController.xib */; };
 		46BDF11218D076F400999F50 /* UMSocialSDKResourcesNew.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 46BDF10618D076F400999F50 /* UMSocialSDKResourcesNew.bundle */; };
 		46BDF11518D08B9D00999F50 /* StaffCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 46BDF11418D08B9D00999F50 /* StaffCell.m */; };
+		46BDF11818D099F300999F50 /* AppointmentPreviewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 46BDF11718D099F300999F50 /* AppointmentPreviewViewController.m */; };
+		46BDF11B18D09AB800999F50 /* AppointmentPreviewViewController_Bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 46BDF11A18D09AB800999F50 /* AppointmentPreviewViewController_Bg@2x.png */; };
 		46E84EBF18C2C7040004C146 /* centerIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 46E84EBA18C2C7040004C146 /* centerIcon@2x.png */; };
 		46E84EC018C2C7040004C146 /* UIScrollView+UzysCircularProgressPullToRefresh.m in Sources */ = {isa = PBXBuildFile; fileRef = 46E84EBC18C2C7040004C146 /* UIScrollView+UzysCircularProgressPullToRefresh.m */; };
 		46E84EC118C2C7040004C146 /* UzysRadialProgressActivityIndicator.m in Sources */ = {isa = PBXBuildFile; fileRef = 46E84EBE18C2C7040004C146 /* UzysRadialProgressActivityIndicator.m */; };
@@ -596,6 +598,9 @@
 		46BDF10718D076F400999F50 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/UMSocialLocalizable.strings"; sourceTree = "<group>"; };
 		46BDF11318D08B9D00999F50 /* StaffCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StaffCell.h; sourceTree = "<group>"; };
 		46BDF11418D08B9D00999F50 /* StaffCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StaffCell.m; sourceTree = "<group>"; };
+		46BDF11618D099F300999F50 /* AppointmentPreviewViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppointmentPreviewViewController.h; sourceTree = "<group>"; };
+		46BDF11718D099F300999F50 /* AppointmentPreviewViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppointmentPreviewViewController.m; sourceTree = "<group>"; };
+		46BDF11A18D09AB800999F50 /* AppointmentPreviewViewController_Bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "AppointmentPreviewViewController_Bg@2x.png"; sourceTree = "<group>"; };
 		46E84EBA18C2C7040004C146 /* centerIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "centerIcon@2x.png"; sourceTree = "<group>"; };
 		46E84EBB18C2C7040004C146 /* UIScrollView+UzysCircularProgressPullToRefresh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+UzysCircularProgressPullToRefresh.h"; sourceTree = "<group>"; };
 		46E84EBC18C2C7040004C146 /* UIScrollView+UzysCircularProgressPullToRefresh.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+UzysCircularProgressPullToRefresh.m"; sourceTree = "<group>"; };
@@ -1078,6 +1083,7 @@
 		460C2F4418CAF44B00AD16E6 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				46BDF11918D09AB800999F50 /* AppointmentPreviewViewController */,
 				467F0F0C18CC1046009FFE08 /* StaffDetailViewControl */,
 				467F0F0818CC0B53009FFE08 /* Profile_Bottom_Bg@2x.png */,
 				467F0F0618CC073D009FFE08 /* Profile_Banner_Bg@2x.png */,
@@ -1104,6 +1110,8 @@
 				4630251E18C777A2000E0B51 /* OrderDetailViewController.m */,
 				4630252018C7781A000E0B51 /* PayViewController.h */,
 				4630252118C7781A000E0B51 /* PayViewController.m */,
+				46BDF11618D099F300999F50 /* AppointmentPreviewViewController.h */,
+				46BDF11718D099F300999F50 /* AppointmentPreviewViewController.m */,
 			);
 			path = Order;
 			sourceTree = "<group>";
@@ -1545,6 +1553,14 @@
 			path = SocialSDKXib;
 			sourceTree = "<group>";
 		};
+		46BDF11918D09AB800999F50 /* AppointmentPreviewViewController */ = {
+			isa = PBXGroup;
+			children = (
+				46BDF11A18D09AB800999F50 /* AppointmentPreviewViewController_Bg@2x.png */,
+			);
+			path = AppointmentPreviewViewController;
+			sourceTree = "<group>";
+		};
 		46E84EB918C2C7040004C146 /* UzysCircularProgressPullToRefresh */ = {
 			isa = PBXGroup;
 			children = (
@@ -1678,6 +1694,7 @@
 				18A912CA18BB25AA006B9A04 /* Icon@2x.png in Resources */,
 				46BDF10F18D076F400999F50 /* UMSLoginViewController.xib in Resources */,
 				460C2F3A18C8D66300AD16E6 /* RootBottomTab4@2x.png in Resources */,
+				46BDF11B18D09AB800999F50 /* AppointmentPreviewViewController_Bg@2x.png in Resources */,
 				18AC38FE18CD95C800328A78 /* bubble-min@2x.png in Resources */,
 				18AC38F218CD95C800328A78 /* bubble-classic-selected@2x.png in Resources */,
 				46BCD25218BC3B4F005C4BD6 /* SVProgressHUD.bundle in Resources */,
@@ -1806,6 +1823,7 @@
 				18AC38E318CD95C800328A78 /* JSBubbleView.m in Sources */,
 				18AC38E418CD95C800328A78 /* JSDismissiveTextView.m in Sources */,
 				467F0EF018CB4FCF009FFE08 /* UITextField+WelKit.m in Sources */,
+				46BDF11818D099F300999F50 /* AppointmentPreviewViewController.m in Sources */,
 				467F0EBB18CB3956009FFE08 /* ChatGroupCell.m in Sources */,
 				18AC388818CD685C00328A78 /* WebSocketUtil.m in Sources */,
 				467F0F1418CC1EAE009FFE08 /* DoubleCoverCell.m in Sources */,

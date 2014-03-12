@@ -20,6 +20,7 @@
 #import "TripleCoverCell.h"
 #import "WorkDetailViewController.h"
 #import "CommentsViewController.h"
+#import "AppointmentPreviewViewController.h"
 
 @interface StaffDetailViewController ()<UITableViewDataSource, UITableViewDelegate>
 @property (nonatomic, strong) UIImageView *headerBackgroundView;
@@ -208,7 +209,7 @@ static const   float profileViewHeight = 80;
 
 - (void)appointmentClick
 {
-    
+    [self.navigationController pushViewController:[AppointmentPreviewViewController new] animated:YES];
 }
 
 - (void)commentsTapped
@@ -255,7 +256,6 @@ static const   float profileViewHeight = 80;
 {
     WorkDetailViewController *workVc = [[WorkDetailViewController alloc] init];;
     workVc.work = work;
-    workVc.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:workVc animated:YES];
 }
 
