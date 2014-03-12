@@ -63,4 +63,193 @@ $(function() {
     	$('#companyList').dialog({"modal": true, "width":800, "height":640});
     	WF.Coupon.updateCompanyList(1);
     });
+
+    switch( $('#coupon-type').val())
+	{
+		case '1':
+		{
+			$('#coupontype_div1').show();
+			$('#coupontype_div2').hide();
+			break;
+		}
+		case '2':
+		{
+			$('#coupontype_div1').hide();
+			$('#coupontype_div2').show();
+			break;
+		}
+	}
+
+    $('#coupon-type').change(function(){
+    	switch( $(this).val())
+    	{
+    		case '1':
+    		{
+    			$('#coupontype_div1').show();
+    			$('#coupontype_div2').hide();
+    			break;
+    		}
+    		case '2':
+    		{
+    			$('#coupontype_div1').hide();
+    			$('#coupontype_div2').show();
+    			break;
+    		}
+    	}
+
+    });
+
+    switch( $('#isliveactivity').val())
+	{
+		case '0':
+		{
+			$('#liveactivity_div').hide();
+			break;
+		}
+		case '1':
+		{
+			$('#liveactivity_div').show();
+			break;
+		}
+	}
+
+    $('#isliveactivity').change(function(){
+    	switch( $(this).val())
+    	{
+    		case '0':
+			{
+				$('#liveactivity_div').hide();
+				break;
+			}
+			case '1':
+			{
+				$('#liveactivity_div').show();
+				break;
+			}
+    	}
+
+    });
+
+    $('#expiredate').datepicker();
+
+
+    switch( $('#hasexpire').val())
+	{
+		case '0':
+		{
+			$('#expiredate_div').hide();
+			break;
+		}
+		case '1':
+		{
+			$('#expiredate_div').show();
+			break;
+		}
+	}
+
+    $('#hasexpire').change(function(){
+    	switch( $(this).val())
+    	{
+    		case '0':
+			{
+				$('#expiredate_div').hide();
+				break;
+			}
+			case '1':
+			{
+				$('#expiredate_div').show();
+				break;
+			}
+    	}
+
+    });
+
+
+    switch( $('#couponpaymenttype').val())
+	{
+		case '1':
+		{
+			$('#couponpaymenttype_price_div').hide();
+			$('#couponpaymenttype_amount_div').hide();
+			break;
+		}
+		case '2':
+		{
+			$('#couponpaymenttype_price_div').show();
+			$('#couponpaymenttype_amount_div').hide();
+			break;
+		}
+		case '3':
+		{
+			$('#couponpaymenttype_price_div').hide();
+			$('#couponpaymenttype_amount_div').show();
+			break;
+		}
+	}
+
+    $('#couponpaymenttype').change(function(){
+    	switch( $(this).val())
+    	{
+    		case '1':
+			{
+				$('#couponpaymenttype_price_div').hide();
+				$('#couponpaymenttype_amount_div').hide();
+				break;
+			}
+			case '2':
+			{
+				$('#couponpaymenttype_price_div').show();
+				$('#couponpaymenttype_amount_div').hide();
+				break;
+			}
+			case '3':
+			{
+				$('#couponpaymenttype_price_div').hide();
+				$('#couponpaymenttype_amount_div').show();
+				break;
+			}
+    	}
+
+    });
+
+
+
+    $( "#frm-brand-info" ).submit(function( event ) {
+
+
+          event.preventDefault();
+
+          var form = $( this );
+
+          var name = $('input[name=brandname]').val();
+          var sort = $('input[name=sort]').val();
+          var brandurl = $('#url').val();
+          var logo = $('#brand-image').attr('src');
+          var brandcategories  = $('input[name="category[]"]:checked').map(function(i,n) {
+                return $(n).val();
+            }).get();
+         
+          var description = $('textarea#description').val();
+
+
+          url = form.attr( "action" );
+
+          var posting = $.post( url, { 
+                'name': name, 
+                'sort': sort,
+                'brandurl' : brandurl,
+                'logo' : logo,
+                'category' : brandcategories,
+                'description' :description
+            } );
+
+
+          posting.done(function( data ) {
+
+              window.location = globalSetting.baseUrl + '/goods/brand/search';
+              return;
+
+          });
+
+      });
 });
