@@ -124,4 +124,19 @@
     return ar;
 }
 
++(NSArray *)getFakeStaffList
+{
+    NSMutableArray *ar = [NSMutableArray array];
+    for (int i = 0; i < 10 ; i++) {
+        Staff *staff = [Staff new];
+        staff.name = @"高级总监";
+        staff.groupName = @"上海永琪";
+        staff.rate = 0.5;
+        staff.description = @"最近咋样，老哥?";
+        staff.avatorUrl = @"http://images-fast.digu365.com/sp/width/736/2fed77ea4898439f94729cd9df5ee5ca0001.jpg";
+        [ar addObject:staff];
+    }
+    return ar;
+}
+
 @end

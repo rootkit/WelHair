@@ -11,6 +11,11 @@
 #import <AMRatingControl.h>
 @interface GroupCell()
 @property (nonatomic, strong) Group *groupData;
+@property (nonatomic, strong) UIImageView *imgView;
+@property (nonatomic, strong) UILabel *nameLbl;
+@property (nonatomic, strong) UILabel *addressLbl;
+@property (nonatomic, strong) UILabel *distanceLbl;
+@property (nonatomic, strong) AMRatingControl *rateControl;
 @end
 
 @implementation GroupCell
@@ -19,8 +24,51 @@
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
+        self.imgView = [[UIImageView alloc] initWithFrame:CGRectMake(15, 10, 60, 60)];
+        [self addSubview:self.imgView];
+        self.imgView.layer.borderColor = [[UIColor colorWithHexString:@"e0e0de"] CGColor];
+        self.imgView.layer.borderWidth = 2;
         
+        self.nameLbl = [[UILabel alloc] initWithFrame:CGRectMake(MaxX(self.imgView) + 5,
+                                                                     Y(self.imgView),
+                                                                     130,
+                                                                     HEIGHT(self.imgView)/2)];
+        self.nameLbl.font = [UIFont boldSystemFontOfSize:16];
+        self.nameLbl.numberOfLines = 2;
+        self.nameLbl.backgroundColor = [UIColor clearColor];
+        self.nameLbl.textColor = [UIColor blackColor];
+        [self addSubview:self.nameLbl];
         
+        self.addressLbl = [[UILabel alloc] initWithFrame:CGRectMake(MaxX(self.imgView) + 5,
+                                                                        MaxY(self.nameLbl),
+                                                                        WIDTH(self.nameLbl),
+                                                                        HEIGHT(self.imgView)/2)];
+        self.addressLbl.font = [UIFont systemFontOfSize:12];
+        self.addressLbl.numberOfLines = 2;
+        self.addressLbl.backgroundColor = [UIColor clearColor];
+        self.addressLbl.textColor = [UIColor blackColor];
+        [self addSubview:self.addressLbl];
+        
+        self.rateControl = [[AMRatingControl alloc] initWithLocation:CGPointMake(MaxX(self.nameLbl) + 5, Y(self.nameLbl))
+                                                                      emptyColor:[UIColor colorWithHexString:@"ffc62a"]
+                                                                      solidColor:[UIColor colorWithHexString:@"ffc62a"]
+                                                                    andMaxRating:5];
+        
+        self.rateControl.enabled = NO;
+        [self addSubview:self.rateControl];
+        
+        UIImageView *locationImg = [[UIImageView alloc] initWithFrame:CGRectMake(WIDTH(self) - 60, Y(self.addressLbl)    + 10,15,15)];
+        FAKIcon *locationIcon = [FAKIonIcons locationIconWithSize:15];
+        [locationIcon addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithHexString:@"b7bcc2"]];
+        locationImg.image = [locationIcon imageWithSize:CGSizeMake(15, 15)];
+        [self addSubview:locationImg];
+        
+        self.distanceLbl = [[UILabel alloc] initWithFrame:CGRectMake(MaxX(locationImg) + 2, Y(locationImg),WIDTH(self) - MaxX(locationImg), HEIGHT(locationImg))];
+        self.distanceLbl.textAlignment = NSTextAlignmentLeft;
+        self.distanceLbl.textColor = [UIColor colorWithHexString:@"b7bcc2"];
+        self.distanceLbl.backgroundColor = [UIColor clearColor];
+        self.distanceLbl.font = [UIFont systemFontOfSize:12];
+        [self addSubview:self.distanceLbl];
     }
     return self;
 }
@@ -33,55 +81,11 @@
 - (void)setup:(Group *)group
 {
     self.groupData = group;
-    UIImageView *img = [[UIImageView alloc] initWithFrame:CGRectMake(15, 10, 60, 60)];
-    [img setImageWithURL:[NSURL URLWithString:self.groupData.imgUrl]];
-    [self addSubview:img];
-    img.layer.borderColor = [[UIColor colorWithHexString:@"e0e0de"] CGColor];
-    img.layer.borderWidth = 2;
-    
-   UILabel *nameLbl = [[UILabel alloc] initWithFrame:CGRectMake(MaxX(img) + 5,
-                                              Y(img),
-                                              130,
-                                              HEIGHT(img)/2)];
-    nameLbl.font = [UIFont boldSystemFontOfSize:16];
-    nameLbl.numberOfLines = 2;
-    nameLbl.backgroundColor = [UIColor clearColor];
-    nameLbl.textColor = [UIColor blackColor];
-    nameLbl.text = [NSString stringWithFormat:@"%@:",group.name];
-    [self addSubview:nameLbl];
-    
-    UILabel *addressLbl = [[UILabel alloc] initWithFrame:CGRectMake(MaxX(img) + 5,
-                                                                 MaxY(nameLbl),
-                                                                 WIDTH(nameLbl),
-                                                                 HEIGHT(img)/2)];
-    addressLbl.font = [UIFont systemFontOfSize:12];
-    addressLbl.numberOfLines = 2;
-    addressLbl.backgroundColor = [UIColor clearColor];
-    addressLbl.textColor = [UIColor blackColor];
-    addressLbl.text = [NSString stringWithFormat:@"%@:",group.address];
-    [self addSubview:addressLbl];
-    
-    AMRatingControl *rateControl = [[AMRatingControl alloc] initWithLocation:CGPointMake(MaxX(nameLbl) + 5, Y(nameLbl))
-                                                                  emptyColor:[UIColor colorWithHexString:@"ffc62a"]
-                                                                  solidColor:[UIColor colorWithHexString:@"ffc62a"]
-                                                                         andMaxRating:5];
-    
-    rateControl.enabled = NO;
-    [self addSubview:rateControl];
-    
-    UIImageView *locationImg = [[UIImageView alloc] initWithFrame:CGRectMake(WIDTH(self) - 60, Y(addressLbl)    + 10,15,15)];
-    FAKIcon *locationIcon = [FAKIonIcons locationIconWithSize:15];
-    [locationIcon addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithHexString:@"b7bcc2"]];
-    locationImg.image = [locationIcon imageWithSize:CGSizeMake(15, 15)];
-    [self addSubview:locationImg];
-    
-    UILabel *distanceLbl = [[UILabel alloc] initWithFrame:CGRectMake(MaxX(locationImg) + 2, Y(locationImg),WIDTH(self) - MaxX(locationImg), HEIGHT(locationImg))];
-    distanceLbl.textAlignment = NSTextAlignmentLeft;
-    distanceLbl.textColor = [UIColor colorWithHexString:@"b7bcc2"];
-    distanceLbl.backgroundColor = [UIColor clearColor];
-    distanceLbl.font = [UIFont systemFontOfSize:12];
-    distanceLbl.text = [NSString stringWithFormat:@"%.0f千米",group.distance];
-    [self addSubview:distanceLbl];
+    [self.imgView setImageWithURL:[NSURL URLWithString:self.groupData.imgUrl]];
+    self.nameLbl.text = [NSString stringWithFormat:@"%@:",group.name];
+    self.rateControl.rating = 0.8;
+    self.addressLbl.text = [NSString stringWithFormat:@"%@:",group.address];
+    self.distanceLbl.text = [NSString stringWithFormat:@"%.0f千米",group.distance];
 }
 
 

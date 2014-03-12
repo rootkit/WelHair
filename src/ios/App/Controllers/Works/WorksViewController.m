@@ -242,6 +242,7 @@
         Work *work = (Work *)model;
         [selfDelegate pushToDetial:work];}
      ];
+    cell.backgroundColor = [UIColor clearColor];
     return cell;
 }
 

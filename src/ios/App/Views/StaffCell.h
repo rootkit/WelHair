@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "Staff.h"
 @interface StaffCell : UITableViewCell
-
+- (void)setup:(Staff *)staff;
 @end

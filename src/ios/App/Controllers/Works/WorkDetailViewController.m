@@ -20,6 +20,7 @@
 #import "JOLImageSlider.h"
 #import "CommentsViewController.h"
 #import "MWPhotoBrowser.h"
+#import "SVProgressHUD.h"
 
 @interface WorkDetailViewController ()<UMSocialUIDelegate,JOLImageSliderDelegate,MWPhotoBrowserDelegate>
 @property (nonatomic, strong) UIScrollView *scrollView;
@@ -99,7 +100,8 @@
     
     self.staffImgView = [[CircleImageView alloc] initWithFrame:CGRectMake(15, 0, 50, 50)];
     [staffView addSubview:self.staffImgView];
-    [staffView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(staffTapped)]];
+    self.staffImgView.userInteractionEnabled = YES;
+    [self.staffImgView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(staffTapped)]];
     self.staffNameLbl = [[UILabel alloc] initWithFrame:CGRectMake(X(self.staffImgView), MaxY(self.staffImgView) + 2,WIDTH(self.staffImgView), 20)];
     self.staffNameLbl.textAlignment = NSTextAlignmentCenter;
     self.staffNameLbl.textColor = [UIColor whiteColor];
@@ -110,6 +112,8 @@
     
     UIImageView *heartImgView = [[UIImageView alloc] initWithFrame:CGRectMake(MaxX(self.staffImgView) + 30, 20, 30, 30)];
     [staffView addSubview:heartImgView];
+    heartImgView.userInteractionEnabled = YES;
+    [heartImgView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(heartImgViewTapped:)]];
     FAKIcon *heartIcon = [FAKIonIcons heartIconWithSize:30];
     [heartIcon addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithHexString:@"e43a3d"]];
     heartImgView.image = [heartIcon imageWithSize:CGSizeMake(30, 30)];
@@ -377,6 +381,18 @@
 - (void)staffTapped
 {
     [self.navigationController pushViewController:[StaffDetailViewController new] animated:YES];
+}
+
+- (void)heartImgViewTapped:(UITapGestureRecognizer *)tap
+{
+    UIView *view =  tap.view;
+    if(view.alpha == 1){
+        view.alpha = 0.5;
+        [SVProgressHUD showSuccessWithStatus:@"收藏" duration:0.7];
+    }else{
+        view.alpha = 1;
+        [SVProgressHUD showSuccessWithStatus:@"取消收藏" duration:0.7];
+    }
 }
 
 - (void)commentClick
