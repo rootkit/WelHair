@@ -26,7 +26,7 @@ $this->headScript()
             <div class="formitm">
                 <label class="lab">名称：</label>
                 <div class="ipt">
-                    <input id="couponname" type="text" value="<?php echo $this->couponInfo['CouponName']; ?>" datatype="tel" class="u-ipt"/>
+                    <input id="couponname" type="text" value="<?php echo $this->couponInfo['CouponName']; ?>" datatype="s" class="u-ipt"/>
                     <p>设定名称后优惠券标题将优先显示为该名称</p>
                 </div>
             </div>
@@ -71,7 +71,7 @@ $this->headScript()
                 <div class="ipt">
 	                     <select id="couponamountlimittype"  class="u-sel">
 	                     <?php foreach( $this->couponAmountLimitTypes as $couponAmountLimitType) :?>
-                            <option value="<?php echo $couponAmountLimitType['CouponAmountTypeId']; ?>"><?php echo $couponAmountLimitType['TypeName']; ?></option>
+                            <option value="<?php echo $couponAmountLimitType['CouponAmountLimitTypeId']; ?>"><?php echo $couponAmountLimitType['TypeName']; ?></option>
                           <?php endforeach; ?>
 	                     </select>
                     <p></p>
@@ -82,7 +82,7 @@ $this->headScript()
                 <div class="ipt">
 	                     <select id="couponaccountlimittype"  class="u-sel">
 	                      <?php foreach( $this->couponAccountLimitTypes as $couponAccountLimitType) :?>
-                            <option value="<?php echo $couponAccountLimitType['CouponAccountTypeId']; ?>"><?php echo $couponAccountLimitType['TypeName']; ?></option>
+                            <option value="<?php echo $couponAccountLimitType['CouponAccountLimitTypeId']; ?>"><?php echo $couponAccountLimitType['TypeName']; ?></option>
                           <?php endforeach; ?>
 	                     </select>
                     <p></p>

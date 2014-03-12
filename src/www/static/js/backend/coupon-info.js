@@ -276,14 +276,14 @@ $(function() {
 	            'couponpaymenttypeid' : $('#couponpaymenttype').val(),
 	            'couponpaymentvalue' : couponpaymentvalue,
 	            'usage' :  $('#couponusage').val(),
-	            'commments': $('#couponcomments').val(),
+	            'comments': $('#couponcomments').val(),
 	            'iscouponcodesecret' : $('span.u-btn-c3').attr('data-value')
             } );
 
 
           posting.done(function( data ) {
 
-              window.location = globalSetting.baseUrl + '/coupon/index/search';
+              //window.location = globalSetting.baseUrl + '/coupon/index/search';
               return;
 
           });

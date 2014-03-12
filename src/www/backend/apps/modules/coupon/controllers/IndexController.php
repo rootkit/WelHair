@@ -72,12 +72,12 @@ class Coupon_IndexController extends AbstractAdminController
             'CouponAmountLimitTypeId' => 0,
             'CouponAccountLimitTypeId' => 0,
             'CouponPaymentTypeId' => 0,
-            'CouponPaymentValue' => '',
-            'Usage' => '',
-            'Commments' => '',
-            'IsCouponCodeSecret' => 0,
-            'IsDelete' => 0,
-            'IsActive' => 1
+            //'CouponPaymentValue' => '',
+            //'Usage' => '',
+           // 'Comments' => '',
+           // 'IsCouponCodeSecret' => 0,
+           // 'IsDeleted' => 0,
+           // 'IsActive' => 1
         );
 
 
@@ -89,16 +89,16 @@ class Coupon_IndexController extends AbstractAdminController
             $coupon['CouponTypeId']= $this->_request->getParam('coupontypeid');
             $coupon['CouponTypeValue']= htmlspecialchars($this->_request->getParam('coupontypevalue'));
             $coupon['IsLiveActivity']= $this->_request->getParam('isliveactivity');
-            $coupon['LiveActivityAmount']= htmlspecialchars($this->_request->getParam('liveactivityamount'));
+            $coupon['LiveActivityAmount']= $this->_request->getParam('liveactivityamount') ? htmlspecialchars($this->_request->getParam('liveactivityamount')) : NULL;
             $coupon['LiveActivityAddress']= htmlspecialchars($this->_request->getParam('liveactivityaddress'));
             $coupon['HasExpire']= $this->_request->getParam('hasexpire');
-            $coupon['ExpireDate']= htmlspecialchars($this->_request->getParam('expiredate'));
+            $coupon['ExpireDate']= $this->_request->getParam('expiredate') ? htmlspecialchars($this->_request->getParam('expiredate')) : NULL;
             $coupon['CouponAccountLimitTypeId']= htmlspecialchars($this->_request->getParam('couponaccountlimittypeid'));
             $coupon['CouponAmountLimitTypeId']= htmlspecialchars($this->_request->getParam('couponamountlimittypeid'));
             $coupon['CouponPaymentTypeId']= $this->_request->getParam('couponpaymenttypeid');
             $coupon['CouponPaymentValue']= htmlspecialchars($this->_request->getParam('couponpaymentvalue'));
-            $coupon['Usage']= htmlspecialchars($this->_request->getParam('usage'));
-            $coupon['Commments']= htmlspecialchars($this->_request->getParam('comments'));
+            $coupon['Usage']= 'sss';//htmlspecialchars($this->_request->getParam('usage'));
+            //$coupon['Comments']= 'ddd';//htmlspecialchars($this->_request->getParam('comments'));
             $coupon['IsCouponCodeSecret']= $this->_request->getParam('iscouponcodesecret');
 
 
