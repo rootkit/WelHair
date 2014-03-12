@@ -1,0 +1,29 @@
+<div class="toolbar">
+    <ul class="clearfix">
+        <li>
+            <a href="<?php echo $this->baseUrl('coupon/code/info'); ?>">
+                <i class="iconfont">&#xf0175;</i>
+                添加
+            </a>
+        </li>
+    </ul>
+</div>
+<div class="m-form">
+    <form id="frm-couponcode-info" method="post">
+        <fieldset>
+           
+            <div class="formitm">
+                <label class="lab">：</label>
+                <div class="ipt">
+	                <textarea  type="text"  datatype="n" class="u-ipt"></textarea>
+                    <p>输入格式：优惠券码 密码</p>
+                </div>
+            </div>
+          
+            <div class="formitm formitm-1">
+                <button class="u-btn u-btn-submit" type="button">确定</button>
+            </div>
+        </fieldset>
+    </form>
+</div>
+<script src="<?php echo Util::baseAssetUrl('js/backend/couponcode-info.js'); ?>"></script>

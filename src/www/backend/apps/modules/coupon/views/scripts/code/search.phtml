@@ -1,0 +1,35 @@
+<table class="m-table">
+    <thead>
+        <tr>
+            <th class="col-chk"><input type="checkbox" /></th>
+            <th class="cola">名称</th>
+            <th class="cola">有效期</th>
+            <th class="cola">价格</th>
+            <th class="cola">数量</th>
+            <th class="cola">已领取数量</th>
+            <th class="cola">剩余数量</th>
+            <th class="cola">激活</th>
+            <th class="colb"></th>
+        </tr>
+    </thead>
+    <tbody>
+         <?php foreach( $this->rows as $coupon) : ?>
+        <tr>
+            <td class="col-center"><input type="checkbox" /></td>
+            <td><?php echo $coupon['CouponName']; ?></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+
+        </tr>
+        <?php endforeach; ?>
+    </tbody>
+</table>
+
+<div class="m-page m-page-rt">
+    <?php echo $this->pagerHTML; ?>
+</div>
