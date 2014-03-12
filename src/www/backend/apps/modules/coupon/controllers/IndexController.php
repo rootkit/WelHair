@@ -72,12 +72,12 @@ class Coupon_IndexController extends AbstractAdminController
             'CouponAmountLimitTypeId' => 0,
             'CouponAccountLimitTypeId' => 0,
             'CouponPaymentTypeId' => 0,
-            //'CouponPaymentValue' => '',
-            //'Usage' => '',
-           // 'Comments' => '',
-           // 'IsCouponCodeSecret' => 0,
-           // 'IsDeleted' => 0,
-           // 'IsActive' => 1
+            'CouponPaymentValue' => '',
+            'CouponUsage' => '',
+            'Comments' => '',
+            'IsCouponCodeSecret' => 0,
+            'IsDeleted' => 0,
+            'IsActive' => 1
         );
 
 
@@ -97,8 +97,8 @@ class Coupon_IndexController extends AbstractAdminController
             $coupon['CouponAmountLimitTypeId']= htmlspecialchars($this->_request->getParam('couponamountlimittypeid'));
             $coupon['CouponPaymentTypeId']= $this->_request->getParam('couponpaymenttypeid');
             $coupon['CouponPaymentValue']= htmlspecialchars($this->_request->getParam('couponpaymentvalue'));
-            $coupon['Usage']= 'sss';//htmlspecialchars($this->_request->getParam('usage'));
-            //$coupon['Comments']= 'ddd';//htmlspecialchars($this->_request->getParam('comments'));
+            $coupon['CouponUsage']= htmlspecialchars($this->_request->getParam('usage'));
+            $coupon['Comments']= htmlspecialchars($this->_request->getParam('comments'));
             $coupon['IsCouponCodeSecret']= $this->_request->getParam('iscouponcodesecret');
 
 

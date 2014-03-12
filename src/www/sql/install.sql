@@ -525,7 +525,7 @@ CREATE TABLE IF NOT EXISTS `Coupon` (
   `CouponAccountLimitTypeId` INT NOT NULL COMMENT '领取帐号限制',
   `CouponPaymentTypeId` INT NOT NULL COMMENT '付费',
   `CouponPaymentValue` varchar(500) NULL COMMENT '付费值',
-  `Usage` TEXT  COMMENT '使用说明',
+  `CouponUsage` TEXT  COMMENT '使用说明',
   `Comments` TEXT COMMENT '温馨提示',
   `IsCouponCodeSecret` tinyint(1) NOT NULL DEFAULT '0' COMMENT '优惠码是否保密',
   `IsDeleted` tinyint(1) NOT NULL DEFAULT '0' COMMENT '是否删除',
