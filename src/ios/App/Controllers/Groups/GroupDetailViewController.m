@@ -358,6 +358,7 @@ static const   float profileViewHeight = 320;
             FAKIcon *locationIcon = [FAKIonIcons locationIconWithSize:locationIconSize];
             [locationIcon addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithHexString:@"1f6ba7"]];
             UIImageView *locationImgView = [[UIImageView alloc] initWithFrame:CGRectMake(0,15,locationIconSize,locationIconSize)];
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
             cell.accessoryView = locationImgView;
             return cell;
         }else{
@@ -367,6 +368,7 @@ static const   float profileViewHeight = 320;
             FAKIcon *locationIcon = [FAKIonIcons locationIconWithSize:locationIconSize];
             [locationIcon addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithHexString:@"1f6ba7"]];
             UIImageView *locationImgView = [[UIImageView alloc] initWithFrame:CGRectMake(0,15,locationIconSize,locationIconSize)];
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
             cell.accessoryView = locationImgView;
             return cell;
         }
@@ -380,6 +382,7 @@ static const   float profileViewHeight = 320;
         }
         Staff *staff = [self.datasource objectAtIndex:indexPath.row];
         [cell setup:staff];
+        
         return cell;
     }
 }

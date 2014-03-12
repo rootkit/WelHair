@@ -7,7 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "Coupon.h"
 @interface CouponCell : UITableViewCell
+
+- (void)setup:(Coupon *)coupon;
 
 @end

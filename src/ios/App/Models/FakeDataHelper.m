@@ -12,6 +12,7 @@
 #import "Group.h"
 #import "Product.h"
 #import "ChatSession.h"
+#import "Coupon.h"
 @implementation FakeDataHelper
 
 
@@ -80,6 +81,9 @@
     return ar;
 }
 
+
+
+
 + (Group *)getFakeGroup
 {
     Group *group = [Group new];
@@ -146,6 +150,22 @@
         staff.description = @"最近咋样，老哥?";
         staff.avatorUrl = @"http://images-fast.digu365.com/sp/width/736/2fed77ea4898439f94729cd9df5ee5ca0001.jpg";
         [ar addObject:staff];
+    }
+    return ar;
+}
+
+
++(NSArray *)getFakeCouponList
+{
+    NSMutableArray *ar = [NSMutableArray array];
+    for (int i = 0; i < 10 ; i++) {
+        Coupon *coupon = [Coupon new];
+        coupon.imgUrl = @"http://images-fast.digu365.com/sp/width/736/2fed77ea4898439f94729cd9df5ee5ca0001.jpg";
+        coupon.name = @"仅售10元，价值218元的烫染洗";
+        coupon.address = @"济南高新区牛王庄路西";
+        coupon.groupName = @"阿东造型";
+        coupon.distance = 1;
+        [ar addObject:coupon];
     }
     return ar;
 }

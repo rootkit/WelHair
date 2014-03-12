@@ -9,5 +9,8 @@
 #import "BaseModel.h"
 
 @interface Coupon : BaseModel
-
+@property (nonatomic, strong) NSString *address;
+@property (nonatomic, strong) NSString *imgUrl;
+@property (nonatomic, strong) NSString *groupName;
+@property (nonatomic, strong) NSString *phoneNum;
 @end

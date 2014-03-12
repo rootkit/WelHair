@@ -20,4 +20,5 @@
 +(NSArray *)getFakeCommentList;
 +(NSArray *)getFakeStaffList;
 + (Group *)getFakeGroup;
++(NSArray *)getFakeCouponList;
 @end

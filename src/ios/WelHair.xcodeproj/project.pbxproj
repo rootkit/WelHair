@@ -208,6 +208,11 @@
 		46BDF11518D08B9D00999F50 /* StaffCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 46BDF11418D08B9D00999F50 /* StaffCell.m */; };
 		46BDF11818D099F300999F50 /* AppointmentPreviewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 46BDF11718D099F300999F50 /* AppointmentPreviewViewController.m */; };
 		46BDF11B18D09AB800999F50 /* AppointmentPreviewViewController_Bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 46BDF11A18D09AB800999F50 /* AppointmentPreviewViewController_Bg@2x.png */; };
+		46BDF11D18D0B1B200999F50 /* ZanBtn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 46BDF11C18D0B1B200999F50 /* ZanBtn@2x.png */; };
+		46BDF12118D0B3C300999F50 /* CouponsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 46BDF12018D0B3C300999F50 /* CouponsViewController.m */; };
+		46BDF12418D0B40E00999F50 /* Coupon.m in Sources */ = {isa = PBXBuildFile; fileRef = 46BDF12318D0B40E00999F50 /* Coupon.m */; };
+		46BDF12718D0B51C00999F50 /* CouponDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 46BDF12618D0B51C00999F50 /* CouponDetailViewController.m */; };
+		46BDF12A18D0B53200999F50 /* CouponCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 46BDF12918D0B53200999F50 /* CouponCell.m */; };
 		46E84EBF18C2C7040004C146 /* centerIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 46E84EBA18C2C7040004C146 /* centerIcon@2x.png */; };
 		46E84EC018C2C7040004C146 /* UIScrollView+UzysCircularProgressPullToRefresh.m in Sources */ = {isa = PBXBuildFile; fileRef = 46E84EBC18C2C7040004C146 /* UIScrollView+UzysCircularProgressPullToRefresh.m */; };
 		46E84EC118C2C7040004C146 /* UzysRadialProgressActivityIndicator.m in Sources */ = {isa = PBXBuildFile; fileRef = 46E84EBE18C2C7040004C146 /* UzysRadialProgressActivityIndicator.m */; };
@@ -601,6 +606,15 @@
 		46BDF11618D099F300999F50 /* AppointmentPreviewViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppointmentPreviewViewController.h; sourceTree = "<group>"; };
 		46BDF11718D099F300999F50 /* AppointmentPreviewViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppointmentPreviewViewController.m; sourceTree = "<group>"; };
 		46BDF11A18D09AB800999F50 /* AppointmentPreviewViewController_Bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "AppointmentPreviewViewController_Bg@2x.png"; sourceTree = "<group>"; };
+		46BDF11C18D0B1B200999F50 /* ZanBtn@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ZanBtn@2x.png"; sourceTree = "<group>"; };
+		46BDF11F18D0B3C300999F50 /* CouponsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CouponsViewController.h; sourceTree = "<group>"; };
+		46BDF12018D0B3C300999F50 /* CouponsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CouponsViewController.m; sourceTree = "<group>"; };
+		46BDF12218D0B40E00999F50 /* Coupon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Coupon.h; sourceTree = "<group>"; };
+		46BDF12318D0B40E00999F50 /* Coupon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Coupon.m; sourceTree = "<group>"; };
+		46BDF12518D0B51C00999F50 /* CouponDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CouponDetailViewController.h; sourceTree = "<group>"; };
+		46BDF12618D0B51C00999F50 /* CouponDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CouponDetailViewController.m; sourceTree = "<group>"; };
+		46BDF12818D0B53200999F50 /* CouponCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CouponCell.h; sourceTree = "<group>"; };
+		46BDF12918D0B53200999F50 /* CouponCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CouponCell.m; sourceTree = "<group>"; };
 		46E84EBA18C2C7040004C146 /* centerIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "centerIcon@2x.png"; sourceTree = "<group>"; };
 		46E84EBB18C2C7040004C146 /* UIScrollView+UzysCircularProgressPullToRefresh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+UzysCircularProgressPullToRefresh.h"; sourceTree = "<group>"; };
 		46E84EBC18C2C7040004C146 /* UIScrollView+UzysCircularProgressPullToRefresh.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+UzysCircularProgressPullToRefresh.m"; sourceTree = "<group>"; };
@@ -801,6 +815,7 @@
 		18A912D918BB26B6006B9A04 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				46BDF11E18D0B3AC00999F50 /* Coupon */,
 				18A912DA18BB26B6006B9A04 /* Base */,
 				46BCD25418BC6271005C4BD6 /* Chat */,
 				46BCD26018BC7533005C4BD6 /* Common */,
@@ -853,6 +868,8 @@
 				18A912E118BB26B6006B9A04 /* User.m */,
 				4665FD8318BC801000E88C6B /* Work.h */,
 				4665FD8418BC801000E88C6B /* Work.m */,
+				46BDF12218D0B40E00999F50 /* Coupon.h */,
+				46BDF12318D0B40E00999F50 /* Coupon.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -1139,6 +1156,7 @@
 		4630D13418C5FB7500DA7CAD /* Buttons */ = {
 			isa = PBXGroup;
 			children = (
+				46BDF11C18D0B1B200999F50 /* ZanBtn@2x.png */,
 				467F0F0A18CC0CB8009FFE08 /* AppointmentBtn@2x.png */,
 				467F0F0418CBFDB5009FFE08 /* ShareIcon@2x.png */,
 				4630252318C81F1B000E0B51 /* QQWeiboIcon@2x.png */,
@@ -1429,6 +1447,8 @@
 				467F0F2118CC7938009FFE08 /* DropDownView.m */,
 				467F0F2318CC8FFB009FFE08 /* CommentCell.h */,
 				467F0F2418CC8FFB009FFE08 /* CommentCell.m */,
+				46BDF12818D0B53200999F50 /* CouponCell.h */,
+				46BDF12918D0B53200999F50 /* CouponCell.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1559,6 +1579,17 @@
 				46BDF11A18D09AB800999F50 /* AppointmentPreviewViewController_Bg@2x.png */,
 			);
 			path = AppointmentPreviewViewController;
+			sourceTree = "<group>";
+		};
+		46BDF11E18D0B3AC00999F50 /* Coupon */ = {
+			isa = PBXGroup;
+			children = (
+				46BDF11F18D0B3C300999F50 /* CouponsViewController.h */,
+				46BDF12018D0B3C300999F50 /* CouponsViewController.m */,
+				46BDF12518D0B51C00999F50 /* CouponDetailViewController.h */,
+				46BDF12618D0B51C00999F50 /* CouponDetailViewController.m */,
+			);
+			path = Coupon;
 			sourceTree = "<group>";
 		};
 		46E84EB918C2C7040004C146 /* UzysCircularProgressPullToRefresh */ = {
@@ -1695,6 +1726,7 @@
 				46BDF10F18D076F400999F50 /* UMSLoginViewController.xib in Resources */,
 				460C2F3A18C8D66300AD16E6 /* RootBottomTab4@2x.png in Resources */,
 				46BDF11B18D09AB800999F50 /* AppointmentPreviewViewController_Bg@2x.png in Resources */,
+				46BDF11D18D0B1B200999F50 /* ZanBtn@2x.png in Resources */,
 				18AC38FE18CD95C800328A78 /* bubble-min@2x.png in Resources */,
 				18AC38F218CD95C800328A78 /* bubble-classic-selected@2x.png in Resources */,
 				46BCD25218BC3B4F005C4BD6 /* SVProgressHUD.bundle in Resources */,
@@ -1809,6 +1841,8 @@
 				467F0F2C18CC95CA009FFE08 /* JOLImageSlider.m in Sources */,
 				18AC38DE18CD95C800328A78 /* UIColor+JSMessagesView.m in Sources */,
 				46B233B718BCDC4200CC27A3 /* LoginViewController.m in Sources */,
+				46BDF12418D0B40E00999F50 /* Coupon.m in Sources */,
+				46BDF12718D0B51C00999F50 /* CouponDetailViewController.m in Sources */,
 				46B25AE418BF1CAA0035F425 /* RootViewController.m in Sources */,
 				4660E69018BB73E1005B3C7D /* ProductsViewController.m in Sources */,
 				18AC38DD18CD95C800328A78 /* NSString+JSMessagesView.m in Sources */,
@@ -1819,6 +1853,7 @@
 				18A9127318BB216E006B9A04 /* AppDelegate.m in Sources */,
 				18AC38E118CD95C800328A78 /* JSBubbleImageViewFactory.m in Sources */,
 				467F0EF718CB5A4A009FFE08 /* AppointmentsViewControl.m in Sources */,
+				46BDF12A18D0B53200999F50 /* CouponCell.m in Sources */,
 				46BCD26918BC797B005C4BD6 /* GroupDetailViewController.m in Sources */,
 				18AC38E318CD95C800328A78 /* JSBubbleView.m in Sources */,
 				18AC38E418CD95C800328A78 /* JSDismissiveTextView.m in Sources */,
@@ -1864,6 +1899,7 @@
 				18AC38E718CD95C800328A78 /* JSMessagesViewController.m in Sources */,
 				46439C9118C763EF00F01691 /* MapPickerViewController.m in Sources */,
 				18AC38E518CD95C800328A78 /* JSMessageInputView.m in Sources */,
+				46BDF12118D0B3C300999F50 /* CouponsViewController.m in Sources */,
 				46BCD27618BC79EB005C4BD6 /* StaffDetailViewController.m in Sources */,
 				467F0EED18CB4FCF009FFE08 /* WelTabBarController.m in Sources */,
 				4630253118C849FD000E0B51 /* Staff.m in Sources */,
