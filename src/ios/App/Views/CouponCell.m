@@ -1,24 +1,25 @@
 //
-//  GroupCell.m
+//  CouponCell.m
 //  WelHair
 //
-//  Created by lu larry on 3/8/14.
+//  Created by lu larry on 3/12/14.
 //  Copyright (c) 2014 Welfony. All rights reserved.
 //
 
-#import "GroupCell.h"
+#import "CouponCell.h"
 #import "UIImageView+WebCache.h"
-#import <AMRatingControl.h>
-@interface GroupCell()
-@property (nonatomic, strong) Group *groupData;
+#import "Coupon.h"
+
+@interface CouponCell()
+@property (nonatomic, strong) Coupon *couponData;
 @property (nonatomic, strong) UIImageView *imgView;
+@property (nonatomic, strong) UILabel *groupNameLbl;
 @property (nonatomic, strong) UILabel *nameLbl;
 @property (nonatomic, strong) UILabel *addressLbl;
 @property (nonatomic, strong) UILabel *distanceLbl;
-@property (nonatomic, strong) AMRatingControl *rateControl;
 @end
 
-@implementation GroupCell
+@implementation CouponCell
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
@@ -29,35 +30,38 @@
         self.imgView.layer.borderColor = [[UIColor colorWithHexString:@"e0e0de"] CGColor];
         self.imgView.layer.borderWidth = 2;
         
+        self.groupNameLbl = [[UILabel alloc] initWithFrame:CGRectMake(MaxX(self.imgView) + 5,
+                                                                 Y(self.imgView),
+                                                                 180,
+                                                                 20)];
+        self.groupNameLbl.font = [UIFont boldSystemFontOfSize:14];
+        self.groupNameLbl.numberOfLines = 1;
+        self.groupNameLbl.backgroundColor = [UIColor clearColor];
+        self.groupNameLbl.textColor = [UIColor blackColor];
+        [self addSubview:self.groupNameLbl];
+
+        
         self.nameLbl = [[UILabel alloc] initWithFrame:CGRectMake(MaxX(self.imgView) + 5,
-                                                                     Y(self.imgView),
-                                                                     130,
-                                                                     HEIGHT(self.imgView)/2)];
-        self.nameLbl.font = [UIFont boldSystemFontOfSize:16];
+                                                                 MaxY(self.groupNameLbl),
+                                                                 WIDTH(self.groupNameLbl),
+                                                                 20)];
+        self.nameLbl.font = [UIFont boldSystemFontOfSize:14];
         self.nameLbl.numberOfLines = 2;
         self.nameLbl.backgroundColor = [UIColor clearColor];
-        self.nameLbl.textColor = [UIColor blackColor];
+        self.nameLbl.textColor = [UIColor colorWithHexString:APP_BASE_COLOR];
         [self addSubview:self.nameLbl];
         
         self.addressLbl = [[UILabel alloc] initWithFrame:CGRectMake(MaxX(self.imgView) + 5,
-                                                                        MaxY(self.nameLbl),
-                                                                        WIDTH(self.nameLbl),
-                                                                        HEIGHT(self.imgView)/2)];
+                                                                    MaxY(self.nameLbl),
+                                                                    WIDTH(self.nameLbl),
+                                                                    20)];
         self.addressLbl.font = [UIFont systemFontOfSize:12];
         self.addressLbl.numberOfLines = 2;
         self.addressLbl.backgroundColor = [UIColor clearColor];
         self.addressLbl.textColor = [UIColor blackColor];
         [self addSubview:self.addressLbl];
         
-        self.rateControl = [[AMRatingControl alloc] initWithLocation:CGPointMake(MaxX(self.nameLbl) + 5, Y(self.nameLbl))
-                                                                      emptyColor:[UIColor colorWithHexString:@"ffc62a"]
-                                                                      solidColor:[UIColor colorWithHexString:@"ffc62a"]
-                                                                    andMaxRating:5];
-        
-        self.rateControl.enabled = NO;
-        [self addSubview:self.rateControl];
-        
-        UIImageView *locationImg = [[UIImageView alloc] initWithFrame:CGRectMake(WIDTH(self) - 60, Y(self.addressLbl)    + 10,15,15)];
+        UIImageView *locationImg = [[UIImageView alloc] initWithFrame:CGRectMake(WIDTH(self) - 60, Y(self.addressLbl),15,15)];
         FAKIcon *locationIcon = [FAKIonIcons locationIconWithSize:15];
         [locationIcon addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithHexString:@"b7bcc2"]];
         locationImg.image = [locationIcon imageWithSize:CGSizeMake(15, 15)];
@@ -78,15 +82,13 @@
     [super setSelected:selected animated:animated];
 }
 
-- (void)setup:(Group *)group
+- (void)setup:(Coupon *)coupon
 {
-    self.groupData = group;
-    [self.imgView setImageWithURL:[NSURL URLWithString:self.groupData.imgUrls[0]]];
-    self.nameLbl.text = [NSString stringWithFormat:@"%@:",group.name];
-    self.rateControl.rating = 0.8;
-    self.addressLbl.text = [NSString stringWithFormat:@"%@:",group.address];
-    self.distanceLbl.text = [NSString stringWithFormat:@"%.0f千米",group.distance];
+    self.couponData = coupon;
+    [self.imgView setImageWithURL:[NSURL URLWithString:self.couponData.imgUrl]];
+    self.groupNameLbl.text = [NSString stringWithFormat:@"%@:",coupon.groupName];
+    self.nameLbl.text = [NSString stringWithFormat:@"%@:",coupon.name];
+    self.addressLbl.text = [NSString stringWithFormat:@"%@:",coupon.address];
+    self.distanceLbl.text = [NSString stringWithFormat:@"%.0f千米",coupon.distance];
 }
-
-
 @end

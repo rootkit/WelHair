@@ -283,7 +283,7 @@ $(function() {
 
           posting.done(function( data ) {
 
-              //window.location = globalSetting.baseUrl + '/coupon/index/search';
+              window.location = globalSetting.baseUrl + '/coupon/index/search';
               return;
 
           });

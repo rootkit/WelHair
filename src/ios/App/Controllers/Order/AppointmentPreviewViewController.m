@@ -35,7 +35,7 @@
 {
     [super viewDidLoad];
     
-    UIImageView *imgView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 10, 320, 190)];
+    UIImageView *imgView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 10, 320, 200)];
     imgView.image =[UIImage imageNamed:@"AppointmentPreviewViewController_Bg"];
     [self.view addSubview:imgView];
     

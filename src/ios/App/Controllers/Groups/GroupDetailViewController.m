@@ -14,16 +14,22 @@
 #import "StaffDetailViewController.h"
 #import "UIImageView+WebCache.h"
 #import "MapViewController.h"
+#import "JOLImageSlider.h"
 #import "MapPickerViewController.h"
 #import "GroupDetailInfoTableViewDelegate.h"
 #import "GroupDetailStaffTableViewDelegate.h"
 #import "UMSocial.h"
 #import <CoreGraphics/CoreGraphics.h>
+#import "MWPhotoBrowser.h"
 #import "StaffCell.h"
+#import "Group.h"
 
 
-@interface GroupDetailViewController()<MapPickViewDelegate,UITableViewDataSource,UITableViewDelegate,UMSocialUIDelegate>
+@interface GroupDetailViewController()<MapPickViewDelegate,UITableViewDataSource,UITableViewDelegate,UMSocialUIDelegate,JOLImageSliderDelegate,MWPhotoBrowserDelegate>
+@property (nonatomic, strong) UIScrollView *scrollView;
 @property (nonatomic, strong) UIImageView *headerBackgroundView;
+@property (nonatomic, strong) JOLImageSlider *imgSlider;
+@property (nonatomic, strong) NSMutableArray *groupImgs;
 @property (nonatomic, strong) UIImageView *avatorImgView;
 @property (nonatomic, strong) UILabel *groupNameLbl;
 @property (nonatomic, strong) UILabel *addressLbl;
@@ -31,14 +37,14 @@
 
 @property (nonatomic, strong) UIButton *detailTabBtn;
 @property (nonatomic, strong) UIButton *staffTabBtn;
-
+@property (nonatomic, strong) Group *groupData;
 @property (nonatomic, strong) NSArray *datasource;
 @property (nonatomic, strong) UITableView *tableView;
 
 @property (nonatomic) BOOL staffTabSelected;
 
 @end
-static const   float profileViewHeight = 80;
+static const   float profileViewHeight = 320;
 @implementation GroupDetailViewController
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -56,12 +62,12 @@ static const   float profileViewHeight = 80;
     return self;
 }
 
-- (void)leftNavItemClick
+- (void)leftBtnClick
 {
     [self.navigationController popViewControllerAnimated:YES];
 }
 
-- (void)rightNavItemClick
+- (void)rightBtnClick
 {
     NSString *shareText = @"我的分享";             //分享内嵌文字
     UIImage *shareImage = [UIImage imageNamed:@"UMS_social_demo"];          //分享内嵌图片
@@ -80,6 +86,18 @@ static const   float profileViewHeight = 80;
                                        delegate:self];
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [self.navigationController setNavigationBarHidden:YES animated:YES];
+}
+
+- (void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    [self.navigationController setNavigationBarHidden:NO animated:YES];
+}
+
+
 - (void)loadView
 {
     [super loadView];
@@ -88,24 +106,63 @@ static const   float profileViewHeight = 80;
     float tabButtonViewHeight = 50;
     float avatorSize = 50;
     
-    self.headerBackgroundView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, WIDTH
-                                                                              (self.view), profileViewHeight)];
-    self.headerBackgroundView.image = [UIImage imageNamed:@"Profile_Banner_Bg@2x"];
-    [self.view addSubview:self.headerBackgroundView];
+//    self.headerBackgroundView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, WIDTH
+//                                                                              (self.view), profileViewHeight)];
+//    self.headerBackgroundView.image = [UIImage imageNamed:@"Profile_Banner_Bg@2x"];
+//    [self.view addSubview:self.headerBackgroundView];
     
+    float topViewHeight = isIOS7 ? kStatusBarHeight + kTopBarHeight : kTopBarHeight;
+    UIView *topNavView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, WIDTH(self.view), topViewHeight)];
+    topNavView.backgroundColor = [UIColor clearColor];
+    [self.view addSubview:topNavView];
+    
+    UIView *topNavbgView = [[UIView alloc] initWithFrame:topNavView.bounds];
+    topNavbgView.backgroundColor = [UIColor lightGrayColor];
+    topNavbgView.alpha = 0.4;
+    [topNavView addSubview:topNavbgView];
+    // top left button
+    FAKIcon *leftIcon = [FAKIonIcons ios7ArrowBackIconWithSize:NAV_BAR_ICON_SIZE];
+    [leftIcon addAttribute:NSForegroundColorAttributeName value:[UIColor whiteColor]];
+    UIImage *leftImg =[leftIcon imageWithSize:CGSizeMake(NAV_BAR_ICON_SIZE, NAV_BAR_ICON_SIZE)];
+    UIButton *leftBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    leftBtn.frame = CGRectMake(10, topViewHeight - 35, NAV_BAR_ICON_SIZE, NAV_BAR_ICON_SIZE);
+    [leftBtn addTarget:self action:@selector(leftBtnClick) forControlEvents:UIControlEventTouchUpInside];
+    [leftBtn setImage:leftImg forState:UIControlStateNormal];
+    [topNavView addSubview:leftBtn];
+    // top right button
+    
+    UIImage *rightImg = [UIImage imageNamed:@"ShareIcon"];
+    UIButton *rightBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    rightBtn.frame = CGRectMake(WIDTH(topNavView) - 40 , topViewHeight - 35, NAV_BAR_ICON_SIZE, NAV_BAR_ICON_SIZE);
+    [rightBtn addTarget:self action:@selector(rightBtnClick) forControlEvents:UIControlEventTouchUpInside];
+    [rightBtn setImage:rightImg forState:UIControlStateNormal];
+    [topNavView addSubview:rightBtn];
     
     self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0,
-                                                                   self.topBarOffset,
+                                                                   0,
                                                                    WIDTH(self.view),
-                                                                   self.tableViewHeight + kBottomBarHeight)];
+                                                                   HEIGHT(self.view))];
     self.tableView.backgroundColor = [UIColor clearColor];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
     [self.view addSubview:self.tableView];
+    [self.view bringSubviewToFront:topNavView];
     
-    UIView *headerView_ = [[UIView alloc] initWithFrame:CGRectMake(0, self.topBarOffset, WIDTH(self.view), profileViewHeight + addressViewHeight+ tabButtonViewHeight)];
+    UIView *headerView_ = [[UIView alloc] initWithFrame:CGRectMake(0, 0, WIDTH(self.view), profileViewHeight + addressViewHeight+ tabButtonViewHeight)];
     headerView_.backgroundColor = [UIColor clearColor];
+    
+    
+    
+#pragma topbar
+   
+    
+    self.imgSlider = [[JOLImageSlider alloc] initWithFrame:CGRectMake(0, 0, WIDTH(self.view), WIDTH(self.view))];
+    self.imgSlider.delegate = self;
+    [self.imgSlider setAutoSlide: YES];
+    [self.imgSlider setContentMode: UIViewContentModeScaleAspectFill];
+    [headerView_ addSubview:self.imgSlider];
+
     
     UIView *addressView = [[UIView alloc] initWithFrame:CGRectMake(0, profileViewHeight, WIDTH(headerView_), tabButtonViewHeight)];
     UIImageView *addressViewBg = [[UIImageView alloc] initWithFrame:addressView.bounds];
@@ -113,7 +170,7 @@ static const   float profileViewHeight = 80;
     [addressView addSubview:addressViewBg];
     [headerView_ addSubview:addressView];
     
-    self.avatorImgView = [[UIImageView alloc] initWithFrame:CGRectMake(20, 70, avatorSize, avatorSize)];
+    self.avatorImgView = [[UIImageView alloc] initWithFrame:CGRectMake(20, 300, avatorSize, avatorSize)];
     self.avatorImgView.layer.borderColor = [[UIColor whiteColor] CGColor];
         self.avatorImgView.layer.borderWidth = 1;
     [self.avatorImgView setImageWithURL:[NSURL URLWithString:@"http://images-fast.digu365.com/sp/width/736/2fed77ea4898439f94729cd9df5ee5ca0001.jpg"]];
@@ -182,12 +239,25 @@ static const   float profileViewHeight = 80;
     [tabView addSubview:self.staffTabBtn];
     self.tableView.tableHeaderView = headerView_;
     self.datasource = [FakeDataHelper getFakeStaffList];
+    self.groupData = [FakeDataHelper getFakeGroup];
 
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    NSMutableArray *sliderArray = [NSMutableArray array];
+    for (NSString *item in self.groupData.imgUrls) {
+        JOLImageSlide * slideImg= [[JOLImageSlide alloc] init];
+        slideImg.image = item;
+        [sliderArray addObject:slideImg];
+    }
+    [self.imgSlider setSlides:sliderArray];
+    
+    self.groupImgs = [NSMutableArray array];
+    for (NSString *item in self.groupData.imgUrls){
+        [self.groupImgs addObject:[MWPhoto photoWithURL:[NSURL URLWithString:item]]];
+    }
 
 }
 
@@ -249,12 +319,8 @@ static const   float profileViewHeight = 80;
     [self.navigationController pushViewController:[MapViewController new] animated:YES];
 }
 
-- (void)pickPointClick
-{
-    
-    MapPickViewController *picker = [MapPickViewController new];
-    picker.delegate = self;
-    [self.navigationController pushViewController:picker animated:YES];
+- (void) imagePager:(JOLImageSlider *)imagePager didSelectImageAtIndex:(NSUInteger)index {
+    [self OpenImageGallery];
 }
 
 
@@ -292,6 +358,7 @@ static const   float profileViewHeight = 80;
             FAKIcon *locationIcon = [FAKIonIcons locationIconWithSize:locationIconSize];
             [locationIcon addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithHexString:@"1f6ba7"]];
             UIImageView *locationImgView = [[UIImageView alloc] initWithFrame:CGRectMake(0,15,locationIconSize,locationIconSize)];
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
             cell.accessoryView = locationImgView;
             return cell;
         }else{
@@ -301,6 +368,7 @@ static const   float profileViewHeight = 80;
             FAKIcon *locationIcon = [FAKIonIcons locationIconWithSize:locationIconSize];
             [locationIcon addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithHexString:@"1f6ba7"]];
             UIImageView *locationImgView = [[UIImageView alloc] initWithFrame:CGRectMake(0,15,locationIconSize,locationIconSize)];
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
             cell.accessoryView = locationImgView;
             return cell;
         }
@@ -314,6 +382,7 @@ static const   float profileViewHeight = 80;
         }
         Staff *staff = [self.datasource objectAtIndex:indexPath.row];
         [cell setup:staff];
+        
         return cell;
     }
 }
@@ -327,5 +396,48 @@ static const   float profileViewHeight = 80;
             [self mapClick];
         }
     }
+}
+
+- (void) OpenImageGallery
+{
+    MWPhotoBrowser *browser = [[MWPhotoBrowser alloc] initWithDelegate:self];
+    browser.displayActionButton = NO;
+    browser.displayNavArrows = YES;
+    browser.displaySelectionButtons = NO;
+    browser.alwaysShowControls = NO;
+    browser.wantsFullScreenLayout = YES;
+    browser.zoomPhotosToFill = YES;
+    browser.enableGrid = NO;
+    browser.startOnGrid = NO;
+    [browser setCurrentPhotoIndex:0];
+    
+    UINavigationController *nc = [[UINavigationController alloc] initWithRootViewController:browser];
+    nc.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+    [self.navigationController presentViewController:nc animated:YES completion:Nil];
+}
+
+#pragma mark - MWPhotoBrowserDelegate
+- (NSUInteger)numberOfPhotosInPhotoBrowser:(MWPhotoBrowser *)photoBrowser {
+    return self.groupImgs.count;
+}
+
+- (id <MWPhoto>)photoBrowser:(MWPhotoBrowser *)photoBrowser photoAtIndex:(NSUInteger)index {
+    if (index < self.groupImgs.count)
+        return [self.groupImgs objectAtIndex:index];
+    return nil;
+}
+
+- (MWCaptionView *)photoBrowser:(MWPhotoBrowser *)photoBrowser captionViewForPhotoAtIndex:(NSUInteger)index {
+    MWPhoto *photo = [self.groupImgs objectAtIndex:index];
+    MWCaptionView *captionView = [[MWCaptionView alloc] initWithPhoto:photo];
+    return captionView ;
+}
+
+- (void)photoBrowser:(MWPhotoBrowser *)photoBrowser actionButtonPressedForPhotoAtIndex:(NSUInteger)index {
+    NSLog(@"ACTION!");
+}
+
+- (void)photoBrowser:(MWPhotoBrowser *)photoBrowser didDisplayPhotoAtIndex:(NSUInteger)index {
+    NSLog(@"Did start viewing photo at index %lu", (unsigned long)index);
 }
 @end

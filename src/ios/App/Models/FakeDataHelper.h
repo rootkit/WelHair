@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-
+#import "Group.h"
 @interface FakeDataHelper : NSObject
 
 +(id)SharedInstance;
@@ -19,4 +19,6 @@
 +(NSArray *)getFakeChatGroupList;
 +(NSArray *)getFakeCommentList;
 +(NSArray *)getFakeStaffList;
++ (Group *)getFakeGroup;
++(NSArray *)getFakeCouponList;
 @end
