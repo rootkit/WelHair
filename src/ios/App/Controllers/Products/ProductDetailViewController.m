@@ -28,9 +28,8 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         self.title = @"产品详情";
-        FAKIcon *searchIcon = [FAKIonIcons ios7RedoOutlineIconWithSize:NAV_BAR_ICON_SIZE];
-        [searchIcon addAttribute:NSForegroundColorAttributeName value:[UIColor grayColor]];
-        self.rightNavItemImg = [searchIcon imageWithSize:CGSizeMake(NAV_BAR_ICON_SIZE, NAV_BAR_ICON_SIZE)];
+        
+        self.rightNavItemImg = [UIImage imageNamed:@"ShareIcon"];
     }
     return self;
 }

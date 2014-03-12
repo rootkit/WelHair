@@ -195,6 +195,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    [self.navigationController pushViewController:[GroupDetailViewController new] animated:YES];
 }
 
 //- (void)pushToDetial:(Group *)work

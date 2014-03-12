@@ -98,6 +98,7 @@
     [_mapView viewWillAppear];
     _mapView.delegate = self; // 此处记得不用的时候需要置nil，否则影响内存的释放
     _search.delegate = self; // 此处记得不用的时候需要置nil，否则影响内存的释放
+    [self.navigationController setNavigationBarHidden:YES animated:YES];
 }
 
 -(void)viewWillDisappear:(BOOL)animated
@@ -106,32 +107,82 @@
     [_mapView viewWillDisappear];
     _mapView.delegate = nil; // 不用时，置nil
     _search.delegate = nil; // 此处记得不用的时候需要置nil，否则影响内存的释放
+    [self.navigationController setNavigationBarHidden:NO animated:YES];
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    _mapView = [[BMKMapView alloc]initWithFrame:CGRectMake(0, 120, WIDTH(self.view), HEIGHT(self.view))];
+    float bottomHeight = 49;
+    _mapView = [[BMKMapView alloc]initWithFrame:CGRectMake(0, 0, WIDTH(self.view), HEIGHT(self.view) - bottomHeight)];
     [self locateClick];
     [self.view addSubview:_mapView];
     
-    UIButton *locateBtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    locateBtn.frame = CGRectMake(60,60, 60, 30);
-    [locateBtn setTitle:@"定位" forState:UIControlStateNormal];
-    [locateBtn addTarget:self action:@selector(locateClick) forControlEvents:UIControlEventTouchDown];
-    [self.view addSubview:locateBtn];
+    float topViewHeight = isIOS7 ? kStatusBarHeight + kTopBarHeight : kTopBarHeight;
+    UIView *topNavView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, WIDTH(self.view), topViewHeight)];
+    topNavView.backgroundColor = [UIColor clearColor];
+    [self.view addSubview:topNavView];
     
-    UIButton *commentBtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    commentBtn.frame = CGRectMake(120,60, 60, 30);
-    [commentBtn setTitle:@"附近餐厅" forState:UIControlStateNormal];
-    [commentBtn addTarget:self action:@selector(foodsClick) forControlEvents:UIControlEventTouchDown];
-    [self.view addSubview:commentBtn];
+    UIView *topNavbgView = [[UIView alloc] initWithFrame:topNavView.bounds];
+    topNavbgView.backgroundColor = [UIColor blackColor];
+    topNavbgView.alpha = 0.4;
+    [topNavView addSubview:topNavbgView];
+    // top left button
+    FAKIcon *leftIcon = [FAKIonIcons ios7ArrowBackIconWithSize:NAV_BAR_ICON_SIZE];
+    [leftIcon addAttribute:NSForegroundColorAttributeName value:[UIColor whiteColor]];
+    UIImage *leftImg =[leftIcon imageWithSize:CGSizeMake(NAV_BAR_ICON_SIZE, NAV_BAR_ICON_SIZE)];
+    UIButton *leftBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    leftBtn.frame = CGRectMake(10, topViewHeight - 35, NAV_BAR_ICON_SIZE, NAV_BAR_ICON_SIZE);
+    [leftBtn addTarget:self action:@selector(leftBtnClick) forControlEvents:UIControlEventTouchUpInside];
+    [leftBtn setImage:leftImg forState:UIControlStateNormal];
+    [topNavView addSubview:leftBtn];
     
-    UIButton *mapBtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    mapBtn.frame = CGRectMake(180,60, 60, 30);
-    [mapBtn setTitle:@"划线" forState:UIControlStateNormal];
-    [mapBtn addTarget:self action:@selector(lineClick) forControlEvents:UIControlEventTouchDown];
-    [self.view addSubview:mapBtn];
+    UIView *bottomView = [[UIView alloc] initWithFrame:CGRectMake(0, MaxY(_mapView), WIDTH(self.view), bottomHeight)];
+    [self.view addSubview:bottomView];
+    bottomView.backgroundColor = [UIColor whiteColor];
+    
+    // bottom left button
+    UIButton *locationAddress = [UIButton buttonWithType:UIButtonTypeCustom];
+    locationAddress.frame = CGRectMake(0, 0, WIDTH(bottomView)/2, bottomHeight);
+    locationAddress.tag = 0;
+    [locationAddress addTarget:self action:@selector(bottomButtonClick:) forControlEvents:UIControlEventTouchUpInside];
+    [locationAddress setTitle:@"本店地址" forState:UIControlStateNormal];
+    [locationAddress setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [bottomView addSubview:locationAddress];
+    
+    UIView *bottomLinerView = [[UIView alloc] initWithFrame:CGRectMake(MaxX(locationAddress),10, 1,29)];
+    bottomLinerView.backgroundColor = [UIColor lightGrayColor];
+    [bottomView addSubview:bottomLinerView];
+    
+    // bottom right button
+    UIButton *aroundBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    aroundBtn.frame = CGRectMake(MaxX(locationAddress), 0, WIDTH(bottomView)/2, bottomHeight);
+    aroundBtn.tag = 1;
+    [aroundBtn addTarget:self action:@selector(bottomButtonClick:) forControlEvents:UIControlEventTouchUpInside];
+    [aroundBtn setTitle:@"周边店铺" forState:UIControlStateNormal];
+    [aroundBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [bottomView addSubview:aroundBtn];
+
+    
+
+    
+//    UIButton *locateBtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+//    locateBtn.frame = CGRectMake(60,60, 60, 30);
+//    [locateBtn setTitle:@"定位" forState:UIControlStateNormal];
+//    [locateBtn addTarget:self action:@selector(locateClick) forControlEvents:UIControlEventTouchDown];
+//    [self.view addSubview:locateBtn];
+//    
+//    UIButton *commentBtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+//    commentBtn.frame = CGRectMake(120,60, 60, 30);
+//    [commentBtn setTitle:@"附近餐厅" forState:UIControlStateNormal];
+//    [commentBtn addTarget:self action:@selector(foodsClick) forControlEvents:UIControlEventTouchDown];
+//    [self.view addSubview:commentBtn];
+//    
+//    UIButton *mapBtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+//    mapBtn.frame = CGRectMake(180,60, 60, 30);
+//    [mapBtn setTitle:@"划线" forState:UIControlStateNormal];
+//    [mapBtn addTarget:self action:@selector(lineClick) forControlEvents:UIControlEventTouchDown];
+//    [self.view addSubview:mapBtn];
     
     _search = [[BMKSearch alloc]init];
     [_mapView setZoomLevel:13];
@@ -144,14 +195,40 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (void)leftBtnClick
+{
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
+
+- (void)bottomButtonClick:(id)sender
+{
+    UIButton *btn = (UIButton *)sender;
+    if(btn.tag == 0){
+        [self locateClick];
+    }else{
+        [self foodsClick];
+    }
+}
+
 - (void)locateClick
 {
     //普通态
-    debugLog(@"进入普通定位态");
-    _mapView.showsUserLocation = NO;
-    _mapView.userTrackingMode = BMKUserTrackingModeFollow;
-    _mapView.zoomLevel = 16;
-    _mapView.showsUserLocation = YES;
+//    debugLog(@"进入普通定位态");
+//    _mapView.showsUserLocation = NO;
+//    _mapView.userTrackingMode = BMKUserTrackingModeFollow;
+//    _mapView.zoomLevel = 16;
+//    _mapView.showsUserLocation = YES;
+    
+    NSArray* array = [NSArray arrayWithArray:_mapView.annotations];
+	[_mapView removeAnnotations:array];
+    
+    BMKPointAnnotation* item = [[BMKPointAnnotation alloc]init];
+    item.coordinate = CLLocationCoordinate2DMake(36.670266,117.149292);
+    item.title = @"haha";
+    [_mapView addAnnotation:item];
+    //将第一个点的坐标移到屏幕中央
+    _mapView.centerCoordinate = item.coordinate;
 }
 
 - (void)foodsClick

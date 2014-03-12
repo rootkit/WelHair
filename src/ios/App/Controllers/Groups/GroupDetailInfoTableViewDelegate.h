@@ -8,6 +8,6 @@
 
 #import <Foundation/Foundation.h>
 
-@interface GroupDetailInfoTableViewDelegate : NSObject
+@interface GroupDetailInfoTableViewDelegate : NSObject<UITableViewDataSource,UITableViewDelegate>
 
 @end
