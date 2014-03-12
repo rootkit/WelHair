@@ -71,6 +71,9 @@
 #define isRetina ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(640, 960), [[UIScreen mainScreen] currentMode].size) : NO)
 #define isiPhone5 ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(640, 1136), [[UIScreen mainScreen] currentMode].size) : NO)
 #define isPad (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
+#define isIOS6 [[[UIDevice currentDevice] systemVersion] floatValue] < 7.0
+#define isIOS70 [[[UIDevice currentDevice] systemVersion] floatValue] >= 7.0 && [[[UIDevice currentDevice] systemVersion] floatValue] < 7.099999
+#define isIOS71 [[[UIDevice currentDevice] systemVersion] floatValue] == 7.1
 #define isIOS7 [[[UIDevice currentDevice] systemVersion] floatValue] >= 7.0
 
 #define SYSTEM_VERSION_LESS_THAN(v) ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] == NSOrderedAscending)

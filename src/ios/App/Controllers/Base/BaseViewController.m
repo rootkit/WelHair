@@ -24,8 +24,8 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        self.topBarOffset = isIOS7 ? kStatusBarHeight + kTopBarHeight : 0;
-        self.bottomBarOffset = isIOS7 ? kBottomBarHeight : 0;
+        self.topBarOffset = isIOS70 ? kStatusBarHeight + kTopBarHeight : 0;
+        self.bottomBarOffset = isIOS70 ? kBottomBarHeight : 0;
     }
     return self;
 }
@@ -38,6 +38,7 @@
         self.automaticallyAdjustsScrollViewInsets = NO;
     }
 }
+
 
 - (void)viewWillAppear:(BOOL)animated
 {
@@ -125,4 +126,21 @@
 {
     
 }
+
+- (float)tableViewHeight
+{
+    if(_tableViewHeight > 0){
+        return _tableViewHeight;
+    }
+    
+    if(isIOS6){
+        _tableViewHeight =  HEIGHT(self.view) - kTopBarHeight - kBottomBarHeight;
+    }else if(isIOS70){
+        _tableViewHeight = HEIGHT(self.view) - self.topBarOffset - self.bottomBarOffset;
+    }else{
+        _tableViewHeight = HEIGHT(self.view) - kStatusBarHeight - kTopBarHeight - kBottomBarHeight;
+    }
+    return _tableViewHeight;
+}
+
 @end

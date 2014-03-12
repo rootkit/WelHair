@@ -43,12 +43,12 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    if(CGRectEqualToRect(self.tableView.frame, CGRectZero)){
-        self.tableView.frame = CGRectMake(0,
-                                          self.topBarOffset,
-                                          WIDTH(self.view),
-                                          HEIGHT(self.view)- self.topBarOffset - self.bottomBarOffset);
-    }
+//    if(CGRectEqualToRect(self.tableView.frame, CGRectZero)){
+//        self.tableView.frame = CGRectMake(0,
+//                                          self.topBarOffset,
+//                                          WIDTH(self.view),
+//                                          HEIGHT(self.view)- self.topBarOffset - self.bottomBarOffset);
+//    }
 }
 
 - (void)viewDidLoad

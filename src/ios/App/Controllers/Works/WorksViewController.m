@@ -113,14 +113,10 @@
     topTabView.backgroundColor = [UIColor colorWithWhite:255 alpha:0.7];
     
     self.tableView = [[UITableView alloc] init];
-    float tableHeight = isIOS7 ?
-    HEIGHT(self.view) - MaxY(topTabView) - kBottomBarHeight :
-    HEIGHT(self.view) - kTopBarHeight - MaxY(topTabView)  - kBottomBarHeight ;
     self.tableView.frame = CGRectMake(0,
-                                      MaxY(topTabView),
+                                      self.topBarOffset,
                                       WIDTH(self.view) ,
-                                      tableHeight);
-    debugLog(@"%f",MaxY(topTabView));
+                                      self.tableViewHeight);
     self.tableView.backgroundColor = [UIColor clearColor];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
@@ -136,13 +132,17 @@
     [self.tableView.pullToRefreshView setBorderColor:[UIColor whiteColor]];
     [self.tableView.pullToRefreshView setImageIcon:[UIImage imageNamed:@"pull_to_refresh_loading"]];
     [self.view addSubview:self.tableView];
+    UIView *tableHeaderView = [[UIView alloc] initWithFrame:topTabView.bounds];
+    tableHeaderView.backgroundColor = [UIColor clearColor];
+    self.tableView.tableHeaderView = tableHeaderView;
+    [self.view bringSubviewToFront:topTabView];
     self.datasource = [NSMutableArray arrayWithArray:[FakeDataHelper getFakeWorkList]];
     
     self.areaDatasource = @[@"高新区",@"历下区",@"历城区",@"市中区"];
     self.colorDatasource = @[@"红色",@"黄色",@"黑色",@"白色"];
     self.lengthDatasource = @[@"寸头",@"短发",@"刘海",@"披肩"];
     
-    float dropDownHeight = tableHeight + kBottomBarHeight;
+    float dropDownHeight = self.tableViewHeight + kBottomBarHeight;
     self.dropDownPicker = [[DropDownView alloc] initWithFrame:CGRectMake(0,
                                                                         self.topBarOffset + HEIGHT(self.areaBtn),
                                                                          WIDTH(self.view),

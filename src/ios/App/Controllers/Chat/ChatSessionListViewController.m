@@ -46,13 +46,10 @@
     [super viewDidLoad];
     
     self.tableView = [[UITableView alloc] init];
-    float tableHeight = isIOS7 ?
-    HEIGHT(self.view) - self.topBarOffset - kBottomBarHeight :
-    HEIGHT(self.view) - kTopBarHeight  - kBottomBarHeight ;
     self.tableView.frame = CGRectMake(0,
                                       self.topBarOffset,
                                       WIDTH(self.view) ,
-                                      tableHeight);
+                                      self.tableViewHeight);
     self.tableView.backgroundColor = [UIColor clearColor];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;

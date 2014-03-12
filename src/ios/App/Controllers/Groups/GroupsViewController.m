@@ -85,19 +85,20 @@
     topTabView.backgroundColor = [UIColor colorWithWhite:255 alpha:0.7];
     
     self.tableView = [[UITableView alloc] init];
-    float tableHeight = isIOS7 ?
-    HEIGHT(self.view) - MaxY(topTabView) - kBottomBarHeight :
-    HEIGHT(self.view) - kTopBarHeight - MaxY(topTabView)  - kBottomBarHeight ;
     self.tableView.frame = CGRectMake(0,
-                                      MaxY(topTabView),
+                                      self.topBarOffset,
                                       WIDTH(self.view) ,
-                                      tableHeight);
+                                      self.tableViewHeight);
     debugLog(@"%f",MaxY(topTabView));
     self.tableView.backgroundColor = [UIColor clearColor];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.tableView.backgroundColor = [UIColor colorWithHexString:@"f2f2f2"];
+    UIView *tableHeaderView = [[UIView alloc] initWithFrame:topTabView.bounds];
+    tableHeaderView.backgroundColor = [UIColor clearColor];
+    self.tableView.tableHeaderView = tableHeaderView;
+    
 //    __weak typeof(self) weakSelf = self;
     [self.tableView addPullToRefreshActionHandler:^{
 //        [weakSelf insertRowAtTop];
@@ -114,7 +115,7 @@
     self.areaDatasource = @[@"高新区",@"历下区",@"历城区",@"市中区"];
     self.hotDatasource = @[@"默认",@"好评",@"评价",@"销量"];
     
-    float dropDownHeight = tableHeight + kBottomBarHeight;
+    float dropDownHeight = self.tableViewHeight + kBottomBarHeight;
     self.dropDownPicker = [[DropDownView alloc] initWithFrame:CGRectMake(0,
                                                                          self.topBarOffset + HEIGHT(self.areaBtn),
                                                                          WIDTH(self.view),

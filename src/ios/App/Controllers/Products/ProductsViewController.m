@@ -73,19 +73,20 @@
     topTabView.backgroundColor = [UIColor colorWithWhite:255 alpha:0.7];
     
     self.tableView = [[UITableView alloc] init];
-    float tableHeight = isIOS7 ?
-    HEIGHT(self.view) - MaxY(topTabView) - kBottomBarHeight :
-    HEIGHT(self.view) - kTopBarHeight - MaxY(topTabView)  - kBottomBarHeight ;
     self.tableView.frame = CGRectMake(0,
-                                      MaxY(topTabView),
+                                      self.topBarOffset,
                                       WIDTH(self.view) ,
-                                      tableHeight);
+                                      self.tableViewHeight);
     debugLog(@"%f",MaxY(topTabView));
     self.tableView.backgroundColor = [UIColor clearColor];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.tableView.backgroundColor = [UIColor colorWithHexString:@"f2f2f2"];
+    UIView *tableHeaderView = [[UIView alloc] initWithFrame:topTabView.bounds];
+    tableHeaderView.backgroundColor = [UIColor clearColor];
+    self.tableView.tableHeaderView = tableHeaderView;
+    
     __weak typeof(self) weakSelf = self;
     [self.tableView addPullToRefreshActionHandler:^{
         [weakSelf insertRowAtTop];
@@ -96,6 +97,7 @@
     [self.tableView.pullToRefreshView setBorderColor:[UIColor whiteColor]];
     [self.tableView.pullToRefreshView setImageIcon:[UIImage imageNamed:@"pull_to_refresh_loading"]];
     [self.view addSubview:self.tableView];
+    [self.view bringSubviewToFront:topTabView];
     self.datasource = [NSMutableArray arrayWithArray:[FakeDataHelper getFakeProductList]];
     
 }
