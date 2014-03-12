@@ -43,18 +43,85 @@ class Coupon_IndexController extends AbstractAdminController
     {
     	$this->view->pageTitle = '添加优惠券';
 
-    	$couponInfo = array(
-    		'CouponId' => 0,
-    		'CompanyName' => '',
-    		'CompanyId' => '',
-    		'CouponName' => '',
-    	);
+    	
 
         $this->view->couponTypes = CouponService::listCouponType();
         $this->view->couponPaymentTypes = CouponService::listCouponPaymentType();
         $this->view->couponAmountLimitTypes = CouponService::listCouponAmountLimitType();
         $this->view->couponAccountLimitTypes = CouponService::listCouponAccountLimitType();
-    	$this->view->couponInfo = $couponInfo;
+    	
+
+
+
+        $couponId = $this->_request->getParam('coupon_id')?  intval($this->_request->getParam('coupon_id')) : 0;
+
+
+        $coupon = array(
+            'CouponId' => $couponId,
+            'CompanyName' => '',
+            'ImageUrl' => '',
+            'CompanyId' => '',
+            'CouponName' => '',
+            'CouponTypeId' => 0,
+            'CouponTypeValue' => '',
+            'IsLiveActivity' =>0,
+            'LiveActivityAmount' =>'',
+            'LiveActivityAddress' =>'',
+            'HasExpire' => 0,
+            'ExpireDate' =>'',
+            'CouponAmountLimitTypeId' => 0,
+            'CouponAccountLimitTypeId' => 0,
+            'CouponPaymentTypeId' => 0,
+            'CouponPaymentValue' => '',
+            'Usage' => '',
+            'Commments' => '',
+            'IsCouponCodeSecret' => 0,
+            'IsDelete' => 0,
+            'IsActive' => 1
+        );
+
+
+        if ($this->_request->isPost()) {
+            $coupon['CouponName']= htmlspecialchars($this->_request->getParam('couponname'));
+            $coupon['CompanyName']= htmlspecialchars($this->_request->getParam('companyname'));
+            $coupon['CompanyId']= $this->_request->getParam('companyid');
+            $coupon['ImageUrl']= htmlspecialchars($this->_request->getParam('imageurl'));
+            $coupon['CouponTypeId']= $this->_request->getParam('coupontypeid');
+            $coupon['CouponTypeValue']= htmlspecialchars($this->_request->getParam('coupontypevalue'));
+            $coupon['IsLiveActivity']= $this->_request->getParam('isliveactivity');
+            $coupon['LiveActivityAmount']= htmlspecialchars($this->_request->getParam('liveactivityamount'));
+            $coupon['LiveActivityAddress']= htmlspecialchars($this->_request->getParam('liveactivityaddress'));
+            $coupon['HasExpire']= $this->_request->getParam('hasexpire');
+            $coupon['ExpireDate']= htmlspecialchars($this->_request->getParam('expiredate'));
+            $coupon['CouponAccountLimitTypeId']= htmlspecialchars($this->_request->getParam('couponaccountlimittypeid'));
+            $coupon['CouponAmountLimitTypeId']= htmlspecialchars($this->_request->getParam('couponamountlimittypeid'));
+            $coupon['CouponPaymentTypeId']= $this->_request->getParam('couponpaymenttypeid');
+            $coupon['CouponPaymentValue']= htmlspecialchars($this->_request->getParam('couponpaymentvalue'));
+            $coupon['Usage']= htmlspecialchars($this->_request->getParam('usage'));
+            $coupon['Commments']= htmlspecialchars($this->_request->getParam('comments'));
+            $coupon['IsCouponCodeSecret']= $this->_request->getParam('iscouponcodesecret');
+
+
+            $result = CouponService::save($coupon);
+            if ($result['success']) {
+
+            
+                $this->view->successMessage = '保存优惠券成功！';
+            } else {
+                $this->view->errorMessage = $result['message'];
+            }
+        } else {
+
+            
+            if ($couponId > 0) {
+                $coupon = CouponService::getCouponById($couponId);
+                if (!$coupon) {
+                    // process not exist logic;
+                }
+            }
+        }
+
+        $this->view->couponInfo = $coupon;
     }
 
     

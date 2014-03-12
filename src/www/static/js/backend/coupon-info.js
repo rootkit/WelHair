@@ -214,39 +214,76 @@ $(function() {
 
 
 
-    $( "#frm-brand-info" ).submit(function( event ) {
+    $( "#frm-coupon-info" ).submit(function( event ) {
 
 
           event.preventDefault();
 
           var form = $( this );
 
-          var name = $('input[name=brandname]').val();
-          var sort = $('input[name=sort]').val();
-          var brandurl = $('#url').val();
-          var logo = $('#brand-image').attr('src');
-          var brandcategories  = $('input[name="category[]"]:checked').map(function(i,n) {
-                return $(n).val();
-            }).get();
-         
-          var description = $('textarea#description').val();
+          var url = form.attr( "action" );
 
+          var couponTypeValue = '';
+          switch( $('#coupon-type').val())
+		  {
+			case '1':
+			{
+				couponTypeValue =$('#coupontype_total').val() + ',' + $('#coupontype_minus').val();
+				break;
+			}
+			case '2':
+			{
+				couponTypeValue =$('#coupontype_amount').val();
+				break;
+			}
+		  }
 
-          url = form.attr( "action" );
+		  var couponpaymentvalue = '';
+		  switch( $('#couponpaymenttype').val())
+		  {
+				case '1':
+				{
+					couponpaymentvalue = '';
+					break;
+				}
+				case '2':
+				{
+					couponpaymentvalue = $('#couponpaymenttype_price').val();
+					break;
+				}
+				case '3':
+				{
+					couponpaymentvalue = $('#couponpaymenttype_amount').val();
+					break;
+				}
+		  }
 
           var posting = $.post( url, { 
-                'name': name, 
-                'sort': sort,
-                'brandurl' : brandurl,
-                'logo' : logo,
-                'category' : brandcategories,
-                'description' :description
+                'couponid' : $('#couponid').val(),
+	            'companyname' : $('#companyname').val(),
+	            'imageurl' : $('#coupon_image_url').val(),
+	            'companyid' : $('#companyid').val(),
+	            'couponname' : $('#couponname').val(),
+	            'coupontypeid' : $('#coupon-type').val(),
+	            'coupontypevalue' : couponTypeValue,
+	            'isliveactivity' : $('#isliveactivity').val(),
+	            'liveactivityamount' :$('#liveactiveamount').val(),
+	            'liveactivityaddress' :$('#liveactivityaddress').val(),
+	            'hasexpire' : $('#hasexpire').val(),
+	            'expiredate' :$('#expiredate').val(),
+	            'couponamountlimittypeid' : $('#couponamountlimittype').val(),
+	            'couponaccountlimittypeid' : $('#couponaccountlimittype').val(),
+	            'couponpaymenttypeid' : $('#couponpaymenttype').val(),
+	            'couponpaymentvalue' : couponpaymentvalue,
+	            'usage' :  $('#couponusage').val(),
+	            'commments': $('#couponcomments').val(),
+	            'iscouponcodesecret' : $('span.u-btn-c3').attr('data-value')
             } );
 
 
           posting.done(function( data ) {
 
-              window.location = globalSetting.baseUrl + '/goods/brand/search';
+              window.location = globalSetting.baseUrl + '/coupon/index/search';
               return;
 
           });

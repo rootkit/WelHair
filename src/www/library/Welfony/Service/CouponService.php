@@ -20,12 +20,12 @@ use Welfony\Repository\CouponTypeRepository;
 class CouponService
 {
 
-    /*public static function get($id)
+    public static function getCouponById($id)
     {
-        return  BrandCategoryRepository::getInstance()->findCategoryById( $id);
+        return  CouponRepository::getInstance()->findCouponById( $id);
 
     }
-    */
+    
     public static function listCoupon($pageNumber, $pageSize)
     {
         $result = array(

@@ -26,7 +26,7 @@ $this->headScript()
             <div class="formitm">
                 <label class="lab">名称：</label>
                 <div class="ipt">
-                    <input name="tel" type="text" value="<?php echo $this->couponInfo['CouponName']; ?>" datatype="tel" class="u-ipt"/>
+                    <input id="couponname" type="text" value="<?php echo $this->couponInfo['CouponName']; ?>" datatype="tel" class="u-ipt"/>
                     <p>设定名称后优惠券标题将优先显示为该名称</p>
                 </div>
             </div>
@@ -38,8 +38,8 @@ $this->headScript()
                         <option value="<?php echo $couponType['CouponTypeId']; ?>"><?php echo $couponType['TypeName']; ?></option>
                       <?php endforeach; ?>
                      </select>
-                     <div id="coupontype_div1" class="ipt-inner-div">满<input  type="text"  datatype="n" class="u-ipt"/>元 减<input  type="text"  datatype="n" class="u-ipt"/>元</div>
-                     <div id="coupontype_div2" class="ipt-inner-div" style="display:none;">金额：<input  type="text"  datatype="n" class="u-ipt"/>元</div>	                     
+                     <div id="coupontype_div1" class="ipt-inner-div">满<input id="coupontype_total" type="text"  datatype="n" class="u-ipt"/>元 减<input id="coupontype_minus" type="text"  datatype="n" class="u-ipt"/>元</div>
+                     <div id="coupontype_div2" class="ipt-inner-div" style="display:none;">金额：<input  type="text"  datatype="n" class="u-ipt" id="coupontype_amount"/>元</div>	                     
                     <p></p>
                 </div>
             </div>
@@ -96,22 +96,22 @@ $this->headScript()
                             <option value="<?php echo $couponPaymentType['CouponPaymentTypeId']; ?>"><?php echo $couponPaymentType['TypeName']; ?></option>
                           <?php endforeach; ?>
 	                     </select>
-	                     <div id="couponpaymenttype_price_div" class="ipt-inner-div">价格：<input  type="text"  datatype="n" class="u-ipt"/> </div>
-	                     <div id="couponpaymenttype_amount_div" class="ipt-inner-div">数量：<input  type="text"  datatype="n" class="u-ipt"/> </div>
+	                     <div id="couponpaymenttype_price_div" class="ipt-inner-div">价格：<input  id="couponpaymenttype_price" type="text"  datatype="n" class="u-ipt"/> </div>
+	                     <div id="couponpaymenttype_amount_div" class="ipt-inner-div">数量：<input id="couponpaymenttype_amount" type="text"  datatype="n" class="u-ipt"/> </div>
                     <p></p>
                 </div>
             </div>
             <div class="formitm">
                 <label class="lab">使用说明：</label>
                 <div class="ipt">
-	                <textarea  type="text"  datatype="n" class="u-ipt"></textarea>
+	                <textarea  id='couponusage' type="text"  datatype="s" class="u-ipt"></textarea>
                     <p></p>
                 </div>
             </div>
             <div class="formitm">
                 <label class="lab">温馨提示：</label>
                 <div class="ipt">
-	                <textarea  type="text"  datatype="n" class="u-ipt"></textarea>
+	                <textarea id="couponcomments" type="text"  datatype="s" class="u-ipt"></textarea>
                     <p></p>
                 </div>
             </div>
@@ -143,6 +143,7 @@ $this->headScript()
                 </div>
             </div>
             <div class="formitm formitm-1">
+                <input type="hidden" id="couponid" value="<?php echo $this->couponInfo['CouponId']; ?>" >
                 <button class="u-btn u-btn-submit" type="button">确定</button>
             </div>
         </fieldset>
