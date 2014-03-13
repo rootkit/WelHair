@@ -2133,16 +2133,12 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(SRCROOT)/App/Vendor/UMSocial_Sdk_3.3.3/TencentOpenAPI",
-				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/App/Prefix.pch";
 				INFOPLIST_FILE = "$(SRCROOT)/App/Info.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/App/Vendor/UMSocial_Sdk_3.3.3/frameworks/Wechat",
-					"$(SRCROOT)/App/Vendor/UMSocial_Sdk_3.3.3",
 					"$(SRCROOT)/App/Assets/BaiduMap/libs/Release$(EFFECTIVE_PLATFORM_NAME)",
 					"$(PROJECT_DIR)/App/Vendor/UMSocial_Sdk_3.3.6",
 				);

@@ -1,18 +1,18 @@
 //
-//  MyCreatedGroupStaffListViewController.m
+//  MyGroupStaffListViewController.m
 //  WelHair
 //
 //  Created by lu larry on 3/13/14.
 //  Copyright (c) 2014 Welfony. All rights reserved.
 //
 
-#import "MyCreatedGroupStaffListViewController.h"
+#import "MyGroupStaffListViewController.h"
 
-@interface MyCreatedGroupStaffListViewController ()
+@interface MyGroupStaffListViewController ()
 
 @end
 
-@implementation MyCreatedGroupStaffListViewController
+@implementation MyGroupStaffListViewController
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {

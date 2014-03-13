@@ -1,5 +1,5 @@
 //
-//  MyCreatedGroupStaffListViewController.h
+//  MyGroupStaffListViewController.h
 //  WelHair
 //
 //  Created by lu larry on 3/13/14.
@@ -8,6 +8,6 @@
 
 #import "BaseViewController.h"
 
-@interface MyCreatedGroupStaffListViewController : BaseViewController
+@interface MyGroupStaffListViewController : BaseViewController
 
 @end
