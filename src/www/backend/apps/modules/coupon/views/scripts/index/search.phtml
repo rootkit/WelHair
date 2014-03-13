@@ -21,8 +21,12 @@
                 <?php echo $coupon['CouponName']; ?>
                 </a>
             </td>
-            <td></td>
-            <td></td>
+            <td>
+                <?php echo $coupon['HasExpire']? $coupon['ExpireDate'] : '无限制'; ?>
+            </td>
+            <td>
+                 <?php echo ( ($coupon['CouponPaymentTypeId'] == 1)? '免费' : ( ($coupon['CouponPaymentTypeId'] == 2)? $coupon['CouponPaymentValue'].'元' : $coupon['CouponPaymentValue'].'积分') ); ?>
+            </td>
             <td></td>
             <td></td>
             <td></td>
