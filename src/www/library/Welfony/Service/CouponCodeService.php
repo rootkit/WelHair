@@ -32,7 +32,7 @@ class CouponCodeService
             'total' => 0
         );
 
-        $totalCount = CouponCodeRepository::getInstance()->getAllCouponCount();
+        $totalCount = CouponCodeRepository::getInstance()->getAllCouponCodeCount();
 
         if ($totalCount > 0 && $pageNumber <= ceil($totalCount / $pageSize)) {
 

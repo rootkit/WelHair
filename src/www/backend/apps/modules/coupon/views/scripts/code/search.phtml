@@ -1,30 +1,35 @@
+<div class="toolbar">
+    <ul class="clearfix">
+        <li>
+            <a href="<?php echo $this->baseUrl('coupon/code/info'); ?>">
+                <i class="iconfont">&#xf0175;</i>
+                添加
+            </a>
+        </li>
+    </ul>
+</div>
 <table class="m-table">
     <thead>
         <tr>
             <th class="col-chk"><input type="checkbox" /></th>
             <th class="cola">名称</th>
-            <th class="cola">有效期</th>
-            <th class="cola">价格</th>
-            <th class="cola">数量</th>
-            <th class="cola">已领取数量</th>
-            <th class="cola">剩余数量</th>
-            <th class="cola">激活</th>
-            <th class="colb"></th>
+            <th class="cola">优惠码</th>
+            <th class="cola">密码</th>
+            <th class="cola">领取人</th>
+            <th class="cola">领取时间</th>
+            <th class="cola">操作</th>
         </tr>
     </thead>
     <tbody>
-         <?php foreach( $this->rows as $coupon) : ?>
+         <?php foreach( $this->rows as $couponcode) : ?>
         <tr>
             <td class="col-center"><input type="checkbox" /></td>
-            <td><?php echo $coupon['CouponName']; ?></td>
+            <td><?php echo $couponcode['CouponName']; ?></td>
+            <td><?php echo $couponcode['Code']; ?></td>
+            <td><?php echo $couponcode['PassCode']; ?></td>
             <td></td>
             <td></td>
             <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-
         </tr>
         <?php endforeach; ?>
     </tbody>

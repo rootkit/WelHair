@@ -15,12 +15,12 @@
 use Welfony\Controller\Base\AbstractAdminController;
 use Welfony\Service\CouponCodeService;
 
-class Coupon_IndexController extends AbstractAdminController
+class Coupon_CodeController extends AbstractAdminController
 {
 
     public function searchAction()
     {
-        $this->view->pageTitle = '优惠券列表';
+        $this->view->pageTitle = '优惠码列表';
 
         $pageSize = 10;
         $page =  intval($this->_request->getParam('page'));

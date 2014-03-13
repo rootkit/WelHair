@@ -16,14 +16,21 @@
          <?php foreach( $this->rows as $coupon) : ?>
         <tr>
             <td class="col-center"><input type="checkbox" /></td>
-            <td><?php echo $coupon['CouponName']; ?></td>
+            <td>
+                <a href="<?php echo $this->baseUrl('coupon/index/info?coupon_id=' .  $coupon['CouponId']); ?>">
+                <?php echo $coupon['CouponName']; ?>
+                </a>
+            </td>
             <td></td>
             <td></td>
             <td></td>
             <td></td>
             <td></td>
             <td></td>
-            <td></td>
+            <td><a href="<?php echo $this->baseUrl('coupon/code/search?coupon_id=' .  $coupon['CouponId']); ?>">
+                    优惠码管理
+                </a>
+            </td>
 
         </tr>
         <?php endforeach; ?>
