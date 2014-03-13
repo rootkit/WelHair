@@ -39,7 +39,7 @@ class CouponService
 
             $searchResult = CouponRepository::getInstance()->listCoupon( $pageNumber, $pageSize);
 
-            $result['brands']= $searchResult;
+            $result['coupons']= $searchResult;
         }
 
         $result['total'] = $totalCount;
