@@ -43,6 +43,11 @@
     [super viewWillAppear:animated];
     [_mapView viewWillAppear];
     _mapView.delegate = self; // 此处记得不用的时候需要置nil，否则影响内存的释放
+    if(self.location){
+        [self addAnnotation:self.location.coordinate];
+    }else{
+        [self locateClick];
+    }    
 }
 
 -(void)viewWillDisappear:(BOOL)animated
@@ -56,7 +61,6 @@
 {
     [super viewDidLoad];
     _mapView = [[BMKMapView alloc]initWithFrame:CGRectMake(0, self.topBarOffset, WIDTH(self.view), HEIGHT(self.view) - self.topBarOffset)];
-    [self locateClick];
     [self.view addSubview:_mapView];
 }
 
@@ -142,13 +146,17 @@
 {
     NSMutableArray *annotationMArray = [[NSArray arrayWithArray:mapView.annotations] mutableCopy];
     [mapView removeAnnotations:annotationMArray];
-    
-    debugLog(@"onLongClick-latitude==%f,longitude==%f",coordinate.latitude,coordinate.longitude);
+    [self addAnnotation:coordinate];
+}
+
+
+- (void)addAnnotation:(CLLocationCoordinate2D )coordinate
+{
     BMKPointAnnotation* item = [[BMKPointAnnotation alloc]init];
     item.coordinate = coordinate;
     
     [_mapView addAnnotation:item];
-}
 
+}
 
 @end

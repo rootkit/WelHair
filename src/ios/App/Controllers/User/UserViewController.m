@@ -23,6 +23,7 @@
 #import "Work.h"
 #import "WorkDetailViewController.h"
 #import "DoubleCoverCell.h"
+#import "UserAuthorViewController.h"
 
 @interface UserViewController ()<UITableViewDataSource, UITableViewDelegate, UIActionSheetDelegate, UIImagePickerControllerDelegate,UINavigationControllerDelegate>
 
@@ -222,7 +223,7 @@ static const   float profileViewHeight = 80;
             break;
         }
         case 2:{
-            FavoritesViewController *vc = [FavoritesViewController new];
+            UserAuthorViewController *vc = [UserAuthorViewController new];
             vc.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:vc animated:YES];
             break;

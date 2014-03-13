@@ -189,7 +189,6 @@
 		46BCD25318BC3B4F005C4BD6 /* SVProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 46BCD25118BC3B4F005C4BD6 /* SVProgressHUD.m */; settings = {COMPILER_FLAGS = "-w"; }; };
 		46BCD25718BC628E005C4BD6 /* ChatSessionListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 46BCD25618BC628E005C4BD6 /* ChatSessionListViewController.m */; };
 		46BCD25F18BC725D005C4BD6 /* GroupsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 46BCD25E18BC725D005C4BD6 /* GroupsViewController.m */; };
-		46BCD26318BC7561005C4BD6 /* CityListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 46BCD26218BC7561005C4BD6 /* CityListViewController.m */; };
 		46BCD26618BC796B005C4BD6 /* WorkDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 46BCD26518BC796B005C4BD6 /* WorkDetailViewController.m */; };
 		46BCD26918BC797B005C4BD6 /* GroupDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 46BCD26818BC797B005C4BD6 /* GroupDetailViewController.m */; };
 		46BCD27318BC79E0005C4BD6 /* StaffsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 46BCD27218BC79E0005C4BD6 /* StaffsViewController.m */; };
@@ -214,6 +213,10 @@
 		46BDF12718D0B51C00999F50 /* CouponDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 46BDF12618D0B51C00999F50 /* CouponDetailViewController.m */; };
 		46BDF12A18D0B53200999F50 /* CouponCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 46BDF12918D0B53200999F50 /* CouponCell.m */; };
 		46BDF12D18D0BAD700999F50 /* CouponDetailViewControl_Coupon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 46BDF12C18D0BAD700999F50 /* CouponDetailViewControl_Coupon@2x.png */; };
+		46BDF13118D1516F00999F50 /* MyGroupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 46BDF13018D1516F00999F50 /* MyGroupViewController.m */; };
+		46BDF13418D152DA00999F50 /* MyCreatedGroupStaffListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 46BDF13318D152DA00999F50 /* MyCreatedGroupStaffListViewController.m */; };
+		46BDF13918D1779100999F50 /* UserAuthorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 46BDF13818D1779100999F50 /* UserAuthorViewController.m */; };
+		46BDF13C18D17AF300999F50 /* CreateGroupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 46BDF13B18D17AF300999F50 /* CreateGroupViewController.m */; };
 		46E84EBF18C2C7040004C146 /* centerIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 46E84EBA18C2C7040004C146 /* centerIcon@2x.png */; };
 		46E84EC018C2C7040004C146 /* UIScrollView+UzysCircularProgressPullToRefresh.m in Sources */ = {isa = PBXBuildFile; fileRef = 46E84EBC18C2C7040004C146 /* UIScrollView+UzysCircularProgressPullToRefresh.m */; };
 		46E84EC118C2C7040004C146 /* UzysRadialProgressActivityIndicator.m in Sources */ = {isa = PBXBuildFile; fileRef = 46E84EBE18C2C7040004C146 /* UzysRadialProgressActivityIndicator.m */; };
@@ -224,6 +227,8 @@
 		46E84EDD18C338370004C146 /* OpitionCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 46E84EDC18C338370004C146 /* OpitionCategory.m */; };
 		46E84EE018C33FAC0004C146 /* SelectOpition.m in Sources */ = {isa = PBXBuildFile; fileRef = 46E84EDF18C33FAC0004C146 /* SelectOpition.m */; };
 		46E84EE318C356B30004C146 /* OpitionButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 46E84EE218C356B30004C146 /* OpitionButton.m */; };
+		46EAF98918D18D0D00D4C624 /* citydict.plist in Resources */ = {isa = PBXBuildFile; fileRef = 46EAF98618D18D0D00D4C624 /* citydict.plist */; };
+		46EAF98A18D18D0D00D4C624 /* CityListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 46EAF98818D18D0D00D4C624 /* CityListViewController.m */; };
 		8D253C7C0D2C41EC8279DF3F /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0DEE8FDE44A64A6986F93371 /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -569,8 +574,6 @@
 		46BCD25918BC7162005C4BD6 /* WorksViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WorksViewController.h; sourceTree = "<group>"; };
 		46BCD25D18BC725D005C4BD6 /* GroupsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroupsViewController.h; sourceTree = "<group>"; };
 		46BCD25E18BC725D005C4BD6 /* GroupsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GroupsViewController.m; sourceTree = "<group>"; };
-		46BCD26118BC7561005C4BD6 /* CityListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CityListViewController.h; sourceTree = "<group>"; };
-		46BCD26218BC7561005C4BD6 /* CityListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CityListViewController.m; sourceTree = "<group>"; };
 		46BCD26418BC796B005C4BD6 /* WorkDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WorkDetailViewController.h; sourceTree = "<group>"; };
 		46BCD26518BC796B005C4BD6 /* WorkDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WorkDetailViewController.m; sourceTree = "<group>"; };
 		46BCD26718BC797B005C4BD6 /* GroupDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroupDetailViewController.h; sourceTree = "<group>"; };
@@ -617,6 +620,14 @@
 		46BDF12818D0B53200999F50 /* CouponCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CouponCell.h; sourceTree = "<group>"; };
 		46BDF12918D0B53200999F50 /* CouponCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CouponCell.m; sourceTree = "<group>"; };
 		46BDF12C18D0BAD700999F50 /* CouponDetailViewControl_Coupon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "CouponDetailViewControl_Coupon@2x.png"; sourceTree = "<group>"; };
+		46BDF12F18D1516F00999F50 /* MyGroupViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyGroupViewController.h; sourceTree = "<group>"; };
+		46BDF13018D1516F00999F50 /* MyGroupViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyGroupViewController.m; sourceTree = "<group>"; };
+		46BDF13218D152DA00999F50 /* MyCreatedGroupStaffListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyCreatedGroupStaffListViewController.h; sourceTree = "<group>"; };
+		46BDF13318D152DA00999F50 /* MyCreatedGroupStaffListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyCreatedGroupStaffListViewController.m; sourceTree = "<group>"; };
+		46BDF13718D1779100999F50 /* UserAuthorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserAuthorViewController.h; sourceTree = "<group>"; };
+		46BDF13818D1779100999F50 /* UserAuthorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserAuthorViewController.m; sourceTree = "<group>"; };
+		46BDF13A18D17AF300999F50 /* CreateGroupViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreateGroupViewController.h; sourceTree = "<group>"; };
+		46BDF13B18D17AF300999F50 /* CreateGroupViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CreateGroupViewController.m; sourceTree = "<group>"; };
 		46E84EBA18C2C7040004C146 /* centerIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "centerIcon@2x.png"; sourceTree = "<group>"; };
 		46E84EBB18C2C7040004C146 /* UIScrollView+UzysCircularProgressPullToRefresh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+UzysCircularProgressPullToRefresh.h"; sourceTree = "<group>"; };
 		46E84EBC18C2C7040004C146 /* UIScrollView+UzysCircularProgressPullToRefresh.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+UzysCircularProgressPullToRefresh.m"; sourceTree = "<group>"; };
@@ -636,6 +647,9 @@
 		46E84EDF18C33FAC0004C146 /* SelectOpition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectOpition.m; sourceTree = "<group>"; };
 		46E84EE118C356B30004C146 /* OpitionButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpitionButton.h; sourceTree = "<group>"; };
 		46E84EE218C356B30004C146 /* OpitionButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OpitionButton.m; sourceTree = "<group>"; };
+		46EAF98618D18D0D00D4C624 /* citydict.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = citydict.plist; sourceTree = "<group>"; };
+		46EAF98718D18D0D00D4C624 /* CityListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CityListViewController.h; sourceTree = "<group>"; };
+		46EAF98818D18D0D00D4C624 /* CityListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CityListViewController.m; sourceTree = "<group>"; };
 		DB57361E9AB145E7AB30BD59 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = ../../Pods/Pods.xcconfig; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -1192,6 +1206,8 @@
 		4660E68718BB73A8005B3C7D /* User */ = {
 			isa = PBXGroup;
 			children = (
+				46BDF13618D1771E00999F50 /* Staff */,
+				46BDF12E18D1515A00999F50 /* Group */,
 				4660E69418BB73FF005B3C7D /* UserViewController.h */,
 				4660E69518BB73FF005B3C7D /* UserViewController.m */,
 				46B233B518BCDC4200CC27A3 /* LoginViewController.h */,
@@ -1202,6 +1218,8 @@
 				467F0EF918CB5A58009FFE08 /* OrdersViewController.m */,
 				467F0EFB18CB5A8C009FFE08 /* FavoritesViewController.h */,
 				467F0EFC18CB5A8C009FFE08 /* FavoritesViewController.m */,
+				46BDF13718D1779100999F50 /* UserAuthorViewController.h */,
+				46BDF13818D1779100999F50 /* UserAuthorViewController.m */,
 			);
 			path = User;
 			sourceTree = "<group>";
@@ -1506,8 +1524,7 @@
 		46BCD26018BC7533005C4BD6 /* Common */ = {
 			isa = PBXGroup;
 			children = (
-				46BCD26118BC7561005C4BD6 /* CityListViewController.h */,
-				46BCD26218BC7561005C4BD6 /* CityListViewController.m */,
+				46EAF98518D18D0D00D4C624 /* CityPicker */,
 				4665FD7A18BC7D4700E88C6B /* CommentsViewController.h */,
 				4665FD7B18BC7D4700E88C6B /* CommentsViewController.m */,
 				46A4704D18BE28DA0057F579 /* MapViewController.h */,
@@ -1603,6 +1620,26 @@
 			path = CouponDetailViewControl;
 			sourceTree = "<group>";
 		};
+		46BDF12E18D1515A00999F50 /* Group */ = {
+			isa = PBXGroup;
+			children = (
+				46BDF12F18D1516F00999F50 /* MyGroupViewController.h */,
+				46BDF13018D1516F00999F50 /* MyGroupViewController.m */,
+				46BDF13218D152DA00999F50 /* MyCreatedGroupStaffListViewController.h */,
+				46BDF13318D152DA00999F50 /* MyCreatedGroupStaffListViewController.m */,
+				46BDF13A18D17AF300999F50 /* CreateGroupViewController.h */,
+				46BDF13B18D17AF300999F50 /* CreateGroupViewController.m */,
+			);
+			path = Group;
+			sourceTree = "<group>";
+		};
+		46BDF13618D1771E00999F50 /* Staff */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Staff;
+			sourceTree = "<group>";
+		};
 		46E84EB918C2C7040004C146 /* UzysCircularProgressPullToRefresh */ = {
 			isa = PBXGroup;
 			children = (
@@ -1622,6 +1659,16 @@
 				46E84ECD18C2DB930004C146 /* UIViewController+KNSemiModal.m */,
 			);
 			path = KNSemiModalViewController;
+			sourceTree = "<group>";
+		};
+		46EAF98518D18D0D00D4C624 /* CityPicker */ = {
+			isa = PBXGroup;
+			children = (
+				46EAF98618D18D0D00D4C624 /* citydict.plist */,
+				46EAF98718D18D0D00D4C624 /* CityListViewController.h */,
+				46EAF98818D18D0D00D4C624 /* CityListViewController.m */,
+			);
+			path = CityPicker;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1793,6 +1840,7 @@
 				18AC38ED18CD95C800328A78 /* bubble-classic-gray.png in Resources */,
 				4630252718C81F1B000E0B51 /* SinaWeibo@2x.png in Resources */,
 				18A9129E18BB2350006B9A04 /* Release.xcconfig in Resources */,
+				46EAF98918D18D0D00D4C624 /* citydict.plist in Resources */,
 				18AC391018CD95C800328A78 /* button-photo@2x.png in Resources */,
 				18AC390418CD95C800328A78 /* bubble-tailless@2x.png in Resources */,
 			);
@@ -1864,21 +1912,23 @@
 				46BCD25318BC3B4F005C4BD6 /* SVProgressHUD.m in Sources */,
 				18A9127318BB216E006B9A04 /* AppDelegate.m in Sources */,
 				18AC38E118CD95C800328A78 /* JSBubbleImageViewFactory.m in Sources */,
+				46BDF13418D152DA00999F50 /* MyCreatedGroupStaffListViewController.m in Sources */,
 				467F0EF718CB5A4A009FFE08 /* AppointmentsViewControl.m in Sources */,
 				46BDF12A18D0B53200999F50 /* CouponCell.m in Sources */,
 				46BCD26918BC797B005C4BD6 /* GroupDetailViewController.m in Sources */,
 				18AC38E318CD95C800328A78 /* JSBubbleView.m in Sources */,
+				46EAF98A18D18D0D00D4C624 /* CityListViewController.m in Sources */,
 				18AC38E418CD95C800328A78 /* JSDismissiveTextView.m in Sources */,
 				467F0EF018CB4FCF009FFE08 /* UITextField+WelKit.m in Sources */,
 				46BDF11818D099F300999F50 /* AppointmentPreviewViewController.m in Sources */,
 				467F0EBB18CB3956009FFE08 /* ChatGroupCell.m in Sources */,
 				18AC388818CD685C00328A78 /* WebSocketUtil.m in Sources */,
+				46BDF13918D1779100999F50 /* UserAuthorViewController.m in Sources */,
 				467F0F1418CC1EAE009FFE08 /* DoubleCoverCell.m in Sources */,
 				467F0EB818CB2164009FFE08 /* ProductCell.m in Sources */,
 				18AC38E818CD95C800328A78 /* JSMessageTextView.m in Sources */,
 				467F0EEC18CB4FCF009FFE08 /* WelQRReaderViewController.m in Sources */,
 				4665FD7C18BC7D4700E88C6B /* CommentsViewController.m in Sources */,
-				46BCD26318BC7561005C4BD6 /* CityListViewController.m in Sources */,
 				46B25AED18C086D30035F425 /* WorkCell.m in Sources */,
 				18AC38E218CD95C800328A78 /* JSBubbleMessageCell.m in Sources */,
 				462F845B18CDF78D00CADA98 /* GroupDetailStaffTableViewDelegate.m in Sources */,
@@ -1903,12 +1953,14 @@
 				4630251518C76EF1000E0B51 /* CalendarViewController.m in Sources */,
 				467F0F2B18CC95CA009FFE08 /* JOLImageSlide.m in Sources */,
 				467F0EBE18CB3CC3009FFE08 /* ChatSession.m in Sources */,
+				46BDF13118D1516F00999F50 /* MyGroupViewController.m in Sources */,
 				46B25AF018C185290035F425 /* FakeDataHelper.m in Sources */,
 				46E84EDD18C338370004C146 /* OpitionCategory.m in Sources */,
 				18AC38E618CD95C800328A78 /* JSMessageSoundEffect.m in Sources */,
 				467F0EFD18CB5A8C009FFE08 /* FavoritesViewController.m in Sources */,
 				4630252218C7781A000E0B51 /* PayViewController.m in Sources */,
 				18AC38E718CD95C800328A78 /* JSMessagesViewController.m in Sources */,
+				46BDF13C18D17AF300999F50 /* CreateGroupViewController.m in Sources */,
 				46439C9118C763EF00F01691 /* MapPickerViewController.m in Sources */,
 				18AC38E518CD95C800328A78 /* JSMessageInputView.m in Sources */,
 				46BDF12118D0B3C300999F50 /* CouponsViewController.m in Sources */,

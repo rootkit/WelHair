@@ -21,4 +21,11 @@
 +(NSArray *)getFakeStaffList;
 + (Group *)getFakeGroup;
 +(NSArray *)getFakeCouponList;
+
++ (void)setUserCreateGroupSuccess;
++ (void)setUserJoinGroupSuccess;
++ (BOOL)isUserGroupAdmin;
++ (BOOL)isUserGroupStaff;
++ (void)savePickedCity:(NSString *)cityName;
++ (NSString *)getPickedCity;
 @end

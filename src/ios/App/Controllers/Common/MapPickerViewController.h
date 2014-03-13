@@ -15,5 +15,6 @@
 @end
 @interface MapPickViewController : BaseViewController
 @property (nonatomic, weak) id<MapPickViewDelegate> delegate;
+@property (nonatomic,strong) CLLocation *location;
 
 @end

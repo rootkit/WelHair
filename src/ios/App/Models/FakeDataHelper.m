@@ -45,21 +45,18 @@
     NSMutableArray *ar = [NSMutableArray array];
     for (int i = 0; i < 10 ; i++) {
         Work *work = [Work new];
-        
-        work.imgUrlList = @[@"http://images-fast.digu365.com/sp/width/736/2fed77ea4898439f94729cd9df5ee5ca0001.jpg",
-                            @"http://4.xiustatic.com/upload/goods20111107/65002396/650023960001/g1_600_600.1339481667492.jpg",
-                            @"http://images-fast.digu365.com/sp/width/736/2fed77ea4898439f94729cd9df5ee5ca0001.jpg",
-                            @"http://4.xiustatic.com/upload/goods20111107/65002396/650023960001/g1_600_600.1339481667492.jpg"];
+        work.imgUrlList = @[@"http://www.taihainet.com/lifeid/UploadFiles_6490/201310/20131010111028312.jpeg",
+                            @"http://y0.ifengimg.com/6a44e90e48f13dc2/2013/1008/ori_52536015c7bac.jpeg"];
 
         Comment *comment = [Comment new];
         comment.title = @"[ 发型不错，明天也去炸一个]";
         comment.commentorName = @"Andy";
-        comment.commentorAvatorUrl = @"http://images-fast.digu365.com/sp/width/736/2fed77ea4898439f94729cd9df5ee5ca0001.jpg";
+        comment.commentorAvatorUrl = @"http://www.taihainet.com/lifeid/UploadFiles_6490/201310/20131010111028312.jpeg";
         work.commentList = @[comment];
         
         Staff *staff = [Staff new];
         staff.name = @"Larry";
-        staff.avatorUrl = @"http://images-fast.digu365.com/sp/width/736/2fed77ea4898439f94729cd9df5ee5ca0001.jpg";
+        staff.avatorUrl = @"http://www.taihainet.com/lifeid/UploadFiles_6490/201310/20131010111028312.jpeg";
         work.creator = staff;
         [ar addObject:work];
     }
@@ -72,7 +69,7 @@
     for (int i = 0; i < 10 ; i++) {
         Group *group = [Group new];
         
-        group.imgUrls = @[@"http://images-fast.digu365.com/sp/width/736/2fed77ea4898439f94729cd9df5ee5ca0001.jpg"];
+        group.imgUrls = @[@"http://img0.aibangjuxin.com/ipic/51f1abfead26fb22_0.jpg"];
         group.name = @"一剪美工作室";
         group.address = @"济南高新区牛王庄路西";
         group.distance = 1;
@@ -88,7 +85,7 @@
 {
     Group *group = [Group new];
     
-    group.imgUrls = @[@"http://images-fast.digu365.com/sp/width/736/2fed77ea4898439f94729cd9df5ee5ca0001.jpg",@"http://images-fast.digu365.com/sp/width/736/2fed77ea4898439f94729cd9df5ee5ca0001.jpg"];
+    group.imgUrls = @[@"http://img1.aibangjuxin.com/ipic/f07ded40223dfc85_0.jpg",@"http://img0.aibangjuxin.com/ipic/51f1abfead26fb22_0.jpg"];
     group.name = @"一剪美工作室";
     group.address = @"济南高新区牛王庄路西";
     group.distance = 1;
@@ -119,7 +116,7 @@
         session.name = @"金三胖儿，奥巴马";
         session.description = @"最近咋样，老哥?";
         session.lastDate = [NSDate date];
-        session.imgUrl = @"http://images-fast.digu365.com/sp/width/736/2fed77ea4898439f94729cd9df5ee5ca0001.jpg";
+        session.imgUrl = @"http://www.taihainet.com/lifeid/UploadFiles_6490/201310/20131010111028312.jpeg";
         [ar addObject:session];
     }
     return ar;
@@ -133,7 +130,7 @@
         comment.commentorName = @"美女A";
         comment.description = @"这个化妆水厉害,能易容";
         comment.createdDate = [NSDate date];
-        comment.commentorAvatorUrl = @"http://images-fast.digu365.com/sp/width/736/2fed77ea4898439f94729cd9df5ee5ca0001.jpg";
+        comment.commentorAvatorUrl = @"http://www.taihainet.com/lifeid/UploadFiles_6490/201310/20131010111028312.jpeg";
         [ar addObject:comment];
     }
     return ar;
@@ -148,19 +145,18 @@
         staff.groupName = @"上海永琪";
         staff.rate = 0.5;
         staff.description = @"最近咋样，老哥?";
-        staff.avatorUrl = @"http://images-fast.digu365.com/sp/width/736/2fed77ea4898439f94729cd9df5ee5ca0001.jpg";
+        staff.avatorUrl = @"http://www.taihainet.com/lifeid/UploadFiles_6490/201310/20131010111028312.jpeg";
         [ar addObject:staff];
     }
     return ar;
 }
-
 
 +(NSArray *)getFakeCouponList
 {
     NSMutableArray *ar = [NSMutableArray array];
     for (int i = 0; i < 10 ; i++) {
         Coupon *coupon = [Coupon new];
-        coupon.imgUrl = @"http://images-fast.digu365.com/sp/width/736/2fed77ea4898439f94729cd9df5ee5ca0001.jpg";
+        coupon.imgUrl = @"http://www.taihainet.com/lifeid/UploadFiles_6490/201310/20131010111028312.jpeg";
         coupon.name = @"仅售10元，价值218元的烫染洗";
         coupon.address = @"济南高新区牛王庄路西";
         coupon.groupName = @"阿东造型";
@@ -168,6 +164,38 @@
         [ar addObject:coupon];
     }
     return ar;
+}
+
++ (void)setUserCreateGroupSuccess
+{
+    [[NSUserDefaults standardUserDefaults] setObject:@"1" forKey:@"UserAdmin"];
+}
+
++ (void)setUserJoinGroupSuccess
+{
+    [[NSUserDefaults standardUserDefaults] setObject:@"1" forKey:@"UserJoinGroup"];
+}
+
++ (BOOL)isUserGroupAdmin
+{
+    return [[[NSUserDefaults standardUserDefaults] objectForKey:@"UserAdmin"] isEqualToString:@"1"];
+}
++ (BOOL)isUserGroupStaff
+{
+    return [[[NSUserDefaults standardUserDefaults] objectForKey:@"UserJoinGroup"] isEqualToString: @"1"];
+}
+
++ (void)savePickedCity:(NSString *)cityName
+{
+    if(cityName.length == 0){
+        cityName = EMPTY_STRING;
+    }
+    [[NSUserDefaults standardUserDefaults] setObject:cityName forKey:@"pickedCity"];
+}
+
++ (NSString *)getPickedCity
+{
+    return [[NSUserDefaults standardUserDefaults] objectForKey:@"pickedCity"];
 }
 
 @end

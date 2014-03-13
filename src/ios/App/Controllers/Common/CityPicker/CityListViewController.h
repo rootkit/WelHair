@@ -7,15 +7,19 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "BaseViewController.h"
 
-@interface CityListViewController : UIViewController<UITableViewDataSource,UITableViewDelegate>
+@protocol CityPickViewDelegate
 
-@property (nonatomic, strong) NSMutableDictionary *cities;
+- (void) didPickCity:(NSString *)cityName cityId:(int)cityId;
 
-@property (nonatomic, strong) NSMutableArray *keys; //城市首字母
-@property (nonatomic, strong) NSMutableArray *arrayCitys;   //城市数据
-@property (nonatomic, strong) NSMutableArray *arrayHotCity;
+@end
 
-@property(nonatomic,strong)UITableView *tableView;
+@interface CityListViewController : BaseViewController<UITableViewDataSource,UITableViewDelegate>
+
+@property (nonatomic, strong) NSString *selectedCity;
+
+@property (nonatomic, strong) id<CityPickViewDelegate> delegate;
+
 
 @end

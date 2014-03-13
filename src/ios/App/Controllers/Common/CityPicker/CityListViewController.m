@@ -10,6 +10,16 @@
 
 @interface CityListViewController ()
 
+@property (nonatomic) int cityId;
+
+
+@property (nonatomic, strong) NSMutableDictionary *cities;
+
+@property (nonatomic, strong) NSMutableArray *keys; //城市首字母
+@property (nonatomic, strong) NSMutableArray *arrayCitys;   //城市数据
+@property (nonatomic, strong) NSMutableArray *arrayHotCity;
+
+@property(nonatomic,strong)UITableView *tableView;
 @end
 
 @implementation CityListViewController
@@ -18,10 +28,17 @@
 {
     self = [super init];
     if (self) {
+        self.title = NSLocalizedString(@"CityListViewController.Title", nil);
+        FAKIcon *leftIcon = [FAKIonIcons ios7ArrowBackIconWithSize:NAV_BAR_ICON_SIZE];
+        [leftIcon addAttribute:NSForegroundColorAttributeName value:[UIColor whiteColor]];
+        self.leftNavItemImg =[leftIcon imageWithSize:CGSizeMake(NAV_BAR_ICON_SIZE, NAV_BAR_ICON_SIZE)];
+        
         // Custom initialization
         self.arrayHotCity = [NSMutableArray arrayWithObjects:@"广州市",@"北京市",@"天津市",@"西安市",@"重庆市",@"沈阳市",@"青岛市",@"济南市",@"深圳市",@"长沙市",@"无锡市", nil];
         self.keys = [NSMutableArray array];
         self.arrayCitys = [NSMutableArray array];
+        
+        
     }
     return self;
 }
@@ -115,12 +132,25 @@
         cell.backgroundColor = [UIColor clearColor];
         cell.contentView.backgroundColor = [UIColor clearColor];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        
+        cell.accessoryType = UITableViewCellAccessoryNone;
         [cell.textLabel setTextColor:[UIColor blackColor]];
         cell.textLabel.font = [UIFont systemFontOfSize:18];
     }
-    cell.textLabel.text = [[_cities objectForKey:key] objectAtIndex:indexPath.row];
+    NSString *cityName = [[_cities objectForKey:key] objectAtIndex:indexPath.row];
+    cell.textLabel.text = cityName;
+    if([self.selectedCity isEqualToString:cityName]){
+        cell.accessoryType = UITableViewCellAccessoryCheckmark;
+    }
+
     return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    NSString *key = [_keys objectAtIndex:indexPath.section];
+    self.selectedCity = [[_cities objectForKey:key] objectAtIndex:indexPath.row];
+    [self.delegate  didPickCity:self.selectedCity cityId:0];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 
