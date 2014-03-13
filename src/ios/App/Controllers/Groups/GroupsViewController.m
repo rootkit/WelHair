@@ -88,7 +88,7 @@
     self.tableView.frame = CGRectMake(0,
                                       self.topBarOffset,
                                       WIDTH(self.view) ,
-                                      self.tableViewHeight);
+                                      [self contentHeightWithNavgationBar:YES withBottomBar:YES]);
     debugLog(@"%f",MaxY(topTabView));
     self.tableView.backgroundColor = [UIColor clearColor];
     self.tableView.delegate = self;
@@ -115,7 +115,7 @@
     self.areaDatasource = @[@"高新区",@"历下区",@"历城区",@"市中区"];
     self.hotDatasource = @[@"默认",@"好评",@"评价",@"销量"];
     
-    float dropDownHeight = self.tableViewHeight + kBottomBarHeight;
+    float dropDownHeight = [self contentHeightWithNavgationBar:YES withBottomBar:YES] + kBottomBarHeight;
     self.dropDownPicker = [[DropDownView alloc] initWithFrame:CGRectMake(0,
                                                                          self.topBarOffset + HEIGHT(self.areaBtn),
                                                                          WIDTH(self.view),

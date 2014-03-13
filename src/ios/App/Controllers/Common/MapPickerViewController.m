@@ -43,7 +43,7 @@
     [super viewWillAppear:animated];
     [_mapView viewWillAppear];
     _mapView.delegate = self; // 此处记得不用的时候需要置nil，否则影响内存的释放
-    if(self.location){
+    if(self.location.coordinate.latitude >0){
         [self addAnnotation:self.location.coordinate];
     }else{
         [self locateClick];
@@ -77,6 +77,9 @@
     if(pickedPoint.count == 1){
         BMKPointAnnotation *item = (BMKPointAnnotation *)pickedPoint[0];
         pickedLocation = [[CLLocation alloc] initWithLatitude:item.coordinate.latitude longitude:item.coordinate.longitude];
+    }
+    if(pickedLocation.coordinate.latitude == 0){
+        pickedLocation = nil;
     }
     [self.delegate didPickLocation:pickedLocation];
     [self.navigationController popViewControllerAnimated:YES];

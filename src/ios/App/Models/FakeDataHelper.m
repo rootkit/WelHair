@@ -85,7 +85,7 @@
 {
     Group *group = [Group new];
     
-    group.imgUrls = @[@"http://img1.aibangjuxin.com/ipic/f07ded40223dfc85_0.jpg",@"http://img0.aibangjuxin.com/ipic/51f1abfead26fb22_0.jpg"];
+    group.imgUrls = @[@"http://img0.aibangjuxin.com/ipic/51f1abfead26fb22_0.jpg",@"http://img0.aibangjuxin.com/ipic/51f1abfead26fb22_0.jpg"];
     group.name = @"一剪美工作室";
     group.address = @"济南高新区牛王庄路西";
     group.distance = 1;

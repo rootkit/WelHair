@@ -49,7 +49,7 @@
     self.tableView.frame = CGRectMake(0,
                                       self.topBarOffset,
                                       WIDTH(self.view) ,
-                                      self.tableViewHeight);
+                                      [self contentHeightWithNavgationBar:YES withBottomBar:YES]);
     self.tableView.backgroundColor = [UIColor clearColor];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;

@@ -59,7 +59,10 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.scrollView = [[UIScrollView alloc] initWithFrame:self.view.bounds];
+    self.scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0,
+                                                                     0,
+                                                                     WIDTH(self.view),
+                                                                     [self contentHeightWithNavgationBar:YES withBottomBar:YES])];
     self.scrollView.scrollEnabled = YES;
     [self.view addSubview:self.scrollView];
     UIImageView *couponView = [[UIImageView alloc] initWithFrame:CGRectMake(0, self.topBarOffset, WIDTH(self.view), 155)];
@@ -116,18 +119,9 @@
     [phoneImgView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(phoneCall)]];
     phoneImgView.image = [phoneIcon imageWithSize:CGSizeMake(20, 20)];
     [infoView addSubview:phoneImgView];
-    
-    float bottomOffsetY = 0;
-    if(isIOS70){
-        bottomOffsetY = HEIGHT(self.view) - self.topBarOffset - kBottomBarHeight;
-    }else if(isIOS6){
-        bottomOffsetY = HEIGHT(self.view) - kToolBarHeight - kBottomBarHeight;
-    }else{
-        bottomOffsetY = HEIGHT(self.view) - kStatusBarHeight -  kToolBarHeight - kBottomBarHeight;
-    }
-    
+        
     UIView *bottomView = [[UIView alloc] initWithFrame:CGRectMake(0,
-                                                                  bottomOffsetY,
+                                                                  MaxY(self.scrollView),
                                                                   WIDTH(self.view),
                                                                   kBottomBarHeight)];
     bottomView.backgroundColor =[UIColor whiteColor];
@@ -138,7 +132,7 @@
     [submitBtn setBackgroundColor:[UIColor colorWithHexString:@"e43a3d"]];
     [submitBtn addTarget:self action:@selector(submitClick:) forControlEvents:UIControlEventTouchDown];
     [bottomView addSubview:submitBtn];
-    [self.scrollView addSubview:bottomView];
+    [self.view addSubview:bottomView];
     
     UILabel *titleLbl =[[UILabel alloc] initWithFrame:CGRectMake(X(infoView),MaxY(infoView) + 5, 100,25)];
     titleLbl.font = [UIFont systemFontOfSize:14];

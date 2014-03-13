@@ -132,7 +132,7 @@
     self.tableView.frame = CGRectMake(0,
                                       self.topBarOffset,
                                       WIDTH(self.view) ,
-                                      self.tableViewHeight);
+                                      [self contentHeightWithNavgationBar:YES withBottomBar:YES]);
     self.tableView.backgroundColor = [UIColor clearColor];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
@@ -158,7 +158,7 @@
     self.colorDatasource = @[@"红色",@"黄色",@"黑色",@"白色"];
     self.lengthDatasource = @[@"寸头",@"短发",@"刘海",@"披肩"];
     
-    float dropDownHeight = self.tableViewHeight + kBottomBarHeight;
+    float dropDownHeight = [self contentHeightWithNavgationBar:YES withBottomBar:YES] + kBottomBarHeight;
     self.dropDownPicker = [[DropDownView alloc] initWithFrame:CGRectMake(0,
                                                                         self.topBarOffset + HEIGHT(self.areaBtn),
                                                                          WIDTH(self.view),

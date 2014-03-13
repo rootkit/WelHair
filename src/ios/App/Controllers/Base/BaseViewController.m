@@ -143,4 +143,19 @@
     return _tableViewHeight;
 }
 
+
+- (float)contentHeightWithNavgationBar:(BOOL)showNav
+                    withBottomBar:(BOOL)showBottom
+{
+    float height = 0;
+    float topBarHeight = showNav ? kTopBarHeight : 0;
+    float bottomBarHeight = showBottom ? kBottomBarHeight : 0;
+    if(isIOS6){
+        height =  HEIGHT(self.view) - topBarHeight - bottomBarHeight;
+    }else {
+        height = HEIGHT(self.view) - kStatusBarHeight - kTopBarHeight - kBottomBarHeight;
+    }
+    return height;
+}
+
 @end

@@ -18,6 +18,8 @@
 #define CONFIG_BAIDU_MAP_KEY  @"mATLLTobcd8XqZIj3xlPt8il"
 
 
+
+
 #define APP_BASE_COLOR              @"206ba7"
 #define APP_NAVIGATIONBAR_COLOR     @"206aa7"
 
@@ -25,6 +27,7 @@
 #define TOP_TAB_BAR_HEIGHT  40
 #define CUSTOME_BOTTOMBAR_HEIGHT  55
 
+#define NOTIFICATION_USER_CREATE_GROUP_SUCCESS  @"CreateGroupSuccessfully"
 
 #define HAIR_STYLE_FACE_CICLE   0
 #define HAIR_STYLE_FACE_OVAL    1

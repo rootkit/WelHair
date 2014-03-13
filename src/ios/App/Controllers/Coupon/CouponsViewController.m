@@ -84,7 +84,7 @@
     self.tableView.frame = CGRectMake(0,
                                       self.topBarOffset,
                                       WIDTH(self.view) ,
-                                      self.tableViewHeight);
+                                      [self contentHeightWithNavgationBar:YES withBottomBar:YES]);
     debugLog(@"%f",MaxY(topTabView));
     self.tableView.backgroundColor = [UIColor clearColor];
     self.tableView.delegate = self;
@@ -111,7 +111,7 @@
     self.areaDatasource = @[@"高新区",@"历下区",@"历城区",@"市中区"];
     self.hotDatasource = @[@"默认",@"好评",@"评价",@"销量"];
     
-    float dropDownHeight = self.tableViewHeight + kBottomBarHeight;
+    float dropDownHeight = [self contentHeightWithNavgationBar:YES withBottomBar:YES] + kBottomBarHeight;
     self.dropDownPicker = [[DropDownView alloc] initWithFrame:CGRectMake(0,
                                                                          self.topBarOffset + HEIGHT(self.areaBtn),
                                                                          WIDTH(self.view),
@@ -185,14 +185,16 @@
     cell.backgroundColor = indexPath.row % 2 == 0?
     [UIColor whiteColor] : [UIColor colorWithHexString:@"f5f6f8"];
     
-    Group *data = [self.datasource objectAtIndex:indexPath.row];
+    Coupon *data = [self.datasource objectAtIndex:indexPath.row];
     [cell setup:data];
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    [self.navigationController pushViewController:[CouponDetailViewController new] animated:YES];
+    CouponDetailViewController *detail = [CouponDetailViewController new];
+    detail.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:detail animated:YES];
 }
 
 

@@ -178,6 +178,7 @@
 		469B9FF718D1A7EB00948740 /* UMSnsAccountViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 469B9FEB18D1A7EB00948740 /* UMSnsAccountViewController.xib */; };
 		469B9FF818D1A7EB00948740 /* UMSShareListController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 469B9FEC18D1A7EB00948740 /* UMSShareListController.xib */; };
 		469B9FF918D1A7EB00948740 /* UMSocialSDKResourcesNew.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 469B9FED18D1A7EB00948740 /* UMSocialSDKResourcesNew.bundle */; };
+		469B9FFB18D1D62900948740 /* StaffDetailViewControl_TempBg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 469B9FFA18D1D62900948740 /* StaffDetailViewControl_TempBg@2x.png */; };
 		46A46FE518BE21160057F579 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46A46FE418BE21160057F579 /* CoreLocation.framework */; };
 		46A46FE718BE211F0057F579 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46A46FE618BE211F0057F579 /* QuartzCore.framework */; };
 		46A46FE918BE21280057F579 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46A46FE818BE21280057F579 /* OpenGLES.framework */; };
@@ -487,6 +488,7 @@
 		469B9FEC18D1A7EB00948740 /* UMSShareListController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UMSShareListController.xib; sourceTree = "<group>"; };
 		469B9FED18D1A7EB00948740 /* UMSocialSDKResourcesNew.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = UMSocialSDKResourcesNew.bundle; sourceTree = "<group>"; };
 		469B9FEE18D1A7EB00948740 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/UMSocialLocalizable.strings"; sourceTree = "<group>"; };
+		469B9FFA18D1D62900948740 /* StaffDetailViewControl_TempBg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "StaffDetailViewControl_TempBg@2x.png"; sourceTree = "<group>"; };
 		46A46FE418BE21160057F579 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		46A46FE618BE211F0057F579 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		46A46FE818BE21280057F579 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
@@ -1296,6 +1298,7 @@
 		467F0F0C18CC1046009FFE08 /* StaffDetailViewControl */ = {
 			isa = PBXGroup;
 			children = (
+				469B9FFA18D1D62900948740 /* StaffDetailViewControl_TempBg@2x.png */,
 				467F0F0D18CC1046009FFE08 /* StaffDetailViewControl_WorkBanner@2x.png */,
 			);
 			path = StaffDetailViewControl;
@@ -1867,6 +1870,7 @@
 				469B9FF718D1A7EB00948740 /* UMSnsAccountViewController.xib in Resources */,
 				18AC38F318CD95C800328A78 /* bubble-classic-typing.png in Resources */,
 				18A912C518BB25AA006B9A04 /* Icon-Small-50.png in Resources */,
+				469B9FFB18D1D62900948740 /* StaffDetailViewControl_TempBg@2x.png in Resources */,
 				18AC38F118CD95C800328A78 /* bubble-classic-selected.png in Resources */,
 				467F0EE918CB4FCF009FFE08 /* line@2x.png in Resources */,
 				18AC390E18CD95C800328A78 /* send-button@2x.png in Resources */,

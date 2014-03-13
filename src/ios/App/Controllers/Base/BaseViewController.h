@@ -23,7 +23,8 @@
 @property (nonatomic, strong) NSString *rightNavItemTitle;
 
 
-
+- (float)contentHeightWithNavgationBar:(BOOL)showNav
+                     withBottomBar:(BOOL)showBottom;
 - (void)leftNavItemClick;
 
 - (void)rightNavItemClick;

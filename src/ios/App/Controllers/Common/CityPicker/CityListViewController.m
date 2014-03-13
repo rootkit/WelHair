@@ -43,6 +43,11 @@
     return self;
 }
 
+- (void)leftNavItemClick
+{
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];

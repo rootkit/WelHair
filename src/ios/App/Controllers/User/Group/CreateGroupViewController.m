@@ -56,6 +56,7 @@ static const float KOffsetY = 40;
         return;
     }
     [FakeDataHelper setUserCreateGroupSuccess];
+    [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_USER_CREATE_GROUP_SUCCESS object:nil];
 
 }
 
@@ -76,7 +77,7 @@ static const float KOffsetY = 40;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [self.view addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(bgTapped)]];
+    [self.view addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(resignInputResponder)]];
     float margin = 20;
     UIView *cityView = [[UIView alloc] initWithFrame:CGRectMake(margin, self.topBarOffset+ margin, 280, 40)];
     [cityView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(pickCity)]];
@@ -206,7 +207,7 @@ static const float KOffsetY = 40;
 }
 
 
-- (void)bgTapped
+- (void)resignInputResponder
 {
     [self.groupNameTxt resignFirstResponder];
     [self.groupAddressTxt resignFirstResponder];
@@ -223,6 +224,7 @@ static const float KOffsetY = 40;
 
 - (void)locateTapped
 {
+    [self resignInputResponder];
     MapPickViewController *picker = [MapPickViewController new];
     picker.delegate = self;
     picker.location = self.location;
@@ -232,7 +234,7 @@ static const float KOffsetY = 40;
 - (void)didPickLocation:(CLLocation *)location
 {
     self.location = location;
-    if(self.location){
+    if(!self.location){
         self.coordinateLbl.text = @"  获取地理坐标";
     }else{
         self.coordinateLbl.text = [NSString stringWithFormat:@"%f, %f", location.coordinate.longitude, location.coordinate.latitude];

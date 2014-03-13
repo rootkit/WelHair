@@ -21,15 +21,19 @@
 #import "WorkDetailViewController.h"
 #import "CommentsViewController.h"
 #import "AppointmentPreviewViewController.h"
+#import "CircleImageView.h"
 
 @interface StaffDetailViewController ()<UITableViewDataSource, UITableViewDelegate>
 @property (nonatomic, strong) UIImageView *headerBackgroundView;
 @property (nonatomic, strong) CircleImageView *avatorImgView;
+@property (nonatomic, strong) UIScrollView *scrollView;
 @property (nonatomic, strong) UILabel *nameLbl;
 @property (nonatomic, strong) UILabel *groupNameLbl;
 @property (nonatomic, strong) UILabel *addressLbl;
 @property (nonatomic, strong) UILabel *distanceLbl;
 
+@property (nonatomic, strong) UIButton *detailTabBtn;
+@property (nonatomic, strong) UIButton *commentTabBtn;
 @property (nonatomic, strong) NSArray *datasource;
 @property (nonatomic, strong) UITableView *tableView;
 @end
@@ -57,105 +61,102 @@ static const   float profileViewHeight = 80;
 - (void)loadView
 {
     [super loadView];
-    
-    float infoViewHeight  = 200;
+
+    float addressViewHeight = 50;
+    float tabButtonViewHeight = 50;
     float avatorSize = 50;
+    
+
+    self.scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, self.topBarOffset, WIDTH(self.view), [self contentHeightWithNavgationBar:YES withBottomBar:YES])];
+    [self.view addSubview:self.scrollView];
+    
+    UIView *bottomView = [[UIView alloc] initWithFrame:CGRectMake(0,
+                                                                  MaxY(self.scrollView),
+                                                                  WIDTH(self.view),
+                                                                  kBottomBarHeight)];
+    bottomView.backgroundColor =[UIColor whiteColor];
+    UIButton *submitBtn = [[UIButton alloc] initWithFrame:CGRectMake(220, 15, 80, 25)];
+    [submitBtn setTitle:@"预约" forState:UIControlStateNormal];
+    submitBtn.tag = 0;
+    [submitBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [submitBtn setBackgroundColor:[UIColor colorWithHexString:@"e43a3d"]];
+    [submitBtn addTarget:self action:@selector(submitClick:) forControlEvents:UIControlEventTouchDown];
+    [bottomView addSubview:submitBtn];
+    [self.view addSubview:bottomView];
+    
     
     self.headerBackgroundView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, WIDTH
                                                                               (self.view), profileViewHeight)];
-    self.headerBackgroundView.image = [UIImage imageNamed:@"Profile_Banner_Bg"];
-    [self.view addSubview:self.headerBackgroundView];
+
+    self.headerBackgroundView.image = [UIImage imageNamed:@"Profile_Banner_Bg@2x"];
+    [self.scrollView addSubview:self.headerBackgroundView];
     
-    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, self.topBarOffset, WIDTH(self.view), HEIGHT(self.view) - self.topBarOffset)];
-    self.tableView.backgroundColor = [UIColor clearColor];
-    self.tableView.delegate = self;
-    self.tableView.dataSource = self;
-    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    [self.view addSubview:self.tableView];
-    
-    UIView *headerView_ = [[UIView alloc] initWithFrame:CGRectMake(0, self.topBarOffset, WIDTH(self.view), profileViewHeight + infoViewHeight)];
+    UIView *headerView_ = [[UIView alloc] initWithFrame:CGRectMake(0, 0, WIDTH(self.view), profileViewHeight + addressViewHeight+ tabButtonViewHeight)];
     headerView_.backgroundColor = [UIColor clearColor];
+    [self.scrollView addSubview:headerView_];
     
-    UIView *profileIconView_ = [[UIView alloc] initWithFrame:CGRectMake(0, 0, WIDTH(self.view), profileViewHeight)];
-    profileIconView_.backgroundColor = [UIColor clearColor];
-    [headerView_ addSubview:profileIconView_];
+#pragma topbar
+    UIView *addressView = [[UIView alloc] initWithFrame:CGRectMake(0, profileViewHeight, WIDTH(headerView_), addressViewHeight)];
+    UIImageView *addressViewBg = [[UIImageView alloc] initWithFrame:addressView.bounds];
+    addressViewBg.image = [UIImage imageNamed:@"Profile_Bottom_Bg"];
+    [addressView addSubview:addressViewBg];
+    [headerView_ addSubview:addressView];
     
-    self.avatorImgView = [[CircleImageView alloc] initWithFrame:CGRectMake((WIDTH(profileIconView_) - avatorSize)/2, 5, avatorSize, avatorSize)];
-    self.avatorImgView.borderColor = [UIColor whiteColor];
-    self.avatorImgView.borderWidth = 1;
+    self.avatorImgView = [[CircleImageView alloc] initWithFrame:CGRectMake(20, MaxY(self.headerBackgroundView) - avatorSize/2, avatorSize, avatorSize)];
+    self.avatorImgView.layer.borderColor = [[UIColor whiteColor] CGColor];
+    self.avatorImgView.layer.borderWidth = 1;
     [self.avatorImgView setImageWithURL:[NSURL URLWithString:@"http://images-fast.digu365.com/sp/width/736/2fed77ea4898439f94729cd9df5ee5ca0001.jpg"]];
-    [profileIconView_ addSubview:self.avatorImgView];
+    [headerView_ addSubview:self.avatorImgView];
     
-    self.nameLbl = [[UILabel alloc] initWithFrame:CGRectMake(0, MaxY(self.avatorImgView)+5, WIDTH(profileIconView_), 20)];
-    self.nameLbl.backgroundColor = [UIColor clearColor];
-    self.nameLbl.textColor = [UIColor whiteColor];
-    self.nameLbl.textAlignment = NSTextAlignmentCenter;
-    self.nameLbl.font = [UIFont systemFontOfSize:16];
-    self.nameLbl.text = @"美女";
-    [profileIconView_ addSubview:self.nameLbl];
-    
-    UIView *infoView = [[UIView alloc] initWithFrame:CGRectMake(0, MaxY(profileIconView_), WIDTH(profileIconView_), infoViewHeight)];
-    infoView.backgroundColor = [UIColor colorWithHexString:@"f2f2f2"];
-    [headerView_ addSubview:infoView];
-    
-    UIView *addressView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, WIDTH(profileIconView_), 55)];
-    
-    [infoView addSubview:addressView];
-    UIImageView *addressBg = [[UIImageView alloc] initWithFrame:addressView.bounds];
-    addressBg.image = [UIImage imageNamed:@"Profile_Bottom_Bg"];
-    [addressView addSubview:addressBg];
-    
-    self.groupNameLbl = [[UILabel alloc] initWithFrame:CGRectMake(15, 5,180 ,20)];
-    self.groupNameLbl.font = [UIFont systemFontOfSize:12];
+    self.groupNameLbl = [[UILabel alloc] initWithFrame:CGRectMake(70 + 5, 0, WIDTH(addressView) - 10 - MaxX(self.avatorImgView), 20)];
     self.groupNameLbl.backgroundColor = [UIColor clearColor];
-    self.groupNameLbl.textColor = [UIColor grayColor];
-    self.groupNameLbl.text = @"上海永琪";
+    self.groupNameLbl.textColor = [UIColor blackColor];
+    self.groupNameLbl.font = [UIFont boldSystemFontOfSize:14];
+    self.groupNameLbl.text = @"沙宣";
+    self.groupNameLbl.textAlignment = NSTextAlignmentLeft;;
     [addressView addSubview:self.groupNameLbl];
-    
-    self.addressLbl = [[UILabel alloc] initWithFrame:CGRectMake(15, MaxY(self.groupNameLbl) + 3, WIDTH(self.groupNameLbl) ,15)];
-    self.addressLbl.font = [UIFont systemFontOfSize:12];
+    self.addressLbl = [[UILabel alloc] initWithFrame:CGRectMake(X(self.groupNameLbl),MaxY(self.groupNameLbl), WIDTH(addressView) - 10 - MaxX(self.avatorImgView) - 100, 20)];
     self.addressLbl.backgroundColor = [UIColor clearColor];
     self.addressLbl.textColor = [UIColor grayColor];
-    self.addressLbl.text = @"济南高新区会展国际";
+    self.addressLbl.font = [UIFont systemFontOfSize:12];
+    self.addressLbl.text = @"济南高新区";
+    self.addressLbl.textAlignment = NSTextAlignmentLeft;;
     [addressView addSubview:self.addressLbl];
     
-    float locationIconSize = 15;
-    FAKIcon *locationIcon = [FAKIonIcons locationIconWithSize:locationIconSize];
-    [locationIcon addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithHexString:@"b7bcc2"]];
-    UIImageView *locationImg = [[UIImageView alloc] initWithFrame:CGRectMake(WIDTH(headerView_) - 100, Y(self.addressLbl),locationIconSize, locationIconSize)];
-    locationImg.image = [locationIcon imageWithSize:CGSizeMake(locationIconSize,locationIconSize)];
+    UIImageView *locationImg = [[UIImageView alloc] initWithFrame:CGRectMake(MaxX(self.addressLbl), Y(self.self.addressLbl),20,20)];
+    FAKIcon *locationIcon = [FAKIonIcons locationIconWithSize:20];
+    [locationIcon addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithHexString:@"000"]];
+    locationImg.image = [locationIcon imageWithSize:CGSizeMake(20, 20)];
     [addressView addSubview:locationImg];
     
-    self.distanceLbl = [[UILabel alloc] initWithFrame:CGRectMake(MaxX(locationImg), Y(locationImg), 30,20)];
-    self.distanceLbl.font = [UIFont systemFontOfSize:10];
-    self.distanceLbl.textAlignment = NSTextAlignmentRight;
-    self.distanceLbl.text = @"1千米";
+    
+    self.distanceLbl = [[UILabel alloc] initWithFrame:CGRectMake(MaxX(locationImg) + 2, Y(locationImg),70,20)];
+    self.distanceLbl.textAlignment = NSTextAlignmentLeft;
+    self.distanceLbl.textColor = [UIColor grayColor];
+    self.distanceLbl.font = [UIFont systemFontOfSize:12];
     self.distanceLbl.backgroundColor = [UIColor clearColor];
-    self.distanceLbl.textColor = [UIColor colorWithHexString:@"206aa7"];
+    self.distanceLbl.text = @"1.45千米";
     [addressView addSubview:self.distanceLbl];
     
-    UIButton *appointmentBtn = [[UIButton alloc] initWithFrame:CGRectMake(MaxX(self.groupNameLbl) + 20, 70, 100, 30)];
-    [appointmentBtn setBackgroundImage:[UIImage imageNamed:@"AppointmentBtn"] forState:UIControlStateNormal];
-    [appointmentBtn addTarget:self action:@selector(appointmentClick) forControlEvents:UIControlEventTouchDown];
-    [headerView_ addSubview:appointmentBtn];
     
-    UIView *detailCellView = [[UIView alloc] initWithFrame:CGRectMake(0, MaxY(addressView) + 10, WIDTH(headerView_), 40)];
-    detailCellView.backgroundColor = [UIColor whiteColor];
-    UILabel *detailLbl =[[UILabel alloc] initWithFrame:CGRectMake(20, 10, 100,20)];
-    detailLbl.font = [UIFont systemFontOfSize:14];
-    detailLbl.textAlignment = NSTextAlignmentLeft;
-    detailLbl.backgroundColor = [UIColor clearColor];
-    detailLbl.textColor = [UIColor grayColor];
-    detailLbl.text = @"基本信息";
-    [detailCellView addSubview:detailLbl];
-    FAKIcon *detailArrow = [FAKIonIcons ios7ArrowForwardIconWithSize:20];
-    [detailArrow addAttribute:NSForegroundColorAttributeName value:[UIColor grayColor]];
-    UIImageView *detailArrowImgView = [[UIImageView alloc] initWithFrame:CGRectMake(WIDTH(detailCellView) - 40, 10, 20, 20)];
-    detailArrowImgView.image = [detailArrow imageWithSize:CGSizeMake(20, 20)];
-    [detailCellView addSubview:detailArrowImgView];
-    [infoView addSubview:detailCellView];
+    UIImageView *imgView = [[UIImageView alloc] initWithFrame:CGRectMake(0, MaxY(addressView) + 10, WIDTH(self.view), 240)];
+    [self.scrollView addSubview:imgView];
     
-    UIView *commentCellView = [[UIView alloc] initWithFrame:CGRectMake(0, MaxY(detailCellView) + 10, WIDTH(headerView_), 40)];
+    imgView.image = [UIImage imageNamed:@"StaffDetailViewControl_TempBg@"];
+    UIButton *btnImg = [UIButton buttonWithType:UIButtonTypeCustom];
+    btnImg.frame = CGRectMake(15, 110,220,50);
+    [btnImg addTarget:self action:@selector(imgClick:) forControlEvents:UIControlEventTouchUpInside];
+    [self.scrollView addSubview:btnImg];
+    
+    UIButton *btnMoreImg = [UIButton buttonWithType:UIButtonTypeCustom];
+    btnMoreImg.frame = CGRectMake(MaxX(btnImg),Y(btnImg),50,50);
+    [btnMoreImg addTarget:self action:@selector(moreImgClick:) forControlEvents:UIControlEventTouchUpInside];
+    [self.scrollView addSubview:btnMoreImg];
+    
+    UIView *commentCellView = [[UIView alloc] initWithFrame:CGRectMake(15, MaxY(btnMoreImg) + 20, 290, 40)];
+    commentCellView.layer.borderColor = [[UIColor colorWithHexString:@"e1e1e1"] CGColor];
+    commentCellView.layer.borderWidth = 1.0;
+    commentCellView.layer.cornerRadius = 5;
     [commentCellView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(commentsTapped)]];
     commentCellView.backgroundColor = [UIColor whiteColor];
     UILabel *commentLbl =[[UILabel alloc] initWithFrame:CGRectMake(20, 10, 100,20)];
@@ -170,13 +171,10 @@ static const   float profileViewHeight = 80;
     UIImageView *commentImgView = [[UIImageView alloc] initWithFrame:CGRectMake(WIDTH(commentCellView) - 40, 10, 20, 20)];
     commentImgView.image = [commentIcon imageWithSize:CGSizeMake(20, 20)];
     [commentCellView addSubview:commentImgView];
-    [infoView addSubview:commentCellView];
-    UIImageView *workImgView = [[UIImageView alloc] initWithFrame:CGRectMake(110, MaxY(commentCellView) + 5, 100, 30)];
-    workImgView.image = [UIImage imageNamed:@"StaffDetailViewControl_WorkBanner"];
-    [infoView addSubview:workImgView];
+    [self.scrollView addSubview:commentCellView];
     
-    self.tableView.tableHeaderView = headerView_;
-    self.datasource = [FakeDataHelper getFakeWorkList];
+    self.scrollView.scrollEnabled = YES;
+//    self.scrollView.contentSize = CGSizeMake(WIDTH(self.view), MaxY(commentCellView) + 10);
 }
 
 - (void)viewDidLoad

@@ -24,6 +24,7 @@
 #import "WorkDetailViewController.h"
 #import "DoubleCoverCell.h"
 #import "UserAuthorViewController.h"
+#import "MyGroupViewController.h"
 
 @interface UserViewController ()<UITableViewDataSource, UITableViewDelegate, UIActionSheetDelegate, UIImagePickerControllerDelegate,UINavigationControllerDelegate>
 
@@ -73,7 +74,7 @@ static const   float profileViewHeight = 80;
     self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0,
                                                                    self.topBarOffset,
                                                                    WIDTH(self.view),
-                                                                   self.tableViewHeight)];
+                                                                   [self contentHeightWithNavgationBar:YES withBottomBar:YES])];
     self.tableView.backgroundColor = [UIColor clearColor];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
@@ -136,6 +137,7 @@ static const   float profileViewHeight = 80;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(navigateToGroupPanel) name:NOTIFICATION_USER_CREATE_GROUP_SUCCESS object:nil];
 }
 
 - (void)didReceiveMemoryWarning
@@ -144,6 +146,18 @@ static const   float profileViewHeight = 80;
     // Dispose of any resources that can be recreated.
 }
 
+- (void) navigateToGroupPanel
+{
+    if([FakeDataHelper isUserGroupAdmin]){
+        [self.navigationController popToViewController:self animated:NO];
+        [self.navigationController pushViewController:[MyGroupViewController new] animated:NO];
+    }else if([FakeDataHelper isUserGroupStaff]){
+//        [self.navigationController popToViewController:self animated:NO];
+//        [self.navigationController pushViewController:[MyGroupViewController new] animated:NO];
+    }else{
+        
+    }
+}
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
@@ -223,9 +237,16 @@ static const   float profileViewHeight = 80;
             break;
         }
         case 2:{
-            UserAuthorViewController *vc = [UserAuthorViewController new];
-            vc.hidesBottomBarWhenPushed = YES;
-            [self.navigationController pushViewController:vc animated:YES];
+            if([FakeDataHelper isUserGroupAdmin]){
+                [self.navigationController pushViewController:[MyGroupViewController new] animated:YES];
+            }else if([FakeDataHelper isUserGroupStaff]){
+                //        [self.navigationController popToViewController:self animated:NO];
+                //        [self.navigationController pushViewController:[MyGroupViewController new] animated:NO];
+            }else{
+                UserAuthorViewController *vc = [UserAuthorViewController new];
+                vc.hidesBottomBarWhenPushed = YES;
+                [self.navigationController pushViewController:vc animated:YES];
+            }
             break;
         }
             break;
