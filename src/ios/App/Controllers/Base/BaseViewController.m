@@ -136,8 +136,8 @@
     float bottomBarHeight = showBottom ? kBottomBarHeight : 0;
     if(isIOS6){
         height =  HEIGHT(self.view) - topBarHeight - bottomBarHeight;
-    }else {
-        height = HEIGHT(self.view) - kStatusBarHeight - kTopBarHeight - kBottomBarHeight;
+    }else if(isIOS7) {
+        height = HEIGHT(self.view) - kStatusBarHeight - topBarHeight - bottomBarHeight;
     }
     return height;
 }

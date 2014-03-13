@@ -74,6 +74,7 @@
     
     UIButton *logoutBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     logoutBtn.frame = CGRectMake(40, maxY + 10, WIDTH(self.view) - 80,50);
+    [logoutBtn addTarget:self action:@selector(logout) forControlEvents:UIControlEventTouchDown];
     logoutBtn.backgroundColor = [UIColor colorWithHexString:@"e4393c"];
     [logoutBtn setTitle:@"logout" forState:UIControlStateNormal];
     [logoutBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
@@ -108,6 +109,13 @@
         default:
             break;
     }
+}
+
+- (void)logout
+{
+    [SVProgressHUD showSuccessWithStatus:@"注销成功" duration:1];
+    [FakeDataHelper logout];
+    [self performSelector:@selector(leftNavItemClick) withObject:nil afterDelay:1.5];
 }
 
 @end

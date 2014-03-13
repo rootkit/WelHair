@@ -25,6 +25,7 @@
 #import "DoubleCoverCell.h"
 #import "UserAuthorViewController.h"
 #import "MyGroupViewController.h"
+#import "LoginViewController.h"
 
 @interface UserViewController ()<UITableViewDataSource, UITableViewDelegate, UIActionSheetDelegate, UIImagePickerControllerDelegate,UINavigationControllerDelegate>
 
@@ -237,6 +238,11 @@ static const   float profileViewHeight = 80;
             break;
         }
         case 2:{
+            if(![FakeDataHelper isLogin])
+            {
+                [self.navigationController presentViewController:[[UINavigationController alloc] initWithRootViewController:[LoginViewController new]] animated:YES completion:nil];
+                return;
+            }
             if([FakeDataHelper isUserGroupAdmin]){
                 [self.navigationController pushViewController:[MyGroupViewController new] animated:YES];
             }else if([FakeDataHelper isUserGroupStaff]){

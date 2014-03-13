@@ -45,7 +45,7 @@ static const float KOffsetY = 50;
                                                  name:UIKeyboardWillHideNotification
                                                object:nil];
     
-    self.viewContainer = [[UIView alloc] initWithFrame:CGRectMake(0, self.topBarOffset, WIDTH(self.view), HEIGHT(self.view) - self.topBarOffset)];
+    self.viewContainer = [[UIView alloc] initWithFrame:CGRectMake(0, self.topBarOffset, WIDTH(self.view), [self contentHeightWithNavgationBar:YES withBottomBar:NO])];
     self.viewContainer.backgroundColor = [UIColor colorWithHexString:APP_BASE_COLOR];
     [self.viewContainer addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(backgroundTapped)]];
     [self.view addSubview:self.viewContainer];
@@ -216,6 +216,7 @@ static const float KOffsetY = 50;
 - (void)loginClick
 {
     if([self validInput]){
+        [FakeDataHelper login];
         [self dismissViewControllerAnimated:YES completion:nil];
     }
 }

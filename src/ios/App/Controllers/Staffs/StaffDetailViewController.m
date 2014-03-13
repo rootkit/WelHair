@@ -68,6 +68,7 @@ static const   float profileViewHeight = 80;
     
 
     self.scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, self.topBarOffset, WIDTH(self.view), [self contentHeightWithNavgationBar:YES withBottomBar:YES])];
+    self.scrollView.delegate  =self;
     [self.view addSubview:self.scrollView];
     
     UIView *bottomView = [[UIView alloc] initWithFrame:CGRectMake(0,

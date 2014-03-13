@@ -198,4 +198,20 @@
     return [[NSUserDefaults standardUserDefaults] objectForKey:@"pickedCity"];
 }
 
++ (bool)isLogin
+{
+    NSString *str = [[NSUserDefaults standardUserDefaults] objectForKey:@"login"];
+    return str.length > 0;
+}
++ (void)login
+{
+   [[NSUserDefaults standardUserDefaults] setObject:@"1" forKey:@"login"];
+}
++ (void)logout
+{
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"login"];
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"UserAdmin"];
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"UserJoinGroup"];
+}
+
 @end
