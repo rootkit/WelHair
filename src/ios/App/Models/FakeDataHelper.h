@@ -22,10 +22,14 @@
 + (Group *)getFakeGroup;
 +(NSArray *)getFakeCouponList;
 
++ (bool)isLogin;
++ (void)login;
++ (void)logout;
 + (void)setUserCreateGroupSuccess;
 + (void)setUserJoinGroupSuccess;
 + (BOOL)isUserGroupAdmin;
 + (BOOL)isUserGroupStaff;
 + (void)savePickedCity:(NSString *)cityName;
 + (NSString *)getPickedCity;
+
 @end
