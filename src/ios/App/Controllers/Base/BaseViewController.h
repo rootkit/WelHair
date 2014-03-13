@@ -14,7 +14,6 @@
 
 @property (nonatomic, assign) float topBarOffset;
 @property (nonatomic, assign) float bottomBarOffset;
-@property (nonatomic, assign) float tableViewHeight;
 
 @property (nonatomic, strong) UIImage *leftNavItemImg;
 @property (nonatomic, strong) UIImage *rightNavItemImg;

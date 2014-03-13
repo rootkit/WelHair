@@ -141,19 +141,19 @@ static const   float profileViewHeight = 80;
     
     UIImageView *imgView = [[UIImageView alloc] initWithFrame:CGRectMake(0, MaxY(addressView) + 10, WIDTH(self.view), 240)];
     [self.scrollView addSubview:imgView];
+    imgView.image = [UIImage imageNamed:@"StaffDetailViewControl_TempBg"];
     
-    imgView.image = [UIImage imageNamed:@"StaffDetailViewControl_TempBg@"];
     UIButton *btnImg = [UIButton buttonWithType:UIButtonTypeCustom];
-    btnImg.frame = CGRectMake(15, 110,220,50);
-    [btnImg addTarget:self action:@selector(imgClick:) forControlEvents:UIControlEventTouchUpInside];
+    btnImg.frame = CGRectMake(15,Y(imgView) + 110,220,50);
+    [btnImg addTarget:self action:@selector(imgClick) forControlEvents:UIControlEventTouchUpInside];
     [self.scrollView addSubview:btnImg];
     
     UIButton *btnMoreImg = [UIButton buttonWithType:UIButtonTypeCustom];
     btnMoreImg.frame = CGRectMake(MaxX(btnImg),Y(btnImg),50,50);
-    [btnMoreImg addTarget:self action:@selector(moreImgClick:) forControlEvents:UIControlEventTouchUpInside];
+    [btnMoreImg addTarget:self action:@selector(moreImgClick) forControlEvents:UIControlEventTouchUpInside];
     [self.scrollView addSubview:btnMoreImg];
     
-    UIView *commentCellView = [[UIView alloc] initWithFrame:CGRectMake(15, MaxY(btnMoreImg) + 20, 290, 40)];
+    UIView *commentCellView = [[UIView alloc] initWithFrame:CGRectMake(15, MaxY(imgView) + 20, 290, 40)];
     commentCellView.layer.borderColor = [[UIColor colorWithHexString:@"e1e1e1"] CGColor];
     commentCellView.layer.borderWidth = 1.0;
     commentCellView.layer.cornerRadius = 5;
@@ -205,7 +205,20 @@ static const   float profileViewHeight = 80;
 }
 
 
-- (void)appointmentClick
+- (void)imgClick
+{
+    Work *work = [FakeDataHelper getFakeWorkList][0];
+    WorkDetailViewController *detail = [WorkDetailViewController new];
+    detail.work = work;
+    [self.navigationController pushViewController:detail animated:YES];
+}
+
+- (void)moreImgClick
+{
+    
+}
+
+- (void)submitClick
 {
     [self.navigationController pushViewController:[AppointmentPreviewViewController new] animated:YES];
 }

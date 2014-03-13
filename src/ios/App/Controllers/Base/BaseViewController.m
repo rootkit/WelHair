@@ -127,22 +127,6 @@
     
 }
 
-- (float)tableViewHeight
-{
-    if(_tableViewHeight > 0){
-        return _tableViewHeight;
-    }
-    
-    if(isIOS6){
-        _tableViewHeight =  HEIGHT(self.view) - kTopBarHeight - kBottomBarHeight;
-    }else if(isIOS70){
-        _tableViewHeight = HEIGHT(self.view) - self.topBarOffset - self.bottomBarOffset;
-    }else{
-        _tableViewHeight = HEIGHT(self.view) - kStatusBarHeight - kTopBarHeight - kBottomBarHeight;
-    }
-    return _tableViewHeight;
-}
-
 
 - (float)contentHeightWithNavgationBar:(BOOL)showNav
                     withBottomBar:(BOOL)showBottom
