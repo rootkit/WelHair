@@ -4,7 +4,7 @@ use \Welfony\Utility\Util;
 <div class="toolbar">
     <ul class="clearfix">
       <li>
-             <a href="<?php echo $this->baseUrl('coupon/code/search'); ?>">
+             <a href="<?php echo $this->baseUrl('coupon/code/search?coupon_id='.$this->couponid.'&coupon_name='.$this->couponname); ?>">
                 <i class="iconfont">&#xf0112;</i>
                 返回
             </a>
@@ -33,6 +33,7 @@ use \Welfony\Utility\Util;
         <fieldset>
             <div class="formitm formitm-1">
                 <input type="hidden" id="coupon_id" value="<?php echo $this->couponid; ?>">
+                <input type="hidden" id="coupon_name" value="<?php echo $this->couponname; ?>">
                 <button class="u-btn u-btn-submit" type="button">确定</button>
             </div>
         </fieldset>

@@ -27,6 +27,9 @@ class Coupon_CodeController extends AbstractAdminController
 		$couponid =  intval($this->_request->getParam('coupon_id'));
         $this->view->couponid= $couponid;
 
+        $couponname =  $this->_request->getParam('coupon_name');
+        $this->view->couponname= $couponname;
+
         $page =  $page<=0? 1 : $page;
 
         $result = CouponCodeService::listCouponCode($couponid, $page, $pageSize);
@@ -46,6 +49,9 @@ class Coupon_CodeController extends AbstractAdminController
 
         $couponid =  intval($this->_request->getParam('coupon_id'));
         $this->view->couponid= $couponid;
+
+        $couponname =  $this->_request->getParam('coupon_name');
+        $this->view->couponname= $couponname;
 
     	if ($this->_request->isPost()) {
 

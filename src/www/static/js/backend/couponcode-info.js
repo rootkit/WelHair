@@ -39,7 +39,7 @@ $(function() {
                   var row = { 'CouponId': $('#coupon_id').val() ,
                               'Code': $(this).find('input[name="couponcode"]').val() , 
                               'PassCode':$(this).find('input[name="passcode"]').val(),
-                              'CouponName': ''
+                              'CouponName': $('#coupon_name').val() 
                             };
                   codesandpasscodes.push(row);
               }
@@ -52,7 +52,7 @@ $(function() {
 
           posting.done(function( data ) {
 
-              //window.location = globalSetting.baseUrl + '/coupon/code/search';
+              window.location = globalSetting.baseUrl + '/coupon/code/search?coupon_id=' + $('#coupon_id').val() + '&coupon_name=' + $('#coupon_name').val();
               return;
 
           });
