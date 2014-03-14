@@ -19,5 +19,21 @@
 @property (nonatomic, strong) Staff *creator;
 @property (nonatomic, strong) NSArray *commentList;
 
+// work param
+// face sytle
+@property (nonatomic) BOOL faceStyleLong;
+@property (nonatomic) BOOL faceStyleSquare;
+@property (nonatomic) BOOL faceStyleCircle;
+@property (nonatomic) BOOL faceStyleGuaZi;
+// hair style
+@property (nonatomic) BOOL hairStyleLong;
+@property (nonatomic) BOOL hairStyleMiddle;
+@property (nonatomic) BOOL hairStyleShort;
+// hair quality
+@property (nonatomic) BOOL hairQualityHeavy;
+@property (nonatomic) BOOL hairQualityMiddle;
+@property (nonatomic) BOOL hairQualityLittle;
+//
+@property (nonatomic) BOOL forMale;
 
 @end

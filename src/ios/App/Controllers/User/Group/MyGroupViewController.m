@@ -7,7 +7,7 @@
 //
 
 #import "MyGroupViewController.h"
-
+#import "UploadWorkFormViewController.h"
 @interface MyGroupViewController ()
 
 @end
@@ -64,7 +64,7 @@
 
 - (void)staffClick
 {
-    
+    [self.navigationController pushViewController:[UploadWorkFormViewController new] animated:YES];
 }
 
 - (void)manageClick

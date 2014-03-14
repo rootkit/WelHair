@@ -8,6 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
-@interface UploadWorkFormViewController : UIViewController
+@interface UploadButton : UIButton
+@property (nonatomic )BOOL Choosen;
+@end
+
+@interface UploadWorkFormViewController : BaseViewController
 
 @end
