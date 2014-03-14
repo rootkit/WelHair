@@ -13,16 +13,24 @@ use \Welfony\Utility\Util;
 </div>
 <div class="m-form">
     <form id="frm-couponcode-info" method="post">
+        <table class="m-table" id="tblcoupcode" style="width:600px;">
+            <thead>
+                <tr>
+                    <th class="cola">优惠码</th>
+                    <th class="cola">密码</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><input name="couponcode" type="text" value="" class="u-ipt"/></td>
+                    <td><input id="passcode" type="text" value=""  class="u-ipt"/></td>
+                </tr>
+                <tr class="actiontr">
+                    <td colspan="2" > <a class="t-action"><i class="iconfont">&#xf0175;</i> 增加 </a></td>
+                </tr>
+            </tbody>
+        </table>
         <fieldset>
-           
-            <div class="formitm">
-                <label class="lab"></label>
-                <div class="ipt">
-	                <textarea  type="text"  datatype="n" class="u-ipt"></textarea>
-                    <p>输入格式：优惠券码 密码</p>
-                </div>
-            </div>
-          
             <div class="formitm formitm-1">
                 <button class="u-btn u-btn-submit" type="button">确定</button>
             </div>

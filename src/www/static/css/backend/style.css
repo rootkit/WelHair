@@ -749,3 +749,22 @@ a.u-upload,a.u-upload:hover {
     right: 4px;
     cursor: pointer;
 }
+
+.t-action
+{
+    cursor: pointer;
+    color: #737383;
+    text-decoration: none;
+}
+
+.t-action:hover 
+{
+    cursor: pointer;
+    text-decoration: none;
+    color: #737383;
+}
+
+.actiontr:hover {
+    background-color: #fff !important;
+}
+
