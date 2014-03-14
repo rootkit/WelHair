@@ -46,8 +46,8 @@ $(function() {
 
             });
 
-          var posting = $.post( url,{ 'codes': codesandpasscodes }
-            );
+         var posting = $.post( url,{ 'codes': codesandpasscodes }
+         );
 
 
           posting.done(function( data ) {
