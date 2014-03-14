@@ -16,11 +16,16 @@ $(function() {
         tiptype: 3
     });
 
+    $('a.t-action').click(function(){
+        $('<tr><td><input name="couponcode" type="text" value="" datatype="s" class="u-ipt"/></td><td><input name="passcode" type="text" value=""  class="u-ipt"/></td></tr>').insertBefore($('.actiontr'));
+        $('.content').height($('.content').height() + 50);
+    });
 
-    $( "#frm-brand-info" ).submit(function( event ) {
+    $( "#frm-couponcode-info" ).submit(function( event ) {
 
 
           event.preventDefault();
+          return;
 
           var form = $( this );
 
