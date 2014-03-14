@@ -41,14 +41,14 @@ class CouponCodeRepository extends AbstractRepository
         return $this->conn->fetchAll($strSql);
     }
 
-    public function listCoponCode($couponId, $pageNumber, $pageSize)
+    public function listCouponCode($couponId, $pageNumber, $pageSize)
     {
 
         $offset = ($pageNumber - 1) * $pageSize;
         $strSql = "  SELECT *
                      FROM CouponCode
                      WHERE CouponId = $couponId
-                     ORDER BY BrandId
+                     ORDER BY CouponCodeId
                      LIMIT $offset, $pageSize ";
 
         return $this->conn->fetchAll($strSql);
@@ -83,13 +83,16 @@ class CouponCodeRepository extends AbstractRepository
 
     public function batchsave($data)
     {
+        $conn = $this->conn;
         $conn->beginTransaction();
         try {
             foreach( $data as $row )
             {
+              error_log(serialize($row));
               $this->conn->insert('CouponCode', $row);
             }
             $conn->commit();
+            return true;
         } catch (\Exception $e) {
             $conn->rollback();
             $this->logger->log($e, \Zend_Log::ERR);

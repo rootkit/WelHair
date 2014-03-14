@@ -84,9 +84,21 @@ class CouponCodeService
         }
     }
 
-    public static function batchsave( )
+    public static function batchsave( $data )
     {
-        return CouponCodeRepository::getInstance()->batchsave($data);
+         $r =CouponCodeRepository::getInstance()->batchsave($data);
+         if ($r) {
+
+            $result['success'] = true;
+            $result['couponcode'] = $data;
+
+            return $result;
+         } else {
+            $result['message'] = '优惠券码失败！';
+
+            return $result;
+         }
+         return true;
     }
 
 }

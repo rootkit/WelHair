@@ -24,7 +24,8 @@ class Coupon_CodeController extends AbstractAdminController
 
         $pageSize = 10;
         $page =  intval($this->_request->getParam('page'));
-		$couponid =  intval($this->_request->getParam('cid'));
+		$couponid =  intval($this->_request->getParam('coupon_id'));
+        $this->view->couponid= $couponid;
 
         $page =  $page<=0? 1 : $page;
 
@@ -43,7 +44,19 @@ class Coupon_CodeController extends AbstractAdminController
     {
     	$this->view->pageTitle = '添加优惠码';
 
-    	
+        $couponid =  intval($this->_request->getParam('coupon_id'));
+        $this->view->couponid= $couponid;
+
+    	if ($this->_request->isPost()) {
+
+            $result = CouponCodeService::batchsave($this->_request->getParam('codes'));
+            if ($result['success']) {
+            
+                $this->view->successMessage = '保存优惠码成功！';
+            } else {
+                $this->view->errorMessage = $result['message'];
+            }
+        }
     }
 
     

@@ -25,36 +25,34 @@ $(function() {
 
 
           event.preventDefault();
-          return;
 
           var form = $( this );
 
-          var name = $('input[name=brandname]').val();
-          var sort = $('input[name=sort]').val();
-          var brandurl = $('#url').val();
-          var logo = $('#brand-image').attr('src');
-          var brandcategories  = $('input[name="category[]"]:checked').map(function(i,n) {
-                return $(n).val();
-            }).get();
-         
-          var description = $('textarea#description').val();
-
-
           url = form.attr( "action" );
 
-          var posting = $.post( url, { 
-                'name': name, 
-                'sort': sort,
-                'brandurl' : brandurl,
-                'logo' : logo,
-                'category' : brandcategories,
-                'description' :description
-            } );
+          var codesandpasscodes = [];
+
+          $('table#tblcoupcode tbody tr').each(function(){
+
+              if( !$(this).hasClass('actiontr') )
+              {
+                  var row = { 'CouponId': $('#coupon_id').val() ,
+                              'Code': $(this).find('input[name="couponcode"]').val() , 
+                              'PassCode':$(this).find('input[name="passcode"]').val(),
+                              'CouponName': ''
+                            };
+                  codesandpasscodes.push(row);
+              }
+
+            });
+
+          var posting = $.post( url,{ 'codes': codesandpasscodes }
+            );
 
 
           posting.done(function( data ) {
 
-              window.location = globalSetting.baseUrl + '/goods/brand/search';
+              //window.location = globalSetting.baseUrl + '/coupon/code/search';
               return;
 
           });
