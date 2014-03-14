@@ -7,9 +7,11 @@
 //
 
 #import "AppointmentsViewController.h"
-
-@interface AppointmentsViewController ()
-
+#import "AppointmentCell.h"
+#import "Staff.h"
+@interface AppointmentsViewController ()<UITableViewDataSource, UITableViewDelegate>
+@property (nonatomic, strong) NSArray *datasource;
+@property (nonatomic, strong) UITableView *tableView;
 @end
 
 @implementation AppointmentsViewController
@@ -18,15 +20,34 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        // Custom initialization
+        self.title = @"预约";
+        FAKIcon *leftIcon = [FAKIonIcons ios7ArrowBackIconWithSize:NAV_BAR_ICON_SIZE];
+        [leftIcon addAttribute:NSForegroundColorAttributeName value:[UIColor whiteColor]];
+        self.leftNavItemImg =[leftIcon imageWithSize:CGSizeMake(NAV_BAR_ICON_SIZE, NAV_BAR_ICON_SIZE)];
     }
     return self;
+}
+
+- (void) leftNavItemClick
+{
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    self.tableView = [[UITableView alloc] init];
+    self.tableView.frame = CGRectMake(0,
+                                      self.topBarOffset,
+                                      WIDTH(self.view) ,
+                                      [self contentHeightWithNavgationBar:YES withBottomBar:NO]);
+    self.tableView.backgroundColor = [UIColor clearColor];
+    self.tableView.delegate = self;
+    self.tableView.dataSource = self;
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    self.tableView.backgroundColor = [UIColor colorWithHexString:@"f2f2f2"];
+    [self.view addSubview:self.tableView];
+    self.datasource = [FakeDataHelper getFakeStaffList];
 }
 
 - (void)didReceiveMemoryWarning
@@ -35,6 +56,34 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 120;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return  self.datasource.count;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    static NSString * cellIdentifier = @"AppointmentCellIdentifier";
+    AppointmentCell * cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+    if (!cell) {
+        cell = [[AppointmentCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    }
+    cell.backgroundColor = indexPath.row % 2 == 0?
+    [UIColor whiteColor] : [UIColor colorWithHexString:@"f5f6f8"];
+    [cell setup:nil];
+    return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+
+}
 /*
 #pragma mark - Navigation
 

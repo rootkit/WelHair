@@ -22,6 +22,8 @@
 #import "CommentsViewController.h"
 #import "AppointmentPreviewViewController.h"
 #import "CircleImageView.h"
+#import "StaffWorksViewController.h"
+#import "SVProgressHUD.h"
 
 @interface StaffDetailViewController ()<UITableViewDataSource, UITableViewDelegate>
 @property (nonatomic, strong) UIImageView *headerBackgroundView;
@@ -31,7 +33,8 @@
 @property (nonatomic, strong) UILabel *groupNameLbl;
 @property (nonatomic, strong) UILabel *addressLbl;
 @property (nonatomic, strong) UILabel *distanceLbl;
-
+@property (nonatomic, strong) UIImage *foImg;
+@property (nonatomic, strong) UIButton *foBtn;
 @property (nonatomic, strong) UIButton *detailTabBtn;
 @property (nonatomic, strong) UIButton *commentTabBtn;
 @property (nonatomic, strong) NSArray *datasource;
@@ -81,7 +84,7 @@ static const   float profileViewHeight = 80;
     submitBtn.tag = 0;
     [submitBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [submitBtn setBackgroundColor:[UIColor colorWithHexString:@"e43a3d"]];
-    [submitBtn addTarget:self action:@selector(submitClick:) forControlEvents:UIControlEventTouchDown];
+    [submitBtn addTarget:self action:@selector(submitClick) forControlEvents:UIControlEventTouchDown];
     [bottomView addSubview:submitBtn];
     [self.view addSubview:bottomView];
     
@@ -95,6 +98,16 @@ static const   float profileViewHeight = 80;
     UIView *headerView_ = [[UIView alloc] initWithFrame:CGRectMake(0, 0, WIDTH(self.view), profileViewHeight + addressViewHeight+ tabButtonViewHeight)];
     headerView_.backgroundColor = [UIColor clearColor];
     [self.scrollView addSubview:headerView_];
+    
+    FAKIcon *foIcon = [FAKIonIcons personAddIconWithSize:NAV_BAR_ICON_SIZE];
+    [foIcon addAttribute:NSForegroundColorAttributeName value:[UIColor whiteColor]];
+    self.foImg =[foIcon imageWithSize:CGSizeMake(NAV_BAR_ICON_SIZE, NAV_BAR_ICON_SIZE)];
+    self.foBtn = [[UIButton alloc] initWithFrame:CGRectMake(260, 50 , 25, 25)];
+    self.foBtn.tag = 0;
+    [self.foBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [self.foBtn setBackgroundImage:self.foImg forState:UIControlStateNormal];
+    [self.foBtn addTarget:self action:@selector(foClick:) forControlEvents:UIControlEventTouchDown];
+    [self.scrollView addSubview:self.foBtn];
     
 #pragma topbar
     UIView *addressView = [[UIView alloc] initWithFrame:CGRectMake(0, profileViewHeight, WIDTH(headerView_), addressViewHeight)];
@@ -173,7 +186,7 @@ static const   float profileViewHeight = 80;
     commentImgView.image = [commentIcon imageWithSize:CGSizeMake(20, 20)];
     [commentCellView addSubview:commentImgView];
     [self.scrollView addSubview:commentCellView];
-    
+    self.scrollView.contentSize = CGSizeMake(self.scrollView.frame.size.width, self.scrollView.frame.size.height + 10);
     self.scrollView.scrollEnabled = YES;
 //    self.scrollView.contentSize = CGSizeMake(WIDTH(self.view), MaxY(commentCellView) + 10);
 }
@@ -205,6 +218,25 @@ static const   float profileViewHeight = 80;
     }
 }
 
+- (void)foClick:(id)sender
+{
+    UIButton *btn = (UIButton *)sender;
+    UIColor *color = btn.tag == 0 ? [UIColor redColor] : [UIColor whiteColor];
+    if(btn.tag == 0){
+        [SVProgressHUD showSuccessWithStatus:@"关注成功" duration:1];
+        btn.tag = 1;
+    }else
+    {
+        [SVProgressHUD showSuccessWithStatus:@"取消关注" duration:1];
+        btn.tag = 0;
+    }
+    FAKIcon *foIcon = [FAKIonIcons personAddIconWithSize:NAV_BAR_ICON_SIZE];
+    [foIcon addAttribute:NSForegroundColorAttributeName value:color];
+    self.foImg =[foIcon imageWithSize:CGSizeMake(NAV_BAR_ICON_SIZE, NAV_BAR_ICON_SIZE)];
+    [btn setImage:self.foImg forState:UIControlStateNormal];
+}
+
+
 
 - (void)imgClick
 {
@@ -216,7 +248,7 @@ static const   float profileViewHeight = 80;
 
 - (void)moreImgClick
 {
-    
+    [self.navigationController pushViewController:[StaffWorksViewController new] animated:YES];
 }
 
 - (void)submitClick

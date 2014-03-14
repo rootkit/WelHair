@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Appointment.h"
 
 @interface AppointmentCell : UITableViewCell
+
+- (void)setup:(Appointment *)appointment;
 
 @end

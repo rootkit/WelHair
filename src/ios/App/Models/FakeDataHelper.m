@@ -45,18 +45,18 @@
     NSMutableArray *ar = [NSMutableArray array];
     for (int i = 0; i < 10 ; i++) {
         Work *work = [Work new];
-        work.imgUrlList = @[@"http://www.taihainet.com/lifeid/UploadFiles_6490/201310/20131010111028312.jpeg",
+        work.imgUrlList = @[@"http://i2.skinpp.com.cn/2013/09/11/20130911233809_195_w580.jpg",
                             @"http://y0.ifengimg.com/6a44e90e48f13dc2/2013/1008/ori_52536015c7bac.jpeg"];
 
         Comment *comment = [Comment new];
         comment.title = @"[ 发型不错，明天也去炸一个]";
         comment.commentorName = @"Andy";
-        comment.commentorAvatorUrl = @"http://www.taihainet.com/lifeid/UploadFiles_6490/201310/20131010111028312.jpeg";
+        comment.commentorAvatorUrl = @"http://i2.skinpp.com.cn/2013/09/11/20130911233809_195_w580.jpg";
         work.commentList = @[comment];
         
         Staff *staff = [Staff new];
         staff.name = @"Larry";
-        staff.avatorUrl = @"http://www.taihainet.com/lifeid/UploadFiles_6490/201310/20131010111028312.jpeg";
+        staff.avatorUrl = @"http://i2.skinpp.com.cn/2013/09/11/20130911233809_195_w580.jpg";
         work.creator = staff;
         [ar addObject:work];
     }
@@ -116,7 +116,7 @@
         session.name = @"金三胖儿，奥巴马";
         session.description = @"最近咋样，老哥?";
         session.lastDate = [NSDate date];
-        session.imgUrl = @"http://www.taihainet.com/lifeid/UploadFiles_6490/201310/20131010111028312.jpeg";
+        session.imgUrl = @"http://i2.skinpp.com.cn/2013/09/11/20130911233809_195_w580.jpg";
         [ar addObject:session];
     }
     return ar;
@@ -130,7 +130,7 @@
         comment.commentorName = @"美女A";
         comment.description = @"这个化妆水厉害,能易容";
         comment.createdDate = [NSDate date];
-        comment.commentorAvatorUrl = @"http://www.taihainet.com/lifeid/UploadFiles_6490/201310/20131010111028312.jpeg";
+        comment.commentorAvatorUrl = @"http://i2.skinpp.com.cn/2013/09/11/20130911233809_195_w580.jpg";
         [ar addObject:comment];
     }
     return ar;
@@ -145,7 +145,7 @@
         staff.groupName = @"上海永琪";
         staff.rate = 0.5;
         staff.description = @"最近咋样，老哥?";
-        staff.avatorUrl = @"http://www.taihainet.com/lifeid/UploadFiles_6490/201310/20131010111028312.jpeg";
+        staff.avatorUrl = @"http://i2.skinpp.com.cn/2013/09/11/20130911233809_195_w580.jpg";
         [ar addObject:staff];
     }
     return ar;
@@ -156,7 +156,7 @@
     NSMutableArray *ar = [NSMutableArray array];
     for (int i = 0; i < 10 ; i++) {
         Coupon *coupon = [Coupon new];
-        coupon.imgUrl = @"http://www.taihainet.com/lifeid/UploadFiles_6490/201310/20131010111028312.jpeg";
+        coupon.imgUrl = @"http://i2.skinpp.com.cn/2013/09/11/20130911233809_195_w580.jpg";
         coupon.name = @"仅售10元，价值218元的烫染洗";
         coupon.address = @"济南高新区牛王庄路西";
         coupon.groupName = @"阿东造型";

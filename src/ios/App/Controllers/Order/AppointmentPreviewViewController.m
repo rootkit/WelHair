@@ -39,18 +39,10 @@
     imgView.image =[UIImage imageNamed:@"AppointmentPreviewViewController_Bg"];
     [self.view addSubview:imgView];
     
-    float bottomOffsetY = 0;
-    if(isIOS70){
-        bottomOffsetY = HEIGHT(self.view) - self.topBarOffset - kBottomBarHeight;
-    }else if(isIOS6){
-        bottomOffsetY = HEIGHT(self.view) - kToolBarHeight - kBottomBarHeight;
-    }else{
-        bottomOffsetY = HEIGHT(self.view) - kStatusBarHeight -  kToolBarHeight - kBottomBarHeight;
-    }
     UIView *bottomView = [[UIView alloc] initWithFrame:CGRectMake(0,
-                                                                  bottomOffsetY,
+                                                                  self.topBarOffset,
                                                                   WIDTH(self.view),
-                                                                  kBottomBarHeight)];
+                                                                  [self contentHeightWithNavgationBar:YES withBottomBar:YES])];
     bottomView.backgroundColor =[UIColor whiteColor];
     UIButton *submitBtn = [[UIButton alloc] initWithFrame:CGRectMake(220, 15, 80, 25)];
     [submitBtn setTitle:@"提交" forState:UIControlStateNormal];

@@ -16,7 +16,7 @@
 #import "LoginViewController.h"
 #import "CircleImageView.h"
 #import <UIImageView+WebCache.h>
-#import "AppointmentsViewControl.h"
+#import "AppointmentsViewController.h"
 #import "FavoritesViewController.h"
 #import "OrdersViewController.h"
 #import "SettingViewController.h"
@@ -58,6 +58,7 @@ static const   float profileViewHeight = 80;
 {
     [self.navigationController pushViewController:[SettingViewController new] animated:YES];
 }
+
 - (void)loadView
 {
     [super loadView];
@@ -226,7 +227,7 @@ static const   float profileViewHeight = 80;
     UIButton *btn = (UIButton *)sender;
     switch (btn.tag) {
         case 0:{
-            AppointmentsViewControl *vc = [AppointmentsViewControl new];
+            AppointmentsViewController *vc = [AppointmentsViewController new];
             vc.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:vc animated:YES];
             break;
