@@ -85,6 +85,39 @@ class CouponService
         }
     }
 
+    public static function deleteCoupon($data)
+    {
+        $result = array('success' => false, 'message' => '');
+        $r = CouponRepository::getInstance()->delete($data['CouponId']);
+        if ($r) {
+
+            $result['success'] = true;
+            $result['message'] = '删除优惠券成功！';
+            return $result;
+        } else {
+            $result['message'] = '删除优惠券失败！';
+
+            return $result;
+        }
+    }
+
+    public static function updateCouponStatus($data)
+    {
+        $result = array('success' => false, 'message' => '');
+        $r = CouponRepository::getInstance()->updateStatus($data['CouponId'], $data['IsActive']);
+        if ($r) {
+
+            $result['success'] = true;
+            $result['message'] = '更新优惠券成功！';
+            return $result;
+        } else {
+            $result['message'] = '更新优惠券失败！';
+
+            return $result;
+        }
+
+    }
+
     public static function listCouponType()
     {
         $searchResult = CouponRepository::getInstance()->getAllCouponType();       

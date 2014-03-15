@@ -24,6 +24,7 @@ class CouponCodeRepository extends AbstractRepository
         $strSql = "SELECT
                        COUNT(1) `Total`
                    FROM CouponCode
+                   WHERE IsDeleted = 0
                    LIMIT 1";
 
         $row = $this->conn->fetchAssoc($strSql);
@@ -36,6 +37,7 @@ class CouponCodeRepository extends AbstractRepository
         $strSql = 'SELECT
                        *
                    FROM CouponCode
+                   WHERE IsDeleted = 0
                   ';
 
         return $this->conn->fetchAll($strSql);
@@ -47,7 +49,7 @@ class CouponCodeRepository extends AbstractRepository
         $offset = ($pageNumber - 1) * $pageSize;
         $strSql = "  SELECT *
                      FROM CouponCode
-                     WHERE CouponId = $couponId
+                     WHERE CouponId = $couponId AND IsDeleted = 0
                      ORDER BY CouponCodeId
                      LIMIT $offset, $pageSize ";
 
@@ -60,7 +62,7 @@ class CouponCodeRepository extends AbstractRepository
         $strSql = 'SELECT
                        *
                    FROM CouponCode
-                   WHERE CouponCodeId = ?
+                   WHERE CouponCodeId = ? 
                    LIMIT 1';
 
         return $this->conn->fetchAssoc($strSql, array($id));
@@ -114,10 +116,21 @@ class CouponCodeRepository extends AbstractRepository
         }
     }
 
-    public function delete($couponId)
+    public function deleteByCoupon($couponId)
     {
         try {
-            return $this->conn->executeUpdate(" DELETE FROM CouponCode WHERE CouponId  = $couponId; ");
+            return $this->conn->executeUpdate(" UPDATE CouponCode SET IsDeleted = 1 WHERE CouponId  = $couponId; ");
+        } catch (\Exception $e) {
+            $this->logger->log($e, \Zend_Log::ERR);
+
+            return false;
+        }
+    }
+
+    public function delete($couponCodeId)
+    {
+        try {
+            return $this->conn->executeUpdate(" UPDATE CouponCode SET IsDeleted = 1 WHERE CouponCodeId  = $couponCodeId; ");
         } catch (\Exception $e) {
             $this->logger->log($e, \Zend_Log::ERR);
 

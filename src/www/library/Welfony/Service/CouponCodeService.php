@@ -101,4 +101,20 @@ class CouponCodeService
          return true;
     }
 
+    public static function deleteCouponCode($data)
+    {
+        $result = array('success' => false, 'message' => '');
+        $r = CouponCodeRepository::getInstance()->delete($data['CouponCodeId']);
+        if ($r) {
+
+            $result['success'] = true;
+            $result['message'] = '删除优惠码成功！';
+            return $result;
+        } else {
+            $result['message'] = '删除优惠码失败！';
+
+            return $result;
+        }
+    }
+
 }

@@ -24,6 +24,7 @@ class CouponRepository extends AbstractRepository
         $strSql = "SELECT
                        COUNT(1) `Total`
                    FROM Coupon
+                   WHERE IsDeleted = 0
                    LIMIT 1";
 
         $row = $this->conn->fetchAssoc($strSql);
@@ -36,6 +37,7 @@ class CouponRepository extends AbstractRepository
         $strSql = 'SELECT
                        *
                    FROM Coupon
+                   WHERE IsDeleted = 0
                   ';
 
         return $this->conn->fetchAll($strSql);
@@ -49,6 +51,7 @@ class CouponRepository extends AbstractRepository
                       ( SELECT count(*) FROM CouponCode WHERE CouponId = C.CouponId ) AS CouponCodeCount,
                       ( SELECT count(*) FROM CouponCode WHERE CouponId = C.CouponId AND ReceiveTime IS NOT NULL ) AS ReceivedCouponCodeCount
                       FROM Coupon C
+                      WHERE C.IsDeleted = 0
                       ORDER BY CouponId
                       LIMIT $offset, $pageSize ";
 
@@ -96,7 +99,7 @@ class CouponRepository extends AbstractRepository
     public function delete($couponId)
     {
         try {
-            return $this->conn->executeUpdate(" DELETE FROM Coupon WHERE CouponId  = $couponId; ");
+            return $this->conn->executeUpdate(" UPDATE Coupon  SET IsDeleted = 1 WHERE CouponId  = $couponId; ");
         } catch (\Exception $e) {
             $this->logger->log($e, \Zend_Log::ERR);
 
@@ -142,6 +145,17 @@ class CouponRepository extends AbstractRepository
                   ';
 
         return $this->conn->fetchAll($strSql);
+    }
+
+    public function updateStatus($couponId, $status)
+    {
+        try {
+            return $this->conn->executeUpdate(" UPDATE Coupon  SET IsActive = $status WHERE CouponId  = $couponId; ");
+        } catch (\Exception $e) {
+            $this->logger->log($e, \Zend_Log::ERR);
+
+            return false;
+        }
     }
 
 }

@@ -124,6 +124,46 @@ class Coupon_IndexController extends AbstractAdminController
         $this->view->couponInfo = $coupon;
     }
 
+    public function deleteAction()
+    {
+        $couponId =  intval($this->_request->getParam('coupon_id')) ;
+
+        $coupon = array('CouponId' => $couponId);
+
+        if ($this->_request->isPost()) {
+           
+
+            $result = CouponService::deleteCoupon($coupon);
+            if ($result['success']) {
+
+            
+                $this->view->successMessage = '保存优惠券成功！';
+            } else {
+                $this->view->errorMessage = $result['message'];
+            }
+        } 
+    }
+
+    public function updatestatusAction()
+    {
+        $couponId =  intval($this->_request->getParam('coupon_id')) ;
+
+        $coupon = array('CouponId' => $couponId, 'IsActive'=>$this->_request->getParam('isactive'));
+
+        if ($this->_request->isPost()) {
+           
+
+            $result = CouponService::updateCouponStatus($coupon);
+            if ($result['success']) {
+
+            
+                $this->view->successMessage = '保存优惠券成功！';
+            } else {
+                $this->view->errorMessage = $result['message'];
+            }
+        } 
+    }
+
     
 
 }
