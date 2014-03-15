@@ -52,7 +52,7 @@ $(function() {
             var result = $.parseJSON(data);
             if (result.success !== false) {
                 $('#coupon-image').attr('src', result.OriginalUrl);
-                $('#brand-image-url').val(result.OriginalUrl);
+                $('#coupon_image_url').val(result.OriginalUrl);
             } else {
                 WF.showMessage('error', '错误', '上传失败，请重试！');
             }

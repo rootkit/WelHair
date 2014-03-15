@@ -17,7 +17,7 @@ $this->headScript()
                 <label class="lab">沙龙名称：</label>
                 <div class="ipt">
                     <input id="companyname" name="companyname" type="text" value="<?php echo $this->couponInfo['CompanyName']; ?>" datatype="s4-30" errormsg="沙龙名称至少4个字符，最多30个字符！" class="u-ipt"/>
-                    <input type="hidden" id="companyid" >
+                    <input type="hidden" id="companyid" value="<?php echo $this->couponInfo['CompanyId']; ?>">
                     <a id="btnSelectCompany" class="u-btn u-btn-c3" >选择沙龙</a>
                     <p></p>
                    
@@ -35,11 +35,18 @@ $this->headScript()
                 <div class="ipt">
                      <select id="coupon-type"  class="u-sel">
                       <?php foreach( $this->couponTypes as $couponType) :?>
-                        <option value="<?php echo $couponType['CouponTypeId']; ?>"><?php echo $couponType['TypeName']; ?></option>
+                        <option value="<?php echo $couponType['CouponTypeId']; ?>" <?php echo $this->couponInfo['CouponTypeId'] == $couponType['CouponTypeId']? 'selected' : ''; ?>><?php echo $couponType['TypeName']; ?></option>
                       <?php endforeach; ?>
                      </select>
-                     <div id="coupontype_div1" class="ipt-inner-div">满<input id="coupontype_total" type="text"  datatype="n" class="u-ipt"/>元 减<input id="coupontype_minus" type="text"  datatype="n" class="u-ipt"/>元</div>
-                     <div id="coupontype_div2" class="ipt-inner-div" style="display:none;">金额：<input  type="text"  datatype="n" class="u-ipt" id="coupontype_amount"/>元</div>	                     
+                     <div id="coupontype_div1" class="ipt-inner-div">满<input id="coupontype_total" type="text"  datatype="n" class="u-ipt" value="<?php if($this->couponInfo['CouponTypeId'] == 1){
+                             $val= explode(',', $this->couponInfo['CouponTypeValue']); 
+                             echo $val[0];} ?>"
+                      />元 减<input id="coupontype_minus" type="text"  datatype="n" class="u-ipt" value="<?php if($this->couponInfo['CouponTypeId'] == 1){
+                             $val= explode(',', $this->couponInfo['CouponTypeValue']); 
+                             echo $val[1];} ?>"/>元</div>
+                     <div id="coupontype_div2" class="ipt-inner-div" style="display:none;">金额：<input  type="text"  datatype="n" class="u-ipt" id="coupontype_amount" value="<?php if($this->couponInfo['CouponTypeId'] == 2){
+                             $val= explode(',', $this->couponInfo['CouponTypeValue']); 
+                             echo $val[0];} ?>"/>元</div>	                     
                     <p></p>
                 </div>
             </div>
@@ -47,11 +54,10 @@ $this->headScript()
                 <label class="lab">活动券：</label>
                 <div class="ipt">
                      <select id="isliveactivity"  class="u-sel">
-                        <option value="0">否</option>
-                        <option value="1">是</option>
-                       
+                        <option value="0" <?php echo $this->couponInfo['IsLiveActivity']? '': 'selected'; ?> >否</option>
+                        <option value="1" <?php echo $this->couponInfo['IsLiveActivity']? 'selected': ''; ?> >是</option>                       
                      </select>
-                     <div id="liveactivity_div" class="ipt-inner-div">优惠券数量：<input  type="text" id="liveactiveamount" datatype="n" class="u-ipt"/> 领取地址：<input  type="text"  id='liveactivityaddress' datatype="n" class="u-ipt"/></div>
+                     <div id="liveactivity_div" class="ipt-inner-div">优惠券数量：<input  type="text" id="liveactiveamount" datatype="n" class="u-ipt" value="<?php echo $this->couponInfo['IsLiveActivity']? $this->couponInfo['LiveActivityAmount']: ''; ?>"/> 领取地址：<input  type="text"  id='liveactivityaddress' datatype="n" class="u-ipt" value="<?php echo $this->couponInfo['IsLiveActivity']? $this->couponInfo['LiveActivityAddress']: ''; ?>"/></div>
                      <p></p>
                 </div>
             </div>
@@ -59,10 +65,10 @@ $this->headScript()
                 <label class="lab">有效期：</label>
                 <div class="ipt">
 	                     <select id="hasexpire"  class="u-sel">
-	                        <option value="1">有限制</option>
-                            <option value="0">无限制</option>
+	                        <option value="1" <?php echo $this->couponInfo['HasExpire']? 'selected': ''; ?>>有限制</option>
+                            <option value="0" <?php echo $this->couponInfo['HasExpire']? '': 'selected'; ?>>无限制</option>
 	                     </select>
-	                     <div id="expiredate_div" class="ipt-inner-div">有效期至：<input  type="text"  id="expiredate"  class="u-ipt inputxt"/> </div>
+	                     <div id="expiredate_div" class="ipt-inner-div">有效期至：<input  type="text"  id="expiredate"  class="u-ipt inputxt" value="<?php echo $this->couponInfo['HasExpire']? $this->couponInfo['ExpireDate']: ''; ?>"/> </div>
                     <p></p>
                 </div>
             </div>
@@ -71,7 +77,7 @@ $this->headScript()
                 <div class="ipt">
 	                     <select id="couponamountlimittype"  class="u-sel">
 	                     <?php foreach( $this->couponAmountLimitTypes as $couponAmountLimitType) :?>
-                            <option value="<?php echo $couponAmountLimitType['CouponAmountLimitTypeId']; ?>"><?php echo $couponAmountLimitType['TypeName']; ?></option>
+                            <option value="<?php echo $couponAmountLimitType['CouponAmountLimitTypeId']; ?>" <?php echo  $couponAmountLimitType['CouponAmountLimitTypeId'] == $this->couponInfo['CouponAmountLimitTypeId']? 'selected': ''; ?>><?php echo $couponAmountLimitType['TypeName']; ?></option>
                           <?php endforeach; ?>
 	                     </select>
                     <p></p>
@@ -82,7 +88,7 @@ $this->headScript()
                 <div class="ipt">
 	                     <select id="couponaccountlimittype"  class="u-sel">
 	                      <?php foreach( $this->couponAccountLimitTypes as $couponAccountLimitType) :?>
-                            <option value="<?php echo $couponAccountLimitType['CouponAccountLimitTypeId']; ?>"><?php echo $couponAccountLimitType['TypeName']; ?></option>
+                            <option value="<?php echo $couponAccountLimitType['CouponAccountLimitTypeId']; ?>" <?php echo  $couponAccountLimitType['CouponAccountLimitTypeId'] == $this->couponInfo['CouponAccountLimitTypeId']? 'selected': ''; ?>><?php echo $couponAccountLimitType['TypeName']; ?></option>
                           <?php endforeach; ?>
 	                     </select>
                     <p></p>
@@ -93,25 +99,25 @@ $this->headScript()
                 <div class="ipt">
 	                     <select id="couponpaymenttype"  class="u-sel">
 	                      <?php foreach( $this->couponPaymentTypes as $couponPaymentType) :?>
-                            <option value="<?php echo $couponPaymentType['CouponPaymentTypeId']; ?>"><?php echo $couponPaymentType['TypeName']; ?></option>
+                            <option value="<?php echo $couponPaymentType['CouponPaymentTypeId']; ?>" <?php echo $couponPaymentType['CouponPaymentTypeId'] == $this->couponInfo['CouponPaymentTypeId']? 'selected': ''; ?>><?php echo $couponPaymentType['TypeName']; ?></option>
                           <?php endforeach; ?>
 	                     </select>
-	                     <div id="couponpaymenttype_price_div" class="ipt-inner-div">价格：<input  id="couponpaymenttype_price" type="text"  datatype="n" class="u-ipt"/> </div>
-	                     <div id="couponpaymenttype_amount_div" class="ipt-inner-div">数量：<input id="couponpaymenttype_amount" type="text"  datatype="n" class="u-ipt"/> </div>
+	                     <div id="couponpaymenttype_price_div" class="ipt-inner-div">价格：<input  id="couponpaymenttype_price" type="text"  datatype="n" class="u-ipt" value="<?php echo $this->couponInfo['CouponPaymentTypeId'] == 2? $this->couponInfo['CouponPaymentValue'] : '' ?>" /> </div>
+	                     <div id="couponpaymenttype_amount_div" class="ipt-inner-div">数量：<input id="couponpaymenttype_amount" type="text"  datatype="n" class="u-ipt" value="<?php echo $this->couponInfo['CouponPaymentTypeId'] == 3? $this->couponInfo['CouponPaymentValue'] : '' ?>"/> </div>
                     <p></p>
                 </div>
             </div>
             <div class="formitm">
                 <label class="lab">使用说明：</label>
                 <div class="ipt">
-	                <textarea  id='couponusage' type="text"  datatype="s" class="u-ipt"></textarea>
+	                <textarea  id='couponusage' type="text"  datatype="s" class="u-ipt"><?php echo $this->couponInfo['CouponUsage']; ?></textarea>
                     <p></p>
                 </div>
             </div>
             <div class="formitm">
                 <label class="lab">温馨提示：</label>
                 <div class="ipt">
-	                <textarea id="couponcomments" type="text"  datatype="s" class="u-ipt"></textarea>
+	                <textarea id="couponcomments" type="text"  datatype="s" class="u-ipt"><?php echo $this->couponInfo['Comments']; ?></textarea>
                     <p></p>
                 </div>
             </div>
@@ -119,8 +125,8 @@ $this->headScript()
                 <label class="lab">优惠券代码保密：</label>
                 <div class="ipt">
 	                 <span class="u-btns" data-type="radio">
-                        <span class="u-btn u-btn-c3" data-value="1">是</span>
-                        <span class="u-btn u-btn-c4" data-value="0">否</span>
+                        <span class="u-btn u-btn-c3" data-value="1" <?php echo $this->couponInfo['IsCouponCodeSecret']? 'selected': ''; ?>>是</span>
+                        <span class="u-btn u-btn-c4" data-value="0" <?php echo $this->couponInfo['IsCouponCodeSecret']? 'selected': ''; ?>>否</span>
                     </span>
                     <p></p>
                 </div>
@@ -130,8 +136,8 @@ $this->headScript()
                 <div class="ipt">
                     <span class="u-img2">
                         <a href="javascript:;">
-                            <img id="coupon-image" src=""  alt="">
-                            <input id="coupon_image_url" type="hidden" name="coupon_image_url" value="" />
+                            <img id="coupon-image" src="<?php echo $this->couponInfo['ImageUrl']? $this->couponInfo['ImageUrl']:''; ?>"  alt="">
+                            <input id="coupon_image_url" type="hidden" name="coupon_image_url" value="<?php echo $this->couponInfo['ImageUrl']? $this->couponInfo['ImageUrl']:''; ?>" />
                         </a>
                     </span>
                 </div>
