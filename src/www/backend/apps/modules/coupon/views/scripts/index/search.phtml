@@ -1,3 +1,6 @@
+<?php
+use \Welfony\Utility\Util;
+?>
 <table class="m-table">
     <thead>
         <tr>
@@ -31,9 +34,12 @@
             <td><?php echo $coupon['CouponCodeCount']; ?></td>
             <td><?php echo $coupon['ReceivedCouponCodeCount']; ?></td>
             <td><?php echo intval($coupon['CouponCodeCount'])-intval($coupon['ReceivedCouponCodeCount']); ?></td>
-            <td></td>
+            <td><a class="btnActive" data-id="<?php echo $coupon['CouponId']; ?>" href="#"><img src="<?php echo  $coupon['IsActive']? Util::baseAssetUrl('img/status-active.gif'): Util::baseAssetUrl('img/status-inactive.gif'); ?>" /></a></td>
             <td><a href="<?php echo $this->baseUrl('coupon/code/search?coupon_id=' .  $coupon['CouponId']. '&coupon_name='.$coupon['CouponName']); ?>">
                     <i class="iconfont">&#x344a;</i>&nbsp;&nbsp;优惠码管理
+                </a>
+                <a href="#" class="btnDelete" data-id="<?php echo $coupon['CouponId']; ?>">
+                    <i class="iconfont">&#xf013f;</i>&nbsp;&nbsp;删除
                 </a>
             </td>
 
@@ -45,3 +51,4 @@
 <div class="m-page m-page-rt">
     <?php echo $this->pagerHTML; ?>
 </div>
+<script src="<?php echo Util::baseAssetUrl('js/backend/coupon-list.js'); ?>"></script>

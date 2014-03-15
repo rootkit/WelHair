@@ -1,3 +1,6 @@
+<?php
+use \Welfony\Utility\Util;
+?>
 <div class="toolbar">
     <ul class="clearfix">
         <li>
@@ -35,7 +38,11 @@
             <td><?php echo $couponcode['PassCode']; ?></td>
             <td></td>
             <td></td>
-            <td></td>
+            <td> 
+                <a href="#" class="btnDelete" data-id="<?php echo $$couponcode['CouponCodeId']; ?>">
+                    <i class="iconfont">&#xf013f;</i>&nbsp;&nbsp;删除
+                </a>
+            </td>
         </tr>
         <?php endforeach; ?>
     </tbody>
@@ -44,3 +51,4 @@
 <div class="m-page m-page-rt">
     <?php echo $this->pagerHTML; ?>
 </div>
+<script src="<?php echo Util::baseAssetUrl('js/backend/couponcode-list.js'); ?>"></script>
