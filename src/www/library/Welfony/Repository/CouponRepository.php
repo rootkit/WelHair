@@ -45,8 +45,10 @@ class CouponRepository extends AbstractRepository
     {
 
         $offset = ($pageNumber - 1) * $pageSize;
-        $strSql = "   SELECT *
-                      FROM Coupon
+        $strSql = "   SELECT C.*,
+                      ( SELECT count(*) FROM CouponCode WHERE CouponId = C.CouponId ) AS CouponCodeCount,
+                      ( SELECT count(*) FROM CouponCode WHERE CouponId = C.CouponId AND ReceiveTime IS NOT NULL ) AS ReceivedCouponCodeCount
+                      FROM Coupon C
                       ORDER BY CouponId
                       LIMIT $offset, $pageSize ";
 

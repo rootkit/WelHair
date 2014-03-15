@@ -27,9 +27,10 @@
             <td>
                  <?php echo ( ($coupon['CouponPaymentTypeId'] == 1)? '免费' : ( ($coupon['CouponPaymentTypeId'] == 2)? $coupon['CouponPaymentValue'].'元' : $coupon['CouponPaymentValue'].'积分') ); ?>
             </td>
-            <td></td>
-            <td></td>
-            <td></td>
+                
+            <td><?php echo $coupon['CouponCodeCount']; ?></td>
+            <td><?php echo $coupon['ReceivedCouponCodeCount']; ?></td>
+            <td><?php echo intval($coupon['CouponCodeCount'])-intval($coupon['ReceivedCouponCodeCount']); ?></td>
             <td></td>
             <td><a href="<?php echo $this->baseUrl('coupon/code/search?coupon_id=' .  $coupon['CouponId']. '&coupon_name='.$coupon['CouponName']); ?>">
                     <i class="iconfont">&#x344a;</i>&nbsp;&nbsp;优惠码管理
