@@ -147,6 +147,7 @@
 		4673BB7E18D35999000F64DE /* UploadWorkViewControl_FaceStyleSquareNormal@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4673BB7518D35999000F64DE /* UploadWorkViewControl_FaceStyleSquareNormal@2x.png */; };
 		4673BB7F18D35999000F64DE /* UploadWorkViewControl_FaceStyleSquareSelected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4673BB7618D35999000F64DE /* UploadWorkViewControl_FaceStyleSquareSelected@2x.png */; };
 		4673BB8018D35999000F64DE /* UploadWorkViewControl_UploadBg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4673BB7718D35999000F64DE /* UploadWorkViewControl_UploadBg@2x.png */; };
+		4673BB8318D3FA54000F64DE /* UserProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4673BB8218D3FA54000F64DE /* UserProfileViewController.m */; };
 		467F0EAF18CB0F54009FFE08 /* BaseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 467F0EAE18CB0F54009FFE08 /* BaseModel.m */; };
 		467F0EB218CB16EB009FFE08 /* ProductCardView.m in Sources */ = {isa = PBXBuildFile; fileRef = 467F0EB118CB16EB009FFE08 /* ProductCardView.m */; };
 		467F0EB518CB1721009FFE08 /* Product.m in Sources */ = {isa = PBXBuildFile; fileRef = 467F0EB418CB1721009FFE08 /* Product.m */; };
@@ -440,6 +441,8 @@
 		4673BB7518D35999000F64DE /* UploadWorkViewControl_FaceStyleSquareNormal@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "UploadWorkViewControl_FaceStyleSquareNormal@2x.png"; sourceTree = "<group>"; };
 		4673BB7618D35999000F64DE /* UploadWorkViewControl_FaceStyleSquareSelected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "UploadWorkViewControl_FaceStyleSquareSelected@2x.png"; sourceTree = "<group>"; };
 		4673BB7718D35999000F64DE /* UploadWorkViewControl_UploadBg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "UploadWorkViewControl_UploadBg@2x.png"; sourceTree = "<group>"; };
+		4673BB8118D3FA54000F64DE /* UserProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserProfileViewController.h; sourceTree = "<group>"; };
+		4673BB8218D3FA54000F64DE /* UserProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserProfileViewController.m; sourceTree = "<group>"; };
 		467F0EAD18CB0F54009FFE08 /* BaseModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseModel.h; sourceTree = "<group>"; };
 		467F0EAE18CB0F54009FFE08 /* BaseModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseModel.m; sourceTree = "<group>"; };
 		467F0EB018CB16EB009FFE08 /* ProductCardView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProductCardView.h; sourceTree = "<group>"; };
@@ -1261,6 +1264,8 @@
 				46BDF13818D1779100999F50 /* UserAuthorViewController.m */,
 				4673BB5F18D2ED4D000F64DE /* AppointmentsViewController.h */,
 				4673BB6018D2ED4D000F64DE /* AppointmentsViewController.m */,
+				4673BB8118D3FA54000F64DE /* UserProfileViewController.h */,
+				4673BB8218D3FA54000F64DE /* UserProfileViewController.m */,
 			);
 			path = User;
 			sourceTree = "<group>";
@@ -2038,6 +2043,7 @@
 				467F0EF018CB4FCF009FFE08 /* UITextField+WelKit.m in Sources */,
 				46BDF11818D099F300999F50 /* AppointmentPreviewViewController.m in Sources */,
 				46EAF99018D19B0700D4C624 /* MyGroupStaffListViewController.m in Sources */,
+				4673BB8318D3FA54000F64DE /* UserProfileViewController.m in Sources */,
 				467F0EBB18CB3956009FFE08 /* ChatGroupCell.m in Sources */,
 				18AC388818CD685C00328A78 /* WebSocketUtil.m in Sources */,
 				46BDF13918D1779100999F50 /* UserAuthorViewController.m in Sources */,

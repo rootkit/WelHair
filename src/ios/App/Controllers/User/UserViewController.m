@@ -26,6 +26,7 @@
 #import "UserAuthorViewController.h"
 #import "MyGroupViewController.h"
 #import "LoginViewController.h"
+#import "UserProfileViewController.h"
 
 @interface UserViewController ()<UITableViewDataSource, UITableViewDelegate, UIActionSheetDelegate, UIImagePickerControllerDelegate,UINavigationControllerDelegate>
 
@@ -180,7 +181,10 @@ static const   float profileViewHeight = 80;
 
 - (void)avatorClicked
 {
-        
+    UserProfileViewController *vc = [UserProfileViewController new];
+    vc.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:vc animated:YES];
+    return;
     UIActionSheet *actionSheet = [[UIActionSheet alloc]
                                   initWithTitle:nil
                                   delegate:self

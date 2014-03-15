@@ -60,12 +60,12 @@
 {
     [super viewDidLoad];
     self.scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0,
-                                                                     0,
+                                                                     self.topBarOffset,
                                                                      WIDTH(self.view),
                                                                      [self contentHeightWithNavgationBar:YES withBottomBar:YES])];
     self.scrollView.scrollEnabled = YES;
     [self.view addSubview:self.scrollView];
-    UIImageView *couponView = [[UIImageView alloc] initWithFrame:CGRectMake(0, self.topBarOffset, WIDTH(self.view), 155)];
+    UIImageView *couponView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, WIDTH(self.view), 155)];
     couponView.image = [UIImage imageNamed:@"CouponDetailViewControl_Coupon"];
     [self.scrollView addSubview:couponView];
 
@@ -158,7 +158,8 @@
     contentLbl.textColor = [UIColor grayColor];
     contentLbl.text = @"服务流程:剪发，烫发，护理，全程约2小时\n染发类型:全染\n烫发类型:冷烫热烫均可";
     [instructionView addSubview:contentLbl];
-    
+    float contentHeight = MaxY(contentLbl) + 10 <= self.scrollView.size.height ? self.scrollView.size.height + 1 : MaxY(contentLbl) + 10;
+    self.scrollView.contentSize = CGSizeMake(WIDTH(self.view), contentHeight);
 }
 
 - (void)didReceiveMemoryWarning

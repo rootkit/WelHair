@@ -25,7 +25,7 @@
 #import "StaffWorksViewController.h"
 #import "SVProgressHUD.h"
 
-@interface StaffDetailViewController ()<UITableViewDataSource, UITableViewDelegate>
+@interface StaffDetailViewController ()<UIScrollViewDelegate>
 @property (nonatomic, strong) UIImageView *headerBackgroundView;
 @property (nonatomic, strong) CircleImageView *avatorImgView;
 @property (nonatomic, strong) UIScrollView *scrollView;
@@ -37,8 +37,6 @@
 @property (nonatomic, strong) UIButton *foBtn;
 @property (nonatomic, strong) UIButton *detailTabBtn;
 @property (nonatomic, strong) UIButton *commentTabBtn;
-@property (nonatomic, strong) NSArray *datasource;
-@property (nonatomic, strong) UITableView *tableView;
 @end
 
 static const   float profileViewHeight = 80;
@@ -186,7 +184,7 @@ static const   float profileViewHeight = 80;
     commentImgView.image = [commentIcon imageWithSize:CGSizeMake(20, 20)];
     [commentCellView addSubview:commentImgView];
     [self.scrollView addSubview:commentCellView];
-    self.scrollView.contentSize = CGSizeMake(self.scrollView.frame.size.width, self.scrollView.frame.size.height + 10);
+    self.scrollView.contentSize = CGSizeMake(self.scrollView.frame.size.width, MaxY(commentCellView) + 10);
     self.scrollView.scrollEnabled = YES;
 //    self.scrollView.contentSize = CGSizeMake(WIDTH(self.view), MaxY(commentCellView) + 10);
 }
@@ -205,17 +203,17 @@ static const   float profileViewHeight = 80;
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
-    CGFloat yOffset   = self.tableView.contentOffset.y;
-    
-    if (yOffset < 0) {
-        CGFloat factor = ((ABS(yOffset) + 320) * 320) / profileViewHeight;
-        CGRect f = CGRectMake(-(factor - 320) / 2, self.topBarOffset, factor, profileViewHeight + ABS(yOffset));
-        self.headerBackgroundView.frame = f;
-    } else {
-        CGRect f = self.headerBackgroundView.frame;
-        f.origin.y = -yOffset + self.topBarOffset;
-        self.headerBackgroundView.frame = f;
-    }
+//    CGFloat yOffset   = self.scrollView.contentOffset.y;
+//    
+//    if (yOffset < 0) {
+//        CGFloat factor = ((ABS(yOffset) + 320) * 320) / profileViewHeight;
+//        CGRect f = CGRectMake(-(factor - 320) / 2, self.topBarOffset, factor, profileViewHeight + ABS(yOffset));
+//        self.headerBackgroundView.frame = f;
+//    } else {
+//        CGRect f = self.headerBackgroundView.frame;
+//        f.origin.y = -yOffset + self.topBarOffset;
+//        self.headerBackgroundView.frame = f;
+//    }
 }
 
 - (void)foClick:(id)sender
@@ -259,48 +257,6 @@ static const   float profileViewHeight = 80;
 - (void)commentsTapped
 {
     [self.navigationController pushViewController:[CommentsViewController new] animated:YES];
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    return 100;
-}
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
-    return ceil(self.datasource.count/3.0);
-}
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    static NSString * cellIdentifier = @"StaffTripleCellIdentifier";
-    TripleCoverCell * cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
-    if (!cell) {
-        cell = [[TripleCoverCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    }
-    Work *leftdata = [self.datasource objectAtIndex: (3 * indexPath.row)];
-    Work *middleData;
-    if(self.datasource.count > indexPath.row * 3 + 1){
-        middleData = [self.datasource objectAtIndex:indexPath.row * 3 + 1];
-    }
-    Work *rightData;
-    if(self.datasource.count > indexPath.row * 3 + 2){
-        rightData = [self.datasource objectAtIndex:indexPath.row * 3 + 2];
-    }
-    __weak StaffDetailViewController *selfDelegate = self;
-    [cell setupWithLeftData:leftdata middleData:middleData  rightData:rightData tapHandler:^(id model){
-        Work *work = (Work *)model;
-        [selfDelegate pushToDetial:work];}
-     ];
-    return cell;
-}
-
-- (void)pushToDetial:(Work *)work
-{
-    WorkDetailViewController *workVc = [[WorkDetailViewController alloc] init];;
-    workVc.work = work;
-    [self.navigationController pushViewController:workVc animated:YES];
 }
 
 @end
