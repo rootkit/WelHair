@@ -13,6 +13,25 @@
 #import <Foundation/Foundation.h>
 #import "Staff.h"
 #import "BaseModel.h"
+
+typedef NS_ENUM(NSInteger, HairStyleEnum) {
+    HairStyleEnumLong = 1,
+    HairStyleEnumMiddle = 2,
+    HairStyleEnumShort = 3
+};
+
+typedef NS_ENUM(NSInteger, HairQualityEnum) {
+    HairQualityHeavy = 1,
+    HairQualityMiddle = 2,
+    HairQualityLittle = 3
+};
+
+typedef NS_ENUM(NSInteger, GenderEnum) {
+    GenderEnumUnspecific = 0,
+    GenderEnumMale = 1,
+    GenderEnumFemale= 2
+};
+
 @interface Work : BaseModel
 @property (nonatomic, strong) NSArray *imgUrlList;
 
@@ -25,15 +44,13 @@
 @property (nonatomic) BOOL faceStyleSquare;
 @property (nonatomic) BOOL faceStyleCircle;
 @property (nonatomic) BOOL faceStyleGuaZi;
-// hair style
-@property (nonatomic) BOOL hairStyleLong;
-@property (nonatomic) BOOL hairStyleMiddle;
-@property (nonatomic) BOOL hairStyleShort;
+
 // hair quality
-@property (nonatomic) BOOL hairQualityHeavy;
-@property (nonatomic) BOOL hairQualityMiddle;
-@property (nonatomic) BOOL hairQualityLittle;
+@property (nonatomic) HairStyleEnum hairQuality;
+// hair style
+@property (nonatomic) HairQualityEnum hairStyle;
+
 //
-@property (nonatomic) BOOL forMale;
+@property (nonatomic) GenderEnum gender;
 
 @end

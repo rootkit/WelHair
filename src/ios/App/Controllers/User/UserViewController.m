@@ -152,7 +152,9 @@ static const   float profileViewHeight = 80;
 {
     if([FakeDataHelper isUserGroupAdmin]){
         [self.navigationController popToViewController:self animated:NO];
-        [self.navigationController pushViewController:[MyGroupViewController new] animated:NO];
+        MyGroupViewController *myGroupVc = [MyGroupViewController new];
+        myGroupVc.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:myGroupVc animated:NO];
     }else if([FakeDataHelper isUserGroupStaff]){
 //        [self.navigationController popToViewController:self animated:NO];
 //        [self.navigationController pushViewController:[MyGroupViewController new] animated:NO];

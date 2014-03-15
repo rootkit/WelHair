@@ -70,7 +70,7 @@
                                                    ofType:@"plist"];
     self.cities = [NSMutableDictionary dictionaryWithContentsOfFile:path];
     
-    [self.keys addObjectsFromArray:[[self.cities allKeys] sortedArrayUsingSelector:@selector(compare:)]];
+    [self.keys addObjectsFromArray:[self.cities allKeys]];
     
     //添加热门城市
     NSString *strHot = @"热";
