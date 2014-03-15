@@ -9,6 +9,7 @@
 #import "StaffWorksViewController.h"
 #import "DoubleCoverCell.h"
 #import "WorkDetailViewController.h"
+#import "UploadWorkFormViewController.h"
 
 @interface StaffWorksViewController ()<UITableViewDataSource, UITableViewDelegate>
 @property (nonatomic, strong) NSArray *datasource;
@@ -26,6 +27,9 @@
         [leftIcon addAttribute:NSForegroundColorAttributeName value:[UIColor whiteColor]];
         self.leftNavItemImg =[leftIcon imageWithSize:CGSizeMake(NAV_BAR_ICON_SIZE, NAV_BAR_ICON_SIZE)];
         
+        FAKIcon *rightIcon = [FAKIonIcons ios7PlusIconWithSize:NAV_BAR_ICON_SIZE];
+        [rightIcon addAttribute:NSForegroundColorAttributeName value:[UIColor whiteColor]];
+        self.rightNavItemImg =[rightIcon imageWithSize:CGSizeMake(NAV_BAR_ICON_SIZE, NAV_BAR_ICON_SIZE)];
     }
     return self;
 }
@@ -35,6 +39,21 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 
+
+- (void)rightNavItemClick
+{
+    [self.navigationController pushViewController:[UploadWorkFormViewController new] animated:YES];
+}
+
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    if(!self.editable){
+        self.navigationController.navigationItem.rightBarButtonItem = nil;
+    }
+
+}
 - (void)viewDidLoad
 {
     [super viewDidLoad];

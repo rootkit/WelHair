@@ -8,6 +8,7 @@
 
 #import "MyGroupStaffListViewController.h"
 #import "StaffCell.h"
+#import "MyGroupAddStaffViewController.h"
 
 @interface MyGroupStaffListViewController ()<UITableViewDataSource,UITableViewDelegate>
 @property (nonatomic, strong) NSArray *datasource;
@@ -25,9 +26,9 @@
         [leftIcon addAttribute:NSForegroundColorAttributeName value:[UIColor whiteColor]];
             self.leftNavItemImg =[leftIcon imageWithSize:CGSizeMake(NAV_BAR_ICON_SIZE, NAV_BAR_ICON_SIZE)];
         
-        FAKIcon *rightIcon = [FAKIonIcons ios7ArrowBackIconWithSize:NAV_BAR_ICON_SIZE];
-        [rightIcon addAttribute:NSForegroundColorAttributeName value:[UIColor whiteColor]];
-        self.rightNavItemImg =[rightIcon imageWithSize:CGSizeMake(NAV_BAR_ICON_SIZE, NAV_BAR_ICON_SIZE)];
+//        FAKIcon *rightIcon = [FAKIonIcons ios7PlusIconWithSize:NAV_BAR_ICON_SIZE];
+//        [rightIcon addAttribute:NSForegroundColorAttributeName value:[UIColor whiteColor]];
+//        self.rightNavItemImg =[rightIcon imageWithSize:CGSizeMake(NAV_BAR_ICON_SIZE, NAV_BAR_ICON_SIZE)];
 
     }
     return self;
@@ -40,7 +41,7 @@
 
 - (void)rightNavItemClick
 {
-
+    [self.navigationController pushViewController:[MyGroupAddStaffViewController new] animated:YES];
 }
 
 - (void)viewDidLoad
@@ -48,9 +49,9 @@
     [super viewDidLoad];
     
     self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0,
-                                                                   0,
+                                                                   self.topBarOffset,
                                                                    WIDTH(self.view),
-                                                                   HEIGHT(self.view))];
+                                                                   [self contentHeightWithNavgationBar:YES withBottomBar:NO])];
     self.tableView.backgroundColor = [UIColor clearColor];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;

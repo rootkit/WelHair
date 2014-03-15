@@ -8,6 +8,10 @@
 
 #import "MyGroupViewController.h"
 #import "UploadWorkFormViewController.h"
+#import "CreateGroupViewController.h"
+#import "GroupManageViewController.h"
+#import "MyGroupStaffListViewController.h"
+
 @interface MyGroupViewController ()
 
 @end
@@ -64,17 +68,17 @@
 
 - (void)staffClick
 {
-    [self.navigationController pushViewController:[UploadWorkFormViewController new] animated:YES];
+    [self.navigationController pushViewController:[MyGroupStaffListViewController new] animated:YES];
 }
 
 - (void)manageClick
 {
-    
+    [self.navigationController pushViewController:[GroupManageViewController new] animated:YES];
 }
 
 - (void)infoClick
 {
-    
+    [self.navigationController pushViewController:[CreateGroupViewController new] animated:YES];
 }
 
 /*

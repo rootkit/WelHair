@@ -27,6 +27,7 @@
 #import "MyGroupViewController.h"
 #import "LoginViewController.h"
 #import "UserProfileViewController.h"
+#import "StaffManageViewController.h"
 
 @interface UserViewController ()<UITableViewDataSource, UITableViewDelegate, UIActionSheetDelegate, UIImagePickerControllerDelegate,UINavigationControllerDelegate>
 
@@ -157,8 +158,10 @@ static const   float profileViewHeight = 80;
         myGroupVc.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:myGroupVc animated:NO];
     }else if([FakeDataHelper isUserGroupStaff]){
-//        [self.navigationController popToViewController:self animated:NO];
-//        [self.navigationController pushViewController:[MyGroupViewController new] animated:NO];
+        [self.navigationController popToViewController:self animated:NO];
+        StaffManageViewController *vc = [StaffManageViewController new];
+        vc.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:vc animated:NO];
     }else{
         
     }
@@ -251,10 +254,13 @@ static const   float profileViewHeight = 80;
                 return;
             }
             if([FakeDataHelper isUserGroupAdmin]){
-                [self.navigationController pushViewController:[MyGroupViewController new] animated:YES];
+                MyGroupViewController *vc = [MyGroupViewController new];
+                vc.hidesBottomBarWhenPushed = YES;
+                [self.navigationController pushViewController:vc animated:YES];
             }else if([FakeDataHelper isUserGroupStaff]){
-                //        [self.navigationController popToViewController:self animated:NO];
-                //        [self.navigationController pushViewController:[MyGroupViewController new] animated:NO];
+                StaffManageViewController *vc = [StaffManageViewController new];
+                vc.hidesBottomBarWhenPushed = YES;
+                [self.navigationController pushViewController:vc animated:NO];
             }else{
                 UserAuthorViewController *vc = [UserAuthorViewController new];
                 vc.hidesBottomBarWhenPushed = YES;

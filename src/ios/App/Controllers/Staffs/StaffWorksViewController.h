@@ -10,4 +10,5 @@
 
 @interface StaffWorksViewController : BaseViewController
 
+@property (nonatomic) BOOL editable;
 @end

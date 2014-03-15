@@ -81,7 +81,8 @@
 
 - (void)addToSalonTapped
 {
-    
+    [FakeDataHelper setUserJoinGroupSuccess];
+    [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_USER_CREATE_GROUP_SUCCESS object:nil];
 }
 
 - (void)createSalonTapped
