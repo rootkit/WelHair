@@ -37,5 +37,36 @@ $(function() {
 
           });
 
-      });
+    });
+
+    $( ".btnActive" ).click(function( event ) {
+
+
+          event.preventDefault();
+
+          var item = $( this );
+
+          var url = globalSetting.baseUrl + '/coupon/index/updatestatus';
+
+          var status = item.attr( 'data-status') ==  1 ? 0 : 1;
+
+          
+          var posting = $.post( url, { 
+                'couponid' : item.attr('data-id'),
+                'isactive' : status
+            } );
+
+
+          posting.done(function( data ) {
+
+          	  if( data.success)
+          	  {
+              	item.find('img[data-status="' + status + '"]').show();
+              	item.find('img[data-status="' +  item.attr( 'data-status')  + '"]').hide();
+              }
+              return;
+
+          });
+
+    });
 });
