@@ -87,4 +87,31 @@ $(function() {
           });
 
       });
+
+      $( ".btnDelete" ).click(function( event ) {
+
+
+          event.preventDefault();
+
+          var item = $( this );
+
+          var url = globalSetting.baseUrl + '/coupon/code/delete';
+
+          
+          var posting = $.post( url, { 
+                'couponcodeid' : item.attr('data-id')
+            } );
+
+
+          posting.done(function( data ) {
+
+          	  if( data.success)
+          	  {
+              	window.location = globalSetting.baseUrl + '/coupon/code/search?coupon_id=' + item.attr('data-couponid') + '&coupon_name=' + item.attr('data-couponname');
+              }
+              return;
+
+          });
+
+    });
 });

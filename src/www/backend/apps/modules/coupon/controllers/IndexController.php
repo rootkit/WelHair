@@ -126,7 +126,10 @@ class Coupon_IndexController extends AbstractAdminController
 
     public function deleteAction()
     {
-        $couponId =  intval($this->_request->getParam('coupon_id')) ;
+        $this->_helper->viewRenderer->setNoRender(true);
+        $this->_helper->layout->disableLayout();
+
+        $couponId =  intval($this->_request->getParam('couponid')) ;
 
         $coupon = array('CouponId' => $couponId);
 
@@ -134,19 +137,16 @@ class Coupon_IndexController extends AbstractAdminController
            
 
             $result = CouponService::deleteCoupon($coupon);
-            if ($result['success']) {
-
-            
-                $this->view->successMessage = '保存优惠券成功！';
-            } else {
-                $this->view->errorMessage = $result['message'];
-            }
+            $this->_helper->json->sendJson($result);
         } 
     }
 
     public function updatestatusAction()
     {
-        $couponId =  intval($this->_request->getParam('coupon_id')) ;
+        $this->_helper->viewRenderer->setNoRender(true);
+        $this->_helper->layout->disableLayout();
+        
+        $couponId =  intval($this->_request->getParam('couponid')) ;
 
         $coupon = array('CouponId' => $couponId, 'IsActive'=>$this->_request->getParam('isactive'));
 
@@ -154,13 +154,7 @@ class Coupon_IndexController extends AbstractAdminController
            
 
             $result = CouponService::updateCouponStatus($coupon);
-            if ($result['success']) {
-
-            
-                $this->view->successMessage = '保存优惠券成功！';
-            } else {
-                $this->view->errorMessage = $result['message'];
-            }
+            $this->_helper->json->sendJson($result);
         } 
     }
 

@@ -68,7 +68,10 @@ class Coupon_CodeController extends AbstractAdminController
 
     public function deleteAction()
     {
-        $couponCodeId =  intval($this->_request->getParam('couponcode_id')) ;
+        $this->_helper->viewRenderer->setNoRender(true);
+        $this->_helper->layout->disableLayout();
+
+        $couponCodeId =  intval($this->_request->getParam('couponcodeid')) ;
 
         $couponCode = array('CouponCodeId' => $couponCodeId);
 
@@ -76,13 +79,7 @@ class Coupon_CodeController extends AbstractAdminController
            
 
             $result = CouponCodeService::deleteCouponCode($couponCode);
-            if ($result['success']) {
-
-            
-                $this->view->successMessage = '保存优惠码成功！';
-            } else {
-                $this->view->errorMessage = $result['message'];
-            }
+            $this->_helper->json->sendJson($result);
         } 
     }
 

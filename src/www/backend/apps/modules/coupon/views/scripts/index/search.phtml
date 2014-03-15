@@ -34,7 +34,12 @@ use \Welfony\Utility\Util;
             <td><?php echo $coupon['CouponCodeCount']; ?></td>
             <td><?php echo $coupon['ReceivedCouponCodeCount']; ?></td>
             <td><?php echo intval($coupon['CouponCodeCount'])-intval($coupon['ReceivedCouponCodeCount']); ?></td>
-            <td><a class="btnActive" data-id="<?php echo $coupon['CouponId']; ?>" href="#"><img src="<?php echo  $coupon['IsActive']? Util::baseAssetUrl('img/status-active.gif'): Util::baseAssetUrl('img/status-inactive.gif'); ?>" /></a></td>
+            <td>
+               <a class="btnActive" data-id="<?php echo $coupon['CouponId']; ?>" data-status="<?php echo  $coupon['IsActive']; ?>" href="#">
+                  <img src="<?php echo  Util::baseAssetUrl('img/status-active.gif'); ?>" style="display:<?php echo  $coupon['IsActive'] ? '': 'none'; ?>;"/>
+                  <img src="<?php echo  Util::baseAssetUrl('img/status-inactive.gif'); ?>" style="display:<?php echo $coupon['IsActive']? 'none': ''; ?>;"/>
+               </a>
+            </td>
             <td><a href="<?php echo $this->baseUrl('coupon/code/search?coupon_id=' .  $coupon['CouponId']. '&coupon_name='.$coupon['CouponName']); ?>">
                     <i class="iconfont">&#x344a;</i>&nbsp;&nbsp;优惠码管理
                 </a>
