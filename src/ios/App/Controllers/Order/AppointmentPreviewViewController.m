@@ -7,7 +7,7 @@
 //
 
 #import "AppointmentPreviewViewController.h"
-#import "SVProgressHUD.h"
+
 @interface AppointmentPreviewViewController ()
 
 @end

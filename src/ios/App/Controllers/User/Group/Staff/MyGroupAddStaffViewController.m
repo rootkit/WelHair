@@ -9,7 +9,7 @@
 #import "MyGroupAddStaffViewController.h"
 
 #import "MapPickerViewController.h"
-#import "SVProgressHUD.h"
+
 #import "CityListViewController.h"
 
 @interface MyGroupAddStaffViewController ()<UITextFieldDelegate, MapPickViewDelegate, CityPickViewDelegate>

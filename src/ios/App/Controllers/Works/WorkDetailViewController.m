@@ -20,7 +20,7 @@
 #import "JOLImageSlider.h"
 #import "CommentsViewController.h"
 #import "MWPhotoBrowser.h"
-#import "SVProgressHUD.h"
+
 
 @interface WorkDetailViewController ()<UMSocialUIDelegate,JOLImageSliderDelegate,MWPhotoBrowserDelegate>
 @property (nonatomic, strong) UIScrollView *scrollView;

@@ -8,7 +8,7 @@
 
 #import "UploadWorkFormViewController.h"
 #import "Work.h"
-#import "SVProgressHUD.h"
+
 #import "OpitionButton.h"
 #define  SelectedViewColor  @"206ba7"
 #define  FaceStyleCircleNormal  @"UploadWorkViewControl_FaceStyleCircleNormal"

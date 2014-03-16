@@ -8,7 +8,7 @@
 
 #import "CalendarViewController.h"
 #import <MNCalendarView.h>
-#import "SVProgressHUD.h"
+
 @interface CalendarViewController ()<MNCalendarViewDelegate>
 
 @end

@@ -11,7 +11,7 @@
 #import <AMRatingControl.h>
 #import "Staff.h"
 #import "CircleImageView.h"
-#import "SVProgressHUD.h"
+
 @interface AppointmentCell()
 
 @property (nonatomic, strong) CircleImageView *imgView;

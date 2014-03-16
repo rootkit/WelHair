@@ -127,6 +127,8 @@
 		4630253118C849FD000E0B51 /* Staff.m in Sources */ = {isa = PBXBuildFile; fileRef = 4630253018C849FD000E0B51 /* Staff.m */; };
 		4630D13A18C603B000DA7CAD /* CircleImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4630D13918C603B000DA7CAD /* CircleImageView.m */; };
 		46439C9118C763EF00F01691 /* MapPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 46439C9018C763EF00F01691 /* MapPickerViewController.m */; };
+		464BF44C18D56F0F006EBCD9 /* StaffAddServiceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 464BF44B18D56F0F006EBCD9 /* StaffAddServiceViewController.m */; };
+		464BF44F18D576AC006EBCD9 /* CreateCouponViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 464BF44E18D576AC006EBCD9 /* CreateCouponViewController.m */; };
 		4660E69018BB73E1005B3C7D /* ProductsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4660E68F18BB73E1005B3C7D /* ProductsViewController.m */; };
 		4660E69618BB73FF005B3C7D /* UserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4660E69518BB73FF005B3C7D /* UserViewController.m */; };
 		4660E6AB18BB7666005B3C7D /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4660E6AA18BB7666005B3C7D /* CoreText.framework */; };
@@ -421,6 +423,10 @@
 		4630D13918C603B000DA7CAD /* CircleImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CircleImageView.m; sourceTree = "<group>"; };
 		46439C8F18C763EF00F01691 /* MapPickerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapPickerViewController.h; sourceTree = "<group>"; };
 		46439C9018C763EF00F01691 /* MapPickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapPickerViewController.m; sourceTree = "<group>"; };
+		464BF44A18D56F0F006EBCD9 /* StaffAddServiceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StaffAddServiceViewController.h; sourceTree = "<group>"; };
+		464BF44B18D56F0F006EBCD9 /* StaffAddServiceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StaffAddServiceViewController.m; sourceTree = "<group>"; };
+		464BF44D18D576AC006EBCD9 /* CreateCouponViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreateCouponViewController.h; sourceTree = "<group>"; };
+		464BF44E18D576AC006EBCD9 /* CreateCouponViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CreateCouponViewController.m; sourceTree = "<group>"; };
 		4660E68E18BB73E1005B3C7D /* ProductsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProductsViewController.h; sourceTree = "<group>"; };
 		4660E68F18BB73E1005B3C7D /* ProductsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProductsViewController.m; sourceTree = "<group>"; };
 		4660E69418BB73FF005B3C7D /* UserViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserViewController.h; sourceTree = "<group>"; };
@@ -1298,6 +1304,8 @@
 			children = (
 				4673BB9118D41B37000F64DE /* CouponManagerViewController.h */,
 				4673BB9218D41B37000F64DE /* CouponManagerViewController.m */,
+				464BF44D18D576AC006EBCD9 /* CreateCouponViewController.h */,
+				464BF44E18D576AC006EBCD9 /* CreateCouponViewController.m */,
 			);
 			path = Coupon;
 			sourceTree = "<group>";
@@ -1321,6 +1329,8 @@
 			children = (
 				4673BBC218D420AB000F64DE /* StaffServicesViewController.h */,
 				4673BBC318D420AB000F64DE /* StaffServicesViewController.m */,
+				464BF44A18D56F0F006EBCD9 /* StaffAddServiceViewController.h */,
+				464BF44B18D56F0F006EBCD9 /* StaffAddServiceViewController.m */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -2134,6 +2144,7 @@
 				467F0EBB18CB3956009FFE08 /* ChatGroupCell.m in Sources */,
 				18AC388818CD685C00328A78 /* WebSocketUtil.m in Sources */,
 				46BDF13918D1779100999F50 /* UserAuthorViewController.m in Sources */,
+				464BF44F18D576AC006EBCD9 /* CreateCouponViewController.m in Sources */,
 				467F0F1418CC1EAE009FFE08 /* DoubleCoverCell.m in Sources */,
 				467F0EB818CB2164009FFE08 /* ProductCell.m in Sources */,
 				18AC38E818CD95C800328A78 /* JSMessageTextView.m in Sources */,
@@ -2174,6 +2185,7 @@
 				467F0EFD18CB5A8C009FFE08 /* FavoritesViewController.m in Sources */,
 				4673BB9C18D41BBB000F64DE /* ApprovalViewController.m in Sources */,
 				4630252218C7781A000E0B51 /* PayViewController.m in Sources */,
+				464BF44C18D56F0F006EBCD9 /* StaffAddServiceViewController.m in Sources */,
 				4673BBA218D41EE9000F64DE /* StaffManageViewController.m in Sources */,
 				18AC38E718CD95C800328A78 /* JSMessagesViewController.m in Sources */,
 				46BDF13C18D17AF300999F50 /* CreateGroupViewController.m in Sources */,

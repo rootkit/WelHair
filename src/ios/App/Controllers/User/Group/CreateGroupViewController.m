@@ -8,7 +8,7 @@
 
 #import "CreateGroupViewController.h"
 #import "MapPickerViewController.h"
-#import "SVProgressHUD.h"
+
 #import "CityListViewController.h"
 
 @interface CreateGroupViewController ()<UITextFieldDelegate, MapPickViewDelegate, CityPickViewDelegate>
@@ -118,7 +118,6 @@ static const float KOffsetY = 40;
     self.phoneNumTxt.font = [UIFont systemFontOfSize:14];
     self.phoneNumTxt.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
     self.phoneNumTxt.placeholder = @"  电话号码";
-    self.phoneNumTxt.secureTextEntry = YES;
     self.phoneNumTxt.delegate = self;
     [self.view addSubview:self.phoneNumTxt];
     
@@ -131,7 +130,6 @@ static const float KOffsetY = 40;
     self.groupAddressTxt.font = [UIFont systemFontOfSize:14];
     self.groupAddressTxt.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
     self.groupAddressTxt.placeholder = @"  沙龙地址";
-    self.groupAddressTxt.secureTextEntry = YES;
     self.groupAddressTxt.delegate = self;
     [self.view addSubview:self.groupAddressTxt];
 

@@ -9,7 +9,7 @@
 #import "WelQRReaderViewController.h"
 #import <AudioToolbox/AudioToolbox.h>
 #import <AVFoundation/AVFoundation.h>
-#import "SVProgressHUD.h"
+
 
 @interface WelQRReaderViewController ()
 {

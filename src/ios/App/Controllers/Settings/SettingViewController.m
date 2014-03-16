@@ -8,7 +8,7 @@
 
 #import "SettingViewController.h"
 #import <QuartzCore/QuartzCore.h>
-#import "SVProgressHUD.h"
+
 @interface SettingViewController ()
 
 @end

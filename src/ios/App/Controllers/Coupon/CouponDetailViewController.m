@@ -9,7 +9,7 @@
 #import "CouponDetailViewController.h"
 #import "UMSocial.h"
 #import "MapViewController.h"
-#import "SVProgressHUD.h"
+
 
 @interface CouponDetailViewController ()<UMSocialUIDelegate>
 @property (nonatomic, strong) UIScrollView *scrollView;

@@ -23,7 +23,7 @@
 #import "AppointmentPreviewViewController.h"
 #import "CircleImageView.h"
 #import "StaffWorksViewController.h"
-#import "SVProgressHUD.h"
+
 #import "OpitionSelectPanel.h"
 
 @interface StaffDetailViewController ()<UIScrollViewDelegate>

@@ -8,7 +8,7 @@
 
 #import "OpitionSelectPanel.h"
 #import "OpitionButton.h"
-#import "SVProgressHUD.h"
+
 #import "CircleImageView.h"
 #import "UIImageView+WebCache.h"
 @interface OpitionSelectPanel ()
