@@ -8,11 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface UploadOpitionButton : UIButton
-@property (nonatomic )BOOL choosen;
-@property (nonatomic, strong) NSString *groupName;
-@end
-
 @interface UploadWorkFormViewController : BaseViewController
 
 @end

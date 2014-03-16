@@ -9,6 +9,7 @@
 #import "UploadWorkFormViewController.h"
 #import "Work.h"
 #import "SVProgressHUD.h"
+#import "OpitionButton.h"
 #define  SelectedViewColor  @"206ba7"
 #define  FaceStyleCircleNormal  @"UploadWorkViewControl_FaceStyleCircleNormal"
 #define  FaceStyleCircleSelected  @"UploadWorkViewControl_FaceStyleCircleSelected"
@@ -19,65 +20,6 @@
 #define  FaceStyleSquareNormal  @"UploadWorkViewControl_FaceStyleSquareNormal"
 #define  FaceStyleSquareSelected  @"UploadWorkViewControl_FaceStyleSquareSelected"
 
-@implementation UploadOpitionButton
-
-- (id)initWithFrame:(CGRect)frame{
-    self = [super initWithFrame:frame];
-    if(self){
-        self.layer.borderColor = [[UIColor colorWithHexString:@"c0bfbf"] CGColor];;
-        self.layer.borderWidth = 1;
-        self.layer.cornerRadius = 3;
-        self.clipsToBounds = YES;
-        [self unChoosenStyle];
-        self.titleLabel.font  =[UIFont systemFontOfSize:14];
-    }
-    return self;
-}
-
-- (UIImage *)imageWithColor:(UIColor *)color {
-    CGRect rect = CGRectMake(0, 0, self.frame.size.width, self.frame.size.height);
-    UIGraphicsBeginImageContext(rect.size);
-    CGContextRef context = UIGraphicsGetCurrentContext();
-    CGContextSetFillColorWithColor(context, [color CGColor]);
-    
-    CGContextFillRect(context, rect);
-    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    
-    return image;
-}
-
-- (void)setChoosen:(BOOL)choosen
-{
-    if(choosen){
-        [self choosenStyle];
-        for (UIView *view in self.superview.subviews) {
-            if([view isKindOfClass:[UploadOpitionButton class]]){
-                UploadOpitionButton *btn = (UploadOpitionButton *)view;
-                if([btn.groupName isEqualToString:self.groupName] && ![btn isEqual:self]){
-                        [btn unChoosenStyle];
-                }
-            }
-        }
-    }else{
-        [self unChoosenStyle];
-    }
-}
-
-- (void)choosenStyle
-{
-    [self setBackgroundImage:[self imageWithColor:[UIColor colorWithHexString:SelectedViewColor]] forState:UIControlStateNormal];
-    [self setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-
-}
-
-- (void)unChoosenStyle
-{
-    [self setBackgroundImage:[self imageWithColor:[UIColor whiteColor]] forState:UIControlStateNormal];
-    [self setTitleColor:[UIColor colorWithHexString:@"73757d"] forState:UIControlStateNormal];
-}
-
-@end
 
 
 
@@ -221,7 +163,7 @@
     genderLbl.text = @"性别:";
     [self.scrollView addSubview:genderLbl];
     
-    UploadOpitionButton *femaleBtn = [[UploadOpitionButton alloc] initWithFrame:CGRectMake(MaxX(genderLbl) + 10, Y(genderLbl),selectBtnWidth, selectBtnHeight)];
+    OpitionButton *femaleBtn = [[OpitionButton alloc] initWithFrame:CGRectMake(MaxX(genderLbl) + 10, Y(genderLbl),selectBtnWidth, selectBtnHeight)];
     [femaleBtn setTitle:@"女" forState:UIControlStateNormal];
     femaleBtn.tag = 1;
     femaleBtn.Choosen = NO;
@@ -229,7 +171,7 @@
     femaleBtn.groupName = genderGroupName;
     [self.scrollView addSubview:femaleBtn];
     
-    UploadOpitionButton *maleBtn = [[UploadOpitionButton alloc] initWithFrame:CGRectMake(MaxX(femaleBtn) + 10, Y(genderLbl),selectBtnWidth, selectBtnHeight)];
+    OpitionButton *maleBtn = [[OpitionButton alloc] initWithFrame:CGRectMake(MaxX(femaleBtn) + 10, Y(genderLbl),selectBtnWidth, selectBtnHeight)];
     [maleBtn setTitle:@"男" forState:UIControlStateNormal];
     maleBtn.tag = 2;
     maleBtn.Choosen = NO;
@@ -249,21 +191,21 @@
     hairStyleLbl.text = @"发型:";
     [self.scrollView addSubview:hairStyleLbl];
     
-    UploadOpitionButton *hairStyleLongBtn = [[UploadOpitionButton alloc] initWithFrame:CGRectMake(MaxX(hairStyleLbl) + 10, Y(hairStyleLbl),selectBtnWidth, selectBtnHeight)];
+    OpitionButton *hairStyleLongBtn = [[OpitionButton alloc] initWithFrame:CGRectMake(MaxX(hairStyleLbl) + 10, Y(hairStyleLbl),selectBtnWidth, selectBtnHeight)];
     hairStyleLongBtn.tag = 1;
     [hairStyleLongBtn addTarget:self action:@selector(hairStyleClick:) forControlEvents:UIControlEventTouchDown];
     [hairStyleLongBtn setTitle:@"长发" forState:UIControlStateNormal];
     hairStyleLongBtn.groupName = hairStyleGroupName;
     [self.scrollView addSubview:hairStyleLongBtn];
     
-    UploadOpitionButton *hairStyleMiddelBtn = [[UploadOpitionButton alloc] initWithFrame:CGRectMake(MaxX(hairStyleLongBtn) + 10, Y(hairStyleLbl),selectBtnWidth, selectBtnHeight)];
+    OpitionButton *hairStyleMiddelBtn = [[OpitionButton alloc] initWithFrame:CGRectMake(MaxX(hairStyleLongBtn) + 10, Y(hairStyleLbl),selectBtnWidth, selectBtnHeight)];
     hairStyleMiddelBtn.tag = 2;
     hairStyleMiddelBtn.groupName = hairStyleGroupName;
     [hairStyleMiddelBtn setTitle:@"中发" forState:UIControlStateNormal];
     [hairStyleMiddelBtn addTarget:self action:@selector(hairStyleClick:) forControlEvents:UIControlEventTouchDown];
     [self.scrollView addSubview:hairStyleMiddelBtn];
     
-    UploadOpitionButton *hairStyleShortBtn = [[UploadOpitionButton alloc] initWithFrame:CGRectMake(MaxX(hairStyleMiddelBtn) + 10, Y(hairStyleLbl),selectBtnWidth, selectBtnHeight)];
+    OpitionButton *hairStyleShortBtn = [[OpitionButton alloc] initWithFrame:CGRectMake(MaxX(hairStyleMiddelBtn) + 10, Y(hairStyleLbl),selectBtnWidth, selectBtnHeight)];
     hairStyleShortBtn.tag = 3;
     hairStyleShortBtn.groupName = hairStyleGroupName;
     [hairStyleShortBtn setTitle:@"短发" forState:UIControlStateNormal];
@@ -281,21 +223,21 @@
     hairQualityLbl.text = @"发量:";
     [self.scrollView addSubview:hairQualityLbl];
     
-    UploadOpitionButton *hairQualityheavyBtn = [[UploadOpitionButton alloc] initWithFrame:CGRectMake(MaxX(hairStyleLbl) + 10, Y(hairQualityLbl),selectBtnWidth, selectBtnHeight)];
+    OpitionButton *hairQualityheavyBtn = [[OpitionButton alloc] initWithFrame:CGRectMake(MaxX(hairStyleLbl) + 10, Y(hairQualityLbl),selectBtnWidth, selectBtnHeight)];
     hairQualityheavyBtn.tag = 1;
     hairQualityheavyBtn.groupName = hairQualityGroupName;
     [hairQualityheavyBtn setTitle:@"多密" forState:UIControlStateNormal];
     [hairQualityheavyBtn addTarget:self action:@selector(hairQualityClick:) forControlEvents:UIControlEventTouchDown];
     [self.scrollView addSubview:hairQualityheavyBtn];
     
-    UploadOpitionButton *hairQualityMiddleBtn = [[UploadOpitionButton alloc] initWithFrame:CGRectMake(MaxX(hairQualityheavyBtn) + 10, Y(hairQualityLbl),selectBtnWidth, selectBtnHeight)];
+    OpitionButton *hairQualityMiddleBtn = [[OpitionButton alloc] initWithFrame:CGRectMake(MaxX(hairQualityheavyBtn) + 10, Y(hairQualityLbl),selectBtnWidth, selectBtnHeight)];
     hairQualityMiddleBtn.tag = 2;
     hairQualityMiddleBtn.groupName = hairQualityGroupName;
     [hairQualityMiddleBtn setTitle:@"中等" forState:UIControlStateNormal];
     [hairQualityMiddleBtn addTarget:self action:@selector(hairQualityClick:) forControlEvents:UIControlEventTouchDown];
     [self.scrollView addSubview:hairQualityMiddleBtn];
     
-    UploadOpitionButton *hairQualityLittleBtn = [[UploadOpitionButton alloc] initWithFrame:CGRectMake(MaxX(hairQualityMiddleBtn) + 10, Y(hairQualityLbl),selectBtnWidth, selectBtnHeight)];
+    OpitionButton *hairQualityLittleBtn = [[OpitionButton alloc] initWithFrame:CGRectMake(MaxX(hairQualityMiddleBtn) + 10, Y(hairQualityLbl),selectBtnWidth, selectBtnHeight)];
     hairQualityLittleBtn.tag = 3;
     hairQualityLittleBtn.groupName = hairQualityGroupName;
     [hairQualityLittleBtn setTitle:@"偏少" forState:UIControlStateNormal];
@@ -419,14 +361,14 @@
 
 - (void)genderClick:(id)sender
 {
-    UploadOpitionButton *btn = (UploadOpitionButton *)sender;
+    OpitionButton *btn = (OpitionButton *)sender;
     self.work.gender = btn.tag == 1? GenderEnumFemale : GenderEnumMale;
     btn.choosen = YES;
 }
 
 - (void)hairStyleClick:(id)sender
 {
-    UploadOpitionButton *btn = (UploadOpitionButton *)sender;
+    OpitionButton *btn = (OpitionButton *)sender;
     switch (btn.tag) {
         case 1:
             self.work.hairStyle =  HairStyleEnumLong;
@@ -446,7 +388,7 @@
 
 - (void)hairQualityClick:(id)sender
 {
-    UploadOpitionButton *btn = (UploadOpitionButton *)sender;
+    OpitionButton *btn = (OpitionButton *)sender;
     switch (btn.tag) {
         case 1:
             self.work.hairQuality =  HairQualityHeavy;

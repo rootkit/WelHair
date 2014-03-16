@@ -35,14 +35,14 @@
 {
     [super viewDidLoad];
     
-    UIImageView *imgView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 10, 320, 200)];
+    UIImageView *imgView = [[UIImageView alloc] initWithFrame:CGRectMake(0, self.topBarOffset, 320, 200)];
     imgView.image =[UIImage imageNamed:@"AppointmentPreviewViewController_Bg"];
     [self.view addSubview:imgView];
     
     UIView *bottomView = [[UIView alloc] initWithFrame:CGRectMake(0,
-                                                                  self.topBarOffset,
+                                                                  self.topBarOffset + [self contentHeightWithNavgationBar:YES withBottomBar:YES],
                                                                   WIDTH(self.view),
-                                                                  [self contentHeightWithNavgationBar:YES withBottomBar:YES])];
+                                                                  kBottomBarHeight )];
     bottomView.backgroundColor =[UIColor whiteColor];
     UIButton *submitBtn = [[UIButton alloc] initWithFrame:CGRectMake(220, 15, 80, 25)];
     [submitBtn setTitle:@"提交" forState:UIControlStateNormal];

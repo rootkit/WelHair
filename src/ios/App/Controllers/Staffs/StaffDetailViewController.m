@@ -24,6 +24,7 @@
 #import "CircleImageView.h"
 #import "StaffWorksViewController.h"
 #import "SVProgressHUD.h"
+#import "OpitionSelectPanel.h"
 
 @interface StaffDetailViewController ()<UIScrollViewDelegate>
 @property (nonatomic, strong) UIImageView *headerBackgroundView;
@@ -37,6 +38,7 @@
 @property (nonatomic, strong) UIButton *foBtn;
 @property (nonatomic, strong) UIButton *detailTabBtn;
 @property (nonatomic, strong) UIButton *commentTabBtn;
+@property (nonatomic, strong) SelectOpition *selectOpition;
 @end
 
 static const   float profileViewHeight = 80;
@@ -249,9 +251,68 @@ static const   float profileViewHeight = 80;
     [self.navigationController pushViewController:[StaffWorksViewController new] animated:YES];
 }
 
+
 - (void)submitClick
 {
-    [self.navigationController pushViewController:[AppointmentPreviewViewController new] animated:YES];
+    OpitionSelectPanel *panel =
+    [[OpitionSelectPanel alloc] initWithFrame:CGRectMake(0,
+                                                         0,
+                                                         WIDTH(self.view),
+                                                         HEIGHT(self.view) - self.topBarOffset - 100)];
+    
+    
+    [panel setupTitle:@"产品"
+             opitions:[self buildSelectionOpition]
+               cancel:^(){[self.tabBarController dismissSemiModalView];}
+               submit:^(SelectOpition *opitions){
+                   self.selectOpition =opitions;
+                   [self.tabBarController dismissSemiModalView];
+                   [self.navigationController pushViewController:[AppointmentPreviewViewController new] animated:YES];
+               }];
+    [self.tabBarController presentSemiView:panel withOptions:nil];
+}
+
+- (void)getSelectedOpitions:(NSArray *)array
+{
+    
+    NSMutableString *str = [NSMutableString string];
+    [str appendString:@"已选择"];
+    for (OpitionItem *item in array) {
+        [str appendFormat:@",%d", item.id];
+    }
+}
+
+- (SelectOpition *)buildSelectionOpition
+{
+    self.selectOpition = [SelectOpition new];
+    OpitionCategory *category = [OpitionCategory new];
+    category.id = 1;
+    category.title = @"服务项目";
+    
+    NSMutableArray *items = [NSMutableArray array];
+    OpitionItem *item = [OpitionItem new];
+    item.id = 0;
+    item.categoryId = category.id;
+    item.title =  @"精剪";
+    [items addObject:item];
+    
+    OpitionItem *item2 = [OpitionItem new];
+    item2.id = 1;
+    item2.categoryId = category.id;
+    item2.title =  @"烫染";
+    [items addObject:item2];
+    
+    OpitionItem *item3 = [OpitionItem new];
+    item3.id = 2;
+    item3.categoryId = category.id;
+    item3.title =  @"保养";
+    [items addObject:item3];
+    category.opitionItems = items;
+    
+    self.selectOpition.opitionCateogries = @[category];
+    self.selectOpition.selectedValues = [NSArray array];
+    
+    return self.selectOpition;
 }
 
 - (void)commentsTapped
