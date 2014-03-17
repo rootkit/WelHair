@@ -16,7 +16,9 @@ namespace Welfony\WebSocket;
 
 use Ratchet\MessageComponentInterface;
 use Ratchet\ConnectionInterface;
+
 use Welfony\Core\Enum\MessageType;
+use Welfony\Service\UserService;
 
 class ChatServer implements MessageComponentInterface
 {
