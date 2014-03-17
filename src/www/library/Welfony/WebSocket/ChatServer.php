@@ -39,14 +39,14 @@ class ChatServer implements MessageComponentInterface
         echo "New connection! ({$conn->resourceId})\n";
     }
 
-    public function onMessage(ConnectionInterface $from, $msg)
+    public function onMessage(ConnectionInterface $conn, $msg)
     {
         $message = json_decode($msg, true);
         if($message === null) {
             return;
         }
 
-        if ($msg['Type'] == MessageType::UserConnected) {
+        if ($message['Type'] == MessageType::UserConnected) {
             $this->clients[$conn->resourceId]['User'] = array(
                 'UserId' => $message['From']
             );
@@ -54,7 +54,7 @@ class ChatServer implements MessageComponentInterface
             // Check offline message;
         }
 
-        if ($msg['Type'] == MessageType::NewMessage) {
+        if ($message['Type'] == MessageType::NewMessage) {
             $toClient = null;
             foreach ($this->clients as $client) {
                 if ($client['User']['UserId'] == $message['To']) {
@@ -63,7 +63,7 @@ class ChatServer implements MessageComponentInterface
             }
 
             if ($toClient) {
-                $toClient->send($msg);
+                $toClient['Connection']->send($msg);
             } else {
                 // Insert offline message;
             }
