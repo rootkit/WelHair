@@ -94,7 +94,7 @@
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    self.tableView.backgroundColor = [UIColor colorWithHexString:@"f2f2f2"];
+    self.tableView.backgroundColor = [UIColor clearColor];
     UIView *tableHeaderView = [[UIView alloc] initWithFrame:topTabView.bounds];
     tableHeaderView.backgroundColor = [UIColor clearColor];
     self.tableView.tableHeaderView = tableHeaderView;
@@ -186,7 +186,7 @@
         cell = [[GroupCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
-    cell.backgroundColor = indexPath.row % 2 == 0?
+    cell.contentView.backgroundColor = cell.contentView.backgroundColor =  cell.backgroundColor = indexPath.row % 2 == 0?
     [UIColor whiteColor] : [UIColor colorWithHexString:@"f5f6f8"];
     
     Group *data = [self.datasource objectAtIndex:indexPath.row];
@@ -196,7 +196,9 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    [self.navigationController pushViewController:[GroupDetailViewController new] animated:YES];
+    GroupDetailViewController *vc = [GroupDetailViewController new];
+    vc.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 //- (void)pushToDetial:(Group *)work

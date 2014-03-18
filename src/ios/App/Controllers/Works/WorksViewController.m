@@ -245,7 +245,7 @@
     if (!cell) {
         cell = [[WorkCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        cell.backgroundColor = [UIColor clearColor];
+        cell.contentView.backgroundColor =  cell.backgroundColor = [UIColor clearColor];
     }
     
     Work *leftdata = [self.datasource objectAtIndex: (2 * indexPath.row)];
@@ -258,7 +258,7 @@
         Work *work = (Work *)model;
         [selfDelegate pushToDetial:work];}
      ];
-    cell.backgroundColor = [UIColor clearColor];
+    cell.contentView.backgroundColor =  cell.backgroundColor = [UIColor clearColor];
     return cell;
 }
 

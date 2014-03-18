@@ -182,7 +182,7 @@
         cell = [[CouponCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
-    cell.backgroundColor = indexPath.row % 2 == 0?
+    cell.contentView.backgroundColor =  cell.backgroundColor = indexPath.row % 2 == 0?
     [UIColor whiteColor] : [UIColor colorWithHexString:@"f5f6f8"];
     
     Coupon *data = [self.datasource objectAtIndex:indexPath.row];

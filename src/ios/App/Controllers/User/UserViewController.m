@@ -78,7 +78,8 @@ static const   float profileViewHeight = 80;
     self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0,
                                                                    self.topBarOffset,
                                                                    WIDTH(self.view),
-                                                                   [self contentHeightWithNavgationBar:YES withBottomBar:YES])];
+                                                                 HEIGHT(self.view) - kTopBarHeight - kStatusBarHeight - kBottomBarHeight)];
+
     self.tableView.backgroundColor = [UIColor clearColor];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;

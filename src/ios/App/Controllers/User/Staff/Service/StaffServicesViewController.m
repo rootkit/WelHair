@@ -88,7 +88,7 @@
     if (!cell) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:cellIdentifier];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        cell.backgroundColor = [UIColor clearColor];
+        cell.contentView.backgroundColor =  cell.backgroundColor = [UIColor clearColor];
     }
     cell.textLabel.text = @"精剪";
     cell.detailTextLabel.text = @"￥40";

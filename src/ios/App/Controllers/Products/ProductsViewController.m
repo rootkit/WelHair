@@ -153,7 +153,7 @@
     if (!cell) {
         cell = [[ProductCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        cell.backgroundColor = [UIColor clearColor];
+        cell.contentView.backgroundColor =  cell.backgroundColor = [UIColor clearColor];
     }
     CardTapHandler tapHandler = ^(id model){
         Product *product = (Product *)model;

@@ -239,14 +239,14 @@
     
     BMKPointAnnotation* item = [[BMKPointAnnotation alloc]init];
     item.coordinate = CLLocationCoordinate2DMake(36.670266,117.149292);
-    item.title = @"haha";
+    item.title = @"高新区永琪店";
     [_mapView addAnnotation:item];
     //将第一个点的坐标移到屏幕中央
     _mapView.centerCoordinate = item.coordinate;
 	 
     BMKPointAnnotation* item1 = [[BMKPointAnnotation alloc]init];
     item1.coordinate = CLLocationCoordinate2DMake(36.669166,117.144945);
-    item1.title = @"heihei";
+    item1.title = @"沙宣店";
     [_mapView addAnnotation:item1];
 
     //[_search poiSearchNearBy:@"餐厅" center:_mapView.centerCoordinate radius:100 pageIndex:0];

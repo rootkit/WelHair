@@ -139,9 +139,9 @@ static const   float profileViewHeight = 320;
     [topNavView addSubview:rightBtn];
     
     self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0,
-                                                                   0,
+                                                                   self.topBarOffset,
                                                                    WIDTH(self.view),
-                                                                   HEIGHT(self.view))];
+                                                                   [self contentHeightWithNavgationBar:NO withBottomBar:NO])];
     self.tableView.backgroundColor = [UIColor clearColor];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;

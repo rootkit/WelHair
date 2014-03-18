@@ -33,7 +33,7 @@
                                                                      Y(self.imgView),
                                                                      130,
                                                                      HEIGHT(self.imgView)/2)];
-        self.nameLbl.font = [UIFont boldSystemFontOfSize:16];
+        self.nameLbl.font = [UIFont boldSystemFontOfSize:14];
         self.nameLbl.numberOfLines = 2;
         self.nameLbl.backgroundColor = [UIColor clearColor];
         self.nameLbl.textColor = [UIColor blackColor];
