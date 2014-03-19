@@ -110,7 +110,7 @@
     self.layer.masksToBounds = NO;
     self.layer.shadowColor = [[UIColor lightGrayColor] CGColor];
     self.layer.shadowOffset = CGSizeMake(0, offset);
-    self.layer.shadowRadius = 1;
+//    self.layer.shadowRadius = 1;
     self.layer.shadowOpacity = offset;
 }
 @end

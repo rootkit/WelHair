@@ -826,10 +826,10 @@
 		18A912D918BB26B6006B9A04 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				46BDF11E18D0B3AC00999F50 /* Coupon */,
 				18A912DA18BB26B6006B9A04 /* Base */,
 				46BCD25418BC6271005C4BD6 /* Chat */,
 				46BCD26018BC7533005C4BD6 /* Common */,
+				46BDF11E18D0B3AC00999F50 /* Coupon */,
 				46BCD25C18BC724E005C4BD6 /* Groups */,
 				4630251618C7764E000E0B51 /* Order */,
 				4660E68518BB73A8005B3C7D /* Products */,
@@ -1567,36 +1567,36 @@
 		46B25AE718C0716E0035F425 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				46B25AEB18C086D30035F425 /* WorkCell.h */,
-				46BDF11318D08B9D00999F50 /* StaffCell.h */,
-				46BDF11418D08B9D00999F50 /* StaffCell.m */,
-				46B25AEC18C086D30035F425 /* WorkCell.m */,
-				46E84ED518C2F0380004C146 /* OpitionSelectPanel.h */,
-				46E84ED618C2F0380004C146 /* OpitionSelectPanel.m */,
-				46E84EE118C356B30004C146 /* OpitionButton.h */,
-				46E84EE218C356B30004C146 /* OpitionButton.m */,
-				4630252C18C848EB000E0B51 /* WorkCardView.h */,
-				4630252D18C848EB000E0B51 /* WorkCardView.m */,
-				460C2F4818CAFDB200AD16E6 /* GroupCell.h */,
-				460C2F4918CAFDB200AD16E6 /* GroupCell.m */,
-				467F0EB018CB16EB009FFE08 /* ProductCardView.h */,
-				467F0EB118CB16EB009FFE08 /* ProductCardView.m */,
-				467F0EB618CB2164009FFE08 /* ProductCell.h */,
-				467F0EB718CB2164009FFE08 /* ProductCell.m */,
+				4673BB6218D2ED61000F64DE /* AppointmentCell.h */,
+				4673BB6318D2ED61000F64DE /* AppointmentCell.m */,
 				467F0EB918CB3956009FFE08 /* ChatGroupCell.h */,
 				467F0EBA18CB3956009FFE08 /* ChatGroupCell.m */,
-				467F0F1218CC1EAE009FFE08 /* DoubleCoverCell.h */,
-				467F0F1318CC1EAE009FFE08 /* DoubleCoverCell.m */,
-				467F0F1B18CC219B009FFE08 /* TripleCoverCell.h */,
-				467F0F1C18CC219B009FFE08 /* TripleCoverCell.m */,
-				467F0F2018CC7938009FFE08 /* DropDownView.h */,
-				467F0F2118CC7938009FFE08 /* DropDownView.m */,
 				467F0F2318CC8FFB009FFE08 /* CommentCell.h */,
 				467F0F2418CC8FFB009FFE08 /* CommentCell.m */,
 				46BDF12818D0B53200999F50 /* CouponCell.h */,
 				46BDF12918D0B53200999F50 /* CouponCell.m */,
-				4673BB6218D2ED61000F64DE /* AppointmentCell.h */,
-				4673BB6318D2ED61000F64DE /* AppointmentCell.m */,
+				467F0F1218CC1EAE009FFE08 /* DoubleCoverCell.h */,
+				467F0F1318CC1EAE009FFE08 /* DoubleCoverCell.m */,
+				467F0F2018CC7938009FFE08 /* DropDownView.h */,
+				467F0F2118CC7938009FFE08 /* DropDownView.m */,
+				460C2F4818CAFDB200AD16E6 /* GroupCell.h */,
+				460C2F4918CAFDB200AD16E6 /* GroupCell.m */,
+				46E84EE118C356B30004C146 /* OpitionButton.h */,
+				46E84EE218C356B30004C146 /* OpitionButton.m */,
+				46E84ED518C2F0380004C146 /* OpitionSelectPanel.h */,
+				46E84ED618C2F0380004C146 /* OpitionSelectPanel.m */,
+				467F0EB018CB16EB009FFE08 /* ProductCardView.h */,
+				467F0EB118CB16EB009FFE08 /* ProductCardView.m */,
+				467F0EB618CB2164009FFE08 /* ProductCell.h */,
+				467F0EB718CB2164009FFE08 /* ProductCell.m */,
+				46BDF11318D08B9D00999F50 /* StaffCell.h */,
+				46BDF11418D08B9D00999F50 /* StaffCell.m */,
+				467F0F1B18CC219B009FFE08 /* TripleCoverCell.h */,
+				467F0F1C18CC219B009FFE08 /* TripleCoverCell.m */,
+				4630252C18C848EB000E0B51 /* WorkCardView.h */,
+				4630252D18C848EB000E0B51 /* WorkCardView.m */,
+				46B25AEB18C086D30035F425 /* WorkCell.h */,
+				46B25AEC18C086D30035F425 /* WorkCell.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -2252,7 +2252,8 @@
 				);
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer: larry lu (3LBN2U88Z3)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/App/Prefix.pch";
@@ -2265,7 +2266,7 @@
 				);
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "110FC37B-7195-40D4-A4CE-57EE2490ED75";
+				PROVISIONING_PROFILE = "";
 				VALID_ARCHS = "armv7 armv7s";
 				WRAPPER_EXTENSION = app;
 			};
@@ -2285,7 +2286,8 @@
 				);
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer: larry lu (3LBN2U88Z3)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/App/Prefix.pch";
@@ -2297,7 +2299,7 @@
 				);
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "110FC37B-7195-40D4-A4CE-57EE2490ED75";
+				PROVISIONING_PROFILE = "";
 				VALID_ARCHS = "armv7 armv7s";
 				WRAPPER_EXTENSION = app;
 			};
