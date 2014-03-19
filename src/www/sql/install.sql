@@ -609,6 +609,36 @@ CREATE TABLE IF NOT EXISTS `Message` (
   PRIMARY KEY (`MessageId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+CREATE TABLE IF NOT EXISTS `MessageOffline` (
+  `MessageOfflineId` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `UserId` INT UNSIGNED NOT NULL,
+  `MessageId` INT UNSIGNED NOT NULL,
+  PRIMARY KEY (`MessageOfflineId`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ==============================================================================
+
+DROP PROCEDURE IF EXISTS `sp_update_table_field`;
+DELIMITER ;;
+
+CREATE PROCEDURE `sp_update_table_field`()
+BEGIN
+  IF NOT EXISTS (
+      SELECT 1
+      FROM information_schema.COLUMNS
+      WHERE lower(TABLE_SCHEMA) = 'welhair'
+        AND lower(TABLE_NAME) ='message'
+        AND lower(COLUMN_NAME) ='mediatype'
+  ) THEN
+    ALTER TABLE `Message` ADD `MediaType` SMALLINT(1) NOT NULL DEFAULT 1 AFTER `Type`;
+    ALTER TABLE `Message` ADD `MediaUrl` VARCHAR(255) NOT NULL DEFAULT '' AFTER `MediaType`;
+  END IF;
+END;;
+
+DELIMITER ;
+CALL sp_update_table_field();
+DROP PROCEDURE IF EXISTS `sp_update_table_field`;
+
 -- ==============================================================================
 
 DELIMITER ;;

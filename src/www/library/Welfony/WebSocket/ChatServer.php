@@ -17,7 +17,11 @@ namespace Welfony\WebSocket;
 use Ratchet\MessageComponentInterface;
 use Ratchet\ConnectionInterface;
 
+use Welfony\Core\Enum\MessageMediaType;
+use Welfony\Core\Enum\MessageStatus;
 use Welfony\Core\Enum\MessageType;
+use Welfony\Service\MessageService;
+use Welfony\Service\RoomService;
 use Welfony\Service\UserService;
 
 class ChatServer implements MessageComponentInterface
@@ -47,28 +51,69 @@ class ChatServer implements MessageComponentInterface
         }
 
         if ($message['Type'] == MessageType::UserConnected) {
-            $this->clients[$conn->resourceId]['User'] = array(
-                'UserId' => $message['From']
-            );
+            if (isset($message['UserId']) && intval($message['UserId']) > 0) {
+                $this->clients[$conn->resourceId]['User'] = array(
+                    'UserId' => $message['UserId']
+                );
 
-            // Check offline message;
+                $offlineMessages = MessageService::getAllOfflineMessages($message['UserId']);
+                foreach($offlineMessages as $msg) {
+                    $messageOfflineId = $msg['MessageOfflineId'];
+                    unset($msg['MessageOfflineId']);
+                    $this->clients[$conn->resourceId]['Connection']->send(json_encode($msg));
+
+                    MessageService::removeOfflineMessage($messageOfflineId);
+                }
+            }
         }
 
         if ($message['Type'] == MessageType::NewMessage) {
-            $toClient = null;
-            foreach ($this->clients as $client) {
-                if ($client['User']['UserId'] == $message['To']) {
-                    $toClient = $client;
+            if (isset($message['RoomId']) && intval($message['RoomId']) > 0) {
+                $message['ToId'] = 0;
+                $message['CreatedDate'] = date('Y-m-d H:i:s');
+                $message['Status'] = MessageStatus::Sent;
+                $rst = MessageService::save($message);
+
+                $usersInRoom = RoomService::listAllUsersByRoom($message['RoomId']);
+                foreach($usersInRoom as $toUser) {
+                    if ($toUser['UserId'] != $message['FromId']) {
+                        $toClient = null;
+                        foreach ($this->clients as $client) {
+                            if ($client['User']['UserId'] == $toUser['UserId']) {
+                                $toClient = $client;
+                            }
+                        }
+
+                        if ($toClient) {
+                            $toClient['Connection']->send(json_encode($rst['message']));
+                        } else {
+                            MessageService::saveOfflineMessage(array('MessageId' => $rst['message']['MessageId'], 'UserId' => $toUser['UserId']));
+                        }
+                    }
+                }
+
+            } elseif (isset($message['ToId']) && intval($message['ToId']) > 0) {
+                $message['RoomId'] = 0;
+                $message['CreatedDate'] = date('Y-m-d H:i:s');
+                $message['Status'] = MessageStatus::Sent;
+                $rst = MessageService::save($message);
+
+                $toClient = null;
+                foreach ($this->clients as $client) {
+                    if ($client['User']['UserId'] == $message['ToId']) {
+                        $toClient = $client;
+                    }
+                }
+
+                if ($toClient) {
+                    $toClient['Connection']->send(json_encode($rst['message']));
+                } else {
+                    if ($rst['success']) {
+                        MessageService::saveOfflineMessage(array('MessageId' => $rst['message']['MessageId'], 'UserId' => $message['ToId']));
+                    }
                 }
             }
 
-            if ($toClient) {
-                $toClient['Connection']->send($msg);
-            } else {
-                // Insert offline message;
-            }
-
-            // Insert message history;
         }
     }
 

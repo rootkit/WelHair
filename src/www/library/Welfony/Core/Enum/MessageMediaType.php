@@ -12,20 +12,15 @@
 //
 // ==============================================================================
 
-namespace Welfony\Service;
+namespace Welfony\Core\Enum;
 
-use Welfony\Repository\RoomRepository;
+use Welfony\Core\Enum;
 
-class RoomService
+class MessageMediaType extends Enum
 {
 
-    public static function listAllUsersByRoom($roomId)
-    {
-        return array();
-    }
-
-    public static function save($data)
-    {
-    }
+    const None = 1;
+    const Photo = 2;
+    const Audio = 3;
 
 }
