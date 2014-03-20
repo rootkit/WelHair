@@ -12,6 +12,6 @@
 
 #import "JSMessagesViewController.h"
 
-@interface ChatViewController : JSMessagesViewController <JSMessagesViewDataSource, JSMessagesViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
+@interface ChatViewController : JSMessagesViewController <JSMessagesViewDataSource, JSMessagesViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIActionSheetDelegate>
 
 @end

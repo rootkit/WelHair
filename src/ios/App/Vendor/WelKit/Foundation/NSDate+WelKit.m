@@ -21,4 +21,12 @@
     return dateFormatter;
 }
 
++ (NSDateFormatter *)dateWithHMFormatter
+{
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    dateFormatter.dateFormat = @"MM-dd HH:mm";
+
+    return dateFormatter;
+}
+
 @end
