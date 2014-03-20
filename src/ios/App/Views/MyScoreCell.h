@@ -9,5 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @interface MyScoreCell : UITableViewCell
-
+- (void)setup:(NSDictionary  *)data
+        isTop:(BOOL)isTop;
 @end

@@ -110,6 +110,8 @@
 		46439C9118C763EF00F01691 /* MapPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 46439C9018C763EF00F01691 /* MapPickerViewController.m */; };
 		464BF44C18D56F0F006EBCD9 /* StaffAddServiceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 464BF44B18D56F0F006EBCD9 /* StaffAddServiceViewController.m */; };
 		464BF44F18D576AC006EBCD9 /* CreateCouponViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 464BF44E18D576AC006EBCD9 /* CreateCouponViewController.m */; };
+		465A5C8818DB08C7009B6D60 /* MyScoreViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 465A5C8718DB08C7009B6D60 /* MyScoreViewController.m */; };
+		465A5C8B18DB0B8D009B6D60 /* MyScoreCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 465A5C8A18DB0B8D009B6D60 /* MyScoreCell.m */; };
 		4660E69018BB73E1005B3C7D /* ProductsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4660E68F18BB73E1005B3C7D /* ProductsViewController.m */; };
 		4660E69618BB73FF005B3C7D /* UserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4660E69518BB73FF005B3C7D /* UserViewController.m */; };
 		4660E6AB18BB7666005B3C7D /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4660E6AA18BB7666005B3C7D /* CoreText.framework */; };
@@ -390,6 +392,10 @@
 		464BF44B18D56F0F006EBCD9 /* StaffAddServiceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StaffAddServiceViewController.m; sourceTree = "<group>"; };
 		464BF44D18D576AC006EBCD9 /* CreateCouponViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreateCouponViewController.h; sourceTree = "<group>"; };
 		464BF44E18D576AC006EBCD9 /* CreateCouponViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CreateCouponViewController.m; sourceTree = "<group>"; };
+		465A5C8618DB08C7009B6D60 /* MyScoreViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyScoreViewController.h; sourceTree = "<group>"; };
+		465A5C8718DB08C7009B6D60 /* MyScoreViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyScoreViewController.m; sourceTree = "<group>"; };
+		465A5C8918DB0B8D009B6D60 /* MyScoreCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyScoreCell.h; sourceTree = "<group>"; };
+		465A5C8A18DB0B8D009B6D60 /* MyScoreCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyScoreCell.m; sourceTree = "<group>"; };
 		4660E68E18BB73E1005B3C7D /* ProductsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProductsViewController.h; sourceTree = "<group>"; };
 		4660E68F18BB73E1005B3C7D /* ProductsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProductsViewController.m; sourceTree = "<group>"; };
 		4660E69418BB73FF005B3C7D /* UserViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserViewController.h; sourceTree = "<group>"; };
@@ -1153,6 +1159,8 @@
 				4673BB6018D2ED4D000F64DE /* AppointmentsViewController.m */,
 				4673BB8118D3FA54000F64DE /* UserProfileViewController.h */,
 				4673BB8218D3FA54000F64DE /* UserProfileViewController.m */,
+				465A5C8618DB08C7009B6D60 /* MyScoreViewController.h */,
+				465A5C8718DB08C7009B6D60 /* MyScoreViewController.m */,
 			);
 			path = User;
 			sourceTree = "<group>";
@@ -1531,6 +1539,8 @@
 				4630252D18C848EB000E0B51 /* WorkCardView.m */,
 				46B25AEB18C086D30035F425 /* WorkCell.h */,
 				46B25AEC18C086D30035F425 /* WorkCell.m */,
+				465A5C8918DB0B8D009B6D60 /* MyScoreCell.h */,
+				465A5C8A18DB0B8D009B6D60 /* MyScoreCell.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1972,6 +1982,7 @@
 				184B82CA18DAC7F000177BAB /* JSMessageTextView.m in Sources */,
 				4673BB6118D2ED4D000F64DE /* AppointmentsViewController.m in Sources */,
 				46BCD26918BC797B005C4BD6 /* GroupDetailViewController.m in Sources */,
+				465A5C8B18DB0B8D009B6D60 /* MyScoreCell.m in Sources */,
 				46EAF98A18D18D0D00D4C624 /* CityListViewController.m in Sources */,
 				467F0EF018CB4FCF009FFE08 /* UITextField+WelKit.m in Sources */,
 				46BDF11818D099F300999F50 /* AppointmentPreviewViewController.m in Sources */,
@@ -2036,6 +2047,7 @@
 				46E84ECA18C2D9050004C146 /* ProductDetailViewController.m in Sources */,
 				18A9126F18BB216E006B9A04 /* main.m in Sources */,
 				4630252E18C848EB000E0B51 /* WorkCardView.m in Sources */,
+				465A5C8818DB08C7009B6D60 /* MyScoreViewController.m in Sources */,
 				4660E69618BB73FF005B3C7D /* UserViewController.m in Sources */,
 				4673BB8C18D417EE000F64DE /* GroupManageViewController.m in Sources */,
 				467F0EAF18CB0F54009FFE08 /* BaseModel.m in Sources */,

@@ -92,7 +92,7 @@ static const   float profileViewHeight = 80;
     self.headerBackgroundView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, WIDTH
                                                                               (self.view), profileViewHeight)];
 
-    self.headerBackgroundView.image = [UIImage imageNamed:@"Profile_Banner_Bg@2x"];
+    self.headerBackgroundView.image = [UIImage imageNamed:@"Profile_Banner_Bg"];
     [self.scrollView addSubview:self.headerBackgroundView];
     
     UIView *headerView_ = [[UIView alloc] initWithFrame:CGRectMake(0, 0, WIDTH(self.view), profileViewHeight + addressViewHeight+ tabButtonViewHeight)];

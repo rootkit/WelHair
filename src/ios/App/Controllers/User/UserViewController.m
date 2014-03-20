@@ -28,6 +28,7 @@
 #import "LoginViewController.h"
 #import "UserProfileViewController.h"
 #import "StaffManageViewController.h"
+#import "MyScoreViewController.h"
 
 @interface UserViewController ()<UITableViewDataSource, UITableViewDelegate, UIActionSheetDelegate, UIImagePickerControllerDelegate,UINavigationControllerDelegate>
 
@@ -64,21 +65,20 @@ static const   float profileViewHeight = 80;
 - (void)loadView
 {
     [super loadView];
-
-
+    
     float tabButtonViewHeight = 50;
     float avatorSize = 50;
     
     self.headerBackgroundView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, WIDTH
                                                                               (self.view), profileViewHeight)];
-    self.headerBackgroundView.image = [UIImage imageNamed:@"Profile_Banner_Bg@2x"];
+    self.headerBackgroundView.image = [UIImage imageNamed:@"Profile_Banner_Bg"];
     [self.view addSubview:self.headerBackgroundView];
     
     
     self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0,
                                                                    self.topBarOffset,
                                                                    WIDTH(self.view),
-                                                                 HEIGHT(self.view) - kTopBarHeight - kStatusBarHeight - kBottomBarHeight)];
+                                                                 [self contentHeightWithNavgationBar:YES withBottomBar:YES])];
 
     self.tableView.backgroundColor = [UIColor clearColor];
     self.tableView.delegate = self;
@@ -243,12 +243,15 @@ static const   float profileViewHeight = 80;
             break;
         }
         case 1:{
-            OrdersViewController *vc = [OrdersViewController new];
+            //my coupon list
+        }
+        case 2:{
+            MyScoreViewController *vc = [MyScoreViewController new];
             vc.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:vc animated:YES];
             break;
         }
-        case 2:{
+        case 3:{
             if(![FakeDataHelper isLogin])
             {
                 [self.navigationController presentViewController:[[UINavigationController alloc] initWithRootViewController:[LoginViewController new]] animated:YES completion:nil];
@@ -267,15 +270,8 @@ static const   float profileViewHeight = 80;
                 vc.hidesBottomBarWhenPushed = YES;
                 [self.navigationController pushViewController:vc animated:YES];
             }
-            break;
         }
             break;
-        case 3:{
-            FavoritesViewController *vc = [FavoritesViewController new];
-            vc.hidesBottomBarWhenPushed = YES;
-            [self.navigationController pushViewController:vc animated:YES];
-            break;
-        }
         default:
             break;
     }
