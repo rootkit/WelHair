@@ -115,7 +115,8 @@
 
 - (void)pushToDetial:(ChatSession *)product
 {
-    ChatViewController *chatVc = [[ChatViewController alloc] init];;
+    ChatViewController *chatVc = [[ChatViewController alloc] init];
+    chatVc.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:chatVc animated:YES];
 }
 

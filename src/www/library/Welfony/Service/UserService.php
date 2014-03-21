@@ -17,9 +17,57 @@ namespace Welfony\Service;
 use PHPassLib\Hash\PBKDF2 as PassHash;
 use Welfony\Core\Enum\UserRole;
 use Welfony\Repository\UserRepository;
+use Welfony\Utility\Util;
 
 class UserService
 {
+
+    public static function signUpWithEmail($email, $password)
+    {
+        $result = array('success' => false, 'message' => '');
+
+        if (empty($email) || empty($password)) {
+            $result['message'] = '邮箱和密码不能为空！';
+
+            return $result;
+        }
+
+        $user = UserRepository::getInstance()->findUserByEmail($email);
+        if ($user) {
+            $result['message'] = '邮箱已被占用！';
+
+            return $result;
+        }
+
+        $data = array();
+        $data['Username'] = Util::genRandomUsername();
+        $data['Nickname'] = '';
+        $data['Role'] = UserRole::Client;
+        $data['Email'] = $email;
+        $data['Password'] = PassHash::hash($password);
+        $data['AvatarUrl'] = Util::baseAssetUrl('img/avatar-default.jpg');
+        $data['CreatedDate'] = date('Y-m-d H:i:s');
+
+        $newId = UserRepository::getInstance()->save($data);
+        if ($newId) {
+            $data['UserId'] = $newId;
+            unset($data['Password']);
+
+            $result['success'] = true;
+            $result['user'] = $data;
+
+            return $result;
+        } else {
+            $result['message'] = '注册失败！';
+
+            return $result;
+        }
+
+        $result['success'] = true;
+        $result['user'] = $user;
+
+        return $result;
+    }
 
     public static function signInWithEmail($email, $password)
     {
@@ -44,15 +92,12 @@ class UserService
             return $result;
         }
 
+        unset($user['Password']);
+
         $result['success'] = true;
         $result['user'] = $user;
 
         return $result;
-    }
-
-    public static function signUpWithEmail()
-    {
-
     }
 
     public static function signInWithSocial($socialExternalId, $socialType)

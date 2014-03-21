@@ -65,6 +65,10 @@
 		184B82FB18DAC7F000177BAB /* UIColor+JSMessagesView.m in Sources */ = {isa = PBXBuildFile; fileRef = 184B82BF18DAC7F000177BAB /* UIColor+JSMessagesView.m */; };
 		184B82FC18DAC7F000177BAB /* UIImage+JSMessagesView.m in Sources */ = {isa = PBXBuildFile; fileRef = 184B82C118DAC7F000177BAB /* UIImage+JSMessagesView.m */; };
 		184B82FD18DAC7F000177BAB /* UIView+AnimationOptionsForCurve.m in Sources */ = {isa = PBXBuildFile; fileRef = 184B82C318DAC7F000177BAB /* UIView+AnimationOptionsForCurve.m */; };
+		18A3E61318DC0C280080DC0B /* RegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A3E61218DC0C280080DC0B /* RegisterViewController.m */; };
+		18A3E61618DC10050080DC0B /* NSString+WelKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A3E61518DC10050080DC0B /* NSString+WelKit.m */; };
+		18A3E61918DC11240080DC0B /* RequestUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A3E61818DC11240080DC0B /* RequestUtil.m */; };
+		18A3E61C18DC14BB0080DC0B /* Util.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A3E61B18DC14BB0080DC0B /* Util.m */; };
 		18A9126318BB216E006B9A04 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18A9126218BB216E006B9A04 /* Foundation.framework */; };
 		18A9126518BB216E006B9A04 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18A9126418BB216E006B9A04 /* CoreGraphics.framework */; };
 		18A9126718BB216E006B9A04 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18A9126618BB216E006B9A04 /* UIKit.framework */; };
@@ -316,6 +320,14 @@
 		184B82C118DAC7F000177BAB /* UIImage+JSMessagesView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+JSMessagesView.m"; sourceTree = "<group>"; };
 		184B82C218DAC7F000177BAB /* UIView+AnimationOptionsForCurve.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+AnimationOptionsForCurve.h"; sourceTree = "<group>"; };
 		184B82C318DAC7F000177BAB /* UIView+AnimationOptionsForCurve.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+AnimationOptionsForCurve.m"; sourceTree = "<group>"; };
+		18A3E61118DC0C280080DC0B /* RegisterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegisterViewController.h; sourceTree = "<group>"; };
+		18A3E61218DC0C280080DC0B /* RegisterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegisterViewController.m; sourceTree = "<group>"; };
+		18A3E61418DC10050080DC0B /* NSString+WelKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+WelKit.h"; sourceTree = "<group>"; };
+		18A3E61518DC10050080DC0B /* NSString+WelKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+WelKit.m"; sourceTree = "<group>"; };
+		18A3E61718DC11240080DC0B /* RequestUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RequestUtil.h; sourceTree = "<group>"; };
+		18A3E61818DC11240080DC0B /* RequestUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RequestUtil.m; sourceTree = "<group>"; };
+		18A3E61A18DC14BB0080DC0B /* Util.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Util.h; sourceTree = "<group>"; };
+		18A3E61B18DC14BB0080DC0B /* Util.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Util.m; sourceTree = "<group>"; };
 		18A9125F18BB216E006B9A04 /* WelHair.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WelHair.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		18A9126218BB216E006B9A04 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		18A9126418BB216E006B9A04 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -966,12 +978,16 @@
 		18A912DF18BB26B6006B9A04 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				4673BB6518D2F2B8000F64DE /* Appointment.h */,
+				4673BB6618D2F2B8000F64DE /* Appointment.m */,
 				467F0EAD18CB0F54009FFE08 /* BaseModel.h */,
 				467F0EAE18CB0F54009FFE08 /* BaseModel.m */,
 				467F0EBC18CB3CC3009FFE08 /* ChatSession.h */,
 				467F0EBD18CB3CC3009FFE08 /* ChatSession.m */,
 				460C2F2818C8BFFF00AD16E6 /* Comment.h */,
 				460C2F2918C8BFFF00AD16E6 /* Comment.m */,
+				46BDF12218D0B40E00999F50 /* Coupon.h */,
+				46BDF12318D0B40E00999F50 /* Coupon.m */,
 				46B25AEE18C185290035F425 /* FakeDataHelper.h */,
 				46B25AEF18C185290035F425 /* FakeDataHelper.m */,
 				460C2F4B18CAFEBF00AD16E6 /* Group.h */,
@@ -990,10 +1006,6 @@
 				18A912E118BB26B6006B9A04 /* User.m */,
 				4665FD8318BC801000E88C6B /* Work.h */,
 				4665FD8418BC801000E88C6B /* Work.m */,
-				46BDF12218D0B40E00999F50 /* Coupon.h */,
-				46BDF12318D0B40E00999F50 /* Coupon.m */,
-				4673BB6518D2F2B8000F64DE /* Appointment.h */,
-				4673BB6618D2F2B8000F64DE /* Appointment.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -1027,6 +1039,10 @@
 		18AC388518CD683200328A78 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				18A3E61718DC11240080DC0B /* RequestUtil.h */,
+				18A3E61818DC11240080DC0B /* RequestUtil.m */,
+				18A3E61A18DC14BB0080DC0B /* Util.h */,
+				18A3E61B18DC14BB0080DC0B /* Util.m */,
 				18AC388618CD685C00328A78 /* WebSocketUtil.h */,
 				18AC388718CD685C00328A78 /* WebSocketUtil.m */,
 			);
@@ -1143,24 +1159,26 @@
 		4660E68718BB73A8005B3C7D /* User */ = {
 			isa = PBXGroup;
 			children = (
-				46BDF13618D1771E00999F50 /* Staff */,
 				46BDF12E18D1515A00999F50 /* Group */,
-				4660E69418BB73FF005B3C7D /* UserViewController.h */,
-				4660E69518BB73FF005B3C7D /* UserViewController.m */,
-				46B233B518BCDC4200CC27A3 /* LoginViewController.h */,
-				46B233B618BCDC4200CC27A3 /* LoginViewController.m */,
-				467F0EF818CB5A58009FFE08 /* OrdersViewController.h */,
-				467F0EF918CB5A58009FFE08 /* OrdersViewController.m */,
-				467F0EFB18CB5A8C009FFE08 /* FavoritesViewController.h */,
-				467F0EFC18CB5A8C009FFE08 /* FavoritesViewController.m */,
-				46BDF13718D1779100999F50 /* UserAuthorViewController.h */,
-				46BDF13818D1779100999F50 /* UserAuthorViewController.m */,
+				46BDF13618D1771E00999F50 /* Staff */,
 				4673BB5F18D2ED4D000F64DE /* AppointmentsViewController.h */,
 				4673BB6018D2ED4D000F64DE /* AppointmentsViewController.m */,
-				4673BB8118D3FA54000F64DE /* UserProfileViewController.h */,
-				4673BB8218D3FA54000F64DE /* UserProfileViewController.m */,
+				467F0EFB18CB5A8C009FFE08 /* FavoritesViewController.h */,
+				467F0EFC18CB5A8C009FFE08 /* FavoritesViewController.m */,
+				46B233B518BCDC4200CC27A3 /* LoginViewController.h */,
+				46B233B618BCDC4200CC27A3 /* LoginViewController.m */,
 				465A5C8618DB08C7009B6D60 /* MyScoreViewController.h */,
 				465A5C8718DB08C7009B6D60 /* MyScoreViewController.m */,
+				467F0EF818CB5A58009FFE08 /* OrdersViewController.h */,
+				467F0EF918CB5A58009FFE08 /* OrdersViewController.m */,
+				18A3E61118DC0C280080DC0B /* RegisterViewController.h */,
+				18A3E61218DC0C280080DC0B /* RegisterViewController.m */,
+				46BDF13718D1779100999F50 /* UserAuthorViewController.h */,
+				46BDF13818D1779100999F50 /* UserAuthorViewController.m */,
+				4673BB8118D3FA54000F64DE /* UserProfileViewController.h */,
+				4673BB8218D3FA54000F64DE /* UserProfileViewController.m */,
+				4660E69418BB73FF005B3C7D /* UserViewController.h */,
+				4660E69518BB73FF005B3C7D /* UserViewController.m */,
 			);
 			path = User;
 			sourceTree = "<group>";
@@ -1258,6 +1276,8 @@
 			children = (
 				467F0ED118CB4FCF009FFE08 /* NSDate+WelKit.h */,
 				467F0ED218CB4FCF009FFE08 /* NSDate+WelKit.m */,
+				18A3E61418DC10050080DC0B /* NSString+WelKit.h */,
+				18A3E61518DC10050080DC0B /* NSString+WelKit.m */,
 			);
 			path = Foundation;
 			sourceTree = "<group>";
@@ -1982,6 +2002,7 @@
 				184B82CA18DAC7F000177BAB /* JSMessageTextView.m in Sources */,
 				4673BB6118D2ED4D000F64DE /* AppointmentsViewController.m in Sources */,
 				46BCD26918BC797B005C4BD6 /* GroupDetailViewController.m in Sources */,
+				18A3E61918DC11240080DC0B /* RequestUtil.m in Sources */,
 				465A5C8B18DB0B8D009B6D60 /* MyScoreCell.m in Sources */,
 				46EAF98A18D18D0D00D4C624 /* CityListViewController.m in Sources */,
 				467F0EF018CB4FCF009FFE08 /* UITextField+WelKit.m in Sources */,
@@ -2006,6 +2027,7 @@
 				4630251C18C77695000E0B51 /* OrderListViewController.m in Sources */,
 				4673BB6A18D2F848000F64DE /* UploadWorkFormViewController.m in Sources */,
 				184B82FC18DAC7F000177BAB /* UIImage+JSMessagesView.m in Sources */,
+				18A3E61318DC0C280080DC0B /* RegisterViewController.m in Sources */,
 				46E84ED718C2F0380004C146 /* OpitionSelectPanel.m in Sources */,
 				4665FD8518BC801000E88C6B /* Work.m in Sources */,
 				467F0EFA18CB5A58009FFE08 /* OrdersViewController.m in Sources */,
@@ -2020,6 +2042,7 @@
 				184B82C918DAC7F000177BAB /* JSMessagesViewController.m in Sources */,
 				462F845818CDF77700CADA98 /* GroupDetailInfoTableViewDelegate.m in Sources */,
 				184B82FA18DAC7F000177BAB /* UIButton+JSMessagesView.m in Sources */,
+				18A3E61C18DC14BB0080DC0B /* Util.m in Sources */,
 				460C2F2A18C8BFFF00AD16E6 /* Comment.m in Sources */,
 				46E84EC018C2C7040004C146 /* UIScrollView+UzysCircularProgressPullToRefresh.m in Sources */,
 				4630251518C76EF1000E0B51 /* CalendarViewController.m in Sources */,
@@ -2058,6 +2081,7 @@
 				184B82FD18DAC7F000177BAB /* UIView+AnimationOptionsForCurve.m in Sources */,
 				184B82C718DAC7F000177BAB /* JSMessageInputView.m in Sources */,
 				467F0EEE18CB4FCF009FFE08 /* UIImage+WelKit.m in Sources */,
+				18A3E61618DC10050080DC0B /* NSString+WelKit.m in Sources */,
 				184B82C418DAC7F000177BAB /* JSBubbleMessageCell.m in Sources */,
 				467F0F0318CB610F009FFE08 /* SettingViewController.m in Sources */,
 			);
@@ -2194,10 +2218,7 @@
 					armv7,
 					armv7s,
 				);
-				"ARCHS[sdk=iphoneos*]" = (
-					armv7,
-					armv7s,
-				);
+				"ARCHS[sdk=iphoneos*]" = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -2215,6 +2236,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				SDKROOT = iphoneos6.1;
 				VALID_ARCHS = "armv7 armv7s";
 				WRAPPER_EXTENSION = app;
 			};
@@ -2228,10 +2250,7 @@
 					armv7,
 					armv7s,
 				);
-				"ARCHS[sdk=iphoneos*]" = (
-					armv7,
-					armv7s,
-				);
+				"ARCHS[sdk=iphoneos*]" = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -2248,6 +2267,7 @@
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				SDKROOT = iphoneos6.1;
 				VALID_ARCHS = "armv7 armv7s";
 				WRAPPER_EXTENSION = app;
 			};

@@ -35,6 +35,31 @@ class UserController extends AbstractAPIController
         $this->sendResponse($result);
     }
 
+    public function signUpWithEmail()
+    {
+        $reqData = $this->getDataFromRequestWithJsonFormat();
+
+        $response = array('success' => false);
+
+        if (!isset($reqData['Email']) || empty($reqData['Email'])) {
+            $error = '请输入邮箱！';
+        }
+        if (!isset($reqData['Password']) || empty($reqData['Password'])) {
+            $error = '请输入密码！';
+        }
+
+        if (!empty($error)) {
+            $response['message'] = $error;
+        } else {
+            $email = htmlspecialchars($reqData['Email']);
+            $password = $reqData['Password'];
+
+            $response['success'] = UserService::signUpWithEmail($email, $password);
+        }
+
+        $this->sendResponse($response);
+    }
+
     public function signInWithSocial()
     {
     }
@@ -43,25 +68,25 @@ class UserController extends AbstractAPIController
     {
         $reqData = $this->getDataFromRequestWithJsonFormat();
 
-        $email = htmlspecialchars($reqData['Email']);
-        $password = $reqData['Password'];
-
         $response = array('success' => false);
 
-        if (empty($email)) {
+        if (!isset($reqData['Email']) || empty($reqData['Email'])) {
             $error = '请输入邮箱！';
         }
-        if (empty($password)) {
+        if (!isset($reqData['Password']) || empty($reqData['Password'])) {
             $error = '请输入密码！';
         }
 
         if (!empty($error)) {
             $response['message'] = $error;
         } else {
-            $result = UserService::signInWithEmail($email, $password);
+            $email = htmlspecialchars($reqData['Email']);
+            $password = $reqData['Password'];
+
+            $response['success'] = UserService::signInWithEmail($email, $password);
         }
 
-        $this->sendResponse($result);
+        $this->sendResponse($response);
     }
 
 }

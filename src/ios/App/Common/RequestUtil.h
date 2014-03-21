@@ -10,23 +10,10 @@
 //
 // ==============================================================================
 
-#ifndef AppImport_h
-#define AppImport_h
+@interface RequestUtil : NSObject
 
-#import <QuartzCore/QuartzCore.h>
++(ASIHTTPRequest *)createGetRequestWithURL:(NSURL *)url;
++(ASIFormDataRequest *)createPOSTRequestWithURL:(NSURL *)url andData:(NSDictionary *)data;
++(ASIFormDataRequest *)createPUBRequestWithURL:(NSURL *)url andData:(NSDictionary *)data;
 
-#import "Constants.h"
-#import "Macros.h"
-#import "EDColor.h"
-#import "WelKit.h"
-#import "FAKIonIcons.h"
-#import "BaseViewController.h"
-
-#import "FakeDataHelper.h"
-#import "SVProgressHUD.h"
-#import "Util.h"
-
-#import "ASIHTTPRequest.h"
-#import "ASIFormDataRequest.h"
-
-#endif
+@end

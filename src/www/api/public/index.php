@@ -68,6 +68,7 @@ $app = new \Slim\Slim(array(
     ))
 ));
 
+Zend_Registry::set('config', $config);
 $app->config = $config;
 
 foreach (glob($config->routes->path . DS . '*php') as $file) {

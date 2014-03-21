@@ -17,10 +17,14 @@
     
     if ([JSMessageInputView inputBarStyle] == JSInputBarStyleFlat)
     {
-        sendButton = [UIButton buttonWithType:UIButtonTypeSystem];
+        sendButton = [UIButton buttonWithType:UIButtonTypeCustom];
         sendButton.backgroundColor = [UIColor colorWithHexString:@"216ba8"];
 
+        sendButton.titleLabel.font = [UIFont systemFontOfSize:14];
         sendButton.layer.cornerRadius = 5;
+
+        [sendButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [sendButton setTitleColor:[UIColor grayColor] forState:UIControlStateHighlighted];
 
         [sendButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         [sendButton setTitleColor:[UIColor grayColor] forState:UIControlStateHighlighted];

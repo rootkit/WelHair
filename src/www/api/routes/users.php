@@ -20,8 +20,14 @@ $app->get('/users', function() use($app)
     $ctrl->index();
 });
 
-$app->post('/users/signin', function() use($app)
+$app->post('/users/signin/email', function() use($app)
 {
     $ctrl = new UserController();
     $ctrl->signInWithEmail();
+});
+
+$app->post('/users/signup/email', function() use($app)
+{
+    $ctrl = new UserController();
+    $ctrl->signUpWithEmail();
 });

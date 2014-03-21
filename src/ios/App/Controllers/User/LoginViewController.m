@@ -7,14 +7,17 @@
 //
 
 #import "LoginViewController.h"
+#import "RegisterViewController.h"
 #import "UMSocial.h"
-#import <QuartzCore/QuartzCore.h>
 
-static const float KOffsetY = 50;
+static const float kOffsetY = 50;
+
 @interface LoginViewController ()<UITextFieldDelegate, UIGestureRecognizerDelegate>
+
 @property (nonatomic, strong) UIView * viewContainer;
 @property (nonatomic, strong) UITextField * userNameTxt;
 @property (nonatomic, strong) UITextField * pwdTxt;
+
 @end
 
 @implementation LoginViewController
@@ -23,8 +26,7 @@ static const float KOffsetY = 50;
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        // Custom initialization
-        FAKIcon *leftIcon = [FAKIonIcons ios7ArrowBackIconWithSize:NAV_BAR_ICON_SIZE];
+        FAKIcon *leftIcon = [FAKIonIcons ios7CloseEmptyIconWithSize:NAV_BAR_ICON_SIZE];
         [leftIcon addAttribute:NSForegroundColorAttributeName value:[UIColor whiteColor]];
         self.leftNavItemImg =[leftIcon imageWithSize:CGSizeMake(NAV_BAR_ICON_SIZE, NAV_BAR_ICON_SIZE)];
 
@@ -36,6 +38,7 @@ static const float KOffsetY = 50;
 - (void)loadView
 {
     [super loadView];
+
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(keyboardWillShow:)
                                                  name:UIKeyboardWillShowNotification
@@ -47,15 +50,15 @@ static const float KOffsetY = 50;
     
     self.viewContainer = [[UIView alloc] initWithFrame:CGRectMake(0, self.topBarOffset, WIDTH(self.view), [self contentHeightWithNavgationBar:YES withBottomBar:NO])];
     self.viewContainer.backgroundColor = [UIColor colorWithHexString:APP_BASE_COLOR];
-    [self.viewContainer addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(backgroundTapped)]];
+    [self.viewContainer addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self
+                                                                                     action:@selector(backgroundTapped)]];
     [self.view addSubview:self.viewContainer];
     
     float margin = 40;
     UIImageView *logoIcon = [[UIImageView alloc] initWithFrame:CGRectMake(110, 20, 100, 100)];
     logoIcon.image = [UIImage imageNamed:@"Logo"];
     [self.viewContainer addSubview:logoIcon];
-    
-    
+
     self.userNameTxt =  [UITextField plainTextField:CGRectMake(margin,
                                                                MaxY(logoIcon) + margin,
                                                                WIDTH(self.view) - 2 * margin,
@@ -63,15 +66,17 @@ static const float KOffsetY = 50;
                                         leftPadding:5];
     self.userNameTxt.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
     self.userNameTxt.backgroundColor = [UIColor whiteColor];
-    self.userNameTxt.placeholder = @"  用户名/手机号";
+    self.userNameTxt.placeholder = @"  邮箱";
+    self.userNameTxt.autocapitalizationType = UITextAutocapitalizationTypeNone;
+    self.userNameTxt.keyboardType = UIKeyboardTypeEmailAddress;
     self.userNameTxt.delegate = self;
     [self.viewContainer addSubview:self.userNameTxt];
     
-    self.pwdTxt =  [UITextField plainTextField:CGRectMake(margin,
-                                                          MaxY(self.userNameTxt) + 10,
-                                                          WIDTH(self.userNameTxt),
-                                                          35)
-                                   leftPadding:5];
+    self.pwdTxt = [UITextField plainTextField:CGRectMake(margin,
+                                                         MaxY(self.userNameTxt) + 10,
+                                                         WIDTH(self.userNameTxt),
+                                                         35)
+                                  leftPadding:5];
     self.pwdTxt.backgroundColor = [UIColor whiteColor];
     self.pwdTxt.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
     self.pwdTxt.placeholder = @"  密码";
@@ -80,12 +85,12 @@ static const float KOffsetY = 50;
     [self.viewContainer addSubview:self.pwdTxt];
     
     UIButton *loginBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    loginBtn.frame = CGRectMake(margin, MaxY(self.pwdTxt) + 20, WIDTH(self.userNameTxt), 40);
     loginBtn.backgroundColor = [UIColor colorWithHexString:@"e4393c"];
-    [loginBtn setTitle:@"Login" forState:UIControlStateNormal];
-    [loginBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    loginBtn.frame = CGRectMake(margin, MaxY(self.pwdTxt) + 20, WIDTH(self.userNameTxt), 40);
     loginBtn.titleLabel.font = [UIFont systemFontOfSize:18];
-    [loginBtn addTarget:self action:@selector(loginClick) forControlEvents:UIControlEventTouchDown];
+    [loginBtn setTitle:@"登录" forState:UIControlStateNormal];
+    [loginBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [loginBtn addTarget:self action:@selector(loginClick) forControlEvents:UIControlEventTouchUpInside];
     [self.viewContainer addSubview:loginBtn];
 
     
@@ -152,7 +157,6 @@ static const float KOffsetY = 50;
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 - (void)leftNavItemClick
@@ -162,7 +166,7 @@ static const float KOffsetY = 50;
 
 - (void)rightNavItemClick
 {
-    debugLog(@"register clicked");
+    [self.navigationController pushViewController:[RegisterViewController new] animated:YES];
 }
 
 - (void)backgroundTapped
@@ -182,7 +186,7 @@ static const float KOffsetY = 50;
     UIViewAnimationCurve animationCurve = curveValue.intValue;
     
     void (^animations)() = ^() {
-        self.viewContainer.frame = CGRectMake(0, -KOffsetY, WIDTH(self.viewContainer), HEIGHT(self.viewContainer));
+        self.viewContainer.frame = CGRectMake(0, -kOffsetY, WIDTH(self.viewContainer), HEIGHT(self.viewContainer));
     };
     
     [UIView animateWithDuration:animationDuration
@@ -239,6 +243,7 @@ static const float KOffsetY = 50;
     }
     return YES;
 }
+
 - (void)sinaSignClick
 {
     //`snsName` 代表各个支持云端分享的平台名，有`UMShareToSina`,`UMShareToTencent`等五个。

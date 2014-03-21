@@ -114,9 +114,9 @@
 }
 
 - (JSBubbleMediaType)messageMediaTypeForRowAtIndexPath:(NSIndexPath *)indexPath{
-    if([[self.messageArray objectAtIndex:indexPath.row] objectForKey:@"Text"]){
+    if([((NSDictionary *)[self.messageArray objectAtIndex:indexPath.row]) objectForKey:@"Text"]){
         return JSBubbleMediaTypeText;
-    }else if ([[self.messageArray objectAtIndex:indexPath.row] objectForKey:@"Image"]){
+    }else if ([((NSDictionary *)[self.messageArray objectAtIndex:indexPath.row]) objectForKey:@"Image"]){
         return JSBubbleMediaTypeImage;
     }
 
@@ -157,8 +157,8 @@
 #pragma mark - Messages view data source
 - (NSString *)textForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if([[self.messageArray objectAtIndex:indexPath.row] objectForKey:@"Text"]){
-        return [[self.messageArray objectAtIndex:indexPath.row] objectForKey:@"Text"];
+    if([((NSDictionary *)[self.messageArray objectAtIndex:indexPath.row]) objectForKey:@"Text"]){
+        return [((NSDictionary *)[self.messageArray objectAtIndex:indexPath.row]) objectForKey:@"Text"];
     }
     return nil;
 }
@@ -179,8 +179,8 @@
 }
 
 - (id)dataForRowAtIndexPath:(NSIndexPath *)indexPath{
-    if([[self.messageArray objectAtIndex:indexPath.row] objectForKey:@"Image"]){
-        return [[self.messageArray objectAtIndex:indexPath.row] objectForKey:@"Image"];
+    if([((NSDictionary *)[self.messageArray objectAtIndex:indexPath.row]) objectForKey:@"Image"]){
+        return [((NSDictionary *)[self.messageArray objectAtIndex:indexPath.row]) objectForKey:@"Image"];
     }
     return nil;
 

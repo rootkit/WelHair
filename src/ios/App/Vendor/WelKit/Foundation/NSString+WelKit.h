@@ -10,24 +10,15 @@
 //
 // ==============================================================================
 
-#ifndef WelKit_h
-#define WelKit_h
-
-#ifndef __IPHONE_5_0
-#error "WelKit_h uses features only available in iOS SDK 5.0 and later."
-#endif
-
-#if TARGET_OS_IPHONE
-#import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
-#import "WelKitMacros.h"
-#endif
+@interface NSString (WelKit)
 
-#endif
+- (NSString*) MD5;
+- (NSString*) SHA1;
+- (NSString*) SHA256;
 
-#import "UIView+WelKit.h"
-#import "UINavigationBar+WelKit.h"
-#import "UITextField+WelKit.h"
-#import "NSDate+WelKit.h"
-#import "NSString+WelKit.h"
+- (BOOL)isValidEmailWithStricterFilter:(BOOL)stricterFilter;
+- (BOOL)isNilOrEmpty;
+
+@end

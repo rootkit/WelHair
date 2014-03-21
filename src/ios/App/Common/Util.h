@@ -10,23 +10,21 @@
 //
 // ==============================================================================
 
-#ifndef AppImport_h
-#define AppImport_h
+@class User;
 
-#import <QuartzCore/QuartzCore.h>
+@interface Util : NSObject
 
-#import "Constants.h"
-#import "Macros.h"
-#import "EDColor.h"
-#import "WelKit.h"
-#import "FAKIonIcons.h"
-#import "BaseViewController.h"
+@property (nonatomic, strong) User *userLogined;
 
-#import "FakeDataHelper.h"
-#import "SVProgressHUD.h"
-#import "Util.h"
++ (instancetype)sharedInstance;
 
-#import "ASIHTTPRequest.h"
-#import "ASIFormDataRequest.h"
++ (CGSize)textSizeForText:(NSString *)txt withFont:(UIFont *)font andLineHeight:(CGFloat)lineHeight;
 
-#endif
++ (NSDictionary *)parametersDictionaryFromQueryString:(NSString *)queryString;
+
++ (id)objectFromJson:(NSString *)JSONString;
++ (NSString *)parseJsonFromObject:(id)object;
+
+- (void)signout;
+
+@end

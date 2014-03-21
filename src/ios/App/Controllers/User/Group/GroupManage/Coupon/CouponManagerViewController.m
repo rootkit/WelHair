@@ -130,7 +130,7 @@
 
 - (void)senmentClick:(id)sender
 {
-    UIButton *btn = (UIButton *)sender;
+//    UIButton *btn = (UIButton *)sender;
 }
 
 

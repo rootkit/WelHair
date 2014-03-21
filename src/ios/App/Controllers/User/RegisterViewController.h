@@ -10,23 +10,8 @@
 //
 // ==============================================================================
 
-#ifndef AppImport_h
-#define AppImport_h
+#import <UIKit/UIKit.h>
 
-#import <QuartzCore/QuartzCore.h>
+@interface RegisterViewController : BaseViewController
 
-#import "Constants.h"
-#import "Macros.h"
-#import "EDColor.h"
-#import "WelKit.h"
-#import "FAKIonIcons.h"
-#import "BaseViewController.h"
-
-#import "FakeDataHelper.h"
-#import "SVProgressHUD.h"
-#import "Util.h"
-
-#import "ASIHTTPRequest.h"
-#import "ASIFormDataRequest.h"
-
-#endif
+@end

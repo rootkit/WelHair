@@ -63,7 +63,7 @@
 	
     CGRect tableFrame = CGRectMake(0.0f, self.topBarOffset, size.width, [self contentHeightWithNavgationBar:YES withBottomBar:NO] - INPUT_HEIGHT);
 	self.tableView = [[UITableView alloc] initWithFrame:tableFrame style:UITableViewStylePlain];
-	self.tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+	self.tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
 	self.tableView.dataSource = self;
 	self.tableView.delegate = self; 
 	[self.view addSubview:self.tableView]; 
