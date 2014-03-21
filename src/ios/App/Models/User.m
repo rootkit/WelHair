@@ -19,6 +19,7 @@
     self = [super init];
     if (self) {
         self.id = [[dictionary objectForKey:@"UserId"] intValue];
+        self.role = (WHUserRole)[[dictionary objectForKey:@"Role"] intValue];
         self.username = [dictionary objectForKey:@"Username"];
         self.nickname = [dictionary objectForKey:@"Nickname"];
         self.email = [dictionary objectForKey:@"Email"];
@@ -39,6 +40,7 @@
 {
     NSMutableDictionary *dic = [[NSMutableDictionary alloc] initWithCapacity:4];
     [dic setObject:[NSNumber numberWithInt:user.id] forKey:@"UserId"];
+    [dic setObject:[NSNumber numberWithInt:(int)user.role] forKey:@"Role"];
     [dic setObject:user.username forKey:@"Username"];
     [dic setObject:user.nickname forKey:@"Nickname"];
     [dic setObject:user.email forKey:@"Email"];

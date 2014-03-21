@@ -12,9 +12,18 @@
 
 #import "BaseModel.h"
 
+typedef enum {
+    Unknown,
+    WHAdmin,
+    WHManager,
+    WHStaff,
+    WHClient
+} WHUserRole;
+
 @interface User : BaseModel
 
 @property (nonatomic, assign) int id;
+@property (nonatomic, assign) WHUserRole role;
 @property (nonatomic, strong) NSString *username;
 @property (nonatomic, strong) NSString *nickname;
 @property (nonatomic, strong) NSString *email;

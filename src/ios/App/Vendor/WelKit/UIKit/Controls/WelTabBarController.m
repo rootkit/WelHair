@@ -72,8 +72,10 @@
         tabButton.frame = CGRectMake(i * tabWidth, 0, tabWidth, tabHeight);
         tabButton.backgroundColor = [UIColor clearColor];
         tabButton.tag = i;
+        tabButton.adjustsImageWhenHighlighted = NO;
         [tabButton addTarget:self action:@selector(tabClick:) forControlEvents:UIControlEventTouchDown];
         [tabButton setBackgroundImage:tabNormalImg forState:UIControlStateNormal];
+        [tabButton setBackgroundImage:tabSelectedImg forState:UIControlStateSelected | UIControlStateHighlighted];
         [tabButton setBackgroundImage:tabSelectedImg forState:UIControlStateSelected];
         [self.tabButtons addObject:tabButton];
         [self.tabView addSubview:tabButton];

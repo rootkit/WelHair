@@ -252,20 +252,20 @@ static const   float profileViewHeight = 80;
             break;
         }
         case 3:{
-            if(![FakeDataHelper isLogin])
+            if(![Util sharedInstance].userLogined)
             {
                 [self.navigationController presentViewController:[[UINavigationController alloc] initWithRootViewController:[LoginViewController new]] animated:YES completion:nil];
                 return;
             }
-            if([FakeDataHelper isUserGroupAdmin]){
+            if([Util sharedInstance].userLogined.role == WHManager){
                 MyGroupViewController *vc = [MyGroupViewController new];
                 vc.hidesBottomBarWhenPushed = YES;
                 [self.navigationController pushViewController:vc animated:YES];
-            }else if([FakeDataHelper isUserGroupStaff]){
+            } else if ([Util sharedInstance].userLogined.role == WHStaff) {
                 StaffManageViewController *vc = [StaffManageViewController new];
                 vc.hidesBottomBarWhenPushed = YES;
                 [self.navigationController pushViewController:vc animated:NO];
-            }else{
+            } else {
                 UserAuthorViewController *vc = [UserAuthorViewController new];
                 vc.hidesBottomBarWhenPushed = YES;
                 [self.navigationController pushViewController:vc animated:YES];

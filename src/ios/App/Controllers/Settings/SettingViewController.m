@@ -61,7 +61,7 @@
         img.image =[((FAKIcon *)[icons objectAtIndex:i]) imageWithSize:CGSizeMake(25, 25)];
         [view addSubview:img];
         
-        UILabel *nameLbl = [[UILabel alloc] initWithFrame:CGRectMake(MaxX(img)+ 5, 15, 100,25)];
+        UILabel *nameLbl = [[UILabel alloc] initWithFrame:CGRectMake(MaxX(img)+ 5, 10, 100,25)];
         nameLbl.backgroundColor = [UIColor clearColor];
         nameLbl.textColor = [UIColor grayColor];
         nameLbl.font = [UIFont systemFontOfSize:14];
@@ -74,12 +74,11 @@
     
     UIButton *logoutBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     logoutBtn.frame = CGRectMake(40, maxY + 10, WIDTH(self.view) - 80,50);
-    [logoutBtn addTarget:self action:@selector(logout) forControlEvents:UIControlEventTouchDown];
+    [logoutBtn addTarget:self action:@selector(logout) forControlEvents:UIControlEventTouchUpInside];
     logoutBtn.backgroundColor = [UIColor colorWithHexString:@"e4393c"];
-    [logoutBtn setTitle:@"logout" forState:UIControlStateNormal];
+    [logoutBtn setTitle:@"退出登录" forState:UIControlStateNormal];
     [logoutBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     logoutBtn.titleLabel.font = [UIFont systemFontOfSize:18];
-//    [logoutBtn addTarget:self action:@selector(loginClick) forControlEvents:UIControlEventTouchDown];
     [self.view addSubview:logoutBtn];
     
 }
@@ -114,7 +113,8 @@
 - (void)logout
 {
     [SVProgressHUD showSuccessWithStatus:@"注销成功" duration:1];
-    [FakeDataHelper logout];
+    [[Util sharedInstance] signout];
+
     [self performSelector:@selector(leftNavItemClick) withObject:nil afterDelay:1.5];
 }
 
