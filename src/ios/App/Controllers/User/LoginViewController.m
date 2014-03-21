@@ -15,7 +15,7 @@ static const float kOffsetY = 50;
 @interface LoginViewController ()<UITextFieldDelegate, UIGestureRecognizerDelegate>
 
 @property (nonatomic, strong) UIView * viewContainer;
-@property (nonatomic, strong) UITextField * userNameTxt;
+@property (nonatomic, strong) UITextField * emailTxt;
 @property (nonatomic, strong) UITextField * pwdTxt;
 
 @end
@@ -59,22 +59,22 @@ static const float kOffsetY = 50;
     logoIcon.image = [UIImage imageNamed:@"Logo"];
     [self.viewContainer addSubview:logoIcon];
 
-    self.userNameTxt =  [UITextField plainTextField:CGRectMake(margin,
+    self.emailTxt =  [UITextField plainTextField:CGRectMake(margin,
                                                                MaxY(logoIcon) + margin,
                                                                WIDTH(self.view) - 2 * margin,
                                                                35)
                                         leftPadding:5];
-    self.userNameTxt.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
-    self.userNameTxt.backgroundColor = [UIColor whiteColor];
-    self.userNameTxt.placeholder = @"  邮箱";
-    self.userNameTxt.autocapitalizationType = UITextAutocapitalizationTypeNone;
-    self.userNameTxt.keyboardType = UIKeyboardTypeEmailAddress;
-    self.userNameTxt.delegate = self;
-    [self.viewContainer addSubview:self.userNameTxt];
+    self.emailTxt.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
+    self.emailTxt.backgroundColor = [UIColor whiteColor];
+    self.emailTxt.placeholder = @"  邮箱";
+    self.emailTxt.autocapitalizationType = UITextAutocapitalizationTypeNone;
+    self.emailTxt.keyboardType = UIKeyboardTypeEmailAddress;
+    self.emailTxt.delegate = self;
+    [self.viewContainer addSubview:self.emailTxt];
     
     self.pwdTxt = [UITextField plainTextField:CGRectMake(margin,
-                                                         MaxY(self.userNameTxt) + 10,
-                                                         WIDTH(self.userNameTxt),
+                                                         MaxY(self.emailTxt) + 10,
+                                                         WIDTH(self.emailTxt),
                                                          35)
                                   leftPadding:5];
     self.pwdTxt.backgroundColor = [UIColor whiteColor];
@@ -86,7 +86,7 @@ static const float kOffsetY = 50;
     
     UIButton *loginBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     loginBtn.backgroundColor = [UIColor colorWithHexString:@"e4393c"];
-    loginBtn.frame = CGRectMake(margin, MaxY(self.pwdTxt) + 20, WIDTH(self.userNameTxt), 40);
+    loginBtn.frame = CGRectMake(margin, MaxY(self.pwdTxt) + 20, WIDTH(self.emailTxt), 40);
     loginBtn.titleLabel.font = [UIFont systemFontOfSize:18];
     [loginBtn setTitle:@"登录" forState:UIControlStateNormal];
     [loginBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
@@ -171,7 +171,7 @@ static const float kOffsetY = 50;
 
 - (void)backgroundTapped
 {
-    [self.userNameTxt resignFirstResponder];
+    [self.emailTxt resignFirstResponder];
     [self.pwdTxt resignFirstResponder];
 }
 
@@ -219,17 +219,63 @@ static const float kOffsetY = 50;
 
 - (void)loginClick
 {
-    if([self validInput]){
-        [FakeDataHelper login];
-        [self dismissViewControllerAnimated:YES completion:nil];
+
+    if (![self validInput]) {
+        return;
     }
+
+    [SVProgressHUD showWithMaskType:SVProgressHUDMaskTypeClear];
+
+    NSMutableDictionary *reqData = [[NSMutableDictionary alloc] initWithCapacity:1];
+    [reqData setObject:self.emailTxt.text forKey:@"Email"];
+    [reqData setObject:self.pwdTxt.text forKey:@"Password"];
+
+    ASIFormDataRequest *request = [RequestUtil createPOSTRequestWithURL:[NSURL URLWithString:API_USERS_SIGNIN_EMAIL]
+                                                                andData:reqData];
+
+    [request setDelegate:self];
+    [request setDidFinishSelector:@selector(signInWithEmailFinish:)];
+    [request setDidFailSelector:@selector(signInWithEmailFail:)];
+    [request startAsynchronous];
+}
+
+- (void)signInWithEmailFinish:(ASIHTTPRequest *)request
+{
+    [SVProgressHUD dismiss];
+
+    if (request.responseStatusCode == 200) {
+        NSDictionary *responseMessage = [Util objectFromJson:request.responseString];
+        if (responseMessage) {
+            if ([responseMessage objectForKey:@"user"] == nil) {
+                [SVProgressHUD showErrorWithStatus:[responseMessage objectForKey:@"message"]];
+                return;
+            }
+
+            [SVProgressHUD dismiss];
+
+            [Util sharedInstance].userLogined = [[User alloc] initWithDic:[responseMessage objectForKey:@"user"]];
+
+
+            [self dismissViewControllerAnimated:YES completion:nil];
+
+            return;
+        }
+    }
+
+    [SVProgressHUD showErrorWithStatus:@"登录失败，请重试！"];
+
+}
+
+- (void)signInWithEmailFail:(ASIHTTPRequest *)request
+{
+    [SVProgressHUD showErrorWithStatus:@"登录失败，请重试！"];
 }
 
 
 - (BOOL)validInput
 {
-    if(self.userNameTxt.text.length == 0){
-        [self.userNameTxt shake:10
+    if(self.emailTxt.text.length == 0){
+        [self.emailTxt shake:10
                     withDelta:5
                      andSpeed:0.04
                shakeDirection:ShakeDirectionHorizontal];

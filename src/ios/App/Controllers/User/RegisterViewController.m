@@ -104,7 +104,7 @@ static const float kOffsetY = 50;
     registerBtn.titleLabel.font = [UIFont systemFontOfSize:18];
     [registerBtn setTitle:@"注册" forState:UIControlStateNormal];
     [registerBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [registerBtn addTarget:self action:@selector(loginClick) forControlEvents:UIControlEventTouchUpInside];
+    [registerBtn addTarget:self action:@selector(registerClick) forControlEvents:UIControlEventTouchUpInside];
     [self.viewContainer addSubview:registerBtn];
 }
 
@@ -173,14 +173,58 @@ static const float kOffsetY = 50;
                      completion:nil];
 }
 
-- (void)loginClick
+- (void)registerClick
 {
-    if([self validInput]){
-        [FakeDataHelper login];
-        [self dismissViewControllerAnimated:YES completion:nil];
+    if (![self validInput]) {
+        return;
     }
+
+    [SVProgressHUD showWithMaskType:SVProgressHUDMaskTypeClear];
+
+    NSMutableDictionary *reqData = [[NSMutableDictionary alloc] initWithCapacity:1];
+    [reqData setObject:self.emailTxt.text forKey:@"Email"];
+    [reqData setObject:self.pwdTxt.text forKey:@"Password"];
+
+    ASIFormDataRequest *request = [RequestUtil createPOSTRequestWithURL:[NSURL URLWithString:API_USERS_SIGNUP_EMAIL]
+                                                                andData:reqData];
+
+    [request setDelegate:self];
+    [request setDidFinishSelector:@selector(signUpWithEmailFinish:)];
+    [request setDidFailSelector:@selector(signUpWithEmailFail:)];
+    [request startAsynchronous];
 }
 
+- (void)signUpWithEmailFinish:(ASIHTTPRequest *)request
+{
+    [SVProgressHUD dismiss];
+
+    if (request.responseStatusCode == 200) {
+        NSDictionary *responseMessage = [Util objectFromJson:request.responseString];
+        if (responseMessage) {
+            if ([responseMessage objectForKey:@"user"] == nil) {
+                [SVProgressHUD showErrorWithStatus:[responseMessage objectForKey:@"message"]];
+                return;
+            }
+
+            [SVProgressHUD dismiss];
+
+            [Util sharedInstance].userLogined = [[User alloc] initWithDic:[responseMessage objectForKey:@"user"]];
+
+            
+            [self dismissViewControllerAnimated:YES completion:nil];
+
+            return;
+        }
+    }
+
+    [SVProgressHUD showErrorWithStatus:@"注册失败，请重试！"];
+
+}
+
+- (void)signUpWithEmailFail:(ASIHTTPRequest *)request
+{
+    [SVProgressHUD showErrorWithStatus:@"注册失败，请重试！"];
+}
 
 - (BOOL)validInput
 {

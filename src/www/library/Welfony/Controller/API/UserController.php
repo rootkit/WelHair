@@ -54,7 +54,7 @@ class UserController extends AbstractAPIController
             $email = htmlspecialchars($reqData['Email']);
             $password = $reqData['Password'];
 
-            $response['success'] = UserService::signUpWithEmail($email, $password);
+            $response = UserService::signUpWithEmail($email, $password);
         }
 
         $this->sendResponse($response);
@@ -83,7 +83,7 @@ class UserController extends AbstractAPIController
             $email = htmlspecialchars($reqData['Email']);
             $password = $reqData['Password'];
 
-            $response['success'] = UserService::signInWithEmail($email, $password);
+            $response = UserService::signInWithEmail($email, $password);
         }
 
         $this->sendResponse($response);

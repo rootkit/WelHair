@@ -22,11 +22,15 @@
 #import "FAKIonIcons.h"
 #import "BaseViewController.h"
 
+#import "User.h"
+
 #import "FakeDataHelper.h"
 #import "SVProgressHUD.h"
 #import "Util.h"
 
 #import "ASIHTTPRequest.h"
 #import "ASIFormDataRequest.h"
+
+#import "RequestUtil.h"
 
 #endif

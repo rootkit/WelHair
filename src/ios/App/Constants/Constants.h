@@ -17,7 +17,10 @@
 #define CONFIG_QQ_APP_ID  @"100424468"
 #define CONFIG_BAIDU_MAP_KEY  @"mATLLTobcd8XqZIj3xlPt8il"
 
-
+#define API_PATH(path) [NSString stringWithFormat:@"http://welhair.com/api%@", path]
+#define API_SOCIAL_LOGIN API_PATH(@"/socials/login")
+#define API_USERS_SIGNIN_EMAIL API_PATH(@"/users/signin/email")
+#define API_USERS_SIGNUP_EMAIL API_PATH(@"/users/signup/email")
 
 
 #define APP_BASE_COLOR              @"206ba7"
