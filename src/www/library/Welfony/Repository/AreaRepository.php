@@ -30,4 +30,14 @@ class AreaRepository extends AbstractRepository
         return $this->conn->fetchAll($strSql, array($parentId));
     }
 
+    public function getAreas()
+    {
+        $strSql = "SELECT
+                       *
+                   FROM Area A
+                   ORDER BY A.AreaId ASC";
+
+        return $this->conn->fetchAll($strSql);
+    }
+
 }

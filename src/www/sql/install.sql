@@ -680,3 +680,44 @@ DELIMITER ;
 CALL sp_update_table_field();
 DROP PROCEDURE IF EXISTS `sp_update_table_field`;
 
+-- ==============================================================================
+
+CREATE TABLE IF NOT EXISTS `Comment` (
+  `CommentId` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `Body` TEXT NOT NULL,
+  `ParentId` INT UNSIGNED NULL,
+  `Deep` INT UNSIGNED NOT NULL DEFAULT 0,
+  `CompanyId` INT UNSIGNED NOT NULL DEFAULT 0,
+  `UserId` INT UNSIGNED NOT NULL DEFAULT 0,
+  `WorkId` INT UNSIGNED NOT NULL DEFAULT 0,
+  `GoodsId` INT UNSIGNED NOT NULL DEFAULT 0,
+  `Rate` INT UNSIGNED NOT NULL DEFAULT 0,
+  `PictureUrl` TEXT NULL,
+  `CreatedBy` INT UNSIGNED NOT NULL,
+  `CreatedDate` DATETIME NOT NULL,
+  `LastModifiedDate` DATETIME NULL,
+  PRIMARY KEY (`CommentId`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS `UserLike` (
+  `UserLikeId` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `WorkId` INT UNSIGNED NOT NULL DEFAULT 0,
+  `UserId` INT UNSIGNED NOT NULL DEFAULT 0,
+  `GoodsId` INT UNSIGNED NOT NULL DEFAULT 0,
+  `CreatedBy` INT UNSIGNED NOT NULL,
+  `CreatedDate` DATETIME NOT NULL,
+  PRIMARY KEY (`UserLikeId`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `UserPoint` (
+  `UserPointId` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `Type` SMALLINT(1) NOT NULL DEFAULT 1,
+  `UserId` INT UNSIGNED NOT NULL,
+  `Value` INT UNSIGNED NOT NULL DEFAULT 0,
+  `Description` VARCHAR(50) NOT NULL,
+  `CreatedDate` DATETIME NOT NULL,
+  PRIMARY KEY (`UserPointId`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ==============================================================================
+
