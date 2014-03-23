@@ -98,35 +98,23 @@
     }
 }
 
-- (void)signout
-{
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    [defaults removeObjectForKey:@"CurrentLoginUser"];
-    [defaults synchronize];
-    
-    currentUser_ = nil;
-}
 
-- (void)setUserLogined:(User *)userLogined
-{
-    currentUser_ = userLogined;
 
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    [defaults setObject:[userLogined dictionaryFromUser:userLogined] forKey:@"CurrentLoginUser"];
-    [defaults synchronize];
-}
-
-- (User *)userLogined
+- (void)prepareApplicationData
 {
-    if (!currentUser_) {
-        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-        if (![defaults objectForKey:@"CurrentLoginUser"]) {
-            return nil;
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+        NSString *documentsDirectory = [paths objectAtIndex:0];
+        
+        NSString *documentLibraryFolderPath = [documentsDirectory stringByAppendingPathComponent:DB_FILE_NAME];
+        if (![[NSFileManager defaultManager] fileExistsAtPath:documentLibraryFolderPath]) {
+            NSString *resourceFolderPath = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:DB_FILE_NAME];
+            NSData *mainBundleFile = [NSData dataWithContentsOfFile:resourceFolderPath];
+            [[NSFileManager defaultManager] createFileAtPath:documentLibraryFolderPath
+                                                    contents:mainBundleFile
+                                                  attributes:nil];
         }
-
-        currentUser_ = [[User alloc] initWithDic:[defaults objectForKey:@"CurrentLoginUser"]];
-    }
-    return currentUser_;
+    });
 }
 
 @end

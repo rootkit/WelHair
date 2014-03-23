@@ -14,7 +14,6 @@
 
 @interface Util : NSObject
 
-@property (nonatomic, strong) User *userLogined;
 
 + (instancetype)sharedInstance;
 
@@ -25,6 +24,7 @@
 + (id)objectFromJson:(NSString *)JSONString;
 + (NSString *)parseJsonFromObject:(id)object;
 
-- (void)signout;
+
+- (void)prepareApplicationData;
 
 @end

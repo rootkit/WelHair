@@ -10,22 +10,11 @@
 
 @implementation BaseManager
 
-+(id)SharedInstance
-{
-    static BaseManager *sharedInstance  = nil;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        sharedInstance = [[BaseManager alloc] init];
-    });
-    return sharedInstance;
-}
-
 - (NSString *)databasePath
 {
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *documentsDirectory = [paths objectAtIndex:0];
-    
-    return [documentsDirectory stringByAppendingPathComponent:@"welstory.db"];
+    return [documentsDirectory stringByAppendingPathComponent:DB_FILE_NAME];
 }
 
 @end

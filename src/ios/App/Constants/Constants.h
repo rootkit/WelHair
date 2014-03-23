@@ -17,6 +17,8 @@
 #define CONFIG_QQ_APP_ID  @"100424468"
 #define CONFIG_BAIDU_MAP_KEY  @"mATLLTobcd8XqZIj3xlPt8il"
 
+#define DB_FILE_NAME   @"db.sqlite"
+
 //#define API_PATH(path) [NSString stringWithFormat:@"http://welhair.com/api%@", path]
 
 #define API_PATH(path) [NSString stringWithFormat:@"http://115.28.208.165/api%@", path]

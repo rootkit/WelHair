@@ -9,6 +9,7 @@
 #import "LoginViewController.h"
 #import "RegisterViewController.h"
 #import "UMSocial.h"
+#import "UserManager.h"
 
 static const float kOffsetY = 50;
 
@@ -253,7 +254,7 @@ static const float kOffsetY = 50;
 
             [SVProgressHUD dismiss];
 
-            [Util sharedInstance].userLogined = [[User alloc] initWithDic:[responseMessage objectForKey:@"user"]];
+            [UserManager SharedInstance].userLogined = [[User alloc] initWithDic:[responseMessage objectForKey:@"user"]];
 
 
             [self dismissViewControllerAnimated:YES completion:nil];

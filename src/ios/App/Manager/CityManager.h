@@ -7,7 +7,14 @@
 //
 
 #import "BaseManager.h"
-
+#import "City.h"
 @interface CityManager : BaseManager
 
++(id)SharedInstance;
+
+- (void)refreshCityList:(NSArray *)cityList;
+
+- (NSArray *)getCityList;
+
+- (City *)selectedCity;
 @end

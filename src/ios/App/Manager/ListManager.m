@@ -8,6 +8,16 @@
 
 #import "ListManager.h"
 
+
 @implementation ListManager
++(id)SharedInstance
+{
+    static ListManager *sharedInstance  = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        sharedInstance = [[ListManager alloc] init];
+    });
+    return sharedInstance;
+}
 
 @end

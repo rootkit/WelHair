@@ -148,6 +148,13 @@
 		46439C9118C763EF00F01691 /* MapPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 46439C9018C763EF00F01691 /* MapPickerViewController.m */; };
 		464BF44C18D56F0F006EBCD9 /* StaffAddServiceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 464BF44B18D56F0F006EBCD9 /* StaffAddServiceViewController.m */; };
 		464BF44F18D576AC006EBCD9 /* CreateCouponViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 464BF44E18D576AC006EBCD9 /* CreateCouponViewController.m */; };
+		4651D97818DE7294004AC95A /* BaseManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 4651D97318DE7294004AC95A /* BaseManager.m */; };
+		4651D97918DE7294004AC95A /* SettingManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 4651D97518DE7294004AC95A /* SettingManager.m */; };
+		4651D97A18DE7294004AC95A /* UserManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 4651D97718DE7294004AC95A /* UserManager.m */; };
+		4651D97D18DE729D004AC95A /* db.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 4651D97C18DE729D004AC95A /* db.sqlite */; };
+		4651D98018DE73E8004AC95A /* ListManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 4651D97F18DE73E8004AC95A /* ListManager.m */; };
+		4651D98318DE778F004AC95A /* City.m in Sources */ = {isa = PBXBuildFile; fileRef = 4651D98218DE778F004AC95A /* City.m */; };
+		4651D98618DE7DBB004AC95A /* CityManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 4651D98518DE7DBB004AC95A /* CityManager.m */; };
 		465A5C8818DB08C7009B6D60 /* MyScoreViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 465A5C8718DB08C7009B6D60 /* MyScoreViewController.m */; };
 		465A5C8B18DB0B8D009B6D60 /* MyScoreCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 465A5C8A18DB0B8D009B6D60 /* MyScoreCell.m */; };
 		4660E69018BB73E1005B3C7D /* ProductsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4660E68F18BB73E1005B3C7D /* ProductsViewController.m */; };
@@ -449,6 +456,19 @@
 		464BF44B18D56F0F006EBCD9 /* StaffAddServiceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StaffAddServiceViewController.m; sourceTree = "<group>"; };
 		464BF44D18D576AC006EBCD9 /* CreateCouponViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreateCouponViewController.h; sourceTree = "<group>"; };
 		464BF44E18D576AC006EBCD9 /* CreateCouponViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CreateCouponViewController.m; sourceTree = "<group>"; };
+		4651D97218DE7294004AC95A /* BaseManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseManager.h; sourceTree = "<group>"; };
+		4651D97318DE7294004AC95A /* BaseManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseManager.m; sourceTree = "<group>"; };
+		4651D97418DE7294004AC95A /* SettingManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingManager.h; sourceTree = "<group>"; };
+		4651D97518DE7294004AC95A /* SettingManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingManager.m; sourceTree = "<group>"; };
+		4651D97618DE7294004AC95A /* UserManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserManager.h; sourceTree = "<group>"; };
+		4651D97718DE7294004AC95A /* UserManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserManager.m; sourceTree = "<group>"; };
+		4651D97C18DE729D004AC95A /* db.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = db.sqlite; sourceTree = "<group>"; };
+		4651D97E18DE73E8004AC95A /* ListManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ListManager.h; sourceTree = "<group>"; };
+		4651D97F18DE73E8004AC95A /* ListManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ListManager.m; sourceTree = "<group>"; };
+		4651D98118DE778F004AC95A /* City.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = City.h; sourceTree = "<group>"; };
+		4651D98218DE778F004AC95A /* City.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = City.m; sourceTree = "<group>"; };
+		4651D98418DE7DBB004AC95A /* CityManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CityManager.h; sourceTree = "<group>"; };
+		4651D98518DE7DBB004AC95A /* CityManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CityManager.m; sourceTree = "<group>"; };
 		465A5C8618DB08C7009B6D60 /* MyScoreViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyScoreViewController.h; sourceTree = "<group>"; };
 		465A5C8718DB08C7009B6D60 /* MyScoreViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyScoreViewController.m; sourceTree = "<group>"; };
 		465A5C8918DB0B8D009B6D60 /* MyScoreCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyScoreCell.h; sourceTree = "<group>"; };
@@ -908,6 +928,7 @@
 				18A9129818BB2350006B9A04 /* Constants */,
 				18A912D918BB26B6006B9A04 /* Controllers */,
 				18A912A018BB23FA006B9A04 /* Localization */,
+				4651D97118DE7294004AC95A /* Manager */,
 				18A912DF18BB26B6006B9A04 /* Models */,
 				18A9126918BB216E006B9A04 /* Supporting Files */,
 				18A912E518BB2826006B9A04 /* Vendor */,
@@ -930,6 +951,7 @@
 		18A9129118BB2350006B9A04 /* Assets */ = {
 			isa = PBXGroup;
 			children = (
+				4651D97B18DE729D004AC95A /* DB */,
 				461B0C0118DC3BD700E0DAF5 /* Images */,
 				46A46FEA18BE21BB0057F579 /* BaiduMap */,
 				4693AAA618D8426100104F01 /* Images.xcassets */,
@@ -1028,6 +1050,8 @@
 				18A912E118BB26B6006B9A04 /* User.m */,
 				4665FD8318BC801000E88C6B /* Work.h */,
 				4665FD8418BC801000E88C6B /* Work.m */,
+				4651D98118DE778F004AC95A /* City.h */,
+				4651D98218DE778F004AC95A /* City.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -1261,6 +1285,31 @@
 				4630D13918C603B000DA7CAD /* CircleImageView.m */,
 			);
 			path = CircleView;
+			sourceTree = "<group>";
+		};
+		4651D97118DE7294004AC95A /* Manager */ = {
+			isa = PBXGroup;
+			children = (
+				4651D97218DE7294004AC95A /* BaseManager.h */,
+				4651D97318DE7294004AC95A /* BaseManager.m */,
+				4651D97418DE7294004AC95A /* SettingManager.h */,
+				4651D97518DE7294004AC95A /* SettingManager.m */,
+				4651D97618DE7294004AC95A /* UserManager.h */,
+				4651D97718DE7294004AC95A /* UserManager.m */,
+				4651D97E18DE73E8004AC95A /* ListManager.h */,
+				4651D97F18DE73E8004AC95A /* ListManager.m */,
+				4651D98418DE7DBB004AC95A /* CityManager.h */,
+				4651D98518DE7DBB004AC95A /* CityManager.m */,
+			);
+			path = Manager;
+			sourceTree = "<group>";
+		};
+		4651D97B18DE729D004AC95A /* DB */ = {
+			isa = PBXGroup;
+			children = (
+				4651D97C18DE729D004AC95A /* db.sqlite */,
+			);
+			path = DB;
 			sourceTree = "<group>";
 		};
 		4660E68518BB73A8005B3C7D /* Products */ = {
@@ -1916,6 +1965,7 @@
 				461B0C6918DC3BD700E0DAF5 /* UploadWorkViewControl_FaceStyleGuaZiNormal@2x.png in Resources */,
 				184B82E918DAC7F000177BAB /* bubble-square-outgoing@2x.png in Resources */,
 				184B82E318DAC7F000177BAB /* bubble-square-incoming-selected@2x.png in Resources */,
+				4651D97D18DE729D004AC95A /* db.sqlite in Resources */,
 				461B0C5118DC3BD700E0DAF5 /* ZanBtn@2x.png in Resources */,
 				184B82D818DAC7F000177BAB /* bubble-flat-incoming-selected.png in Resources */,
 				184B82EC18DAC7F000177BAB /* input-bar-flat.png in Resources */,
@@ -2044,11 +2094,13 @@
 				4673BB6418D2ED61000F64DE /* AppointmentCell.m in Sources */,
 				46B25AE418BF1CAA0035F425 /* RootViewController.m in Sources */,
 				4660E69018BB73E1005B3C7D /* ProductsViewController.m in Sources */,
+				4651D98018DE73E8004AC95A /* ListManager.m in Sources */,
 				18AC388B18CD762600328A78 /* ChatViewController.m in Sources */,
 				18A912E418BB26B6006B9A04 /* User.m in Sources */,
 				460C2F4D18CAFEBF00AD16E6 /* Group.m in Sources */,
 				46BCD25318BC3B4F005C4BD6 /* SVProgressHUD.m in Sources */,
 				18A9127318BB216E006B9A04 /* AppDelegate.m in Sources */,
+				4651D98618DE7DBB004AC95A /* CityManager.m in Sources */,
 				4673BB9618D41B75000F64DE /* GroupRevenuViewController.m in Sources */,
 				46BDF12A18D0B53200999F50 /* CouponCell.m in Sources */,
 				184B82CA18DAC7F000177BAB /* JSMessageTextView.m in Sources */,
@@ -2085,6 +2137,7 @@
 				467F0EFA18CB5A58009FFE08 /* OrdersViewController.m in Sources */,
 				46B25AE618BF1CC60035F425 /* MapViewController.mm in Sources */,
 				467F0F1D18CC219B009FFE08 /* TripleCoverCell.m in Sources */,
+				4651D97A18DE7294004AC95A /* UserManager.m in Sources */,
 				4673BB8918D41260000F64DE /* MyGroupAddStaffViewController.m in Sources */,
 				4630D13A18C603B000DA7CAD /* CircleImageView.m in Sources */,
 				4673BB6718D2F2B8000F64DE /* Appointment.m in Sources */,
@@ -2101,6 +2154,7 @@
 				184B82CB18DAC7F000177BAB /* NSString+JSMessagesView.m in Sources */,
 				467F0F2B18CC95CA009FFE08 /* JOLImageSlide.m in Sources */,
 				184B82C518DAC7F000177BAB /* JSBubbleView.m in Sources */,
+				4651D98318DE778F004AC95A /* City.m in Sources */,
 				467F0EBE18CB3CC3009FFE08 /* ChatSession.m in Sources */,
 				46BDF13118D1516F00999F50 /* MyGroupViewController.m in Sources */,
 				46B25AF018C185290035F425 /* FakeDataHelper.m in Sources */,
@@ -2123,6 +2177,7 @@
 				18A9126F18BB216E006B9A04 /* main.m in Sources */,
 				4630252E18C848EB000E0B51 /* WorkCardView.m in Sources */,
 				465A5C8818DB08C7009B6D60 /* MyScoreViewController.m in Sources */,
+				4651D97918DE7294004AC95A /* SettingManager.m in Sources */,
 				4660E69618BB73FF005B3C7D /* UserViewController.m in Sources */,
 				4673BB8C18D417EE000F64DE /* GroupManageViewController.m in Sources */,
 				467F0EAF18CB0F54009FFE08 /* BaseModel.m in Sources */,
@@ -2131,6 +2186,7 @@
 				467F0EEF18CB4FCF009FFE08 /* UINavigationBar+WelKit.m in Sources */,
 				46BCD27318BC79E0005C4BD6 /* StaffsViewController.m in Sources */,
 				184B82FD18DAC7F000177BAB /* UIView+AnimationOptionsForCurve.m in Sources */,
+				4651D97818DE7294004AC95A /* BaseManager.m in Sources */,
 				184B82C718DAC7F000177BAB /* JSMessageInputView.m in Sources */,
 				467F0EEE18CB4FCF009FFE08 /* UIImage+WelKit.m in Sources */,
 				18A3E61618DC10050080DC0B /* NSString+WelKit.m in Sources */,
@@ -2276,6 +2332,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer: larry lu (3LBN2U88Z3)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: larry lu (3LBN2U88Z3)";
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/App/Prefix.pch";
 				GCC_TREAT_WARNINGS_AS_ERRORS = NO;
@@ -2308,6 +2365,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer: larry lu (3LBN2U88Z3)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/App/Prefix.pch";
 				INFOPLIST_FILE = "$(SRCROOT)/App/Info.plist";

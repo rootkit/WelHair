@@ -29,6 +29,7 @@
 #import "UserProfileViewController.h"
 #import "StaffManageViewController.h"
 #import "MyScoreViewController.h"
+#import "UserManager.h"
 
 @interface UserViewController ()<UITableViewDataSource, UITableViewDelegate, UIActionSheetDelegate, UIImagePickerControllerDelegate,UINavigationControllerDelegate>
 
@@ -252,16 +253,16 @@ static const   float profileViewHeight = 80;
             break;
         }
         case 3:{
-            if(![Util sharedInstance].userLogined)
+            if(![UserManager SharedInstance].userLogined)
             {
                 [self.navigationController presentViewController:[[UINavigationController alloc] initWithRootViewController:[LoginViewController new]] animated:YES completion:nil];
                 return;
             }
-            if([Util sharedInstance].userLogined.role == WHManager){
+            if([UserManager SharedInstance].userLogined.role == WHManager){
                 MyGroupViewController *vc = [MyGroupViewController new];
                 vc.hidesBottomBarWhenPushed = YES;
                 [self.navigationController pushViewController:vc animated:YES];
-            } else if ([Util sharedInstance].userLogined.role == WHStaff) {
+            } else if ([UserManager SharedInstance].userLogined.role == WHStaff) {
                 StaffManageViewController *vc = [StaffManageViewController new];
                 vc.hidesBottomBarWhenPushed = YES;
                 [self.navigationController pushViewController:vc animated:NO];

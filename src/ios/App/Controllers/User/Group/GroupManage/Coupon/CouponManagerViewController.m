@@ -92,9 +92,9 @@
     
     self.tableView = [[UITableView alloc] init];
     self.tableView.frame = CGRectMake(0,
-                                      self.topBarOffset,
+                                      self.topBarOffset + topTabView.height,
                                       WIDTH(self.view) ,
-                                      [self contentHeightWithNavgationBar:YES withBottomBar:NO]);
+                                      [self contentHeightWithNavgationBar:YES withBottomBar:NO] - topTabView.height);
     debugLog(@"%f",MaxY(topTabView));
     self.tableView.backgroundColor = [UIColor clearColor];
     self.tableView.delegate = self;
@@ -105,26 +105,33 @@
     tableHeaderView.backgroundColor = [UIColor clearColor];
     self.tableView.tableHeaderView = tableHeaderView;
     
-    //    __weak typeof(self) weakSelf = self;
+    __weak typeof(self) weakSelf = self;
     [self.tableView addPullToRefreshActionHandler:^{
-        //        [weakSelf insertRowAtTop];
+        [weakSelf insertRowAtTop];
     }];
     
     [self.tableView.pullToRefreshView setSize:CGSizeMake(25, 25)];
     [self.tableView.pullToRefreshView setBorderWidth:2];
     [self.tableView.pullToRefreshView setBorderColor:[UIColor whiteColor]];
-    [self.tableView.pullToRefreshView setImageIcon:[UIImage imageNamed:@"pull_to_refresh_loading"]];
+    [self.tableView.pullToRefreshView setImageIcon:[UIImage imageNamed:@"centerIcon"]];
     [self.view addSubview:self.tableView];
     [self.view bringSubviewToFront:topTabView];
-    self.datasource = [NSMutableArray arrayWithArray:[FakeDataHelper getFakeCouponList]];
-    
-    
+    self.datasource = [NSMutableArray arrayWithArray:[FakeDataHelper getFakeCouponList]];   
 }
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)insertRowAtTop
+{
+    int64_t delayInSeconds = 1.2;
+    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
+    dispatch_after(popTime, dispatch_get_main_queue(), ^(void) {
+        [self.tableView stopRefreshAnimation];
+    });
 }
 
 

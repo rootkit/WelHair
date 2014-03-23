@@ -8,7 +8,7 @@
 
 #import "SettingViewController.h"
 #import <QuartzCore/QuartzCore.h>
-
+#import "UserManager.h"
 @interface SettingViewController ()
 
 @end
@@ -113,7 +113,7 @@
 - (void)logout
 {
     [SVProgressHUD showSuccessWithStatus:@"注销成功" duration:1];
-    [[Util sharedInstance] signout];
+    [[UserManager SharedInstance] signout];
 
     [self performSelector:@selector(leftNavItemClick) withObject:nil afterDelay:1.5];
 }

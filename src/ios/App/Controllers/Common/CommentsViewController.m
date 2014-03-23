@@ -64,15 +64,15 @@
     self.tableView.dataSource = self;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
     self.tableView.backgroundColor = [UIColor whiteColor];//[UIColor colorWithHexString:@"f2f2f2"];
-    //    __weak typeof(self) weakSelf = self;
-    //    [self.tableView addPullToRefreshActionHandler:^{
-    ////        [weakSelf insertRowAtTop];
-    //    }];
+        __weak typeof(self) weakSelf = self;
+    [self.tableView addPullToRefreshActionHandler:^{
+            [weakSelf insertRowAtTop];
+    }];
     
     [self.tableView.pullToRefreshView setSize:CGSizeMake(25, 25)];
     [self.tableView.pullToRefreshView setBorderWidth:2];
     [self.tableView.pullToRefreshView setBorderColor:[UIColor whiteColor]];
-    [self.tableView.pullToRefreshView setImageIcon:[UIImage imageNamed:@"pull_to_refresh_loading"]];
+    [self.tableView.pullToRefreshView setImageIcon:[UIImage imageNamed:@"centerIcon"]];
     [self.view addSubview:self.tableView];
     self.datasource = [NSMutableArray arrayWithArray:[FakeDataHelper getFakeCommentList]];
     

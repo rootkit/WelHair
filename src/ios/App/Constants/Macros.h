@@ -7,3 +7,4 @@
 //
 
 typedef void (^CardTapHandler)(id model);
+
