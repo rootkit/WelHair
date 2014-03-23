@@ -1646,10 +1646,10 @@
 		46BCD25818BC7146005C4BD6 /* Works */ = {
 			isa = PBXGroup;
 			children = (
-				467F0F1E18CC2386009FFE08 /* WorksViewController.m */,
-				46BCD25918BC7162005C4BD6 /* WorksViewController.h */,
 				46BCD26418BC796B005C4BD6 /* WorkDetailViewController.h */,
 				46BCD26518BC796B005C4BD6 /* WorkDetailViewController.m */,
+				46BCD25918BC7162005C4BD6 /* WorksViewController.h */,
+				467F0F1E18CC2386009FFE08 /* WorksViewController.m */,
 			);
 			path = Works;
 			sourceTree = "<group>";

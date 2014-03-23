@@ -130,9 +130,9 @@
     
     self.tableView = [[UITableView alloc] init];
     self.tableView.frame = CGRectMake(0,
-                                      self.topBarOffset,
+                                      self.topBarOffset + topTabView.height,
                                       WIDTH(self.view) ,
-                                      [self contentHeightWithNavgationBar:YES withBottomBar:YES]);
+                                      [self contentHeightWithNavgationBar:YES withBottomBar:YES] - topTabView.height);
     self.tableView.backgroundColor = [UIColor clearColor];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
@@ -146,12 +146,9 @@
     [self.tableView.pullToRefreshView setSize:CGSizeMake(25, 25)];
     [self.tableView.pullToRefreshView setBorderWidth:2];
     [self.tableView.pullToRefreshView setBorderColor:[UIColor whiteColor]];
-    [self.tableView.pullToRefreshView setImageIcon:[UIImage imageNamed:@"pull_to_refresh_loading"]];
+    [self.tableView.pullToRefreshView setImageIcon:[UIImage imageNamed:@"centerIcon"]];
     [self.view addSubview:self.tableView];
-    UIView *tableHeaderView = [[UIView alloc] initWithFrame:topTabView.bounds];
-    tableHeaderView.backgroundColor = [UIColor clearColor];
-    self.tableView.tableHeaderView = tableHeaderView;
-    [self.view bringSubviewToFront:topTabView];
+
     self.datasource = [NSMutableArray arrayWithArray:[FakeDataHelper getFakeWorkList]];
     
     self.areaDatasource = @[@"高新区",@"历下区",@"历城区",@"市中区"];
