@@ -13,7 +13,9 @@
 #ifndef AppImport_h
 #define AppImport_h
 
+#import <FontAwesomeKit.h>
 #import <QuartzCore/QuartzCore.h>
+#import <UIImageView+WebCache.h>
 
 #import "Constants.h"
 #import "Macros.h"

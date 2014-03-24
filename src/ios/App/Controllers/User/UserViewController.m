@@ -10,26 +10,27 @@
 //
 // ==============================================================================
 
-#import "UserViewController.h"
-#import <FontAwesomeKit.h>
-#import "WelQRReaderViewController.h"
-#import "LoginViewController.h"
-#import "CircleImageView.h"
-#import <UIImageView+WebCache.h>
+#import "ABMGroupedTableView.h"
+#import "ABMGroupedTableViewCell.h"
 #import "AppointmentsViewController.h"
+#import "CircleImageView.h"
+#import "DoubleCoverCell.h"
 #import "FavoritesViewController.h"
+#import "MyGroupViewController.h"
+#import "MyScoreViewController.h"
+#import "LoginViewController.h"
 #import "OrdersViewController.h"
 #import "SettingViewController.h"
-#import "Work.h"
-#import "WorkDetailViewController.h"
-#import "DoubleCoverCell.h"
 #import "UserAuthorViewController.h"
-#import "MyGroupViewController.h"
-#import "LoginViewController.h"
 #import "UserProfileViewController.h"
 #import "StaffManageViewController.h"
-#import "MyScoreViewController.h"
+#import "WelQRReaderViewController.h"
+#import "Work.h"
+#import "WorkDetailViewController.h"
 #import "UserManager.h"
+#import "UserViewController.h"
+
+static const   float profileViewHeight = 80;
 
 @interface UserViewController ()<UITableViewDataSource, UITableViewDelegate, UIActionSheetDelegate, UIImagePickerControllerDelegate,UINavigationControllerDelegate>
 
@@ -39,10 +40,10 @@
 @property (nonatomic, strong) UILabel *nameLbl;
 @property (nonatomic, strong) UILabel *addressLbl;
 @property (nonatomic, strong) NSArray *datasource;
-@property (nonatomic, strong) UITableView *tableView;
+@property (nonatomic, strong) ABMGroupedTableView *tableView;
 
 @end
-static const   float profileViewHeight = 80;
+
 @implementation UserViewController
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -70,25 +71,25 @@ static const   float profileViewHeight = 80;
     float tabButtonViewHeight = 50;
     float avatorSize = 50;
     
-    self.headerBackgroundView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, WIDTH
-                                                                              (self.view), profileViewHeight)];
+    self.headerBackgroundView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, WIDTH(self.view), profileViewHeight)];
     self.headerBackgroundView.image = [UIImage imageNamed:@"Profile_Banner_Bg"];
     [self.view addSubview:self.headerBackgroundView];
     
     
-    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0,
-                                                                   self.topBarOffset,
-                                                                   WIDTH(self.view),
-                                                                 [self contentHeightWithNavgationBar:YES withBottomBar:YES])];
-
-    self.tableView.backgroundColor = [UIColor clearColor];
+    self.tableView = [[ABMGroupedTableView alloc] initWithFrame:CGRectMake(0, self.topBarOffset, WIDTH(self.view),
+                                                            [self contentHeightWithNavgationBar:YES withBottomBar:YES])
+                                                          style:UITableViewStyleGrouped];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
+    self.tableView.backgroundView = [[UIView alloc] init];
+    self.tableView.backgroundColor = [UIColor clearColor];
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+
     [self.view addSubview:self.tableView];
     
     UIView *headerView_ = [[UIView alloc] initWithFrame:CGRectMake(0, self.topBarOffset, WIDTH(self.view), profileViewHeight + tabButtonViewHeight)];
     headerView_.backgroundColor = [UIColor clearColor];
+    self.tableView.tableHeaderView = headerView_;
     
     UIView *profileIconView_ = [[UIView alloc] initWithFrame:CGRectMake(0, 0, WIDTH(self.view), profileViewHeight)];
     profileIconView_.backgroundColor = [UIColor clearColor];
@@ -129,15 +130,19 @@ static const   float profileViewHeight = 80;
     int tabCount = 4;
     float tabWidth = WIDTH(tabView_)/tabCount;
     for (int i = 0; i < tabCount; i++) {
-
         UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(i * tabWidth, 0, tabWidth, tabButtonViewHeight)];
         [btn addTarget:self action:@selector(tabClick:) forControlEvents:UIControlEventTouchDown];
         btn.tag = i;
         [tabView_ addSubview:btn];
     }
     [headerView_ addSubview:tabView_];
-    self.tableView.tableHeaderView = headerView_;
-    self.datasource = [FakeDataHelper getFakeWorkList];
+
+
+    NSMutableArray *menuList = [[NSMutableArray alloc] initWithCapacity:5];
+    [menuList addObject:@[@"个人信息"]];
+    [menuList addObject:@[@"我的收藏", @"浏览历史"]];
+    [menuList addObject:@[@"积分兑换"]];
+    self.datasource = menuList;
 }
 
 - (void)viewDidLoad
@@ -149,7 +154,6 @@ static const   float profileViewHeight = 80;
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 - (void) navigateToGroupPanel
@@ -224,8 +228,6 @@ static const   float profileViewHeight = 80;
     }
 }
 
-
-
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
     [picker dismissViewControllerAnimated:YES completion:nil];
@@ -281,40 +283,57 @@ static const   float profileViewHeight = 80;
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 150;
+    return 44;
+}
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return self.datasource.count;
+}
+
+- (UIView *)tableView:(ABMGroupedTableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+	return [tableView tableView:tableView viewForHeaderInSection:section withTitle:@""];
+}
+
+- (CGFloat)tableView:(ABMGroupedTableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+	return [tableView tableView:tableView heightForHeaderInSection:section];
+}
+
+- (UIView *)tableView:(ABMGroupedTableView *)tableView viewForFooterInSection:(NSInteger)section
+{
+    return [tableView tableView:tableView viewForFooterInSection:section];
+}
+
+- (CGFloat)tableView:(ABMGroupedTableView *)tableView heightForFooterInSection:(NSInteger)section
+{
+	return [tableView tableView:tableView heightForFooterInSection:section];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return ceil(self.datasource.count/2.0);
+    return ((NSArray *)[self.datasource objectAtIndex:section]).count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString * cellIdentifier = @"StaffTripleCellIdentifier";
-    DoubleCoverCell * cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+    static NSString * cellIdentifier = @"MeMenuCellIdentifier";
+
+    ABMGroupedTableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
     if (!cell) {
-        cell = [[DoubleCoverCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        cell = [[ABMGroupedTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
     }
-    Work *leftdata = [self.datasource objectAtIndex: (2 * indexPath.row)];
-    Work *rightData;
-    if(self.datasource.count > indexPath.row * 2 + 1){
-        rightData = [self.datasource objectAtIndex:indexPath.row * 2 + 1];
-    }
-       __weak UserViewController *selfDelegate = self;
-    [cell setupWithLeftData:leftdata rightData:rightData tapHandler:^(id model){
-        Work *work = (Work *)model;
-        [selfDelegate pushToDetial:work];}
-     ];
+
+    [cell prepareForTableView:tableView
+					withColor:nil
+				  atIndexPath:indexPath];
+
+    cell.textLabel.text = [[self.datasource objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
+    cell.textLabel.font = [UIFont systemFontOfSize:14];
+    cell.textLabel.textColor = [UIColor colorWithHexString:@"666666"];
+
     return cell;
 }
 
-- (void)pushToDetial:(Work *)work
-{
-    WorkDetailViewController *workVc = [[WorkDetailViewController alloc] init];;
-    workVc.work = work;
-    workVc.hidesBottomBarWhenPushed = YES;
-    [self.navigationController pushViewController:workVc animated:YES];
-}
 @end
