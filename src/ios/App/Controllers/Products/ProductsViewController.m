@@ -17,8 +17,19 @@
 #import <FontAwesomeKit.h>
 #import "UIScrollView+UzysCircularProgressPullToRefresh.h"
 #import "WelQRReaderViewController.h"
+#import "DropDownView.h"
 
-@interface ProductsViewController ()<UITableViewDataSource, UITableViewDelegate,WelQRReaderDelegate>
+@interface ProductsViewController ()<UITableViewDataSource, UITableViewDelegate,DropDownDelegate, WelQRReaderDelegate>
+@property (nonatomic, strong) UIButton *areaBtn;
+@property (nonatomic, strong) UIButton *hotBtn;
+
+@property (nonatomic, strong) DropDownView *dropDownPicker;
+@property (nonatomic, strong) NSArray *areaDatasource;
+@property (nonatomic, strong) NSArray *hotDatasource;
+
+@property (nonatomic) int areaSelectedIndex;
+@property (nonatomic) int hotSelectedIndex;
+
 @property (nonatomic, strong) NSMutableArray *datasource;
 @property (nonatomic, strong) UITableView *tableView;
 @end
@@ -52,25 +63,32 @@
     self.leftNavItemTitle = @"济南";
     float topTabButtonWidth = WIDTH(self.view)/2;
     UIView *topTabView = [[UIView alloc] initWithFrame:CGRectMake(0, self.topBarOffset,WIDTH(self.view),TOP_TAB_BAR_HEIGHT)];
+    topTabView.backgroundColor = [UIColor whiteColor];
+    UIView *topTabBottomShadowView = [[UIView alloc] initWithFrame:topTabView.frame];
+    topTabBottomShadowView.backgroundColor = [UIColor lightGrayColor];
+    [topTabBottomShadowView drawBottomShadowOffset:1 opacity:1];
+    [self.view addSubview:topTabBottomShadowView];
     [self.view addSubview:topTabView];
-    topTabView.backgroundColor = [UIColor colorWithHexString:@"f5f5f5"];
-    UIButton *areaBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [areaBtn setTitleColor:[UIColor colorWithHexString:@"666666"] forState:UIControlStateNormal];
-    areaBtn.frame = CGRectMake(0, 0, topTabButtonWidth, TOP_TAB_BAR_HEIGHT);
-    [areaBtn setTitle:@"地区" forState:UIControlStateNormal];
-    [topTabView addSubview:areaBtn];
     
-    UIButton *colorBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [colorBtn setTitleColor:[UIColor colorWithHexString:@"666666"] forState:UIControlStateNormal];
-    colorBtn.frame = CGRectMake(MaxX(areaBtn), 0, topTabButtonWidth, TOP_TAB_BAR_HEIGHT);
-    [colorBtn setTitle:@"热度" forState:UIControlStateNormal];
-    [topTabView addSubview:colorBtn];
-
-    // draw shadow
-    UIView *shadowView = [[UIView alloc] initWithFrame:CGRectMake(0, TOP_TAB_BAR_HEIGHT -1, WIDTH(topTabView), 1)];
-    shadowView.backgroundColor = [UIColor lightGrayColor];
-    [topTabView addSubview:shadowView];
-    topTabView.backgroundColor = [UIColor colorWithWhite:255 alpha:0.7];
+    self.areaBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [self.areaBtn setTitleColor:[UIColor colorWithHexString:@"666666"] forState:UIControlStateNormal];
+    self.areaBtn.frame = CGRectMake(0, 0, topTabButtonWidth, TOP_TAB_BAR_HEIGHT);
+    [self.areaBtn setTitle:@"地区" forState:UIControlStateNormal];
+    self.areaBtn.tag = 0;
+    [self.areaBtn addTarget:self action:@selector(dropDownBtnClick:) forControlEvents:UIControlEventTouchDown];
+    [topTabView addSubview:self.areaBtn];
+    
+    UIView *separatorView1 = [[UIView alloc] initWithFrame:CGRectMake(MaxX(self.areaBtn), 10, 1, 20)];
+    separatorView1.backgroundColor = [UIColor lightGrayColor];
+    [topTabView addSubview:separatorView1];
+    
+    self.hotBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [self.hotBtn setTitleColor:[UIColor colorWithHexString:@"666666"] forState:UIControlStateNormal];
+    self.hotBtn.frame = CGRectMake(MaxX(self.areaBtn)+1, 0, topTabButtonWidth, TOP_TAB_BAR_HEIGHT);
+    [self.hotBtn setTitle:@"热度" forState:UIControlStateNormal];
+    self.hotBtn.tag = 1;
+    [self.hotBtn addTarget:self action:@selector(dropDownBtnClick:) forControlEvents:UIControlEventTouchDown];
+    [topTabView addSubview:self.hotBtn];
     
     self.tableView = [[UITableView alloc] init];
     self.tableView.frame = CGRectMake(0,
@@ -83,9 +101,6 @@
     self.tableView.dataSource = self;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.tableView.backgroundColor = [UIColor colorWithHexString:@"f2f2f2"];
-    UIView *tableHeaderView = [[UIView alloc] initWithFrame:topTabView.bounds];
-    tableHeaderView.backgroundColor = [UIColor clearColor];
-    self.tableView.tableHeaderView = tableHeaderView;
     
     __weak typeof(self) weakSelf = self;
     [self.tableView addPullToRefreshActionHandler:^{
@@ -97,8 +112,22 @@
     [self.tableView.pullToRefreshView setBorderColor:[UIColor whiteColor]];
     [self.tableView.pullToRefreshView setImageIcon:[UIImage imageNamed:@"centerIcon"]];
     [self.view addSubview:self.tableView];
-    [self.view bringSubviewToFront:topTabView];
+
     self.datasource = [NSMutableArray arrayWithArray:[FakeDataHelper getFakeProductList]];
+    
+    self.areaDatasource = @[@"高新区",@"历下区",@"历城区",@"市中区"];
+    self.hotDatasource = @[@"销量",@"好评",@"价格"];
+    
+    float dropDownHeight = [self contentHeightWithNavgationBar:YES withBottomBar:YES] + kBottomBarHeight;
+    self.dropDownPicker = [[DropDownView alloc] initWithFrame:CGRectMake(0,
+                                                                         self.topBarOffset + HEIGHT(self.areaBtn),
+                                                                         WIDTH(self.view),
+                                                                         dropDownHeight)
+                                                contentHeight:dropDownHeight/2];
+    self.dropDownPicker.delegate = self;
+    [self.view bringSubviewToFront:topTabBottomShadowView];
+    [self.view addSubview:self.dropDownPicker];
+    [self.view bringSubviewToFront:topTabView];
     
 }
 
@@ -115,6 +144,39 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)dropDownBtnClick:(id)sender
+{
+    [self.dropDownPicker hide];
+    UIButton *btn = (UIButton *)sender;
+    switch (btn.tag) {
+        case 0:
+            [self.dropDownPicker showData:self.areaDatasource
+                            selectedIndex:self.areaSelectedIndex
+                              pointToView:btn];
+            break;
+        case 1:
+            [self.dropDownPicker showData:self.hotDatasource
+                            selectedIndex:self.hotSelectedIndex
+                              pointToView:btn];
+            break;
+        default:
+            break;
+    }
+}
+
+- (void)didPickItemAtIndex:(int)index forView:(UIView *)view
+{
+    if([view isEqual:self.areaBtn]){
+        self.areaSelectedIndex  = index;
+        NSString *title = [self.areaDatasource objectAtIndex:index];
+        [self.areaBtn setTitle:title forState:UIControlStateNormal];
+    }else if([view isEqual:self.hotBtn]){
+        self.hotSelectedIndex  = index;
+        NSString *title = [self.hotDatasource objectAtIndex:index];
+        [self.hotBtn setTitle:title forState:UIControlStateNormal];
+    }
 }
 
 #pragma mark code capture delegate

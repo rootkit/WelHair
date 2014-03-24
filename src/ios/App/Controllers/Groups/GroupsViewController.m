@@ -54,8 +54,12 @@
     self.leftNavItemTitle = @"济南";
     float topTabButtonWidth = WIDTH(self.view)/2;
     UIView *topTabView = [[UIView alloc] initWithFrame:CGRectMake(0, self.topBarOffset,WIDTH(self.view),TOP_TAB_BAR_HEIGHT)];
+    UIView *topTabBottomShadowView = [[UIView alloc] initWithFrame:topTabView.frame];
+    topTabBottomShadowView.backgroundColor = [UIColor lightGrayColor];
+    [topTabBottomShadowView drawBottomShadowOffset:1 opacity:1];
+    [self.view addSubview:topTabBottomShadowView];
     [self.view addSubview:topTabView];
-    topTabView.backgroundColor = [UIColor colorWithHexString:@"f5f5f5"];
+    topTabView.backgroundColor = [UIColor whiteColor];
     self.areaBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [self.areaBtn setTitleColor:[UIColor colorWithHexString:@"666666"] forState:UIControlStateNormal];
     self.areaBtn.frame = CGRectMake(0, 0, topTabButtonWidth, TOP_TAB_BAR_HEIGHT);
@@ -77,12 +81,6 @@
     self.hotBtn.tag = 1;
     [self.hotBtn addTarget:self action:@selector(dropDownBtnClick:) forControlEvents:UIControlEventTouchDown];
     [topTabView addSubview:self.hotBtn];
-
-    // draw shadow
-    UIView *shadowView = [[UIView alloc] initWithFrame:CGRectMake(0, TOP_TAB_BAR_HEIGHT -1, WIDTH(topTabView), 1)];
-    shadowView.backgroundColor = [UIColor lightGrayColor];
-    [topTabView addSubview:shadowView];
-    topTabView.backgroundColor = [UIColor colorWithWhite:255 alpha:0.7];
     
     self.tableView = [[UITableView alloc] init];
     self.tableView.frame = CGRectMake(0,
@@ -118,6 +116,7 @@
                                                                          dropDownHeight)
                                                 contentHeight:dropDownHeight/2];
     self.dropDownPicker.delegate = self;
+    [self.view bringSubviewToFront:topTabBottomShadowView];
     [self.view addSubview:self.dropDownPicker];
     [self.view bringSubviewToFront:topTabView];
 }
