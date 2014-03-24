@@ -102,9 +102,12 @@
 
 -(void) setFrame:(CGRect)frame
 {
-    float inset = 10.0f;
-    frame.origin.x += inset;
-    frame.size.width -= 2 * inset;
+    if (isIOS7) {
+        float inset = 10.0f;
+        frame.origin.x += inset;
+        frame.size.width -= 2 * inset;
+    }
+
     [super setFrame:frame];
 }
 
