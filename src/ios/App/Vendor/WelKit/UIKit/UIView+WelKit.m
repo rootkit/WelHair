@@ -112,7 +112,7 @@
     self.layer.shadowPath = [UIBezierPath bezierPathWithRect:self.bounds].CGPath;
     ////    self.layer.shadowRadius = 1;
     self.layer.shadowOffset = CGSizeMake(0, offset);
-    self.layer.shadowOpacity = offset;
+    self.layer.shadowOpacity = opacity;
     self.layer.shouldRasterize = YES;
     self.layer.rasterizationScale = [UIScreen mainScreen].scale;
 }

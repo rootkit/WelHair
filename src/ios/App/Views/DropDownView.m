@@ -38,6 +38,8 @@
         [self addSubview:bgView];
         
         self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0,0,frame.size.width,contentHeight)];
+        self.tableView.layer.borderWidth = 1;
+        self.tableView.layer.borderColor = [[UIColor colorWithHexString:@"dfe0e3"] CGColor];
         self.tableView.delegate = self;
         self.tableView.dataSource = self;
         self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
@@ -107,7 +109,7 @@
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
     cell.textLabel.text = [self.datasource objectAtIndex:indexPath.row];
-    cell.textLabel.font = [UIFont systemFontOfSize:14];
+    cell.textLabel.font = [UIFont systemFontOfSize:16];
     cell.textLabel.textColor = self.selectedIndex == indexPath.row? [UIColor orangeColor]: [UIColor blackColor];
     return cell;
 }
