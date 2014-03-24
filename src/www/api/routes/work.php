@@ -25,3 +25,9 @@ $app->post('/works/:workId/comments', function($workId) use($app)
     $ctrl = new WorkController();
     $ctrl->addComment($workId);
 })->conditions(array('workId' => '\d{1,10}'));
+
+$app->post('/works/:workId/likes', function($workId) use($app)
+{
+    $ctrl = new WorkController();
+    $ctrl->addWorkLike($workId);
+})->conditions(array('workId' => '\d{1,10}'));

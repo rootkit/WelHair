@@ -15,6 +15,7 @@
 namespace Welfony\Controller\API;
 
 use Welfony\Controller\Base\AbstractAPIController;
+use Welfony\Service\UserLikeService;
 use Welfony\Service\UserService;
 
 class UserController extends AbstractAPIController
@@ -87,6 +88,15 @@ class UserController extends AbstractAPIController
         }
 
         $this->sendResponse($response);
+    }
+
+    public function addFollow($userId)
+    {
+        $reqData = $this->getDataFromRequestWithJsonFormat();
+        $reqData['UserId'] = $userId;
+
+        $result = UserLikeService::save($reqData);
+        $this->sendResponse($result);
     }
 
 }

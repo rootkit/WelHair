@@ -31,3 +31,9 @@ $app->post('/users/signup/email', function() use($app)
     $ctrl = new UserController();
     $ctrl->signUpWithEmail();
 });
+
+$app->post('/users/:userId/follow', function($userId) use($app)
+{
+    $ctrl = new UserController();
+    $ctrl->addFollow($userId);
+})->conditions(array('userId' => '\d{1,10}'));

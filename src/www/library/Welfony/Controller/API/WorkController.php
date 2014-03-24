@@ -16,6 +16,7 @@ namespace Welfony\Controller\API;
 
 use Welfony\Controller\Base\AbstractAPIController;
 use Welfony\Service\CommentService;
+use Welfony\Service\UserLikeService;
 use Welfony\Service\WorkService;
 
 class WorkController extends AbstractAPIController
@@ -35,6 +36,15 @@ class WorkController extends AbstractAPIController
         $reqData['WorkId'] = $workId;
 
         $result = CommentService::save($reqData);
+        $this->sendResponse($result);
+    }
+
+    public function addWorkLike($workId)
+    {
+        $reqData = $this->getDataFromRequestWithJsonFormat();
+        $reqData['WorkId'] = $workId;
+
+        $result = UserLikeService::save($reqData);
         $this->sendResponse($result);
     }
 
