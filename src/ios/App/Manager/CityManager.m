@@ -99,6 +99,32 @@
 }
 
 
+- (City *)getLocatedCity
+{
+    City *city;
+    int cityId = [[SettingManager SharedInstance] locatedCityId];
+    if(cityId > 0){
+        FMDatabase * db = [FMDatabase databaseWithPath:self.databasePath];
+        if ([db open]) {
+            FMResultSet *set = [db executeQuery:[NSString stringWithFormat:@"Select * from City where CityId = %d", cityId]];
+            while ([set next]) {
+                city = [City new];
+                city.id = [set intForColumn:@"CityId"];
+                city.name = [set stringForColumn:@"CityName"];
+                city.order = [set intForColumn:@"SortOrder"];
+            }
+            [set close];
+            [db close];
+        }
+    }
+    return city;
+}
+- (void)setLocatedCity:(int)cityId
+{
+    [[SettingManager SharedInstance] setLocatedCityId:cityId];
+}
+
+
 - (City *)getCityByName:(NSString *)cityName
 {
     City *city = [City new];

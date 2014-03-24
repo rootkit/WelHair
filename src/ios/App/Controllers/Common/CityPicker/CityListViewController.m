@@ -69,9 +69,9 @@
     _tableView.dataSource = self;
     [self.view addSubview:_tableView];
     if(self.enableLocation){
+        self.locatedCity = [[CityManager SharedInstance] getLocatedCity];
         self.locationCell = [self getLocaitonCell:self.locatedCity.name];
         _search = [[BMKSearch alloc]init];
-        _search.delegate = self;
         _mapView = [[BMKMapView alloc] init];
         _mapView.showsUserLocation = NO;//先关闭显示的定位图层
         _mapView.userTrackingMode = BMKUserTrackingModeNone;//设置定位的状态
@@ -87,15 +87,15 @@
 
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
-    UIView *bgView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 20)];
-    bgView.backgroundColor = [UIColor lightGrayColor];
+    UIView *bgView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 30)];
+    bgView.backgroundColor = [UIColor colorWithHexString:@"dadcd7"];
     
-    UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(13, 0, 250, 20)];
+    UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(13, 0, 250, 30)];
     titleLabel.backgroundColor = [UIColor clearColor];
     titleLabel.textColor = [UIColor blackColor];
-    titleLabel.font = [UIFont systemFontOfSize:12];
+    titleLabel.font = [UIFont systemFontOfSize:20];
     if(self.enableLocation){
-        titleLabel.text = section == 0 ? @"定位" : @"所有城市";
+        titleLabel.text = section == 0 ? @"定位城市" : @"所有城市";
     }else{
         titleLabel.text = @"所有城市";
     }
@@ -125,7 +125,7 @@
 {
     UITableViewCell *cell;
     if(self.enableLocation){
-        if(indexPath.row == 0){
+        if(indexPath.section == 0){
             cell = self.locationCell;
         }else{
             cell = [self getCityCell:tableView indexPath:indexPath];
@@ -138,24 +138,22 @@
 
 - (UITableViewCell *)getLocaitonCell:(NSString *)cityName
 {
-    self.locationCell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:nil] ;
+    self.locationCell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil] ;
     self.locationCell.contentView.backgroundColor =  self.locationCell.backgroundColor = [UIColor clearColor];
     self.locationCell.selectionStyle = UITableViewCellSelectionStyleNone;
     self.locationCell.accessoryType = UITableViewCellAccessoryNone;
     [self.locationCell.textLabel setTextColor:[UIColor blackColor]];
-    self.locationCell.textLabel.font = [UIFont systemFontOfSize:16];
-    self.locationCell.textLabel.text =@"定位城市:";
     if(cityName.length > 0){
-        self.locationCell.detailTextLabel.text = cityName;
-        [self.locationCell.detailTextLabel setTextColor:[UIColor grayColor]];
-        self.locationCell.detailTextLabel.font = [UIFont systemFontOfSize:16];
+        self.locationCell.textLabel.text = cityName;
+        [self.locationCell.textLabel setTextColor:[UIColor blackColor]];
+        self.locationCell.textLabel.font = [UIFont systemFontOfSize:18];
         
     }else{
         UIActivityIndicatorView *activity = [UIActivityIndicatorView new];
-        activity.frame = CGRectMake(0, 0, 20, 20);
+        activity.frame = CGRectMake(10, 10, 20, 20);
         activity.activityIndicatorViewStyle = UIActivityIndicatorViewStyleGray;
         [activity startAnimating];
-        self.locationCell.accessoryView = activity;
+        [self.locationCell.contentView addSubview:activity];
     }
    
     return self.locationCell;
@@ -171,7 +169,7 @@
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         cell.accessoryType = UITableViewCellAccessoryNone;
         [cell.textLabel setTextColor:[UIColor blackColor]];
-        cell.textLabel.font = [UIFont systemFontOfSize:16];
+        cell.textLabel.font = [UIFont systemFontOfSize:18];
     }
     City *item = (City *)[self.cities objectAtIndex:indexPath.row];
     cell.textLabel.text = item.name;
@@ -214,16 +212,20 @@
             debugLog(@"reverse geo code fail");
         }
 	}
-	
 }
 
 - (void)onGetAddrResult:(BMKAddrInfo*)result errorCode:(int)error
 {
 	if (error == 0) {
         NSString *cityName = result.addressComponent.city;
-        self.locatedCity  =  [[CityManager SharedInstance] getCityByName:cityName];
-        self.locationCell = [self getLocaitonCell:self.locatedCity.name];
-        [self.tableView reloadData];
+        cityName = [cityName stringByReplacingOccurrencesOfString:@"市" withString:@""];
+        City *locatedCity =  [[CityManager SharedInstance] getCityByName:cityName];
+        if(locatedCity.id != self.locatedCity.id){
+            self.locatedCity = locatedCity;
+            [[CityManager SharedInstance] setLocatedCity:self.locatedCity.id];
+            self.locationCell = [self getLocaitonCell:self.locatedCity.name];
+            [self.tableView reloadData];
+        }
 	}
 }
 

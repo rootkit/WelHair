@@ -106,6 +106,22 @@
     [self setSettingValue:[NSString stringWithFormat:@"%d",cityId] forKey:DB_TABLE_SETTING_SELECTED_CITY];
 }
 
+
+- (int)locatedCityId
+{
+    int cityId = 0;
+    NSString *value = [self getSettingBySettingKey:DB_TABLE_SETTING_LOCATED_CITY];
+    if(value.length >0){
+        cityId = [value intValue];
+    }
+    return cityId;
+}
+
+- (void)setLocatedCityId:(int)cityId
+{
+    [self setSettingValue:[NSString stringWithFormat:@"%d",cityId] forKey:DB_TABLE_SETTING_LOCATED_CITY];
+}
+
 #pragma data version
 - (int)cityDataVersion
 {
