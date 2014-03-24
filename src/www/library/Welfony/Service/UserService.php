@@ -155,6 +155,55 @@ class UserService
         return $existedUser;
     }
 
+    public static function update($data)
+    {
+        $result = array('success' => false, 'message' => '');
+
+        if (!isset($data['UserId']) || intval($data['UserId']) <= 0) {
+            $result['message'] = '用户不存在！';
+
+            return $result;
+        }
+
+        if (isset($data['AvatarUrl'])) {
+            $data['AvatarUrl'] = empty($data['AvatarUrl']) ? Util::baseAssetUrl('img/avatar-default.jpg') : $data['AvatarUrl'];
+        }
+
+        if (isset($data['Username']) && !empty($data['Username'])) {
+            $existedUser = UserRepository::getInstance()->findUserByUsername($data['Username']);
+            if ($existedUser && $existedUser['UserId'] != $data['UserId']) {
+                $result['message'] = '用户名已经存在。';
+
+                return $result;
+            }
+        }
+
+        if (isset($data['Email']) && !empty($data['Email'])) {
+            $existedUser = UserRepository::getInstance()->findUserByEmail($data['Email']);
+            if ($existedUser && $existedUser['UserId'] != $data['UserId']) {
+                $result['message'] = '邮箱已被占用。';
+
+                return $result;
+            }
+        }
+
+        if (isset($data['Mobile']) && !empty($data['Mobile'])) {
+            $existedUser = UserRepository::getInstance()->findUserByMobile($data['Mobile']);
+            if ($existedUser && $existedUser['UserId'] != $data['UserId']) {
+                $result['message'] = '手机号已被注册。';
+
+                return $result;
+            }
+        }
+
+        $data['LastModifiedDate'] = date('Y-m-d H:i:s');
+
+        $result['success'] = UserRepository::getInstance()->update($data['UserId'], $data);
+        $result['message'] = $result['success'] ? '更新用户成功！' : '更新用户失败！';
+
+        return $result;
+    }
+
     public static function save($data)
     {
         $result = array('success' => false, 'message' => '');
