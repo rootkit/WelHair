@@ -9,12 +9,12 @@
 #import "MyGroupAddStaffViewController.h"
 
 #import "MapPickerViewController.h"
-
+#import "City.h"
 #import "CityListViewController.h"
 
 @interface MyGroupAddStaffViewController ()<UITextFieldDelegate, MapPickViewDelegate, CityPickViewDelegate>
 @property (nonatomic, strong) UILabel * cityLbl;
-@property (nonatomic, strong) NSString * selectedCity;
+@property (nonatomic, strong) City * selectedCity;
 @property (nonatomic, strong) UITextField * staffNameTxt;
 @property (nonatomic, strong) UITextField * groupAddressTxt;
 @property (nonatomic, strong) UILabel * coordinateLbl;
@@ -49,7 +49,7 @@ static const float KOffsetY = 40;
 {
     bool valid = (self.staffNameTxt.text.length > 0 &&
                   self.groupAddressTxt.text.length >0 &&
-                  self.selectedCity.length > 0 &&
+                  self.selectedCity.id > 0 &&
                   self.location != nil &&
                   self.phoneNumTxt.text.length >0);
     if(!valid){
@@ -243,10 +243,10 @@ static const float KOffsetY = 40;
     
 }
 
-- (void)didPickCity:(NSString *)cityName cityId:(int)cityId
+- (void)didPickCity:(City *)city
 {
-    self.selectedCity = cityName;
-    self.cityLbl.text = cityName;
+    self.selectedCity = city;
+    self.cityLbl.text = city.name;
 }
 
 

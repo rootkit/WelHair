@@ -34,7 +34,7 @@
             if(success){
                 NSMutableString *sql = [NSMutableString string];
                 for (City *city in cityList) {
-                    [sql appendFormat:@"insert into City( CityId, CityName,Order) values (%d,'%@',%d)",city.id,city.name,city.order];
+                    [sql appendFormat:@"insert into City( CityId, CityName,SortOrder) values (%d,'%@',%d)",city.id,city.name,city.order];
                 }
                 success = [db executeUpdate:sql];
             }
@@ -58,12 +58,12 @@
     NSMutableArray *list =[NSMutableArray array];
     FMDatabase * db = [FMDatabase databaseWithPath:self.databasePath];
     if ([db open]) {
-        FMResultSet *set = [db executeQuery:@"Select * from City order"];
+        FMResultSet *set = [db executeQuery:@"Select * from City order by SortOrder asc"];
         while ([set next]) {
             City *city = [City new];
             city.id = [set intForColumn:@"CityId"];
             city.name = [set stringForColumn:@"CityName"];
-            city.order = [set intForColumn:@"Order"];
+            city.order = [set intForColumn:@"SortOrder"];
             [list addObject:city];
         }
         [set close];
@@ -72,7 +72,7 @@
     return list;
 }
 
-- (City *)selectedCity
+- (City *)getSelectedCity
 {
     City *city;
     int cityId = [[SettingManager SharedInstance] selectedCityId];
@@ -84,7 +84,7 @@
                 city = [City new];
                 city.id = [set intForColumn:@"CityId"];
                 city.name = [set stringForColumn:@"CityName"];
-                city.order = [set intForColumn:@"Order"];
+                city.order = [set intForColumn:@"SortOrder"];
             }
             [set close];
             [db close];
@@ -98,4 +98,21 @@
     [[SettingManager SharedInstance] setSelectedCityId:cityId];
 }
 
+
+- (City *)getCityByName:(NSString *)cityName
+{
+    City *city = [City new];
+    FMDatabase * db = [FMDatabase databaseWithPath:self.databasePath];
+    if ([db open]) {
+        FMResultSet *set = [db executeQuery:[NSString stringWithFormat:@"Select * from City Where CityName like '%%%@%%'", cityName]];
+        if ([set next]) {
+            city.id = [set intForColumn:@"CityId"];
+            city.name = [set stringForColumn:@"CityName"];
+            city.order = [set intForColumn:@"SortOrder"];
+        }
+        [set close];
+        [db close];
+    }
+    return city;
+}
 @end

@@ -2326,7 +2326,10 @@
 					armv7,
 					armv7s,
 				);
-				"ARCHS[sdk=iphoneos*]" = "$(ARCHS_STANDARD)";
+				"ARCHS[sdk=iphoneos*]" = (
+					armv7,
+					armv7s,
+				);
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer: larry lu (3LBN2U88Z3)";
@@ -2345,7 +2348,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "B4A891EE-619E-4F41-BA36-4F03B279EEE1";
-				SDKROOT = iphoneos6.1;
+				SDKROOT = iphoneos7.1;
 				VALID_ARCHS = "armv7 armv7s";
 				WRAPPER_EXTENSION = app;
 			};
@@ -2377,7 +2380,7 @@
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "B4A891EE-619E-4F41-BA36-4F03B279EEE1";
-				SDKROOT = iphoneos6.1;
+				SDKROOT = iphoneos7.1;
 				VALID_ARCHS = "armv7 armv7s";
 				WRAPPER_EXTENSION = app;
 			};

@@ -17,7 +17,8 @@
 #import "WorkCell.h"
 #import "UIScrollView+UzysCircularProgressPullToRefresh.h"
 #import "DropDownView.h"
-
+#import "City.h"
+#import "CityManager.h"
 @interface WorksViewController ()<UITableViewDataSource, UITableViewDelegate, DropDownDelegate,CityPickViewDelegate>
 @property (nonatomic, strong) NSMutableArray *datasource;
 @property (nonatomic, strong) UITableView *tableView;
@@ -54,20 +55,20 @@
 - (void)leftNavItemClick
 {
     CityListViewController *picker = [CityListViewController new];
-    picker.selectedCity = [FakeDataHelper getPickedCity];
+    picker.selectedCity = [[CityManager SharedInstance] getSelectedCity];
+    picker.enableLocation = YES;
     picker.delegate = self;
     [self.navigationController presentViewController:[[UINavigationController alloc] initWithRootViewController:picker] animated:YES completion:nil];
 }
 
-- (void)didPickCity:(NSString *)cityName cityId:(int)cityId
+- (void)didPickCity:(City *)city
 {
-    [FakeDataHelper savePickedCity:cityName];
-    
+    [[CityManager SharedInstance] setSelectedCity:city.id];
     UIButton *leftItemButton = [UIButton buttonWithType:UIButtonTypeCustom];
     leftItemButton.frame = CGRectMake(0, 0, 100, kTopBarHeight);
     leftItemButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
     [leftItemButton addTarget:self action:@selector(leftNavItemClick) forControlEvents:UIControlEventTouchUpInside];
-    [leftItemButton setTitle:cityName forState:UIControlStateNormal];
+    [leftItemButton setTitle:city.name forState:UIControlStateNormal];
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:leftItemButton];
     self.navigationItem.leftBarButtonItem.tintColor = [UIColor clearColor];
 }

@@ -8,16 +8,18 @@
 
 #import <UIKit/UIKit.h>
 #import "BaseViewController.h"
-
+#import "City.h"
 @protocol CityPickViewDelegate
 
-- (void) didPickCity:(NSString *)cityName cityId:(int)cityId;
+- (void) didPickCity:(City *)city;
 
 @end
 
 @interface CityListViewController : BaseViewController<UITableViewDataSource,UITableViewDelegate>
 
-@property (nonatomic, strong) NSString *selectedCity;
+@property (nonatomic) BOOL enableLocation;
+
+@property (nonatomic, strong) City *selectedCity;
 
 @property (nonatomic, strong) id<CityPickViewDelegate> delegate;
 

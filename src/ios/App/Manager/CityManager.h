@@ -16,5 +16,8 @@
 
 - (NSArray *)getCityList;
 
-- (City *)selectedCity;
+- (City *)getSelectedCity;
+- (void)setSelectedCity:(int)cityId;
+
+- (City *)getCityByName:(NSString *)cityName;
 @end
