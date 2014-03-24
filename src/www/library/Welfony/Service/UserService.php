@@ -15,8 +15,10 @@
 namespace Welfony\Service;
 
 use PHPassLib\Hash\PBKDF2 as PassHash;
+use Welfony\Core\Enum\UserPointType;
 use Welfony\Core\Enum\UserRole;
 use Welfony\Repository\UserRepository;
+use Welfony\Service\UserPointService;
 use Welfony\Utility\Util;
 
 class UserService
@@ -55,6 +57,12 @@ class UserService
 
             $result['success'] = true;
             $result['user'] = $data;
+
+            $userPointData = array(
+                'Type' => UserPointType::NewRegister,
+                'UserId' => $newId
+            );
+            UserPointService::addPoint($userPointData);
 
             return $result;
         } else {

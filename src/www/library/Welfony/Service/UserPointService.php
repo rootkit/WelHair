@@ -14,11 +14,27 @@
 
 namespace Welfony\Service;
 
+use Welfony\Core\Enum\UserPointType;
 use Welfony\Repository\UserPointRepository;
 
 class UserPointService
 {
 
+    public static function addPoint($data)
+    {
+        switch ($data['Type']) {
+            case UserPointType::NewRegister: {
+                $data['Value'] = 10;
+                $data['Description'] = '新用户注册';
+                break;
+            }
+            default: {
+                break;
+            }
+        }
+        $data['CreatedDate'] = date('Y-m-d H:i:s');
 
+        UserPointRepository::getInstance()->save($data);
+    }
 
 }

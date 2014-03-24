@@ -19,6 +19,16 @@ use Welfony\Repository\Base\AbstractRepository;
 class UserPointRepository extends AbstractRepository
 {
 
+    public function getAllPointsByUserAndType($userId, $type)
+    {
+        $strSql = 'SELECT
+                       *
+                   FROM UserPoint UP
+                   WHERE UP.UserId = ? AND UP.Type = ?';
+
+        return $this->conn->fetchAll($strSql, array($userId, $type));
+    }
+
     public function save($data)
     {
         try {
