@@ -284,6 +284,8 @@
 		46E84EE318C356B30004C146 /* OpitionButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 46E84EE218C356B30004C146 /* OpitionButton.m */; };
 		46EAF98918D18D0D00D4C624 /* citydict.plist in Resources */ = {isa = PBXBuildFile; fileRef = 46EAF98618D18D0D00D4C624 /* citydict.plist */; };
 		46EAF98A18D18D0D00D4C624 /* CityListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 46EAF98818D18D0D00D4C624 /* CityListViewController.m */; };
+		46F5865E18E1BB2B00F9BF51 /* GroupStaffCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 46F5865D18E1BB2B00F9BF51 /* GroupStaffCell.m */; };
+		46F5866118E1BF2C00F9BF51 /* StaffCellI_WorkIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 46F5866018E1BF2C00F9BF51 /* StaffCellI_WorkIcon@2x.png */; };
 		8D253C7C0D2C41EC8279DF3F /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0DEE8FDE44A64A6986F93371 /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -790,6 +792,9 @@
 		46EAF98618D18D0D00D4C624 /* citydict.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = citydict.plist; sourceTree = "<group>"; };
 		46EAF98718D18D0D00D4C624 /* CityListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CityListViewController.h; sourceTree = "<group>"; };
 		46EAF98818D18D0D00D4C624 /* CityListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CityListViewController.m; sourceTree = "<group>"; };
+		46F5865C18E1BB2B00F9BF51 /* GroupStaffCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroupStaffCell.h; sourceTree = "<group>"; };
+		46F5865D18E1BB2B00F9BF51 /* GroupStaffCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GroupStaffCell.m; sourceTree = "<group>"; };
+		46F5866018E1BF2C00F9BF51 /* StaffCellI_WorkIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "StaffCellI_WorkIcon@2x.png"; sourceTree = "<group>"; };
 		DB57361E9AB145E7AB30BD59 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = ../../Pods/Pods.xcconfig; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -1251,6 +1256,7 @@
 		461B0C2218DC3BD700E0DAF5 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				46F5865F18E1BF2C00F9BF51 /* Cell */,
 				461B0C2318DC3BD700E0DAF5 /* AppointmentPreviewViewController */,
 				461B0C2518DC3BD700E0DAF5 /* CouponDetailViewControl */,
 				461B0C2718DC3BD700E0DAF5 /* GroupDetailViewControl */,
@@ -1760,6 +1766,8 @@
 				4630252D18C848EB000E0B51 /* WorkCardView.m */,
 				46B25AEB18C086D30035F425 /* WorkCell.h */,
 				46B25AEC18C086D30035F425 /* WorkCell.m */,
+				46F5865C18E1BB2B00F9BF51 /* GroupStaffCell.h */,
+				46F5865D18E1BB2B00F9BF51 /* GroupStaffCell.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1944,6 +1952,14 @@
 			path = Staff;
 			sourceTree = "<group>";
 		};
+		46F5865F18E1BF2C00F9BF51 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				46F5866018E1BF2C00F9BF51 /* StaffCellI_WorkIcon@2x.png */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -2094,6 +2110,7 @@
 				183B03DE18E1110500765116 /* groupedTableViewCell_middleRow@2x.png in Resources */,
 				461B0C6418DC3BD700E0DAF5 /* GroupManageViewController_Bg@2x.png in Resources */,
 				469B9FF418D1A7EB00948740 /* UMShareEditViewController.xib in Resources */,
+				46F5866118E1BF2C00F9BF51 /* StaffCellI_WorkIcon@2x.png in Resources */,
 				184B82DA18DAC7F000177BAB /* bubble-flat-incoming.png in Resources */,
 				184B82F718DAC7F000177BAB /* send@2x.png in Resources */,
 				46E84EBF18C2C7040004C146 /* centerIcon@2x.png in Resources */,
@@ -2223,6 +2240,7 @@
 				46EAF98A18D18D0D00D4C624 /* CityListViewController.m in Sources */,
 				467F0EF018CB4FCF009FFE08 /* UITextField+WelKit.m in Sources */,
 				46BDF11818D099F300999F50 /* AppointmentPreviewViewController.m in Sources */,
+				46F5865E18E1BB2B00F9BF51 /* GroupStaffCell.m in Sources */,
 				4673BB8318D3FA54000F64DE /* UserProfileViewController.m in Sources */,
 				467F0EBB18CB3956009FFE08 /* ChatGroupCell.m in Sources */,
 				18AC388818CD685C00328A78 /* WebSocketUtil.m in Sources */,

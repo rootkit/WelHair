@@ -21,7 +21,7 @@
 #import "UMSocial.h"
 #import <CoreGraphics/CoreGraphics.h>
 #import "MWPhotoBrowser.h"
-#import "StaffCell.h"
+#import "GroupStaffCell.h"
 #import "Group.h"
 
 
@@ -375,9 +375,9 @@ static const   float profileViewHeight = 320;
 
     }else{
         static NSString * cellIdentifier = @"StaffCellIdentifier";
-        StaffCell * cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+        GroupStaffCell * cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
         if (!cell) {
-            cell = [[StaffCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
+            cell = [[GroupStaffCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
         }
         Staff *staff = [self.datasource objectAtIndex:indexPath.row];

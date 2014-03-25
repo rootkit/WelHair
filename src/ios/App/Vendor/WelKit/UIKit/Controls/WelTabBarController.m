@@ -29,7 +29,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-//    [self.tabBar setHidden:YES];
     self.tabButtons = [NSMutableArray array];
 }
 
@@ -61,9 +60,14 @@
                                                             HEIGHT(self.view) - tabHeight,
                                                             WIDTH(self.view),
                                                             tabHeight)];
-    UIView *tabBgView = [[UIView alloc] initWithFrame:CGRectMake(0, HEIGHT(self.view) - 49, WIDTH(self.tabView), 49)];
-    tabBgView.backgroundColor = [UIColor colorWithHexString:APP_CONTENT_BG_COLOR];
-    [self.view addSubview:tabBgView];
+    if(isIOS7){
+        [self.tabBar setBarTintColor:[UIColor colorWithHexString:APP_CONTENT_BG_COLOR]];
+    }else{
+        [self.tabBar setTintColor:[UIColor colorWithHexString:APP_CONTENT_BG_COLOR]];
+    }
+//    UIView *tabBgView = [[UIView alloc] initWithFrame:CGRectMake(0, HEIGHT(self.view) - 49, WIDTH(self.tabView), 49)];
+//    tabBgView.backgroundColor = [UIColor colorWithHexString:APP_CONTENT_BG_COLOR];
+//    [self.view addSubview:tabBgView];
     [self.view addSubview:self.tabView];
     self.tabView.backgroundColor = [UIColor clearColor];
     int tabNum= MAX(self.normalTabImages.count, self.selectedTabImages.count);
