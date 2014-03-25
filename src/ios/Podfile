@@ -1,5 +1,14 @@
 platform :ios, '6.0'
+
 inhibit_all_warnings!
+
+post_install do |installer|
+  installer.project.targets.each do |target|
+    target.build_configurations.each do |config|
+      config.build_settings['ARCHS'] = "armv7 armv7s"
+    end
+  end
+end
 
 
 pod 'AMRatingControl'

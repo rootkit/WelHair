@@ -10,6 +10,18 @@
 
 @implementation BaseManager
 
++ (instancetype)SharedInstance
+{
+    static id sharedInstance = nil;
+    static dispatch_once_t onceToken;
+
+    dispatch_once(&onceToken, ^{
+        sharedInstance = [[self alloc] init];
+    });
+
+    return sharedInstance;
+}
+
 - (NSString *)databasePath
 {
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);

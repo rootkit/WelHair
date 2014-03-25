@@ -954,21 +954,21 @@
 		18A9126118BB216E006B9A04 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				46A46FE818BE21280057F579 /* OpenGLES.framework */,
-				46A46FE618BE211F0057F579 /* QuartzCore.framework */,
+				18A9126418BB216E006B9A04 /* CoreGraphics.framework */,
 				46A46FE418BE21160057F579 /* CoreLocation.framework */,
-				46B233C418BCE5C000CC27A3 /* libz.dylib */,
-				46B233C218BCE5BC00CC27A3 /* libstdc++.dylib */,
-				46B233C018BCE5B000CC27A3 /* libsqlite3.dylib */,
 				46B233BE18BCE5A000CC27A3 /* CoreTelephony.framework */,
-				46B233BC18BCE59600CC27A3 /* SystemConfiguration.framework */,
-				46B233BA18BCE58E00CC27A3 /* libiconv.dylib */,
-				46B233B818BCE58400CC27A3 /* Security.framework */,
 				4660E6AA18BB7666005B3C7D /* CoreText.framework */,
 				18A9126218BB216E006B9A04 /* Foundation.framework */,
-				18A9126418BB216E006B9A04 /* CoreGraphics.framework */,
+				46A46FE818BE21280057F579 /* OpenGLES.framework */,
+				46A46FE618BE211F0057F579 /* QuartzCore.framework */,
+				46B233B818BCE58400CC27A3 /* Security.framework */,
+				46B233BC18BCE59600CC27A3 /* SystemConfiguration.framework */,
 				18A9126618BB216E006B9A04 /* UIKit.framework */,
 				18A9127B18BB216E006B9A04 /* XCTest.framework */,
+				46B233BA18BCE58E00CC27A3 /* libiconv.dylib */,
+				46B233C018BCE5B000CC27A3 /* libsqlite3.dylib */,
+				46B233C218BCE5BC00CC27A3 /* libstdc++.dylib */,
+				46B233C418BCE5C000CC27A3 /* libz.dylib */,
 				0DEE8FDE44A64A6986F93371 /* libPods.a */,
 			);
 			name = Frameworks;
@@ -1007,9 +1007,9 @@
 		18A9129118BB2350006B9A04 /* Assets */ = {
 			isa = PBXGroup;
 			children = (
+				46A46FEA18BE21BB0057F579 /* BaiduMap */,
 				4651D97B18DE729D004AC95A /* DB */,
 				461B0C0118DC3BD700E0DAF5 /* Images */,
-				46A46FEA18BE21BB0057F579 /* BaiduMap */,
 				4693AAA618D8426100104F01 /* Images.xcassets */,
 			);
 			path = Assets;
@@ -1707,6 +1707,8 @@
 				467F0F2118CC7938009FFE08 /* DropDownView.m */,
 				460C2F4818CAFDB200AD16E6 /* GroupCell.h */,
 				460C2F4918CAFDB200AD16E6 /* GroupCell.m */,
+				465A5C8918DB0B8D009B6D60 /* MyScoreCell.h */,
+				465A5C8A18DB0B8D009B6D60 /* MyScoreCell.m */,
 				46E84EE118C356B30004C146 /* OpitionButton.h */,
 				46E84EE218C356B30004C146 /* OpitionButton.m */,
 				46E84ED518C2F0380004C146 /* OpitionSelectPanel.h */,
@@ -1723,8 +1725,6 @@
 				4630252D18C848EB000E0B51 /* WorkCardView.m */,
 				46B25AEB18C086D30035F425 /* WorkCell.h */,
 				46B25AEC18C086D30035F425 /* WorkCell.m */,
-				465A5C8918DB0B8D009B6D60 /* MyScoreCell.h */,
-				465A5C8A18DB0B8D009B6D60 /* MyScoreCell.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -2402,8 +2402,8 @@
 				);
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer: larry lu (3LBN2U88Z3)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: larry lu (3LBN2U88Z3)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -2417,7 +2417,7 @@
 				);
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "05E341CA-3D47-4347-8103-60EF8FC07A67";
+				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos7.1;
 				VALID_ARCHS = "armv7 armv7s";
 				WRAPPER_EXTENSION = app;
@@ -2435,8 +2435,8 @@
 				"ARCHS[sdk=iphoneos*]" = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer: larry lu (3LBN2U88Z3)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: larry lu (3LBN2U88Z3)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -2449,7 +2449,7 @@
 				);
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "05E341CA-3D47-4347-8103-60EF8FC07A67";
+				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos7.1;
 				VALID_ARCHS = "armv7 armv7s";
 				WRAPPER_EXTENSION = app;

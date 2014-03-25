@@ -10,6 +10,7 @@
 
 
 @implementation ListManager
+
 +(id)SharedInstance
 {
     static ListManager *sharedInstance  = nil;
@@ -18,6 +19,16 @@
         sharedInstance = [[ListManager alloc] init];
     });
     return sharedInstance;
+}
+
+- (void)refreshCityList:(NSArray *)cityList
+{
+    
+}
+
+- (NSArray *)getCityList
+{
+    return nil;
 }
 
 @end

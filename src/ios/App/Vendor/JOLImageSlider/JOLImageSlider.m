@@ -19,12 +19,14 @@
 
 @implementation JOLImageSlider
 
+@synthesize pageControl = _pageControl;
 @synthesize scrollView = _scrollView;
 @synthesize contentMode = _contentMode;
 @synthesize placeholderImage = _placeholderImage;
 @synthesize autoSlide = _autoSlide;
 @synthesize titleFont = _titleFont;
 @synthesize titleColor = _titleColor;
+@synthesize slideArray = _slideArray;
 
 @synthesize delegate = _delegate;
 
@@ -117,35 +119,35 @@
         //Add all slides
         
         for (int i = 0; i < [_slideArray count]; i++) {
-            JOLImageSlide *theSlide = [_slideArray objectAtIndex: i];
+            JOLImageSlide *theSlideF = [_slideArray objectAtIndex: i];
             
-            CGRect imageFrame = CGRectMake(_scrollView.frame.size.width * (i+1), 0, _scrollView.frame.size.width, _scrollView.frame.size.height);
+            CGRect imageFrameF = CGRectMake(_scrollView.frame.size.width * (i+1), 0, _scrollView.frame.size.width, _scrollView.frame.size.height);
             
-            UIImageView *imageView = [[UIImageView alloc] initWithFrame:imageFrame];
-            [imageView setBackgroundColor:[UIColor clearColor]];
-            [imageView setContentMode:_contentMode];
-            [imageView setTag:i];
-            [imageView setImageWithURL: [NSURL URLWithString:(NSString *)theSlide.image] placeholderImage: [UIImage imageNamed:_placeholderImage]];
+            UIImageView *imageViewF = [[UIImageView alloc] initWithFrame:imageFrameF];
+            [imageViewF setBackgroundColor:[UIColor clearColor]];
+            [imageViewF setContentMode:_contentMode];
+            [imageViewF setTag:i];
+            [imageViewF setImageWithURL: [NSURL URLWithString:(NSString *)theSlideF.image] placeholderImage: [UIImage imageNamed:_placeholderImage]];
             
             
-            UILabel *titleLabel = [[UILabel alloc] initWithFrame: CGRectMake(10, (imageFrame.size.height - 28), imageFrame.size.width-70, 24)];
-            titleLabel.text = theSlide.title;
-            titleLabel.backgroundColor = [UIColor clearColor];
-            titleLabel.textColor = _titleColor;
-            titleLabel.font = _titleFont;
+            UILabel *titleLabelF = [[UILabel alloc] initWithFrame: CGRectMake(10, (imageFrameF.size.height - 28), imageFrameF.size.width-70, 24)];
+            titleLabelF.text = theSlideF.title;
+            titleLabelF.backgroundColor = [UIColor clearColor];
+            titleLabelF.textColor = _titleColor;
+            titleLabelF.font = _titleFont;
             
-            [imageView addSubview: titleLabel];
+            [imageViewF addSubview: titleLabelF];
             
             // Add GestureRecognizer to ImageView
-            UITapGestureRecognizer *singleTapGestureRecognizer = [[UITapGestureRecognizer alloc]
+            UITapGestureRecognizer *singleTapGestureRecognizerF = [[UITapGestureRecognizer alloc]
                                                                   initWithTarget:self
                                                                   action:@selector(imageTapped:)];
-            [singleTapGestureRecognizer setNumberOfTapsRequired:1];
-            [imageView addGestureRecognizer:singleTapGestureRecognizer];
-            [imageView setUserInteractionEnabled:YES];
+            [singleTapGestureRecognizerF setNumberOfTapsRequired:1];
+            [imageViewF addGestureRecognizer:singleTapGestureRecognizerF];
+            [imageViewF setUserInteractionEnabled:YES];
             
             
-            [_scrollView addSubview:imageView];
+            [_scrollView addSubview:imageViewF];
 
         }
         

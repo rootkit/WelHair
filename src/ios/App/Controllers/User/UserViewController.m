@@ -40,6 +40,7 @@ static const   float profileViewHeight = 80;
 @property (nonatomic, strong) UILabel *nameLbl;
 @property (nonatomic, strong) UILabel *addressLbl;
 @property (nonatomic, strong) NSArray *datasource;
+@property (nonatomic, strong) NSArray *iconDatasource;
 @property (nonatomic, strong) ABMGroupedTableView *tableView;
 
 @end
@@ -55,6 +56,19 @@ static const   float profileViewHeight = 80;
         FAKIcon *rightIcon = [FAKIonIcons ios7GearOutlineIconWithSize:NAV_BAR_ICON_SIZE];
         [rightIcon addAttribute:NSForegroundColorAttributeName value:[UIColor whiteColor]];
         self.rightNavItemImg =[rightIcon imageWithSize:CGSizeMake(NAV_BAR_ICON_SIZE, NAV_BAR_ICON_SIZE)];
+
+
+        NSMutableArray *menuList = [[NSMutableArray alloc] initWithCapacity:5];
+        [menuList addObject:@[@"个人信息"]];
+        [menuList addObject:@[@"我的收藏", @"浏览历史"]];
+        [menuList addObject:@[@"积分兑换"]];
+        self.datasource = menuList;
+
+        NSMutableArray *menuIconList = [[NSMutableArray alloc] initWithCapacity:5];
+        [menuIconList addObject:@[[FAKIonIcons ios7InformationOutlineIconWithSize:NAV_BAR_ICON_SIZE]]];
+        [menuIconList addObject:@[[FAKIonIcons ios7HeartOutlineIconWithSize:NAV_BAR_ICON_SIZE], [FAKIonIcons ios7BookmarksOutlineIconWithSize:NAV_BAR_ICON_SIZE]]];
+        [menuIconList addObject:@[[FAKIonIcons ios7BellOutlineIconWithSize:NAV_BAR_ICON_SIZE]]];
+        self.iconDatasource = menuIconList;
     }
     return self;
 }
@@ -76,8 +90,7 @@ static const   float profileViewHeight = 80;
     [self.view addSubview:self.headerBackgroundView];
     
     
-    self.tableView = [[ABMGroupedTableView alloc] initWithFrame:CGRectMake(0, self.topBarOffset, WIDTH(self.view),
-                                                            [self contentHeightWithNavgationBar:YES withBottomBar:YES])
+    self.tableView = [[ABMGroupedTableView alloc] initWithFrame:CGRectMake(0, self.topBarOffset, WIDTH(self.view), [self contentHeightWithNavgationBar:YES withBottomBar:YES])
                                                           style:UITableViewStyleGrouped];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
@@ -136,13 +149,6 @@ static const   float profileViewHeight = 80;
         [tabView_ addSubview:btn];
     }
     [headerView_ addSubview:tabView_];
-
-
-    NSMutableArray *menuList = [[NSMutableArray alloc] initWithCapacity:5];
-    [menuList addObject:@[@"个人信息"]];
-    [menuList addObject:@[@"我的收藏", @"浏览历史"]];
-    [menuList addObject:@[@"积分兑换"]];
-    self.datasource = menuList;
 }
 
 - (void)viewDidLoad
@@ -330,14 +336,11 @@ static const   float profileViewHeight = 80;
 				  atIndexPath:indexPath];
 
 
-    FAKIcon *rightIcon = [FAKIonIcons ios7GearOutlineIconWithSize:NAV_BAR_ICON_SIZE];
-    [rightIcon addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithHexString:@"666666"]];
+    FAKIcon *itemIcon = [[self.iconDatasource objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
+    [itemIcon addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithHexString:@"666666"]];
+    [cell.imageView setImage:[itemIcon imageWithSize:CGSizeMake(NAV_BAR_ICON_SIZE, NAV_BAR_ICON_SIZE)]];
 
-    [cell.imageView setImage:[rightIcon imageWithSize:CGSizeMake(NAV_BAR_ICON_SIZE, NAV_BAR_ICON_SIZE)]];
-
-    cell.textLabel.text = [[self.datasource objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
-    cell.textLabel.font = [UIFont systemFontOfSize:14];
-    cell.textLabel.textColor = [UIColor colorWithHexString:@"666666"];
+    cell.label.text = [[self.datasource objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
 
     return cell;
 }

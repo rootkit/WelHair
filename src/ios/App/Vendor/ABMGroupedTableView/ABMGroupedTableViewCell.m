@@ -14,9 +14,9 @@
 #define kGroupedTableViewCellBottomRowImageCapInset				UIEdgeInsetsMake(1.0, 0.0, 3.0, 0.0)
 #define kGroupedTableViewCellMiddleRowImageCapInset				UIEdgeInsetsMake(1.0, 0.0, 1.0, 0.0)
 #define kCellLabelWidth											130.0
-#define kCellLabelMargin										13.0
-#define kDescriptionLabelFont									[UIFont boldSystemFontOfSize:17.0]
-#define kDetailLabelFont										[UIFont systemFontOfSize:17.0]
+#define kCellLabelMargin										50.0
+#define kDescriptionLabelFont									[UIFont systemFontOfSize:14]
+#define kDetailLabelFont										[UIFont systemFontOfSize:14]
 
 
 @implementation ABMGroupedTableViewCell
@@ -48,7 +48,7 @@
 	
 	_label = [[UILabel alloc] initWithFrame:CGRectZero];
     [_label setBackgroundColor:[UIColor clearColor]];
-    [_label setTextColor:[UIColor blackColor]];
+    [_label setTextColor:[UIColor colorWithHexString:@"666666"]];
 	[_label setHighlightedTextColor:[UIColor whiteColor]];
     [_label setFont:kDescriptionLabelFont];
     [_label setTextAlignment:NSTextAlignmentLeft];
@@ -56,7 +56,7 @@
 	
 	_descriptionLabel = [[UILabel alloc] initWithFrame:CGRectZero];
     [_descriptionLabel setBackgroundColor:[UIColor clearColor]];
-    [_descriptionLabel setTextColor:[UIColor blackColor]];
+    [_descriptionLabel setTextColor:[UIColor colorWithHexString:@"666666"]];
 	[_descriptionLabel setHighlightedTextColor:[UIColor whiteColor]];
     [_descriptionLabel setFont:kDescriptionLabelFont];
     [_descriptionLabel setTextAlignment:NSTextAlignmentLeft];
@@ -64,7 +64,7 @@
     
     _detailLabel = [[UILabel alloc] initWithFrame:CGRectZero];
     [_detailLabel setBackgroundColor:[UIColor clearColor]];
-    [_detailLabel setTextColor:[UIColor blackColor]];
+    [_detailLabel setTextColor:[UIColor colorWithHexString:@"666666"]];
 	[_detailLabel setHighlightedTextColor:[UIColor whiteColor]];
     [_detailLabel setFont:kDetailLabelFont];
     [_detailLabel setTextAlignment:NSTextAlignmentRight];
@@ -98,6 +98,10 @@
 										  kCellLabelWidth,
 										  self.contentView.height) ];
 	}
+
+    if (isIOS7 == NO) {
+        self.imageView.frame = CGRectMake(self.imageView.frame.origin.x + 5, self.imageView.frame.origin.y, self.imageView.frame.size.width, self.imageView.frame.size.height);
+    }
 }
 
 -(void) setFrame:(CGRect)frame
