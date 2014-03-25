@@ -20,7 +20,11 @@
 #import "JOLImageSlider.h"
 #import "CommentsViewController.h"
 #import "MWPhotoBrowser.h"
-
+#import "GroupDetailViewController.h"
+#import "ProductDetailWebViewController.h"
+#import "OpitionSelectPanel.h"
+#import "UIViewController+KNSemiModal.h"
+#import "OrderPreviewViewController.h"
 
 @interface ProductDetailViewController ()<UMSocialUIDelegate,JOLImageSliderDelegate,MWPhotoBrowserDelegate>
 @property (nonatomic, strong) UIScrollView *scrollView;
@@ -29,6 +33,7 @@
 @property (nonatomic, strong) UILabel *staffNameLbl;
 @property (nonatomic, strong) UILabel *distanceLbl;
 @property (nonatomic, strong) NSMutableArray *productImgs;
+@property (nonatomic, strong) SelectOpition *selectOpition;
 @end
 
 @implementation ProductDetailViewController
@@ -53,8 +58,23 @@
 {
     [super loadView];
     
-    self.scrollView = [[UIScrollView alloc] initWithFrame:self.view.bounds];
+    self.scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, self.topBarOffset, WIDTH(self.view), [self contentHeightWithNavgationBar:NO withBottomBar:YES])];
     [self.view addSubview:self.scrollView];
+    
+    UIView *bottomView = [[UIView alloc] initWithFrame:CGRectMake(0,
+                                                                  MaxY(self.scrollView),
+                                                                  WIDTH(self.view),
+                                                                  kBottomBarHeight)];
+    bottomView.backgroundColor =[UIColor whiteColor];
+    UIButton *submitBtn = [[UIButton alloc] initWithFrame:CGRectMake(220, 15, 80, 25)];
+    [submitBtn setTitle:@"下单" forState:UIControlStateNormal];
+    submitBtn.tag = 0;
+    [submitBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [submitBtn setBackgroundColor:[UIColor colorWithHexString:@"e43a3d"]];
+    [submitBtn addTarget:self action:@selector(submitClick) forControlEvents:UIControlEventTouchDown];
+    [bottomView addSubview:submitBtn];
+    [self.view addSubview:bottomView];
+    
 #pragma topbar
     float topViewHeight = isIOS7 ? kStatusBarHeight + kTopBarHeight : kTopBarHeight;
     UIView *topNavView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, WIDTH(self.view), topViewHeight)];
@@ -90,219 +110,27 @@
     [self.imgSlider setAutoSlide: YES];
     [self.imgSlider setContentMode: UIViewContentModeScaleAspectFill];
     [self.scrollView addSubview:self.imgSlider];
-#pragma staffView
-    UIView *staffView = [[UIView alloc] initWithFrame:CGRectMake(0, MaxY(self.imgSlider) - 80, WIDTH(self.imgSlider) / 2, 80)];
-    [self.scrollView addSubview:staffView];
-    staffView.backgroundColor = [UIColor clearColor];
-    UIImageView *staffOverlayview = [[UIImageView alloc] initWithFrame:CGRectMake(0, 20, WIDTH(staffView), HEIGHT(staffView) -20)];
-    staffOverlayview.image = [UIImage imageNamed:@"WD_AuthorLayerBg@2x"];
-    [staffView addSubview:staffOverlayview];
     
-    self.staffImgView = [[CircleImageView alloc] initWithFrame:CGRectMake(15, 0, 50, 50)];
-    [staffView addSubview:self.staffImgView];
-    self.staffImgView.userInteractionEnabled = YES;
-    [self.staffImgView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(staffTapped)]];
-    self.staffNameLbl = [[UILabel alloc] initWithFrame:CGRectMake(X(self.staffImgView), MaxY(self.staffImgView) + 2,WIDTH(self.staffImgView), 20)];
-    self.staffNameLbl.textAlignment = NSTextAlignmentCenter;
-    self.staffNameLbl.textColor = [UIColor whiteColor];
-    self.staffNameLbl.backgroundColor = [UIColor clearColor];
-    self.staffNameLbl.font = [UIFont systemFontOfSize:14];
+    UIView *tempView = [[UIView alloc] initWithFrame:CGRectMake(0, MaxY(self.imgSlider), WIDTH(self.scrollView), 264)];
+    [self.scrollView addSubview:tempView];
+    UIImageView *tempBgImg = [[UIImageView alloc] initWithFrame:tempView.bounds];
+    tempBgImg.image = [UIImage imageNamed:@"ProductDetailViewControl_TempBg"];
+    [tempView addSubview:tempBgImg];
     
-    [staffView addSubview:self.staffNameLbl];
+    UIButton *groupBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    groupBtn.frame = CGRectMake(0, 30, 320, 50);
+    [groupBtn addTarget:self action:@selector(groupClick) forControlEvents:UIControlEventTouchUpInside];
+    [tempView addSubview:groupBtn];
     
-    UIImageView *heartImgView = [[UIImageView alloc] initWithFrame:CGRectMake(MaxX(self.staffImgView) + 30, 20, 30, 30)];
-    [staffView addSubview:heartImgView];
-    heartImgView.userInteractionEnabled = YES;
-    [heartImgView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(heartImgViewTapped:)]];
-    FAKIcon *heartIcon = [FAKIonIcons heartIconWithSize:30];
-    [heartIcon addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithHexString:@"e43a3d"]];
-    heartImgView.image = [heartIcon imageWithSize:CGSizeMake(30, 30)];
+    UIButton *detailBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    detailBtn.frame = CGRectMake(110, 90, 100, 25);
+    [detailBtn addTarget:self action:@selector(detailClick) forControlEvents:UIControlEventTouchUpInside];
+    [tempView addSubview:detailBtn];
     
-    UIImageView *locationImg = [[UIImageView alloc] initWithFrame:CGRectMake(MaxX(self.staffImgView) + 20, Y(self.staffNameLbl),20,20)];
-    FAKIcon *locationIcon = [FAKIonIcons locationIconWithSize:20];
-    [locationIcon addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithHexString:@"FFF"]];
-    locationImg.image = [locationIcon imageWithSize:CGSizeMake(20, 20)];
-    [staffView addSubview:locationImg];
-    
-    self.distanceLbl = [[UILabel alloc] initWithFrame:CGRectMake(MaxX(locationImg) + 2, Y(locationImg),WIDTH(staffView) - MaxX(locationImg), HEIGHT(locationImg))];
-    self.distanceLbl.textAlignment = NSTextAlignmentLeft;
-    self.distanceLbl.textColor = [UIColor whiteColor];
-    self.distanceLbl.font = [UIFont systemFontOfSize:14];
-    self.distanceLbl.backgroundColor = [UIColor clearColor];
-    self.distanceLbl.font = [UIFont systemFontOfSize:14];
-    [staffView addSubview:self.distanceLbl];
-    
-    
-    //    UIImageView *tempImg = [[UIImageView alloc] initWithFrame:CGRectMake(15, MaxY(self.imgSlider )+10, WIDTH(self.view) - 30, 87)];
-    //    tempImg.image = [UIImage imageNamed:@"TempBg1"];
-    //    [self.scrollView addSubview:tempImg];
-    
-#pragma people  view
-    UIView *peopleView = [[UIView alloc] initWithFrame:CGRectMake(15, MaxY(self.imgSlider )+ 20, 280, 160)];
-    peopleView.layer.borderColor = [[UIColor colorWithHexString:@"e1e1e1"] CGColor];
-    peopleView.layer.borderWidth = 1.0;
-    peopleView.layer.cornerRadius = 5;
-    [self.scrollView addSubview:peopleView];
-    
-    peopleView.backgroundColor = [UIColor whiteColor];
-    UILabel *peopleTitleLbl =[[UILabel alloc] initWithFrame:CGRectMake(10, 15, 100,20)];
-    peopleTitleLbl.font = [UIFont systemFontOfSize:14];
-    peopleTitleLbl.textAlignment = NSTextAlignmentLeft;
-    peopleTitleLbl.backgroundColor = [UIColor clearColor];
-    peopleTitleLbl.textColor = [UIColor blackColor];
-    peopleTitleLbl.text = @"适合人群";
-    [peopleView addSubview:peopleTitleLbl];
-    UIView *peopleLinerView = [[UIView alloc] initWithFrame:CGRectMake(0, MaxY(peopleTitleLbl) + 15, WIDTH(peopleView), 1)];
-    peopleLinerView.backgroundColor = [UIColor colorWithHexString:@"e1e1e1"];
-    [peopleView addSubview:peopleLinerView];
-    
-    float leftlblWidth = 40;
-    UIColor *opitionBgColor = [UIColor colorWithHexString:@"787878"];
-    UIColor *opitionSelectedBgColor = [UIColor colorWithHexString:APP_BASE_COLOR];
-    float opitionMargin = 10;
-    float opitionWidth = 45;
-    
-    peopleView.backgroundColor = [UIColor whiteColor];
-#pragma nature cell view
-    UILabel *natureLbl =[[UILabel alloc] initWithFrame:CGRectMake(0,MaxY(peopleLinerView) + 10,leftlblWidth,20)];
-    natureLbl.font = [UIFont systemFontOfSize:14];
-    natureLbl.textAlignment = NSTextAlignmentRight;
-    natureLbl.backgroundColor = [UIColor clearColor];
-    natureLbl.textColor = [UIColor grayColor];
-    natureLbl.text = @"发质:";
-    [peopleView addSubview:natureLbl];
-    
-    UILabel *nature1Lbl =[[UILabel alloc] initWithFrame:CGRectMake(MaxX(natureLbl) + opitionMargin,Y(natureLbl),opitionWidth,20)];
-    nature1Lbl.font = [UIFont systemFontOfSize:14];
-    nature1Lbl.textAlignment = NSTextAlignmentCenter;
-    nature1Lbl.backgroundColor = opitionSelectedBgColor;
-    nature1Lbl.textColor = [UIColor whiteColor];
-    nature1Lbl.text = @"短发";
-    [peopleView addSubview:nature1Lbl];
-    
-    UILabel *nature2Lbl =[[UILabel alloc] initWithFrame:CGRectMake(MaxX(nature1Lbl) + opitionMargin,Y(natureLbl),opitionWidth,20)];
-    nature2Lbl.font = [UIFont systemFontOfSize:14];
-    nature2Lbl.textAlignment = NSTextAlignmentCenter;
-    nature2Lbl.backgroundColor = opitionBgColor;
-    nature2Lbl.textColor = [UIColor whiteColor];
-    nature2Lbl.text = @"长发";
-    [peopleView addSubview:nature2Lbl];
-    
-    UILabel *nature3Lbl =[[UILabel alloc] initWithFrame:CGRectMake(MaxX(nature2Lbl) + opitionMargin,Y(natureLbl),opitionWidth,20)];
-    nature3Lbl.font = [UIFont systemFontOfSize:14];
-    nature3Lbl.textAlignment = NSTextAlignmentCenter;
-    nature3Lbl.backgroundColor = opitionBgColor;
-    nature3Lbl.textColor = [UIColor whiteColor];
-    nature3Lbl.text = @"编发";
-    [peopleView addSubview:nature3Lbl];
-    
-    UILabel *nature4Lbl =[[UILabel alloc] initWithFrame:CGRectMake(MaxX(nature3Lbl) + opitionMargin,Y(natureLbl),opitionWidth,20)];
-    nature4Lbl.font = [UIFont systemFontOfSize:14];
-    nature4Lbl.textAlignment = NSTextAlignmentCenter;
-    nature4Lbl.backgroundColor = [UIColor grayColor];
-    nature4Lbl.textColor = [UIColor whiteColor];
-    nature4Lbl.text = @"中发";
-    [peopleView addSubview:nature4Lbl];
-    
-    
-#pragma amount cell view
-    UILabel *hairAmountLbl =[[UILabel alloc] initWithFrame:CGRectMake(0,MaxY(natureLbl) + 10,leftlblWidth,20)];
-    hairAmountLbl.font = [UIFont systemFontOfSize:14];
-    hairAmountLbl.textAlignment = NSTextAlignmentRight;
-    hairAmountLbl.backgroundColor = [UIColor clearColor];
-    hairAmountLbl.textColor = [UIColor grayColor];
-    hairAmountLbl.text = @"发量:";
-    [peopleView addSubview:hairAmountLbl];
-    
-    UILabel *amount1Lbl =[[UILabel alloc] initWithFrame:CGRectMake(MaxX(hairAmountLbl) + opitionMargin,Y(hairAmountLbl),opitionWidth,20)];
-    amount1Lbl.font = [UIFont systemFontOfSize:14];
-    amount1Lbl.textAlignment = NSTextAlignmentCenter;
-    amount1Lbl.backgroundColor = opitionSelectedBgColor;
-    amount1Lbl.textColor = [UIColor whiteColor];
-    amount1Lbl.text = @"多密";
-    [peopleView addSubview:amount1Lbl];
-    
-    UILabel *amount2Lbl =[[UILabel alloc] initWithFrame:CGRectMake(MaxX(amount1Lbl) + opitionMargin,Y(hairAmountLbl),opitionWidth,20)];
-    amount2Lbl.font = [UIFont systemFontOfSize:14];
-    amount2Lbl.textAlignment = NSTextAlignmentCenter;
-    amount2Lbl.backgroundColor = opitionBgColor;
-    amount2Lbl.textColor = [UIColor whiteColor];
-    amount2Lbl.text = @"中等";
-    [peopleView addSubview:amount2Lbl];
-    
-    UILabel *amount3Lbl =[[UILabel alloc] initWithFrame:CGRectMake(MaxX(amount2Lbl) + opitionMargin,Y(hairAmountLbl),opitionWidth,20)];
-    amount3Lbl.font = [UIFont systemFontOfSize:14];
-    amount3Lbl.textAlignment = NSTextAlignmentCenter;
-    amount3Lbl.backgroundColor = opitionBgColor;
-    amount3Lbl.textColor = [UIColor whiteColor];
-    amount3Lbl.text = @"偏少";
-    [peopleView addSubview:amount3Lbl];
-    
-#pragma face frame cell view
-    UILabel *faceFrameLbl =[[UILabel alloc] initWithFrame:CGRectMake(0,MaxY(hairAmountLbl) + 10,leftlblWidth,20)];
-    faceFrameLbl.font = [UIFont systemFontOfSize:14];
-    faceFrameLbl.textAlignment = NSTextAlignmentRight;
-    faceFrameLbl.backgroundColor = [UIColor clearColor];
-    faceFrameLbl.textColor = [UIColor grayColor];
-    faceFrameLbl.text = @"脸型:";
-    [peopleView addSubview:faceFrameLbl];
-    
-    UILabel *faceFrame1Lbl =[[UILabel alloc] initWithFrame:CGRectMake(MaxX(faceFrameLbl) + opitionMargin,Y(faceFrameLbl),opitionWidth,20)];
-    faceFrame1Lbl.font = [UIFont systemFontOfSize:14];
-    faceFrame1Lbl.textAlignment = NSTextAlignmentCenter;
-    faceFrame1Lbl.backgroundColor = opitionBgColor;
-    faceFrame1Lbl.textColor = [UIColor whiteColor];
-    faceFrame1Lbl.text = @"圆脸";
-    [peopleView addSubview:faceFrame1Lbl];
-    
-    UILabel *faceFrame2Lbl =[[UILabel alloc] initWithFrame:CGRectMake(MaxX(faceFrame1Lbl) + opitionMargin,Y(faceFrameLbl),opitionWidth,20)];
-    faceFrame2Lbl.font = [UIFont systemFontOfSize:14];
-    faceFrame2Lbl.textAlignment = NSTextAlignmentCenter;
-    faceFrame2Lbl.backgroundColor = opitionSelectedBgColor;
-    faceFrame2Lbl.textColor = [UIColor whiteColor];
-    faceFrame2Lbl.text = @"长脸";
-    [peopleView addSubview:faceFrame2Lbl];
-    
-    UILabel *faceFrame3Lbl =[[UILabel alloc] initWithFrame:CGRectMake(MaxX(faceFrame2Lbl) + opitionMargin,Y(faceFrameLbl),opitionWidth,20)];
-    faceFrame3Lbl.font = [UIFont systemFontOfSize:14];
-    faceFrame3Lbl.textAlignment = NSTextAlignmentCenter;
-    faceFrame3Lbl.backgroundColor = opitionBgColor;
-    faceFrame3Lbl.textColor = [UIColor whiteColor];
-    faceFrame3Lbl.text = @"方脸";
-    [peopleView addSubview:faceFrame3Lbl];
-    
-    UILabel *faceFrame4Lbl =[[UILabel alloc] initWithFrame:CGRectMake(MaxX(faceFrame3Lbl) + opitionMargin,Y(faceFrameLbl),opitionWidth,20)];
-    faceFrame4Lbl.font = [UIFont systemFontOfSize:14];
-    faceFrame4Lbl.textAlignment = NSTextAlignmentCenter;
-    faceFrame4Lbl.backgroundColor = [UIColor grayColor];
-    faceFrame4Lbl.textColor = [UIColor whiteColor];
-    faceFrame4Lbl.text = @"瓜子脸";
-    [peopleView addSubview:faceFrame4Lbl];
-    
-    
-#pragma comment view
-    UIView *commentCellView = [[UIView alloc] initWithFrame:CGRectMake(15, MaxY(peopleView) + 20, WIDTH(peopleView), 40)];
-    commentCellView.layer.borderColor = [[UIColor colorWithHexString:@"e1e1e1"] CGColor];
-    commentCellView.layer.borderWidth = 1.0;
-    commentCellView.layer.cornerRadius = 5;
-    [commentCellView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(commentsTapped)]];
-    commentCellView.backgroundColor = [UIColor whiteColor];
-    UILabel *commentLbl =[[UILabel alloc] initWithFrame:CGRectMake(20, 10, 100,20)];
-    commentLbl.font = [UIFont systemFontOfSize:14];
-    commentLbl.textAlignment = NSTextAlignmentLeft;
-    commentLbl.backgroundColor = [UIColor clearColor];
-    commentLbl.textColor = [UIColor grayColor];
-    commentLbl.text = @"评论信息";
-    [commentCellView addSubview:commentLbl];
-    FAKIcon *commentIcon = [FAKIonIcons ios7ArrowForwardIconWithSize:20];
-    [commentIcon addAttribute:NSForegroundColorAttributeName value:[UIColor grayColor]];
-    UIImageView *commentImgView = [[UIImageView alloc] initWithFrame:CGRectMake(WIDTH(commentCellView) - 40, 10, 20, 20)];
-    commentImgView.image = [commentIcon imageWithSize:CGSizeMake(20, 20)];
-    [commentCellView addSubview:commentImgView];
-    [self.scrollView addSubview:commentCellView];
-    self.scrollView.scrollEnabled = YES;
-    self.scrollView.contentSize = CGSizeMake(WIDTH(self.view), MaxY(commentCellView) + 10);
-    
+    UIButton *commentBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    commentBtn.frame = CGRectMake(210, 90, 100, 25);
+    [commentBtn addTarget:self action:@selector(commentClick) forControlEvents:UIControlEventTouchUpInside];
+    [tempView addSubview:commentBtn];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -350,10 +178,6 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 
-- (void)commentsTapped
-{
-    [self.navigationController pushViewController:[CommentsViewController new] animated:YES];
-}
 
 - (void) imagePager:(JOLImageSlider *)imagePager didSelectImageAtIndex:(NSUInteger)index {
     [self OpenImageGallery];
@@ -378,31 +202,19 @@
                                        delegate:self];
 }
 
-- (void)staffTapped
+- (void)groupClick
 {
-    [self.navigationController pushViewController:[StaffDetailViewController new] animated:YES];
+    [self.navigationController pushViewController:[GroupDetailViewController new] animated:YES];
 }
 
-- (void)heartImgViewTapped:(UITapGestureRecognizer *)tap
+- (void)detailClick
 {
-    UIView *view =  tap.view;
-    if(view.alpha == 1){
-        view.alpha = 0.5;
-        [SVProgressHUD showSuccessWithStatus:@"收藏" duration:0.7];
-    }else{
-        view.alpha = 1;
-        [SVProgressHUD showSuccessWithStatus:@"取消收藏" duration:0.7];
-    }
+    [self.navigationController pushViewController:[ProductDetailWebViewController new] animated:YES];
 }
 
 - (void)commentClick
 {
     [self.navigationController pushViewController:[CommentsViewController new] animated:YES];
-}
-
-- (void)mapClick
-{
-    [self.navigationController pushViewController:[MapViewController new] animated:YES];
 }
 
 - (void) OpenImageGallery
@@ -448,4 +260,67 @@
     NSLog(@"Did start viewing photo at index %lu", (unsigned long)index);
 }
 
+
+- (void)submitClick
+{
+    OpitionSelectPanel *panel =
+    [[OpitionSelectPanel alloc] initWithFrame:CGRectMake(0,
+                                                         0,
+                                                         WIDTH(self.view),
+                                                         HEIGHT(self.view) - self.topBarOffset - 100)];
+    
+    
+    [panel setupTitle:@"产品"
+             opitions:[self buildSelectionOpition]
+               cancel:^(){[self.tabBarController dismissSemiModalView];}
+               submit:^(SelectOpition *opitions){
+                   self.selectOpition =opitions;
+                   [self.tabBarController dismissSemiModalView];
+                   [self.navigationController pushViewController:[OrderPreviewViewController new] animated:YES];
+               }];
+    [self.tabBarController presentSemiView:panel withOptions:nil];
+}
+
+- (void)getSelectedOpitions:(NSArray *)array
+{
+    
+    NSMutableString *str = [NSMutableString string];
+    [str appendString:@"已选择"];
+    for (OpitionItem *item in array) {
+        [str appendFormat:@",%d", item.id];
+    }
+}
+
+- (SelectOpition *)buildSelectionOpition
+{
+    self.selectOpition = [SelectOpition new];
+    OpitionCategory *category = [OpitionCategory new];
+    category.id = 1;
+    category.title = @"服务项目";
+    
+    NSMutableArray *items = [NSMutableArray array];
+    OpitionItem *item = [OpitionItem new];
+    item.id = 0;
+    item.categoryId = category.id;
+    item.title =  @"精剪";
+    [items addObject:item];
+    
+    OpitionItem *item2 = [OpitionItem new];
+    item2.id = 1;
+    item2.categoryId = category.id;
+    item2.title =  @"烫染";
+    [items addObject:item2];
+    
+    OpitionItem *item3 = [OpitionItem new];
+    item3.id = 2;
+    item3.categoryId = category.id;
+    item3.title =  @"保养";
+    [items addObject:item3];
+    category.opitionItems = items;
+    
+    self.selectOpition.opitionCateogries = @[category];
+    self.selectOpition.selectedValues = [NSArray array];
+    
+    return self.selectOpition;
+}
 @end

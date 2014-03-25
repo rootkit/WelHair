@@ -49,7 +49,7 @@
         [self addSubview:self.descriptionLbl];
         
         self.dateLbl = [[UILabel alloc] initWithFrame:CGRectMake(MaxX(self.titleLbl), Y(self.titleLbl), dateLblWidth,15)];
-        self.dateLbl.font = [UIFont systemFontOfSize:8];
+        self.dateLbl.font = [UIFont systemFontOfSize:10];
         self.dateLbl.textAlignment = NSTextAlignmentLeft;
         self.dateLbl.backgroundColor = [UIColor clearColor];
         self.dateLbl.textColor = [UIColor colorWithHexString:@"89bae3"];

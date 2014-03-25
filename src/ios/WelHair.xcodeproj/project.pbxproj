@@ -286,6 +286,9 @@
 		46EAF98A18D18D0D00D4C624 /* CityListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 46EAF98818D18D0D00D4C624 /* CityListViewController.m */; };
 		46F5865E18E1BB2B00F9BF51 /* GroupStaffCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 46F5865D18E1BB2B00F9BF51 /* GroupStaffCell.m */; };
 		46F5866118E1BF2C00F9BF51 /* StaffCellI_WorkIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 46F5866018E1BF2C00F9BF51 /* StaffCellI_WorkIcon@2x.png */; };
+		46F5866418E1C47100F9BF51 /* ProductDetailViewControl_TempBg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 46F5866318E1C47100F9BF51 /* ProductDetailViewControl_TempBg@2x.png */; };
+		46F5866718E1C73000F9BF51 /* ProductDetailWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 46F5866618E1C73000F9BF51 /* ProductDetailWebViewController.m */; };
+		46F5866A18E1C8BA00F9BF51 /* OrderPreviewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 46F5866918E1C8BA00F9BF51 /* OrderPreviewViewController.m */; };
 		8D253C7C0D2C41EC8279DF3F /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0DEE8FDE44A64A6986F93371 /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -795,6 +798,11 @@
 		46F5865C18E1BB2B00F9BF51 /* GroupStaffCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroupStaffCell.h; sourceTree = "<group>"; };
 		46F5865D18E1BB2B00F9BF51 /* GroupStaffCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GroupStaffCell.m; sourceTree = "<group>"; };
 		46F5866018E1BF2C00F9BF51 /* StaffCellI_WorkIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "StaffCellI_WorkIcon@2x.png"; sourceTree = "<group>"; };
+		46F5866318E1C47100F9BF51 /* ProductDetailViewControl_TempBg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ProductDetailViewControl_TempBg@2x.png"; sourceTree = "<group>"; };
+		46F5866518E1C73000F9BF51 /* ProductDetailWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProductDetailWebViewController.h; sourceTree = "<group>"; };
+		46F5866618E1C73000F9BF51 /* ProductDetailWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProductDetailWebViewController.m; sourceTree = "<group>"; };
+		46F5866818E1C8BA00F9BF51 /* OrderPreviewViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderPreviewViewController.h; sourceTree = "<group>"; };
+		46F5866918E1C8BA00F9BF51 /* OrderPreviewViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderPreviewViewController.m; sourceTree = "<group>"; };
 		DB57361E9AB145E7AB30BD59 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = ../../Pods/Pods.xcconfig; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -1256,6 +1264,7 @@
 		461B0C2218DC3BD700E0DAF5 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				46F5866218E1C47100F9BF51 /* ProductDetailViewControl */,
 				46F5865F18E1BF2C00F9BF51 /* Cell */,
 				461B0C2318DC3BD700E0DAF5 /* AppointmentPreviewViewController */,
 				461B0C2518DC3BD700E0DAF5 /* CouponDetailViewControl */,
@@ -1373,6 +1382,8 @@
 				4630252118C7781A000E0B51 /* PayViewController.m */,
 				46BDF11618D099F300999F50 /* AppointmentPreviewViewController.h */,
 				46BDF11718D099F300999F50 /* AppointmentPreviewViewController.m */,
+				46F5866818E1C8BA00F9BF51 /* OrderPreviewViewController.h */,
+				46F5866918E1C8BA00F9BF51 /* OrderPreviewViewController.m */,
 			);
 			path = Order;
 			sourceTree = "<group>";
@@ -1418,6 +1429,8 @@
 				4660E68F18BB73E1005B3C7D /* ProductsViewController.m */,
 				46E84EC818C2D9050004C146 /* ProductDetailViewController.h */,
 				46E84EC918C2D9050004C146 /* ProductDetailViewController.m */,
+				46F5866518E1C73000F9BF51 /* ProductDetailWebViewController.h */,
+				46F5866618E1C73000F9BF51 /* ProductDetailWebViewController.m */,
 			);
 			path = Products;
 			sourceTree = "<group>";
@@ -1960,6 +1973,14 @@
 			path = Cell;
 			sourceTree = "<group>";
 		};
+		46F5866218E1C47100F9BF51 /* ProductDetailViewControl */ = {
+			isa = PBXGroup;
+			children = (
+				46F5866318E1C47100F9BF51 /* ProductDetailViewControl_TempBg@2x.png */,
+			);
+			path = ProductDetailViewControl;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -2095,6 +2116,7 @@
 				184B82DB18DAC7F000177BAB /* bubble-flat-incoming@2x.png in Resources */,
 				461B0C5218DC3BD700E0DAF5 /* RootBottomTab1.png in Resources */,
 				184B82E518DAC7F000177BAB /* bubble-square-incoming@2x.png in Resources */,
+				46F5866418E1C47100F9BF51 /* ProductDetailViewControl_TempBg@2x.png in Resources */,
 				184B82CD18DAC7F000177BAB /* bubble-default-incoming-green@2x.png in Resources */,
 				184B82D318DAC7F000177BAB /* bubble-default-outgoing-green@2x.png in Resources */,
 				461B0C5818DC3BD700E0DAF5 /* RootBottomTab3Selected@2x.png in Resources */,
@@ -2213,6 +2235,7 @@
 				46BDF11518D08B9D00999F50 /* StaffCell.m in Sources */,
 				467F0EF118CB4FCF009FFE08 /* UIView+WelKit.m in Sources */,
 				46E84EE018C33FAC0004C146 /* SelectOpition.m in Sources */,
+				46F5866718E1C73000F9BF51 /* ProductDetailWebViewController.m in Sources */,
 				460C2F4A18CAFDB200AD16E6 /* GroupCell.m in Sources */,
 				46BCD25F18BC725D005C4BD6 /* GroupsViewController.m in Sources */,
 				4673BBC418D420AB000F64DE /* StaffServicesViewController.m in Sources */,
@@ -2317,6 +2340,7 @@
 				467F0EEF18CB4FCF009FFE08 /* UINavigationBar+WelKit.m in Sources */,
 				46BCD27318BC79E0005C4BD6 /* StaffsViewController.m in Sources */,
 				184B82FD18DAC7F000177BAB /* UIView+AnimationOptionsForCurve.m in Sources */,
+				46F5866A18E1C8BA00F9BF51 /* OrderPreviewViewController.m in Sources */,
 				4651D97818DE7294004AC95A /* BaseManager.m in Sources */,
 				184B82C718DAC7F000177BAB /* JSMessageInputView.m in Sources */,
 				467F0EEE18CB4FCF009FFE08 /* UIImage+WelKit.m in Sources */,
