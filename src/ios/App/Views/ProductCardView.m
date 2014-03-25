@@ -63,7 +63,7 @@
         self.distanceLbl.backgroundColor = [UIColor clearColor];
         self.distanceLbl.textColor = [UIColor colorWithHexString:@"206aa7"];
         [self addSubview:self.distanceLbl];
-        [self drawBottomShadowOffset:1 opacity:0.1];
+        [self drawBottomShadowOffset:1 opacity:1];
     }
     return self;
 }

@@ -80,7 +80,7 @@
         self.commentContentLbl.textColor = [UIColor grayColor];
 
         [self addSubview:self.commentContentLbl];
-        [self drawBottomShadowOffset:1 opacity:0.1];
+        [self drawBottomShadowOffset:1 opacity:1];
     }
     return self;
 }
