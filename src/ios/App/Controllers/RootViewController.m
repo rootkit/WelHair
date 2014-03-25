@@ -12,8 +12,7 @@
 
 #import "RootViewController.h"
 #import "WorksViewController.h"
-#import "ChatSessionListViewController.h"
-//#import "CouponsViewController.h"
+#import "StaffsViewController.h"
 #import "ProductsViewController.h"
 #import "GroupsViewController.h"
 #import "UserViewController.h"
@@ -39,17 +38,17 @@
     GroupsViewController *groupsVc = [GroupsViewController new];
     UINavigationController *groupsNav = [[UINavigationController alloc] initWithRootViewController:groupsVc];
     groupsNav.delegate = self;
-    ChatSessionListViewController *chatVc = [ChatSessionListViewController new];
-    UINavigationController *chatNav = [[UINavigationController alloc] initWithRootViewController:chatVc];
-    chatNav.delegate = self;
     ProductsViewController *productsVc = [ProductsViewController new];
     UINavigationController *productsNav = [[UINavigationController alloc] initWithRootViewController:productsVc];
     productsNav.delegate  = self;
+    StaffsViewController *staffsVc = [StaffsViewController new];
+    UINavigationController *staffsNav = [[UINavigationController alloc] initWithRootViewController:staffsVc];
+    staffsNav.delegate = self;
     UserViewController *userVc = [UserViewController new];
     UINavigationController *userNav = [[UINavigationController alloc] initWithRootViewController:userVc];
     userNav.delegate = self;
 
-    NSArray *viewControls = @[workNav,groupsNav,chatNav,productsNav,userNav];
+    NSArray *viewControls = @[workNav,groupsNav,productsNav,staffsNav,userNav];
     NSArray *tabNormalImages = @[[UIImage imageNamed:@"RootBottomTab1"],
                                  [UIImage imageNamed:@"RootBottomTab2"],
                                  [UIImage imageNamed:@"RootBottomTab3"],
@@ -83,7 +82,7 @@
 {   
     if([viewController isKindOfClass:[WorksViewController class]] ||
        [viewController isKindOfClass:[GroupsViewController class]] ||
-       [viewController isKindOfClass:[ChatSessionListViewController class]] ||
+       [viewController isKindOfClass:[StaffsViewController class]] ||
        [viewController isKindOfClass:[ProductsViewController class]] ||
        [viewController isKindOfClass:[UserViewController class]] ){
         [self.tabBar setHidden:YES];

@@ -61,7 +61,7 @@
                                                             HEIGHT(self.view) - tabHeight,
                                                             WIDTH(self.view),
                                                             tabHeight)];
-    UIView *tabBgView = [[UIView alloc] initWithFrame:self.tabView.frame];
+    UIView *tabBgView = [[UIView alloc] initWithFrame:CGRectMake(0, HEIGHT(self.view) - 49, WIDTH(self.tabView), 49)];
     tabBgView.backgroundColor = [UIColor colorWithHexString:APP_CONTENT_BG_COLOR];
     [self.view addSubview:tabBgView];
     [self.view addSubview:self.tabView];
