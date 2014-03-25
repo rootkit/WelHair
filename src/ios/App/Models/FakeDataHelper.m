@@ -102,7 +102,7 @@
         group.name = @"永琪";
         product.group = group;
         product.price = 87.9;
-        product.imgUrlList = @[@"http://4.xiustatic.com/upload/goods20111107/65002396/650023960001/g1_600_600.1339481667492.jpg"];
+        product.imgUrlList = @[@"http://d12.yihaodianimg.com/t1/2011/1117/506/180/3500538_600x600.jpg",@"http://4.xiustatic.com/upload/goods20111107/65002396/650023960001/g1_600_600.1339481667492.jpg"];
         [ar addObject:product];
     }
     return ar;

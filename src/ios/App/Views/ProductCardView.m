@@ -47,7 +47,7 @@
         self.priceLbl = [[UILabel alloc] initWithFrame:CGRectMake(5, MaxY(self.groupLbl) +3, width *1/2 ,20)];
         self.priceLbl.font = [UIFont systemFontOfSize:16];
         self.priceLbl.backgroundColor = [UIColor clearColor];
-        self.priceLbl.textColor = [UIColor colorWithHexString:@"206aa7"];
+        self.priceLbl.textColor = [UIColor colorWithHexString:APP_NAVIGATIONBAR_COLOR];
         [self addSubview:self.priceLbl];
         
         float locationIconSize = 15;
@@ -61,7 +61,7 @@
         self.distanceLbl.font = [UIFont systemFontOfSize:10];
         self.distanceLbl.textAlignment = NSTextAlignmentRight;
         self.distanceLbl.backgroundColor = [UIColor clearColor];
-        self.distanceLbl.textColor = [UIColor colorWithHexString:@"206aa7"];
+        self.distanceLbl.textColor = [UIColor colorWithHexString:APP_NAVIGATIONBAR_COLOR];
         [self addSubview:self.distanceLbl];
         [self drawBottomShadowOffset:1 opacity:1];
     }

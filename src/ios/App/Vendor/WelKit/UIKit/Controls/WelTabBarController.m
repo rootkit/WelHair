@@ -56,10 +56,14 @@
 
 - (void)setupTabs:(float)tabHeight
 {
+    
     self.tabView = [[UIView alloc] initWithFrame:CGRectMake(0,
                                                             HEIGHT(self.view) - tabHeight,
                                                             WIDTH(self.view),
                                                             tabHeight)];
+    UIView *tabBgView = [[UIView alloc] initWithFrame:self.tabView.frame];
+    tabBgView.backgroundColor = [UIColor colorWithHexString:APP_CONTENT_BG_COLOR];
+    [self.view addSubview:tabBgView];
     [self.view addSubview:self.tabView];
     self.tabView.backgroundColor = [UIColor clearColor];
     int tabNum= MAX(self.normalTabImages.count, self.selectedTabImages.count);

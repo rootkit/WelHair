@@ -75,7 +75,9 @@ static const   float profileViewHeight = 80;
 
 - (void) rightNavItemClick
 {
-    [self.navigationController pushViewController:[SettingViewController new] animated:YES];
+    SettingViewController *vc = [SettingViewController new];
+    vc.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 - (void)loadView
