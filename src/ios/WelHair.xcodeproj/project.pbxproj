@@ -7,6 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1825E1CC18E183B70052AA9A /* Juchi@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1825E1C318E183B70052AA9A /* Juchi@2x.png */; };
+		1825E1CD18E183B70052AA9A /* MeTab1.png in Resources */ = {isa = PBXBuildFile; fileRef = 1825E1C418E183B70052AA9A /* MeTab1.png */; };
+		1825E1CE18E183B70052AA9A /* MeTab1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1825E1C518E183B70052AA9A /* MeTab1@2x.png */; };
+		1825E1CF18E183B70052AA9A /* MeTab2.png in Resources */ = {isa = PBXBuildFile; fileRef = 1825E1C618E183B70052AA9A /* MeTab2.png */; };
+		1825E1D018E183B70052AA9A /* MeTab2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1825E1C718E183B70052AA9A /* MeTab2@2x.png */; };
+		1825E1D118E183B70052AA9A /* MeTab3.png in Resources */ = {isa = PBXBuildFile; fileRef = 1825E1C818E183B70052AA9A /* MeTab3.png */; };
+		1825E1D218E183B70052AA9A /* MeTab3@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1825E1C918E183B70052AA9A /* MeTab3@2x.png */; };
+		1825E1D318E183B70052AA9A /* MeTab4.png in Resources */ = {isa = PBXBuildFile; fileRef = 1825E1CA18E183B70052AA9A /* MeTab4.png */; };
+		1825E1D418E183B70052AA9A /* MeTab4@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1825E1CB18E183B70052AA9A /* MeTab4@2x.png */; };
 		183B03CD18E110F500765116 /* ABMGroupedTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 183B03C918E110F500765116 /* ABMGroupedTableView.m */; };
 		183B03CE18E110F500765116 /* ABMGroupedTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 183B03CB18E110F500765116 /* ABMGroupedTableViewCell.m */; };
 		183B03DA18E1110500765116 /* groupedTableView_bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 183B03D018E1110500765116 /* groupedTableView_bg@2x.png */; };
@@ -280,6 +289,15 @@
 
 /* Begin PBXFileReference section */
 		0DEE8FDE44A64A6986F93371 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		1825E1C318E183B70052AA9A /* Juchi@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Juchi@2x.png"; sourceTree = "<group>"; };
+		1825E1C418E183B70052AA9A /* MeTab1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MeTab1.png; sourceTree = "<group>"; };
+		1825E1C518E183B70052AA9A /* MeTab1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "MeTab1@2x.png"; sourceTree = "<group>"; };
+		1825E1C618E183B70052AA9A /* MeTab2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MeTab2.png; sourceTree = "<group>"; };
+		1825E1C718E183B70052AA9A /* MeTab2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "MeTab2@2x.png"; sourceTree = "<group>"; };
+		1825E1C818E183B70052AA9A /* MeTab3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MeTab3.png; sourceTree = "<group>"; };
+		1825E1C918E183B70052AA9A /* MeTab3@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "MeTab3@2x.png"; sourceTree = "<group>"; };
+		1825E1CA18E183B70052AA9A /* MeTab4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MeTab4.png; sourceTree = "<group>"; };
+		1825E1CB18E183B70052AA9A /* MeTab4@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "MeTab4@2x.png"; sourceTree = "<group>"; };
 		183B03C818E110F500765116 /* ABMGroupedTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ABMGroupedTableView.h; sourceTree = "<group>"; };
 		183B03C918E110F500765116 /* ABMGroupedTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ABMGroupedTableView.m; sourceTree = "<group>"; };
 		183B03CA18E110F500765116 /* ABMGroupedTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ABMGroupedTableViewCell.h; sourceTree = "<group>"; };
@@ -804,6 +822,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1825E1C218E183B60052AA9A /* Tab */ = {
+			isa = PBXGroup;
+			children = (
+				1825E1C318E183B70052AA9A /* Juchi@2x.png */,
+				1825E1C418E183B70052AA9A /* MeTab1.png */,
+				1825E1C518E183B70052AA9A /* MeTab1@2x.png */,
+				1825E1C618E183B70052AA9A /* MeTab2.png */,
+				1825E1C718E183B70052AA9A /* MeTab2@2x.png */,
+				1825E1C818E183B70052AA9A /* MeTab3.png */,
+				1825E1C918E183B70052AA9A /* MeTab3@2x.png */,
+				1825E1CA18E183B70052AA9A /* MeTab4.png */,
+				1825E1CB18E183B70052AA9A /* MeTab4@2x.png */,
+			);
+			path = Tab;
+			sourceTree = "<group>";
+		};
 		183B03C718E110F500765116 /* ABMGroupedTableView */ = {
 			isa = PBXGroup;
 			children = (
@@ -1264,6 +1298,7 @@
 		461B0C2D18DC3BD700E0DAF5 /* UserViewControl */ = {
 			isa = PBXGroup;
 			children = (
+				1825E1C218E183B60052AA9A /* Tab */,
 				461B0C2E18DC3BD700E0DAF5 /* MyGroupViewControl */,
 				461B0C3218DC3BD700E0DAF5 /* StaffManageViewControl */,
 				461B0C3E18DC3BD700E0DAF5 /* UserViewControl_TabBg@2x.png */,
@@ -1996,6 +2031,7 @@
 				184B82E418DAC7F000177BAB /* bubble-square-incoming.png in Resources */,
 				461B0C4A18DC3BD700E0DAF5 /* QRCodeBtn.png in Resources */,
 				184B82ED18DAC7F000177BAB /* input-bar-flat@2x.png in Resources */,
+				1825E1D418E183B70052AA9A /* MeTab4@2x.png in Resources */,
 				184B82DF18DAC7F000177BAB /* bubble-flat-outgoing-selected@2x.png in Resources */,
 				461B0C5018DC3BD700E0DAF5 /* ZanBtn.png in Resources */,
 				461B0C4418DC3BD700E0DAF5 /* GrayArrow.png in Resources */,
@@ -2011,17 +2047,21 @@
 				184B82E118DAC7F000177BAB /* bubble-flat-outgoing@2x.png in Resources */,
 				184B82F818DAC7F000177BAB /* messageReceived.aiff in Resources */,
 				461B0C5C18DC3BD700E0DAF5 /* RootBottomTab5Selected@2x.png in Resources */,
+				1825E1CD18E183B70052AA9A /* MeTab1.png in Resources */,
 				461B0C4518DC3BD700E0DAF5 /* GrayArrow@2x.png in Resources */,
 				461B0C6018DC3BD700E0DAF5 /* Profile_Banner_Bg@2x.png in Resources */,
 				184B82F518DAC7F000177BAB /* send-highlighted@2x.png in Resources */,
 				184B82F118DAC7F000177BAB /* input-field@2x.png in Resources */,
 				461B0C6B18DC3BD700E0DAF5 /* UploadWorkViewControl_FaceStyleLongNormal@2x.png in Resources */,
+				1825E1D118E183B70052AA9A /* MeTab3.png in Resources */,
 				461B0C6818DC3BD700E0DAF5 /* UploadWorkViewControl_FaceStyleCircleSelected@2x.png in Resources */,
 				461B0C5D18DC3BD700E0DAF5 /* TempBg1@2x.png in Resources */,
 				184B82E818DAC7F000177BAB /* bubble-square-outgoing.png in Resources */,
 				461B0C4118DC3BD700E0DAF5 /* Logo@2x.png in Resources */,
 				184B82F018DAC7F000177BAB /* input-field.png in Resources */,
+				1825E1D218E183B70052AA9A /* MeTab3@2x.png in Resources */,
 				461B0C4E18DC3BD700E0DAF5 /* SinaWeibo.png in Resources */,
+				1825E1D018E183B70052AA9A /* MeTab2@2x.png in Resources */,
 				18A9129D18BB2350006B9A04 /* Debug.xcconfig in Resources */,
 				461B0C7018DC3BD700E0DAF5 /* UserViewControl_TabBg@2x.png in Resources */,
 				461B0C6918DC3BD700E0DAF5 /* UploadWorkViewControl_FaceStyleGuaZiNormal@2x.png in Resources */,
@@ -2057,7 +2097,9 @@
 				184B82DA18DAC7F000177BAB /* bubble-flat-incoming.png in Resources */,
 				184B82F718DAC7F000177BAB /* send@2x.png in Resources */,
 				46E84EBF18C2C7040004C146 /* centerIcon@2x.png in Resources */,
+				1825E1CE18E183B70052AA9A /* MeTab1@2x.png in Resources */,
 				469B9FF518D1A7EB00948740 /* UMShareEditViewControlleriPad.xib in Resources */,
+				1825E1CC18E183B70052AA9A /* Juchi@2x.png in Resources */,
 				184B82DE18DAC7F000177BAB /* bubble-flat-outgoing-selected.png in Resources */,
 				184B82EF18DAC7F000177BAB /* input-bar@2x.png in Resources */,
 				183B03E318E1110500765116 /* groupedTableViewCell_topRow_highlighted@2x.png in Resources */,
@@ -2067,12 +2109,14 @@
 				469B9FF918D1A7EB00948740 /* UMSocialSDKResourcesNew.bundle in Resources */,
 				184B82F218DAC7F000177BAB /* PhotoIcon.png in Resources */,
 				18A9129F18BB2350006B9A04 /* Test.xcconfig in Resources */,
+				1825E1CF18E183B70052AA9A /* MeTab2.png in Resources */,
 				461B0C4218DC3BD700E0DAF5 /* AppointmentBtn.png in Resources */,
 				461B0C5918DC3BD700E0DAF5 /* RootBottomTab4@2x.png in Resources */,
 				461B0C5318DC3BD700E0DAF5 /* RootBottomTab1@2x.png in Resources */,
 				461B0C5B18DC3BD700E0DAF5 /* RootBottomTab5@2x.png in Resources */,
 				461B0C6D18DC3BD700E0DAF5 /* UploadWorkViewControl_FaceStyleSquareNormal@2x.png in Resources */,
 				184B82D018DAC7F000177BAB /* bubble-default-incoming.png in Resources */,
+				1825E1D318E183B70052AA9A /* MeTab4.png in Resources */,
 				184B82E018DAC7F000177BAB /* bubble-flat-outgoing.png in Resources */,
 				184B82E618DAC7F000177BAB /* bubble-square-outgoing-selected.png in Resources */,
 				461B0C6A18DC3BD700E0DAF5 /* UploadWorkViewControl_FaceStyleGuaZiSelected@2x.png in Resources */,

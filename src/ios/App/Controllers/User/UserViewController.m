@@ -41,6 +41,7 @@ static const   float profileViewHeight = 80;
 @property (nonatomic, strong) UILabel *addressLbl;
 @property (nonatomic, strong) NSArray *datasource;
 @property (nonatomic, strong) NSArray *iconDatasource;
+@property (nonatomic, strong) NSArray *tabTextDatasource;
 @property (nonatomic, strong) ABMGroupedTableView *tableView;
 
 @end
@@ -57,6 +58,7 @@ static const   float profileViewHeight = 80;
         [rightIcon addAttribute:NSForegroundColorAttributeName value:[UIColor whiteColor]];
         self.rightNavItemImg =[rightIcon imageWithSize:CGSizeMake(NAV_BAR_ICON_SIZE, NAV_BAR_ICON_SIZE)];
 
+        self.tabTextDatasource = @[@"预约", @"订单", @"积分", @"沙龙"];
 
         NSMutableArray *menuList = [[NSMutableArray alloc] initWithCapacity:5];
         [menuList addObject:@[@"个人信息"]];
@@ -84,7 +86,7 @@ static const   float profileViewHeight = 80;
 {
     [super loadView];
     
-    float tabButtonViewHeight = 50;
+    float tabButtonViewHeight = 56;
     float avatorSize = 50;
     
     self.headerBackgroundView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, WIDTH(self.view), profileViewHeight)];
@@ -138,16 +140,29 @@ static const   float profileViewHeight = 80;
     [profileIconView_ addSubview:self.addressLbl];
     
     UIView *tabView_ = [[UIView alloc] initWithFrame:CGRectMake(0, MaxY(profileIconView_), WIDTH(profileIconView_), tabButtonViewHeight)];
-    UIImageView *tabBg = [[UIImageView alloc] initWithFrame:tabView_.bounds];
-    tabBg.image = [UIImage imageNamed:@"UserViewControl_TabBg"];
-    [tabView_ addSubview:tabBg];
+    UIView *tabContentView_ = [[UIView alloc] initWithFrame:CGRectMake(0, 0, WIDTH(profileIconView_), tabButtonViewHeight - 7)];
+    tabContentView_.backgroundColor = [UIColor whiteColor];
+    [tabView_ addSubview:tabContentView_];
+
+    UIView *tabFooterView_ = [[UIView alloc] initWithFrame:CGRectMake(0, MaxY(tabContentView_), WIDTH(profileIconView_), 7)];
+    tabFooterView_.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"Juchi"]];
+    [tabView_ addSubview:tabFooterView_];
     
     int tabCount = 4;
-    float tabWidth = WIDTH(tabView_)/tabCount;
+    float tabWidth = WIDTH(tabView_) / tabCount;
     for (int i = 0; i < tabCount; i++) {
         UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(i * tabWidth, 0, tabWidth, tabButtonViewHeight)];
-        [btn addTarget:self action:@selector(tabClick:) forControlEvents:UIControlEventTouchDown];
         btn.tag = i;
+        btn.titleLabel.font = [UIFont systemFontOfSize:12];
+        btn.titleLabel.textAlignment = TextAlignmentCenter;
+        btn.imageEdgeInsets = UIEdgeInsetsMake(0, tabWidth / 2 - 11, tabButtonViewHeight - 32 , 0);
+        btn.titleEdgeInsets = UIEdgeInsetsMake(20, -18, 0, 0);
+
+        [btn addTarget:self action:@selector(tabClick:) forControlEvents:UIControlEventTouchUpInside];
+        [btn setTitle:[self.tabTextDatasource objectAtIndex:i] forState:UIControlStateNormal];
+        [btn setTitleColor:[UIColor colorWithHexString:@"333333"] forState:UIControlStateNormal];
+        [btn setTitleColor:[UIColor colorWithHexString:@"666666"] forState:UIControlStateHighlighted];
+        [btn setImage:[UIImage imageNamed:[NSString stringWithFormat:@"MeTab%d", i + 1]] forState:UIControlStateNormal];
         [tabView_ addSubview:btn];
     }
     [headerView_ addSubview:tabView_];
