@@ -14,7 +14,9 @@
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
-        // Initialization code
+        UIImageView *bgImg = [[UIImageView alloc] initWithFrame:CGRectMake(0,0,329,210)];
+        bgImg.image = [UIImage imageNamed:@"OrderListViewControl_CellBg"];
+        [self addSubview:bgImg];
     }
     return self;
 }

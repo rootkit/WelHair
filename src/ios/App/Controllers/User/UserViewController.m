@@ -19,7 +19,6 @@
 #import "MyGroupViewController.h"
 #import "MyScoreViewController.h"
 #import "LoginViewController.h"
-#import "OrdersViewController.h"
 #import "SettingViewController.h"
 #import "UserAuthorViewController.h"
 #import "UserProfileViewController.h"
@@ -29,7 +28,7 @@
 #import "WorkDetailViewController.h"
 #import "UserManager.h"
 #import "UserViewController.h"
-
+#import "OrderListViewController.h"
 static const   float profileViewHeight = 80;
 
 @interface UserViewController ()<UITableViewDataSource, UITableViewDelegate, UIActionSheetDelegate, UIImagePickerControllerDelegate,UINavigationControllerDelegate>
@@ -269,7 +268,10 @@ static const   float profileViewHeight = 80;
             break;
         }
         case 1:{
-            //my coupon list
+            OrderListViewController *vc = [OrderListViewController new];
+            vc.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:vc animated:YES];
+            break;
         }
         case 2:{
             MyScoreViewController *vc = [MyScoreViewController new];

@@ -32,14 +32,12 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         self.title = @"订单列表";
+        FAKIcon *leftIcon = [FAKIonIcons ios7ArrowBackIconWithSize:NAV_BAR_ICON_SIZE];
+        [leftIcon addAttribute:NSForegroundColorAttributeName value:[UIColor whiteColor]];
+        self.leftNavItemImg =[leftIcon imageWithSize:CGSizeMake(NAV_BAR_ICON_SIZE, NAV_BAR_ICON_SIZE)];
+        
     }
     return self;
-}
-
-- (void) loadView
-{
-    [super loadView];
-    
 }
 
 - (void)leftNavItemClick
@@ -47,6 +45,11 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 
+- (void) loadView
+{
+    [super loadView];
+    
+}
 
 - (void)viewWillAppear:(BOOL)animated
 {
@@ -93,7 +96,7 @@
     self.tableView.frame = CGRectMake(0,
                                       self.topBarOffset + topTabView.height,
                                       WIDTH(self.view) ,
-                                      [self contentHeightWithNavgationBar:YES withBottomBar:YES] - topTabView.height);
+                                      [self contentHeightWithNavgationBar:YES withBottomBar:NO] - topTabView.height);
     debugLog(@"%f",MaxY(topTabView));
     self.tableView.backgroundColor = [UIColor clearColor];
     self.tableView.delegate = self;

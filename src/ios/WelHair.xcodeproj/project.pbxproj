@@ -160,9 +160,6 @@
 		462F845818CDF77700CADA98 /* GroupDetailInfoTableViewDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 462F845718CDF77700CADA98 /* GroupDetailInfoTableViewDelegate.m */; };
 		462F845B18CDF78D00CADA98 /* GroupDetailStaffTableViewDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 462F845A18CDF78D00CADA98 /* GroupDetailStaffTableViewDelegate.m */; };
 		4630251518C76EF1000E0B51 /* CalendarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4630251418C76EF1000E0B51 /* CalendarViewController.m */; };
-		4630251C18C77695000E0B51 /* OrderListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4630251B18C77695000E0B51 /* OrderListViewController.m */; };
-		4630251F18C777A2000E0B51 /* OrderDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4630251E18C777A2000E0B51 /* OrderDetailViewController.m */; };
-		4630252218C7781A000E0B51 /* PayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4630252118C7781A000E0B51 /* PayViewController.m */; };
 		4630252E18C848EB000E0B51 /* WorkCardView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4630252D18C848EB000E0B51 /* WorkCardView.m */; };
 		4630253118C849FD000E0B51 /* Staff.m in Sources */ = {isa = PBXBuildFile; fileRef = 4630253018C849FD000E0B51 /* Staff.m */; };
 		4630D13A18C603B000DA7CAD /* CircleImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4630D13918C603B000DA7CAD /* CircleImageView.m */; };
@@ -175,6 +172,13 @@
 		4631CF0418E3209900F39814 /* AddressListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4631CF0318E3209900F39814 /* AddressListViewController.m */; };
 		4631CF0718E320B400F39814 /* AddAddressViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4631CF0618E320B400F39814 /* AddAddressViewController.m */; };
 		4631CF0A18E321A900F39814 /* AddressListViewControl_TempBg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4631CF0918E321A900F39814 /* AddressListViewControl_TempBg@2x.png */; };
+		4631CF0D18E325C300F39814 /* OrderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4631CF0C18E325C300F39814 /* OrderCell.m */; };
+		4631CF0F18E3264600F39814 /* OrderListViewControl_CellBg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4631CF0E18E3264600F39814 /* OrderListViewControl_CellBg@2x.png */; };
+		4631CF1B18E3284C00F39814 /* AppointmentPreviewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4631CF1218E3284C00F39814 /* AppointmentPreviewViewController.m */; };
+		4631CF1C18E3284C00F39814 /* OrderDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4631CF1418E3284C00F39814 /* OrderDetailViewController.m */; };
+		4631CF1D18E3284C00F39814 /* OrderListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4631CF1618E3284C00F39814 /* OrderListViewController.m */; };
+		4631CF1E18E3284C00F39814 /* OrderPreviewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4631CF1818E3284C00F39814 /* OrderPreviewViewController.m */; };
+		4631CF1F18E3284C00F39814 /* PayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4631CF1A18E3284C00F39814 /* PayViewController.m */; };
 		46439C9118C763EF00F01691 /* MapPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 46439C9018C763EF00F01691 /* MapPickerViewController.m */; };
 		464BF44C18D56F0F006EBCD9 /* StaffAddServiceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 464BF44B18D56F0F006EBCD9 /* StaffAddServiceViewController.m */; };
 		464BF44F18D576AC006EBCD9 /* CreateCouponViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 464BF44E18D576AC006EBCD9 /* CreateCouponViewController.m */; };
@@ -224,7 +228,6 @@
 		467F0EEF18CB4FCF009FFE08 /* UINavigationBar+WelKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 467F0EE218CB4FCF009FFE08 /* UINavigationBar+WelKit.m */; };
 		467F0EF018CB4FCF009FFE08 /* UITextField+WelKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 467F0EE418CB4FCF009FFE08 /* UITextField+WelKit.m */; };
 		467F0EF118CB4FCF009FFE08 /* UIView+WelKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 467F0EE618CB4FCF009FFE08 /* UIView+WelKit.m */; };
-		467F0EFA18CB5A58009FFE08 /* OrdersViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 467F0EF918CB5A58009FFE08 /* OrdersViewController.m */; };
 		467F0EFD18CB5A8C009FFE08 /* FavoritesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 467F0EFC18CB5A8C009FFE08 /* FavoritesViewController.m */; };
 		467F0F0318CB610F009FFE08 /* SettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 467F0F0218CB610F009FFE08 /* SettingViewController.m */; };
 		467F0F1418CC1EAE009FFE08 /* DoubleCoverCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 467F0F1318CC1EAE009FFE08 /* DoubleCoverCell.m */; };
@@ -273,7 +276,6 @@
 		46BCD27318BC79E0005C4BD6 /* StaffsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 46BCD27218BC79E0005C4BD6 /* StaffsViewController.m */; };
 		46BCD27618BC79EB005C4BD6 /* StaffDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 46BCD27518BC79EB005C4BD6 /* StaffDetailViewController.m */; };
 		46BDF11518D08B9D00999F50 /* StaffCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 46BDF11418D08B9D00999F50 /* StaffCell.m */; };
-		46BDF11818D099F300999F50 /* AppointmentPreviewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 46BDF11718D099F300999F50 /* AppointmentPreviewViewController.m */; };
 		46BDF12118D0B3C300999F50 /* CouponsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 46BDF12018D0B3C300999F50 /* CouponsViewController.m */; };
 		46BDF12418D0B40E00999F50 /* Coupon.m in Sources */ = {isa = PBXBuildFile; fileRef = 46BDF12318D0B40E00999F50 /* Coupon.m */; };
 		46BDF12718D0B51C00999F50 /* CouponDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 46BDF12618D0B51C00999F50 /* CouponDetailViewController.m */; };
@@ -297,7 +299,6 @@
 		46F5866118E1BF2C00F9BF51 /* StaffCellI_WorkIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 46F5866018E1BF2C00F9BF51 /* StaffCellI_WorkIcon@2x.png */; };
 		46F5866418E1C47100F9BF51 /* ProductDetailViewControl_TempBg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 46F5866318E1C47100F9BF51 /* ProductDetailViewControl_TempBg@2x.png */; };
 		46F5866718E1C73000F9BF51 /* ProductDetailWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 46F5866618E1C73000F9BF51 /* ProductDetailWebViewController.m */; };
-		46F5866A18E1C8BA00F9BF51 /* OrderPreviewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 46F5866918E1C8BA00F9BF51 /* OrderPreviewViewController.m */; };
 		8D253C7C0D2C41EC8279DF3F /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0DEE8FDE44A64A6986F93371 /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -497,12 +498,6 @@
 		462F845A18CDF78D00CADA98 /* GroupDetailStaffTableViewDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GroupDetailStaffTableViewDelegate.m; sourceTree = "<group>"; };
 		4630251318C76EF1000E0B51 /* CalendarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CalendarViewController.h; sourceTree = "<group>"; };
 		4630251418C76EF1000E0B51 /* CalendarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CalendarViewController.m; sourceTree = "<group>"; };
-		4630251A18C77695000E0B51 /* OrderListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderListViewController.h; sourceTree = "<group>"; };
-		4630251B18C77695000E0B51 /* OrderListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderListViewController.m; sourceTree = "<group>"; };
-		4630251D18C777A2000E0B51 /* OrderDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderDetailViewController.h; sourceTree = "<group>"; };
-		4630251E18C777A2000E0B51 /* OrderDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderDetailViewController.m; sourceTree = "<group>"; };
-		4630252018C7781A000E0B51 /* PayViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PayViewController.h; sourceTree = "<group>"; };
-		4630252118C7781A000E0B51 /* PayViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PayViewController.m; sourceTree = "<group>"; };
 		4630252C18C848EB000E0B51 /* WorkCardView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WorkCardView.h; sourceTree = "<group>"; };
 		4630252D18C848EB000E0B51 /* WorkCardView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WorkCardView.m; sourceTree = "<group>"; };
 		4630252F18C849FD000E0B51 /* Staff.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Staff.h; sourceTree = "<group>"; };
@@ -521,6 +516,19 @@
 		4631CF0518E320B400F39814 /* AddAddressViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddAddressViewController.h; sourceTree = "<group>"; };
 		4631CF0618E320B400F39814 /* AddAddressViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddAddressViewController.m; sourceTree = "<group>"; };
 		4631CF0918E321A900F39814 /* AddressListViewControl_TempBg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "AddressListViewControl_TempBg@2x.png"; sourceTree = "<group>"; };
+		4631CF0B18E325C300F39814 /* OrderCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderCell.h; sourceTree = "<group>"; };
+		4631CF0C18E325C300F39814 /* OrderCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderCell.m; sourceTree = "<group>"; };
+		4631CF0E18E3264600F39814 /* OrderListViewControl_CellBg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "OrderListViewControl_CellBg@2x.png"; sourceTree = "<group>"; };
+		4631CF1118E3284C00F39814 /* AppointmentPreviewViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppointmentPreviewViewController.h; sourceTree = "<group>"; };
+		4631CF1218E3284C00F39814 /* AppointmentPreviewViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppointmentPreviewViewController.m; sourceTree = "<group>"; };
+		4631CF1318E3284C00F39814 /* OrderDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderDetailViewController.h; sourceTree = "<group>"; };
+		4631CF1418E3284C00F39814 /* OrderDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderDetailViewController.m; sourceTree = "<group>"; };
+		4631CF1518E3284C00F39814 /* OrderListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderListViewController.h; sourceTree = "<group>"; };
+		4631CF1618E3284C00F39814 /* OrderListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderListViewController.m; sourceTree = "<group>"; };
+		4631CF1718E3284C00F39814 /* OrderPreviewViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderPreviewViewController.h; sourceTree = "<group>"; };
+		4631CF1818E3284C00F39814 /* OrderPreviewViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderPreviewViewController.m; sourceTree = "<group>"; };
+		4631CF1918E3284C00F39814 /* PayViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PayViewController.h; sourceTree = "<group>"; };
+		4631CF1A18E3284C00F39814 /* PayViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PayViewController.m; sourceTree = "<group>"; };
 		46439C8F18C763EF00F01691 /* MapPickerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapPickerViewController.h; sourceTree = "<group>"; };
 		46439C9018C763EF00F01691 /* MapPickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapPickerViewController.m; sourceTree = "<group>"; };
 		464BF44A18D56F0F006EBCD9 /* StaffAddServiceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StaffAddServiceViewController.h; sourceTree = "<group>"; };
@@ -614,8 +622,6 @@
 		467F0EE418CB4FCF009FFE08 /* UITextField+WelKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITextField+WelKit.m"; sourceTree = "<group>"; };
 		467F0EE518CB4FCF009FFE08 /* UIView+WelKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+WelKit.h"; sourceTree = "<group>"; };
 		467F0EE618CB4FCF009FFE08 /* UIView+WelKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+WelKit.m"; sourceTree = "<group>"; };
-		467F0EF818CB5A58009FFE08 /* OrdersViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrdersViewController.h; sourceTree = "<group>"; };
-		467F0EF918CB5A58009FFE08 /* OrdersViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrdersViewController.m; sourceTree = "<group>"; };
 		467F0EFB18CB5A8C009FFE08 /* FavoritesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FavoritesViewController.h; sourceTree = "<group>"; };
 		467F0EFC18CB5A8C009FFE08 /* FavoritesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FavoritesViewController.m; sourceTree = "<group>"; };
 		467F0F0118CB610F009FFE08 /* SettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingViewController.h; sourceTree = "<group>"; };
@@ -778,8 +784,6 @@
 		46BCD27518BC79EB005C4BD6 /* StaffDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StaffDetailViewController.m; sourceTree = "<group>"; };
 		46BDF11318D08B9D00999F50 /* StaffCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StaffCell.h; sourceTree = "<group>"; };
 		46BDF11418D08B9D00999F50 /* StaffCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StaffCell.m; sourceTree = "<group>"; };
-		46BDF11618D099F300999F50 /* AppointmentPreviewViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppointmentPreviewViewController.h; sourceTree = "<group>"; };
-		46BDF11718D099F300999F50 /* AppointmentPreviewViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppointmentPreviewViewController.m; sourceTree = "<group>"; };
 		46BDF11F18D0B3C300999F50 /* CouponsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CouponsViewController.h; sourceTree = "<group>"; };
 		46BDF12018D0B3C300999F50 /* CouponsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CouponsViewController.m; sourceTree = "<group>"; };
 		46BDF12218D0B40E00999F50 /* Coupon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Coupon.h; sourceTree = "<group>"; };
@@ -822,8 +826,6 @@
 		46F5866318E1C47100F9BF51 /* ProductDetailViewControl_TempBg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ProductDetailViewControl_TempBg@2x.png"; sourceTree = "<group>"; };
 		46F5866518E1C73000F9BF51 /* ProductDetailWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProductDetailWebViewController.h; sourceTree = "<group>"; };
 		46F5866618E1C73000F9BF51 /* ProductDetailWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProductDetailWebViewController.m; sourceTree = "<group>"; };
-		46F5866818E1C8BA00F9BF51 /* OrderPreviewViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderPreviewViewController.h; sourceTree = "<group>"; };
-		46F5866918E1C8BA00F9BF51 /* OrderPreviewViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderPreviewViewController.m; sourceTree = "<group>"; };
 		DB57361E9AB145E7AB30BD59 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = ../../Pods/Pods.xcconfig; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -1122,7 +1124,6 @@
 				46BCD26018BC7533005C4BD6 /* Common */,
 				46BDF11E18D0B3AC00999F50 /* Coupon */,
 				46BCD25C18BC724E005C4BD6 /* Groups */,
-				4630251618C7764E000E0B51 /* Order */,
 				4660E68518BB73A8005B3C7D /* Products */,
 				467F0F0018CB60E0009FFE08 /* Settings */,
 				46BCD27018BC79D3005C4BD6 /* Staffs */,
@@ -1396,23 +1397,6 @@
 			path = WorkDetail;
 			sourceTree = "<group>";
 		};
-		4630251618C7764E000E0B51 /* Order */ = {
-			isa = PBXGroup;
-			children = (
-				4630251A18C77695000E0B51 /* OrderListViewController.h */,
-				4630251B18C77695000E0B51 /* OrderListViewController.m */,
-				4630251D18C777A2000E0B51 /* OrderDetailViewController.h */,
-				4630251E18C777A2000E0B51 /* OrderDetailViewController.m */,
-				4630252018C7781A000E0B51 /* PayViewController.h */,
-				4630252118C7781A000E0B51 /* PayViewController.m */,
-				46BDF11618D099F300999F50 /* AppointmentPreviewViewController.h */,
-				46BDF11718D099F300999F50 /* AppointmentPreviewViewController.m */,
-				46F5866818E1C8BA00F9BF51 /* OrderPreviewViewController.h */,
-				46F5866918E1C8BA00F9BF51 /* OrderPreviewViewController.m */,
-			);
-			path = Order;
-			sourceTree = "<group>";
-		};
 		4630D13718C603B000DA7CAD /* CircleView */ = {
 			isa = PBXGroup;
 			children = (
@@ -1449,6 +1433,23 @@
 				4631CF0918E321A900F39814 /* AddressListViewControl_TempBg@2x.png */,
 			);
 			path = AddressListViewControl;
+			sourceTree = "<group>";
+		};
+		4631CF1018E3284C00F39814 /* Order */ = {
+			isa = PBXGroup;
+			children = (
+				4631CF1118E3284C00F39814 /* AppointmentPreviewViewController.h */,
+				4631CF1218E3284C00F39814 /* AppointmentPreviewViewController.m */,
+				4631CF1318E3284C00F39814 /* OrderDetailViewController.h */,
+				4631CF1418E3284C00F39814 /* OrderDetailViewController.m */,
+				4631CF1518E3284C00F39814 /* OrderListViewController.h */,
+				4631CF1618E3284C00F39814 /* OrderListViewController.m */,
+				4631CF1718E3284C00F39814 /* OrderPreviewViewController.h */,
+				4631CF1818E3284C00F39814 /* OrderPreviewViewController.m */,
+				4631CF1918E3284C00F39814 /* PayViewController.h */,
+				4631CF1A18E3284C00F39814 /* PayViewController.m */,
+			);
+			path = Order;
 			sourceTree = "<group>";
 		};
 		4651D97118DE7294004AC95A /* Manager */ = {
@@ -1492,6 +1493,7 @@
 		4660E68718BB73A8005B3C7D /* User */ = {
 			isa = PBXGroup;
 			children = (
+				4631CF1018E3284C00F39814 /* Order */,
 				4631CF0118E3209900F39814 /* Address */,
 				46BDF12E18D1515A00999F50 /* Group */,
 				46BDF13618D1771E00999F50 /* Staff */,
@@ -1503,8 +1505,6 @@
 				46B233B618BCDC4200CC27A3 /* LoginViewController.m */,
 				465A5C8618DB08C7009B6D60 /* MyScoreViewController.h */,
 				465A5C8718DB08C7009B6D60 /* MyScoreViewController.m */,
-				467F0EF818CB5A58009FFE08 /* OrdersViewController.h */,
-				467F0EF918CB5A58009FFE08 /* OrdersViewController.m */,
 				18A3E61118DC0C280080DC0B /* RegisterViewController.h */,
 				18A3E61218DC0C280080DC0B /* RegisterViewController.m */,
 				46BDF13718D1779100999F50 /* UserAuthorViewController.h */,
@@ -1838,6 +1838,8 @@
 				46F5865D18E1BB2B00F9BF51 /* GroupStaffCell.m */,
 				4631CEF018E315A800F39814 /* ProductOpitionPanel.h */,
 				4631CEF118E315A800F39814 /* ProductOpitionPanel.m */,
+				4631CF0B18E325C300F39814 /* OrderCell.h */,
+				4631CF0C18E325C300F39814 /* OrderCell.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -2025,6 +2027,7 @@
 		46F5865F18E1BF2C00F9BF51 /* Cell */ = {
 			isa = PBXGroup;
 			children = (
+				4631CF0E18E3264600F39814 /* OrderListViewControl_CellBg@2x.png */,
 				46F5866018E1BF2C00F9BF51 /* StaffCellI_WorkIcon@2x.png */,
 			);
 			path = Cell;
@@ -2180,6 +2183,7 @@
 				184B82CD18DAC7F000177BAB /* bubble-default-incoming-green@2x.png in Resources */,
 				184B82D318DAC7F000177BAB /* bubble-default-outgoing-green@2x.png in Resources */,
 				4631CF0A18E321A900F39814 /* AddressListViewControl_TempBg@2x.png in Resources */,
+				4631CF0F18E3264600F39814 /* OrderListViewControl_CellBg@2x.png in Resources */,
 				461B0C5818DC3BD700E0DAF5 /* RootBottomTab3Selected@2x.png in Resources */,
 				469B9FF118D1A7EB00948740 /* UMSCommentDetailController.xib in Resources */,
 				46BCD25218BC3B4F005C4BD6 /* SVProgressHUD.bundle in Resources */,
@@ -2290,7 +2294,6 @@
 				467F0EEB18CB4FCF009FFE08 /* WelQRGeneraterViewController.m in Sources */,
 				46E84EE318C356B30004C146 /* OpitionButton.m in Sources */,
 				467F0EB518CB1721009FFE08 /* Product.m in Sources */,
-				4630251F18C777A2000E0B51 /* OrderDetailViewController.m in Sources */,
 				467F0EE718CB4FCF009FFE08 /* NSDate+WelKit.m in Sources */,
 				467F0EB218CB16EB009FFE08 /* ProductCardView.m in Sources */,
 				4673BB9318D41B37000F64DE /* CouponManagerViewController.m in Sources */,
@@ -2321,16 +2324,17 @@
 				184B82CA18DAC7F000177BAB /* JSMessageTextView.m in Sources */,
 				4673BB6118D2ED4D000F64DE /* AppointmentsViewController.m in Sources */,
 				46BCD26918BC797B005C4BD6 /* GroupDetailViewController.m in Sources */,
+				4631CF0D18E325C300F39814 /* OrderCell.m in Sources */,
 				18A3E61918DC11240080DC0B /* RequestUtil.m in Sources */,
 				465A5C8B18DB0B8D009B6D60 /* MyScoreCell.m in Sources */,
 				46EAF98A18D18D0D00D4C624 /* CityListViewController.m in Sources */,
 				467F0EF018CB4FCF009FFE08 /* UITextField+WelKit.m in Sources */,
-				46BDF11818D099F300999F50 /* AppointmentPreviewViewController.m in Sources */,
 				46F5865E18E1BB2B00F9BF51 /* GroupStaffCell.m in Sources */,
 				4673BB8318D3FA54000F64DE /* UserProfileViewController.m in Sources */,
 				467F0EBB18CB3956009FFE08 /* ChatGroupCell.m in Sources */,
 				18AC388818CD685C00328A78 /* WebSocketUtil.m in Sources */,
 				46BDF13918D1779100999F50 /* UserAuthorViewController.m in Sources */,
+				4631CF1F18E3284C00F39814 /* PayViewController.m in Sources */,
 				184B82C818DAC7F000177BAB /* JSMessageSoundEffect.m in Sources */,
 				464BF44F18D576AC006EBCD9 /* CreateCouponViewController.m in Sources */,
 				467F0F1418CC1EAE009FFE08 /* DoubleCoverCell.m in Sources */,
@@ -2346,13 +2350,12 @@
 				467F0F2218CC7939009FFE08 /* DropDownView.m in Sources */,
 				46BCD25718BC628E005C4BD6 /* ChatSessionListViewController.m in Sources */,
 				46BCD26618BC796B005C4BD6 /* WorkDetailViewController.m in Sources */,
-				4630251C18C77695000E0B51 /* OrderListViewController.m in Sources */,
+				4631CF1D18E3284C00F39814 /* OrderListViewController.m in Sources */,
 				4673BB6A18D2F848000F64DE /* UploadWorkFormViewController.m in Sources */,
 				184B82FC18DAC7F000177BAB /* UIImage+JSMessagesView.m in Sources */,
 				18A3E61318DC0C280080DC0B /* RegisterViewController.m in Sources */,
 				46E84ED718C2F0380004C146 /* OpitionSelectPanel.m in Sources */,
 				4665FD8518BC801000E88C6B /* Work.m in Sources */,
-				467F0EFA18CB5A58009FFE08 /* OrdersViewController.m in Sources */,
 				46B25AE618BF1CC60035F425 /* MapViewController.mm in Sources */,
 				467F0F1D18CC219B009FFE08 /* TripleCoverCell.m in Sources */,
 				4651D97A18DE7294004AC95A /* UserManager.m in Sources */,
@@ -2380,9 +2383,9 @@
 				4673BB9918D41BA1000F64DE /* WithDrawalViewController.m in Sources */,
 				467F0EFD18CB5A8C009FFE08 /* FavoritesViewController.m in Sources */,
 				4673BB9C18D41BBB000F64DE /* ApprovalViewController.m in Sources */,
-				4630252218C7781A000E0B51 /* PayViewController.m in Sources */,
 				464BF44C18D56F0F006EBCD9 /* StaffAddServiceViewController.m in Sources */,
 				4673BBA218D41EE9000F64DE /* StaffManageViewController.m in Sources */,
+				4631CF1B18E3284C00F39814 /* AppointmentPreviewViewController.m in Sources */,
 				46BDF13C18D17AF300999F50 /* CreateGroupViewController.m in Sources */,
 				4631CF0718E320B400F39814 /* AddAddressViewController.m in Sources */,
 				4673BB5B18D2E2A9000F64DE /* StaffWorksViewController.m in Sources */,
@@ -2393,6 +2396,7 @@
 				467F0EED18CB4FCF009FFE08 /* WelTabBarController.m in Sources */,
 				4630253118C849FD000E0B51 /* Staff.m in Sources */,
 				46E84ECA18C2D9050004C146 /* ProductDetailViewController.m in Sources */,
+				4631CF1E18E3284C00F39814 /* OrderPreviewViewController.m in Sources */,
 				18A9126F18BB216E006B9A04 /* main.m in Sources */,
 				4630252E18C848EB000E0B51 /* WorkCardView.m in Sources */,
 				465A5C8818DB08C7009B6D60 /* MyScoreViewController.m in Sources */,
@@ -2406,7 +2410,7 @@
 				46BCD27318BC79E0005C4BD6 /* StaffsViewController.m in Sources */,
 				4631CEF218E315A800F39814 /* ProductOpitionPanel.m in Sources */,
 				184B82FD18DAC7F000177BAB /* UIView+AnimationOptionsForCurve.m in Sources */,
-				46F5866A18E1C8BA00F9BF51 /* OrderPreviewViewController.m in Sources */,
+				4631CF1C18E3284C00F39814 /* OrderDetailViewController.m in Sources */,
 				4651D97818DE7294004AC95A /* BaseManager.m in Sources */,
 				184B82C718DAC7F000177BAB /* JSMessageInputView.m in Sources */,
 				467F0EEE18CB4FCF009FFE08 /* UIImage+WelKit.m in Sources */,
