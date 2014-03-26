@@ -8,6 +8,12 @@
 
 #import "BaseViewController.h"
 
-@interface AddressListViewController : BaseViewController
+@protocol AddressPickDeleate <NSObject>
 
+- (void)didPickAddress;
+
+@end
+
+@interface AddressListViewController : BaseViewController
+@property (nonatomic, weak) id<AddressPickDeleate> delegate;
 @end

@@ -7,6 +7,7 @@
 //
 
 #import "AddressListViewController.h"
+#import "AddAddressViewController.h"
 
 @interface AddressListViewController ()
 
@@ -36,18 +37,29 @@
 
 - (void)rightNavItemClick
 {
-    
+    [self.navigationController pushViewController:[AddAddressViewController new] animated:YES];
 }
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    
+    UIButton *selectBtn = [[UIButton alloc] initWithFrame:CGRectMake(0,self.topBarOffset, 320,320)];
+    [selectBtn setBackgroundImage:[UIImage imageNamed:@"AddressListViewControl_TempBg"] forState:UIControlStateNormal];
+    [selectBtn addTarget:self action:@selector(selectClick) forControlEvents:UIControlEventTouchDown];
+    [self.view addSubview:selectBtn];
+    
 }
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)selectClick
+{
+    [self.delegate didPickAddress];
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 /*

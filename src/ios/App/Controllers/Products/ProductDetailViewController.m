@@ -22,7 +22,7 @@
 #import "MWPhotoBrowser.h"
 #import "GroupDetailViewController.h"
 #import "ProductDetailWebViewController.h"
-#import "OpitionSelectPanel.h"
+#import "ProductOpitionPanel.h"
 #import "UIViewController+KNSemiModal.h"
 #import "OrderPreviewViewController.h"
 
@@ -263,8 +263,8 @@
 
 - (void)submitClick
 {
-    OpitionSelectPanel *panel =
-    [[OpitionSelectPanel alloc] initWithFrame:CGRectMake(0,
+    ProductOpitionPanel *panel =
+    [[ProductOpitionPanel alloc] initWithFrame:CGRectMake(0,
                                                          0,
                                                          WIDTH(self.view),
                                                          HEIGHT(self.view) - self.topBarOffset - 100)];
@@ -296,29 +296,53 @@
     self.selectOpition = [SelectOpition new];
     OpitionCategory *category = [OpitionCategory new];
     category.id = 1;
-    category.title = @"服务项目";
+    category.title = @"容量";
     
     NSMutableArray *items = [NSMutableArray array];
     OpitionItem *item = [OpitionItem new];
     item.id = 0;
     item.categoryId = category.id;
-    item.title =  @"精剪";
+    item.title =  @"1000ml";
     [items addObject:item];
     
     OpitionItem *item2 = [OpitionItem new];
     item2.id = 1;
     item2.categoryId = category.id;
-    item2.title =  @"烫染";
+    item2.title =  @"2000ml";
     [items addObject:item2];
     
     OpitionItem *item3 = [OpitionItem new];
     item3.id = 2;
     item3.categoryId = category.id;
-    item3.title =  @"保养";
+    item3.title =  @"3000ml";
     [items addObject:item3];
     category.opitionItems = items;
     
-    self.selectOpition.opitionCateogries = @[category];
+    OpitionCategory *category_2 = [OpitionCategory new];
+    category_2.id = 2;
+    category_2.title = @"性质";
+    
+    NSMutableArray *items2 = [NSMutableArray array];
+    OpitionItem *item_1 = [OpitionItem new];
+    item_1.id = 0;
+    item_1.categoryId = category_2.id;
+    item_1.title =  @"润发";
+    [items2 addObject:item_1];
+    
+    OpitionItem *item_2 = [OpitionItem new];
+    item_2.id = 1;
+    item_2.categoryId = category_2.id;
+    item_2.title =  @"防脱发";
+    [items2 addObject:item_2];
+    
+    OpitionItem *item_3 = [OpitionItem new];
+    item_3.id = 2;
+    item_3.categoryId = category_2.id;
+    item_3.title =  @"亮发";
+    [items2 addObject:item_3];
+    category_2.opitionItems = items2;
+    
+    self.selectOpition.opitionCateogries = @[category, category_2];
     self.selectOpition.selectedValues = [NSArray array];
     
     return self.selectOpition;
