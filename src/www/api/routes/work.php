@@ -14,6 +14,12 @@
 
 use Welfony\Controller\API\WorkController;
 
+$app->get('/works', function() use($app)
+{
+    $ctrl = new WorkController();
+    $ctrl->search();
+});
+
 $app->get('/works/:workId/comments', function($workId) use($app)
 {
     $ctrl = new WorkController();

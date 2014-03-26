@@ -19,6 +19,7 @@ use Welfony\Core\Enum;
 class HairAmount extends Enum
 {
 
+    const Unknown = 0;
     const Lot = 1;
     const Normal = 2;
     const Less = 3;

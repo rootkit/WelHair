@@ -19,6 +19,7 @@ use Welfony\Core\Enum;
 class HairStyle extends Enum
 {
 
+    const Unknown = 0;
     const Short = 1;
     const Long = 2;
     const Plait = 3;

@@ -19,6 +19,7 @@ use Welfony\Core\Enum;
 class Gender extends Enum
 {
 
+    const Unknown = 0;
     const Male = 1;
     const Female = 2;
 

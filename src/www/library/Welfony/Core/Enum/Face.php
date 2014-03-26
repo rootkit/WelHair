@@ -19,6 +19,7 @@ use Welfony\Core\Enum;
 class Face extends Enum
 {
 
+    const Unknown = 0;
     const Round = 1;
     const Oval = 2;
     const Square = 3;

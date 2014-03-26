@@ -19,6 +19,12 @@ use Welfony\Repository\Base\AbstractRepository;
 class WorkRepository extends AbstractRepository
 {
 
+    public function search($area, $gender, $hairStyle, $sort, $page, $pageSize)
+    {
+        $strSql = "CALL spWorkSearch(?, ?, ?, ?, ?, ?);";
+        return $this->conn->fetchAll($strSql, array($area, $gender, $hairStyle, $sort, $page, $pageSize));
+    }
+
     public function getAllWorksCount($staffId)
     {
         $filter = '';

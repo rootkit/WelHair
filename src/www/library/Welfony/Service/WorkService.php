@@ -19,6 +19,11 @@ use Welfony\Repository\WorkRepository;
 class WorkService
 {
 
+    public static function search($area, $gender, $hairStyle, $sort, $page, $pageSize)
+    {
+        return WorkRepository::getInstance()->search($area, $gender, $hairStyle, $sort, $page, $pageSize);
+    }
+
     public static function save($data)
     {
         $result = array('success' => false, 'message' => '');
