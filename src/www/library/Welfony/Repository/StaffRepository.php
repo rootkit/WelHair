@@ -20,6 +20,27 @@ use Welfony\Repository\Base\AbstractRepository;
 class StaffRepository extends AbstractRepository
 {
 
+    public function searchCount($city, $district)
+    {
+        $strSql = "SELECT
+                     COUNT(1) `Total`
+                   FROM Users U
+                   INNER JOIN CompanyUser CU ON CU.UserId = U.UserId
+                   INNER JOIN Company C ON CU.CompanyId = C.CompanyId
+                   WHERE (? = 0 || C.City = ?) && (? = 0 || C.District= ?)
+                   LIMIT 1";
+
+        $row = $this->conn->fetchAssoc($strSql, array($city, $city, $district, $district));
+
+        return $row['Total'];
+    }
+
+    public function search($city, $district, $sort, $location, $page, $pageSize)
+    {
+        $strSql = "CALL spStaffSearch(?, ?, ?, ?, ?, ?, ?);";
+        return $this->conn->fetchAll($strSql, array($city, $district, $sort, $location['Latitude'], $location['Longitude'], $page, $pageSize));
+    }
+
     public function seachByNameAndPhoneAndEmail($searchText, $includeClient)
     {
         $filter = '';
