@@ -19,6 +19,17 @@ use Welfony\Repository\CompanyRepository;
 class CompanyService
 {
 
+    public static function search($city, $district, $sort, $location, $page, $pageSize)
+    {
+        $page = $page <= 0 ? 1 : $page;
+        $pageSize = $pageSize <= 0 ? 20 : $pageSize;
+
+        $total = CompanyRepository::getInstance()->searchCount($city, $district);
+        $companyList = CompanyRepository::getInstance()->search($city, $district, $sort, $location, $page, $pageSize);
+
+        return array('total' => $total, 'companies' => $companyList);
+    }
+
     public static function save($data)
     {
         $result = array('success' => false, 'message' => '');

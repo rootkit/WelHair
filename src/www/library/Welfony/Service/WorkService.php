@@ -18,10 +18,21 @@ use Welfony\Repository\WorkRepository;
 
 class WorkService
 {
-
     public static function search($area, $gender, $hairStyle, $sort, $page, $pageSize)
     {
-        return WorkRepository::getInstance()->search($area, $gender, $hairStyle, $sort, $page, $pageSize);
+        $page = $page <= 0 ? 1 : $page;
+        $pageSize = $pageSize <= 0 ? 20 : $pageSize;
+
+        $total = WorkRepository::getInstance()->searchCount($area, $gender, $hairStyle);
+        $workList = WorkRepository::getInstance()->search($area, $gender, $hairStyle, $sort, $page, $pageSize);
+
+        $works = array();
+        foreach ($workList as $work) {
+            $work['PictureUrl'] = json_decode($work['PictureUrl']);
+            $works[] = $work;
+        }
+
+        return array('total' => $total, 'works' => $works);
     }
 
     public static function save($data)

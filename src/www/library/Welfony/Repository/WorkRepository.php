@@ -19,6 +19,21 @@ use Welfony\Repository\Base\AbstractRepository;
 class WorkRepository extends AbstractRepository
 {
 
+    public function searchCount($area, $gender, $hairStyle)
+    {
+        $strSql = "SELECT
+                     COUNT(1) `Total`
+                   FROM Work W
+                   INNER JOIN CompanyUser CU ON CU.UserId = W.UserId
+                   INNER JOIN Company C ON C.CompanyId = CU.CompanyId
+                   WHERE (? = 0 || C.City = ?) && (? = 0 || W.Gender = ?) && (? = 0 || W.HairStyle = ?)
+                   LIMIT 1";
+
+        $row = $this->conn->fetchAssoc($strSql, array($area, $area, $gender, $gender, $hairStyle, $hairStyle));
+
+        return $row['Total'];
+    }
+
     public function search($area, $gender, $hairStyle, $sort, $page, $pageSize)
     {
         $strSql = "CALL spWorkSearch(?, ?, ?, ?, ?, ?);";

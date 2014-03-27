@@ -23,11 +23,19 @@ class CompanyController extends AbstractAPIController
     public function search()
     {
         $page = intval($this->app->request->get('page'));
-        $page = $page <= 0 ? 1 : $page;
         $pageSize = intval($this->app->request->get('pageSize'));
-        $pageSize = $pageSize <= 0 ? 20 : $pageSize;
 
-        $companyList = CompanyService::listAllCompanies($page, $pageSize);
+        $city = intval($this->app->request->get('city'));
+        $district = intval($this->app->request->get('district'));
+
+        $sort = intval($this->app->request->get('sort'));
+
+        $location = array(
+            'Latitude' => 36.682727,
+            'Longitude' => 117.034525
+        );
+
+        $companyList = CompanyService::search($city, $district, $sort, $location, $page, $pageSize);
         $this->sendResponse($companyList);
     }
 
