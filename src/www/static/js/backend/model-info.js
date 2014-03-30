@@ -15,7 +15,7 @@ $(function() {
         tiptype: 3
     });
 
-    $('#btnAddSpec').click(function(){
+    $('#btnAddAttribute').click(function(){
 
       var row = '   <tr> ' +
                 '               <td><input name="couponcode" type="text" value="" datatype="s" class="u-ipt"/></td> ' +
@@ -30,7 +30,7 @@ $(function() {
                 '                <td></td>' +
                 '            </tr>';
 
-        $('#spectable tbody').append( $(row));
+        $('#attributetable tbody').append( $(row));
         $('.content').height($('.content').height() + 50);
 
     });
