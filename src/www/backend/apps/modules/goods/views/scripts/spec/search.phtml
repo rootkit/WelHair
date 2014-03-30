@@ -26,7 +26,11 @@ use \Welfony\Utility\Util;
       <?php foreach( $this->rows as $spec) : ?>
         <tr>
             <td class="col-center"><input type="checkbox" /></td>
-            <td><?php echo $spec['Name']; ?></td>
+            <td>
+                <a href="<?php echo $this->baseUrl('goods/spec/info?spec_id=' .  $spec['SpecId']); ?>">
+                    <?php echo $spec['Name']; ?>
+                </a>
+            </td>
             <td>文字</td>
             <td><?php  
                 if( isset( $spec['Value'] ) && $spec['Value'])

@@ -13,7 +13,7 @@ use \Welfony\Utility\Util;
             <div class="formitm">
                 <label class="lab">备注：</label>
                 <div class="ipt">
-                    <input id="note" type="text"   class="u-ipt"/> 
+                    <input id="note" type="text" value="<?php echo $this->specInfo['Note']; ?>"   class="u-ipt"/> 
                 </div>
             </div>
             <div class="formitm">
@@ -33,7 +33,23 @@ use \Welfony\Utility\Util;
                             </tr>
                         </thead>
                         <tbody>
-                            
+                        <?php  
+                            if( isset( $this->specInfo['Value'] ) && $this->specInfo['Value'])
+                            {
+                                $val = json_decode( $this->specInfo['Value']); 
+                                if($val && is_array($val))
+                                {
+                                    foreach( $val as $specVal)
+                                    {
+
+                                     echo   '   <tr> ' .
+                                    '     <td><input name="specval" type="text" value="'.$specVal.'" datatype="s" class="u-ipt"/></td> ' .
+                                    '     <td><a href="#" class="btnUp"><i class="iconfont">&#xf0113;</i></a>&nbsp;&nbsp;<a href="#" class="btnDown"><i class="iconfont">&#xf0111;</i></a>&nbsp;&nbsp;<a href="#" class="btnDelete"><i class="iconfont">&#xf013f;</i></a></td>' .
+                                    '   </tr>';
+                                    }
+                                }
+                            }
+                        ?>
                         </tbody>
                     </table>
                 </div>
