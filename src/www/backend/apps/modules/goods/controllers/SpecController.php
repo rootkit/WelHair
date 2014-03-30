@@ -36,7 +36,7 @@ class Goods_SpecController extends AbstractAdminController
                                                      ceil($result['total'] / $pageSize));
     }
 
-     public function infoAction()
+    public function infoAction()
     {
     	
         
@@ -101,6 +101,24 @@ class Goods_SpecController extends AbstractAdminController
             $result = SpecService::deleteSpec($spec);
             $this->_helper->json->sendJson($result);
         } 
+    }
+
+    public function selectAction()
+    {
+        //$this->_helper->viewRenderer->setNoRender(true);
+        $this->_helper->layout->disableLayout();
+
+        static $pageSize = 10;
+
+
+        $page = intval($this->_request->getParam('page'));
+        $func = intval($this->_request->getParam('func'));
+        $searchResult = SpecService::listSpec($page, $pageSize);
+
+        $this->view->dataList = $searchResult['specs'];
+        $this->view->pager = $this->renderPager('',
+                                                $page,
+                                                ceil($searchResult['total'] / $pageSize), $func);
     }
 
 

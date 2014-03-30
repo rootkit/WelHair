@@ -48,8 +48,9 @@ class Goods_ModelController extends AbstractAdminController
                                                     ceil($result['total'] / $pageSize));
     }
 
-     public function infoAction()
+    public function infoAction()
     {
+        $this->view->pageTitle = '添加模型';
     	/*
         $this->view->pageTitle = '会员信息';
 

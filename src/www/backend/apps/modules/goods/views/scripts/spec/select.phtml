@@ -1,0 +1,42 @@
+<table class="m-table">
+    <thead>
+        <tr>
+            <th class="col-chk"><input type="checkbox" /></th>
+            <th class="cola">名称</th>
+            <th class="cola">显示方式</th>
+            <th class="cola">规格数据</th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php if (count($this->dataList) > 0): ?>
+        <?php foreach ($this->dataList as $spec): ?>
+        <tr>
+            <td class="col-center"><input name="chk_ids[]" type="radio"  data-name="<?php echo $spec['Name']; ?>" data-id="<?php echo $spec['SpecId']; ?>"/></td>
+            <td>
+                <a href="<?php echo $this->baseUrl('goods/spec/info?spec_id=' .  $spec['SpecId']); ?>">
+                    <?php echo $spec['Name']; ?>
+                </a>
+            </td>
+            <td>文字</td>
+            <td><?php  
+                if( isset( $spec['Value'] ) && $spec['Value'])
+                {
+                    $val = json_decode( $spec['Value']); 
+                    if($val && is_array($val))
+                    {
+                        echo implode(',', $val);
+                    }
+                }
+            ?></td>
+        </tr>
+        <?php endforeach; ?>
+        <?php else: ?>
+        <tr>
+            <td class="col-center" colspan="8">您还没有添加任何记录</td>
+        </tr>
+        <?php endif; ?>
+    </tbody>
+</table>
+<div class="m-page m-page-rt">
+    <?php echo $this->pagerHTML; ?>
+</div>

@@ -10,6 +10,31 @@
 //
 // ==============================================================================
 
+WF.Model = {
+  updateSpecList :function(page)
+  {
+     var url =globalSetting.baseUrl + '/goods/spec/select?page=' + page + '&func= WF.Model.updateSpecList';
+     $.get( url, function(data) {
+      $('#specList').empty();
+      $('#specList').html(data);
+
+      $('#specList input[type=radio]').click(function(){
+        
+         var row = '   <tr> ' +
+                '               <td>' + $(this).attr('data-name') +'</td> ' +
+
+                '                <td></td>' +
+                '            </tr>';
+
+        $('#spectable tbody').append( $(row));
+        $('.content').height($('.content').height() + 50);
+        $('#specList').dialog("close");
+      });
+     });
+
+  }
+};
+
 $(function() {
     $('#frm-model-info').Validform({
         tiptype: 3
@@ -34,6 +59,11 @@ $(function() {
         $('#attributetable tbody').append( $(row));
         $('.content').height($('.content').height() + 50);
 
+    });
+
+    $('#btnAddSpec').click(function(){
+      $('#specList').dialog({"modal": true, "width":800, "height":640});
+      WF.Model.updateSpecList(1);
     });
 
 
