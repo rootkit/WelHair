@@ -29,6 +29,7 @@
 #import "UserManager.h"
 #import "UserViewController.h"
 #import "OrderListViewController.h"
+#import "AddressListViewController.h"
 static const   float profileViewHeight = 80;
 
 @interface UserViewController ()<UITableViewDataSource, UITableViewDelegate, UIActionSheetDelegate, UIImagePickerControllerDelegate,UINavigationControllerDelegate>
@@ -63,11 +64,13 @@ static const   float profileViewHeight = 80;
         [menuList addObject:@[@"个人信息"]];
         [menuList addObject:@[@"我的收藏", @"浏览历史"]];
         [menuList addObject:@[@"积分兑换"]];
+        [menuList addObject:@[@"收货地址"]];
         self.datasource = menuList;
 
         NSMutableArray *menuIconList = [[NSMutableArray alloc] initWithCapacity:5];
         [menuIconList addObject:@[[FAKIonIcons ios7InformationOutlineIconWithSize:NAV_BAR_ICON_SIZE]]];
         [menuIconList addObject:@[[FAKIonIcons ios7HeartOutlineIconWithSize:NAV_BAR_ICON_SIZE], [FAKIonIcons ios7BookmarksOutlineIconWithSize:NAV_BAR_ICON_SIZE]]];
+        [menuIconList addObject:@[[FAKIonIcons ios7BellOutlineIconWithSize:NAV_BAR_ICON_SIZE]]];
         [menuIconList addObject:@[[FAKIonIcons ios7BellOutlineIconWithSize:NAV_BAR_ICON_SIZE]]];
         self.iconDatasource = menuIconList;
     }
@@ -362,6 +365,15 @@ static const   float profileViewHeight = 80;
     cell.label.text = [[self.datasource objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
 
     return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if(indexPath.section == 3){
+        AddressListViewController *vc = [AddressListViewController new];
+        vc.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:vc animated:YES];
+    }
 }
 
 @end

@@ -9,5 +9,5 @@
 #import "BaseViewController.h"
 
 @interface AddAddressViewController : BaseViewController
-
+@property (nonatomic, strong) Address *address;
 @end

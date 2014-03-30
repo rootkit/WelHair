@@ -70,27 +70,22 @@
     self.phoneTxt.placeholder = @"电话";
     [self.view addSubview:self.phoneTxt];
     
-    self.emailTxt =  [UITextField plainTextField:CGRectMake(margin ,
-                                                              MaxY(self.phoneTxt)+ margin,
-                                                              WIDTH(self.nameTxt),
-                                                              40)
-                                       leftPadding:margin];
-    self.emailTxt.font = [UIFont systemFontOfSize:14];
-    self.emailTxt.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
-    self.emailTxt.backgroundColor = [UIColor whiteColor];
-    self.emailTxt.placeholder = @"邮箱";
-    [self.view addSubview:self.emailTxt];
-    
     self.addressTxt = [[UITextField alloc] initWithFrame:CGRectMake(margin ,
-                                                              MaxY(self.emailTxt)+ margin,
-                                                              WIDTH(self.nameTxt),
-                                                              40)];
+                                                                   MaxY(self.phoneTxt)+ margin,
+                                                                   WIDTH(self.nameTxt),
+                                                                    40)];
     self.addressTxt.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
     self.addressTxt.backgroundColor = [UIColor whiteColor];
     self.addressTxt.font = [UIFont systemFontOfSize:14];
     self.addressTxt.backgroundColor = [UIColor whiteColor];
     self.addressTxt.placeholder = @"详细地址";
     [self.view addSubview:self.addressTxt];
+    
+    if(self.address){
+        self.nameTxt.text = self.address.userName;
+        self.phoneTxt.text = self.address.phoneNumber;
+        self.addressTxt.text = self.address.detailAddress;
+    }
 }
 
 - (void)didReceiveMemoryWarning

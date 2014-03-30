@@ -192,6 +192,15 @@
 		4659D27018E7D79B005648C0 /* libbaidumapapi.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4659D24318E7D79B005648C0 /* libbaidumapapi.a */; };
 		4659D27118E7D79B005648C0 /* libbaidumapapi.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4659D26E18E7D79B005648C0 /* libbaidumapapi.a */; };
 		4659D27218E7D79B005648C0 /* mapapi.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 4659D26F18E7D79B005648C0 /* mapapi.bundle */; };
+		4659D27518E7E100005648C0 /* AddressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4659D27418E7E100005648C0 /* AddressView.m */; };
+		4659D27818E7E220005648C0 /* Address.m in Sources */ = {isa = PBXBuildFile; fileRef = 4659D27718E7E220005648C0 /* Address.m */; };
+		4659D27F18E7E8E2005648C0 /* AddressEditBtn.png in Resources */ = {isa = PBXBuildFile; fileRef = 4659D27918E7E8E2005648C0 /* AddressEditBtn.png */; };
+		4659D28018E7E8E2005648C0 /* AddressEditBtn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4659D27A18E7E8E2005648C0 /* AddressEditBtn@2x.png */; };
+		4659D28118E7E8E2005648C0 /* AddressSelectedBtn.png in Resources */ = {isa = PBXBuildFile; fileRef = 4659D27B18E7E8E2005648C0 /* AddressSelectedBtn.png */; };
+		4659D28218E7E8E2005648C0 /* AddressSelectedBtn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4659D27C18E7E8E2005648C0 /* AddressSelectedBtn@2x.png */; };
+		4659D28318E7E8E2005648C0 /* AddressUnSelectedBtn.png in Resources */ = {isa = PBXBuildFile; fileRef = 4659D27D18E7E8E2005648C0 /* AddressUnSelectedBtn.png */; };
+		4659D28418E7E8E2005648C0 /* AddressUnSelectedBtn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4659D27E18E7E8E2005648C0 /* AddressUnSelectedBtn@2x.png */; };
+		4659D28718E7EB82005648C0 /* AddressCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4659D28618E7EB82005648C0 /* AddressCell.m */; };
 		465A5C8818DB08C7009B6D60 /* MyScoreViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 465A5C8718DB08C7009B6D60 /* MyScoreViewController.m */; };
 		465A5C8B18DB0B8D009B6D60 /* MyScoreCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 465A5C8A18DB0B8D009B6D60 /* MyScoreCell.m */; };
 		4660E69018BB73E1005B3C7D /* ProductsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4660E68F18BB73E1005B3C7D /* ProductsViewController.m */; };
@@ -631,6 +640,18 @@
 		4659D26D18E7D79B005648C0 /* BMKVersion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMKVersion.h; sourceTree = "<group>"; };
 		4659D26E18E7D79B005648C0 /* libbaidumapapi.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libbaidumapapi.a; sourceTree = "<group>"; };
 		4659D26F18E7D79B005648C0 /* mapapi.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = mapapi.bundle; sourceTree = "<group>"; };
+		4659D27318E7E100005648C0 /* AddressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddressView.h; sourceTree = "<group>"; };
+		4659D27418E7E100005648C0 /* AddressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddressView.m; sourceTree = "<group>"; };
+		4659D27618E7E220005648C0 /* Address.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Address.h; sourceTree = "<group>"; };
+		4659D27718E7E220005648C0 /* Address.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Address.m; sourceTree = "<group>"; };
+		4659D27918E7E8E2005648C0 /* AddressEditBtn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AddressEditBtn.png; sourceTree = "<group>"; };
+		4659D27A18E7E8E2005648C0 /* AddressEditBtn@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "AddressEditBtn@2x.png"; sourceTree = "<group>"; };
+		4659D27B18E7E8E2005648C0 /* AddressSelectedBtn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AddressSelectedBtn.png; sourceTree = "<group>"; };
+		4659D27C18E7E8E2005648C0 /* AddressSelectedBtn@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "AddressSelectedBtn@2x.png"; sourceTree = "<group>"; };
+		4659D27D18E7E8E2005648C0 /* AddressUnSelectedBtn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AddressUnSelectedBtn.png; sourceTree = "<group>"; };
+		4659D27E18E7E8E2005648C0 /* AddressUnSelectedBtn@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "AddressUnSelectedBtn@2x.png"; sourceTree = "<group>"; };
+		4659D28518E7EB82005648C0 /* AddressCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddressCell.h; sourceTree = "<group>"; };
+		4659D28618E7EB82005648C0 /* AddressCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddressCell.m; sourceTree = "<group>"; };
 		465A5C8618DB08C7009B6D60 /* MyScoreViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyScoreViewController.h; sourceTree = "<group>"; };
 		465A5C8718DB08C7009B6D60 /* MyScoreViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyScoreViewController.m; sourceTree = "<group>"; };
 		465A5C8918DB0B8D009B6D60 /* MyScoreCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyScoreCell.h; sourceTree = "<group>"; };
@@ -1177,6 +1198,8 @@
 				4665FD8418BC801000E88C6B /* Work.m */,
 				4651D98118DE778F004AC95A /* City.h */,
 				4651D98218DE778F004AC95A /* City.m */,
+				4659D27618E7E220005648C0 /* Address.h */,
+				4659D27718E7E220005648C0 /* Address.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -1245,6 +1268,12 @@
 		461B0C0418DC3BD700E0DAF5 /* Buttons */ = {
 			isa = PBXGroup;
 			children = (
+				4659D27918E7E8E2005648C0 /* AddressEditBtn.png */,
+				4659D27A18E7E8E2005648C0 /* AddressEditBtn@2x.png */,
+				4659D27B18E7E8E2005648C0 /* AddressSelectedBtn.png */,
+				4659D27C18E7E8E2005648C0 /* AddressSelectedBtn@2x.png */,
+				4659D27D18E7E8E2005648C0 /* AddressUnSelectedBtn.png */,
+				4659D27E18E7E8E2005648C0 /* AddressUnSelectedBtn@2x.png */,
 				4631CEF318E319F600F39814 /* CountDownBtn@2x.png */,
 				4631CEF418E319F600F39814 /* CountUpBtn@2x.png */,
 				461B0C0518DC3BD700E0DAF5 /* AppointmentBtn.png */,
@@ -1802,6 +1831,10 @@
 		46B25AE718C0716E0035F425 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				4659D28518E7EB82005648C0 /* AddressCell.h */,
+				4659D28618E7EB82005648C0 /* AddressCell.m */,
+				4659D27318E7E100005648C0 /* AddressView.h */,
+				4659D27418E7E100005648C0 /* AddressView.m */,
 				4673BB6218D2ED61000F64DE /* AppointmentCell.h */,
 				4673BB6318D2ED61000F64DE /* AppointmentCell.m */,
 				467F0EB918CB3956009FFE08 /* ChatGroupCell.h */,
@@ -1816,16 +1849,22 @@
 				467F0F2118CC7938009FFE08 /* DropDownView.m */,
 				460C2F4818CAFDB200AD16E6 /* GroupCell.h */,
 				460C2F4918CAFDB200AD16E6 /* GroupCell.m */,
+				46F5865C18E1BB2B00F9BF51 /* GroupStaffCell.h */,
+				46F5865D18E1BB2B00F9BF51 /* GroupStaffCell.m */,
 				465A5C8918DB0B8D009B6D60 /* MyScoreCell.h */,
 				465A5C8A18DB0B8D009B6D60 /* MyScoreCell.m */,
 				46E84EE118C356B30004C146 /* OpitionButton.h */,
 				46E84EE218C356B30004C146 /* OpitionButton.m */,
 				46E84ED518C2F0380004C146 /* OpitionSelectPanel.h */,
 				46E84ED618C2F0380004C146 /* OpitionSelectPanel.m */,
+				4631CF0B18E325C300F39814 /* OrderCell.h */,
+				4631CF0C18E325C300F39814 /* OrderCell.m */,
 				467F0EB018CB16EB009FFE08 /* ProductCardView.h */,
 				467F0EB118CB16EB009FFE08 /* ProductCardView.m */,
 				467F0EB618CB2164009FFE08 /* ProductCell.h */,
 				467F0EB718CB2164009FFE08 /* ProductCell.m */,
+				4631CEF018E315A800F39814 /* ProductOpitionPanel.h */,
+				4631CEF118E315A800F39814 /* ProductOpitionPanel.m */,
 				46BDF11318D08B9D00999F50 /* StaffCell.h */,
 				46BDF11418D08B9D00999F50 /* StaffCell.m */,
 				467F0F1B18CC219B009FFE08 /* TripleCoverCell.h */,
@@ -1834,12 +1873,6 @@
 				4630252D18C848EB000E0B51 /* WorkCardView.m */,
 				46B25AEB18C086D30035F425 /* WorkCell.h */,
 				46B25AEC18C086D30035F425 /* WorkCell.m */,
-				46F5865C18E1BB2B00F9BF51 /* GroupStaffCell.h */,
-				46F5865D18E1BB2B00F9BF51 /* GroupStaffCell.m */,
-				4631CEF018E315A800F39814 /* ProductOpitionPanel.h */,
-				4631CEF118E315A800F39814 /* ProductOpitionPanel.m */,
-				4631CF0B18E325C300F39814 /* OrderCell.h */,
-				4631CF0C18E325C300F39814 /* OrderCell.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -2145,9 +2178,11 @@
 				184B82F818DAC7F000177BAB /* messageReceived.aiff in Resources */,
 				461B0C5C18DC3BD700E0DAF5 /* RootBottomTab5Selected@2x.png in Resources */,
 				1825E1CD18E183B70052AA9A /* MeTab1.png in Resources */,
+				4659D27F18E7E8E2005648C0 /* AddressEditBtn.png in Resources */,
 				461B0C4518DC3BD700E0DAF5 /* GrayArrow@2x.png in Resources */,
 				461B0C6018DC3BD700E0DAF5 /* Profile_Banner_Bg@2x.png in Resources */,
 				4631CEF518E319F600F39814 /* CountDownBtn@2x.png in Resources */,
+				4659D28218E7E8E2005648C0 /* AddressSelectedBtn@2x.png in Resources */,
 				184B82F518DAC7F000177BAB /* send-highlighted@2x.png in Resources */,
 				184B82F118DAC7F000177BAB /* input-field@2x.png in Resources */,
 				461B0C6B18DC3BD700E0DAF5 /* UploadWorkViewControl_FaceStyleLongNormal@2x.png in Resources */,
@@ -2162,14 +2197,17 @@
 				1825E1D018E183B70052AA9A /* MeTab2@2x.png in Resources */,
 				18A9129D18BB2350006B9A04 /* Debug.xcconfig in Resources */,
 				461B0C7018DC3BD700E0DAF5 /* UserViewControl_TabBg@2x.png in Resources */,
+				4659D28318E7E8E2005648C0 /* AddressUnSelectedBtn.png in Resources */,
 				461B0C6918DC3BD700E0DAF5 /* UploadWorkViewControl_FaceStyleGuaZiNormal@2x.png in Resources */,
 				184B82E918DAC7F000177BAB /* bubble-square-outgoing@2x.png in Resources */,
 				184B82E318DAC7F000177BAB /* bubble-square-incoming-selected@2x.png in Resources */,
 				4651D97D18DE729D004AC95A /* db.sqlite in Resources */,
+				4659D28118E7E8E2005648C0 /* AddressSelectedBtn.png in Resources */,
 				183B03E018E1110500765116 /* groupedTableViewCell_singleRow@2x.png in Resources */,
 				461B0C5118DC3BD700E0DAF5 /* ZanBtn@2x.png in Resources */,
 				184B82D818DAC7F000177BAB /* bubble-flat-incoming-selected.png in Resources */,
 				184B82EC18DAC7F000177BAB /* input-bar-flat.png in Resources */,
+				4659D28418E7E8E2005648C0 /* AddressUnSelectedBtn@2x.png in Resources */,
 				461B0C6318DC3BD700E0DAF5 /* StaffDetailViewControl_WorkBanner@2x.png in Resources */,
 				461B0C4C18DC3BD700E0DAF5 /* ShareIcon.png in Resources */,
 				184B82CE18DAC7F000177BAB /* bubble-default-incoming-selected.png in Resources */,
@@ -2237,6 +2275,7 @@
 				469B9FF718D1A7EB00948740 /* UMSnsAccountViewController.xib in Resources */,
 				184B82EE18DAC7F000177BAB /* input-bar.png in Resources */,
 				184B82D918DAC7F000177BAB /* bubble-flat-incoming-selected@2x.png in Resources */,
+				4659D28018E7E8E2005648C0 /* AddressEditBtn@2x.png in Resources */,
 				467F0EE918CB4FCF009FFE08 /* line@2x.png in Resources */,
 				18A9129C18BB2350006B9A04 /* Base.xcconfig in Resources */,
 				184B82F618DAC7F000177BAB /* send.png in Resources */,
@@ -2294,12 +2333,14 @@
 				467F0EEB18CB4FCF009FFE08 /* WelQRGeneraterViewController.m in Sources */,
 				46E84EE318C356B30004C146 /* OpitionButton.m in Sources */,
 				467F0EB518CB1721009FFE08 /* Product.m in Sources */,
+				4659D27818E7E220005648C0 /* Address.m in Sources */,
 				467F0EE718CB4FCF009FFE08 /* NSDate+WelKit.m in Sources */,
 				467F0EB218CB16EB009FFE08 /* ProductCardView.m in Sources */,
 				4673BB9318D41B37000F64DE /* CouponManagerViewController.m in Sources */,
 				4673BB8618D41253000F64DE /* MyGroupStaffListViewController.m in Sources */,
 				46BDF11518D08B9D00999F50 /* StaffCell.m in Sources */,
 				467F0EF118CB4FCF009FFE08 /* UIView+WelKit.m in Sources */,
+				4659D27518E7E100005648C0 /* AddressView.m in Sources */,
 				46E84EE018C33FAC0004C146 /* SelectOpition.m in Sources */,
 				46F5866718E1C73000F9BF51 /* ProductDetailWebViewController.m in Sources */,
 				460C2F4A18CAFDB200AD16E6 /* GroupCell.m in Sources */,
@@ -2401,6 +2442,7 @@
 				4630252E18C848EB000E0B51 /* WorkCardView.m in Sources */,
 				465A5C8818DB08C7009B6D60 /* MyScoreViewController.m in Sources */,
 				4651D97918DE7294004AC95A /* SettingManager.m in Sources */,
+				4659D28718E7EB82005648C0 /* AddressCell.m in Sources */,
 				4660E69618BB73FF005B3C7D /* UserViewController.m in Sources */,
 				4673BB8C18D417EE000F64DE /* GroupManageViewController.m in Sources */,
 				467F0EAF18CB0F54009FFE08 /* BaseModel.m in Sources */,

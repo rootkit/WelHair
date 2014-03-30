@@ -8,10 +8,12 @@
 
 #import "OrderPreviewViewController.h"
 #import "AddressListViewController.h"
+#import "AddressView.h"
 
 @interface OrderPreviewViewController ()<AddressPickDeleate>
 @property (nonatomic, strong) UIButton *addressBtn;
-
+@property (nonatomic, strong) AddressView *addressView;
+@property (nonatomic, strong) Address *address;
 @end
 
 @implementation OrderPreviewViewController
@@ -36,15 +38,23 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+//    self.address = [FakeDataHelper getFakeDefaultAddress];
+    self.addressView = [[AddressView alloc] initWithFrame:CGRectMake(15, self.topBarOffset, 290, 80)];
+    [self.addressView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(pickAddress)]];
+    [self.view addSubview:self.addressView];
     
-    self.addressBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    self.addressBtn.frame = CGRectMake(0, self.topBarOffset, WIDTH(self.view), 90);
-    NSString *img = self.isAddressFilled ?@"OrderPreviewViewController_AddressBtn": @"OrderPreviewViewController_AddressTempBtn";
-    [self.addressBtn setBackgroundImage:[UIImage imageNamed: img] forState:UIControlStateNormal];
-    [self.addressBtn addTarget:self action:@selector(addressBtnClick) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:self.addressBtn];
-    
-    UIImageView *imgView = [[UIImageView alloc] initWithFrame:CGRectMake(0, MaxY(self.addressBtn), 320, 277)];
+    if(!self.address){
+        self.addressBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        self.addressBtn.frame = self.addressView.frame;
+        NSString *img = self.isAddressFilled ?@"OrderPreviewViewController_AddressBtn": @"OrderPreviewViewController_AddressTempBtn";
+        [self.addressBtn setBackgroundImage:[UIImage imageNamed: img] forState:UIControlStateNormal];
+        [self.addressBtn addTarget:self action:@selector(pickAddress) forControlEvents:UIControlEventTouchUpInside];
+        [self.view addSubview:self.addressBtn];
+    }else{
+        [self setupAddressView];
+    }
+
+    UIImageView *imgView = [[UIImageView alloc] initWithFrame:CGRectMake(0, MaxY(self.addressView), 320, 287)];
     imgView.image =[UIImage imageNamed:@"OrderPreviewViewController_TempBg"];
     [self.view addSubview:imgView];
     
@@ -64,10 +74,16 @@
     [self.view addSubview:bottomView];
 }
 
-- (void)addressBtnClick
+- (void)setupAddressView
+{
+    [self.addressView setup:self.address editable:NO selectable:NO];
+}
+
+- (void)pickAddress
 {
     AddressListViewController *vc = [AddressListViewController new];
     vc.delegate = self;
+    vc.pickedAddress = self.address;
     [self.navigationController pushViewController:vc animated:YES];
 }
 
@@ -88,10 +104,11 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (void)didPickAddress
+- (void)didPickAddress:(Address *)address
 {
-    self.isAddressFilled = YES;
-    [self.addressBtn setBackgroundImage:[UIImage imageNamed:@"OrderPreviewViewController_AddressBtn"] forState:UIControlStateNormal];
+    self.addressBtn.hidden = address != nil;
+    self.address = address;
+    [self setupAddressView];
 }
 
 /*
