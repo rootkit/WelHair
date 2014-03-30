@@ -47,9 +47,10 @@ class CategoryRepository extends AbstractRepository
     {
 
         $offset = ($pageNumber - 1) * $pageSize;
-        $strSql = "   SELECT *,
-                      FROM Category C
-					  WHERE C.IsDeleted = 0
+        $strSql = "   SELECT Category.*,Model.Name AS ModelName
+                      FROM Category Category
+                      LEFT JOIN Model Model ON Category.ModelId = Model.ModelId
+					  WHERE Category.IsDeleted = 0
                       ORDER BY CategoryId
                       LIMIT $offset, $pageSize ";
 

@@ -46,6 +46,15 @@ class ModelService
         return $result;
     }
 
+    public static function listAllModel()
+    {
+
+
+        return $searchResult = ModelRepository::getInstance()->getAllModel();
+
+      
+    }
+
     public static function save($data)
     {
         $result = array('success' => false, 'message' => '');

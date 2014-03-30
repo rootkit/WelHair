@@ -31,7 +31,7 @@ class Goods_SpecController extends AbstractAdminController
 
         $this->view->rows = $result['specs'];
 
-        $this->view->pagerHTML =  $this->renderPager($this->view->baseUrl('/good/spec/search?'),
+        $this->view->pagerHTML =  $this->renderPager($this->view->baseUrl('/goods/spec/search?'),
                                                      $page,
                                                      ceil($result['total'] / $pageSize));
     }

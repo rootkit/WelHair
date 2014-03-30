@@ -16,29 +16,29 @@ namespace Welfony\Service;
 
 use Welfony\Repository\CategoryRepository;
 
-class CateogryService
+class CategoryService
 {
 
-    public static function getCateogryById($id)
+    public static function getCategoryById($id)
     {
-        return  CateogryRepository::getInstance()->findCateogryById( $id);
+        return  CategoryRepository::getInstance()->findCateogryById( $id);
 
     }
     
-    public static function listCateogry($pageNumber, $pageSize)
+    public static function listCategory($pageNumber, $pageSize)
     {
         $result = array(
             'categories' => array(),
             'total' => 0
         );
 
-        $totalCount = CateogryRepository::getInstance()->getAllCateogryCount();
+        $totalCount = CategoryRepository::getInstance()->getAllCategoryCount();
 
         if ($totalCount > 0 && $pageNumber <= ceil($totalCount / $pageSize)) {
 
-            $searchResult = CateogryRepository::getInstance()->listCateogry( $pageNumber, $pageSize);
+            $searchResult = CategoryRepository::getInstance()->listCategory( $pageNumber, $pageSize);
 
-            $result['coupons']= $searchResult;
+            $result['categories']= $searchResult;
         }
 
         $result['total'] = $totalCount;
@@ -50,14 +50,14 @@ class CateogryService
     {
         $result = array('success' => false, 'message' => '');
 
-        if ($data['CateogryId'] == 0) {
+        if ($data['CategoryId'] == 0) {
 
-            $newId = CateogryRepository::getInstance()->save($data);
+            $newId = CategoryRepository::getInstance()->save($data);
             if ($newId) {
-                $data['CateogryId'] = $newId;
+                $data['CategoryId'] = $newId;
 
                 $result['success'] = true;
-                $result['cateogry'] = $data;
+                $result['category'] = $data;
 
                 return $result;
             } else {
@@ -67,7 +67,7 @@ class CateogryService
             }
         } else {
 
-            $r = CateogryRepository::getInstance()->update($data['CateogryId'],$data);
+            $r = CategoryRepository::getInstance()->update($data['CategoryId'],$data);
             if ($r) {
 
                 $result['success'] = true;
@@ -87,7 +87,7 @@ class CateogryService
     public static function deleteCateogry($data)
     {
         $result = array('success' => false, 'message' => '');
-        $r = CateogryRepository::getInstance()->delete($data['CateogryId']);
+        $r = CategoryRepository::getInstance()->delete($data['CateogryId']);
         if ($r) {
 
             $result['success'] = true;

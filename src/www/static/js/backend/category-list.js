@@ -11,39 +11,33 @@
 // ==============================================================================
 
 $(function() {
-    $('#frm-category-info').Validform({
-        tiptype: 3
-    });
-
-
     
-
-    $( "#frm-category-info" ).submit(function( event ) {
+    $( ".btnDelete" ).click(function( event ) {
 
 
           event.preventDefault();
 
-          var form = $( this );
+          var item = $( this );
 
-          var url = form.attr( "action" );
+          var url = globalSetting.baseUrl + '/goods/category/delete';
 
-       
-
+          
           var posting = $.post( url, { 
-              'name' : $('#categoryname').val(),
-	            'sort' : $('#categorysort').val(),
-              'parentid': $('#categoryparent').val(),
-              'visibility':$('.u-btn-c3').attr('data-value'),
-               'modelid':$('#categorymodel').val()         
-             } );
+                'specid' : item.attr('data-id')
+            } );
 
 
           posting.done(function( data ) {
 
-              window.location = globalSetting.baseUrl + '/goods/category/search';
+          	  if( data.success)
+          	  {
+              	window.location = globalSetting.baseUrl + '/goods/category/search';
+              }
               return;
 
           });
 
-      });
+    });
+
+    
 });
