@@ -1,303 +1,51 @@
 <?php
 use \Welfony\Utility\Util;
-
-$this->headLink()
-     ->appendStylesheet(Util::baseAssetUrl('css/vendor/jquery.uploadify/3.2.1/jquery.uploadify.css'))
-     ->appendStylesheet(Util::baseAssetUrl('css/vendor/jquery.imgareaselect/0.9.10/imgareaselect-default.css'));
-
-$this->headScript()
-     ->appendFile(Util::baseAssetUrl('js/vendor/jquery.validform/5.3.2/jquery.validform.min.js'))
-     ->appendFile(Util::baseAssetUrl('js/vendor/jquery.uploadify/3.2.1/jquery.uploadify.min.js'))
-     ->appendFile(Util::baseAssetUrl('js/vendor/jquery.imgareaselect/0.9.10/jquery.imgareaselect.min.js'));
 ?>
 <div class="m-form">
-    <form id="frm-user-info" method="post">
+    <form id="frm-model-info" method="post">
         <fieldset>
-            <div class="formitm">
-                <label class="lab">角色：</label>
+           <div class="formitm">
+                <label class="lab">规格名字名称：</label>
                 <div class="ipt">
-                    <select name="user_role" class="u-sel">
-                        <option value="1">超级管理员</option>
-                        <option value="2">沙龙管理员</option>
-                        <option value="3">发型师</option>
-                        <option value="4">普通用户</option>
-                    </select>
+                    <input id="specname" type="text"  datatype="*" value="<?php echo $this->modelInfo['Name']; ?>"  errormsg="规格名称不能为空！" class="u-ipt"/> *
                 </div>
             </div>
             <div class="formitm">
-                <label class="lab">账号：</label>
+                <label class="lab">备注：</label>
                 <div class="ipt">
-                    <input name="username" type="text" value="<?php echo $this->userInfo['Username']; ?>" datatype="s6-8" errormsg="昵称至少6个字符,最多8个字符！" class="u-ipt"/>
-                    <p>6~8个字符，包括字母，数字，下划线以字母开头，字母或数字结尾</p>
+                    <input id="note" type="text"   class="u-ipt"/> 
                 </div>
             </div>
             <div class="formitm">
-                <label class="lab">昵称：</label>
+                <label class="lab"> 添加： </a></label>
                 <div class="ipt">
-                    <input name="nickname" type="text" value="<?php echo $this->userInfo['Nickname']; ?>" class="u-ipt"/>
+                    <a class="t-action" id="btnAddSpec"><i class="iconfont">&#xf0175;</i>添加规格值</a>
                 </div>
             </div>
-            <div class="formitm">
-                <label class="lab">初始密码：</label>
-                <div class="ipt">
-                    <input name="password" type="password" class="u-ipt"/>
-                    <p>6~8个字符，区分大小写</p>
-                </div>
-            </div>
-            <div class="formitm">
-                <label class="lab">确认密码：</label>
-                <div class="ipt">
-                    <input name="password_repeate" type="password" class="u-ipt"/>
-                    <p>再次输入密码</p>
-                </div>
-            </div>
-            <div class="formitm">
-                <label class="lab">邮箱：</label>
-                <div class="ipt">
-                    <input name="email" type="text" value="<?php echo $this->userInfo['Email']; ?>" class="u-ipt"/>
-                </div>
-            </div>
-            <div class="formitm">
-                <label class="lab">手机：</label>
-                <div class="ipt">
-                    <input name="mobile" type="text" value="<?php echo $this->userInfo['Mobile']; ?>" class="u-ipt"/>
-                </div>
-            </div>
-            <div class="formitm">
-                <label class="lab">头像：</label>
-                <div class="ipt">
-                    <span class="u-img2">
-                        <a href="javascript:;">
-                            <img id="avatar-image" src="<?php echo $this->userInfo['AvatarUrl']; ?>" data-ori="<?php echo $this->userInfo['AvatarOriginalUrl']; ?>" data-110="<?php echo $this->userInfo['AvatarThumb110Url']; ?>" alt="">
-                            <input id="avatar-url" type="hidden" name="avatar_url" value="<?php echo $this->userInfo['AvatarUrl']; ?>" />
-                        </a>
-                    </span>
-                    <a class="update-thumb" href="#">调整缩略图</a>
-                </div>
-            </div>
-            <div class="formitm">
+            <div>
                 <label class="lab"></label>
                 <div class="ipt">
-                    <input id="avatar" type="file"/>
+                    <table class="m-table" id="spectable" style="width:600px;">
+                        <thead>
+                            <tr>
+                                <th class="cola">规格值</th>
+                                <th class="cola">操作</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            
+                        </tbody>
+                    </table>
                 </div>
             </div>
+            
+            
             <div class="formitm formitm-1">
-                <input type="hidden" name="user_id" value="<?php echo intval($this->userInfo['UserId']); ?>" />
+                <input type="hidden" name="model_id" value="<?php echo intval($this->modelInfo['ModelId']); ?>" />
                 <button class="u-btn u-btn-submit" type="button">确定</button>
+                <button class="u-btn" id="btnCancel" type="button">取消</button>
             </div>
         </fieldset>
     </form>
 </div>
-<script>
-    $(function() {
-        $('input[name=username]').datepicker();
-
-        $('#frm-user-info').Validform();
-
-        var popup = $(' \
-            <div class="crop-container"> \
-                <div class="crop-content"> \
-                    <img class="crop-img-o" src=""/> \
-                    <input type="hidden" name="x1" value="" /> \
-                    <input type="hidden" name="y1" value="" /> \
-                    <input type="hidden" name="x2" value="" /> \
-                    <input type="hidden" name="y2" value="" /> \
-                </div> \
-                <div class="crop-preview"> \
-                    <p>拖拽或缩放曲线框，<br/>生成方形图片。</p> \
-                    <div class="crop-preview-110"> \
-                        <img class="crop-img-preview-110" src="" /> \
-                    </div> \
-                    <p>110*110像素</p> \
-                    <div class="crop-preview-64"> \
-                        <img class="crop-img-preview-64" src="" /> \
-                    </div> \
-                    <p>64*64像素</p> \
-                    <div class="crop-preview-30"> \
-                        <img class="crop-img-preview-30" src="" /> \
-                    </div> \
-                    <p>30*30像素</p> \
-                </div> \
-            </div> \
-        ');
-
-        function getImgSize(imgSrc, imgLoaded) {
-            var newImg = new Image();
-            $(newImg).load(function(){
-                imgLoaded(newImg.width, newImg.height);
-            });
-            newImg.src = imgSrc;
-        }
-
-        function showErrorMessage(msg) {
-            $('<p>' + msg + '</p>').dialog({
-                resizable: false,
-                title: '警告',
-                width: 300,
-                height:200,
-                modal: true,
-                draggable: false,
-                buttons: {
-                    '知道了': function() {
-                        $(this).dialog('close');
-                    }
-                },
-                close: function() {
-                    $(this).dialog('destroy').remove();
-                }
-            });
-        }
-
-        $('.update-thumb').click(function() {
-            var crop = null;
-            var imgUrl = $('#avatar-image').attr('data-ori');
-            if (!imgUrl) {
-                showErrorMessage('请先上传一张图片');
-                return false;
-            }
-
-            $(popup).dialog({
-                resizable: false,
-                title: '编辑缩略图',
-                width: 600,
-                height:500,
-                modal: true,
-                draggable: false,
-                buttons: {
-                    '保存': function() {
-                        var opts = {
-                            type: 'POST',
-                            url: globalSetting.apiBaseUrl + '/upload/image/crop',
-                            dataType: 'json',
-                            data: {
-                                x1: $('input[name="x1"]').val(),
-                                y1: $('input[name="y1"]').val(),
-                                x2: $('input[name="x2"]').val(),
-                                y2: $('input[name="y2"]').val(),
-                                img: $('#avatar-image').attr('data-ori')
-                            },
-                            success: function(data, textStatus, jqXHR) {
-                                $('#avatar-image').attr('src', $('#avatar-image').attr('data-110') + '?timestamp=' + new Date().getTime());
-                                popup.dialog('close');
-                            }
-                        };
-                        $.ajax(opts);
-                    },
-                    '取消': function() {
-                        $(this).dialog('close');
-                    }
-                },
-                open: function() {
-                    var imgO = popup.find('.crop-img-o');
-                    imgO.attr('src', imgUrl);
-
-                    var imgPreview110 = popup.find('.crop-img-preview-110');
-                    imgPreview110.attr('src', imgUrl);
-
-                    var imgPreview64 = popup.find('.crop-img-preview-64');
-                    imgPreview64.attr('src', imgUrl);
-
-                    var imgPreview30 = popup.find('.crop-img-preview-30');
-                    imgPreview30.attr('src', imgUrl);
-
-                    getImgSize(imgUrl, function(width, height) {
-                        if (width >= height) {
-                            imgO.css('width', imgO.parent().width())
-                                .css('height', 'auto')
-                                .css('margin-top', (imgO.parent().height() - imgO.height()) / 2)
-                                .show();
-                        } else {
-                            imgO.css('height', imgO.parent().height())
-                            .css('width', 'auto')
-                            .css('margin-left', (imgO.parent().width() - imgO.width()) / 2)
-                            .show();
-                        }
-
-                        crop = imgO.imgAreaSelect({
-                            instance: true,
-                            handles: true,
-                            aspectRatio: '1:1',
-                            onSelectEnd: function(img, selection) {
-                                var rate = width / imgO.width();
-
-                                $('input[name="x1"]').val(selection.x1 * rate);
-                                $('input[name="y1"]').val(selection.y1 * rate);
-                                $('input[name="x2"]').val(selection.x2 * rate);
-                                $('input[name="y2"]').val(selection.y2 * rate);
-                            },
-                            onSelectChange: function(img, selection) {
-                                var imgOWith = imgO.width();
-                                var imgOHeight = imgO.height();
-
-                                var scaleX = 110 / (selection.width || 1);
-                                var scaleY = 110 / (selection.height || 1);
-                                imgPreview110.css({
-                                    width: Math.round(scaleX * imgOWith) + 'px',
-                                    height: Math.round(scaleY * imgOHeight) + 'px',
-                                    marginLeft: '-' + Math.round(scaleX * selection.x1) + 'px',
-                                    marginTop: '-' + Math.round(scaleY * selection.y1) + 'px'
-                                });
-
-                                scaleX = 64 / (selection.width || 1);
-                                scaleY = 64 / (selection.height || 1);
-                                imgPreview64.css({
-                                    width: Math.round(scaleX * imgOWith) + 'px',
-                                    height: Math.round(scaleY * imgOHeight) + 'px',
-                                    marginLeft: '-' + Math.round(scaleX * selection.x1) + 'px',
-                                    marginTop: '-' + Math.round(scaleY * selection.y1) + 'px'
-                                });
-
-                                scaleX = 30 / (selection.width || 1);
-                                scaleY = 30 / (selection.height || 1);
-                                imgPreview30.css({
-                                    width: Math.round(scaleX * imgOWith) + 'px',
-                                    height: Math.round(scaleY * imgOHeight) + 'px',
-                                    marginLeft: '-' + Math.round(scaleX * selection.x1) + 'px',
-                                    marginTop: '-' + Math.round(scaleY * selection.y1) + 'px'
-                                });
-                            }
-                        });
-                    });
-                },
-                close: function() {
-                    if (crop) {
-                        crop.remove(true);
-                    }
-                    popup.dialog('destroy').remove();
-                }
-            });
-
-            return false;
-        });
-
-        $(window).resize(function() {
-            popup.dialog('option', 'position', 'center');
-        });
-
-        $('#avatar').uploadify({
-            fileObjName: 'uploadfile',
-            width: 78,
-            height: 32,
-            multi: false,
-            fileExt: '*.jpg;*.jpeg;*.png',
-            fileDesc: 'Image file (.jpg, .jpeg, .png)',
-            buttonText: '选择文件',
-            swf: globalSetting.staticAssetBaseUrl + '/swf/uploadify.swf',
-            uploader: globalSetting.apiBaseUrl + '/upload/image',
-            onUploadError: function(file, errorCode, errorMsg, errorString) {
-                console.log(errorString);
-            },
-            onUploadSuccess: function(file, data, response) {
-                var result = $.parseJSON(data);
-                if (result.success !== false) {
-                    $('#avatar-image').attr('src', result.Thumb110Url)
-                                      .attr('data-110', result.Thumb110Url)
-                                      .attr('data-ori', result.OriginalUrl);
-                    $('#avatar-url').val(result.Thumb480Url);
-                } else {
-                    showErrorMessage('上传失败，请重试！');
-                }
-            }
-        });
-    });
-</script>
+<script src="<?php echo Util::baseAssetUrl('js/backend/spec-info.js'); ?>"></script>

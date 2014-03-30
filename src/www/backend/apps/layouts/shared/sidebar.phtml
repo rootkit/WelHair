@@ -186,7 +186,7 @@
         <li>
             <a href="<?php echo $this->baseUrl('goods/model/search'); ?>">模型</a>
         </li>
-        <?php if ($this->controller == 'model'): ?>
+        <?php if ($this->controller == 'model' || $this->controller == 'spec'): ?>
         <li class="sub-menu">
             <a href="<?php echo $this->baseUrl('goods/model/search'); ?>">
                 <i class="iconfont">&#x344a;</i>

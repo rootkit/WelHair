@@ -19,7 +19,7 @@ class Goods_SpecController extends AbstractAdminController
 
     public function searchAction()
     {
-        $this->view->pageTitle = '品牌列表';
+        $this->view->pageTitle = '规格列表';
     }
 
      public function infoAction()
