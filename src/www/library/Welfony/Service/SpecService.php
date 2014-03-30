@@ -53,7 +53,7 @@ class SpecService
             'total' => 0
         );
 
-        $totalCount = SpecRepository::getInstance()->getSpecCount();
+        $totalCount = SpecRepository::getInstance()->getAllSpecCount();
 
         if ($totalCount > 0 && $pageNumber <= ceil($totalCount / $pageSize)) {
 

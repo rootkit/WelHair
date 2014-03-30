@@ -20,7 +20,7 @@ $(function() {
       var row = '   <tr> ' +
                 '               <td><input name="couponcode" type="text" value="" datatype="s" class="u-ipt"/></td> ' +
                 '               <td>'+
-                '                     <select id="coupon-type"  class="u-sel" with="200px;"> '+
+                '                     <select id="coupon-type"  class="u-sel" > '+
                 '                        <option value="" >单选框</option> ' +
                 '                        <option value="" >复选框</option> ' +
                 '                       <option value="" >下拉框</option>  ' +                        

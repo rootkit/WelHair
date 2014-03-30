@@ -7,7 +7,7 @@ use \Welfony\Utility\Util;
            <div class="formitm">
                 <label class="lab">规格名称：</label>
                 <div class="ipt">
-                    <input id="specname" type="text"  datatype="*" value="<?php echo $this->modelInfo['Name']; ?>"  errormsg="规格名称不能为空！" class="u-ipt"/> *
+                    <input id="specname" type="text"  datatype="*" value="<?php echo $this->specInfo['Name']; ?>"  errormsg="规格名称不能为空！" class="u-ipt"/> *
                 </div>
             </div>
             <div class="formitm">
@@ -41,7 +41,7 @@ use \Welfony\Utility\Util;
             
             
             <div class="formitm formitm-1">
-                <input type="hidden" name="model_id" value="<?php echo intval($this->modelInfo['ModelId']); ?>" />
+                <input type="hidden" name="spec_id" value="<?php echo intval($this->specInfo['ModelId']); ?>" />
                 <button class="u-btn u-btn-submit" type="button">确定</button>
                 <button class="u-btn" id="btnCancel" type="button">取消</button>
             </div>

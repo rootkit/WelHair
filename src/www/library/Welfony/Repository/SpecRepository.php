@@ -19,11 +19,12 @@ use Welfony\Repository\Base\AbstractRepository;
 class SpecRepository extends AbstractRepository
 {
 
-    public function getAllUsersCount()
+    public function getAllSpecCount()
     {
         $strSql = "SELECT
                        COUNT(1) `Total`
-                   FROM Users
+                   FROM Spec
+                   WHERE IsDeleted = 0
                    LIMIT 1";
 
         $row = $this->conn->fetchAssoc($strSql);
@@ -31,32 +32,74 @@ class SpecRepository extends AbstractRepository
         return $row['Total'];
     }
 
-    public function findUserByEmail($email)
+    public function getAllSpec()
     {
         $strSql = 'SELECT
                        *
-                   FROM Users U
-                   WHERE U.Email = ?
-                   LIMIT 1';
+                   FROM Spec
+                   WHERE IsDeleted = 0
+                  ';
 
-        return $this->conn->fetchAssoc($strSql, array($email));
+        return $this->conn->fetchAll($strSql);
     }
 
-    public function findUserByMobile($mobile)
+    public function listSpec( $pageNumber, $pageSize)
+    {
+
+        $offset = ($pageNumber - 1) * $pageSize;
+        $strSql = "  SELECT *
+                     FROM Spec
+                     WHERE IsDeleted = 0
+                     ORDER BY SpecId
+                     LIMIT $offset, $pageSize ";
+
+        return $this->conn->fetchAll($strSql);
+
+    }
+
+    public function getSpecCountByModel($modelId)
+    {
+        $strSql = "SELECT
+                       COUNT(1) `Total`
+                   FROM Spec
+                   WHERE IsDeleted = 0 AND SpecId IN (SELECT SpecIds FROM Model WHERE ModelId = $modelId )
+                   LIMIT 1";
+
+        $row = $this->conn->fetchAssoc($strSql);
+
+        return $row['Total'];
+    }
+
+
+    public function listSpecByModel($modelId, $pageNumber, $pageSize)
+    {
+
+        $offset = ($pageNumber - 1) * $pageSize;
+        $strSql = "  SELECT *
+                     FROM Spec
+                     WHERE  IsDeleted = 0  SpecId IN (SELECT SpecIds FROM Model WHERE ModelId = $modelId )
+                     ORDER BY CouponCodeId
+                     LIMIT $offset, $pageSize ";
+
+        return $this->conn->fetchAll($strSql);
+
+    }
+
+    public function findSpecById($id)
     {
         $strSql = 'SELECT
                        *
-                   FROM Users U
-                   WHERE U.Mobile = ?
+                   FROM Spec
+                   WHERE SpecId = ? 
                    LIMIT 1';
 
-        return $this->conn->fetchAssoc($strSql, array($mobile));
+        return $this->conn->fetchAssoc($strSql, array($id));
     }
 
     public function save($data)
     {
         try {
-            if ($this->conn->insert('Users', $data)) {
+            if ($this->conn->insert('Spec', $data)) {
                 return $this->conn->lastInsertId();
             }
         } catch (\Exception $e) {
@@ -68,10 +111,10 @@ class SpecRepository extends AbstractRepository
         return false;
     }
 
-    public function update($userId, $data)
+    public function update($specId, $data)
     {
         try {
-            return $this->conn->update('Users', $data, array('UserId' => $userId));
+            return $this->conn->update('Spec', $data, array('SpecId' => $specId));
         } catch (\Exception $e) {
             $this->logger->log($e, \Zend_Log::ERR);
 
@@ -79,4 +122,14 @@ class SpecRepository extends AbstractRepository
         }
     }
 
+    public function delete($specId)
+    {
+        try {
+            return $this->conn->executeUpdate(" UPDATE Spec SET IsDeleted = 1 WHERE Spec  = $specId; ");
+        } catch (\Exception $e) {
+            $this->logger->log($e, \Zend_Log::ERR);
+
+            return false;
+        }
+    }
 }

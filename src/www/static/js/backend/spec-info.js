@@ -18,9 +18,9 @@ $(function() {
     $('#btnAddSpec').click(function(){
 
       var row = '   <tr> ' +
-                '               <td><input name="specval" type="text" value="" datatype="s" class="u-ipt"/></td> ' +
-                '               <td></td>' +
-                '            </tr>';
+                '     <td><input name="specval" type="text" value="" datatype="s" class="u-ipt"/></td> ' +
+                '     <td><a href="#" class="btnUp"><i class="iconfont">&#xf0113;</i></a>&nbsp;&nbsp;<a href="#" class="btnDown"><i class="iconfont">&#xf0111;</i></a>&nbsp;&nbsp;<a href="#" class="btnDelete"><i class="iconfont">&#xf013f;</i></a></td>' +
+                '   </tr>';
 
         $('#spectable tbody').append( $(row));
         $('.content').height($('.content').height() + 50);
