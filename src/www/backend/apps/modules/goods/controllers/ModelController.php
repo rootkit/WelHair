@@ -14,6 +14,7 @@
 
 use Welfony\Controller\Base\AbstractAdminController;
 use Welfony\Service\ModelService;
+use Welfony\Service\SpecService;
 use Welfony\Utility\Util;
 
 class Goods_ModelController extends AbstractAdminController
@@ -23,16 +24,10 @@ class Goods_ModelController extends AbstractAdminController
     {
         $this->view->pageTitle = '模型列表';
 
-        //$allspecs = BrandCategoryService::listAllBrandCategory();
+        $allspecs = SpecService::listAllSpec();
 
-        //$categoryies = array();
-
-        //foreach ($allCategories as $cat) {
-        //    $categoryies[$cat['BrandCategoryId']] = $cat['Name'];
-        //}
-        //$this->view->brandcategories = $categoryies;
-
-        $this->view->allspec = array();
+      
+        $this->view->allspec = $allspecs;
 
         $pageSize = 10;
         $page =  intval($this->_request->getParam('page'));

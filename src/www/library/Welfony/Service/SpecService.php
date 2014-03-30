@@ -67,6 +67,15 @@ class SpecService
         return $result;
     }
 
+    public static function listAllSpec()
+    {
+       
+
+        return $searchResult = SpecRepository::getInstance()->getAllSpec();
+
+      
+    }
+
     public static function save($data)
     {
         $result = array('success' => false, 'message' => '');
