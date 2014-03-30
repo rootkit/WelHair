@@ -62,8 +62,7 @@
     
     self.cities = [[CityManager SharedInstance] getCityList];
 	// Do any additional setup after loading the view.
-    _tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStylePlain];
-    _tableView.autoresizingMask = (UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight);
+    _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, self.topBarOffset, WIDTH(self.view), [self contentHeightWithNavgationBar:YES withBottomBar:NO])];
     _tableView.backgroundColor = [UIColor whiteColor];
     _tableView.delegate = self;
     _tableView.dataSource = self;

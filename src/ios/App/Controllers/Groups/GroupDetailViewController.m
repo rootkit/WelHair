@@ -138,10 +138,7 @@ static const   float profileViewHeight = 320;
     [rightBtn setImage:rightImg forState:UIControlStateNormal];
     [topNavView addSubview:rightBtn];
     
-    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0,
-                                                                   self.topBarOffset,
-                                                                   WIDTH(self.view),
-                                                                   [self contentHeightWithNavgationBar:NO withBottomBar:NO])];
+    self.tableView = [[UITableView alloc] initWithFrame:self.view.bounds];
     self.tableView.backgroundColor = [UIColor clearColor];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
@@ -151,8 +148,6 @@ static const   float profileViewHeight = 320;
     
     UIView *headerView_ = [[UIView alloc] initWithFrame:CGRectMake(0, 0, WIDTH(self.view), profileViewHeight + addressViewHeight+ tabButtonViewHeight)];
     headerView_.backgroundColor = [UIColor clearColor];
-    
-    
     
 #pragma topbar
    

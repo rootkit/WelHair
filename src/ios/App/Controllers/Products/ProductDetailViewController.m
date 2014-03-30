@@ -58,7 +58,7 @@
 {
     [super loadView];
     
-    self.scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, self.topBarOffset, WIDTH(self.view), [self contentHeightWithNavgationBar:NO withBottomBar:YES])];
+    self.scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, WIDTH(self.view), self.view.bounds.size.height - kBottomBarHeight)];
     [self.view addSubview:self.scrollView];
     
     UIView *bottomView = [[UIView alloc] initWithFrame:CGRectMake(0,
@@ -131,14 +131,13 @@
     commentBtn.frame = CGRectMake(210, 90, 100, 25);
     [commentBtn addTarget:self action:@selector(commentClick) forControlEvents:UIControlEventTouchUpInside];
     [tempView addSubview:commentBtn];
+    
+    self.scrollView.contentSize = CGSizeMake(WIDTH(self.view), MaxY(tempView));
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    //    [self.navigationController.navigationBar setBackgroundImage:Nil
-    //               forBarMetrics:UIBarMetricsDefault & UIBarMetricsLandscapePhone];
-    //    self.navigationController.navigationBar.backgroundColor = [UIColor colorWithHexString:@"e1e3e2"];
     [self.navigationController setNavigationBarHidden:YES animated:YES];
 }
 
@@ -150,8 +149,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-//    [self.staffImgView setImageWithURL:[NSURL URLWithString:self.product.creator.avatorUrl]];
-//    self.staffNameLbl.text = self.work.creator.name;
     self.distanceLbl.text = @"1千米";
     NSMutableArray *sliderArray = [NSMutableArray array];
     for (NSString *item in self.product.imgUrlList) {

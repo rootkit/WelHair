@@ -86,8 +86,12 @@
             leftItemButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
             [leftItemButton addTarget:self action:@selector(leftNavItemClick) forControlEvents:UIControlEventTouchUpInside];
             [leftItemButton setTitle:self.leftNavItemTitle forState:UIControlStateNormal];
-            self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:leftItemButton];
-            self.navigationItem.leftBarButtonItem.tintColor = [UIColor clearColor];
+            UIView *leftItemView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, WIDTH(leftItemButton), HEIGHT(leftItemButton))];
+            [leftItemView addSubview:leftItemButton];
+            self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:leftItemView];
+            UIBarButtonItem *negativeSpacer = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
+            [negativeSpacer setWidth:-navItemMargin];
+            self.navigationItem.leftBarButtonItems = [NSArray arrayWithObjects:negativeSpacer, self.navigationItem.leftBarButtonItem, nil];
         }
         
         if (self.rightNavItemImg) {
@@ -111,8 +115,14 @@
             rightItemButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
             [rightItemButton addTarget:self action:@selector(rightNavItemClick) forControlEvents:UIControlEventTouchUpInside];
             [rightItemButton setTitle:self.rightNavItemTitle forState:UIControlStateNormal];
-            self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:rightItemButton];
-            self.navigationItem.rightBarButtonItem.tintColor = [UIColor clearColor];
+            
+            UIView *rightItemView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, WIDTH(rightItemButton), HEIGHT(rightItemButton))];
+            [rightItemView addSubview:rightItemButton];
+            
+            self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:rightItemView];
+            UIBarButtonItem *negativeSpacer = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
+            [negativeSpacer setWidth:-navItemMargin];
+            self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects: self.navigationItem.rightBarButtonItem,negativeSpacer, nil];
         }
     }
 }
