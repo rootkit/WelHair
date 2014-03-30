@@ -46,55 +46,62 @@ class Goods_ModelController extends AbstractAdminController
     public function infoAction()
     {
         $this->view->pageTitle = '添加模型';
-    	/*
-        $this->view->pageTitle = '会员信息';
+    	
+        $modelId = $this->_request->getParam('model_id')?  intval($this->_request->getParam('model_id')) : 0;
 
-        $userId = intval($this->_request->getParam('user_id'));
 
-        $user = array(
-            'UserId' => 0,
-            'Username' => Util::genRandomUsername(),
-            'Nickname' => '',
-            'Email' => '',
-            'Mobile' => '',
-            'AvatarUrl' => Util::baseAssetUrl('img/avatar-default.jpg')
+        $model = array(
+            'ModelId' => $modelId,
+            'SpecIds' => '',
+            'Name' => '',
+            'IsDeleted' => 0
         );
 
+
         if ($this->_request->isPost()) {
-            $userRole = intval($this->_request->getParam('user_role'));
-            $username = htmlspecialchars($this->_request->getParam('username'));
-            $nickname = htmlspecialchars($this->_request->getParam('nickname'));
-            $email = htmlspecialchars($this->_request->getParam('email'));
-            $password = htmlspecialchars($this->_request->getParam('password'));
-            $passwordRepeate = htmlspecialchars($this->_request->getParam('password_repeate'));
-            $mobile = htmlspecialchars($this->_request->getParam('mobile'));
-            $avatarUrl = $this->_request->getParam('avatar_url');
+            $this->_helper->viewRenderer->setNoRender(true);
+            $this->_helper->layout->disableLayout();
+            $model['Name']= htmlspecialchars($this->_request->getParam('name'));
+            $model['SpecIds']= $this->_request->getParam('specids');
+            $model['IsDeleted']= '0';      
 
-            $user['Username'] = $username;
-            $user['Role'] = $userRole;
-            $user['Password'] = $password;
-            $user['Nickname'] = $nickname;
-            $user['Email'] = $email;
-            $user['Mobile'] = $mobile;
-            $user['AvatarUrl'] = $avatarUrl;
 
-            $result = UserService::save($user);
-            if ($result['success']) {
-
-            } else {
-
-            }
+            $result = ModelService::save($model);
+            if ($result['success']) {            
+                $result['message'] = '保存模型成功！';
+            } 
+            $this->_helper->json->sendJson($result);
         } else {
-            if ($userId > 0) {
 
-            } else {
-                $user['AvatarOriginalUrl'] = '';
-                $user['AvatarThumb110Url'] = '';
+            
+            if ($modelId > 0) {
+                $model = ModelService::getModelById($modelId);
+                if (!$model) {
+                    // process not exist logic;
+                }
             }
         }
 
-        $this->view->userInfo = $user;
-        */
+        $this->view->modelInfo = $model;
+    }
+
+
+
+    public function deleteAction()
+    {
+        $this->_helper->viewRenderer->setNoRender(true);
+        $this->_helper->layout->disableLayout();
+
+        $modelId =  intval($this->_request->getParam('modelid')) ;
+
+        $spec = array('ModelId' => $modelId);
+
+        if ($this->_request->isPost()) {
+           
+
+            $result = ModelService::deleteModel($model);
+            $this->_helper->json->sendJson($result);
+        } 
     }
 
 

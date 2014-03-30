@@ -91,8 +91,12 @@ $(function() {
 
           posting.done(function( data ) {
 
-              window.location = globalSetting.baseUrl + '/goods/model/search';
-              return;
+              if( data.success)
+              {
+
+                window.location = globalSetting.baseUrl + '/goods/model/search';
+                return;
+              }
 
           });
 
