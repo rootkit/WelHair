@@ -24,6 +24,7 @@ class ModelRepository extends AbstractRepository
         $strSql = "SELECT
                        COUNT(1) `Total`
                    FROM Model
+                   WHERE IsDeleted = 0
                    LIMIT 1";
 
         $row = $this->conn->fetchAssoc($strSql);
@@ -36,6 +37,7 @@ class ModelRepository extends AbstractRepository
         $strSql = 'SELECT
                        *
                    FROM Model
+                   WHERE IsDeleted = 0
                   ';
 
         return $this->conn->fetchAll($strSql);
@@ -47,7 +49,8 @@ class ModelRepository extends AbstractRepository
         $offset = ($pageNumber - 1) * $pageSize;
         $strSql = "SELECT *
                    FROM Model
-                   ORDER BY BrandId
+                   WHERE IsDeleted = 0
+                   ORDER BY ModelId
                    LIMIT $offset, $pageSize ";
 
         return $this->conn->fetchAll($strSql);
@@ -68,7 +71,7 @@ class ModelRepository extends AbstractRepository
     public function save($data)
     {
         try {
-            if ($this->conn->insert('Brand', $data)) {
+            if ($this->conn->insert('Model', $data)) {
                 return $this->conn->lastInsertId();
             }
         } catch (\Exception $e) {
@@ -80,10 +83,10 @@ class ModelRepository extends AbstractRepository
         return false;
     }
 
-    public function update($brandId, $data)
+    public function update($modelId, $data)
     {
         try {
-            return $this->conn->update('Brand', $data, array('BrandId' => $brandId));
+            return $this->conn->update('Model', $data, array('ModelId' => $modelId));
         } catch (\Exception $e) {
             $this->logger->log($e, \Zend_Log::ERR);
 
@@ -91,10 +94,10 @@ class ModelRepository extends AbstractRepository
         }
     }
 
-    public function delete($brandId)
+    public function delete($modelId)
     {
         try {
-            return $this->conn->executeUpdate(" DELETE FROM Brand WHERE BrandId  = $brandId; ");
+            return $this->conn->executeUpdate(" UPDATE Model SET IsDeleted = 1 WHERE ModelId  = $modelId; ");
         } catch (\Exception $e) {
             $this->logger->log($e, \Zend_Log::ERR);
 
