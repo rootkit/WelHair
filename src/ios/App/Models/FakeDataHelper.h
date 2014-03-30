@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "Group.h"
+#import "Address.h"
 @interface FakeDataHelper : NSObject
 
 +(id)SharedInstance;
@@ -21,6 +22,8 @@
 +(NSArray *)getFakeStaffList;
 + (Group *)getFakeGroup;
 +(NSArray *)getFakeCouponList;
++(NSArray *)getFakeAddressLit;
++(Address *)getFakeDefaultAddress;
 
 + (bool)isLogin;
 + (void)login;

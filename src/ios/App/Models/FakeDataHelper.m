@@ -13,6 +13,7 @@
 #import "Product.h"
 #import "ChatSession.h"
 #import "Coupon.h"
+#import "Address.h"
 @implementation FakeDataHelper
 
 
@@ -164,6 +165,26 @@
         [ar addObject:coupon];
     }
     return ar;
+}
+
++(NSArray *)getFakeAddressLit
+{
+    NSMutableArray *ar = [NSMutableArray array];
+    for (int i = 0; i < 10 ; i++) {
+        Address *address = [Address new];
+        address.userName = @"张三";
+        address.phoneNumber = @"125555555555";
+        address.detailAddress = @"济南高新区牛王庄路西,鸿腾三馆对面,左转走300米";
+        address.id = i;
+        address.isDefault = 0;
+        [ar addObject:address];
+    }
+    return ar;
+}
+
++(Address *)getFakeDefaultAddress
+{
+    return [[FakeDataHelper  getFakeAddressLit] objectAtIndex:1];
 }
 
 + (void)setUserCreateGroupSuccess

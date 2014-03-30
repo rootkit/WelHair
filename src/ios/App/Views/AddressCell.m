@@ -1,12 +1,18 @@
 //
-//  AddressCell.m
+//  AppointmentCell.m
 //  WelHair
 //
-//  Created by lu larry on 3/30/14.
+//  Created by lu larry on 3/14/14.
 //  Copyright (c) 2014 Welfony. All rights reserved.
 //
 
 #import "AddressCell.h"
+#import "AddressView.h"
+
+@interface AddressCell()<AddressViewDelegate>
+@property (nonatomic, strong) Address *address;
+@property (nonatomic, strong) AddressView *addressView;
+@end
 
 @implementation AddressCell
 
@@ -14,21 +20,35 @@
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
-        // Initialization code
+        self.addressView = [[AddressView alloc] initWithFrame:CGRectMake(20, 10, 280, 80)];
+        self.addressView.delegate = self;
+        self.contentView.backgroundColor = self.backgroundColor = [UIColor clearColor];
+        [self addSubview:self.addressView];
     }
     return self;
-}
-
-- (void)awakeFromNib
-{
-    // Initialization code
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated
 {
     [super setSelected:selected animated:animated];
-
-    // Configure the view for the selected state
+    [self.addressView setSelected:YES];
 }
+
+- (void)setup:(Address *)address;
+{
+    self.address = address;
+    [self.addressView setup:self.address editable:YES selectable:YES];
+}
+
+- (void)addressView:(AddressView *)addressView didClickEdit:(Address *)address
+{
+    [self.delegate addressCell:self didClickEdit:self.address];
+}
+
+- (void)addressView:(AddressView *)addressView didSelected:(Address *)address
+{
+    [self.delegate addressCell:self didSelected:self.address];
+}
+
 
 @end

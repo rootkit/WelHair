@@ -10,10 +10,12 @@
 
 @protocol AddressPickDeleate <NSObject>
 
-- (void)didPickAddress;
+- (void)didPickAddress:(Address *)address;
 
 @end
 
 @interface AddressListViewController : BaseViewController
+@property (nonatomic) Address *pickedAddress;
+
 @property (nonatomic, weak) id<AddressPickDeleate> delegate;
 @end
