@@ -43,75 +43,64 @@ class Goods_SpecController extends AbstractAdminController
         $this->view->pageTitle = '添加规格';
 
 
-        $couponId = $this->_request->getParam('coupon_id')?  intval($this->_request->getParam('coupon_id')) : 0;
+        $specId = $this->_request->getParam('spec_id')?  intval($this->_request->getParam('spec_id')) : 0;
 
 
-        $coupon = array(
-            'CouponId' => $couponId,
-            'CompanyName' => '',
-            'ImageUrl' => '',
-            'CompanyId' => '',
-            'CouponName' => '',
-            'CouponTypeId' => 0,
-            'CouponTypeValue' => '',
-            'IsLiveActivity' =>0,
-            'LiveActivityAmount' =>'',
-            'LiveActivityAddress' =>'',
-            'HasExpire' => 0,
-            'ExpireDate' =>'',
-            'CouponAmountLimitTypeId' => 0,
-            'CouponAccountLimitTypeId' => 0,
-            'CouponPaymentTypeId' => 0,
-            'CouponPaymentValue' => '',
-            'CouponUsage' => '',
-            'Comments' => '',
-            'IsCouponCodeSecret' => 0,
-            'IsDeleted' => 0,
-            'IsActive' => 1
+        $spec = array(
+            'SpecId' => $specId,
+            'Name' => '',
+            'Value' => '',
+            'Type' => '',
+            'Note' => '',
+            'IsDeleted' => 0
         );
 
 
         if ($this->_request->isPost()) {
-            $coupon['CouponName']= htmlspecialchars($this->_request->getParam('couponname'));
-            $coupon['CompanyName']= htmlspecialchars($this->_request->getParam('companyname'));
-            $coupon['CompanyId']= $this->_request->getParam('companyid');
-            $coupon['ImageUrl']= htmlspecialchars($this->_request->getParam('imageurl'));
-            $coupon['CouponTypeId']= $this->_request->getParam('coupontypeid');
-            $coupon['CouponTypeValue']= htmlspecialchars($this->_request->getParam('coupontypevalue'));
-            $coupon['IsLiveActivity']= $this->_request->getParam('isliveactivity');
-            $coupon['LiveActivityAmount']= $this->_request->getParam('liveactivityamount') ? htmlspecialchars($this->_request->getParam('liveactivityamount')) : NULL;
-            $coupon['LiveActivityAddress']= htmlspecialchars($this->_request->getParam('liveactivityaddress'));
-            $coupon['HasExpire']= $this->_request->getParam('hasexpire');
-            $coupon['ExpireDate']= $this->_request->getParam('expiredate') ? htmlspecialchars($this->_request->getParam('expiredate')) : NULL;
-            $coupon['CouponAccountLimitTypeId']= htmlspecialchars($this->_request->getParam('couponaccountlimittypeid'));
-            $coupon['CouponAmountLimitTypeId']= htmlspecialchars($this->_request->getParam('couponamountlimittypeid'));
-            $coupon['CouponPaymentTypeId']= $this->_request->getParam('couponpaymenttypeid');
-            $coupon['CouponPaymentValue']= htmlspecialchars($this->_request->getParam('couponpaymentvalue'));
-            $coupon['CouponUsage']= htmlspecialchars($this->_request->getParam('usage'));
-            $coupon['Comments']= htmlspecialchars($this->_request->getParam('comments'));
-            $coupon['IsCouponCodeSecret']= $this->_request->getParam('iscouponcodesecret');
+            $spec['Name']= htmlspecialchars($this->_request->getParam('name'));
+            $spec['Value']= $this->_request->getParam('value');
+            $spec['Type']= '1';
+            $spec['Note']= htmlspecialchars($this->_request->getParam('note'));        
 
 
-            $result = CouponService::save($coupon);
+            $result = SpecService::save($spec);
             if ($result['success']) {
 
             
-                $this->view->successMessage = '保存优惠券成功！';
+                $this->view->successMessage = '保存规格成功！';
             } else {
                 $this->view->errorMessage = $result['message'];
             }
         } else {
 
             
-            if ($couponId > 0) {
-                $coupon = CouponService::getCouponById($couponId);
-                if (!$coupon) {
+            if ($specId > 0) {
+                $spec = SpecService::getSpecById($specId);
+                if (!$spec) {
                     // process not exist logic;
                 }
             }
         }
 
-        $this->view->couponInfo = $coupon;
+        $this->view->specInfo = $spec;
+    }
+
+
+    public function deleteAction()
+    {
+        $this->_helper->viewRenderer->setNoRender(true);
+        $this->_helper->layout->disableLayout();
+
+        $specId =  intval($this->_request->getParam('specid')) ;
+
+        $spec = array('SpecId' => $specId);
+
+        if ($this->_request->isPost()) {
+           
+
+            $result = SpecService::deleteSpec($spec);
+            $this->_helper->json->sendJson($result);
+        } 
     }
 
 

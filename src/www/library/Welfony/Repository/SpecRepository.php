@@ -125,7 +125,7 @@ class SpecRepository extends AbstractRepository
     public function delete($specId)
     {
         try {
-            return $this->conn->executeUpdate(" UPDATE Spec SET IsDeleted = 1 WHERE Spec  = $specId; ");
+            return $this->conn->executeUpdate(" UPDATE Spec SET IsDeleted = 1 WHERE SpecId  = $specId; ");
         } catch (\Exception $e) {
             $this->logger->log($e, \Zend_Log::ERR);
 

@@ -11,7 +11,7 @@
 // ==============================================================================
 
 $(function() {
-    $('#frm-model-info').Validform({
+    $('#frm-spec-info').Validform({
         tiptype: 3
     });
 
@@ -28,31 +28,35 @@ $(function() {
     });
 
 
-    $( "#frm-model-info" ).submit(function( event ) {
+    $( "#frm-spec-info" ).submit(function( event ) {
 
 
           event.preventDefault();
 
           var form = $( this );
 
-          var name = $('#modelname').val();
+          var name = $('#specname').val();
+          var note = $('#note').val();
+          var specid = $
 
-          //var brandcategories  = $('input[name="category[]"]:checked').map(function(i,n) {
-          //      return $(n).val();
-          //}).get();
+          var values  = $('input[name="specval"]').map(function(i,n) {
+                return $(n).val();
+          }).get();
          
           
 
           url = form.attr( "action" );
 
           var posting = $.post( url, { 
-                'name': name
+                'name': name,
+                'value': JSON.stringify(values),
+                'note' :note
             } );
 
 
           posting.done(function( data ) {
 
-              window.location = globalSetting.baseUrl + '/goods/model/search';
+              window.location = globalSetting.baseUrl + '/goods/spec/search';
               return;
 
           });
@@ -60,7 +64,7 @@ $(function() {
       });
 
     $('#btnCancel').click(function(){
-        window.location = globalSetting.baseUrl + '/goods/model/search';
+        window.location = globalSetting.baseUrl + '/goods/spec/search';
         return;
     });
 });

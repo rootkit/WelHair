@@ -2,7 +2,7 @@
 use \Welfony\Utility\Util;
 ?>
 <div class="m-form">
-    <form id="frm-model-info" method="post">
+    <form id="frm-spec-info" method="post">
         <fieldset>
            <div class="formitm">
                 <label class="lab">规格名称：</label>
@@ -41,7 +41,7 @@ use \Welfony\Utility\Util;
             
             
             <div class="formitm formitm-1">
-                <input type="hidden" name="spec_id" value="<?php echo intval($this->specInfo['ModelId']); ?>" />
+                <input type="hidden" name="spec_id" value="<?php echo intval($this->specInfo['SpecId']); ?>" />
                 <button class="u-btn u-btn-submit" type="button">确定</button>
                 <button class="u-btn" id="btnCancel" type="button">取消</button>
             </div>

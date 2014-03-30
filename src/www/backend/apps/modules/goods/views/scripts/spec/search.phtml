@@ -23,18 +23,28 @@ use \Welfony\Utility\Util;
         </tr>
     </thead>
     <tbody>
-
+      <?php foreach( $this->rows as $spec) : ?>
         <tr>
             <td class="col-center"><input type="checkbox" /></td>
-            <td></td>
-            <td></td>
-            <td></td>
+            <td><?php echo $spec['Name']; ?></td>
+            <td>文字</td>
+            <td><?php  
+                if( isset( $spec['Value'] ) && $spec['Value'])
+                {
+                    $val = json_decode( $spec['Value']); 
+                    if($val && is_array($val))
+                    {
+                        echo implode(',', $val);
+                    }
+                }
+            ?></td>
             <td> 
-                <a href="#" class="btnDelete" >
+                <a href="#" href="#" class="btnDelete" data-id="<?php echo $spec['SpecId']; ?>" >
                     <i class="iconfont">&#xf013f;</i>&nbsp;&nbsp;删除
                 </a>
             </td>
         </tr>
+    <?php endforeach; ?>
     </tbody>
 </table>
 
