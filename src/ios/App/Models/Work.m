@@ -25,6 +25,7 @@
     self = [super init];
     if (self) {
         self.id = [[dictionary objectForKey:@"WorkId"] intValue];
+        self.imgUrlList = [dictionary objectForKey:@"PictureUrl"];
     }
 
     return self;

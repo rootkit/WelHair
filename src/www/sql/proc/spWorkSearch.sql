@@ -26,14 +26,18 @@ SELECT
   C.CommentId,
   C.Body,
 
-  U.UserId,
-  U.AvatarUrl,
-  U.Nickname
+  U.UserId CommentUserId,
+  U.AvatarUrl CommentAvatarUrl,
+  U.Nickname CommentNickname
 FROM (
     SELECT
       W.WorkId,
       W.Title,
       W.PictureUrl,
+
+      U.UserId StaffUserId,
+      U.AvatarUrl StaffAvatarUrl,
+      U.Nickname StaffNickname,
 
       (SELECT COUNT(1) FROM Comment CM WHERE CM.WorkId = W.WorkId) WorkCommentCount,
       (SELECT COUNT(1) FROM UserLike UL WHERE UL.WorkId = W.WorkId) WorkLikeCount
