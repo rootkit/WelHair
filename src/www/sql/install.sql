@@ -547,10 +547,7 @@ CREATE TABLE IF NOT EXISTS `CouponCode` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='优惠码'$$
 
 -- ==============================================================================
-
-DROP PROCEDURE IF EXISTS `sp_update_table_field`;
 DELIMITER ;;
-
 CREATE PROCEDURE `sp_update_table_field`()
 BEGIN
   IF NOT EXISTS (
@@ -722,9 +719,9 @@ CREATE TABLE IF NOT EXISTS `UserPoint` (
 -- ==============================================================================
 
 
---
+-- ==============================================================================
 -- Add IsDeleted to Model table
---
+-- ==============================================================================
 DELIMITER ;;
 
 CREATE PROCEDURE `sp_update_table_field`()
@@ -745,9 +742,9 @@ CALL sp_update_table_field();
 DROP PROCEDURE IF EXISTS `sp_update_table_field`;
 
 
---
+-- ==============================================================================
 -- Add IsDeleted to Brand table
---
+-- ==============================================================================
 DELIMITER ;;
 
 CREATE PROCEDURE `sp_update_table_field`()
@@ -768,9 +765,9 @@ CALL sp_update_table_field();
 DROP PROCEDURE IF EXISTS `sp_update_table_field`;
 
 
---
+-- ==============================================================================
 -- Add IsDeleted to Category table
---
+-- ==============================================================================
 DELIMITER ;;
 
 CREATE PROCEDURE `sp_update_table_field`()
