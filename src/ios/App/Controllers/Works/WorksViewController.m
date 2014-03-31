@@ -10,29 +10,36 @@
 //
 // ==============================================================================
 
-#import "WorksViewController.h"
+#import "City.h"
 #import "CityListViewController.h"
-#import "WorkDetailViewController.h"
+#import "CityManager.h"
+#import "DropDownView.h"
 #import "StaffDetailViewController.h"
 #import "WorkCell.h"
-#import "UIScrollView+UzysCircularProgressPullToRefresh.h"
-#import "DropDownView.h"
-#import "City.h"
-#import "CityManager.h"
+#import "WorkDetailViewController.h"
+#import "WorksViewController.h"
+
 @interface WorksViewController ()<UITableViewDataSource, UITableViewDelegate, DropDownDelegate,CityPickViewDelegate>
+
+@property (nonatomic, assign) NSInteger currentPage;
+
 @property (nonatomic, strong) NSMutableArray *datasource;
 @property (nonatomic, strong) UITableView *tableView;
-@property (nonatomic, strong) UIButton *areaBtn;
-@property (nonatomic, strong) UIButton *colorBtn;
-@property (nonatomic, strong) UIButton *lengthBtn;
+
+@property (nonatomic, strong) UIButton *hairStyleBtn;
+@property (nonatomic, strong) UIButton *genderBtn;
+@property (nonatomic, strong) UIButton *sortBtn;
 
 @property (nonatomic, strong) DropDownView *dropDownPicker;
-@property (nonatomic, strong) NSArray *areaDatasource;
-@property (nonatomic, strong) NSArray *colorDatasource;
-@property (nonatomic, strong) NSArray *lengthDatasource;
-@property (nonatomic) int areaSelectedIndex;
-@property (nonatomic) int colorSelectedIndex;
-@property (nonatomic) int lengthSelectedIndex;
+
+@property (nonatomic, strong) NSArray *hairStyleDatasource;
+@property (nonatomic, strong) NSArray *genderDatasource;
+@property (nonatomic, strong) NSArray *sortDatasource;
+
+@property (nonatomic) int hairStyleSelectedIndex;
+@property (nonatomic) int genderSelectedIndex;
+@property (nonatomic) int sortSelectedIndex;
+
 @end
 
 @implementation WorksViewController
@@ -42,6 +49,12 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         self.title = NSLocalizedString(@"WorksViewController.Title", nil);
+
+        self.currentPage = 1;
+
+        self.hairStyleDatasource = @[@"所有发质", @"短发", @"长发", @"编发", @"中发"];
+        self.genderDatasource = @[@"所有人", @"男士", @"女士"];
+        self.sortDatasource = @[@"默认排序", @"最新发型", @"最受欢迎"];
     }
     return self;
 }
@@ -49,7 +62,6 @@
 - (void) loadView
 {
     [super loadView];
-
 }
 
 - (void)leftNavItemClick
@@ -58,12 +70,15 @@
     picker.selectedCity = [[CityManager SharedInstance] getSelectedCity];
     picker.enableLocation = YES;
     picker.delegate = self;
-    [self.navigationController presentViewController:[[UINavigationController alloc] initWithRootViewController:picker] animated:YES completion:nil];
+
+    [self.navigationController presentViewController:[[UINavigationController alloc] initWithRootViewController:picker]
+                                            animated:YES completion:nil];
 }
 
 - (void)didPickCity:(City *)city
 {
     [[CityManager SharedInstance] setSelectedCity:city.id];
+
     UIButton *leftItemButton = [UIButton buttonWithType:UIButtonTypeCustom];
     leftItemButton.frame = CGRectMake(0, 0, 100, kTopBarHeight);
     leftItemButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
@@ -82,55 +97,58 @@
 {
     [super viewDidAppear:animated];
 }
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.leftNavItemTitle = @"济南";
+
+    [self setTopLeftCityName];
 
     float topTabButtonWidth = WIDTH(self.view)/3;
     UIView *topTabView = [[UIView alloc] initWithFrame:CGRectMake(0, self.topBarOffset,WIDTH(self.view),TOP_TAB_BAR_HEIGHT)];
+    topTabView.backgroundColor = [UIColor whiteColor];
+    [self.view addSubview:topTabView];
+
     UIView *topTabBottomShadowView = [[UIView alloc] initWithFrame:topTabView.frame];
     topTabBottomShadowView.backgroundColor = [UIColor lightGrayColor];
     [topTabBottomShadowView drawBottomShadowOffset:1 opacity:1];
     [self.view addSubview:topTabBottomShadowView];
-    [self.view addSubview:topTabView];
-    topTabView.backgroundColor = [UIColor whiteColor];
-    self.areaBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    self.areaBtn.backgroundColor = [UIColor whiteColor];
-    [self.areaBtn setTitleColor:[UIColor colorWithHexString:@"666666"] forState:UIControlStateNormal];
-    self.areaBtn.frame = CGRectMake(0, 0, topTabButtonWidth, TOP_TAB_BAR_HEIGHT);
-    [self.areaBtn setTitle:@"地区" forState:UIControlStateNormal];
-    self.areaBtn.tag = 0;
-    [self.areaBtn addTarget:self action:@selector(dropDownBtnClick:) forControlEvents:UIControlEventTouchDown];
-    [topTabView addSubview:self.areaBtn];
-    UIView *separatorView1 = [[UIView alloc] initWithFrame:CGRectMake(MaxX(self.areaBtn), 10, 1, 20)];
+
+    self.hairStyleBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    self.hairStyleBtn.backgroundColor = [UIColor whiteColor];
+    [self.hairStyleBtn setTitleColor:[UIColor colorWithHexString:@"666666"] forState:UIControlStateNormal];
+    self.hairStyleBtn.frame = CGRectMake(0, 0, topTabButtonWidth, TOP_TAB_BAR_HEIGHT);
+    [self.hairStyleBtn setTitle:@"发质" forState:UIControlStateNormal];
+    self.hairStyleBtn.tag = 0;
+    [self.hairStyleBtn addTarget:self action:@selector(dropDownBtnClick:) forControlEvents:UIControlEventTouchDown];
+    [topTabView addSubview:self.hairStyleBtn];
+
+    UIView *separatorView1 = [[UIView alloc] initWithFrame:CGRectMake(MaxX(self.hairStyleBtn), 10, 1, 20)];
     separatorView1.backgroundColor = [UIColor lightGrayColor];
     [topTabView addSubview:separatorView1];
     
-    self.colorBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [self.colorBtn setTitleColor:[UIColor colorWithHexString:@"666666"] forState:UIControlStateNormal];
-    self.colorBtn.frame = CGRectMake(MaxX(self.areaBtn)+1, 0, topTabButtonWidth, TOP_TAB_BAR_HEIGHT);
-    [self.colorBtn setTitle:@"颜色" forState:UIControlStateNormal];
-    self.colorBtn.tag = 1;
-    self.colorBtn.backgroundColor = [UIColor whiteColor];
-    [self.colorBtn addTarget:self action:@selector(dropDownBtnClick:) forControlEvents:UIControlEventTouchDown];
-    [topTabView addSubview:self.colorBtn];
-    UIView *separatorView2 = [[UIView alloc] initWithFrame:CGRectMake(MaxX(self.colorBtn), 10, 1, 20)];
+    self.genderBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [self.genderBtn setTitleColor:[UIColor colorWithHexString:@"666666"] forState:UIControlStateNormal];
+    self.genderBtn.frame = CGRectMake(MaxX(self.hairStyleBtn)+1, 0, topTabButtonWidth, TOP_TAB_BAR_HEIGHT);
+    [self.genderBtn setTitle:@"性别" forState:UIControlStateNormal];
+    self.genderBtn.tag = 1;
+    self.genderBtn.backgroundColor = [UIColor whiteColor];
+    [self.genderBtn addTarget:self action:@selector(dropDownBtnClick:) forControlEvents:UIControlEventTouchDown];
+    [topTabView addSubview:self.genderBtn];
+
+    UIView *separatorView2 = [[UIView alloc] initWithFrame:CGRectMake(MaxX(self.genderBtn), 10, 1, 20)];
     separatorView2.backgroundColor = [UIColor lightGrayColor];
     [topTabView addSubview:separatorView2];
     
-    self.lengthBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [self.lengthBtn setTitleColor:[UIColor colorWithHexString:@"666666"] forState:UIControlStateNormal];
-    self.lengthBtn.frame = CGRectMake(MaxX(self.colorBtn)+1, 0, topTabButtonWidth, TOP_TAB_BAR_HEIGHT);
-    [self.lengthBtn setTitle:@"长度" forState:UIControlStateNormal];
-    self.lengthBtn.tag = 2;
-    self.lengthBtn.backgroundColor = [UIColor whiteColor];
-    [self.lengthBtn addTarget:self action:@selector(dropDownBtnClick:) forControlEvents:UIControlEventTouchDown];
-    [topTabView addSubview:self.lengthBtn];
-    // draw shadow
-//    UIView *shadowView = [[UIView alloc] initWithFrame:CGRectMake(0, TOP_TAB_BAR_HEIGHT -1, WIDTH(topTabView), 1)];
-//    shadowView.backgroundColor = [UIColor lightGrayColor];
-//    [topTabView addSubview:shadowView];
+    self.sortBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [self.sortBtn setTitleColor:[UIColor colorWithHexString:@"666666"] forState:UIControlStateNormal];
+    self.sortBtn.frame = CGRectMake(MaxX(self.genderBtn)+1, 0, topTabButtonWidth, TOP_TAB_BAR_HEIGHT);
+    [self.sortBtn setTitle:@"排序" forState:UIControlStateNormal];
+    self.sortBtn.tag = 2;
+    self.sortBtn.backgroundColor = [UIColor whiteColor];
+    [self.sortBtn addTarget:self action:@selector(dropDownBtnClick:) forControlEvents:UIControlEventTouchDown];
+    [topTabView addSubview:self.sortBtn];
+
     
     self.tableView = [[UITableView alloc] init];
     self.tableView.frame = CGRectMake(0,
@@ -142,49 +160,43 @@
     self.tableView.dataSource = self;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.tableView.backgroundColor = [UIColor colorWithHexString:@"f2f2f2"];
+    [self.view addSubview:self.tableView];
+
     __weak typeof(self) weakSelf = self;
     [self.tableView addPullToRefreshActionHandler:^{
-        [weakSelf insertRowAtTop];
+        weakSelf.currentPage = 1;
+        [weakSelf getWorks];
     }];
     
     [self.tableView.pullToRefreshView setSize:CGSizeMake(25, 25)];
     [self.tableView.pullToRefreshView setBorderWidth:2];
     [self.tableView.pullToRefreshView setBorderColor:[UIColor whiteColor]];
     [self.tableView.pullToRefreshView setImageIcon:[UIImage imageNamed:@"centerIcon"]];
-    [self.view addSubview:self.tableView];
 
-    self.datasource = [NSMutableArray arrayWithArray:[FakeDataHelper getFakeWorkList]];
-    
-    self.areaDatasource = @[@"高新区",@"历下区",@"历城区",@"市中区"];
-    self.colorDatasource = @[@"红色",@"黄色",@"黑色",@"白色"];
-    self.lengthDatasource = @[@"寸头",@"短发",@"刘海",@"披肩"];
+    [self.tableView addInfiniteScrollingWithActionHandler:^{
+        weakSelf.currentPage += 1;
+        [weakSelf getWorks];
+    }];
+    self.tableView.showsInfiniteScrolling = NO;
     
     float dropDownHeight = [self contentHeightWithNavgationBar:YES withBottomBar:YES] + kBottomBarHeight;
     self.dropDownPicker = [[DropDownView alloc] initWithFrame:CGRectMake(0,
-                                                                        self.topBarOffset + HEIGHT(self.areaBtn),
+                                                                        self.topBarOffset + HEIGHT(self.hairStyleBtn),
                                                                          WIDTH(self.view),
                                                                          dropDownHeight)
                                                 contentHeight:dropDownHeight/2];
     self.dropDownPicker.delegate = self;
+
     [self.view bringSubviewToFront:topTabBottomShadowView];
     [self.view addSubview:self.dropDownPicker];
     [self.view bringSubviewToFront:topTabView];
-}
 
-
-- (void)insertRowAtTop
-{
-    int64_t delayInSeconds = 1.2;
-    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
-    dispatch_after(popTime, dispatch_get_main_queue(), ^(void) {
-        [self.tableView stopRefreshAnimation];
-    });
+    [self getWorks];
 }
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 - (void)dropDownBtnClick:(id)sender
@@ -193,18 +205,18 @@
     UIButton *btn = (UIButton *)sender;
     switch (btn.tag) {
         case 0:
-            [self.dropDownPicker showData:self.areaDatasource
-                            selectedIndex:self.areaSelectedIndex
+            [self.dropDownPicker showData:self.hairStyleDatasource
+                            selectedIndex:self.hairStyleSelectedIndex
                               pointToView:btn];
             break;
         case 1:
-            [self.dropDownPicker showData:self.colorDatasource
-                            selectedIndex:self.colorSelectedIndex
+            [self.dropDownPicker showData:self.genderDatasource
+                            selectedIndex:self.genderSelectedIndex
                           pointToView:btn];
             break;
         case 2:
-            [self.dropDownPicker showData:self.lengthDatasource
-                            selectedIndex:self.lengthSelectedIndex
+            [self.dropDownPicker showData:self.sortDatasource
+                            selectedIndex:self.sortSelectedIndex
                               pointToView:btn];
             break;
         default:
@@ -214,22 +226,23 @@
 
 - (void)didPickItemAtIndex:(int)index forView:(UIView *)view
 {
-    if([view isEqual:self.areaBtn]){
-        self.areaSelectedIndex  = index;
-        NSString *title = [self.areaDatasource objectAtIndex:index];
-        [self.areaBtn setTitle:title forState:UIControlStateNormal];
-    }else if([view isEqual:self.colorBtn]){
-        self.colorSelectedIndex  = index;
-        NSString *title = [self.colorDatasource objectAtIndex:index];
-        [self.colorBtn setTitle:title forState:UIControlStateNormal];
-    }else if([view isEqual:self.lengthBtn]){
-        self.lengthSelectedIndex  = index;
-        NSString *title = [self.lengthDatasource objectAtIndex:index];
-        [self.lengthBtn setTitle:title forState:UIControlStateNormal];
+    if([view isEqual:self.hairStyleBtn]){
+        self.hairStyleSelectedIndex  = index;
+        NSString *title = [self.hairStyleDatasource objectAtIndex:index];
+        [self.hairStyleBtn setTitle:title forState:UIControlStateNormal];
+    } else if ([view isEqual:self.genderBtn]) {
+        self.genderSelectedIndex  = index;
+        NSString *title = [self.genderDatasource objectAtIndex:index];
+        [self.genderBtn setTitle:title forState:UIControlStateNormal];
+    } else if ([view isEqual:self.sortBtn]) {
+        self.sortSelectedIndex  = index;
+        NSString *title = [self.sortDatasource objectAtIndex:index];
+        [self.sortBtn setTitle:title forState:UIControlStateNormal];
     }
 }
 
 #pragma mark UITableView delegate
+
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     return 260;
@@ -276,5 +289,72 @@
     [self.navigationController pushViewController:workVc animated:YES];
 }
 
+#pragma mark Work Search API
+
+- (void)getWorks
+{
+    NSMutableDictionary *reqData = [[NSMutableDictionary alloc] initWithCapacity:1];
+    [reqData setObject:[NSNumber numberWithInteger:self.self.currentPage] forKey:@"page"];
+
+    ASIHTTPRequest *request = [RequestUtil createGetRequestWithURL:[NSURL URLWithString:API_WORKS_SEARCH] andParam:reqData];
+    [request setDelegate:self];
+    [request setDidFinishSelector:@selector(finishGetWorks:)];
+    [request setDidFailSelector:@selector(failGetWorks:)];
+    [request startAsynchronous];
+}
+
+- (void)finishGetWorks:(ASIHTTPRequest *)request
+{
+    NSDictionary *rst = [Util objectFromJson:request.responseString];
+    NSInteger total = [[rst objectForKey:@"total"] integerValue];
+    NSArray *dataList = [rst objectForKey:@"works"];
+
+    NSMutableArray *arr = [NSMutableArray arrayWithArray:self.datasource];
+
+    if (self.currentPage == 1) {
+        [arr removeAllObjects];
+    } else {
+        if (self.currentPage % TABLEVIEW_PAGESIZE_DEFAULT > 0) {
+            int i;
+
+            for (i = 0; i < arr.count; i++) {
+                if (i >= (self.currentPage - 1) * TABLEVIEW_PAGESIZE_DEFAULT) {
+                    [arr removeObjectAtIndex:i];
+                    i--;
+                }
+            }
+        }
+    }
+
+    for (NSDictionary *dicData in dataList) {
+        [arr addObject:[[Work alloc] initWithDic:dicData]];
+    }
+
+    self.datasource = arr;
+
+    BOOL enableInfinite = total > self.datasource.count;
+    if (self.tableView.showsInfiniteScrolling != enableInfinite) {
+        self.tableView.showsInfiniteScrolling = enableInfinite;
+    }
+
+    if (self.currentPage == 1) {
+        [self.tableView stopRefreshAnimation];
+    } else {
+        [self.tableView.infiniteScrollingView stopAnimating];
+    }
+
+    [self checkEmpty];
+
+    [self.tableView reloadData];
+}
+
+- (void)failGetWorks:(ASIHTTPRequest *)request
+{
+}
+
+- (void)checkEmpty
+{
+
+}
 
 @end

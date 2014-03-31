@@ -12,7 +12,7 @@
 
 @interface RequestUtil : NSObject
 
-+(ASIHTTPRequest *)createGetRequestWithURL:(NSURL *)url;
++(ASIHTTPRequest *)createGetRequestWithURL:(NSURL *)url andParam:(NSDictionary *)params;
 +(ASIFormDataRequest *)createPOSTRequestWithURL:(NSURL *)url andData:(NSDictionary *)data;
 +(ASIFormDataRequest *)createPUBRequestWithURL:(NSURL *)url andData:(NSDictionary *)data;
 

@@ -29,6 +29,40 @@ class WorkService
         $works = array();
         foreach ($workList as $work) {
             $work['PictureUrl'] = json_decode($work['PictureUrl']);
+            if (intval($work['CommentId']) > 0) {
+                $work['Comment'] = array(
+                    'CommentId' => $work['CommentId'],
+                    'Body' => $work['Body'],
+                    'User' => array(
+                        'UserId' => $work['CommentUserId'],
+                        'AvatarUrl' => $work['CommentAvatarUrl'],
+                        'Nickname' => $work['CommentNickname']
+                    )
+                );
+            } else {
+                $work['Comment'] = array();
+            }
+
+            unset($work['CommentId']);
+            unset($work['Body']);
+            unset($work['CommentUserId']);
+            unset($work['CommentAvatarUrl']);
+            unset($work['CommentNickname']);
+
+            if (intval($work['StaffUserId']) > 0) {
+                $work['Staff'] = array(
+                    'UserId' => $work['StaffUserId'],
+                    'AvatarUrl' => $work['StaffAvatarUrl'],
+                    'Nickname' => $work['StaffNickname']
+                );
+            } else {
+                $work['Staff'] = array();
+            }
+
+            unset($work['StaffUserId']);
+            unset($work['StaffAvatarUrl']);
+            unset($work['StaffNickname']);
+
             $works[] = $work;
         }
 

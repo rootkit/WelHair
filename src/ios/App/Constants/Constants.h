@@ -25,6 +25,9 @@
 #define API_SOCIAL_LOGIN API_PATH(@"/socials/login")
 #define API_USERS_SIGNIN_EMAIL API_PATH(@"/users/signin/email")
 #define API_USERS_SIGNUP_EMAIL API_PATH(@"/users/signup/email")
+#define API_WORKS_SEARCH API_PATH(@"/works")
+#define API_STAFFS_SEARCH API_PATH(@"/staffs")
+#define API_COMPANIES_SEARCH API_PATH(@"/companies")
 
 
 #define APP_BASE_COLOR              @"206ba7"
@@ -50,6 +53,8 @@
 #define HAIR_STYLE_QUANTITY_HAVAVY      0
 #define HAIR_STYLE_QUANTITY_MIDDLE      1
 #define HAIR_STYLE_QUANTITY_LITTLE      2
+
+#define TABLEVIEW_PAGESIZE_DEFAULT 10
 
 
 

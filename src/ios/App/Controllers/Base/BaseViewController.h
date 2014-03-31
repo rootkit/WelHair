@@ -27,4 +27,6 @@
 - (void)leftNavItemClick;
 
 - (void)rightNavItemClick;
+
+- (void)setTopLeftCityName;
 @end

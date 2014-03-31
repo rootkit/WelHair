@@ -16,6 +16,8 @@
 		1825E1D218E183B70052AA9A /* MeTab3@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1825E1C918E183B70052AA9A /* MeTab3@2x.png */; };
 		1825E1D318E183B70052AA9A /* MeTab4.png in Resources */ = {isa = PBXBuildFile; fileRef = 1825E1CA18E183B70052AA9A /* MeTab4.png */; };
 		1825E1D418E183B70052AA9A /* MeTab4@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1825E1CB18E183B70052AA9A /* MeTab4@2x.png */; };
+		182F9F6218E976D2001AF49D /* UIScrollView+SVInfiniteScrolling.m in Sources */ = {isa = PBXBuildFile; fileRef = 182F9F5F18E976D2001AF49D /* UIScrollView+SVInfiniteScrolling.m */; };
+		182F9F6318E976D2001AF49D /* UIScrollView+SVPullToRefresh.m in Sources */ = {isa = PBXBuildFile; fileRef = 182F9F6118E976D2001AF49D /* UIScrollView+SVPullToRefresh.m */; };
 		183B03CD18E110F500765116 /* ABMGroupedTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 183B03C918E110F500765116 /* ABMGroupedTableView.m */; };
 		183B03CE18E110F500765116 /* ABMGroupedTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 183B03CB18E110F500765116 /* ABMGroupedTableViewCell.m */; };
 		183B03DA18E1110500765116 /* groupedTableView_bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 183B03D018E1110500765116 /* groupedTableView_bg@2x.png */; };
@@ -203,6 +205,7 @@
 		4659D28718E7EB82005648C0 /* AddressCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4659D28618E7EB82005648C0 /* AddressCell.m */; };
 		465A5C8818DB08C7009B6D60 /* MyScoreViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 465A5C8718DB08C7009B6D60 /* MyScoreViewController.m */; };
 		465A5C8B18DB0B8D009B6D60 /* MyScoreCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 465A5C8A18DB0B8D009B6D60 /* MyScoreCell.m */; };
+		465D2D3218E98B8C009E4CD8 /* BaiduMapHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 465D2D3118E98B8C009E4CD8 /* BaiduMapHelper.m */; };
 		4660E69018BB73E1005B3C7D /* ProductsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4660E68F18BB73E1005B3C7D /* ProductsViewController.m */; };
 		4660E69618BB73FF005B3C7D /* UserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4660E69518BB73FF005B3C7D /* UserViewController.m */; };
 		4660E6AB18BB7666005B3C7D /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4660E6AA18BB7666005B3C7D /* CoreText.framework */; };
@@ -322,6 +325,11 @@
 		1825E1C918E183B70052AA9A /* MeTab3@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "MeTab3@2x.png"; sourceTree = "<group>"; };
 		1825E1CA18E183B70052AA9A /* MeTab4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MeTab4.png; sourceTree = "<group>"; };
 		1825E1CB18E183B70052AA9A /* MeTab4@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "MeTab4@2x.png"; sourceTree = "<group>"; };
+		182F9F5D18E976D2001AF49D /* SVPullToRefresh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVPullToRefresh.h; sourceTree = "<group>"; };
+		182F9F5E18E976D2001AF49D /* UIScrollView+SVInfiniteScrolling.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+SVInfiniteScrolling.h"; sourceTree = "<group>"; };
+		182F9F5F18E976D2001AF49D /* UIScrollView+SVInfiniteScrolling.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+SVInfiniteScrolling.m"; sourceTree = "<group>"; };
+		182F9F6018E976D2001AF49D /* UIScrollView+SVPullToRefresh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+SVPullToRefresh.h"; sourceTree = "<group>"; };
+		182F9F6118E976D2001AF49D /* UIScrollView+SVPullToRefresh.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+SVPullToRefresh.m"; sourceTree = "<group>"; };
 		183B03C818E110F500765116 /* ABMGroupedTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ABMGroupedTableView.h; sourceTree = "<group>"; };
 		183B03C918E110F500765116 /* ABMGroupedTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ABMGroupedTableView.m; sourceTree = "<group>"; };
 		183B03CA18E110F500765116 /* ABMGroupedTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ABMGroupedTableViewCell.h; sourceTree = "<group>"; };
@@ -656,6 +664,8 @@
 		465A5C8718DB08C7009B6D60 /* MyScoreViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyScoreViewController.m; sourceTree = "<group>"; };
 		465A5C8918DB0B8D009B6D60 /* MyScoreCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyScoreCell.h; sourceTree = "<group>"; };
 		465A5C8A18DB0B8D009B6D60 /* MyScoreCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyScoreCell.m; sourceTree = "<group>"; };
+		465D2D3018E98B8C009E4CD8 /* BaiduMapHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaiduMapHelper.h; sourceTree = "<group>"; };
+		465D2D3118E98B8C009E4CD8 /* BaiduMapHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaiduMapHelper.m; sourceTree = "<group>"; };
 		4660E68E18BB73E1005B3C7D /* ProductsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProductsViewController.h; sourceTree = "<group>"; };
 		4660E68F18BB73E1005B3C7D /* ProductsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProductsViewController.m; sourceTree = "<group>"; };
 		4660E69418BB73FF005B3C7D /* UserViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserViewController.h; sourceTree = "<group>"; };
@@ -893,6 +903,18 @@
 				1825E1CB18E183B70052AA9A /* MeTab4@2x.png */,
 			);
 			path = Tab;
+			sourceTree = "<group>";
+		};
+		182F9F5C18E976D2001AF49D /* SVPullToRefresh */ = {
+			isa = PBXGroup;
+			children = (
+				182F9F5D18E976D2001AF49D /* SVPullToRefresh.h */,
+				182F9F5E18E976D2001AF49D /* UIScrollView+SVInfiniteScrolling.h */,
+				182F9F5F18E976D2001AF49D /* UIScrollView+SVInfiniteScrolling.m */,
+				182F9F6018E976D2001AF49D /* UIScrollView+SVPullToRefresh.h */,
+				182F9F6118E976D2001AF49D /* UIScrollView+SVPullToRefresh.m */,
+			);
+			path = SVPullToRefresh;
 			sourceTree = "<group>";
 		};
 		183B03C718E110F500765116 /* ABMGroupedTableView */ = {
@@ -1213,6 +1235,7 @@
 				46E84ECB18C2DB930004C146 /* KNSemiModalViewController */,
 				184B827A18DAC7F000177BAB /* MessagesTableViewController */,
 				46BCD24E18BC3B4F005C4BD6 /* SVProgressHUD */,
+				182F9F5C18E976D2001AF49D /* SVPullToRefresh */,
 				469B9FD418D1A7EB00948740 /* UMSocial_Sdk_3.3.6 */,
 				46E84EB918C2C7040004C146 /* UzysCircularProgressPullToRefresh */,
 				18A912E618BB2826006B9A04 /* WelKit */,
@@ -1511,6 +1534,8 @@
 			children = (
 				4659D21818E7D79B005648C0 /* libs */,
 				4659D26F18E7D79B005648C0 /* mapapi.bundle */,
+				465D2D3018E98B8C009E4CD8 /* BaiduMapHelper.h */,
+				465D2D3118E98B8C009E4CD8 /* BaiduMapHelper.m */,
 			);
 			path = BaiduMap;
 			sourceTree = "<group>";
@@ -2349,10 +2374,12 @@
 				467F0F2C18CC95CA009FFE08 /* JOLImageSlider.m in Sources */,
 				46B233B718BCDC4200CC27A3 /* LoginViewController.m in Sources */,
 				46BDF12418D0B40E00999F50 /* Coupon.m in Sources */,
+				465D2D3218E98B8C009E4CD8 /* BaiduMapHelper.m in Sources */,
 				46BDF12718D0B51C00999F50 /* CouponDetailViewController.m in Sources */,
 				4673BB6418D2ED61000F64DE /* AppointmentCell.m in Sources */,
 				46B25AE418BF1CAA0035F425 /* RootViewController.m in Sources */,
 				4660E69018BB73E1005B3C7D /* ProductsViewController.m in Sources */,
+				182F9F6218E976D2001AF49D /* UIScrollView+SVInfiniteScrolling.m in Sources */,
 				4651D98018DE73E8004AC95A /* ListManager.m in Sources */,
 				18AC388B18CD762600328A78 /* ChatViewController.m in Sources */,
 				18A912E418BB26B6006B9A04 /* User.m in Sources */,
@@ -2385,6 +2412,7 @@
 				4665FD7C18BC7D4700E88C6B /* CommentsViewController.m in Sources */,
 				46B25AED18C086D30035F425 /* WorkCell.m in Sources */,
 				183B03CD18E110F500765116 /* ABMGroupedTableView.m in Sources */,
+				182F9F6318E976D2001AF49D /* UIScrollView+SVPullToRefresh.m in Sources */,
 				462F845B18CDF78D00CADA98 /* GroupDetailStaffTableViewDelegate.m in Sources */,
 				184B82FB18DAC7F000177BAB /* UIColor+JSMessagesView.m in Sources */,
 				46E84EDA18C337D70004C146 /* OpitionItem.m in Sources */,
@@ -2596,8 +2624,8 @@
 				);
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer: larry lu (3LBN2U88Z3)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: larry lu (3LBN2U88Z3)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SYSTEM_APPS_DIR)/APPs/Reveal.app/Contents/SharedSupport/iOS-Libraries",
@@ -2616,7 +2644,7 @@
 				);
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "51098E5B-F9A9-468E-A5C0-B376EA3D9913";
+				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
 				VALID_ARCHS = "armv7 armv7s";
 				WRAPPER_EXTENSION = app;
@@ -2633,8 +2661,8 @@
 				);
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer: larry lu (3LBN2U88Z3)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: larry lu (3LBN2U88Z3)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SYSTEM_APPS_DIR)/APPs/Reveal.app/Contents/SharedSupport/iOS-Libraries",
@@ -2652,7 +2680,7 @@
 				);
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "51098E5B-F9A9-468E-A5C0-B376EA3D9913";
+				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
 				VALID_ARCHS = "armv7 armv7s";
 				WRAPPER_EXTENSION = app;

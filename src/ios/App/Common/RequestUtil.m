@@ -14,7 +14,7 @@
 
 @implementation RequestUtil
 
-+(ASIHTTPRequest *)createGetRequestWithURL:(NSURL *)url
++(ASIHTTPRequest *)createGetRequestWithURL:(NSURL *)url andParam:(NSDictionary *)params
 {
     ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:url];
     [request addRequestHeader:@"Content-Type" value:@"application/json"];

@@ -11,11 +11,15 @@
 @protocol AddressCellDelegate;
 @interface AddressCell : UITableViewCell
 @property (nonatomic, weak) id<AddressCellDelegate> delegate;
+
 - (void)setup:(Address *)address;
+- (void)setPicked:(BOOL)picked;
 
 @end
 
 @protocol AddressCellDelegate <NSObject>
+
+
 
 - (void)addressCell:(AddressCell *)addressCell
         didSelected:(Address *)address;
