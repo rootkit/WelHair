@@ -65,3 +65,6 @@ FROM (
 ) TBLC;
 
 END$$
+
+
+DELIMITER ;

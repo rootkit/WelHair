@@ -50,3 +50,6 @@ LEFT OUTER JOIN Comment C ON C.CommentId = (SELECT MAX(CommentId) FROM Comment C
 LEFT OUTER JOIN Users U ON U.UserId = C.CreatedBy;
 
 END$$
+
+
+DELIMITER ;
