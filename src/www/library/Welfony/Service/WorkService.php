@@ -31,12 +31,12 @@ class WorkService
             $work['PictureUrl'] = json_decode($work['PictureUrl']);
             if (intval($work['CommentId']) > 0) {
                 $work['Comment'] = array(
-                    'CommentId' = $work['CommentId'];
-                    'Body' = $work['Body'];
+                    'CommentId' => $work['CommentId'],
+                    'Body' => $work['Body'],
                     'User' => array(
-                        'UserId' = $work['CommentUserId'],
-                        'AvatarUrl' = $work['CommentAvatarUrl'],
-                        'Nickname' = $work['CommentNickname']
+                        'UserId' => $work['CommentUserId'],
+                        'AvatarUrl' => $work['CommentAvatarUrl'],
+                        'Nickname' => $work['CommentNickname']
                     )
                 );
             } else {
@@ -51,9 +51,9 @@ class WorkService
 
             if (intval($work['StaffUserId']) > 0) {
                 $work['Staff'] = array(
-                    'UserId' = $work['StaffUserId'];
-                    'AvatarUrl' = $work['StaffAvatarUrl'];
-                    'Nickname' = $work['StaffNickname'];
+                    'UserId' => $work['StaffUserId'],
+                    'AvatarUrl' => $work['StaffAvatarUrl'],
+                    'Nickname' => $work['StaffNickname']
                 );
             } else {
                 $work['Staff'] = array();
