@@ -19,4 +19,25 @@
     self = [super init];
     return self;
 }
+
+- (Work *)initWithDic:(NSDictionary *)dictionary
+{
+    self = [super init];
+    if (self) {
+        self.id = [[dictionary objectForKey:@"UserId"] intValue];
+    }
+
+    return self;
+}
+
+- (NSDictionary *)dictionaryFromWork:(Work *)work
+{
+    NSMutableDictionary *dic = [[NSMutableDictionary alloc] initWithCapacity:4];
+    [dic setObject:[NSNumber numberWithInt:work.id] forKey:@"WorkId"];
+    [dic setObject:[NSNumber numberWithInt:(int)work.hairStyle] forKey:@"HairStyle"];
+
+    return dic;
+}
+
+
 @end

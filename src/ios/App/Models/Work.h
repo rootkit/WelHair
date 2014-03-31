@@ -53,4 +53,8 @@ typedef NS_ENUM(NSInteger, GenderEnum) {
 //
 @property (nonatomic) GenderEnum gender;
 
+
+- (Work *)initWithDic:(NSDictionary *)dictionary;
+- (NSDictionary *)dictionaryFromWork:(Work *)work;
+
 @end
