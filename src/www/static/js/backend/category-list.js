@@ -23,7 +23,7 @@ $(function() {
 
           
           var posting = $.post( url, { 
-                'specid' : item.attr('data-id')
+                'categoryid' : item.attr('data-id')
             } );
 
 

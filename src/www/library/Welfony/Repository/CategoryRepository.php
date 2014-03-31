@@ -95,10 +95,10 @@ class CategoryRepository extends AbstractRepository
         }
     }
 
-    public function delete($cateogryId)
+    public function delete($categoryId)
     {
         try {
-            return $this->conn->executeUpdate(" UPDATE Category  SET IsDeleted = 1 WHERE CateogryId  = $categoryId; ");
+            return $this->conn->executeUpdate(" UPDATE Category  SET IsDeleted = 1 WHERE CategoryId  = $categoryId; ");
         } catch (\Exception $e) {
             $this->logger->log($e, \Zend_Log::ERR);
 

@@ -1,15 +1,12 @@
+<?php
+use \Welfony\Utility\Util;
+?>
 <div class="toolbar">
     <ul class="clearfix">
         <li>
             <a href="<?php echo $this->baseUrl('goods/model/info'); ?>">
                 <i class="iconfont">&#xf0175;</i>
                 添加
-            </a>
-        </li>
-        <li>
-            <a href="#">
-                <i class="iconfont">&#xf013f;</i>
-                删除
             </a>
         </li>
     </ul>
@@ -19,23 +16,21 @@
         <tr>
             <th class="col-chk"><input type="checkbox" /></th>
             <th class="cola">模型名称</th>
-            <th>规格</th>
+            <th>操作</th>
         </tr>
     </thead>
     <tbody>
         <?php foreach( $this->rows as $model) : ?>
         <tr>
             <td class="col-center"><input type="checkbox" /></td>
-            <td><?php echo $model['Name']; ?></td>
-            <td><?php  
-                $specs = explode(',', $model['SpecIds']);
-                $names= array();
-                foreach ($specs as $spec) {
-                    if( isset($this->allspec[$spec]) )
-                    $names[] = $this->allspec[$spec];
-                }
-                echo implode(',', $names);
-            ?>
+            <td><a href="<?php echo $this->baseUrl('goods/model/info?model_id=' .  $model['ModelId']); ?>">
+                <?php echo $model['Name']; ?>
+                </a>
+            </td>
+            <td>      
+                <a href="#" href="#" class="btnDelete" data-id="<?php echo $model['ModelId']; ?>" >
+                    <i class="iconfont">&#xf013f;</i>&nbsp;&nbsp;删除
+                </a>
             </td>
         </tr>
         <?php endforeach; ?>
@@ -45,3 +40,4 @@
 <div class="m-page m-page-rt">
     <?php echo $this->pagerHTML; ?>
 </div>
+<script src="<?php echo Util::baseAssetUrl('js/backend/model-list.js'); ?>"></script>

@@ -95,16 +95,17 @@ $(function() {
 
           var name = $('#modelname').val();
 
-          //var brandcategories  = $('input[name="category[]"]:checked').map(function(i,n) {
-          //      return $(n).val();
-          //}).get();
+          var specids  = $('tr.specid').map(function(i,n) {
+                return $(n).attr('data-id');
+          }).get().join(",");
          
           
 
           url = form.attr( "action" );
 
           var posting = $.post( url, { 
-                'name': name
+                'name': name,
+                'specids':specids
             } );
 
 

@@ -69,11 +69,12 @@ class SpecService
 
     public static function listAllSpec()
     {
-       
+        return $searchResult = SpecRepository::getInstance()->getAllSpec();   
+    }
 
-        return $searchResult = SpecRepository::getInstance()->getAllSpec();
-
-      
+    public static function listAllSpecByModel($modelId)
+    {
+        return $searchResult = SpecRepository::getInstance()->listAllSpecByModel($modelId);   
     }
 
     public static function save($data)

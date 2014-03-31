@@ -77,9 +77,20 @@ class SpecRepository extends AbstractRepository
         $offset = ($pageNumber - 1) * $pageSize;
         $strSql = "  SELECT *
                      FROM Spec
-                     WHERE  IsDeleted = 0  SpecId IN (SELECT SpecIds FROM Model WHERE ModelId = $modelId )
-                     ORDER BY CouponCodeId
+                     WHERE  IsDeleted = 0 AND find_in_set( SpecId, (SELECT SpecIds FROM Model WHERE ModelId = $modelId )) > 0
                      LIMIT $offset, $pageSize ";
+
+        return $this->conn->fetchAll($strSql);
+
+    }
+
+    public function listAllSpecByModel($modelId)
+    {
+        $strSql = "  SELECT *
+                     FROM Spec
+                     WHERE  IsDeleted = 0 AND  find_in_set( SpecId, (SELECT SpecIds FROM Model WHERE ModelId = $modelId )) > 0
+                     ORDER BY SpecId
+                   ";
 
         return $this->conn->fetchAll($strSql);
 

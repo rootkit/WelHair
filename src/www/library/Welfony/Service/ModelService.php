@@ -19,12 +19,11 @@ use Welfony\Repository\ModelRepository;
 class ModelService
 {
 
-    /*public static function get($id)
+    public static function getModelById($id)
     {
-        return  BrandCategoryRepository::getInstance()->findCategoryById( $id);
+        return  ModelRepository::getInstance()->findModelById( $id);
 
     }
-    */
     public static function listModel($pageNumber, $pageSize)
     {
         $result = array(
@@ -90,6 +89,22 @@ class ModelService
             }
 
             return true;
+        }
+    }
+
+    public static function deleteModel($data)
+    {
+        $result = array('success' => false, 'message' => '');
+        $r = ModelRepository::getInstance()->delete($data['ModelId']);
+        if ($r) {
+
+            $result['success'] = true;
+            $result['message'] = '删除模型成功！';
+            return $result;
+        } else {
+            $result['message'] = '删除模型失败！';
+
+            return $result;
         }
     }
 

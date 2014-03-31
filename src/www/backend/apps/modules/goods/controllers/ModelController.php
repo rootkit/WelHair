@@ -75,6 +75,7 @@ class Goods_ModelController extends AbstractAdminController
 
             
             if ($modelId > 0) {
+                $this->view->specs = SpecService::listAllSpecByModel($modelId);
                 $model = ModelService::getModelById($modelId);
                 if (!$model) {
                     // process not exist logic;
@@ -94,7 +95,7 @@ class Goods_ModelController extends AbstractAdminController
 
         $modelId =  intval($this->_request->getParam('modelid')) ;
 
-        $spec = array('ModelId' => $modelId);
+        $model = array('ModelId' => $modelId);
 
         if ($this->_request->isPost()) {
            

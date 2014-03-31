@@ -84,10 +84,10 @@ class CategoryService
         }
     }
 
-    public static function deleteCateogry($data)
+    public static function deleteCategory($data)
     {
         $result = array('success' => false, 'message' => '');
-        $r = CategoryRepository::getInstance()->delete($data['CateogryId']);
+        $r = CategoryRepository::getInstance()->delete($data['CategoryId']);
         if ($r) {
 
             $result['success'] = true;
