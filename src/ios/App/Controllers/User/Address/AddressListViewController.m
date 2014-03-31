@@ -68,8 +68,6 @@
     [self.view addSubview:self.tableView];
     
     self.datasource = [NSMutableArray arrayWithArray:[FakeDataHelper getFakeAddressLit]];
-    
-    
 }
 
 - (void)insertRowAtTop
@@ -107,7 +105,6 @@
     if (!cell) {
         cell = [[AddressCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        cell.contentView.backgroundColor =  cell.backgroundColor = [UIColor clearColor];
         cell.delegate = self;
     }
     if(!self.pickedAddress){
@@ -116,7 +113,7 @@
     Address *item= [self.datasource objectAtIndex:indexPath.row];
     [cell setup:item];
     if(item == self.pickedAddress){
-        [cell setSelected:YES];
+        [cell setPicked:YES];
     }
     return cell;
 }
@@ -124,6 +121,35 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [self didselectAddress:[self.datasource objectAtIndex:indexPath.row]];
+}
+
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
+    return YES;
+}
+
+- (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return UITableViewCellEditingStyleDelete;
+}
+
+// Override to support editing the table view.
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"Are you sure to delete?" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Yes", nil];
+        [alert.layer setValue:[NSNumber numberWithInteger:indexPath.row] forKey:@"editedIndex"];
+        [alert show];
+    }
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    NSNumber *editIndex = (NSNumber *)[alertView.layer valueForKey:@"editedIndex"];
+    if(buttonIndex == 1)
+    {
+        Address *s = [self.datasource objectAtIndex:[editIndex integerValue]];
+        [self.datasource removeObject:s];
+        [self.tableView reloadData];
+    }
 }
 
 - (void)addressCell:(AddressCell *)addressCell didClickEdit:(Address *)address

@@ -10,13 +10,10 @@
 #import "CityManager.h"
 #import "City.h"
 #import "BMapKit.h"
-@interface CityListViewController ()<BMKSearchDelegate,BMKMapViewDelegate>
-{
-    BMKMapView *_mapView;
-    BMKSearch* _search;
-}
-@property (nonatomic) int cityId;
+#import "BaiduMapHelper.h"
+@interface CityListViewController ()
 
+@property (nonatomic) int cityId;
 @property (nonatomic, strong) UITableViewCell *locationCell;
 @property (nonatomic, strong) City *locatedCity;
 @property (nonatomic, strong) NSArray *cities;
@@ -42,20 +39,6 @@
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    _mapView.delegate = self;
-    _search.delegate = self; // 此处记得不用的时候需要置nil，否则影响内存的释放
-}
-
-- (void)viewWillDisappear:(BOOL)animated
-{
-    [super viewWillDisappear:animated];
-    _mapView.delegate = nil;
-    _search.delegate = nil;
-}
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -70,11 +53,14 @@
     if(self.enableLocation){
         self.locatedCity = [[CityManager SharedInstance] getLocatedCity];
         self.locationCell = [self getLocaitonCell:self.locatedCity.name];
-        _search = [[BMKSearch alloc]init];
-        _mapView = [[BMKMapView alloc] init];
-        _mapView.showsUserLocation = NO;//先关闭显示的定位图层
-        _mapView.userTrackingMode = BMKUserTrackingModeNone;//设置定位的状态
-        _mapView.showsUserLocation = YES;//显示定位图层
+        __weak CityListViewController *selfDelegate = self;
+        [[BaiduMapHelper SharedInstance] locateCityWithCompletion:^(City *city){
+            if(self.locatedCity.id != city.id){
+                [[CityManager SharedInstance] setLocatedCity:city.id];
+                self.locatedCity = city;
+                [selfDelegate.tableView reloadData];
+            }
+        }];
     }
 }
 
@@ -197,35 +183,5 @@
     // Dispose of any resources that can be recreated.
 }
 
-
-#pragma location delegate
-
-- (void)mapView:(BMKMapView *)mapView didUpdateUserLocation:(BMKUserLocation *)userLocation
-{
-	if (userLocation != nil) {
-        _mapView.showsUserLocation = NO;
-        NSLog(@"%f %f", userLocation.location.coordinate.latitude, userLocation.location.coordinate.longitude);
-        if([_search reverseGeocode:userLocation.coordinate]){
-            debugLog(@"reverse geo code success");
-        }else{
-            debugLog(@"reverse geo code fail");
-        }
-	}
-}
-
-- (void)onGetAddrResult:(BMKAddrInfo*)result errorCode:(int)error
-{
-	if (error == 0) {
-        NSString *cityName = result.addressComponent.city;
-        cityName = [cityName stringByReplacingOccurrencesOfString:@"市" withString:@""];
-        City *locatedCity =  [[CityManager SharedInstance] getCityByName:cityName];
-        if(locatedCity.id != self.locatedCity.id){
-            self.locatedCity = locatedCity;
-            [[CityManager SharedInstance] setLocatedCity:self.locatedCity.id];
-            self.locationCell = [self getLocaitonCell:self.locatedCity.name];
-            [self.tableView reloadData];
-        }
-	}
-}
 
 @end

@@ -205,6 +205,7 @@
 		4659D28718E7EB82005648C0 /* AddressCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4659D28618E7EB82005648C0 /* AddressCell.m */; };
 		465A5C8818DB08C7009B6D60 /* MyScoreViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 465A5C8718DB08C7009B6D60 /* MyScoreViewController.m */; };
 		465A5C8B18DB0B8D009B6D60 /* MyScoreCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 465A5C8A18DB0B8D009B6D60 /* MyScoreCell.m */; };
+		465D2D3218E98B8C009E4CD8 /* BaiduMapHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 465D2D3118E98B8C009E4CD8 /* BaiduMapHelper.m */; };
 		4660E69018BB73E1005B3C7D /* ProductsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4660E68F18BB73E1005B3C7D /* ProductsViewController.m */; };
 		4660E69618BB73FF005B3C7D /* UserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4660E69518BB73FF005B3C7D /* UserViewController.m */; };
 		4660E6AB18BB7666005B3C7D /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4660E6AA18BB7666005B3C7D /* CoreText.framework */; };
@@ -663,6 +664,8 @@
 		465A5C8718DB08C7009B6D60 /* MyScoreViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyScoreViewController.m; sourceTree = "<group>"; };
 		465A5C8918DB0B8D009B6D60 /* MyScoreCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyScoreCell.h; sourceTree = "<group>"; };
 		465A5C8A18DB0B8D009B6D60 /* MyScoreCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyScoreCell.m; sourceTree = "<group>"; };
+		465D2D3018E98B8C009E4CD8 /* BaiduMapHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaiduMapHelper.h; sourceTree = "<group>"; };
+		465D2D3118E98B8C009E4CD8 /* BaiduMapHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaiduMapHelper.m; sourceTree = "<group>"; };
 		4660E68E18BB73E1005B3C7D /* ProductsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProductsViewController.h; sourceTree = "<group>"; };
 		4660E68F18BB73E1005B3C7D /* ProductsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProductsViewController.m; sourceTree = "<group>"; };
 		4660E69418BB73FF005B3C7D /* UserViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserViewController.h; sourceTree = "<group>"; };
@@ -1531,6 +1534,8 @@
 			children = (
 				4659D21818E7D79B005648C0 /* libs */,
 				4659D26F18E7D79B005648C0 /* mapapi.bundle */,
+				465D2D3018E98B8C009E4CD8 /* BaiduMapHelper.h */,
+				465D2D3118E98B8C009E4CD8 /* BaiduMapHelper.m */,
 			);
 			path = BaiduMap;
 			sourceTree = "<group>";
@@ -2369,6 +2374,7 @@
 				467F0F2C18CC95CA009FFE08 /* JOLImageSlider.m in Sources */,
 				46B233B718BCDC4200CC27A3 /* LoginViewController.m in Sources */,
 				46BDF12418D0B40E00999F50 /* Coupon.m in Sources */,
+				465D2D3218E98B8C009E4CD8 /* BaiduMapHelper.m in Sources */,
 				46BDF12718D0B51C00999F50 /* CouponDetailViewController.m in Sources */,
 				4673BB6418D2ED61000F64DE /* AppointmentCell.m in Sources */,
 				46B25AE418BF1CAA0035F425 /* RootViewController.m in Sources */,

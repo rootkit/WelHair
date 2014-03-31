@@ -60,7 +60,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.leftNavItemTitle = @"济南";
+    [self setTopLeftCityName];
     float topTabButtonWidth = WIDTH(self.view)/2;
     UIView *topTabView = [[UIView alloc] initWithFrame:CGRectMake(0, self.topBarOffset,WIDTH(self.view),TOP_TAB_BAR_HEIGHT)];
     topTabView.backgroundColor = [UIColor whiteColor];

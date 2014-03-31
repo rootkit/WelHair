@@ -22,18 +22,18 @@
     if (self) {
         self.addressView = [[AddressView alloc] initWithFrame:CGRectMake(20, 10, 280, 80)];
         self.addressView.delegate = self;
-        self.contentView.backgroundColor = self.backgroundColor = [UIColor clearColor];
-        [self addSubview:self.addressView];
+        self.addressView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+        self.contentView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+        [self.contentView addSubview:self.addressView];
     }
     return self;
 }
 
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated
-{
-    [super setSelected:selected animated:animated];
-    [self.addressView setSelected:YES];
-}
 
+- (void)setPicked:(BOOL)picked
+{
+    [self.addressView setSelected:picked];
+}
 - (void)setup:(Address *)address;
 {
     self.address = address;

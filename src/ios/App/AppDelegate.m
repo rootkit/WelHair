@@ -40,6 +40,7 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     [[Util sharedInstance] prepareApplicationData];
+    [self initialServices];
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     self.window.backgroundColor = [UIColor whiteColor];
 
@@ -47,9 +48,6 @@
     rootNav.navigationBarHidden = YES;
     self.window.rootViewController = rootNav;
     [self.window makeKeyAndVisible];
-    
-    [self initialServices];
-    
     return YES;
 }
 
