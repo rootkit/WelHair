@@ -26,6 +26,9 @@
     if (self) {
         self.id = [[dictionary objectForKey:@"WorkId"] intValue];
         self.imgUrlList = [dictionary objectForKey:@"PictureUrl"];
+        self.creator = [Staff new];
+        self.creator.avatorUrl = [[dictionary objectForKey:@"Staff"] objectForKey:@"AvatarUrl"];
+        self.creator.groupName = [[dictionary objectForKey:@"Staff"] objectForKey:@"Nickname"];
     }
 
     return self;
