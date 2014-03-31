@@ -24,7 +24,7 @@
 {
     self = [super init];
     if (self) {
-        self.id = [[dictionary objectForKey:@"UserId"] intValue];
+        self.id = [[dictionary objectForKey:@"WorkId"] intValue];
     }
 
     return self;
