@@ -15,6 +15,18 @@ $(function() {
         tiptype: 3
     });
 
+    $('#spectable').find('.btnDelete').click(function(){$(this).parents('tr:first').remove();});
+    $('#spectable').find('.btnUp').click(function(){
+      var row = $(this).parents('tr:first');
+      row.insertBefore(row.prev());
+
+    });
+    $('#spectable').find('.btnDown').click(function(){
+      var row = $(this).parents('tr:first');
+      row.insertAfter(row.next());
+
+    });
+
     $('#btnAddSpec').click(function(){
 
       var row = '   <tr> ' +
@@ -24,6 +36,18 @@ $(function() {
 
         $('#spectable tbody').append( $(row));
         $('.content').height($('.content').height() + 50);
+        $('#spectable').find('.btnDelete').click(function(){$(this).parents('tr:first').remove();});
+        $('#spectable').find('.btnUp').click(function(){
+          var row = $(this).parents('tr:first');
+          row.insertBefore(row.prev());
+
+        });
+        $('#spectable').find('.btnDown').click(function(){
+          var row = $(this).parents('tr:first');
+          row.insertAfter(row.next());
+
+        });
+
 
     });
 

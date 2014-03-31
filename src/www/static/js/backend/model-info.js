@@ -15,21 +15,37 @@ WF.Model = {
   {
      var url =globalSetting.baseUrl + '/goods/spec/select?page=' + page + '&func= WF.Model.updateSpecList';
      $.get( url, function(data) {
-      $('#specList').empty();
-      $('#specList').html(data);
+        $('#specList').empty();
+        $('#specList').html(data);
 
-      $('#specList input[type=radio]').click(function(){
-        
-         var row = '   <tr> ' +
-                '               <td>' + $(this).attr('data-name') +'</td> ' +
+        $('#specList input[type=radio]').click(function(){
 
-                '                <td></td>' +
-                '            </tr>';
+          if( $('#spectable tbody').find( 'tr[data-id="' + $(this).attr('data-id') + '"]').get(0) == null )
+          {
+          
+             var row = '   <tr class="specid" data-id="' +  $(this).attr('data-id')  + '"> ' +
+                    '               <td>' + $(this).attr('data-name') +'</td> ' +
 
-        $('#spectable tbody').append( $(row));
-        $('.content').height($('.content').height() + 50);
-        $('#specList').dialog("close");
-      });
+                    '                <td><a href="#" class="btnUp"><i class="iconfont">&#xf0113;</i></a>&nbsp;&nbsp;<a href="#" class="btnDown"><i class="iconfont">&#xf0111;</i></a>&nbsp;&nbsp;<a href="#" class="btnDelete"><i class="iconfont">&#xf013f;</i></a></td>' +
+                    '            </tr>';
+
+            $('#spectable tbody').append( $(row));
+            $('.content').height($('.content').height() + 50);
+            $('#spectable').find('.btnDelete').click(function(){$(this).parents('tr:first').remove();});
+            $('#spectable').find('.btnUp').click(function(){
+              var row = $(this).parents('tr:first');
+              row.insertBefore(row.prev());
+
+            });
+            $('#spectable').find('.btnDown').click(function(){
+              var row = $(this).parents('tr:first');
+              row.insertAfter(row.next());
+
+            });
+
+          }
+          $('#specList').dialog("close");
+        });
      });
 
   }
@@ -53,13 +69,16 @@ $(function() {
                 '                </td> '+
                 '                <td><input name="passcode" type="text" value=""  class="u-ipt"/></td>'+
                                 '                <td> <input type="checkbox"/></td> ' +
-                '                <td></td>' +
+                '                <td><a href="#" class="btnDelete"><i class="iconfont">&#xf013f;</i></a></td>' +
                 '            </tr>';
 
         $('#attributetable tbody').append( $(row));
         $('.content').height($('.content').height() + 50);
+        $('#attributetable').find('.btnDelete').click(function(){$(this).parents('tr:first').remove();});
 
     });
+
+    
 
     $('#btnAddSpec').click(function(){
       $('#specList').dialog({"modal": true, "width":800, "height":640});
