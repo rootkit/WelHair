@@ -1,3 +1,6 @@
+<?php
+use \Welfony\Utility\Util;
+?>
 <div class="toolbar">
     <ul class="clearfix">
         <li>
@@ -30,7 +33,11 @@
         <tr>
             <td class="col-center"><input type="checkbox" /></td>
             <td><?php echo $brand['Sort']; ?></td>
-            <td><?php echo $brand['Name']; ?></td>
+            <td>
+                <a href="<?php echo $this->baseUrl('goods/brand/info?brand_id=' .  $brand['BrandId']); ?>">
+                <?php echo $brand['Name']; ?>
+                </a>
+            </td>
             <td><?php echo $brand['Url']; ?></td>
             <td><?php  
                 $cats = explode(',', $brand['BrandCategoryIds']);
@@ -42,7 +49,11 @@
                 echo implode(',', $names);
             ?>
             </td>
-            <td></td>
+            <td>
+                <a href="#" href="#" class="btnDelete" data-id="<?php echo $brand['BrandId']; ?>" >
+                    <i class="iconfont">&#xf013f;</i>&nbsp;&nbsp;删除
+                </a>
+            </td>
         </tr>
         <?php endforeach; ?>
     </tbody>
@@ -51,3 +62,4 @@
 <div class="m-page m-page-rt">
     <?php echo $this->pagerHTML; ?>
 </div>
+<script src="<?php echo Util::baseAssetUrl('js/backend/brand-list.js'); ?>"></script>

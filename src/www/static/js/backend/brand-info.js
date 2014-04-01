@@ -62,6 +62,7 @@ $(function() {
           url = form.attr( "action" );
 
           var posting = $.post( url, { 
+                'brand_id': $('#brandid').val(),
                 'name': name, 
                 'sort': sort,
                 'brandurl' : brandurl,

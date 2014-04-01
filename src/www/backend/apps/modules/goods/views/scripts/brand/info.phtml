@@ -46,7 +46,7 @@ use \Welfony\Utility\Util;
                 <div class="ipt">
                     <ul class="select">
                         <?php foreach( $this->brandcategories as $brancategory) : ?>
-                        <li><label><input type="checkbox" name="category[]" value="<?php echo $brancategory['BrandCategoryId']; ?>"><?php echo $brancategory['Name']; ?></label></li>
+                        <li><label><input type="checkbox" name="category[]" value="<?php echo $brancategory['BrandCategoryId']; ?>" <?php echo in_array( $brancategory['BrandCategoryId'], explode(",", $this->brandInfo['BrandCategoryIds'])) ? 'checked': ''; ?>><?php echo $brancategory['Name']; ?></label></li>
                         <?php endforeach; ?>
 
                     </ul>
@@ -59,7 +59,7 @@ use \Welfony\Utility\Util;
                 </div>
             </div>
             <div class="formitm formitm-1">
-                <input type="hidden" name="brand_id" value="<?php echo intval($this->brandInfo['BrandId']); ?>" />
+                <input type="hidden" id="brandid" name="brand_id" value="<?php echo intval($this->brandInfo['BrandId']); ?>" />
                 <button class="u-btn u-btn-submit" type="button">确定</button>
                 <button class="u-btn" id="btnCancel" type="button">取消</button>
             </div>

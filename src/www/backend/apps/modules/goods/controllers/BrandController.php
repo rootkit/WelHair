@@ -89,6 +89,23 @@ class Goods_BrandController extends AbstractAdminController
         } 
     }
 
+    public function deleteAction()
+    {
+        $this->_helper->viewRenderer->setNoRender(true);
+        $this->_helper->layout->disableLayout();
+
+        $brandId =  intval($this->_request->getParam('brandid')) ;
+
+        $brand = array('BrandId' => $brandId);
+
+        if ($this->_request->isPost()) {
+           
+
+            $result = BrandService::deleteBrand($brand);
+            $this->_helper->json->sendJson($result);
+        } 
+    }
+
     public function infoAction()
     {
     	
@@ -99,7 +116,7 @@ class Goods_BrandController extends AbstractAdminController
         $this->view->brandcategories = $allCategories;
 
 
-        $brandId = intval($this->_request->getParam('brand_id'));
+        $brandId = $this->_request->getParam('brand_id')?  intval($this->_request->getParam('brand_id')) : 0;
 
 
         $brand = array();
@@ -137,7 +154,7 @@ class Goods_BrandController extends AbstractAdminController
 
             
             if ($brandId > 0) {
-
+                $brand = BrandService::getBrandById($brandId);
             } 
         }
 

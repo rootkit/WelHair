@@ -19,12 +19,12 @@ use Welfony\Repository\BrandRepository;
 class BrandService
 {
 
-    /*public static function get($id)
+    public static function getBrandById($id)
     {
-        return  BrandCategoryRepository::getInstance()->findCategoryById( $id);
+        return  BrandRepository::getInstance()->findBrandById( $id);
 
     }
-    */
+
     public static function listBrand($pageNumber, $pageSize)
     {
         $result = array(
@@ -81,6 +81,22 @@ class BrandService
             }
 
             return true;
+        }
+    }
+
+    public static function deleteBrand($data)
+    {
+        $result = array('success' => false, 'message' => '');
+        $r = BrandRepository::getInstance()->delete($data['BrandId']);
+        if ($r) {
+
+            $result['success'] = true;
+            $result['message'] = '删除品牌成功！';
+            return $result;
+        } else {
+            $result['message'] = '删除品牌失败！';
+
+            return $result;
         }
     }
 
