@@ -43,10 +43,10 @@ class Goods_BrandController extends AbstractAdminController
 
         $this->view->pageTitle = '品牌分类信息';
 
-        $brandCategoryId = intval($this->_request->getParam('brandcategoryid'));
+        $brandCategoryId = $this->_request->getParam('bc_id')?  intval($this->_request->getParam('bc_id')) : 0;
 
         $brandCategory = array(
-            'BrandCategoryId' => 0,
+            'BrandCategoryId' => $brandCategoryId,
             'Name' => ''
         );
 
@@ -65,11 +65,28 @@ class Goods_BrandController extends AbstractAdminController
             }
         } else {
             if ($brandCategoryId > 0) {
-                $brandCategory = BrandCategoryService::get($brandCategoryId);
+                $brandCategory = BrandCategoryService::getBrandCategoryById($brandCategoryId);
             }
         }
 
         $this->view->brandCategoryInfo = $brandCategory;
+    }
+
+    public function deletecategoryAction()
+    {
+        $this->_helper->viewRenderer->setNoRender(true);
+        $this->_helper->layout->disableLayout();
+
+        $brandcategoryId =  intval($this->_request->getParam('brandcategoryid')) ;
+
+        $brandCategory = array('BrandCategoryId' => $brandcategoryId);
+
+        if ($this->_request->isPost()) {
+           
+
+            $result = BrandCategoryService::deleteBrandCategory($brandCategory);
+            $this->_helper->json->sendJson($result);
+        } 
     }
 
     public function infoAction()

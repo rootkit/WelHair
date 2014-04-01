@@ -787,3 +787,25 @@ DELIMITER ;
 CALL sp_update_table_field();
 DROP PROCEDURE IF EXISTS `sp_update_table_field`;
 
+-- ==============================================================================
+-- Add IsDeleted to BrandCategory table
+-- ==============================================================================
+DELIMITER ;;
+
+CREATE PROCEDURE `sp_update_table_field`()
+BEGIN
+  IF NOT EXISTS (
+      SELECT 1
+      FROM information_schema.COLUMNS
+      WHERE lower(TABLE_SCHEMA) = 'welhair'
+        AND lower(TABLE_NAME) ='brandcategory'
+        AND lower(COLUMN_NAME) ='isdeleted'
+  ) THEN
+    ALTER TABLE `BrandCategory` ADD `IsDeleted` SMALLINT(1) NOT NULL DEFAULT 0;
+  END IF;
+END;;
+
+DELIMITER ;
+CALL sp_update_table_field();
+DROP PROCEDURE IF EXISTS `sp_update_table_field`;
+

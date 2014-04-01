@@ -1,3 +1,6 @@
+<?php
+use \Welfony\Utility\Util;
+?>
 <div class="toolbar">
     <ul class="clearfix">
         <li>
@@ -19,15 +22,23 @@
         <tr>
             <th class="col-chk"><input type="checkbox" /></th>
             <th class="cola">品牌分类名称</th>
-            <th>操作</th>
+            <th class="cola">操作</th>
         </tr>
     </thead>
     <tbody>
         <?php foreach( $this->rows as $brandCategory) : ?>
         <tr>
             <td class="col-center"><input type="checkbox" /></td>
-            <td><?php echo $brandCategory['Name']; ?></td>
-            <td></td>
+            <td>
+                <a href="<?php echo $this->baseUrl('goods/brand/categoryinfo?bc_id=' .  $brandCategory['BrandCategoryId']); ?>">
+                    <?php echo $brandCategory['Name']; ?>
+                </a>
+            </td>
+            <td>
+                <a href="#" href="#" class="btnDelete" data-id="<?php echo $brandCategory['BrandCategoryId']; ?>" >
+                    <i class="iconfont">&#xf013f;</i>&nbsp;&nbsp;删除
+                </a>
+            </td>
         </tr>
        <?php endforeach; ?>
     </tbody>
@@ -36,3 +47,4 @@
 <div class="m-page m-page-rt">
     <?php echo $this->pagerHTML; ?>
 </div>
+<script src="<?php echo Util::baseAssetUrl('js/backend/brandcategory-list.js'); ?>"></script>

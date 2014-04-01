@@ -24,6 +24,7 @@ class BrandCategoryRepository extends AbstractRepository
         $strSql = "SELECT
                        COUNT(1) `Total`
                    FROM BrandCategory
+                   WHERE IsDeleted = 0
                    LIMIT 1";
 
         $row = $this->conn->fetchAssoc($strSql);
@@ -36,6 +37,7 @@ class BrandCategoryRepository extends AbstractRepository
         $strSql = 'SELECT
                        *
                    FROM BrandCategory
+                   WHERE IsDeleted = 0
                   ';
 
         return $this->conn->fetchAll($strSql);
@@ -47,6 +49,7 @@ class BrandCategoryRepository extends AbstractRepository
         $offset = ($pageNumber - 1) * $pageSize;
         $strSql = "SELECT *
                 FROM BrandCategory
+                WHERE IsDeleted = 0
                       ORDER BY BrandCategoryId
                       LIMIT $offset, $pageSize ";
 
@@ -54,7 +57,7 @@ class BrandCategoryRepository extends AbstractRepository
 
     }
 
-    public function findCategoryById($id)
+    public function findBrandCategoryById($id)
     {
         $strSql = 'SELECT
                        *
@@ -94,7 +97,8 @@ class BrandCategoryRepository extends AbstractRepository
     public function delete($brandCategoryId)
     {
         try {
-            return $this->conn->executeUpdate(" DELETE FROM BrandCategory WHERE BrandCategoryId  = $brandCategoryId; ");
+            //return $this->conn->executeUpdate(" DELETE FROM BrandCategory WHERE BrandCategoryId  = $brandCategoryId; ");
+            return $this->conn->executeUpdate(" UPDATE BrandCategory SET IsDeleted = 1 WHERE BrandCategoryId  = $brandCategoryId; ");
         } catch (\Exception $e) {
             $this->logger->log($e, \Zend_Log::ERR);
 

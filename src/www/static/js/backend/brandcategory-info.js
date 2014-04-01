@@ -28,7 +28,7 @@ $(function() {
 
           url = form.attr( "action" );
 
-          var posting = $.post( url, { 'name': name, 'brandcategoryid': id} );
+          var posting = $.post( url, { 'name': name, 'bc_id': id} );
 
 
           posting.done(function( data ) {

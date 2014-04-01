@@ -19,12 +19,12 @@ use Welfony\Repository\BrandCategoryRepository;
 class BrandCategoryService
 {
 
-    /*public static function get($id)
+    public static function getBrandCategoryById($id)
     {
-        return  BrandCategoryRepository::getInstance()->findCategoryById( $id);
+        return  BrandCategoryRepository::getInstance()->findBrandCategoryById( $id);
 
     }
-    */
+
     public static function listBrandCategory($pageNumber, $pageSize)
     {
         $result = array(
@@ -92,5 +92,22 @@ class BrandCategoryService
             return true;
         }
     }
+
+    public static function deleteBrandCategory($data)
+    {
+        $result = array('success' => false, 'message' => '');
+        $r = BrandCategoryRepository::getInstance()->delete($data['BrandCategoryId']);
+        if ($r) {
+
+            $result['success'] = true;
+            $result['message'] = '删除品牌分类成功！';
+            return $result;
+        } else {
+            $result['message'] = '删除品牌分类失败！';
+
+            return $result;
+        }
+    }
+
 
 }
