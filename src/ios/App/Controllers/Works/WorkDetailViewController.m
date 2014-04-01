@@ -113,7 +113,7 @@
     FAKIcon *heartIconOn = [FAKIonIcons ios7HeartIconWithSize:25];
     [heartIconOn addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithHexString:@"e43a3d"]];
     FAKIcon *heartIconOff = [FAKIonIcons ios7HeartOutlineIconWithSize:25];
-    [heartIconOff addAttribute:NSForegroundColorAttributeName value:[UIColor whiteColor]];
+    [heartIconOff addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithHexString:@"e43a3d"]];
     self.heartBtn = [ToggleButton buttonWithType:UIButtonTypeCustom];
     __weak WorkDetailViewController *selfDelegate = self;
     [self.heartBtn setToggleButtonOnImage:[heartIconOn imageWithSize:CGSizeMake(25, 25)]

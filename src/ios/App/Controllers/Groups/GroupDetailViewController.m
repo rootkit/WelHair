@@ -23,20 +23,24 @@
 #import "Group.h"
 #import "GroupProductListViewController.h"
 #import "GroupStaffListViewController.h"
+#import "CommentsViewController.h"
+#import "ToggleButton.h"
 
-@interface GroupDetailViewController()<MapPickViewDelegate,UITableViewDataSource,UITableViewDelegate,UMSocialUIDelegate,JOLImageSliderDelegate,MWPhotoBrowserDelegate>
+@interface GroupDetailViewController()<MapPickViewDelegate,UMSocialUIDelegate,JOLImageSliderDelegate,MWPhotoBrowserDelegate>
 @property (nonatomic, strong) UIScrollView *scrollView;
 @property (nonatomic, strong) UIImageView *headerBackgroundView;
 @property (nonatomic, strong) JOLImageSlider *imgSlider;
 @property (nonatomic, strong) NSMutableArray *groupImgs;
 @property (nonatomic, strong) UIImageView *avatorImgView;
 @property (nonatomic, strong) UILabel *groupNameLbl;
-@property (nonatomic, strong) UILabel *addressLbl;
-@property (nonatomic, strong) UILabel *distanceLbl;
 
-@property (nonatomic, strong) UIButton *detailTabBtn;
+@property (nonatomic, strong) UILabel *addressLbl;
+@property (nonatomic, strong) UILabel *phoneLbl;
+@property (nonatomic, strong) ToggleButton *heartBtn;
+
 @property (nonatomic, strong) UIButton *staffTabBtn;
 @property (nonatomic, strong) UIButton *productTabBtn;
+@property (nonatomic, strong) UIButton *commentTabBtn;
 @property (nonatomic, strong) Group *groupData;
 @property (nonatomic, strong) UITableView *tableView;
 
@@ -100,6 +104,10 @@ static const   float profileViewHeight = 320;
 {
     [super loadView];
 
+    self.scrollView = [[UIScrollView alloc] initWithFrame:self.view.bounds];
+    self.scrollView.showsVerticalScrollIndicator = NO;
+    [self.view addSubview:self.scrollView];
+
     float addressViewHeight = 50;
     float tabButtonViewHeight = 50;
     float avatorSize = 50;
@@ -136,17 +144,11 @@ static const   float profileViewHeight = 320;
     [rightBtn setImage:rightImg forState:UIControlStateNormal];
     [topNavView addSubview:rightBtn];
     
-    self.tableView = [[UITableView alloc] initWithFrame:self.view.bounds];
-    self.tableView.backgroundColor = [UIColor clearColor];
-    self.tableView.delegate = self;
-    self.tableView.dataSource = self;
-    self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
-    [self.view addSubview:self.tableView];
     [self.view bringSubviewToFront:topNavView];
     
     UIView *headerView_ = [[UIView alloc] initWithFrame:CGRectMake(0, 0, WIDTH(self.view), profileViewHeight + addressViewHeight+ tabButtonViewHeight)];
     headerView_.backgroundColor = [UIColor clearColor];
-    
+    [self.scrollView addSubview:headerView_];
 #pragma topbar
    
     
@@ -168,82 +170,144 @@ static const   float profileViewHeight = 320;
     [self.avatorImgView setImageWithURL:[NSURL URLWithString:@"http://images-fast.digu365.com/sp/width/736/2fed77ea4898439f94729cd9df5ee5ca0001.jpg"]];
     [headerView_ addSubview:self.avatorImgView];
 
-    self.groupNameLbl = [[UILabel alloc] initWithFrame:CGRectMake(70 + 5, 0, WIDTH(addressView) - 10 - MaxX(self.avatorImgView), 20)];
+    self.groupNameLbl = [[UILabel alloc] initWithFrame:CGRectMake(70 + 5, 0, 200, 40)];
     self.groupNameLbl.backgroundColor = [UIColor clearColor];
     self.groupNameLbl.textColor = [UIColor blackColor];
     self.groupNameLbl.font = [UIFont boldSystemFontOfSize:14];
     self.groupNameLbl.text = @"沙宣";
     self.groupNameLbl.textAlignment = NSTextAlignmentLeft;;
     [addressView addSubview:self.groupNameLbl];
-    self.addressLbl = [[UILabel alloc] initWithFrame:CGRectMake(X(self.groupNameLbl),MaxY(self.groupNameLbl), WIDTH(addressView) - 10 - MaxX(self.avatorImgView) - 100, 20)];
-    self.addressLbl.backgroundColor = [UIColor clearColor];
-    self.addressLbl.textColor = [UIColor grayColor];
-    self.addressLbl.font = [UIFont systemFontOfSize:12];
-    self.addressLbl.text = @"济南高新区";
-    self.addressLbl.textAlignment = NSTextAlignmentLeft;;
-    [addressView addSubview:self.addressLbl];
     
-    UIImageView *locationImg = [[UIImageView alloc] initWithFrame:CGRectMake(MaxX(self.addressLbl), Y(self.self.addressLbl),20,20)];
-    FAKIcon *locationIcon = [FAKIonIcons locationIconWithSize:20];
-    [locationIcon addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithHexString:@"000"]];
-    locationImg.image = [locationIcon imageWithSize:CGSizeMake(20, 20)];
-    locationImg.userInteractionEnabled = YES;
-    [locationImg addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(mapClick)]];
-    [addressView addSubview:locationImg];
-    
-    
-    self.distanceLbl = [[UILabel alloc] initWithFrame:CGRectMake(MaxX(locationImg) + 2, Y(locationImg),70,20)];
-    self.distanceLbl.textAlignment = NSTextAlignmentLeft;
-    self.distanceLbl.textColor = [UIColor grayColor];
-    self.distanceLbl.font = [UIFont systemFontOfSize:12];
-    self.distanceLbl.backgroundColor = [UIColor clearColor];
-    self.distanceLbl.text = @"1.45千米";
-    [addressView addSubview:self.distanceLbl];
+//    UIImageView *locationImg = [[UIImageView alloc] initWithFrame:CGRectMake(MaxX(self.addressLbl), Y(self.self.addressLbl),20,20)];
+//    FAKIcon *locationIcon = [FAKIonIcons locationIconWithSize:20];
+//    [locationIcon addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithHexString:@"000"]];
+//    locationImg.image = [locationIcon imageWithSize:CGSizeMake(20, 20)];
+//    locationImg.userInteractionEnabled = YES;
+//    [locationImg addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(mapClick)]];
+//    [addressView addSubview:locationImg];
 
+    FAKIcon *heartIconOn = [FAKIonIcons ios7HeartIconWithSize:25];
+    [heartIconOn addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithHexString:@"e43a3d"]];
+    FAKIcon *heartIconOff = [FAKIonIcons ios7HeartOutlineIconWithSize:25];
+    [heartIconOff addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithHexString:@"e43a3d"]];
+    self.heartBtn = [ToggleButton buttonWithType:UIButtonTypeCustom];
+    __weak GroupDetailViewController *selfDelegate = self;
+    [self.heartBtn setToggleButtonOnImage:[heartIconOn imageWithSize:CGSizeMake(25, 25)]
+                                   offImg:[heartIconOff imageWithSize:CGSizeMake(25, 25)]
+                       toggleEventHandler:^(BOOL isOn){
+                           [selfDelegate favClick:isOn];
+                       }];
+    self.heartBtn.frame = CGRectMake(MaxX(self.groupNameLbl), 10,30,30);
+    [addressView addSubview:self.heartBtn];
     
-    UIView *tabView = [[UIView alloc] initWithFrame:CGRectMake(20, MaxY(addressView) + 10, WIDTH(headerView_) - 40, 30)];
+    UIView *tabView = [[UIView alloc] initWithFrame:CGRectMake(10, MaxY(addressView) + 10, WIDTH(headerView_) - 20, 30)];
     UIColor *tabViewColor =[UIColor colorWithHexString:APP_NAVIGATIONBAR_COLOR] ;
     [headerView_ addSubview:tabView];
     tabView.backgroundColor = [UIColor clearColor];
     tabView.layer.borderColor = [tabViewColor CGColor];
     tabView.layer.borderWidth = 1;
     tabView.layer.cornerRadius = 5;
-    
-    self.detailTabBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    self.detailTabBtn.frame = CGRectMake(0,0,280/3,30);
-    [self.detailTabBtn setTitle:@"基本信息" forState:UIControlStateNormal];
-    [self.detailTabBtn setTitleColor:tabViewColor forState:UIControlStateNormal];
-    self.detailTabBtn.titleLabel.font = [UIFont systemFontOfSize:12];
-    [self.detailTabBtn addTarget:self action:@selector(tabClicked:) forControlEvents:UIControlEventTouchDown];
-    self.detailTabBtn.tag = 0;
-    [tabView addSubview:self.detailTabBtn];
-    
-    UIView *separatorView1 = [[UIView alloc] initWithFrame:CGRectMake(MaxX(self.detailTabBtn),0, 1, HEIGHT(tabView))];
-    separatorView1.backgroundColor = tabViewColor;
-    [tabView addSubview:separatorView1];
+    float tabButtonWidth = 300 / 3;
     
     self.staffTabBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    self.staffTabBtn.frame = CGRectMake(MaxX(self.detailTabBtn)+1,0,280/3,30);
+    self.staffTabBtn.frame = CGRectMake(0,0,tabButtonWidth,30);
     self.staffTabBtn.titleLabel.font = [UIFont systemFontOfSize:12];
     [self.staffTabBtn setTitle:@"设计师(100)" forState:UIControlStateNormal];
     [self.staffTabBtn setTitleColor:tabViewColor forState:UIControlStateNormal];
-    [self.staffTabBtn addTarget:self action:@selector(tabClicked:) forControlEvents:UIControlEventTouchDown];       self.staffTabBtn.tag = 1;
+    [self.staffTabBtn addTarget:self action:@selector(tabClicked:) forControlEvents:UIControlEventTouchDown];       self.staffTabBtn.tag = 0;
     [tabView addSubview:self.staffTabBtn];
     
-    UIView *separatorView2 = [[UIView alloc] initWithFrame:CGRectMake(MaxX(self.staffTabBtn),0, 1, HEIGHT(tabView))];
-    separatorView2.backgroundColor = tabViewColor;
-    [tabView addSubview:separatorView2];
+    UIView *separatorView1 = [[UIView alloc] initWithFrame:CGRectMake(MaxX(self.staffTabBtn),0, 1, HEIGHT(tabView))];
+    separatorView1.backgroundColor = tabViewColor;
+    [tabView addSubview:separatorView1];
     
     self.productTabBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    self.productTabBtn.frame = CGRectMake(MaxX(self.staffTabBtn)+1,0,280/3,30);
+    self.productTabBtn.frame = CGRectMake(MaxX(self.staffTabBtn)+1,0,tabButtonWidth,30);
     [self.productTabBtn setTitle:@"商品" forState:UIControlStateNormal];
     self.productTabBtn.titleLabel.font = [UIFont systemFontOfSize:12];
     [self.productTabBtn setTitleColor:tabViewColor forState:UIControlStateNormal];
     self.productTabBtn.titleLabel.textColor = tabViewColor;
-    [self.productTabBtn addTarget:self action:@selector(tabClicked:) forControlEvents:UIControlEventTouchDown];       self.productTabBtn.tag = 2;
+    [self.productTabBtn addTarget:self action:@selector(tabClicked:) forControlEvents:UIControlEventTouchDown];       self.productTabBtn.tag = 1;
     [tabView addSubview:self.productTabBtn];
     
-    self.tableView.tableHeaderView = headerView_;
+    
+    UIView *separatorView2 = [[UIView alloc] initWithFrame:CGRectMake(MaxX(self.productTabBtn),0, 1, HEIGHT(tabView))];
+    separatorView2.backgroundColor = tabViewColor;
+    [tabView addSubview:separatorView2];
+    
+    self.commentTabBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    self.commentTabBtn.frame = CGRectMake(MaxX(self.productTabBtn)+1,0,tabButtonWidth,30);
+    [self.commentTabBtn setTitle:@"评论" forState:UIControlStateNormal];
+    self.commentTabBtn.titleLabel.font = [UIFont systemFontOfSize:12];
+    [self.commentTabBtn setTitleColor:tabViewColor forState:UIControlStateNormal];
+    self.commentTabBtn.titleLabel.textColor = tabViewColor;
+    [self.commentTabBtn addTarget:self action:@selector(tabClicked:) forControlEvents:UIControlEventTouchDown];
+    self.commentTabBtn.tag = 2;
+    [tabView addSubview:self.commentTabBtn];
+    
+
+    
+    UIView *detainInfoView = [[UIView alloc] initWithFrame:CGRectMake(10, MaxY(tabView) + 10, 300, 100)];
+    detainInfoView.backgroundColor = [UIColor whiteColor];
+    [self.scrollView addSubview:detainInfoView];
+    detainInfoView.layer.borderWidth = 0.5;
+    detainInfoView.layer.borderColor = [[UIColor lightGrayColor] CGColor];
+    detainInfoView.layer.cornerRadius = 5;
+    
+    UILabel *addressTitleLbl = [[UILabel alloc] initWithFrame:CGRectMake(10, 0,50,50)];
+    addressTitleLbl.textAlignment = NSTextAlignmentLeft;
+    addressTitleLbl.textColor = [UIColor grayColor];
+    addressTitleLbl.font = [UIFont systemFontOfSize:12];
+    addressTitleLbl.backgroundColor = [UIColor clearColor];
+    addressTitleLbl.text = @"地址:";
+    [detainInfoView addSubview:addressTitleLbl];
+
+    self.addressLbl = [[UILabel alloc] initWithFrame:CGRectMake(MaxX(addressTitleLbl),Y(addressTitleLbl), 180, 50)];
+    self.addressLbl.backgroundColor = [UIColor clearColor];
+    self.addressLbl.textColor = [UIColor grayColor];
+    self.addressLbl.font = [UIFont systemFontOfSize:12];
+    self.addressLbl.textAlignment = NSTextAlignmentLeft;;
+    [detainInfoView addSubview:self.addressLbl];
+    
+    UIImageView *locationImg = [[UIImageView alloc] initWithFrame:CGRectMake(MaxX(self.addressLbl) + 10, 15,20,20)];
+    FAKIcon *locationIcon = [FAKIonIcons locationIconWithSize:30];
+    [locationIcon addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithHexString:APP_NAVIGATIONBAR_COLOR]];
+    locationImg.image = [locationIcon imageWithSize:CGSizeMake(30, 30)];
+    locationImg.userInteractionEnabled = YES;
+    [locationImg addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(mapClick)]];
+    [detainInfoView addSubview:locationImg];
+    
+    UIView *tabContentLiner = [[UIView alloc] initWithFrame:CGRectMake(0, MaxY(self.addressLbl), WIDTH(tabView), 1)];
+    tabContentLiner.backgroundColor = [UIColor lightGrayColor];
+    [detainInfoView addSubview:tabContentLiner];
+    
+    UILabel *photoTitle = [[UILabel alloc] initWithFrame:CGRectMake(10, MaxY(tabContentLiner),50,50)];
+    photoTitle.textAlignment = NSTextAlignmentLeft;
+    photoTitle.textColor = [UIColor grayColor];
+    photoTitle.font = [UIFont systemFontOfSize:12];
+    photoTitle.backgroundColor = [UIColor clearColor];
+    photoTitle.text = @"电话:";
+    [detainInfoView addSubview:photoTitle];
+    
+    self.phoneLbl = [[UILabel alloc] initWithFrame:CGRectMake(MaxX(photoTitle),Y(photoTitle), 180, 50)];
+    self.phoneLbl.backgroundColor = [UIColor clearColor];
+    self.phoneLbl.textColor = [UIColor grayColor];
+    self.phoneLbl.font = [UIFont systemFontOfSize:12];
+    self.phoneLbl.textAlignment = NSTextAlignmentLeft;;
+    [detainInfoView addSubview:self.phoneLbl];
+    
+    UIImageView *phoneImg = [[UIImageView alloc] initWithFrame:CGRectMake(MaxX(self.phoneLbl) + 10, MaxY(tabContentLiner) + 15,20,20)];
+    FAKIcon *phoneIcon = [FAKIonIcons ios7TelephoneIconWithSize:30];
+    [phoneIcon addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithHexString:APP_NAVIGATIONBAR_COLOR]];
+    phoneImg.image = [phoneIcon imageWithSize:CGSizeMake(30, 30)];
+    phoneImg.userInteractionEnabled = YES;
+    [phoneImg addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(phoneClick)]];
+    [detainInfoView addSubview:phoneImg];
+    
+    self.scrollView.scrollEnabled = YES;
+    float scrollViewContentHeight = MAX(MaxY(detainInfoView), self.view.bounds.size.height) + 10;
+    self.scrollView.contentSize = CGSizeMake(WIDTH(self.view), scrollViewContentHeight);
+    
     self.groupData = [FakeDataHelper getFakeGroup];
 }
 
@@ -262,6 +326,10 @@ static const   float profileViewHeight = 320;
     for (NSString *item in self.groupData.imgUrls){
         [self.groupImgs addObject:[MWPhoto photoWithURL:[NSURL URLWithString:item]]];
     }
+    
+    self.addressLbl.text = @"高新区舜华北路舜泰广场2号楼";
+    self.phoneLbl.text = @"15666666666";
+    
 }
 
 - (void)didReceiveMemoryWarning
@@ -281,6 +349,9 @@ static const   float profileViewHeight = 320;
         GroupProductListViewController *vc = [GroupProductListViewController new];
         vc.datasource = [NSMutableArray arrayWithArray:[FakeDataHelper getFakeProductList]];
         [self.navigationController pushViewController:vc animated:YES];
+    }else if(btn == self.commentTabBtn){
+        CommentsViewController *vc = [CommentsViewController new];
+        [self.navigationController pushViewController:vc animated:YES];
     }
 }
 
@@ -298,9 +369,21 @@ static const   float profileViewHeight = 320;
     }
 }
 
+
+- (void)favClick:(BOOL)isOn
+{
+    
+}
+
 - (void)mapClick
 {
     [self.navigationController pushViewController:[MapViewController new] animated:YES];
+}
+
+- (void)phoneClick
+{
+    NSString *phoneNumber = [@"telprompt://" stringByAppendingString:@"15665815012"];
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:phoneNumber]];
 }
 
 - (void) imagePager:(JOLImageSlider *)imagePager didSelectImageAtIndex:(NSUInteger)index {
@@ -315,49 +398,6 @@ static const   float profileViewHeight = 320;
 }
 
 
-
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    return 50;
-}
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
-    return 2;
-}
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-        UITableViewCell * cell =  [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
-        if(indexPath.row == 0){
-            cell.textLabel.text = @"地址：高新区舜华北路舜泰广场2号楼";
-            cell.textLabel.font = [UIFont systemFontOfSize:14];
-            float locationIconSize = 20;
-            FAKIcon *locationIcon = [FAKIonIcons locationIconWithSize:locationIconSize];
-            [locationIcon addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithHexString:@"1f6ba7"]];
-            UIImageView *locationImgView = [[UIImageView alloc] initWithFrame:CGRectMake(0,15,locationIconSize,locationIconSize)];
-            cell.selectionStyle = UITableViewCellSelectionStyleNone;
-            cell.accessoryView = locationImgView;
-            return cell;
-        }else{
-            cell.textLabel.text = @"电话：15666666666";
-            cell.textLabel.font = [UIFont systemFontOfSize:14];
-            float locationIconSize = 20;
-            FAKIcon *locationIcon = [FAKIonIcons locationIconWithSize:locationIconSize];
-            [locationIcon addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithHexString:@"1f6ba7"]];
-            UIImageView *locationImgView = [[UIImageView alloc] initWithFrame:CGRectMake(0,15,locationIconSize,locationIconSize)];
-            cell.selectionStyle = UITableViewCellSelectionStyleNone;
-            cell.accessoryView = locationImgView;
-            return cell;
-        }
-}
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if(indexPath.row == 0){
-        [self mapClick];
-    }
-}
 
 - (void) OpenImageGallery
 {
