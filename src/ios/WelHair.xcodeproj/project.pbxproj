@@ -1196,12 +1196,16 @@
 		18A912DF18BB26B6006B9A04 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				4659D27618E7E220005648C0 /* Address.h */,
+				4659D27718E7E220005648C0 /* Address.m */,
 				4673BB6518D2F2B8000F64DE /* Appointment.h */,
 				4673BB6618D2F2B8000F64DE /* Appointment.m */,
 				467F0EAD18CB0F54009FFE08 /* BaseModel.h */,
 				467F0EAE18CB0F54009FFE08 /* BaseModel.m */,
 				467F0EBC18CB3CC3009FFE08 /* ChatSession.h */,
 				467F0EBD18CB3CC3009FFE08 /* ChatSession.m */,
+				4651D98118DE778F004AC95A /* City.h */,
+				4651D98218DE778F004AC95A /* City.m */,
 				460C2F2818C8BFFF00AD16E6 /* Comment.h */,
 				460C2F2918C8BFFF00AD16E6 /* Comment.m */,
 				46BDF12218D0B40E00999F50 /* Coupon.h */,
@@ -1224,10 +1228,6 @@
 				18A912E118BB26B6006B9A04 /* User.m */,
 				4665FD8318BC801000E88C6B /* Work.h */,
 				4665FD8418BC801000E88C6B /* Work.m */,
-				4651D98118DE778F004AC95A /* City.h */,
-				4651D98218DE778F004AC95A /* City.m */,
-				4659D27618E7E220005648C0 /* Address.h */,
-				4659D27718E7E220005648C0 /* Address.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";

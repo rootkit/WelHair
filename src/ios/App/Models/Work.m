@@ -10,6 +10,7 @@
 //
 // ==============================================================================
 
+#import "Comment.h"
 #import "Work.h"
 
 @implementation Work
@@ -27,8 +28,16 @@
         self.id = [[dictionary objectForKey:@"WorkId"] intValue];
         self.imgUrlList = [dictionary objectForKey:@"PictureUrl"];
         self.creator = [Staff new];
-        self.creator.avatorUrl = [[dictionary objectForKey:@"Staff"] objectForKey:@"AvatarUrl"];
-        self.creator.groupName = [[dictionary objectForKey:@"Staff"] objectForKey:@"Nickname"];
+
+        NSDictionary *staffDic = [dictionary objectForKey:@"Staff"];
+        self.creator.avatorUrl = [staffDic objectForKey:@"AvatarUrl"];
+        self.creator.groupName = [staffDic objectForKey:@"Nickname"];
+
+        NSDictionary *commentDic = [dictionary objectForKey:@"Comment"];
+        Comment *comm = [Comment new];
+
+        if (
+        self.commentList
     }
 
     return self;

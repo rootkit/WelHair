@@ -6,22 +6,25 @@
 //  Copyright (c) 2014 Welfony. All rights reserved.
 //
 
-#import "WorkCardView.h"
-#import "Work.h"
-#import "UIImageView+WebCache.h"
 #import "CircleImageView.h"
 #import "Comment.h"
+#import "Work.h"
+#import "WorkCardView.h"
+
 @interface WorkCardView ()
 
 @property (nonatomic, strong) Work *workData;
+
 @property (nonatomic, strong) UIImageView *hairImgView;
-@property (nonatomic, strong) UIImageView *staffImgView;
 @property (nonatomic, strong) ToggleButton *heartBtn;
+
+@property (nonatomic, strong) UIImageView *staffImgView;
 @property (nonatomic, strong) UILabel *commentCountLbl;
 @property (nonatomic, strong) UILabel *commentContentLbl;
 @property (nonatomic, strong) UILabel *commentorNameLbl;
 
 @end
+
 @implementation WorkCardView
 
 - (id)initWithFrame:(CGRect)frame
@@ -29,7 +32,9 @@
     self = [super initWithFrame:frame];
     if (self) {
         self.backgroundColor = [UIColor whiteColor];
-        float width = 140;
+
+        float width = frame.size.width;
+
         self.hairImgView = [[UIImageView alloc] initWithFrame:CGRectMake(1, 1, width -2, width-2)];
         [self addSubview:self.hairImgView];
         
@@ -88,8 +93,8 @@
         self.commentContentLbl.textColor = [UIColor grayColor];
 
         [self addSubview:self.commentContentLbl];
-        [self drawBottomShadowOffset:1 opacity:1];
     }
+
     return self;
 }
 
@@ -97,18 +102,26 @@
 - (float) setupWithData:(Work *)workData
 {
     self.workData = workData;
+
     [self.hairImgView setImageWithURL:[NSURL URLWithString:workData.imgUrlList[0]]];
-    self.commentCountLbl.text = [NSString stringWithFormat:@"评论(%d)",workData.commentList.count];
+
+    self.commentCountLbl.text = [NSString stringWithFormat:@"评论(%d)", workData.commentList.count];
     self.heartBtn.on = workData.isfav;
-    [self.staffImgView setImageWithURL:[NSURL URLWithString:workData.creator.avatorUrl]];
-    Comment *comment = workData.commentList.count > 0? workData.commentList[0] : nil;
-    self.commentorNameLbl.text = [NSString stringWithFormat:@"%@:",comment.commentorName];
-    self.commentContentLbl.text = [NSString stringWithFormat:@"%@:",comment.title];
+
+    if (self.workData.commentList.count > 0) {
+        [self.staffImgView setImageWithURL:[NSURL URLWithString:workData.creator.avatorUrl]];
+        Comment *comment = workData.commentList.count > 0? workData.commentList[0] : nil;
+        self.commentorNameLbl.text = [NSString stringWithFormat:@"%@:",comment.commentorName];
+        self.commentContentLbl.text = [NSString stringWithFormat:@"%@:",comment.title];
+    }
+
+    self.staffImgView.hidden = self.workData.commentList.count <= 0;
+    self.commentorNameLbl.hidden = self.workData.commentList.count <= 0;
+    self.commentContentLbl.hidden = self.workData.commentList.count <= 0;
+
+    [self drawBottomShadowOffset:1 opacity:1];
     return HEIGHT(self);
 }
-
-
-
 
 
 - (void)favClick:(BOOL)markFav

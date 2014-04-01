@@ -35,9 +35,10 @@ typedef NS_ENUM(NSInteger, GenderEnum) {
 @interface Work : BaseModel
 @property (nonatomic, strong) NSArray *imgUrlList;
 
-@property (nonatomic, strong) Staff *creator;
-@property (nonatomic, strong) NSArray *commentList;
 @property (nonatomic) BOOL isfav;
+@property (nonatomic, strong) Staff *creator;
+
+@property (nonatomic, strong) NSArray *commentList;
 
 // work param
 // face sytle
