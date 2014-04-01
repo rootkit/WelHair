@@ -29,6 +29,7 @@
 @property (nonatomic, strong) UILabel *staffNameLbl;
 @property (nonatomic, strong) UILabel *distanceLbl;
 @property (nonatomic, strong) NSMutableArray *workImgs;
+@property (nonatomic, strong) ToggleButton *heartBtn;
 @end
 
 @implementation WorkDetailViewController
@@ -109,13 +110,19 @@
     
     [staffView addSubview:self.staffNameLbl];
     
-    UIImageView *heartImgView = [[UIImageView alloc] initWithFrame:CGRectMake(MaxX(self.staffImgView) + 30, 20, 30, 30)];
-    [staffView addSubview:heartImgView];
-    heartImgView.userInteractionEnabled = YES;
-    [heartImgView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(heartImgViewTapped:)]];
-    FAKIcon *heartIcon = [FAKIonIcons heartIconWithSize:30];
-    [heartIcon addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithHexString:@"e43a3d"]];
-    heartImgView.image = [heartIcon imageWithSize:CGSizeMake(30, 30)];
+    FAKIcon *heartIconOn = [FAKIonIcons ios7HeartIconWithSize:25];
+    [heartIconOn addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithHexString:@"e43a3d"]];
+    FAKIcon *heartIconOff = [FAKIonIcons ios7HeartOutlineIconWithSize:25];
+    [heartIconOff addAttribute:NSForegroundColorAttributeName value:[UIColor whiteColor]];
+    self.heartBtn = [ToggleButton buttonWithType:UIButtonTypeCustom];
+    __weak WorkDetailViewController *selfDelegate = self;
+    [self.heartBtn setToggleButtonOnImage:[heartIconOn imageWithSize:CGSizeMake(25, 25)]
+                                   offImg:[heartIconOff imageWithSize:CGSizeMake(25, 25)]
+                       toggleEventHandler:^(BOOL isOn){
+                           [selfDelegate favClick:isOn];
+                       }];
+    self.heartBtn.frame = CGRectMake(MaxX(self.staffImgView) + 30, 20, 30, 30);
+    [staffView addSubview:self.heartBtn];
     
     UIImageView *locationImg = [[UIImageView alloc] initWithFrame:CGRectMake(MaxX(self.staffImgView) + 20, Y(self.staffNameLbl),20,20)];
     FAKIcon *locationIcon = [FAKIonIcons locationIconWithSize:20];
@@ -382,16 +389,9 @@
     [self.navigationController pushViewController:[StaffDetailViewController new] animated:YES];
 }
 
-- (void)heartImgViewTapped:(UITapGestureRecognizer *)tap
+- (void)favClick:(BOOL)markFav
 {
-    UIView *view =  tap.view;
-    if(view.alpha == 1){
-        view.alpha = 0.5;
-        [SVProgressHUD showSuccessWithStatus:@"收藏" duration:0.7];
-    }else{
-        view.alpha = 1;
-        [SVProgressHUD showSuccessWithStatus:@"取消收藏" duration:0.7];
-    }
+    debugLog(@"mark as fav %c", markFav);
 }
 
 - (void)commentClick

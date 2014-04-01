@@ -35,7 +35,7 @@
 @property (nonatomic, strong) UILabel *addressLbl;
 @property (nonatomic, strong) UILabel *distanceLbl;
 @property (nonatomic, strong) UIImage *foImg;
-@property (nonatomic, strong) UIButton *foBtn;
+@property (nonatomic, strong) ToggleButton *foBtn;
 @property (nonatomic, strong) UIButton *detailTabBtn;
 @property (nonatomic, strong) UIButton *commentTabBtn;
 @property (nonatomic, strong) SelectOpition *selectOpition;
@@ -99,14 +99,18 @@ static const   float profileViewHeight = 80;
     headerView_.backgroundColor = [UIColor clearColor];
     [self.scrollView addSubview:headerView_];
     
-    FAKIcon *foIcon = [FAKIonIcons personAddIconWithSize:NAV_BAR_ICON_SIZE];
-    [foIcon addAttribute:NSForegroundColorAttributeName value:[UIColor whiteColor]];
-    self.foImg =[foIcon imageWithSize:CGSizeMake(NAV_BAR_ICON_SIZE, NAV_BAR_ICON_SIZE)];
-    self.foBtn = [[UIButton alloc] initWithFrame:CGRectMake(260, 50 , 25, 25)];
-    self.foBtn.tag = 0;
-    [self.foBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [self.foBtn setBackgroundImage:self.foImg forState:UIControlStateNormal];
-    [self.foBtn addTarget:self action:@selector(foClick:) forControlEvents:UIControlEventTouchDown];
+    FAKIcon *foIconOn = [FAKIonIcons personIconWithSize:NAV_BAR_ICON_SIZE];
+    [foIconOn addAttribute:NSForegroundColorAttributeName value:[UIColor redColor]];
+    UIImage *foImgOn =[foIconOn imageWithSize:CGSizeMake(NAV_BAR_ICON_SIZE, NAV_BAR_ICON_SIZE)];
+    
+    FAKIcon *foIconOff = [FAKIonIcons personAddIconWithSize:NAV_BAR_ICON_SIZE];
+    [foIconOff addAttribute:NSForegroundColorAttributeName value:[UIColor whiteColor]];
+    UIImage *foImgOff =[foIconOff imageWithSize:CGSizeMake(NAV_BAR_ICON_SIZE, NAV_BAR_ICON_SIZE)];
+    self.foBtn = [[ToggleButton alloc] initWithFrame:CGRectMake(260, 50 , 25, 25)];
+    __weak StaffDetailViewController *selfDelegate = self;
+    [self.foBtn setToggleButtonOnImage:foImgOn offImg:foImgOff toggleEventHandler:^(BOOL isOn){
+        [selfDelegate foClick:isOn];
+    }];
     [self.scrollView addSubview:self.foBtn];
     
 #pragma topbar
@@ -218,22 +222,13 @@ static const   float profileViewHeight = 80;
 //    }
 }
 
-- (void)foClick:(id)sender
+- (void)foClick:(BOOL)isFo
 {
-    UIButton *btn = (UIButton *)sender;
-    UIColor *color = btn.tag == 0 ? [UIColor redColor] : [UIColor whiteColor];
-    if(btn.tag == 0){
-        [SVProgressHUD showSuccessWithStatus:@"关注成功" duration:1];
-        btn.tag = 1;
-    }else
-    {
+    if(isFo){
+       [SVProgressHUD showSuccessWithStatus:@"关注成功" duration:1];
+    }else{
         [SVProgressHUD showSuccessWithStatus:@"取消关注" duration:1];
-        btn.tag = 0;
     }
-    FAKIcon *foIcon = [FAKIonIcons personAddIconWithSize:NAV_BAR_ICON_SIZE];
-    [foIcon addAttribute:NSForegroundColorAttributeName value:color];
-    self.foImg =[foIcon imageWithSize:CGSizeMake(NAV_BAR_ICON_SIZE, NAV_BAR_ICON_SIZE)];
-    [btn setImage:self.foImg forState:UIControlStateNormal];
 }
 
 

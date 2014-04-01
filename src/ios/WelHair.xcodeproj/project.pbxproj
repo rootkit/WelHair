@@ -206,6 +206,7 @@
 		465A5C8818DB08C7009B6D60 /* MyScoreViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 465A5C8718DB08C7009B6D60 /* MyScoreViewController.m */; };
 		465A5C8B18DB0B8D009B6D60 /* MyScoreCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 465A5C8A18DB0B8D009B6D60 /* MyScoreCell.m */; };
 		465D2D3218E98B8C009E4CD8 /* BaiduMapHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 465D2D3118E98B8C009E4CD8 /* BaiduMapHelper.m */; };
+		465D2E3218EA8B68009E4CD8 /* ToggleButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 465D2E3118EA8B68009E4CD8 /* ToggleButton.m */; };
 		4660E69018BB73E1005B3C7D /* ProductsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4660E68F18BB73E1005B3C7D /* ProductsViewController.m */; };
 		4660E69618BB73FF005B3C7D /* UserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4660E69518BB73FF005B3C7D /* UserViewController.m */; };
 		4660E6AB18BB7666005B3C7D /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4660E6AA18BB7666005B3C7D /* CoreText.framework */; };
@@ -666,6 +667,8 @@
 		465A5C8A18DB0B8D009B6D60 /* MyScoreCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyScoreCell.m; sourceTree = "<group>"; };
 		465D2D3018E98B8C009E4CD8 /* BaiduMapHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaiduMapHelper.h; sourceTree = "<group>"; };
 		465D2D3118E98B8C009E4CD8 /* BaiduMapHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaiduMapHelper.m; sourceTree = "<group>"; };
+		465D2E3018EA8B68009E4CD8 /* ToggleButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ToggleButton.h; sourceTree = "<group>"; };
+		465D2E3118EA8B68009E4CD8 /* ToggleButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ToggleButton.m; sourceTree = "<group>"; };
 		4660E68E18BB73E1005B3C7D /* ProductsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProductsViewController.h; sourceTree = "<group>"; };
 		4660E68F18BB73E1005B3C7D /* ProductsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProductsViewController.m; sourceTree = "<group>"; };
 		4660E69418BB73FF005B3C7D /* UserViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserViewController.h; sourceTree = "<group>"; };
@@ -1760,6 +1763,8 @@
 				467F0EE418CB4FCF009FFE08 /* UITextField+WelKit.m */,
 				467F0EE518CB4FCF009FFE08 /* UIView+WelKit.h */,
 				467F0EE618CB4FCF009FFE08 /* UIView+WelKit.m */,
+				465D2E3018EA8B68009E4CD8 /* ToggleButton.h */,
+				465D2E3118EA8B68009E4CD8 /* ToggleButton.m */,
 			);
 			path = UIKit;
 			sourceTree = "<group>";
@@ -2474,6 +2479,7 @@
 				4660E69618BB73FF005B3C7D /* UserViewController.m in Sources */,
 				4673BB8C18D417EE000F64DE /* GroupManageViewController.m in Sources */,
 				467F0EAF18CB0F54009FFE08 /* BaseModel.m in Sources */,
+				465D2E3218EA8B68009E4CD8 /* ToggleButton.m in Sources */,
 				467F0F1F18CC2386009FFE08 /* WorksViewController.m in Sources */,
 				467F0F2518CC8FFB009FFE08 /* CommentCell.m in Sources */,
 				467F0EEF18CB4FCF009FFE08 /* UINavigationBar+WelKit.m in Sources */,

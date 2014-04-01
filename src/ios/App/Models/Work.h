@@ -37,6 +37,7 @@ typedef NS_ENUM(NSInteger, GenderEnum) {
 
 @property (nonatomic, strong) Staff *creator;
 @property (nonatomic, strong) NSArray *commentList;
+@property (nonatomic) BOOL isfav;
 
 // work param
 // face sytle

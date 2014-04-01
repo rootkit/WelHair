@@ -16,6 +16,7 @@
 @property (nonatomic, strong) Work *workData;
 @property (nonatomic, strong) UIImageView *hairImgView;
 @property (nonatomic, strong) UIImageView *staffImgView;
+@property (nonatomic, strong) ToggleButton *heartBtn;
 @property (nonatomic, strong) UILabel *commentCountLbl;
 @property (nonatomic, strong) UILabel *commentContentLbl;
 @property (nonatomic, strong) UILabel *commentorNameLbl;
@@ -37,16 +38,23 @@
         self.commentCountLbl.backgroundColor = [UIColor clearColor];
         self.commentCountLbl.textColor = [UIColor colorWithHexString:@"1f6ba7"];
         [self addSubview:self.commentCountLbl];
+       
+        // heart
+        FAKIcon *heartIconOn = [FAKIonIcons ios7HeartIconWithSize:25];
+        [heartIconOn addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithHexString:@"e43a3d"]];
+        FAKIcon *heartIconOff = [FAKIonIcons ios7HeartOutlineIconWithSize:25];
+        [heartIconOff addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithHexString:@"e43a3d"]];
+        self.heartBtn = [ToggleButton buttonWithType:UIButtonTypeCustom];
+        __weak WorkCardView *selfDelegate = self;
+        [self.heartBtn setToggleButtonOnImage:[heartIconOn imageWithSize:CGSizeMake(25, 25)]
+                                  offImg:[heartIconOff imageWithSize:CGSizeMake(25, 25)]
+                      toggleEventHandler:^(BOOL isOn){
+                          [selfDelegate favClick:isOn];
+                      }];
+        self.heartBtn.frame = CGRectMake(WIDTH(self) - 25 - 15, MaxY(self.hairImgView) + 5,25, 25);
+        [self addSubview:self.heartBtn];
         
-        FAKIcon *heartIcon = [FAKIonIcons heartIconWithSize:25];
-        [heartIcon addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithHexString:@"e43a3d"]];
-        UIButton *heartBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        heartBtn.frame = CGRectMake(WIDTH(self) - 25 - 15, MaxY(self.hairImgView) + 5,25, 25);
-        [heartBtn addTarget:self action:@selector(favClick) forControlEvents:UIControlEventTouchUpInside];
-        [heartBtn setImage:[heartIcon imageWithSize:CGSizeMake(25, 25)] forState:UIControlStateNormal];
-        [self addSubview:heartBtn];
-        
-        UIView *linerView = [[UIView alloc] initWithFrame:CGRectMake(0, MaxY(heartBtn) + 5, WIDTH(self), 1)];
+        UIView *linerView = [[UIView alloc] initWithFrame:CGRectMake(0, MaxY(self.heartBtn) + 5, WIDTH(self), 1)];
         linerView.backgroundColor = [UIColor colorWithHexString:@"dfdfdf"];
         [self addSubview:linerView];
         
@@ -91,6 +99,7 @@
     self.workData = workData;
     [self.hairImgView setImageWithURL:[NSURL URLWithString:workData.imgUrlList[0]]];
     self.commentCountLbl.text = [NSString stringWithFormat:@"评论(%d)",workData.commentList.count];
+    self.heartBtn.on = workData.isfav;
     [self.staffImgView setImageWithURL:[NSURL URLWithString:workData.creator.avatorUrl]];
     Comment *comment = workData.commentList.count > 0? workData.commentList[0] : nil;
     self.commentorNameLbl.text = [NSString stringWithFormat:@"%@:",comment.commentorName];
@@ -100,9 +109,11 @@
 
 
 
-- (void)favClick
+
+
+- (void)favClick:(BOOL)markFav
 {
-    
+    debugLog(@"mark as fav %c", markFav);
 }
 
 

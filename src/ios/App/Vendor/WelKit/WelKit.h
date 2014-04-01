@@ -20,7 +20,6 @@
 #if TARGET_OS_IPHONE
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
-
 #import "WelKitMacros.h"
 #endif
 
@@ -31,3 +30,4 @@
 #import "UITextField+WelKit.h"
 #import "NSDate+WelKit.h"
 #import "NSString+WelKit.h"
+#import "ToggleButton.h"
