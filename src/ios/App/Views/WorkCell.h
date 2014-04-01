@@ -6,13 +6,11 @@
 //  Copyright (c) 2014 Welfony. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "BrickView.h"
 #import "Work.h"
 
-@interface WorkCell : UITableViewCell
+@interface WorkCell : BrickViewCell
 
-- (void)setupWithLeftData:(Work *)leftData
-                rightData:(Work *)rightData
-               tapHandler:(CardTapHandler)tapHandler;
+- (void)setupWithData:(Work *)leftData tapHandler:(CardTapHandler)tapHandler;
 
 @end

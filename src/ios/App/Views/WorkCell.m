@@ -8,64 +8,45 @@
 
 #import "WorkCell.h"
 #import "WorkCardView.h"
-#import "UIImageView+WebCache.h"
 
 @interface WorkCell ()
 
-@property (nonatomic, strong) WorkCardView *leftCardView;
-@property (nonatomic, strong) WorkCardView *rightCardView;
-@property (nonatomic, strong) Work *leftWorkData;
-@property (nonatomic, strong) Work *rightWorkData;
+@property (nonatomic, strong) WorkCardView *cardView;
+@property (nonatomic, strong) Work *workData;
 @property (nonatomic, strong) CardTapHandler cardTapHandler;
 
 @end
 
 @implementation WorkCell
 
-- (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
+- (id)initWithReuseIdentifier:(NSString *)reuseIdentifier
 {
-    self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
+    self = [super initWithReuseIdentifier:reuseIdentifier];
     if (self) {
     }
     return self;
 }
 
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated
+- (void)setupWithData:(Work *)data tapHandler:(CardTapHandler)tapHandler
 {
-    [super setSelected:selected animated:animated];
-}
-
-- (void)setupWithLeftData:(Work *)leftData
-                rightData:(Work *)rightData
-               tapHandler:(CardTapHandler)tapHandler
-{
-    self.leftWorkData = leftData;
-    self.rightWorkData = rightData;
+    self.workData = data;
     self.cardTapHandler = tapHandler;
-    
-    if(!self.leftCardView){
-        self.leftCardView = [[WorkCardView alloc] initWithFrame:CGRectMake(10, 5, 140, 250)];
-        [self addSubview:self.leftCardView];
-        self.leftCardView.tag = 0;
-        [self.leftCardView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(cardTapped:)]];
-    }
-    [self.leftCardView setupWithData:leftData];
 
-    if(!self.rightCardView){
-        self.rightCardView = [[WorkCardView alloc] initWithFrame:CGRectMake(MaxX(self.leftCardView) + 20, 5, 140, 250)];
-        [self addSubview:self.rightCardView];
-        self.rightCardView.tag = 1;
-        [self.rightCardView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(cardTapped:)]];
+    if(!self.cardView){
+        self.cardView = [[WorkCardView alloc] initWithFrame:CGRectMake(10, 5, 140, data.commentList.count > 0 ? 250 : 174)];
+        self.cardView.tag = 0;
+        [self.cardView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(cardTapped:)]];
+        [self addSubview:self.cardView];
     }
-    [self.rightCardView setupWithData:rightData];
+
+    self.cardView.frame = CGRectMake(10, 5, 140, data.commentList.count > 0 ? 250 : 174);
+
+    [self.cardView setupWithData:data];
 }
 
 - (void)cardTapped:(id)sender
 {
-    UITapGestureRecognizer *tapView = (UITapGestureRecognizer *)sender;
-    UIView *cardView = tapView.view;
-    Work *work = cardView.tag == 0 ? self.leftWorkData : self.rightWorkData;
-    self.cardTapHandler(work);
+    self.cardTapHandler(self.workData);
 }
 
 @end

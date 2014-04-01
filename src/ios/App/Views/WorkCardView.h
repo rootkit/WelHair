@@ -6,8 +6,8 @@
 //  Copyright (c) 2014 Welfony. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
 #import "Work.h"
+
 @interface WorkCardView : UIView
 
 - (float) setupWithData:(Work *)workData;

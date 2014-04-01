@@ -10,21 +10,23 @@
 //
 // ==============================================================================
 
+#import "BrickView.h"
 #import "City.h"
 #import "CityListViewController.h"
 #import "CityManager.h"
+#import "Comment.h"
 #import "DropDownView.h"
 #import "StaffDetailViewController.h"
 #import "WorkCell.h"
 #import "WorkDetailViewController.h"
 #import "WorksViewController.h"
 
-@interface WorksViewController ()<UITableViewDataSource, UITableViewDelegate, DropDownDelegate,CityPickViewDelegate>
+@interface WorksViewController ()<BrickViewDelegate, BrickViewDataSource, DropDownDelegate,CityPickViewDelegate>
 
 @property (nonatomic, assign) NSInteger currentPage;
 
 @property (nonatomic, strong) NSMutableArray *datasource;
-@property (nonatomic, strong) UITableView *tableView;
+@property (nonatomic, strong) BrickView *tableView;
 
 @property (nonatomic, strong) UIButton *hairStyleBtn;
 @property (nonatomic, strong) UIButton *genderBtn;
@@ -143,7 +145,7 @@
     [topTabView addSubview:self.sortBtn];
 
     
-    self.tableView = [[UITableView alloc] init];
+    self.tableView = [[BrickView alloc] init];
     self.tableView.frame = CGRectMake(0,
                                       self.topBarOffset + topTabView.height,
                                       WIDTH(self.view) ,
@@ -151,7 +153,6 @@
     self.tableView.backgroundColor = [UIColor clearColor];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
-    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.tableView.backgroundColor = [UIColor colorWithHexString:@"f2f2f2"];
     [self.view addSubview:self.tableView];
 
@@ -236,37 +237,36 @@
 
 #pragma mark UITableView delegate
 
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+- (CGFloat)brickView:(BrickView *)brickView heightForCellAtIndex:(NSInteger)index
 {
-    return 260;
+    Work *work = [self.datasource objectAtIndex:index];
+    return work.commentList.count > 0 ? 260 : 184;
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+- (NSInteger)numberOfColumnsInBrickView:(BrickView *)brickView
 {
-    return  ceil(self.datasource.count / 2.0);
+    return 2;
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+- (NSInteger)numberOfCellsInBrickView:(BrickView *)brickView
+{
+    return  self.datasource.count;
+}
+
+- (BrickViewCell *)brickView:(BrickView *)brickView cellAtIndex:(NSInteger)index
 {
     static NSString * cellIdentifier = @"WorkCellIdentifier";
-    WorkCell * cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+    WorkCell * cell = [self.tableView dequeueReusableCellWithIdentifier:cellIdentifier];
     if (!cell) {
-        cell = [[WorkCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        cell.contentView.backgroundColor =  cell.backgroundColor = [UIColor clearColor];
+        cell = [[WorkCell alloc] initWithReuseIdentifier:cellIdentifier];
     }
-    
-    Work *leftdata = [self.datasource objectAtIndex: (2 * indexPath.row)];
-    Work *rightdata = nil;
-    if(2 * (indexPath.row + 1) <= self.datasource.count){
-        rightdata = [self.datasource objectAtIndex: (2 * indexPath.row)];
-    }
+
     __weak WorksViewController *selfDelegate = self;
-    [cell setupWithLeftData:leftdata rightData:rightdata tapHandler:^(id model){
+    [cell setupWithData:[self.datasource objectAtIndex:index] tapHandler:^(id model){
         Work *work = (Work *)model;
         [selfDelegate pushToDetial:work];}
      ];
-    cell.contentView.backgroundColor =  cell.backgroundColor = [UIColor clearColor];
+
     return cell;
 }
 
@@ -320,6 +320,23 @@
     }
 
     for (NSDictionary *dicData in dataList) {
+        [arr addObject:[[Work alloc] initWithDic:dicData]];
+        Work *w = [[Work alloc] initWithDic:dicData];
+        Comment *c = [Comment new];
+        c.title = @"";
+        w.commentList = @[c];
+        [arr addObject:w];
+        [arr addObject:[[Work alloc] initWithDic:dicData]];
+        [arr addObject:[[Work alloc] initWithDic:dicData]];
+        [arr addObject:w];
+        [arr addObject:w];
+        [arr addObject:[[Work alloc] initWithDic:dicData]];
+        [arr addObject:[[Work alloc] initWithDic:dicData]];
+        [arr addObject:[[Work alloc] initWithDic:dicData]];
+        [arr addObject:[[Work alloc] initWithDic:dicData]];
+        [arr addObject:w];
+        [arr addObject:[[Work alloc] initWithDic:dicData]];
+        [arr addObject:[[Work alloc] initWithDic:dicData]];
         [arr addObject:[[Work alloc] initWithDic:dicData]];
     }
 

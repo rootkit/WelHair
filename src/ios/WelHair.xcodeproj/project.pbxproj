@@ -107,6 +107,7 @@
 		18A912E418BB26B6006B9A04 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A912E118BB26B6006B9A04 /* User.m */; };
 		18AC388818CD685C00328A78 /* WebSocketUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 18AC388718CD685C00328A78 /* WebSocketUtil.m */; };
 		18AC388B18CD762600328A78 /* ChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18AC388A18CD762600328A78 /* ChatViewController.m */; };
+		18FAFAB518EAA6C200EF6960 /* BrickView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18FAFAB418EAA6C200EF6960 /* BrickView.m */; };
 		460C2F2A18C8BFFF00AD16E6 /* Comment.m in Sources */ = {isa = PBXBuildFile; fileRef = 460C2F2918C8BFFF00AD16E6 /* Comment.m */; };
 		460C2F4A18CAFDB200AD16E6 /* GroupCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 460C2F4918CAFDB200AD16E6 /* GroupCell.m */; };
 		460C2F4D18CAFEBF00AD16E6 /* Group.m in Sources */ = {isa = PBXBuildFile; fileRef = 460C2F4C18CAFEBF00AD16E6 /* Group.m */; };
@@ -455,6 +456,8 @@
 		18AC388718CD685C00328A78 /* WebSocketUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebSocketUtil.m; sourceTree = "<group>"; };
 		18AC388918CD762600328A78 /* ChatViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatViewController.h; sourceTree = "<group>"; };
 		18AC388A18CD762600328A78 /* ChatViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatViewController.m; sourceTree = "<group>"; };
+		18FAFAB318EAA6C200EF6960 /* BrickView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BrickView.h; sourceTree = "<group>"; };
+		18FAFAB418EAA6C200EF6960 /* BrickView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BrickView.m; sourceTree = "<group>"; };
 		460C2F2818C8BFFF00AD16E6 /* Comment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Comment.h; sourceTree = "<group>"; };
 		460C2F2918C8BFFF00AD16E6 /* Comment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Comment.m; sourceTree = "<group>"; };
 		460C2F4818CAFDB200AD16E6 /* GroupCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroupCell.h; sourceTree = "<group>"; };
@@ -1233,6 +1236,7 @@
 			isa = PBXGroup;
 			children = (
 				183B03C718E110F500765116 /* ABMGroupedTableView */,
+				18FAFAB218EAA6C200EF6960 /* BrickView */,
 				4630D13718C603B000DA7CAD /* CircleView */,
 				467F0F2618CC95CA009FFE08 /* JOLImageSlider */,
 				46E84ECB18C2DB930004C146 /* KNSemiModalViewController */,
@@ -1268,6 +1272,15 @@
 				18AC388718CD685C00328A78 /* WebSocketUtil.m */,
 			);
 			path = Common;
+			sourceTree = "<group>";
+		};
+		18FAFAB218EAA6C200EF6960 /* BrickView */ = {
+			isa = PBXGroup;
+			children = (
+				18FAFAB318EAA6C200EF6960 /* BrickView.h */,
+				18FAFAB418EAA6C200EF6960 /* BrickView.m */,
+			);
+			path = BrickView;
 			sourceTree = "<group>";
 		};
 		461B0C0118DC3BD700E0DAF5 /* Images */ = {
@@ -2408,6 +2421,7 @@
 				18AC388818CD685C00328A78 /* WebSocketUtil.m in Sources */,
 				46BDF13918D1779100999F50 /* UserAuthorViewController.m in Sources */,
 				4631CF1F18E3284C00F39814 /* PayViewController.m in Sources */,
+				18FAFAB518EAA6C200EF6960 /* BrickView.m in Sources */,
 				184B82C818DAC7F000177BAB /* JSMessageSoundEffect.m in Sources */,
 				464BF44F18D576AC006EBCD9 /* CreateCouponViewController.m in Sources */,
 				467F0F1418CC1EAE009FFE08 /* DoubleCoverCell.m in Sources */,
