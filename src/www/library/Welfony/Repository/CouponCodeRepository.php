@@ -90,7 +90,7 @@ class CouponCodeRepository extends AbstractRepository
         try {
             foreach( $data as $row )
             {
-              error_log(serialize($row));
+              //error_log(serialize($row));
               $this->conn->insert('CouponCode', $row);
             }
             $conn->commit();

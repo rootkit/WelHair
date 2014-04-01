@@ -54,13 +54,13 @@ class ModelService
       
     }
 
-    public static function save($data)
+    public static function save($data, $attributes = null)
     {
         $result = array('success' => false, 'message' => '');
 
         if ($data['ModelId'] == 0) {
 
-            $newId = ModelRepository::getInstance()->save($data);
+            $newId = ModelRepository::getInstance()->save($data, $attributes);
             if ($newId) {
                 $data['ModelId'] = $newId;
 
@@ -75,7 +75,7 @@ class ModelService
             }
         } else {
 
-            $r = ModelRepository::getInstance()->update($data['ModelId'],$data);
+            $r = ModelRepository::getInstance()->update($data['ModelId'],$data, $attributes);
             if ($r) {
 
                 $result['success'] = true;

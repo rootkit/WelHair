@@ -58,17 +58,17 @@ $(function() {
 
     $('#btnAddAttribute').click(function(){
 
-      var row = '   <tr> ' +
-                '               <td><input name="couponcode" type="text" value="" datatype="s" class="u-ipt"/></td> ' +
+      var row = '   <tr class="attributerow"> ' +
+                '               <td><input name="attributename" type="text" value="" datatype="s" class="u-ipt"/></td> ' +
                 '               <td>'+
-                '                     <select id="coupon-type"  class="u-sel" > '+
-                '                        <option value="" >单选框</option> ' +
-                '                        <option value="" >复选框</option> ' +
-                '                       <option value="" >下拉框</option>  ' +                        
+                '                     <select name="attributetype"  class="u-sel" > '+
+                '                        <option value="1" >单选框</option> ' +
+                '                        <option value="2" >复选框</option> ' +
+                '                       <option value="3" >下拉框</option>  ' +                        
                 '                     </select> '+
                 '                </td> '+
-                '                <td><input name="passcode" type="text" value=""  class="u-ipt"/></td>'+
-                                '                <td> <input type="checkbox"/></td> ' +
+                '                <td><input name="attributevalue" type="text" value=""  class="u-ipt"/></td>'+
+                '                <td> <input name="attributesearch" type="checkbox"/></td> ' +
                 '                <td><a href="#" class="btnDelete"><i class="iconfont">&#xf013f;</i></a></td>' +
                 '            </tr>';
 
@@ -98,6 +98,16 @@ $(function() {
           var specids  = $('tr.specid').map(function(i,n) {
                 return $(n).attr('data-id');
           }).get().join(",");
+
+          var attributes =  $('tr.attributerow').map(function(i,n) {
+                return { 
+                    'name':$(n).find('input[name="attributename"]').val(),
+                    'type':$(n).find('select[name="attributetype"]').val(),
+                    'value':$(n).find('input[name="attributevalue"]').val(),
+                    'search' : $(n).find('input[name="attributesearch"]:checked').length
+                 };
+          }).get();
+         
          
           
 
@@ -105,7 +115,8 @@ $(function() {
 
           var posting = $.post( url, { 
                 'name': name,
-                'specids':specids
+                'specids':specids,
+                'attributes': attributes
             } );
 
 

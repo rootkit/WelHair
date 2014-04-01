@@ -15,6 +15,7 @@
 use Welfony\Controller\Base\AbstractAdminController;
 use Welfony\Service\ModelService;
 use Welfony\Service\SpecService;
+use Welfony\Service\AttributeService;
 use Welfony\Utility\Util;
 
 class Goods_ModelController extends AbstractAdminController
@@ -63,10 +64,24 @@ class Goods_ModelController extends AbstractAdminController
             $this->_helper->layout->disableLayout();
             $model['Name']= htmlspecialchars($this->_request->getParam('name'));
             $model['SpecIds']= $this->_request->getParam('specids');
-            $model['IsDeleted']= '0';      
+            $model['IsDeleted']= '0';     
+
+            $attributes = array();
+            if( $this->_request->getParam('attributes'))
+            {
+                foreach( $this->_request->getParam('attributes') as $attr )
+                {
+                    $attributes[]= array(
+                            "Name" => $attr['name'],
+                            "Type" => $attr['type'],
+                            "Search" => $attr['search'],
+                            "Value" => $attr["value"]
+                        );
+                }   
+            } 
 
 
-            $result = ModelService::save($model);
+            $result = ModelService::save($model, $attributes);
             if ($result['success']) {            
                 $result['message'] = '保存模型成功！';
             } 
@@ -76,6 +91,7 @@ class Goods_ModelController extends AbstractAdminController
             
             if ($modelId > 0) {
                 $this->view->specs = SpecService::listAllSpecByModel($modelId);
+                $this->view->attributes = AttributeService::listAllAttributeByModel($modelId);
                 $model = ModelService::getModelById($modelId);
                 if (!$model) {
                     // process not exist logic;

@@ -68,7 +68,8 @@ class ModelRepository extends AbstractRepository
         return $this->conn->fetchAssoc($strSql, array($id));
     }
 
-    public function save($data)
+    /*
+    public function save($data, $attributes = null)
     {
         try {
             if ($this->conn->insert('Model', $data)) {
@@ -82,10 +83,72 @@ class ModelRepository extends AbstractRepository
 
         return false;
     }
+    */
 
+    public function save($data, $attributes= null)
+    {
+        $conn = $this->conn;
+        $conn->beginTransaction();
+        try {
+
+            if($this->conn->insert('Model', $data)) {
+                $modelId= $this->conn->lastInsertId();
+            }
+            else
+            {
+              return false;
+            }
+            if( $attributes )
+            {
+              foreach( $attributes as $row )
+              {
+                $row['ModelId'] = $modelId;
+                $this->conn->insert('Attribute', $row);
+              }
+            }
+            $conn->commit();
+            return $modelId;
+        } catch (\Exception $e) {
+            $conn->rollback();
+            $this->logger->log($e, \Zend_Log::ERR);
+
+            return false;
+        }
+
+        return true;
+    }
+
+    /*
     public function update($modelId, $data)
     {
         try {
+            return $this->conn->update('Model', $data, array('ModelId' => $modelId));
+        } catch (\Exception $e) {
+            $this->logger->log($e, \Zend_Log::ERR);
+
+            return false;
+        }
+    }
+    */
+
+    public function update($modelId, $data, $attributes = null)
+    {
+        try {
+            if( $attributes )
+            {
+                $this->conn->delete('Attribute', array('ModelId' => $modelId));
+                foreach( $attributes as $attr)
+                {
+                    $attr['ModelId'] = $modelId;
+                    $this->conn->insert('Attribute', $attr);
+                }
+                
+            }
+            else
+            {
+                $this->conn->delete('Attribute', array('ModelId' => $modelId));
+            }
+
             return $this->conn->update('Model', $data, array('ModelId' => $modelId));
         } catch (\Exception $e) {
             $this->logger->log($e, \Zend_Log::ERR);
