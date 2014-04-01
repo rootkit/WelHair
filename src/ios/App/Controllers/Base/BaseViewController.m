@@ -67,44 +67,9 @@
     }
     if (self.navigationController) {
         [self.navigationController.navigationBar configureNavigationBarWithColor:[UIColor colorWithHexString:APP_NAVIGATIONBAR_COLOR]];
-        CGFloat navItemMargin = isIOS7 ? 16 : 0;
         
-        if (self.leftNavItemImg) {
-            UIButton *leftItemButton = [UIButton buttonWithType:UIButtonTypeCustom];
-            leftItemButton.frame = CGRectMake(0, 0, kTopBarHeight, kTopBarHeight);
-            [leftItemButton addTarget:self action:@selector(leftNavItemClick) forControlEvents:UIControlEventTouchUpInside];
-            [leftItemButton setImage:self.leftNavItemImg forState:UIControlStateNormal];
-            
-            UIView *leftItemView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, WIDTH(leftItemButton), HEIGHT(leftItemButton))];
-            [leftItemView addSubview:leftItemButton];
-            
-            self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:leftItemView];
-            
-            UIBarButtonItem *negativeSpacer = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
-            [negativeSpacer setWidth:-navItemMargin];
-            self.navigationItem.leftBarButtonItems = [NSArray arrayWithObjects:negativeSpacer, self.navigationItem.leftBarButtonItem, nil];
-        }else if(self.leftNavItemTitle.length >0){
-            [self setNavLeftTitle:self.leftNavItemTitle];
-        }
-        
-        if (self.rightNavItemImg) {
-            UIButton *rightItemButton = [UIButton buttonWithType:UIButtonTypeCustom];
-            UIImageView *img = [[UIImageView alloc] initWithImage:self.rightNavItemImg];
-            rightItemButton.frame = CGRectMake(0, 0, img.frame.size.width, img.frame.size.height);
-            [rightItemButton addTarget:self action:@selector(rightNavItemClick) forControlEvents:UIControlEventTouchUpInside];
-            [rightItemButton setImage:_rightNavItemImg forState:UIControlStateNormal];
-            
-            UIView *rightItemView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, WIDTH(rightItemButton), HEIGHT(rightItemButton))];
-            [rightItemView addSubview:rightItemButton];
-            
-            self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:rightItemView];
-            
-            UIBarButtonItem *negativeSpacer = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
-            [negativeSpacer setWidth:-navItemMargin];
-            self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects: self.navigationItem.rightBarButtonItem,negativeSpacer, nil];
-        }else if(self.rightNavItemTitle.length >0){
-            [self setNavRightTitle:self.rightNavItemTitle];
-        }
+        [self setLeftNavButtonTitle:self.leftNavItemTitle buttonImg:self.leftNavItemImg];
+        [self setRightNavButtonTitle:self.rightNavItemTitle buttonImg:self.rightNavItemImg];
     }
 }
 
@@ -133,43 +98,57 @@
     return height;
 }
 
-- (void)setNavLeftTitle:(NSString *)leftNavTitle
+- (void)setLeftNavButtonTitle:(NSString *)title
+                 buttonImg:(UIImage *)img
 {
     CGFloat navItemMargin = isIOS7 ? 16 : 0;
     UIButton *leftItemButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    leftItemButton.frame = CGRectMake(0, 0, 100, kTopBarHeight);
-    leftItemButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+
     [leftItemButton addTarget:self action:@selector(leftNavItemClick) forControlEvents:UIControlEventTouchUpInside];
-    [leftItemButton setTitle:leftNavTitle forState:UIControlStateNormal];
+    if(title.length > 0){
+        leftItemButton.frame = CGRectMake(6, 0, 80, kTopBarHeight);
+        leftItemButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+        [leftItemButton setTitle:title forState:UIControlStateNormal];
+    }else{
+        leftItemButton.frame = CGRectMake(0, 0, kTopBarHeight, kTopBarHeight);
+        [leftItemButton setImage:img forState:UIControlStateNormal];
+    }
     UIView *leftItemView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, WIDTH(leftItemButton), HEIGHT(leftItemButton))];
     [leftItemView addSubview:leftItemButton];
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:leftItemView];
     UIBarButtonItem *negativeSpacer = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
     [negativeSpacer setWidth:-navItemMargin];
     self.navigationItem.leftBarButtonItems = [NSArray arrayWithObjects:negativeSpacer, self.navigationItem.leftBarButtonItem, nil];
-
 }
 
-- (void)setNavRightTitle:(NSString *)rightNavTitle
+- (void)setRightNavButtonTitle:(NSString *)title
+                    buttonImg:(UIImage *)img
 {
     CGFloat navItemMargin = isIOS7 ? 16 : 0;
     UIButton *rightItemButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    rightItemButton.frame = CGRectMake(0, 0, 100, kTopBarHeight);
-    rightItemButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
-    [rightItemButton addTarget:self action:@selector(rightNavItemClick) forControlEvents:UIControlEventTouchUpInside];
-    [rightItemButton setTitle:rightNavTitle forState:UIControlStateNormal];
     
+    [rightItemButton addTarget:self action:@selector(rightNavItemClick) forControlEvents:UIControlEventTouchUpInside];
+    if(title.length > 0){
+        rightItemButton.frame = CGRectMake(-6, 0, 80, kTopBarHeight);
+        rightItemButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
+        [rightItemButton setTitle:title forState:UIControlStateNormal];
+    }else{
+        rightItemButton.frame = CGRectMake(0, 0, kTopBarHeight, kTopBarHeight);
+        [rightItemButton setImage:img forState:UIControlStateNormal];
+    }
     UIView *rightItemView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, WIDTH(rightItemButton), HEIGHT(rightItemButton))];
     [rightItemView addSubview:rightItemButton];
-    
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:rightItemView];
     UIBarButtonItem *negativeSpacer = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
     [negativeSpacer setWidth:-navItemMargin];
-    self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects: self.navigationItem.rightBarButtonItem,negativeSpacer, nil];
+    self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:negativeSpacer,self.navigationItem.rightBarButtonItem, nil];
 }
 
 - (void)setTopLeftCityName
 {
+#if TARGET_IPHONE_SIMULATOR
+    self.leftNavItemTitle = @"济南";
+#else
     City *selectedCity = [[CityManager SharedInstance] getSelectedCity];
     if(selectedCity.id > 0){
         self.leftNavItemTitle = selectedCity.name;
@@ -186,12 +165,13 @@
             }];
         }
     }
+#endif
 }
 
 - (void)setTopLeftLoading
 {
     CGFloat navItemMargin = isIOS7 ? 16 : 0;
-    UIView *leftItemView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 100, kTopBarHeight)];
+    UIView *leftItemView = [[UIView alloc] initWithFrame:CGRectMake(10, 0, 100, kTopBarHeight)];
     UIActivityIndicatorView *loadingView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite ];
     loadingView.frame = CGRectMake(0, 10, 25, 25);
     [loadingView startAnimating];

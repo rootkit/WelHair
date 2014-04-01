@@ -57,15 +57,17 @@
     line.hidden = YES;
     [self.view addSubview:line];
     
-    UIToolbar *bottomTool = [[UIToolbar alloc] initWithFrame:CGRectMake(0,
-                                                                        HEIGHT(self.view) - kToolBarHeight,
-                                                                        WIDTH(self.view),
-                                                                        kToolBarHeight)];
-    UIBarButtonItem *leftFelixBarItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:self action:nil];
-    UIBarButtonItem *cancelBarItem = [[UIBarButtonItem alloc]  initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(cancel)];
-    UIBarButtonItem *rightFelixBarItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:self action:nil];
-    [bottomTool setItems:@[leftFelixBarItem,cancelBarItem,rightFelixBarItem]];
-    [self.view addSubview:bottomTool];
+
+    UIButton *cancelBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    cancelBtn.frame =CGRectMake(0,
+                              HEIGHT(self.view) - kToolBarHeight,
+                              WIDTH(self.view),
+                              kToolBarHeight);
+    cancelBtn.backgroundColor = [UIColor lightGrayColor];
+    [cancelBtn setTitle:@"取消" forState:UIControlStateNormal];
+    cancelBtn.titleLabel.font = [UIFont systemFontOfSize:16];
+    [cancelBtn addTarget:self action:@selector(cancel) forControlEvents:UIControlEventTouchDown];
+    [self.view addSubview:cancelBtn];
 }
 
 - (void)viewDidAppear:(BOOL)animated

@@ -154,7 +154,6 @@ static const   float profileViewHeight = 320;
     
     self.imgSlider = [[JOLImageSlider alloc] initWithFrame:CGRectMake(0, 0, WIDTH(self.view), WIDTH(self.view))];
     self.imgSlider.delegate = self;
-    [self.imgSlider setAutoSlide: YES];
     [self.imgSlider setContentMode: UIViewContentModeScaleAspectFill];
     [headerView_ addSubview:self.imgSlider];
 
