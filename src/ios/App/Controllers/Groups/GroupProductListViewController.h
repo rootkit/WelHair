@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-@interface GroupProductListViewController : UIViewController
+@interface GroupProductListViewController : BaseViewController
+
+@property (nonatomic, strong) NSArray *datasource;
 
 @end

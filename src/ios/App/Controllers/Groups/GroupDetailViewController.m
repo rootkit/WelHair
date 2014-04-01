@@ -16,14 +16,13 @@
 #import "MapViewController.h"
 #import "JOLImageSlider.h"
 #import "MapPickerViewController.h"
-#import "GroupDetailInfoTableViewDelegate.h"
-#import "GroupDetailStaffTableViewDelegate.h"
 #import "UMSocial.h"
 #import <CoreGraphics/CoreGraphics.h>
 #import "MWPhotoBrowser.h"
 #import "GroupStaffCell.h"
 #import "Group.h"
-
+#import "GroupProductListViewController.h"
+#import "GroupStaffListViewController.h"
 
 @interface GroupDetailViewController()<MapPickViewDelegate,UITableViewDataSource,UITableViewDelegate,UMSocialUIDelegate,JOLImageSliderDelegate,MWPhotoBrowserDelegate>
 @property (nonatomic, strong) UIScrollView *scrollView;
@@ -37,11 +36,10 @@
 
 @property (nonatomic, strong) UIButton *detailTabBtn;
 @property (nonatomic, strong) UIButton *staffTabBtn;
+@property (nonatomic, strong) UIButton *productTabBtn;
 @property (nonatomic, strong) Group *groupData;
-@property (nonatomic, strong) NSArray *datasource;
 @property (nonatomic, strong) UITableView *tableView;
 
-@property (nonatomic) BOOL staffTabSelected;
 
 @end
 static const   float profileViewHeight = 320;
@@ -203,38 +201,50 @@ static const   float profileViewHeight = 320;
     [addressView addSubview:self.distanceLbl];
 
     
-    UIView *tabView = [[UIView alloc] initWithFrame:CGRectMake(0, MaxY(addressView), WIDTH(headerView_), tabButtonViewHeight)];
+    UIView *tabView = [[UIView alloc] initWithFrame:CGRectMake(20, MaxY(addressView) + 10, WIDTH(headerView_) - 40, 30)];
+    UIColor *tabViewColor =[UIColor colorWithHexString:APP_NAVIGATIONBAR_COLOR] ;
     [headerView_ addSubview:tabView];
+    tabView.backgroundColor = [UIColor clearColor];
+    tabView.layer.borderColor = [tabViewColor CGColor];
+    tabView.layer.borderWidth = 1;
+    tabView.layer.cornerRadius = 5;
     
     self.detailTabBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    self.detailTabBtn.frame = CGRectMake(20,  10, 140,30);
+    self.detailTabBtn.frame = CGRectMake(0,0,280/3,30);
     [self.detailTabBtn setTitle:@"基本信息" forState:UIControlStateNormal];
-    self.detailTabBtn.backgroundColor = [UIColor colorWithHexString:APP_NAVIGATIONBAR_COLOR];
-    self.detailTabBtn.layer.borderColor = [[UIColor lightGrayColor] CGColor];
-    self.detailTabBtn.layer.borderWidth = 1;
-    self.detailTabBtn.layer.cornerRadius = 3;
-    self.detailTabBtn.titleLabel.font = [UIFont systemFontOfSize:14];
-    [self.detailTabBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    self.detailTabBtn.tag = 0;
+    [self.detailTabBtn setTitleColor:tabViewColor forState:UIControlStateNormal];
+    self.detailTabBtn.titleLabel.font = [UIFont systemFontOfSize:12];
     [self.detailTabBtn addTarget:self action:@selector(tabClicked:) forControlEvents:UIControlEventTouchDown];
+    self.detailTabBtn.tag = 0;
     [tabView addSubview:self.detailTabBtn];
     
+    UIView *separatorView1 = [[UIView alloc] initWithFrame:CGRectMake(MaxX(self.detailTabBtn),0, 1, HEIGHT(tabView))];
+    separatorView1.backgroundColor = tabViewColor;
+    [tabView addSubview:separatorView1];
+    
     self.staffTabBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    self.staffTabBtn.frame = CGRectMake(MaxX(self.detailTabBtn)-1,  10, 140,30);
-    self.staffTabBtn.layer.borderColor = [[UIColor lightGrayColor] CGColor];
-    self.staffTabBtn.layer.borderWidth = 1;
-    self.staffTabBtn.titleLabel.font = [UIFont systemFontOfSize:14];
-    self.staffTabBtn.layer.cornerRadius = 3;
+    self.staffTabBtn.frame = CGRectMake(MaxX(self.detailTabBtn)+1,0,280/3,30);
+    self.staffTabBtn.titleLabel.font = [UIFont systemFontOfSize:12];
     [self.staffTabBtn setTitle:@"设计师(100)" forState:UIControlStateNormal];
-    self.staffTabBtn.backgroundColor = [UIColor whiteColor];
-    [self.staffTabBtn setTitleColor:[UIColor colorWithHexString:APP_NAVIGATIONBAR_COLOR] forState:UIControlStateNormal];
-    self.staffTabBtn.tag = 1;
-    [self.staffTabBtn addTarget:self action:@selector(tabClicked:) forControlEvents:UIControlEventTouchDown];
+    [self.staffTabBtn setTitleColor:tabViewColor forState:UIControlStateNormal];
+    [self.staffTabBtn addTarget:self action:@selector(tabClicked:) forControlEvents:UIControlEventTouchDown];       self.staffTabBtn.tag = 1;
     [tabView addSubview:self.staffTabBtn];
+    
+    UIView *separatorView2 = [[UIView alloc] initWithFrame:CGRectMake(MaxX(self.staffTabBtn),0, 1, HEIGHT(tabView))];
+    separatorView2.backgroundColor = tabViewColor;
+    [tabView addSubview:separatorView2];
+    
+    self.productTabBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    self.productTabBtn.frame = CGRectMake(MaxX(self.staffTabBtn)+1,0,280/3,30);
+    [self.productTabBtn setTitle:@"商品" forState:UIControlStateNormal];
+    self.productTabBtn.titleLabel.font = [UIFont systemFontOfSize:12];
+    [self.productTabBtn setTitleColor:tabViewColor forState:UIControlStateNormal];
+    self.productTabBtn.titleLabel.textColor = tabViewColor;
+    [self.productTabBtn addTarget:self action:@selector(tabClicked:) forControlEvents:UIControlEventTouchDown];       self.productTabBtn.tag = 2;
+    [tabView addSubview:self.productTabBtn];
+    
     self.tableView.tableHeaderView = headerView_;
-    self.datasource = [FakeDataHelper getFakeStaffList];
     self.groupData = [FakeDataHelper getFakeGroup];
-
 }
 
 - (void)viewDidLoad
@@ -252,7 +262,6 @@ static const   float profileViewHeight = 320;
     for (NSString *item in self.groupData.imgUrls){
         [self.groupImgs addObject:[MWPhoto photoWithURL:[NSURL URLWithString:item]]];
     }
-
 }
 
 - (void)didReceiveMemoryWarning
@@ -261,37 +270,23 @@ static const   float profileViewHeight = 320;
     // Dispose of any resources that can be recreated.
 }
 
-
-
 - (void)tabClicked:(id)sender
 {
     UIButton *btn = (UIButton *)sender;
-    if(btn == self.detailTabBtn){
-        if(self.staffTabSelected == NO)
-            return;
-        self.detailTabBtn.backgroundColor = [UIColor colorWithHexString:APP_NAVIGATIONBAR_COLOR];
-        [self.detailTabBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        self.staffTabBtn.backgroundColor = [UIColor whiteColor];
-        [self.staffTabBtn setTitleColor:[UIColor colorWithHexString:APP_NAVIGATIONBAR_COLOR] forState:UIControlStateNormal];
-        self.staffTabSelected = NO;
-        [self.tableView reloadData];
-    }else{
-        if(self.staffTabSelected == YES)
-            return;
-        self.staffTabBtn.backgroundColor = [UIColor colorWithHexString:APP_NAVIGATIONBAR_COLOR];
-        [self.staffTabBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        self.detailTabBtn.backgroundColor = [UIColor whiteColor];
-        [self.detailTabBtn setTitleColor:[UIColor colorWithHexString:APP_NAVIGATIONBAR_COLOR] forState:UIControlStateNormal];
-        self.staffTabSelected = YES;
-        [self.tableView reloadData];
+    if(btn == self.staffTabBtn){
+        GroupStaffListViewController *vc = [GroupStaffListViewController new];
+        vc.datasource = [NSMutableArray arrayWithArray:[FakeDataHelper getFakeStaffList]];
+        [self.navigationController pushViewController:vc animated:YES];
+    }else if(btn == self.productTabBtn){
+        GroupProductListViewController *vc = [GroupProductListViewController new];
+        vc.datasource = [NSMutableArray arrayWithArray:[FakeDataHelper getFakeProductList]];
+        [self.navigationController pushViewController:vc animated:YES];
     }
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
-
     CGFloat yOffset   = scrollView.contentOffset.y;
-    
     if (yOffset < 0) {
         CGFloat factor = ((ABS(yOffset) + 320) * 320) / profileViewHeight;
         CGRect f = CGRectMake(-(factor - 320) / 2, self.topBarOffset, factor, profileViewHeight + ABS(yOffset));
@@ -301,11 +296,6 @@ static const   float profileViewHeight = 320;
         f.origin.y = -yOffset + self.topBarOffset;
         self.headerBackgroundView.frame = f;
     }
-}
-
-- (void)staffClick
-{
-    [self.navigationController pushViewController:[StaffDetailViewController new] animated:YES];
 }
 
 - (void)mapClick
@@ -333,17 +323,11 @@ static const   float profileViewHeight = 320;
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    if(self.staffTabSelected){
-        return self.datasource.count;
-    }else{
-        return 2;
-    }
-
+    return 2;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if(!self.staffTabSelected){
         UITableViewCell * cell =  [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
         if(indexPath.row == 0){
             cell.textLabel.text = @"地址：高新区舜华北路舜泰广场2号楼";
@@ -366,29 +350,12 @@ static const   float profileViewHeight = 320;
             cell.accessoryView = locationImgView;
             return cell;
         }
-
-    }else{
-        static NSString * cellIdentifier = @"StaffCellIdentifier";
-        GroupStaffCell * cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
-        if (!cell) {
-            cell = [[GroupStaffCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
-            cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        }
-        Staff *staff = [self.datasource objectAtIndex:indexPath.row];
-        [cell setup:staff];
-        
-        return cell;
-    }
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if(self.staffTabSelected){
-        [self staffClick];
-    }else{
-        if(indexPath.row == 0){
-            [self mapClick];
-        }
+    if(indexPath.row == 0){
+        [self mapClick];
     }
 }
 

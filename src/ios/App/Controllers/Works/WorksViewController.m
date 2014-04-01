@@ -78,14 +78,7 @@
 - (void)didPickCity:(City *)city
 {
     [[CityManager SharedInstance] setSelectedCity:city.id];
-
-    UIButton *leftItemButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    leftItemButton.frame = CGRectMake(0, 0, 100, kTopBarHeight);
-    leftItemButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
-    [leftItemButton addTarget:self action:@selector(leftNavItemClick) forControlEvents:UIControlEventTouchUpInside];
-    [leftItemButton setTitle:city.name forState:UIControlStateNormal];
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:leftItemButton];
-    self.navigationItem.leftBarButtonItem.tintColor = [UIColor clearColor];
+    [self setTopLeftCityName];
 }
 
 - (void)viewWillAppear:(BOOL)animated

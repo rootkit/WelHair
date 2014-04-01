@@ -159,8 +159,6 @@
 		461B0C6F18DC3BD700E0DAF5 /* UploadWorkViewControl_UploadBg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 461B0C3D18DC3BD700E0DAF5 /* UploadWorkViewControl_UploadBg@2x.png */; };
 		461B0C7018DC3BD700E0DAF5 /* UserViewControl_TabBg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 461B0C3E18DC3BD700E0DAF5 /* UserViewControl_TabBg@2x.png */; };
 		461B0C7118DC3BD700E0DAF5 /* WD_AuthorLayerBg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 461B0C4018DC3BD700E0DAF5 /* WD_AuthorLayerBg@2x.png */; };
-		462F845818CDF77700CADA98 /* GroupDetailInfoTableViewDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 462F845718CDF77700CADA98 /* GroupDetailInfoTableViewDelegate.m */; };
-		462F845B18CDF78D00CADA98 /* GroupDetailStaffTableViewDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 462F845A18CDF78D00CADA98 /* GroupDetailStaffTableViewDelegate.m */; };
 		4630251518C76EF1000E0B51 /* CalendarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4630251418C76EF1000E0B51 /* CalendarViewController.m */; };
 		4630252E18C848EB000E0B51 /* WorkCardView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4630252D18C848EB000E0B51 /* WorkCardView.m */; };
 		4630253118C849FD000E0B51 /* Staff.m in Sources */ = {isa = PBXBuildFile; fileRef = 4630253018C849FD000E0B51 /* Staff.m */; };
@@ -207,6 +205,8 @@
 		465A5C8B18DB0B8D009B6D60 /* MyScoreCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 465A5C8A18DB0B8D009B6D60 /* MyScoreCell.m */; };
 		465D2D3218E98B8C009E4CD8 /* BaiduMapHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 465D2D3118E98B8C009E4CD8 /* BaiduMapHelper.m */; };
 		465D2E3218EA8B68009E4CD8 /* ToggleButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 465D2E3118EA8B68009E4CD8 /* ToggleButton.m */; };
+		465D2E3818EAA5FE009E4CD8 /* GroupProductListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 465D2E3718EAA5FE009E4CD8 /* GroupProductListViewController.m */; };
+		465D2E3B18EAA60B009E4CD8 /* GroupStaffListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 465D2E3A18EAA60B009E4CD8 /* GroupStaffListViewController.m */; };
 		4660E69018BB73E1005B3C7D /* ProductsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4660E68F18BB73E1005B3C7D /* ProductsViewController.m */; };
 		4660E69618BB73FF005B3C7D /* UserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4660E69518BB73FF005B3C7D /* UserViewController.m */; };
 		4660E6AB18BB7666005B3C7D /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4660E6AA18BB7666005B3C7D /* CoreText.framework */; };
@@ -510,10 +510,6 @@
 		461B0C3D18DC3BD700E0DAF5 /* UploadWorkViewControl_UploadBg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "UploadWorkViewControl_UploadBg@2x.png"; sourceTree = "<group>"; };
 		461B0C3E18DC3BD700E0DAF5 /* UserViewControl_TabBg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "UserViewControl_TabBg@2x.png"; sourceTree = "<group>"; };
 		461B0C4018DC3BD700E0DAF5 /* WD_AuthorLayerBg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "WD_AuthorLayerBg@2x.png"; sourceTree = "<group>"; };
-		462F845618CDF77700CADA98 /* GroupDetailInfoTableViewDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroupDetailInfoTableViewDelegate.h; sourceTree = "<group>"; };
-		462F845718CDF77700CADA98 /* GroupDetailInfoTableViewDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GroupDetailInfoTableViewDelegate.m; sourceTree = "<group>"; };
-		462F845918CDF78D00CADA98 /* GroupDetailStaffTableViewDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroupDetailStaffTableViewDelegate.h; sourceTree = "<group>"; };
-		462F845A18CDF78D00CADA98 /* GroupDetailStaffTableViewDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GroupDetailStaffTableViewDelegate.m; sourceTree = "<group>"; };
 		4630251318C76EF1000E0B51 /* CalendarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CalendarViewController.h; sourceTree = "<group>"; };
 		4630251418C76EF1000E0B51 /* CalendarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CalendarViewController.m; sourceTree = "<group>"; };
 		4630252C18C848EB000E0B51 /* WorkCardView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WorkCardView.h; sourceTree = "<group>"; };
@@ -669,6 +665,10 @@
 		465D2D3118E98B8C009E4CD8 /* BaiduMapHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaiduMapHelper.m; sourceTree = "<group>"; };
 		465D2E3018EA8B68009E4CD8 /* ToggleButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ToggleButton.h; sourceTree = "<group>"; };
 		465D2E3118EA8B68009E4CD8 /* ToggleButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ToggleButton.m; sourceTree = "<group>"; };
+		465D2E3618EAA5FE009E4CD8 /* GroupProductListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroupProductListViewController.h; sourceTree = "<group>"; };
+		465D2E3718EAA5FE009E4CD8 /* GroupProductListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GroupProductListViewController.m; sourceTree = "<group>"; };
+		465D2E3918EAA60B009E4CD8 /* GroupStaffListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroupStaffListViewController.h; sourceTree = "<group>"; };
+		465D2E3A18EAA60B009E4CD8 /* GroupStaffListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GroupStaffListViewController.m; sourceTree = "<group>"; };
 		4660E68E18BB73E1005B3C7D /* ProductsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProductsViewController.h; sourceTree = "<group>"; };
 		4660E68F18BB73E1005B3C7D /* ProductsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProductsViewController.m; sourceTree = "<group>"; };
 		4660E69418BB73FF005B3C7D /* UserViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserViewController.h; sourceTree = "<group>"; };
@@ -1946,10 +1946,10 @@
 				46BCD25E18BC725D005C4BD6 /* GroupsViewController.m */,
 				46BCD26718BC797B005C4BD6 /* GroupDetailViewController.h */,
 				46BCD26818BC797B005C4BD6 /* GroupDetailViewController.m */,
-				462F845618CDF77700CADA98 /* GroupDetailInfoTableViewDelegate.h */,
-				462F845718CDF77700CADA98 /* GroupDetailInfoTableViewDelegate.m */,
-				462F845918CDF78D00CADA98 /* GroupDetailStaffTableViewDelegate.h */,
-				462F845A18CDF78D00CADA98 /* GroupDetailStaffTableViewDelegate.m */,
+				465D2E3618EAA5FE009E4CD8 /* GroupProductListViewController.h */,
+				465D2E3718EAA5FE009E4CD8 /* GroupProductListViewController.m */,
+				465D2E3918EAA60B009E4CD8 /* GroupStaffListViewController.h */,
+				465D2E3A18EAA60B009E4CD8 /* GroupStaffListViewController.m */,
 			);
 			path = Groups;
 			sourceTree = "<group>";
@@ -2418,7 +2418,6 @@
 				46B25AED18C086D30035F425 /* WorkCell.m in Sources */,
 				183B03CD18E110F500765116 /* ABMGroupedTableView.m in Sources */,
 				182F9F6318E976D2001AF49D /* UIScrollView+SVPullToRefresh.m in Sources */,
-				462F845B18CDF78D00CADA98 /* GroupDetailStaffTableViewDelegate.m in Sources */,
 				184B82FB18DAC7F000177BAB /* UIColor+JSMessagesView.m in Sources */,
 				46E84EDA18C337D70004C146 /* OpitionItem.m in Sources */,
 				467F0F2218CC7939009FFE08 /* DropDownView.m in Sources */,
@@ -2440,7 +2439,6 @@
 				46E84ECE18C2DB930004C146 /* UIViewController+KNSemiModal.m in Sources */,
 				18A912E218BB26B6006B9A04 /* BaseViewController.m in Sources */,
 				184B82C918DAC7F000177BAB /* JSMessagesViewController.m in Sources */,
-				462F845818CDF77700CADA98 /* GroupDetailInfoTableViewDelegate.m in Sources */,
 				184B82FA18DAC7F000177BAB /* UIButton+JSMessagesView.m in Sources */,
 				18A3E61C18DC14BB0080DC0B /* Util.m in Sources */,
 				460C2F2A18C8BFFF00AD16E6 /* Comment.m in Sources */,
@@ -2477,6 +2475,7 @@
 				4651D97918DE7294004AC95A /* SettingManager.m in Sources */,
 				4659D28718E7EB82005648C0 /* AddressCell.m in Sources */,
 				4660E69618BB73FF005B3C7D /* UserViewController.m in Sources */,
+				465D2E3B18EAA60B009E4CD8 /* GroupStaffListViewController.m in Sources */,
 				4673BB8C18D417EE000F64DE /* GroupManageViewController.m in Sources */,
 				467F0EAF18CB0F54009FFE08 /* BaseModel.m in Sources */,
 				465D2E3218EA8B68009E4CD8 /* ToggleButton.m in Sources */,
@@ -2488,6 +2487,7 @@
 				184B82FD18DAC7F000177BAB /* UIView+AnimationOptionsForCurve.m in Sources */,
 				4631CF1C18E3284C00F39814 /* OrderDetailViewController.m in Sources */,
 				4651D97818DE7294004AC95A /* BaseManager.m in Sources */,
+				465D2E3818EAA5FE009E4CD8 /* GroupProductListViewController.m in Sources */,
 				184B82C718DAC7F000177BAB /* JSMessageInputView.m in Sources */,
 				467F0EEE18CB4FCF009FFE08 /* UIImage+WelKit.m in Sources */,
 				18A3E61618DC10050080DC0B /* NSString+WelKit.m in Sources */,

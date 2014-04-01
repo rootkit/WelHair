@@ -8,6 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
-@interface GroupStaffListViewController : UIViewController
+@interface GroupStaffListViewController : BaseViewController
+
+@property (nonatomic, strong) NSArray *datasource;
+
 
 @end
