@@ -19,11 +19,12 @@ use Welfony\Repository\Base\AbstractRepository;
 class GoodsRepository extends AbstractRepository
 {
 
-    public function getAllUsersCount()
+    public function getAllGoodsCount()
     {
         $strSql = "SELECT
                        COUNT(1) `Total`
-                   FROM Users
+                   FROM Goods
+                   WHERE IsDeleted = 0
                    LIMIT 1";
 
         $row = $this->conn->fetchAssoc($strSql);
@@ -31,32 +32,46 @@ class GoodsRepository extends AbstractRepository
         return $row['Total'];
     }
 
-    public function findUserByEmail($email)
+    public function getAllGoods()
     {
         $strSql = 'SELECT
                        *
-                   FROM Users U
-                   WHERE U.Email = ?
-                   LIMIT 1';
+                   FROM Goods
+                   WHERE IsDeleted = 0
+                  ';
 
-        return $this->conn->fetchAssoc($strSql, array($email));
+        return $this->conn->fetchAll($strSql);
     }
 
-    public function findUserByMobile($mobile)
+    public function listGoods( $pageNumber, $pageSize)
+    {
+
+        $offset = ($pageNumber - 1) * $pageSize;
+        $strSql = "  SELECT *
+                     FROM Goods
+                     WHERE IsDeleted = 0
+                     ORDER BY GoodsId
+                     LIMIT $offset, $pageSize ";
+
+        return $this->conn->fetchAll($strSql);
+
+    }
+
+    public function findGoodsById($id)
     {
         $strSql = 'SELECT
                        *
-                   FROM Users U
-                   WHERE U.Mobile = ?
+                   FROM Goods
+                   WHERE GoodsId = ? 
                    LIMIT 1';
 
-        return $this->conn->fetchAssoc($strSql, array($mobile));
+        return $this->conn->fetchAssoc($strSql, array($id));
     }
 
     public function save($data)
     {
         try {
-            if ($this->conn->insert('Users', $data)) {
+            if ($this->conn->insert('Goods', $data)) {
                 return $this->conn->lastInsertId();
             }
         } catch (\Exception $e) {
@@ -68,10 +83,10 @@ class GoodsRepository extends AbstractRepository
         return false;
     }
 
-    public function update($userId, $data)
+    public function update($goodsId, $data)
     {
         try {
-            return $this->conn->update('Users', $data, array('UserId' => $userId));
+            return $this->conn->update('Goods', $data, array('GoodsId' => $goodsId));
         } catch (\Exception $e) {
             $this->logger->log($e, \Zend_Log::ERR);
 
@@ -79,4 +94,14 @@ class GoodsRepository extends AbstractRepository
         }
     }
 
+    public function delete($goodsId)
+    {
+        try {
+            return $this->conn->executeUpdate(" UPDATE Goods SET IsDeleted = 1 WHERE GoodsId  = $goodsId; ");
+        } catch (\Exception $e) {
+            $this->logger->log($e, \Zend_Log::ERR);
+
+            return false;
+        }
+    }
 }

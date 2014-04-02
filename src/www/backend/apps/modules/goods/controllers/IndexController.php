@@ -13,66 +13,74 @@
 // ==============================================================================
 
 use Welfony\Controller\Base\AbstractAdminController;
+use Welfony\Service\GoodsService;
+use Welfony\Service\CategoryService;
 
 class Goods_IndexController extends AbstractAdminController
 {
 
+    const GOODS_PREFIX = 'SD';
     public function searchAction()
     {
         $this->view->pageTitle = '商品列表';
+         $pageSize = 10;
+        $page =  intval($this->_request->getParam('page'));
+
+        $page =  $page<=0? 1 : $page;
+
+        $result = GoodsService::listGoods($page, $pageSize);
+
+        $this->view->rows = $result['goods'];
+
+        $this->view->pagerHTML =  $this->renderPager($this->view->baseUrl('/goods/index/search?'),
+                                                     $page,
+                                                     ceil($result['total'] / $pageSize));
     }
 
     public function infoAction()
     {
-    	/*
-        $this->view->pageTitle = '会员信息';
+        $this->view->pageTitle = '添加商品';
+    	$this->view->defaultgoodsno= self::GOODS_PREFIX.time().rand(10,99);
+        $this->view->categories=CategoryService::listAllCategory();
 
-        $userId = intval($this->_request->getParam('user_id'));
 
-        $user = array(
-            'UserId' => 0,
-            'Username' => Util::genRandomUsername(),
-            'Nickname' => '',
-            'Email' => '',
-            'Mobile' => '',
-            'AvatarUrl' => Util::baseAssetUrl('img/avatar-default.jpg')
+        $goodsId = $this->_request->getParam('goods_id')?  intval($this->_request->getParam('goods_id')) : 0;
+
+
+        $goods = array(
+            'GoodsId' => $goodsId,
+            'Name' => '',
+            'IsDeleted' => 0,
+            'Keywords' => '',
         );
 
+
         if ($this->_request->isPost()) {
-            $userRole = intval($this->_request->getParam('user_role'));
-            $username = htmlspecialchars($this->_request->getParam('username'));
-            $nickname = htmlspecialchars($this->_request->getParam('nickname'));
-            $email = htmlspecialchars($this->_request->getParam('email'));
-            $password = htmlspecialchars($this->_request->getParam('password'));
-            $passwordRepeate = htmlspecialchars($this->_request->getParam('password_repeate'));
-            $mobile = htmlspecialchars($this->_request->getParam('mobile'));
-            $avatarUrl = $this->_request->getParam('avatar_url');
+            $goods['Name']= htmlspecialchars($this->_request->getParam('name'));
+     
 
-            $user['Username'] = $username;
-            $user['Role'] = $userRole;
-            $user['Password'] = $password;
-            $user['Nickname'] = $nickname;
-            $user['Email'] = $email;
-            $user['Mobile'] = $mobile;
-            $user['AvatarUrl'] = $avatarUrl;
 
-            $result = UserService::save($user);
+            $result = GoodsService::save($goods);
             if ($result['success']) {
 
+            
+                $this->view->successMessage = '保存商品成功！';
             } else {
-
+                $this->view->errorMessage = $result['message'];
             }
         } else {
-            if ($userId > 0) {
 
-            } else {
-                $user['AvatarOriginalUrl'] = '';
-                $user['AvatarThumb110Url'] = '';
+            
+            if ($goodsId > 0) {
+                $goods = GoodsService::getGoodsById($goodsId);
+                $this->view->goodscategories=CategoryService::listAllCategoryByGoods($goodsId);
+                if (!$goods) {
+                    // process not exist logic;
+                }
             }
         }
 
-        $this->view->userInfo = $user;
-        */
+        $this->view->goodsInfo = $goods;
     }
 
 }

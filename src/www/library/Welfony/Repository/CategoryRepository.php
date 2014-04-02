@@ -43,6 +43,18 @@ class CategoryRepository extends AbstractRepository
         return $this->conn->fetchAll($strSql);
     }
 
+    public function getAllCategoryByGoods($goodsId)
+    {
+        $strSql = 'SELECT
+                       *
+                   FROM CategoryExtend CE
+                   JOIN Category C ON C.CategoryId = CE.CategoryId
+                   WHERE C.IsDeleted = 0 AND CE.GoodsId = $goodsId
+                  ';
+
+        return $this->conn->fetchAll($strSql);
+    }
+
     public function listCategory($pageNumber, $pageSize)
     {
 

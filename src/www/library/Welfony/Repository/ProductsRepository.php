@@ -19,11 +19,11 @@ use Welfony\Repository\Base\AbstractRepository;
 class ProductsRepository extends AbstractRepository
 {
 
-    public function getAllUsersCount()
+    public function getAllProductsCount()
     {
         $strSql = "SELECT
                        COUNT(1) `Total`
-                   FROM Users
+                   FROM Products
                    LIMIT 1";
 
         $row = $this->conn->fetchAssoc($strSql);
@@ -31,32 +31,44 @@ class ProductsRepository extends AbstractRepository
         return $row['Total'];
     }
 
-    public function findUserByEmail($email)
+    public function getAllProducts()
     {
         $strSql = 'SELECT
                        *
-                   FROM Users U
-                   WHERE U.Email = ?
-                   LIMIT 1';
+                   FROM Products
+                  ';
 
-        return $this->conn->fetchAssoc($strSql, array($email));
+        return $this->conn->fetchAll($strSql);
     }
 
-    public function findUserByMobile($mobile)
+    public function listProducts( $pageNumber, $pageSize)
+    {
+
+        $offset = ($pageNumber - 1) * $pageSize;
+        $strSql = "  SELECT *
+                     FROM Products
+                     ORDER BY ProductsId
+                     LIMIT $offset, $pageSize ";
+
+        return $this->conn->fetchAll($strSql);
+
+    }
+
+    public function findProductsById($id)
     {
         $strSql = 'SELECT
                        *
-                   FROM Users U
-                   WHERE U.Mobile = ?
+                   FROM Products
+                   WHERE ProductsId = ? 
                    LIMIT 1';
 
-        return $this->conn->fetchAssoc($strSql, array($mobile));
+        return $this->conn->fetchAssoc($strSql, array($id));
     }
 
     public function save($data)
     {
         try {
-            if ($this->conn->insert('Users', $data)) {
+            if ($this->conn->insert('Products', $data)) {
                 return $this->conn->lastInsertId();
             }
         } catch (\Exception $e) {
@@ -68,10 +80,10 @@ class ProductsRepository extends AbstractRepository
         return false;
     }
 
-    public function update($userId, $data)
+    public function update($productsId, $data)
     {
         try {
-            return $this->conn->update('Users', $data, array('UserId' => $userId));
+            return $this->conn->update('Products', $data, array('ProductsId' => $productsId));
         } catch (\Exception $e) {
             $this->logger->log($e, \Zend_Log::ERR);
 
@@ -79,4 +91,14 @@ class ProductsRepository extends AbstractRepository
         }
     }
 
+    public function delete($produtsId)
+    {
+        try {
+            return $this->conn->delete('Products',  array('ProductsId' => $productsId));
+        } catch (\Exception $e) {
+            $this->logger->log($e, \Zend_Log::ERR);
+
+            return false;
+        }
+    }
 }
