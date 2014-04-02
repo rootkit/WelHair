@@ -34,10 +34,10 @@ class WorkRepository extends AbstractRepository
         return $row['Total'];
     }
 
-    public function search($city, $gender, $hairStyle, $sort, $page, $pageSize)
+    public function search($currentUserId, $city, $gender, $hairStyle, $sort, $page, $pageSize)
     {
-        $strSql = "CALL spWorkSearch(?, ?, ?, ?, ?, ?);";
-        return $this->conn->fetchAll($strSql, array($city, $gender, $hairStyle, $sort, $page, $pageSize));
+        $strSql = "CALL spWorkSearch(?, ?, ?, ?, ?, ?, ?);";
+        return $this->conn->fetchAll($strSql, array($currentUserId, $city, $gender, $hairStyle, $sort, $page, $pageSize));
     }
 
     public function getAllWorksCount($staffId)

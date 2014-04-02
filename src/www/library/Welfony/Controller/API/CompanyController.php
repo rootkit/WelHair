@@ -30,7 +30,7 @@ class CompanyController extends AbstractAPIController
 
         $sort = intval($this->app->request->get('sort'));
 
-        $companyList = CompanyService::search($city, $district, $sort, $this->currentContext['Location'], $page, $pageSize);
+        $companyList = CompanyService::search($this->currentContext['UserId'], $city, $district, $sort, $this->currentContext['Location'], $page, $pageSize);
         $this->sendResponse($companyList);
     }
 

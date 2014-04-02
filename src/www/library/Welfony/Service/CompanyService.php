@@ -19,15 +19,22 @@ use Welfony\Repository\CompanyRepository;
 class CompanyService
 {
 
-    public static function search($city, $district, $sort, $location, $page, $pageSize)
+    public static function search($currentUserId, $city, $district, $sort, $location, $page, $pageSize)
     {
         $page = $page <= 0 ? 1 : $page;
         $pageSize = $pageSize <= 0 ? 20 : $pageSize;
 
         $total = CompanyRepository::getInstance()->searchCount($city, $district);
-        $companyList = CompanyRepository::getInstance()->search($city, $district, $sort, $location, $page, $pageSize);
+        $companyList = CompanyRepository::getInstance()->search($currentUserId, $city, $district, $sort, $location, $page, $pageSize);
 
-        return array('total' => $total, 'companies' => $companyList);
+        $companies = array();
+        foreach ($companyList as $company) {
+            $company['PictureUrl'] = json_decode($company['PictureUrl']);
+
+            $companies[] = $company;
+        }
+
+        return array('total' => $total, 'companies' => $companies);
     }
 
     public static function save($data)
