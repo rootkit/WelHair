@@ -25,6 +25,7 @@ class ErrorController extends Zend_Controller_Action
 
         if (!$errors) {
             $this->view->message = 'You have reached the error page';
+
             return;
         }
 

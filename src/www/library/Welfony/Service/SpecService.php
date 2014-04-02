@@ -69,12 +69,12 @@ class SpecService
 
     public static function listAllSpec()
     {
-        return $searchResult = SpecRepository::getInstance()->getAllSpec();   
+        return $searchResult = SpecRepository::getInstance()->getAllSpec();
     }
 
     public static function listAllSpecByModel($modelId)
     {
-        return $searchResult = SpecRepository::getInstance()->listAllSpecByModel($modelId);   
+        return $searchResult = SpecRepository::getInstance()->listAllSpecByModel($modelId);
     }
 
     public static function save($data)
@@ -117,7 +117,6 @@ class SpecService
         }
     }
 
-
     public static function deleteSpec($data)
     {
         $result = array('success' => false, 'message' => '');
@@ -126,6 +125,7 @@ class SpecService
 
             $result['success'] = true;
             $result['message'] = '删除规格成功！';
+
             return $result;
         } else {
             $result['message'] = '删除规格失败！';

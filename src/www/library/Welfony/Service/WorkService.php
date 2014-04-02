@@ -28,7 +28,7 @@ class WorkService
 
         $works = array();
         foreach ($workList as $work) {
-            $work['PictureUrl'] = json_decode($work['PictureUrl']);
+            $work['PictureUrl'] = json_decode($work['PictureUrl'], true);
             if (intval($work['CommentId']) > 0) {
                 $work['Comment'] = array(
                     'CommentId' => $work['CommentId'],
@@ -91,8 +91,7 @@ class WorkService
             return $result;
         }
 
-
-        $data['PictureUrl'] = json_encode($data['PictureUrl']);
+        $data['PictureUrl'] = json_encode($data['PictureUrl'], true);
 
         if ($data['WorkId'] == 0) {
             $data['CreatedDate'] = date('Y-m-d H:i:s');
@@ -129,7 +128,7 @@ class WorkService
         $workList = WorkRepository::getInstance()->getAllWorks($page, $pageSize, $staffId);
         $works = array();
         foreach ($workList as $work) {
-            $work['PictureUrl'] = json_decode($work['PictureUrl']);
+            $work['PictureUrl'] = json_decode($work['PictureUrl'], true);
             $works[] = $work;
         }
 

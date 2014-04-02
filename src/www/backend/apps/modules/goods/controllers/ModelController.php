@@ -16,7 +16,6 @@ use Welfony\Controller\Base\AbstractAdminController;
 use Welfony\Service\ModelService;
 use Welfony\Service\SpecService;
 use Welfony\Service\AttributeService;
-use Welfony\Utility\Util;
 
 class Goods_ModelController extends AbstractAdminController
 {
@@ -27,7 +26,6 @@ class Goods_ModelController extends AbstractAdminController
 
         $allspecs = SpecService::listAllSpec();
 
-      
         $this->view->allspec = $allspecs;
 
         $pageSize = 10;
@@ -47,9 +45,8 @@ class Goods_ModelController extends AbstractAdminController
     public function infoAction()
     {
         $this->view->pageTitle = '添加模型';
-    	
-        $modelId = $this->_request->getParam('model_id')?  intval($this->_request->getParam('model_id')) : 0;
 
+        $modelId = $this->_request->getParam('model_id')?  intval($this->_request->getParam('model_id')) : 0;
 
         $model = array(
             'ModelId' => $modelId,
@@ -58,37 +55,32 @@ class Goods_ModelController extends AbstractAdminController
             'IsDeleted' => 0
         );
 
-
         if ($this->_request->isPost()) {
             $this->_helper->viewRenderer->setNoRender(true);
             $this->_helper->layout->disableLayout();
             $model['Name']= htmlspecialchars($this->_request->getParam('name'));
             $model['SpecIds']= $this->_request->getParam('specids');
-            $model['IsDeleted']= '0';     
+            $model['IsDeleted']= '0';
 
             $attributes = array();
-            if( $this->_request->getParam('attributes'))
-            {
-                foreach( $this->_request->getParam('attributes') as $attr )
-                {
+            if ( $this->_request->getParam('attributes')) {
+                foreach ( $this->_request->getParam('attributes') as $attr ) {
                     $attributes[]= array(
                             "Name" => $attr['name'],
                             "Type" => $attr['type'],
                             "Search" => $attr['search'],
                             "Value" => $attr["value"]
                         );
-                }   
-            } 
-
+                }
+            }
 
             $result = ModelService::save($model, $attributes);
-            if ($result['success']) {            
+            if ($result['success']) {
                 $result['message'] = '保存模型成功！';
-            } 
+            }
             $this->_helper->json->sendJson($result);
         } else {
 
-            
             if ($modelId > 0) {
                 $this->view->specs = SpecService::listAllSpecByModel($modelId);
                 $this->view->attributes = AttributeService::listAllAttributeByModel($modelId);
@@ -102,8 +94,6 @@ class Goods_ModelController extends AbstractAdminController
         $this->view->modelInfo = $model;
     }
 
-
-
     public function deleteAction()
     {
         $this->_helper->viewRenderer->setNoRender(true);
@@ -114,12 +104,10 @@ class Goods_ModelController extends AbstractAdminController
         $model = array('ModelId' => $modelId);
 
         if ($this->_request->isPost()) {
-           
 
             $result = ModelService::deleteModel($model);
             $this->_helper->json->sendJson($result);
-        } 
+        }
     }
-
 
 }

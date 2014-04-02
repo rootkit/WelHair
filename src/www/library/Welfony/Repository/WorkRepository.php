@@ -37,6 +37,7 @@ class WorkRepository extends AbstractRepository
     public function search($currentUserId, $city, $gender, $hairStyle, $sort, $page, $pageSize)
     {
         $strSql = "CALL spWorkSearch(?, ?, ?, ?, ?, ?, ?);";
+
         return $this->conn->fetchAll($strSql, array($currentUserId, $city, $gender, $hairStyle, $sort, $page, $pageSize));
     }
 

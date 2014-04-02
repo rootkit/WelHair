@@ -14,8 +14,7 @@
 
 use Welfony\Controller\API\AreaController;
 
-$app->get('/areas', function() use($app)
-{
+$app->get('/areas', function () use ($app) {
     $ctrl = new AreaController();
     $ctrl->listAll();
 });

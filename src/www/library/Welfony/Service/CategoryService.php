@@ -24,7 +24,7 @@ class CategoryService
         return  CategoryRepository::getInstance()->findCateogryById( $id);
 
     }
-    
+
     public static function listCategory($pageNumber, $pageSize)
     {
         $result = array(
@@ -92,6 +92,7 @@ class CategoryService
 
             $result['success'] = true;
             $result['message'] = '删除商品分类成功！';
+
             return $result;
         } else {
             $result['message'] = '删除商品分类失败！';

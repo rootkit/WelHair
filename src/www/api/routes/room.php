@@ -14,14 +14,12 @@
 
 use Welfony\Controller\API\RoomController;
 
-$app->get('/users/:userId/rooms', function($userId) use($app)
-{
+$app->get('/users/:userId/rooms', function ($userId) use ($app) {
     $controller = new RoomController();
     $controller->listAllRoomsByUserId($userId);
 })->conditions(array('userId' => '\d{1,10}'));
 
-$app->post('/rooms', function() use($app)
-{
+$app->post('/rooms', function () use ($app) {
     $ctrl = new RoomController();
     $ctrl->addNewRoom();
 });

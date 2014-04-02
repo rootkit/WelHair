@@ -14,26 +14,22 @@
 
 use Welfony\Controller\API\WorkController;
 
-$app->get('/works', function() use($app)
-{
+$app->get('/works', function () use ($app) {
     $ctrl = new WorkController();
     $ctrl->search();
 });
 
-$app->get('/works/:workId/comments', function($workId) use($app)
-{
+$app->get('/works/:workId/comments', function ($workId) use ($app) {
     $ctrl = new WorkController();
     $ctrl->listComments($workId);
 })->conditions(array('workId' => '\d{1,10}'));
 
-$app->post('/works/:workId/comments', function($workId) use($app)
-{
+$app->post('/works/:workId/comments', function ($workId) use ($app) {
     $ctrl = new WorkController();
     $ctrl->addComment($workId);
 })->conditions(array('workId' => '\d{1,10}'));
 
-$app->post('/works/:workId/likes', function($workId) use($app)
-{
+$app->post('/works/:workId/likes', function ($workId) use ($app) {
     $ctrl = new WorkController();
     $ctrl->addWorkLike($workId);
 })->conditions(array('workId' => '\d{1,10}'));

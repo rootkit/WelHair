@@ -38,13 +38,10 @@ class Goods_SpecController extends AbstractAdminController
 
     public function infoAction()
     {
-    	
-        
+
         $this->view->pageTitle = '添加规格';
 
-
         $specId = $this->_request->getParam('spec_id')?  intval($this->_request->getParam('spec_id')) : 0;
-
 
         $spec = array(
             'SpecId' => $specId,
@@ -55,25 +52,21 @@ class Goods_SpecController extends AbstractAdminController
             'IsDeleted' => 0
         );
 
-
         if ($this->_request->isPost()) {
             $spec['Name']= htmlspecialchars($this->_request->getParam('name'));
             $spec['Value']= $this->_request->getParam('value');
             $spec['Type']= '1';
-            $spec['Note']= htmlspecialchars($this->_request->getParam('note'));        
-
+            $spec['Note']= htmlspecialchars($this->_request->getParam('note'));
 
             $result = SpecService::save($spec);
             if ($result['success']) {
 
-            
                 $this->view->successMessage = '保存规格成功！';
             } else {
                 $this->view->errorMessage = $result['message'];
             }
         } else {
 
-            
             if ($specId > 0) {
                 $spec = SpecService::getSpecById($specId);
                 if (!$spec) {
@@ -85,7 +78,6 @@ class Goods_SpecController extends AbstractAdminController
         $this->view->specInfo = $spec;
     }
 
-
     public function deleteAction()
     {
         $this->_helper->viewRenderer->setNoRender(true);
@@ -96,11 +88,10 @@ class Goods_SpecController extends AbstractAdminController
         $spec = array('SpecId' => $specId);
 
         if ($this->_request->isPost()) {
-           
 
             $result = SpecService::deleteSpec($spec);
             $this->_helper->json->sendJson($result);
-        } 
+        }
     }
 
     public function selectAction()
@@ -109,7 +100,6 @@ class Goods_SpecController extends AbstractAdminController
         $this->_helper->layout->disableLayout();
 
         static $pageSize = 10;
-
 
         $page = intval($this->_request->getParam('page'));
         $func = intval($this->_request->getParam('func'));
@@ -120,6 +110,5 @@ class Goods_SpecController extends AbstractAdminController
                                                 $page,
                                                 ceil($searchResult['total'] / $pageSize), $func);
     }
-
 
 }

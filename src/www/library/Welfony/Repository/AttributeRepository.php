@@ -41,7 +41,7 @@ class AttributeRepository extends AbstractRepository
         return $this->conn->fetchAll($strSql);
     }
 
-    public function listAttribute( $pageNumber, $pageSize)
+    public function listAttribute($pageNumber, $pageSize)
     {
 
         $offset = ($pageNumber - 1) * $pageSize;
@@ -67,14 +67,13 @@ class AttributeRepository extends AbstractRepository
         return $row['Total'];
     }
 
-
     public function listAttributeByModel($modelId, $pageNumber, $pageSize)
     {
 
         $offset = ($pageNumber - 1) * $pageSize;
         $strSql = "  SELECT *
                      FROM Attribute
-                     WHERE   ModelId = $modelId 
+                     WHERE   ModelId = $modelId
                      LIMIT $offset, $pageSize ";
 
         return $this->conn->fetchAll($strSql);
@@ -85,7 +84,7 @@ class AttributeRepository extends AbstractRepository
     {
         $strSql = "  SELECT *
                      FROM Attribute
-                     WHERE   ModelId = $modelId 
+                     WHERE   ModelId = $modelId
                      ORDER BY AttributeId
                    ";
 
@@ -98,7 +97,7 @@ class AttributeRepository extends AbstractRepository
         $strSql = 'SELECT
                        *
                    FROM Attribute
-                   WHERE AttributeId = ? 
+                   WHERE AttributeId = ?
                    LIMIT 1';
 
         return $this->conn->fetchAssoc($strSql, array($id));

@@ -24,7 +24,7 @@ class Coupon_CodeController extends AbstractAdminController
 
         $pageSize = 10;
         $page =  intval($this->_request->getParam('page'));
-		$couponid =  intval($this->_request->getParam('coupon_id'));
+        $couponid =  intval($this->_request->getParam('coupon_id'));
         $this->view->couponid= $couponid;
 
         $couponname =  $this->_request->getParam('coupon_name');
@@ -40,12 +40,11 @@ class Coupon_CodeController extends AbstractAdminController
                                                      $page,
                                                      ceil($result['total'] / $pageSize));
 
-
     }
 
     public function infoAction()
     {
-    	$this->view->pageTitle = '添加优惠码';
+        $this->view->pageTitle = '添加优惠码';
 
         $couponid =  intval($this->_request->getParam('coupon_id'));
         $this->view->couponid= $couponid;
@@ -53,18 +52,17 @@ class Coupon_CodeController extends AbstractAdminController
         $couponname =  $this->_request->getParam('coupon_name');
         $this->view->couponname= $couponname;
 
-    	if ($this->_request->isPost()) {
+        if ($this->_request->isPost()) {
 
             $result = CouponCodeService::batchsave($this->_request->getParam('codes'));
             if ($result['success']) {
-            
+
                 $this->view->successMessage = '保存优惠码成功！';
             } else {
                 $this->view->errorMessage = $result['message'];
             }
         }
     }
-
 
     public function deleteAction()
     {
@@ -76,13 +74,10 @@ class Coupon_CodeController extends AbstractAdminController
         $couponCode = array('CouponCodeId' => $couponCodeId);
 
         if ($this->_request->isPost()) {
-           
 
             $result = CouponCodeService::deleteCouponCode($couponCode);
             $this->_helper->json->sendJson($result);
-        } 
+        }
     }
-
-    
 
 }

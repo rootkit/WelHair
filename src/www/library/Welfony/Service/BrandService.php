@@ -92,6 +92,7 @@ class BrandService
 
             $result['success'] = true;
             $result['message'] = '删除品牌成功！';
+
             return $result;
         } else {
             $result['message'] = '删除品牌失败！';

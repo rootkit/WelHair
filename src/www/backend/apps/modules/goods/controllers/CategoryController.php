@@ -38,8 +38,7 @@ class Goods_CategoryController extends AbstractAdminController
 
     public function infoAction()
     {
-    	$this->view->pageTitle = '添加商品分类';
-
+        $this->view->pageTitle = '添加商品分类';
 
         $categoryId = $this->_request->getParam('category_id')?  intval($this->_request->getParam('category_id')) : 0;
 
@@ -57,7 +56,6 @@ class Goods_CategoryController extends AbstractAdminController
             'IsDeleted' => 0
         );
 
-
         if ($this->_request->isPost()) {
             $category['Name']= htmlspecialchars($this->_request->getParam('name'));
             $category['ParentId']= $this->_request->getParam('parentid');
@@ -68,14 +66,12 @@ class Goods_CategoryController extends AbstractAdminController
             $result = CategoryService::save($category);
             if ($result['success']) {
 
-            
                 $this->view->successMessage = '保存商品成功！';
             } else {
                 $this->view->errorMessage = $result['message'];
             }
         } else {
 
-            
             if ($categoryId > 0) {
                 $category = CategoryService::getCategoryById($categoryId);
                 if (!$category) {
@@ -97,13 +93,10 @@ class Goods_CategoryController extends AbstractAdminController
         $category = array('CategoryId' => $categoryId);
 
         if ($this->_request->isPost()) {
-           
 
             $result = CategoryService::deleteCategory($category);
             $this->_helper->json->sendJson($result);
-        } 
+        }
     }
-
-
 
 }

@@ -27,11 +27,13 @@ class UserLikeService
             (!isset($data['UserId']) || intval($data['UserId']) <= 0) &&
             (!isset($data['GoodsId']) || intval($data['GoodsId']) <= 0)) {
             $result['message'] = '请选择喜欢的对象！';
+
             return $result;
         }
 
         if (!isset($data['CreatedBy']) || intval($data['CreatedBy']) <= 0) {
             $result['message'] = '不合法的用户！';
+
             return $result;
         }
         $createdBy = intval($data['CreatedBy']);

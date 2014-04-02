@@ -69,12 +69,12 @@ class AttributeService
 
     public static function listAllAttribute()
     {
-        return $searchResult = AttributeRepository::getInstance()->getAllAttribute();   
+        return $searchResult = AttributeRepository::getInstance()->getAllAttribute();
     }
 
     public static function listAllAttributeByModel($modelId)
     {
-        return $searchResult = AttributeRepository::getInstance()->listAllAttributeByModel($modelId);   
+        return $searchResult = AttributeRepository::getInstance()->listAllAttributeByModel($modelId);
     }
 
     public static function save($data)
@@ -117,7 +117,6 @@ class AttributeService
         }
     }
 
-
     public static function deleteAttribute($data)
     {
         $result = array('success' => false, 'message' => '');
@@ -126,6 +125,7 @@ class AttributeService
 
             $result['success'] = true;
             $result['message'] = '删除属性成功！';
+
             return $result;
         } else {
             $result['message'] = '删除属性失败！';

@@ -13,7 +13,6 @@
 // ==============================================================================
 
 use Welfony\Controller\Base\AbstractAdminController;
-use Welfony\Service\CompanyService;
 use Welfony\Service\CouponService;
 
 class Coupon_IndexController extends AbstractAdminController
@@ -36,25 +35,18 @@ class Coupon_IndexController extends AbstractAdminController
                                                      $page,
                                                      ceil($result['total'] / $pageSize));
 
-
     }
 
     public function infoAction()
     {
-    	$this->view->pageTitle = '添加优惠券';
-
-    	
+        $this->view->pageTitle = '添加优惠券';
 
         $this->view->couponTypes = CouponService::listCouponType();
         $this->view->couponPaymentTypes = CouponService::listCouponPaymentType();
         $this->view->couponAmountLimitTypes = CouponService::listCouponAmountLimitType();
         $this->view->couponAccountLimitTypes = CouponService::listCouponAccountLimitType();
-    	
-
-
 
         $couponId = $this->_request->getParam('coupon_id')?  intval($this->_request->getParam('coupon_id')) : 0;
-
 
         $coupon = array(
             'CouponId' => $couponId,
@@ -80,7 +72,6 @@ class Coupon_IndexController extends AbstractAdminController
             'IsActive' => 1
         );
 
-
         if ($this->_request->isPost()) {
             $coupon['CouponName']= htmlspecialchars($this->_request->getParam('couponname'));
             $coupon['CompanyName']= htmlspecialchars($this->_request->getParam('companyname'));
@@ -101,18 +92,15 @@ class Coupon_IndexController extends AbstractAdminController
             $coupon['Comments']= htmlspecialchars($this->_request->getParam('comments'));
             $coupon['IsCouponCodeSecret']= $this->_request->getParam('iscouponcodesecret');
 
-
             $result = CouponService::save($coupon);
             if ($result['success']) {
 
-            
                 $this->view->successMessage = '保存优惠券成功！';
             } else {
                 $this->view->errorMessage = $result['message'];
             }
         } else {
 
-            
             if ($couponId > 0) {
                 $coupon = CouponService::getCouponById($couponId);
                 if (!$coupon) {
@@ -134,30 +122,26 @@ class Coupon_IndexController extends AbstractAdminController
         $coupon = array('CouponId' => $couponId);
 
         if ($this->_request->isPost()) {
-           
 
             $result = CouponService::deleteCoupon($coupon);
             $this->_helper->json->sendJson($result);
-        } 
+        }
     }
 
     public function updatestatusAction()
     {
         $this->_helper->viewRenderer->setNoRender(true);
         $this->_helper->layout->disableLayout();
-        
+
         $couponId =  intval($this->_request->getParam('couponid')) ;
 
         $coupon = array('CouponId' => $couponId, 'IsActive'=>$this->_request->getParam('isactive'));
 
         if ($this->_request->isPost()) {
-           
 
             $result = CouponService::updateCouponStatus($coupon);
             $this->_helper->json->sendJson($result);
-        } 
+        }
     }
-
-    
 
 }

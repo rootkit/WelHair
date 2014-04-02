@@ -61,6 +61,7 @@ class User_IndexController extends AbstractAdminController
 
             if ($password != $passwordRepeate) {
                 $this->view->errorMessage = '两次密码输入不一致！';
+
                 return;
             }
 

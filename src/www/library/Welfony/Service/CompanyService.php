@@ -29,7 +29,7 @@ class CompanyService
 
         $companies = array();
         foreach ($companyList as $company) {
-            $company['PictureUrl'] = json_decode($company['PictureUrl']);
+            $company['PictureUrl'] = json_decode($company['PictureUrl'], true);
 
             $companies[] = $company;
         }
@@ -71,8 +71,7 @@ class CompanyService
             return $result;
         }
 
-
-        $data['PictureUrl'] = json_encode($data['PictureUrl']);
+        $data['PictureUrl'] = json_encode($data['PictureUrl'], true);
 
         if ($data['CompanyId'] == 0) {
             $data['CreatedDate'] = date('Y-m-d H:i:s');
@@ -105,7 +104,7 @@ class CompanyService
         $companyList = CompanyRepository::getInstance()->seachByNameAndPhone($searchText);
         $companies = array();
         foreach ($companyList as $company) {
-            $company['PictureUrl'] = json_decode($company['PictureUrl']);
+            $company['PictureUrl'] = json_decode($company['PictureUrl'], true);
             $companies[] = $company;
         }
 
@@ -121,7 +120,7 @@ class CompanyService
         $companyList = CompanyRepository::getInstance()->getAllCompanies($page, $pageSize);
         $companies = array();
         foreach ($companyList as $company) {
-            $company['PictureUrl'] = json_decode($company['PictureUrl']);
+            $company['PictureUrl'] = json_decode($company['PictureUrl'], true);
             $companies[] = $company;
         }
 

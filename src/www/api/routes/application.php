@@ -16,8 +16,7 @@ use Welfony\Controller\API\ErrorController;
 use Welfony\Controller\API\IndexController;
 use Welfony\Utility\Util;
 
-$app->hook('slim.before.router', function() use($app)
-{
+$app->hook('slim.before.router', function () use ($app) {
     $ip = Util::getRealIp();
     $isLocalhost = $ip == '127.0.0.1';
 
@@ -53,20 +52,17 @@ $app->hook('slim.before.router', function() use($app)
     $app->response()->header('Content-Type', 'application/json');
 });
 
-$app->get('/', function() use($app)
-{
+$app->get('/', function () use ($app) {
     $controller = new IndexController();
     $controller->index();
 });
 
-$app->notFound(function() use($app)
-{
+$app->notFound(function () use ($app) {
     $ctrl = new ErrorController();
     $ctrl->notFound();
 });
 
-$app->error(function(\Exception $e) use($app)
-{
+$app->error(function (\Exception $e) use ($app) {
     $ctrl = new ErrorController();
     $ctrl->error($e);
 });

@@ -56,9 +56,11 @@ class UserLikeRepository extends AbstractRepository
     {
         try {
             $this->conn->delete('UserLike', array('CreatedBy' => $createdBy, 'WorkId' => $workId));
+
             return true;
         } catch (\Exception $e) {
             $this->logger->log($e, \Zend_Log::ERR);
+
             return false;
         }
     }
@@ -67,9 +69,11 @@ class UserLikeRepository extends AbstractRepository
     {
         try {
             $this->conn->delete('UserLike', array('CreatedBy' => $createdBy, 'UserId' => $userId));
+
             return true;
         } catch (\Exception $e) {
             $this->logger->log($e, \Zend_Log::ERR);
+
             return false;
         }
     }
@@ -78,9 +82,11 @@ class UserLikeRepository extends AbstractRepository
     {
         try {
             $this->conn->delete('UserLike', array('CreatedBy' => $createdBy, 'GoodsId' => $goodsId));
+
             return true;
         } catch (\Exception $e) {
             $this->logger->log($e, \Zend_Log::ERR);
+
             return false;
         }
     }

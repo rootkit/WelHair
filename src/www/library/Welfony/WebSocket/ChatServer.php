@@ -17,12 +17,10 @@ namespace Welfony\WebSocket;
 use Ratchet\MessageComponentInterface;
 use Ratchet\ConnectionInterface;
 
-use Welfony\Core\Enum\MessageMediaType;
 use Welfony\Core\Enum\MessageStatus;
 use Welfony\Core\Enum\MessageType;
 use Welfony\Service\MessageService;
 use Welfony\Service\RoomService;
-use Welfony\Service\UserService;
 
 class ChatServer implements MessageComponentInterface
 {
@@ -46,7 +44,7 @@ class ChatServer implements MessageComponentInterface
     public function onMessage(ConnectionInterface $conn, $msg)
     {
         $message = json_decode($msg, true);
-        if($message === null) {
+        if ($message === null) {
             return;
         }
 
@@ -57,7 +55,7 @@ class ChatServer implements MessageComponentInterface
                 );
 
                 $offlineMessages = MessageService::getAllOfflineMessages($message['UserId']);
-                foreach($offlineMessages as $msg) {
+                foreach ($offlineMessages as $msg) {
                     $messageOfflineId = $msg['MessageOfflineId'];
                     unset($msg['MessageOfflineId']);
                     $this->clients[$conn->resourceId]['Connection']->send(json_encode($msg));
@@ -75,7 +73,7 @@ class ChatServer implements MessageComponentInterface
                 $rst = MessageService::save($message);
 
                 $usersInRoom = RoomService::listAllUsersByRoom($message['RoomId']);
-                foreach($usersInRoom as $toUser) {
+                foreach ($usersInRoom as $toUser) {
                     if ($toUser['UserId'] != $message['FromId']) {
                         $toClient = null;
                         foreach ($this->clients as $client) {

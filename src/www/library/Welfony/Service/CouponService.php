@@ -15,7 +15,6 @@
 namespace Welfony\Service;
 
 use Welfony\Repository\CouponRepository;
-use Welfony\Repository\CouponTypeRepository;
 
 class CouponService
 {
@@ -25,7 +24,7 @@ class CouponService
         return  CouponRepository::getInstance()->findCouponById( $id);
 
     }
-    
+
     public static function listCoupon($pageNumber, $pageSize)
     {
         $result = array(
@@ -93,6 +92,7 @@ class CouponService
 
             $result['success'] = true;
             $result['message'] = '删除优惠券成功！';
+
             return $result;
         } else {
             $result['message'] = '删除优惠券失败！';
@@ -109,6 +109,7 @@ class CouponService
 
             $result['success'] = true;
             $result['message'] = '更新优惠券成功！';
+
             return $result;
         } else {
             $result['message'] = '更新优惠券失败！';
@@ -120,31 +121,33 @@ class CouponService
 
     public static function listCouponType()
     {
-        $searchResult = CouponRepository::getInstance()->getAllCouponType();       
+        $searchResult = CouponRepository::getInstance()->getAllCouponType();
+
         return $searchResult;
     }
 
     public static function listCouponPaymentType()
     {
-        
-        $searchResult = CouponRepository::getInstance()->getAllCouponPaymentType();       
+
+        $searchResult = CouponRepository::getInstance()->getAllCouponPaymentType();
+
         return $searchResult;
     }
 
     public static function listCouponAmountLimitType()
     {
-        
-        $searchResult = CouponRepository::getInstance()->getAllCouponAmountLimitType();       
+
+        $searchResult = CouponRepository::getInstance()->getAllCouponAmountLimitType();
+
         return $searchResult;
     }
 
     public static function listCouponAccountLimitType()
     {
-    
-        $searchResult = CouponRepository::getInstance()->getAllCouponAccountLimitType();       
+
+        $searchResult = CouponRepository::getInstance()->getAllCouponAccountLimitType();
+
         return $searchResult;
     }
-
-
 
 }

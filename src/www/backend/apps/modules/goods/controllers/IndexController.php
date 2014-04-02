@@ -24,7 +24,7 @@ class Goods_IndexController extends AbstractAdminController
 
     public function infoAction()
     {
-    	/*
+        /*
         $this->view->pageTitle = '会员信息';
 
         $userId = intval($this->_request->getParam('user_id'));

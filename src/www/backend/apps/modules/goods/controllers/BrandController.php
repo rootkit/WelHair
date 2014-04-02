@@ -15,7 +15,6 @@
 use Welfony\Controller\Base\AbstractAdminController;
 use Welfony\Service\BrandCategoryService;
 use Welfony\Service\BrandService;
-use Welfony\Utility\Util;
 
 class Goods_BrandController extends AbstractAdminController
 {
@@ -53,9 +52,7 @@ class Goods_BrandController extends AbstractAdminController
         if ($this->_request->isPost()) {
             $name = htmlspecialchars($this->_request->getParam('name'));
 
-
             $brandCategory['Name'] = $name;
-
 
             $result = BrandCategoryService::save($brandCategory);
             if ($result['success']) {
@@ -82,11 +79,10 @@ class Goods_BrandController extends AbstractAdminController
         $brandCategory = array('BrandCategoryId' => $brandcategoryId);
 
         if ($this->_request->isPost()) {
-           
 
             $result = BrandCategoryService::deleteBrandCategory($brandCategory);
             $this->_helper->json->sendJson($result);
-        } 
+        }
     }
 
     public function deleteAction()
@@ -99,25 +95,22 @@ class Goods_BrandController extends AbstractAdminController
         $brand = array('BrandId' => $brandId);
 
         if ($this->_request->isPost()) {
-           
 
             $result = BrandService::deleteBrand($brand);
             $this->_helper->json->sendJson($result);
-        } 
+        }
     }
 
     public function infoAction()
     {
-    	
+
         $this->view->pageTitle = '品牌信息';
 
         $allCategories = BrandCategoryService::listAllBrandCategory();
 
         $this->view->brandcategories = $allCategories;
 
-
         $brandId = $this->_request->getParam('brand_id')?  intval($this->_request->getParam('brand_id')) : 0;
-
 
         $brand = array();
         $brand['BrandId'] = $brandId;
@@ -127,7 +120,6 @@ class Goods_BrandController extends AbstractAdminController
         $brand['Description'] = '';
         $brand['Sort'] = '';
         $brand['BrandCategoryIds'] = '';
-
 
         if ($this->_request->isPost()) {
             $brandname = htmlspecialchars($this->_request->getParam('name'));
@@ -152,14 +144,13 @@ class Goods_BrandController extends AbstractAdminController
             }
         } else {
 
-            
             if ($brandId > 0) {
                 $brand = BrandService::getBrandById($brandId);
-            } 
+            }
         }
 
         $this->view->brandInfo = $brand;
-    
+
     }
 
     public function searchAction()
@@ -172,7 +163,6 @@ class Goods_BrandController extends AbstractAdminController
             $categoryies[$cat['BrandCategoryId']] = $cat['Name'];
         }
         $this->view->brandcategories = $categoryies;
-
 
         $this->view->pageTitle = '品牌列表';
 

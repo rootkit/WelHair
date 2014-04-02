@@ -39,18 +39,21 @@ class CommentService
 
         if (!isset($data['CreatedBy']) || intval($data['CreatedBy']) <= 0) {
             $result['message'] = '不合法的用户！';
+
             return $result;
         }
         $createdBy = intval($data['CreatedBy']);
 
         if (!isset($data['Rate']) || intval($data['Rate']) <= 0) {
             $result['message'] = '请选择评分！';
+
             return $result;
         }
         $rate = intval($data['Rate']);
 
         if (!isset($data['Body']) || empty($data['Body'])) {
             $result['message'] = '请填写点什么吧！';
+
             return $result;
         }
         $body = htmlspecialchars($data['Body']);

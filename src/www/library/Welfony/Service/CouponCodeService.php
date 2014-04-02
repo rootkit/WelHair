@@ -84,7 +84,7 @@ class CouponCodeService
         }
     }
 
-    public static function batchsave( $data )
+    public static function batchsave($data)
     {
          $r =CouponCodeRepository::getInstance()->batchsave($data);
          if ($r) {
@@ -98,6 +98,7 @@ class CouponCodeService
 
             return $result;
          }
+
          return true;
     }
 
@@ -109,6 +110,7 @@ class CouponCodeService
 
             $result['success'] = true;
             $result['message'] = '删除优惠码成功！';
+
             return $result;
         } else {
             $result['message'] = '删除优惠码失败！';

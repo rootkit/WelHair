@@ -25,6 +25,7 @@ class AreaService
     public static function listAreaByParent($parentId)
     {
         $areaList = AreaRepository::getInstance()->getAreasByParent($parentId);
+
         return $areaList;
     }
 
@@ -51,7 +52,7 @@ class AreaService
             }
         }
 
-        foreach($t as $u) {
+        foreach ($t as $u) {
             unset($rows[$u]);
         }
 
@@ -112,6 +113,7 @@ class AreaService
             $areaList[] = $area;
         }
 die();
+
         return $areaList;
     }
 

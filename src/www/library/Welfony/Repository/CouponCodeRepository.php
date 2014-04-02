@@ -62,7 +62,7 @@ class CouponCodeRepository extends AbstractRepository
         $strSql = 'SELECT
                        *
                    FROM CouponCode
-                   WHERE CouponCodeId = ? 
+                   WHERE CouponCodeId = ?
                    LIMIT 1';
 
         return $this->conn->fetchAssoc($strSql, array($id));
@@ -88,12 +88,12 @@ class CouponCodeRepository extends AbstractRepository
         $conn = $this->conn;
         $conn->beginTransaction();
         try {
-            foreach( $data as $row )
-            {
+            foreach ($data as $row) {
               //error_log(serialize($row));
               $this->conn->insert('CouponCode', $row);
             }
             $conn->commit();
+
             return true;
         } catch (\Exception $e) {
             $conn->rollback();

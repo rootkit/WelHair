@@ -46,14 +46,11 @@ class BrandCategoryService
         return $result;
     }
 
-
     public static function listAllBrandCategory()
     {
-        
-       return BrandCategoryRepository::getInstance()->getAllBrandCategory();         
+       return BrandCategoryRepository::getInstance()->getAllBrandCategory();
 
     }
-        
 
     public static function save($data)
     {
@@ -101,6 +98,7 @@ class BrandCategoryService
 
             $result['success'] = true;
             $result['message'] = '删除品牌分类成功！';
+
             return $result;
         } else {
             $result['message'] = '删除品牌分类失败！';
@@ -108,6 +106,5 @@ class BrandCategoryService
             return $result;
         }
     }
-
 
 }

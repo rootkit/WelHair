@@ -47,11 +47,8 @@ class ModelService
 
     public static function listAllModel()
     {
-
-
         return $searchResult = ModelRepository::getInstance()->getAllModel();
 
-      
     }
 
     public static function save($data, $attributes = null)
@@ -100,6 +97,7 @@ class ModelService
 
             $result['success'] = true;
             $result['message'] = '删除模型成功！';
+
             return $result;
         } else {
             $result['message'] = '删除模型失败！';

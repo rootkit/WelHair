@@ -76,6 +76,7 @@ class Company_StaffController extends AbstractAdminController
             $staffId = intval($this->_request->getParam('staff_id'));
             if ($companyId <= 0 || $staffId <= 0) {
                 $this->view->errorMessage = "请选择沙龙或者发型师。";
+
                 return;
             }
 

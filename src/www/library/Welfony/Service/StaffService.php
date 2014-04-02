@@ -96,6 +96,7 @@ class StaffService
 
             if (CompanyUserRepository::getInstance()->update($existedItem['CompanyUserId'], $existedItem)) {
                 UserRepository::getInstance()->update($staff['UserId'], $staff);
+
                 return $existedItem;
             }
         } else {
@@ -111,6 +112,7 @@ class StaffService
                 UserRepository::getInstance()->update($staff['UserId'], $staff);
 
                 $data['CompanyUserId'] = $saveResult;
+
                 return $data;
             }
         }

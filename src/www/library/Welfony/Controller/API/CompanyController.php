@@ -15,7 +15,9 @@
 namespace Welfony\Controller\API;
 
 use Welfony\Controller\Base\AbstractAPIController;
+use Welfony\Service\CommentService;
 use Welfony\Service\CompanyService;
+use Welfony\Service\UserLikeService;
 
 class CompanyController extends AbstractAPIController
 {
@@ -32,6 +34,33 @@ class CompanyController extends AbstractAPIController
 
         $companyList = CompanyService::search($this->currentContext['UserId'], $city, $district, $sort, $this->currentContext['Location'], $page, $pageSize);
         $this->sendResponse($companyList);
+    }
+
+    public function listComments($companyId)
+    {
+        $page = intval($this->app->request->get('page'));
+        $pageSize = intval($this->app->request->get('pageSize'));
+
+        $result = CommentService::listComment($companyId, null, null, null, $page, $pageSize);
+        $this->sendResponse($result);
+    }
+
+    public function addComment($companyId)
+    {
+        $reqData = $this->getDataFromRequestWithJsonFormat();
+        $reqData['CompanyId'] = $companyId;
+
+        $result = CommentService::save($reqData);
+        $this->sendResponse($result);
+    }
+
+    public function addCompanyLike($companyId)
+    {
+        $reqData = $this->getDataFromRequestWithJsonFormat();
+        $reqData['CompanyId'] = $companyId;
+
+        $result = UserLikeService::save($reqData);
+        $this->sendResponse($result);
     }
 
 }

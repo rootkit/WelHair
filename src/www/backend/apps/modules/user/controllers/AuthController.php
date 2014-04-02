@@ -33,6 +33,7 @@ class User_AuthController extends AbstractAdminController
 
             if (!empty($error)) {
                 $this->view->errorMessage = $error;
+
                 return;
             }
 

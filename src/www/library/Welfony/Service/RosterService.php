@@ -42,11 +42,13 @@ class RosterService
         $fromUser = UserRepository::getInstance()->findUserById($data['FromId']);
         if (!$fromUser) {
             $result['message'] = '发起者不存在！';
+
             return $result;
         }
         $toUser = UserRepository::getInstance()->findUserById($data['ToId']);
         if (!$fromUser) {
             $result['message'] = '接受者不存在！';
+
             return $result;
         }
 

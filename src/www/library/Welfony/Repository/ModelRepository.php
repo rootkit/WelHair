@@ -91,22 +91,19 @@ class ModelRepository extends AbstractRepository
         $conn->beginTransaction();
         try {
 
-            if($this->conn->insert('Model', $data)) {
+            if ($this->conn->insert('Model', $data)) {
                 $modelId= $this->conn->lastInsertId();
-            }
-            else
-            {
+            } else {
               return false;
             }
-            if( $attributes )
-            {
-              foreach( $attributes as $row )
-              {
+            if ($attributes) {
+              foreach ($attributes as $row) {
                 $row['ModelId'] = $modelId;
                 $this->conn->insert('Attribute', $row);
               }
             }
             $conn->commit();
+
             return $modelId;
         } catch (\Exception $e) {
             $conn->rollback();
@@ -134,18 +131,14 @@ class ModelRepository extends AbstractRepository
     public function update($modelId, $data, $attributes = null)
     {
         try {
-            if( $attributes )
-            {
+            if ($attributes) {
                 $this->conn->delete('Attribute', array('ModelId' => $modelId));
-                foreach( $attributes as $attr)
-                {
+                foreach ($attributes as $attr) {
                     $attr['ModelId'] = $modelId;
                     $this->conn->insert('Attribute', $attr);
                 }
-                
-            }
-            else
-            {
+
+            } else {
                 $this->conn->delete('Attribute', array('ModelId' => $modelId));
             }
 

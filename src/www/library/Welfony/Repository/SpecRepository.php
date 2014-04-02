@@ -43,7 +43,7 @@ class SpecRepository extends AbstractRepository
         return $this->conn->fetchAll($strSql);
     }
 
-    public function listSpec( $pageNumber, $pageSize)
+    public function listSpec($pageNumber, $pageSize)
     {
 
         $offset = ($pageNumber - 1) * $pageSize;
@@ -69,7 +69,6 @@ class SpecRepository extends AbstractRepository
 
         return $row['Total'];
     }
-
 
     public function listSpecByModel($modelId, $pageNumber, $pageSize)
     {
@@ -101,7 +100,7 @@ class SpecRepository extends AbstractRepository
         $strSql = 'SELECT
                        *
                    FROM Spec
-                   WHERE SpecId = ? 
+                   WHERE SpecId = ?
                    LIMIT 1';
 
         return $this->conn->fetchAssoc($strSql, array($id));

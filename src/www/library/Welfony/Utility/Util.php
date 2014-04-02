@@ -113,7 +113,6 @@ class Util
         return null;
     }
 
-
     public static function pinyin($zh)
     {
         $ret = "";
@@ -130,7 +129,7 @@ class Util
             if ($p > 160) {
                 $s2 = substr($zh,$i++,2);
                 $ret .= self::getfirstchar($s2);
-            }else{
+            } else {
                 $ret .= $s1;
             }
         }

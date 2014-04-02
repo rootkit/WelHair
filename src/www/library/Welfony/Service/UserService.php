@@ -18,7 +18,6 @@ use PHPassLib\Hash\PBKDF2 as PassHash;
 use Welfony\Core\Enum\UserPointType;
 use Welfony\Core\Enum\UserRole;
 use Welfony\Repository\UserRepository;
-use Welfony\Service\UserPointService;
 use Welfony\Utility\Util;
 
 class UserService

@@ -16,7 +16,6 @@ namespace Welfony\Service;
 
 use Welfony\Repository\AppointmentRepository;
 use Welfony\Repository\ServiceRepository;
-use Welfony\Service\StaffService;
 
 class AppointmentService
 {

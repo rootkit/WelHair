@@ -121,7 +121,6 @@ class Company_IndexController extends AbstractAdminController
 
         static $pageSize = 10;
 
-
         $page = intval($this->_request->getParam('page'));
         $func = intval($this->_request->getParam('func'));
         $searchResult = CompanyService::listAllCompanies($page, $pageSize);

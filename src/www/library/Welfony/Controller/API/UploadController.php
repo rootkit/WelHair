@@ -66,15 +66,12 @@ class UploadController extends AbstractAPIController
         $fileTargetPath = implode(DS, array($this->app->config->file->media->path, date('Y'), date('m'), date('d'), $rtn['HashFileName'] . '.' . $rtn['Extention']));
         move_uploaded_file($rtn['FileTmpPath'], $fileTargetPath);
 
-        if( $onlyOriginal )
-        {
+        if ($onlyOriginal) {
 
             self::sendResponse(array(
                 'OriginalUrl' => $rtn['Url']
             ));
-        }
-        else
-        {
+        } else {
             $imagine = new Imagine();
             $image = $imagine->open($fileTargetPath);
 

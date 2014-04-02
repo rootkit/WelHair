@@ -24,7 +24,7 @@ class CategoryRepository extends AbstractRepository
         $strSql = "SELECT
                        COUNT(1) `Total`
                    FROM Category
-				   WHERE IsDeleted = 0
+                   WHERE IsDeleted = 0
                    LIMIT 1";
 
         $row = $this->conn->fetchAssoc($strSql);
@@ -37,7 +37,7 @@ class CategoryRepository extends AbstractRepository
         $strSql = 'SELECT
                        *
                    FROM Category
-				   WHERE IsDeleted = 0
+                   WHERE IsDeleted = 0
                   ';
 
         return $this->conn->fetchAll($strSql);
@@ -50,7 +50,7 @@ class CategoryRepository extends AbstractRepository
         $strSql = "   SELECT Category.*,Model.Name AS ModelName
                       FROM Category Category
                       LEFT JOIN Model Model ON Category.ModelId = Model.ModelId
-					  WHERE Category.IsDeleted = 0
+                      WHERE Category.IsDeleted = 0
                       ORDER BY CategoryId
                       LIMIT $offset, $pageSize ";
 
@@ -105,6 +105,5 @@ class CategoryRepository extends AbstractRepository
             return false;
         }
     }
-
 
 }

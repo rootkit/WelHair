@@ -14,8 +14,22 @@
 
 use Welfony\Controller\API\CompanyController;
 
-$app->get('/companies', function() use($app)
-{
+$app->get('/companies', function () use ($app) {
     $ctrl = new CompanyController();
     $ctrl->search();
 });
+
+$app->get('/companies/:companyId/comments', function ($companyId) use ($app) {
+    $ctrl = new CompanyController();
+    $ctrl->listComments($companyId);
+})->conditions(array('companyId' => '\d{1,10}'));
+
+$app->post('/companies/:companyId/comments', function ($companyId) use ($app) {
+    $ctrl = new CompanyController();
+    $ctrl->addComment($companyId);
+})->conditions(array('companyId' => '\d{1,10}'));
+
+$app->post('/companies/:companyId/likes', function ($companyId) use ($app) {
+    $ctrl = new CompanyController();
+    $ctrl->addCompanyLike($companyId);
+})->conditions(array('companyId' => '\d{1,10}'));

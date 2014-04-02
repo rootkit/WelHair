@@ -14,32 +14,27 @@
 
 use Welfony\Controller\API\UserController;
 
-$app->get('/users', function() use($app)
-{
+$app->get('/users', function () use ($app) {
     $ctrl = new UserController();
     $ctrl->index();
 });
 
-$app->put('/users/:userId', function($userId) use($app)
-{
+$app->put('/users/:userId', function ($userId) use ($app) {
     $ctrl = new UserController();
     $ctrl->update($userId);
 })->conditions(array('userId' => '\d{1,10}'));
 
-$app->post('/users/signin/email', function() use($app)
-{
+$app->post('/users/signin/email', function () use ($app) {
     $ctrl = new UserController();
     $ctrl->signInWithEmail();
 });
 
-$app->post('/users/signup/email', function() use($app)
-{
+$app->post('/users/signup/email', function () use ($app) {
     $ctrl = new UserController();
     $ctrl->signUpWithEmail();
 });
 
-$app->post('/users/:userId/follow', function($userId) use($app)
-{
+$app->post('/users/:userId/follow', function ($userId) use ($app) {
     $ctrl = new UserController();
     $ctrl->addFollow($userId);
 })->conditions(array('userId' => '\d{1,10}'));

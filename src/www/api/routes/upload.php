@@ -14,20 +14,17 @@
 
 use Welfony\Controller\API\UploadController;
 
-$app->post('/upload/image', function() use($app)
-{
+$app->post('/upload/image', function () use ($app) {
     $controller = new UploadController();
     $controller->image('uploadfile');
 });
 
-$app->post('/upload/image/crop', function() use($app)
-{
+$app->post('/upload/image/crop', function () use ($app) {
     $controller = new UploadController();
     $controller->imageCrop();
 });
 
-$app->post('/upload/image/original', function() use($app)
-{
+$app->post('/upload/image/original', function () use ($app) {
     $controller = new UploadController();
     $controller->image('uploadfile', 1);
 });

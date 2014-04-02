@@ -35,6 +35,7 @@ class CompanyRepository extends AbstractRepository
     public function search($currentUserId, $city, $district, $sort, $location, $page, $pageSize)
     {
         $strSql = "CALL spCompanySearch(?, ?, ?, ?, ?, ?, ?, ?);";
+
         return $this->conn->fetchAll($strSql, array($currentUserId, $city, $district, $sort, $location['Latitude'], $location['Longitude'], $page, $pageSize));
     }
 

@@ -13,22 +13,18 @@
 // ==============================================================================
 
 use Welfony\Controller\API\RosterController;
-use Welfony\Core\Enum\RosterStatus;
 
-$app->get('/users/:userId/roster', function($userId) use($app)
-{
+$app->get('/users/:userId/roster', function ($userId) use ($app) {
     $controller = new RosterController();
     $controller->listAllRostersByUserId($userId);
 })->conditions(array('userId' => '\d{1,10}'));
 
-$app->post('/roster', function() use($app)
-{
+$app->post('/roster', function () use ($app) {
     $controller = new RosterController();
     $controller->add();
 });
 
-$app->put('/roster/:rosterId', function($rosterId) use($app)
-{
+$app->put('/roster/:rosterId', function ($rosterId) use ($app) {
     $controller = new RosterController();
     $controller->update($rosterId);
 })->conditions(array('rosterId' => '\d{1,10}'));
