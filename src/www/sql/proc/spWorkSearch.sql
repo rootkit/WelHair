@@ -13,7 +13,7 @@ DROP PROCEDURE IF EXISTS `spWorkSearch`;
 
 DELIMITER $$
 
-CREATE PROCEDURE `spWorkSearch` (IN area INT, IN gender INT, IN hairStyle INT, IN sort INT, IN page INT, IN pageSize INT)
+CREATE PROCEDURE `spWorkSearch` (IN currentUserId INT, IN area INT, IN gender INT, IN hairStyle INT, IN sort INT, IN page INT, IN pageSize INT)
 BEGIN
 
 DECLARE offset INT;
@@ -22,6 +22,8 @@ SET offset = (page - 1) * pageSize;
 
 SELECT
   TBLW.*,
+
+  (SELECT COUNT(1) FROM UserLike UL WHERE currentUserId > 0 AND currentUserId = UL.CreatedBy AND UL.WorkId = TBLW.WorkId) IsLiked,
 
   C.CommentId,
   C.Body,

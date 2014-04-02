@@ -30,7 +30,7 @@ class StaffController extends AbstractAPIController
 
         $sort = intval($this->app->request->get('sort'));
 
-        $staffList = StaffService::search($city, $district, $sort, $this->currentContext['Location'], $page, $pageSize);
+        $staffList = StaffService::search($this->currentContext['UserId'], $city, $district, $sort, $this->currentContext['Location'], $page, $pageSize);
         $this->sendResponse($staffList);
     }
 

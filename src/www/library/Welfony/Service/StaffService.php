@@ -23,15 +23,36 @@ use Welfony\Utility\Util;
 class StaffService
 {
 
-    public static function search($city, $district, $sort, $location, $page, $pageSize)
+    public static function search($currentUserId, $city, $district, $sort, $location, $page, $pageSize)
     {
         $page = $page <= 0 ? 1 : $page;
         $pageSize = $pageSize <= 0 ? 20 : $pageSize;
 
         $total = StaffRepository::getInstance()->searchCount($city, $district);
-        $staffList = StaffRepository::getInstance()->search($city, $district, $sort, $location, $page, $pageSize);
+        $staffList = StaffRepository::getInstance()->search($currentUserId, $city, $district, $sort, $location, $page, $pageSize);
 
-        return array('total' => $total, 'staffs' => $staffList);
+        $staffs = array();
+        foreach ($staffList as $staff) {
+            $staff['Company'] = array(
+                'CompanyId' => $staff['CompanyId'],
+                'Name' => $staff['Name'],
+                'Address' => $staff['Address'],
+                'Latitude' => $staff['Latitude'],
+                'Longitude' => $staff['Longitude'],
+                'Distance' => $staff['Distance']
+            );
+
+            unset($staff['CompanyId']);
+            unset($staff['Name']);
+            unset($staff['Address']);
+            unset($staff['Latitude']);
+            unset($staff['Longitude']);
+            unset($staff['Distance']);
+
+            $staffs[] = $staff;
+        }
+
+        return array('total' => $total, 'staffs' => $staffs);
     }
 
     public static function getStaffDetail($staffId)

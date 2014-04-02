@@ -13,7 +13,7 @@ DROP PROCEDURE IF EXISTS `spCompanySearch`;
 
 DELIMITER $$
 
-CREATE PROCEDURE `spCompanySearch` (IN city INT, IN district INT, IN sort INT, IN latitude DOUBLE, IN longitude DOUBLE, IN page INT, IN pageSize INT)
+CREATE PROCEDURE `spCompanySearch` (IN currentUserId INT, IN city INT, IN district INT, IN sort INT, IN latitude DOUBLE, IN longitude DOUBLE, IN page INT, IN pageSize INT)
 BEGIN
 
 DECLARE offset INT;
@@ -21,12 +21,16 @@ DECLARE offset INT;
 SET offset = (page - 1) * pageSize;
 
 SELECT
-  TBLC.*
+  TBLC.*,
+  (SELECT COUNT(1) FROM UserLike UL WHERE currentUserId > 0 AND currentUserId = UL.CreatedBy AND UL.CompanyId = TBLC.CompanyId) IsLiked,
+  (SELECT COUNT(1) FROM CompanyUser CU WHERE CU.CompanyId = TBLC.CompanyId) StaffCount,
+  (SELECT COUNT(1) FROM Comment C WHERE C.CompanyId = TBLC.CompanyId) CommentCount
 FROM (
     SELECT
       C.CompanyId,
       C.Name,
       C.LogoUrl,
+      C.PictureUrl,
       C.Tel,
       C.Mobile,
       C.Address,

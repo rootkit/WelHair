@@ -59,7 +59,7 @@ class CommentService
             'Deep' => 0,
             'Rate' => $rate,
             'Body' => $body,
-            'PictureUrl' => isset($data['PictureUrl']) && is_array($data['PictureUrl']) ? json_encode($data['PictureUrl']) : '{}',
+            'PictureUrl' => isset($data['PictureUrl']) && is_array($data['PictureUrl']) ? json_encode($data['PictureUrl']) : '[]',
             'CreatedBy' => $createdBy,
             'CreatedDate' => date('Y-m-d H:i:s')
         );

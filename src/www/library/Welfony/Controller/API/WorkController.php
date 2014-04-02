@@ -33,7 +33,7 @@ class WorkController extends AbstractAPIController
 
         $sort = intval($this->app->request->get('sort'));
 
-        $workList = WorkService::search($city, $gender, $hairStyle, $sort, $page, $pageSize);
+        $workList = WorkService::search($this->currentContext['UserId'], $city, $gender, $hairStyle, $sort, $page, $pageSize);
         $this->sendResponse($workList);
     }
 

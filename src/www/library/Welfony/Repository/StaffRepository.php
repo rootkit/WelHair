@@ -35,10 +35,10 @@ class StaffRepository extends AbstractRepository
         return $row['Total'];
     }
 
-    public function search($city, $district, $sort, $location, $page, $pageSize)
+    public function search($currentUserId, $city, $district, $sort, $location, $page, $pageSize)
     {
-        $strSql = "CALL spStaffSearch(?, ?, ?, ?, ?, ?, ?);";
-        return $this->conn->fetchAll($strSql, array($city, $district, $sort, $location['Latitude'], $location['Longitude'], $page, $pageSize));
+        $strSql = "CALL spStaffSearch(?, ?, ?, ?, ?, ?, ?, ?);";
+        return $this->conn->fetchAll($strSql, array($currentUserId, $city, $district, $sort, $location['Latitude'], $location['Longitude'], $page, $pageSize));
     }
 
     public function seachByNameAndPhoneAndEmail($searchText, $includeClient)
