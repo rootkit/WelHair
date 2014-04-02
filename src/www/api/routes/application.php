@@ -18,7 +18,7 @@ use Welfony\Utility\Util;
 
 $app->hook('slim.before.router', function() use($app)
 {
-    $ip = '119.163.88.200';//Util::getRealIp();
+    $ip = Util::getRealIp();
     $isLocalhost = $ip == '127.0.0.1';
 
     $location = htmlspecialchars($app->request->get('currentLocation'));
@@ -32,8 +32,9 @@ $app->hook('slim.before.router', function() use($app)
     if (doubleval($locationArr[0]) <= 0) {
         $client = new \GuzzleHttp\Client();
         $res = $client->get('http://api.map.baidu.com/location/ip?ak=3998daac6ca53a8067263f139b4aadf4&ip=' . $ip . '&coor=bd09ll');
-
-        var_export($res->json());die();
+        $bdData = $res->json();
+        $locationArr[0] = $bdData['content']['point']['y'];
+        $locationArr[1] = $bdData['content']['point']['x'];
     }
 
     $currentUserId = intval($app->request->get('currentUserId'));
