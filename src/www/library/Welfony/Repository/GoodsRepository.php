@@ -43,7 +43,7 @@ class GoodsRepository extends AbstractRepository
         return $this->conn->fetchAll($strSql);
     }
 
-    public function listGoods( $pageNumber, $pageSize)
+    public function listGoods($pageNumber, $pageSize)
     {
 
         $offset = ($pageNumber - 1) * $pageSize;
@@ -62,7 +62,7 @@ class GoodsRepository extends AbstractRepository
         $strSql = 'SELECT
                        *
                    FROM Goods
-                   WHERE GoodsId = ? 
+                   WHERE GoodsId = ?
                    LIMIT 1';
 
         return $this->conn->fetchAssoc($strSql, array($id));

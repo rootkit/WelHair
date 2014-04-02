@@ -48,7 +48,7 @@ class GoodsService
 
     public static function listAllGoods()
     {
-        return $searchResult = GoodsRepository::getInstance()->getAllGoods();   
+        return $searchResult = GoodsRepository::getInstance()->getAllGoods();
     }
 
     public static function save($data)
@@ -91,7 +91,6 @@ class GoodsService
         }
     }
 
-
     public static function deleteGoods($data)
     {
         $result = array('success' => false, 'message' => '');
@@ -100,6 +99,7 @@ class GoodsService
 
             $result['success'] = true;
             $result['message'] = '删除商品成功！';
+
             return $result;
         } else {
             $result['message'] = '删除商品失败！';

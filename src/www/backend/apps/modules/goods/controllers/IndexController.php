@@ -40,12 +40,10 @@ class Goods_IndexController extends AbstractAdminController
     public function infoAction()
     {
         $this->view->pageTitle = '添加商品';
-    	$this->view->defaultgoodsno= self::GOODS_PREFIX.time().rand(10,99);
+        $this->view->defaultgoodsno= self::GOODS_PREFIX.time().rand(10,99);
         $this->view->categories=CategoryService::listAllCategory();
 
-
         $goodsId = $this->_request->getParam('goods_id')?  intval($this->_request->getParam('goods_id')) : 0;
-
 
         $goods = array(
             'GoodsId' => $goodsId,
@@ -54,23 +52,18 @@ class Goods_IndexController extends AbstractAdminController
             'Keywords' => '',
         );
 
-
         if ($this->_request->isPost()) {
             $goods['Name']= htmlspecialchars($this->_request->getParam('name'));
-     
-
 
             $result = GoodsService::save($goods);
             if ($result['success']) {
 
-            
                 $this->view->successMessage = '保存商品成功！';
             } else {
                 $this->view->errorMessage = $result['message'];
             }
         } else {
 
-            
             if ($goodsId > 0) {
                 $goods = GoodsService::getGoodsById($goodsId);
                 $this->view->goodscategories=CategoryService::listAllCategoryByGoods($goodsId);

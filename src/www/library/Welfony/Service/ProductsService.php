@@ -14,8 +14,6 @@
 
 namespace Welfony\Service;
 
-use Welfony\Repository\SpecRepository;
-
 class ProductsService
 {
 
@@ -47,7 +45,7 @@ class ProductsService
 
     public static function listAllProducts()
     {
-        return $searchResult = ProductsRepository::getInstance()->getAllProducts();   
+        return $searchResult = ProductsRepository::getInstance()->getAllProducts();
     }
 
     public static function save($data)
@@ -90,7 +88,6 @@ class ProductsService
         }
     }
 
-
     public static function deleteProducts($data)
     {
         $result = array('success' => false, 'message' => '');
@@ -99,6 +96,7 @@ class ProductsService
 
             $result['success'] = true;
             $result['message'] = '删除产品成功！';
+
             return $result;
         } else {
             $result['message'] = '删除产品失败！';
