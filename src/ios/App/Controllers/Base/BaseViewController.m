@@ -159,7 +159,7 @@
         }else{
             [self setTopLeftLoading];
             [[BaiduMapHelper SharedInstance] locateCityWithCompletion:^(City *city){
-                [self setLeftNavButtonTitle:city.name buttonImage:nil];
+                [self setLeftNavButtonTitle:city.name buttonImg:nil];
                 [[CityManager SharedInstance] setLocatedCity:city.id];
                 [[CityManager SharedInstance] setSelectedCity:city.id];
             }];

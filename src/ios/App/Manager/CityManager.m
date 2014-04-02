@@ -58,7 +58,7 @@
     NSMutableArray *list =[NSMutableArray array];
     FMDatabase * db = [FMDatabase databaseWithPath:self.databasePath];
     if ([db open]) {
-        FMResultSet *set = [db executeQuery:@"Select * from City order by SortOrder asc"];
+        FMResultSet *set = [db executeQuery:@"Select * from City WHERE ParentId = 0 order by CityId asc"];
         while ([set next]) {
             City *city = [City new];
             city.id = [set intForColumn:@"CityId"];
