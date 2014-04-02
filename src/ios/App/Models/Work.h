@@ -10,9 +10,8 @@
 //
 // ==============================================================================
 
-#import <Foundation/Foundation.h>
-#import "Staff.h"
 #import "BaseModel.h"
+#import "Staff.h"
 
 typedef NS_ENUM(NSInteger, HairStyleEnum) {
     HairStyleEnumLong = 1,
@@ -33,6 +32,7 @@ typedef NS_ENUM(NSInteger, GenderEnum) {
 };
 
 @interface Work : BaseModel
+
 @property (nonatomic, strong) NSArray *imgUrlList;
 
 @property (nonatomic) BOOL isfav;

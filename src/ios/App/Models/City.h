@@ -16,4 +16,5 @@
 
 - (City *)initWithDic:(NSDictionary *)dictionary;
 - (NSDictionary *)dictionaryFromUser:(City *)city;
+
 @end

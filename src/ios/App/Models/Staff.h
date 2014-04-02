@@ -6,8 +6,8 @@
 //  Copyright (c) 2014 Welfony. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
 #import "BaseModel.h"
+
 @interface Staff : BaseModel
 
 @property (nonatomic, strong) NSString *avatorUrl;
