@@ -14,6 +14,6 @@
 
 +(ASIHTTPRequest *)createGetRequestWithURL:(NSURL *)url andParam:(NSDictionary *)params;
 +(ASIFormDataRequest *)createPOSTRequestWithURL:(NSURL *)url andData:(NSDictionary *)data;
-+(ASIFormDataRequest *)createPUBRequestWithURL:(NSURL *)url andData:(NSDictionary *)data;
++(ASIFormDataRequest *)createPUTRequestWithURL:(NSURL *)url andData:(NSDictionary *)data;
 
 @end

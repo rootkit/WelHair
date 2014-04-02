@@ -160,6 +160,8 @@ a {
     height: 30px;
     line-height: 30px;
     *height: auto;
+    background: #fff;
+    border: 1px solid #ccc;
 }
 
 .u-ipt {
@@ -236,6 +238,10 @@ textarea.u-ipt
     text-decoration: none;
 }
 
+.m-form .ipt a.u-btn,.m-form .ipt a.u-btn:hover {
+    color: #fff;
+}
+
 .m-form .ipt .verify {
     margin: 0 15px 0 5px;
     height: 32px;
@@ -292,11 +298,11 @@ button.u-btn {
 }
 
 .u-btn,.u-btn:hover {
-    color: #fff !important;
+    color: #fff;
     text-decoration: none;
 }
 
-.u-btn:hover,.u-btn:focus {
+.u-btn:hover, .u-btn:focus {
     background: #399dd8;
 }
 
@@ -757,7 +763,7 @@ a.u-upload,a.u-upload:hover {
     text-decoration: none;
 }
 
-.t-action:hover 
+.t-action:hover
 {
     cursor: pointer;
     text-decoration: none;

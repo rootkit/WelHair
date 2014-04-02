@@ -287,7 +287,11 @@
 - (void)getWorks
 {
     NSMutableDictionary *reqData = [[NSMutableDictionary alloc] initWithCapacity:1];
-    [reqData setObject:[NSNumber numberWithInteger:self.self.currentPage] forKey:@"page"];
+    [reqData setObject:[NSString stringWithFormat:@"%d", self.currentPage] forKey:@"page"];
+    [reqData setObject:[NSString stringWithFormat:@"%d", TABLEVIEW_PAGESIZE_DEFAULT] forKey:@"pageSize"];
+    [reqData setObject:[NSString stringWithFormat:@"%d", self.genderSelectedIndex] forKey:@"gender"];
+    [reqData setObject:[NSString stringWithFormat:@"%d", self.hairStyleSelectedIndex] forKey:@"hairStyle"];
+    [reqData setObject:[NSString stringWithFormat:@"%d", self.sortSelectedIndex] forKey:@"sort"];
 
     ASIHTTPRequest *request = [RequestUtil createGetRequestWithURL:[NSURL URLWithString:API_WORKS_SEARCH] andParam:reqData];
     [request setDelegate:self];

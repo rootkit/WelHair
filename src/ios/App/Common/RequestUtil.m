@@ -11,12 +11,17 @@
 // ==============================================================================
 
 #import "RequestUtil.h"
+#import "RequestUtils.h"
+#import "UserManager.h"
 
 @implementation RequestUtil
 
 +(ASIHTTPRequest *)createGetRequestWithURL:(NSURL *)url andParam:(NSDictionary *)params
 {
-    ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:url];
+    NSMutableDictionary *newParams = [[NSMutableDictionary alloc] initWithDictionary:params];
+    [newParams setObject:[NSString stringWithFormat:@"%d", [UserManager SharedInstance].userLogined.id] forKey:@"currentUserId"];
+
+    ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:[url URLWithQuery:[NSString URLQueryWithParameters:newParams]]];
     [request addRequestHeader:@"Content-Type" value:@"application/json"];
 
     return request;
@@ -31,7 +36,7 @@
     return request;
 }
 
-+(ASIFormDataRequest *)createPUBRequestWithURL:(NSURL *)url andData:(NSDictionary *)data
++(ASIFormDataRequest *)createPUTRequestWithURL:(NSURL *)url andData:(NSDictionary *)data
 {
     ASIFormDataRequest *request = [ASIFormDataRequest requestWithURL:url];
     request.requestMethod = @"PUT";

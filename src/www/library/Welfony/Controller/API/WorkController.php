@@ -29,7 +29,7 @@ class WorkController extends AbstractAPIController
 
         $area = intval($this->app->request->get('area'));
         $gender = intval($this->app->request->get('gender'));
-        $hairStyle = intval($this->app->request->get('hair-style'));
+        $hairStyle = intval($this->app->request->get('hairStyle'));
 
         $sort = intval($this->app->request->get('sort'));
 

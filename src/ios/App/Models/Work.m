@@ -33,11 +33,8 @@
         self.creator.avatorUrl = [staffDic objectForKey:@"AvatarUrl"];
         self.creator.groupName = [staffDic objectForKey:@"Nickname"];
 
-        NSDictionary *commentDic = [dictionary objectForKey:@"Comment"];
-        Comment *comm = [Comment new];
-
-        if (
-        self.commentList
+//        NSDictionary *commentDic = [dictionary objectForKey:@"Comment"];
+//        Comment *comm = [Comment new];
     }
 
     return self;

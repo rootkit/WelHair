@@ -8,9 +8,13 @@
 
 #import "BaseManager.h"
 #import "User.h"
+
 @interface UserManager : BaseManager
+
 @property (nonatomic, strong) User *userLogined;
+
 +(id)SharedInstance;
+
 - (void)signout;
 
 @end
