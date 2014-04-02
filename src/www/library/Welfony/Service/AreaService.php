@@ -15,6 +15,7 @@
 namespace Welfony\Service;
 
 use Welfony\Repository\AreaRepository;
+use Welfony\Utility\Util;
 
 class AreaService
 {
@@ -33,6 +34,7 @@ class AreaService
 
         $rows = array();
         foreach ($result as $row) {
+            $row['FirstChar'] = Util::pinyin($row['Name']);
             $rows[$row['AreaId']] = $row;
         }
 
@@ -62,6 +64,20 @@ class AreaService
 
             if (isset($area['Children']) && count($area['Children']) > 0) {
                 foreach ($area['Children'] as $child) {
+                    if ($child['Name'] == '县') {
+                        continue;
+                    }
+
+                    if (strpos($child['Name'], '县') > 0) {
+                        continue;
+                    }
+
+                    if ($child['Name'] == '市辖区') {
+                        $child['Name'] = $area['Name'];
+                    }
+
+                    echo "INSERT INTO City (CityId, ParentId, CityName, SortOrder, FirstChar) VALUES(" . $child['AreaId'] . ", " . 0 . ", '" . $child['Name'] . "', 99, '" . substr($child['FirstChar'], 0, 1) . "');\n";
+
                     unset($child['Sort']);
                     unset($child['ParentId']);
 
@@ -69,6 +85,15 @@ class AreaService
 
                     if (isset($child['Children']) && count($child['Children']) > 0) {
                         foreach ($child['Children'] as $childChild) {
+                            if ($childChild['Name'] == '市辖区') {
+                                continue;
+                            }
+                            if (strpos($childChild['Name'], '县') > 0) {
+                                continue;
+                            }
+
+                            echo "INSERT INTO City (CityId, ParentId, CityName, SortOrder, FirstChar) VALUES(" . $childChild['AreaId'] . ", " . $child['AreaId'] . ", '" . $childChild['Name'] . "', 99, '" . substr($childChild['FirstChar'], 0, 1) . "');\n";
+
                             unset($childChild['Sort']);
                             unset($childChild['ParentId']);
 
@@ -86,7 +111,7 @@ class AreaService
 
             $areaList[] = $area;
         }
-
+die();
         return $areaList;
     }
 
