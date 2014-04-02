@@ -18,11 +18,13 @@ class AbstractAPIController
 {
 
     protected $app;
+    protected $currentContext;
 
     public function __construct()
     {
         global $app;
         $this->app = $app;
+        $this->currentContext = \Zend_Registry::get('currentContext');
     }
 
     protected function sendResponse($data = array())

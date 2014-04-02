@@ -19,7 +19,7 @@ use Welfony\Repository\Base\AbstractRepository;
 class WorkRepository extends AbstractRepository
 {
 
-    public function searchCount($area, $gender, $hairStyle)
+    public function searchCount($city, $gender, $hairStyle)
     {
         $strSql = "SELECT
                      COUNT(1) `Total`
@@ -29,15 +29,15 @@ class WorkRepository extends AbstractRepository
                    WHERE (? = 0 || C.City = ?) && (? = 0 || W.Gender = ?) && (? = 0 || W.HairStyle = ?)
                    LIMIT 1";
 
-        $row = $this->conn->fetchAssoc($strSql, array($area, $area, $gender, $gender, $hairStyle, $hairStyle));
+        $row = $this->conn->fetchAssoc($strSql, array($city, $city, $gender, $gender, $hairStyle, $hairStyle));
 
         return $row['Total'];
     }
 
-    public function search($area, $gender, $hairStyle, $sort, $page, $pageSize)
+    public function search($city, $gender, $hairStyle, $sort, $page, $pageSize)
     {
         $strSql = "CALL spWorkSearch(?, ?, ?, ?, ?, ?);";
-        return $this->conn->fetchAll($strSql, array($area, $gender, $hairStyle, $sort, $page, $pageSize));
+        return $this->conn->fetchAll($strSql, array($city, $gender, $hairStyle, $sort, $page, $pageSize));
     }
 
     public function getAllWorksCount($staffId)

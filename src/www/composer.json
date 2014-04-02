@@ -8,7 +8,7 @@
     "require": {
         "cboden/Ratchet": "0.3.*",
         "doctrine/dbal": "2.3.4",
-        "guzzle/guzzle": "~3.7",
+        "guzzlehttp/guzzle": "~4.0",
         "imagine/imagine": "~0.5.0",
         "php": ">=5.3.3",
         "phpseclib/phpseclib": "*",

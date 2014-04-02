@@ -30,12 +30,7 @@ class CompanyController extends AbstractAPIController
 
         $sort = intval($this->app->request->get('sort'));
 
-        $location = array(
-            'Latitude' => 36.682727,
-            'Longitude' => 117.034525
-        );
-
-        $companyList = CompanyService::search($city, $district, $sort, $location, $page, $pageSize);
+        $companyList = CompanyService::search($city, $district, $sort, $this->currentContext['Location'], $page, $pageSize);
         $this->sendResponse($companyList);
     }
 

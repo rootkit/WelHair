@@ -27,13 +27,13 @@ class WorkController extends AbstractAPIController
         $page = intval($this->app->request->get('page'));
         $pageSize = intval($this->app->request->get('pageSize'));
 
-        $area = intval($this->app->request->get('area'));
+        $city = intval($this->app->request->get('city'));
         $gender = intval($this->app->request->get('gender'));
         $hairStyle = intval($this->app->request->get('hairStyle'));
 
         $sort = intval($this->app->request->get('sort'));
 
-        $workList = WorkService::search($area, $gender, $hairStyle, $sort, $page, $pageSize);
+        $workList = WorkService::search($city, $gender, $hairStyle, $sort, $page, $pageSize);
         $this->sendResponse($workList);
     }
 

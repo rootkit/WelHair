@@ -18,13 +18,13 @@ use Welfony\Repository\WorkRepository;
 
 class WorkService
 {
-    public static function search($area, $gender, $hairStyle, $sort, $page, $pageSize)
+    public static function search($city, $gender, $hairStyle, $sort, $page, $pageSize)
     {
         $page = $page <= 0 ? 1 : $page;
         $pageSize = $pageSize <= 0 ? 20 : $pageSize;
 
-        $total = WorkRepository::getInstance()->searchCount($area, $gender, $hairStyle);
-        $workList = WorkRepository::getInstance()->search($area, $gender, $hairStyle, $sort, $page, $pageSize);
+        $total = WorkRepository::getInstance()->searchCount($city, $gender, $hairStyle);
+        $workList = WorkRepository::getInstance()->search($city, $gender, $hairStyle, $sort, $page, $pageSize);
 
         $works = array();
         foreach ($workList as $work) {
