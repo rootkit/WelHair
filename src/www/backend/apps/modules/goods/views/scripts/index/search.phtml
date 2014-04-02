@@ -1,97 +1,54 @@
+<?php
+use \Welfony\Utility\Util;
+?>
+<div class="toolbar">
+    <ul class="clearfix">
+        <li>
+            <a href="<?php echo $this->baseUrl('goods/index/info'); ?>">
+                <i class="iconfont">&#xf0175;</i>
+                添加
+            </a>
+      </li>
+    </ul>
+</div>
 <table class="m-table">
     <thead>
         <tr>
             <th class="col-chk"><input type="checkbox" /></th>
-            <th class="cola">格边框</th>
-            <th>表头</th>
-            <th class="cola">表头</th>
-            <th class="cola">表头</th>
-            <th class="colb">表头</th>
+            <th class="cola">名称</th>
+            <th class="cola">分类</th>
+            <th class="cola">销售价</th>
+            <th class="cola">库存</th>
+            <th class="cola">品牌</th>
+            <th class="cola">排序</th>
+            <th class="cola">操作</th>
         </tr>
     </thead>
     <tbody>
+      <?php foreach( $this->rows as $goods) : ?>
         <tr>
             <td class="col-center"><input type="checkbox" /></td>
-            <td>内容</td>
-            <td>内容内容内容内容内容内容内容</td>
-            <td>内容内容</td>
-            <td>内容内容</td>
-            <td>内容内容内容</td>
+            <td>
+                <a href="<?php echo $this->baseUrl('goods/index/info?goods_id=' .  $goods['GoodsId']); ?>">
+                    <?php echo $spec['Name']; ?>
+                </a>
+            </td>
+            <td></td>
+            <td> <?php echo $spec['SellPrice']; ?></td>
+            <td> <?php echo $spec['StoreNums']; ?></td>
+            <td></td>
+            <td><?php echo $spec['Sort']; ?></td>
+            <td> 
+                <a href="#" href="#" class="btnDelete" data-id="<?php echo $goods['GoodsId']; ?>" >
+                    <i class="iconfont">&#xf013f;</i>&nbsp;&nbsp;删除
+                </a>
+            </td>
         </tr>
-        <tr>
-            <td class="col-center"><input type="checkbox" /></td>
-            <td>内容</td>
-            <td>内容内容内容内容内容内容内容</td>
-            <td>内容内容</td>
-            <td>内容内容</td>
-            <td>内容内容内容</td>
-        </tr>
-        <tr>
-            <td class="col-center"><input type="checkbox" /></td>
-            <td>内容</td>
-            <td>内容内容内容内容内容内容内容</td>
-            <td>内容内容</td>
-            <td>内容内容</td>
-            <td>内容内容内容</td>
-        </tr>
-        <tr>
-            <td class="col-center"><input type="checkbox" /></td>
-            <td>内容</td>
-            <td>内容内容内容内容内容内容内容</td>
-            <td>内容内容</td>
-            <td>内容内容</td>
-            <td>内容内容内容</td>
-        </tr>
-        <tr>
-            <td class="col-center"><input type="checkbox" /></td>
-            <td>内容</td>
-            <td>内容内容内容内容内容内容内容</td>
-            <td>内容内容</td>
-            <td>内容内容</td>
-            <td>内容内容内容</td>
-        </tr>
-        <tr>
-            <td class="col-center"><input type="checkbox" /></td>
-            <td>内容</td>
-            <td>内容内容内容内容内容内容内容</td>
-            <td>内容内容</td>
-            <td>内容内容</td>
-            <td>内容内容内容</td>
-        </tr>
-        <tr>
-            <td class="col-center"><input type="checkbox" /></td>
-            <td>内容</td>
-            <td>内容内容内容内容内容内容内容</td>
-            <td>内容内容</td>
-            <td>内容内容</td>
-            <td>内容内容内容</td>
-        </tr>
-        <tr>
-            <td class="col-center"><input type="checkbox" /></td>
-            <td>内容</td>
-            <td>内容内容内容内容内容内容内容</td>
-            <td>内容内容</td>
-            <td>内容内容</td>
-            <td>内容内容内容</td>
-        </tr>
-        <tr>
-            <td class="col-center"><input type="checkbox" /></td>
-            <td>内容</td>
-            <td>内容内容内容内容内容内容内容</td>
-            <td>内容内容</td>
-            <td>内容内容</td>
-            <td>内容内容内容</td>
-        </tr>
+    <?php endforeach; ?>
     </tbody>
 </table>
 
 <div class="m-page m-page-rt">
-    <a href="#" class="first pageprv z-dis">上一页</a>
-    <a href="#">1</a>
-    <a href="#" class="z-crt">2</a>
-    <a href="#">3</a>
-    <a href="#">4</a>
-    <i>...</i>
-    <a href="#">10</a>
-    <a href="#" class="last pagenxt">下一页</a>
+    <?php echo $this->pagerHTML; ?>
 </div>
+<script src="<?php echo Util::baseAssetUrl('js/backend/goods-list.js'); ?>"></script>

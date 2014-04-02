@@ -46,6 +46,20 @@ class CategoryService
         return $result;
     }
 
+    public static function listAllCategory()
+    {
+     
+        $searchResult = CategoryRepository::getInstance()->getAllCategory();
+        return $searchResult;
+    }
+
+    public static function listCategoryByGoods()
+    {
+     
+        $searchResult = CategoryRepository::getInstance()->getAllCategoryByGoods();
+        return $searchResult;
+    }
+
     public static function save($data)
     {
         $result = array('success' => false, 'message' => '');
