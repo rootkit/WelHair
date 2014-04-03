@@ -65,7 +65,6 @@
 {
 	if (error == 0) {
         NSString *cityName = result.addressComponent.city;
-        cityName = [cityName stringByReplacingOccurrencesOfString:@"市" withString:@""];
         City *locatedCity =  [[CityManager SharedInstance] getCityByName:cityName];
         _locateComplete(locatedCity);
         _mapView.delegate = nil;

@@ -64,6 +64,7 @@
             if(self.locatedCity.id != city.id){
                 [[CityManager SharedInstance] setLocatedCity:city.id];
                 self.locatedCity = city;
+                self.locationCell = [self getLocaitonCell:self.locatedCity.name];
                 [selfDelegate.tableView reloadData];
             }
         }];
@@ -160,7 +161,7 @@
 
 - (UITableViewCell *)getCityCell:(UITableView *)tableView indexPath:(NSIndexPath *)indexPath
 {
-    static NSString *CellIdentifier = @"Cell";
+    static NSString *CellIdentifier = @"CityCell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] ;
@@ -174,6 +175,8 @@
     cell.textLabel.text = item.name;
     if(self.selectedCity.id == item.id){
         cell.accessoryType = UITableViewCellAccessoryCheckmark;
+    }else{
+        cell.accessoryType = UITableViewCellAccessoryNone;
     }
     return cell;
 }

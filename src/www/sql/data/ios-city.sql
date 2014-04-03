@@ -1,5 +1,5 @@
 
-INSERT INTO City (CityId, ParentId, CityName, SortOrder, FirstChar) VALUES(110100, 0, '北京市', 99, 'S');
+INSERT INTO City (CityId, ParentId, CityName, SortOrder, FirstChar) VALUES(110100, 0, '北京市', 99, 'B');
 INSERT INTO City (CityId, ParentId, CityName, SortOrder, FirstChar) VALUES(110101, 110100, '东城区', 99, 'D');
 INSERT INTO City (CityId, ParentId, CityName, SortOrder, FirstChar) VALUES(110102, 110100, '西城区', 99, 'X');
 INSERT INTO City (CityId, ParentId, CityName, SortOrder, FirstChar) VALUES(110105, 110100, '朝阳区', 99, 'C');

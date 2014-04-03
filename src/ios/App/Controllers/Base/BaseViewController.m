@@ -152,10 +152,12 @@
     City *selectedCity = [[CityManager SharedInstance] getSelectedCity];
     if(selectedCity.id > 0){
         self.leftNavItemTitle = selectedCity.name;
+        [self setLeftNavButtonTitle:self.leftNavItemTitle buttonImg:nil];
     }else{
         City *locatedCity = [[CityManager SharedInstance] getLocatedCity];
         if(locatedCity.id > 0){
             self.leftNavItemTitle = locatedCity.name;
+            [self setLeftNavButtonTitle:self.leftNavItemTitle buttonImg:nil];
         }else{
             [self setTopLeftLoading];
             [[BaiduMapHelper SharedInstance] locateCityWithCompletion:^(City *city){
