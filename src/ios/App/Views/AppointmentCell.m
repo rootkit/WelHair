@@ -117,7 +117,7 @@
 - (void)setup:(Appointment *)appointment;
 {
     Staff *staff = [FakeDataHelper getFakeStaffList][0];
-    [self.imgView setImageWithURL:[NSURL URLWithString: staff.avatorUrl]];
+    [self.imgView setImageWithURL:staff.avatorUrl];
     self.staffNameLbl.text = @"高级总监";
     self.groupNameLbl.text = staff.groupName;
     self.datetimeLbl.text = @"2014-3-10 09:30";

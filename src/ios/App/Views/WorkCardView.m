@@ -18,7 +18,7 @@
 @property (nonatomic, strong) UIImageView *hairImgView;
 @property (nonatomic, strong) ToggleButton *heartBtn;
 
-@property (nonatomic, strong) UIImageView *staffImgView;
+@property (nonatomic, strong) UIImageView *commentorImgView;
 @property (nonatomic, strong) UILabel *commentCountLbl;
 @property (nonatomic, strong) UILabel *commentContentLbl;
 @property (nonatomic, strong) UILabel *commentorNameLbl;
@@ -63,17 +63,17 @@
         linerView.backgroundColor = [UIColor colorWithHexString:@"dfdfdf"];
         [self addSubview:linerView];
         
-        self.staffImgView = [[CircleImageView alloc] initWithFrame:CGRectMake(5,
+        self.commentorImgView = [[CircleImageView alloc] initWithFrame:CGRectMake(5,
                                                                               MaxY(linerView)+ 5,
                                                                               25,
                                                                               25)];
-        [self addSubview:self.staffImgView];
+        [self addSubview:self.commentorImgView];
         
         // comment
         self.commentorNameLbl =
-        [[UILabel alloc] initWithFrame:CGRectMake(MaxX(self.staffImgView) + 5,
+        [[UILabel alloc] initWithFrame:CGRectMake(MaxX(self.commentorImgView) + 5,
                                                   MaxY(linerView) + 5,
-                                                  WIDTH(self) - (MaxX(self.staffImgView) + 10),
+                                                  WIDTH(self) - (MaxX(self.commentorImgView) + 10),
                                                   20)];
         self.commentorNameLbl.font = [UIFont systemFontOfSize:16];
         self.commentorNameLbl.backgroundColor = [UIColor clearColor];
@@ -105,21 +105,22 @@
 
     [self.hairImgView setImageWithURL:[NSURL URLWithString:workData.imgUrlList[0]]];
 
-    self.commentCountLbl.text = [NSString stringWithFormat:@"评论(%d)", workData.commentList.count];
+    self.commentCountLbl.text = [NSString stringWithFormat:@"评论(%d)", workData.commentCount];
     self.heartBtn.on = workData.isfav;
 
-    if (self.workData.commentList.count > 0) {
-        [self.staffImgView setImageWithURL:[NSURL URLWithString:workData.creator.avatorUrl]];
-        Comment *comment = workData.commentList.count > 0? workData.commentList[0] : nil;
-        self.commentorNameLbl.text = [NSString stringWithFormat:@"%@:",comment.commentorName];
-        self.commentContentLbl.text = [NSString stringWithFormat:@"%@:",comment.title];
+    if (self.workData.commentCount > 0) {
+        Comment *comment = workData.lastComment;
+        [self.commentorImgView setImageWithURL:comment.commentor.avatarUrl];
+        self.commentorNameLbl.text = [NSString stringWithFormat:@"%@:",comment.commentor.nickname];
+        self.commentContentLbl.text = [NSString stringWithFormat:@"%@:",comment.description];
     }
 
-    self.staffImgView.hidden = self.workData.commentList.count <= 0;
-    self.commentorNameLbl.hidden = self.workData.commentList.count <= 0;
-    self.commentContentLbl.hidden = self.workData.commentList.count <= 0;
+    self.commentorImgView.hidden = self.workData.commentCount <= 0;
+    self.commentorNameLbl.hidden = self.workData.commentCount <= 0;
+    self.commentContentLbl.hidden = self.workData.commentCount <= 0;
 
     [self drawBottomShadowOffset:1 opacity:1];
+
     return HEIGHT(self);
 }
 

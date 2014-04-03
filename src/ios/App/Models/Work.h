@@ -11,6 +11,7 @@
 // ==============================================================================
 
 #import "BaseModel.h"
+#import "Comment.h"
 #import "Staff.h"
 
 typedef NS_ENUM(NSInteger, HairStyleEnum) {
@@ -38,7 +39,8 @@ typedef NS_ENUM(NSInteger, GenderEnum) {
 @property (nonatomic) BOOL isfav;
 @property (nonatomic, strong) Staff *creator;
 
-@property (nonatomic, strong) NSArray *commentList;
+@property (nonatomic, strong) Comment *lastComment;
+@property (nonatomic) int commentCount;
 
 // work param
 // face sytle

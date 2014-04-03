@@ -30,11 +30,15 @@
         self.creator = [Staff new];
 
         NSDictionary *staffDic = [dictionary objectForKey:@"Staff"];
-        self.creator.avatorUrl = [staffDic objectForKey:@"AvatarUrl"];
+        self.creator.id = [[staffDic objectForKey:@"UserId"] intValue];
+        self.creator.avatorUrl = [NSURL URLWithString:[staffDic objectForKey:@"AvatarUrl"]];
         self.creator.groupName = [staffDic objectForKey:@"Nickname"];
 
-//        NSDictionary *commentDic = [dictionary objectForKey:@"Comment"];
-//        Comment *comm = [Comment new];
+        self.commentCount = [[dictionary objectForKey:@"WorkCommentCount"] intValue];
+        if (self.commentCount > 0) {
+            NSDictionary *commentDic = [dictionary objectForKey:@"Comment"];
+            self.lastComment = [[Comment alloc] initWithDic:commentDic];
+        }
     }
 
     return self;

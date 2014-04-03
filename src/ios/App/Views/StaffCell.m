@@ -104,7 +104,7 @@
 - (void)setup:(Staff *)staff
 {
     self.staffData = staff;
-    [self.imgView setImageWithURL:[NSURL URLWithString:self.staffData.avatorUrl]];
+    [self.imgView setImageWithURL:self.staffData.avatorUrl];
     self.nameLbl.text = [NSString stringWithFormat:@"%@:",staff.name];
     self.groupLbl.text = [NSString stringWithFormat:@"%@:",staff.groupName];
     self.groupAddressLbl.text = @"历下区文化西路7号";

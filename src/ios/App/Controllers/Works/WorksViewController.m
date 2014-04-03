@@ -233,6 +233,9 @@
         NSString *title = [self.sortDatasource objectAtIndex:index];
         [self.sortBtn setTitle:title forState:UIControlStateNormal];
     }
+
+    self.currentPage = 1;
+    [self getWorks];
 }
 
 #pragma mark UITableView delegate
@@ -240,7 +243,7 @@
 - (CGFloat)brickView:(BrickView *)brickView heightForCellAtIndex:(NSInteger)index
 {
     Work *work = [self.datasource objectAtIndex:index];
-    return work.commentList.count > 0 ? 260 : 184;
+    return work.commentCount > 0 ? 260 : 184;
 }
 
 - (NSInteger)numberOfColumnsInBrickView:(BrickView *)brickView
@@ -268,10 +271,6 @@
      ];
 
     return cell;
-}
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
 }
 
 - (void)pushToDetial:(Work *)work
@@ -324,23 +323,6 @@
     }
 
     for (NSDictionary *dicData in dataList) {
-        [arr addObject:[[Work alloc] initWithDic:dicData]];
-        Work *w = [[Work alloc] initWithDic:dicData];
-        Comment *c = [Comment new];
-        c.title = @"";
-        w.commentList = @[c];
-        [arr addObject:w];
-        [arr addObject:[[Work alloc] initWithDic:dicData]];
-        [arr addObject:[[Work alloc] initWithDic:dicData]];
-        [arr addObject:w];
-        [arr addObject:w];
-        [arr addObject:[[Work alloc] initWithDic:dicData]];
-        [arr addObject:[[Work alloc] initWithDic:dicData]];
-        [arr addObject:[[Work alloc] initWithDic:dicData]];
-        [arr addObject:[[Work alloc] initWithDic:dicData]];
-        [arr addObject:w];
-        [arr addObject:[[Work alloc] initWithDic:dicData]];
-        [arr addObject:[[Work alloc] initWithDic:dicData]];
         [arr addObject:[[Work alloc] initWithDic:dicData]];
     }
 

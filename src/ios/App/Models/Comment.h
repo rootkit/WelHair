@@ -7,13 +7,20 @@
 //
 
 #import "BaseModel.h"
+#import "User.h"
 
 @interface Comment : BaseModel
 
-@property (nonatomic, strong) NSString *title;
-@property (nonatomic, strong) NSDate   *createdDate;
-@property (nonatomic, strong) NSString *commentorId;
-@property (nonatomic, strong) NSString *commentorAvatorUrl;
-@property (nonatomic, strong) NSString *commentorName;
+@property (nonatomic, strong) NSArray *imgUrlList;
+
+@property (nonatomic) int rate;
+
+@property (nonatomic, strong) User *commentor;
+
+@property (nonatomic, strong) NSDate *createdDate;
+
+
+- (Comment *)initWithDic:(NSDictionary *)dictionary;
+- (NSDictionary *)dictionaryFromComment:(Comment *)comment;
 
 @end

@@ -74,7 +74,7 @@
 - (void)setup:(Staff *)staff
 {
     self.staffData = staff;
-    [self.imgView setImageWithURL:[NSURL URLWithString:self.staffData.avatorUrl]];
+    [self.imgView setImageWithURL:self.staffData.avatorUrl];
     self.nameLbl.text = [NSString stringWithFormat:@"%@:",staff.name];
     self.rateControl.rating = 0.8;
     self.groupLbl.text = [NSString stringWithFormat:@"%@:",staff.groupName];

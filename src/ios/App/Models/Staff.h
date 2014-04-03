@@ -10,7 +10,7 @@
 
 @interface Staff : BaseModel
 
-@property (nonatomic, strong) NSString *avatorUrl;
+@property (nonatomic, strong) NSURL *avatorUrl;
 @property (nonatomic) float rate;
 @property (nonatomic) int groupId;
 @property (nonatomic, strong) NSString *groupName;

@@ -328,7 +328,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [self.staffImgView setImageWithURL:[NSURL URLWithString:self.work.creator.avatorUrl]];
+    [self.staffImgView setImageWithURL:self.work.creator.avatorUrl];
     self.staffNameLbl.text = self.work.creator.name;
     self.distanceLbl.text = @"1千米";
     NSMutableArray *sliderArray = [NSMutableArray array];

@@ -67,8 +67,8 @@
 
 - (void)setup:(Comment *)comment
 {
-    [self.imgView setImageWithURL:[NSURL URLWithString:comment.commentorAvatorUrl]];
-    self.titleLbl.text = comment.commentorName;
+    [self.imgView setImageWithURL:comment.commentor.avatarUrl];
+    self.titleLbl.text = comment.commentor.nickname;
     self.descriptionLbl.text = comment.description;
     self.dateLbl.text = [[NSDate dateFormatter] stringFromDate:comment.createdDate];
 }
