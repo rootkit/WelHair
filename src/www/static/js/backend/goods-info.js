@@ -19,32 +19,7 @@ WF.Model = {
         $('#specList').html(data);
 
         $('#specList input[type=radio]').click(function(){
-
-          return;
-          if( $('#spectable tbody').find( 'tr[data-id="' + $(this).attr('data-id') + '"]').get(0) == null )
-          {
           
-             var row = '   <tr class="specid" data-id="' +  $(this).attr('data-id')  + '"> ' +
-                    '               <td>' + $(this).attr('data-name') +'</td> ' +
-
-                    '                <td><a href="#" class="btnUp"><i class="iconfont">&#xf0113;</i></a>&nbsp;&nbsp;<a href="#" class="btnDown"><i class="iconfont">&#xf0111;</i></a>&nbsp;&nbsp;<a href="#" class="btnDelete"><i class="iconfont">&#xf013f;</i></a></td>' +
-                    '            </tr>';
-
-            $('#spectable tbody').append( $(row));
-            $('.content').height($('.content').height() + 50);
-            $('#spectable').find('.btnDelete').click(function(){$(this).parents('tr:first').remove();});
-            $('#spectable').find('.btnUp').click(function(){
-              var row = $(this).parents('tr:first');
-              row.insertBefore(row.prev());
-
-            });
-            $('#spectable').find('.btnDown').click(function(){
-              var row = $(this).parents('tr:first');
-              row.insertAfter(row.next());
-
-            });
-
-          }
           $('#specList').dialog("close");
         });
      });
@@ -61,6 +36,41 @@ $(function() {
     $('#btnAddSpec').click(function(){
       $('#specList').dialog({"modal": true, "width":800, "height":640});
       WF.Model.updateSpecList(1);
+    });
+
+    $('#goodsmodel').change(function(){
+
+       var modelid= $(this).val();
+       $.ajax({
+                    type: 'get',
+                    dataType: 'json',
+                    url:  globalSetting.baseUrl + '/goods/model/listattributes',
+                    data: {'modelid':modelid },
+                    success: function(data){
+                      //console.log( data);
+                      $('#attributestable').empty();
+                      if( data != null && data.length > 0)
+                      {
+                        $('#attributepanel').show();
+                        var index ;
+                         for(  index in data)
+                         {
+                              var row = "<tr><th>" + data[index].Name +"</th><td></td></tr>"; 
+                              $('#attributestable').append( $(row));
+                         }
+                      }
+                      else
+                      {
+                        $('#attributepanel').hide();
+                      }
+                        
+                    },
+                    error:function()
+                    {
+                        
+                    }
+        });
+
     });
 
 

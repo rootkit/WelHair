@@ -115,4 +115,13 @@ class Goods_ModelController extends AbstractAdminController
         }
     }
 
+    public function listattributesAction()
+    {
+        $this->_helper->viewRenderer->setNoRender(true);
+        $this->_helper->layout->disableLayout();
+        $modelId =  intval($this->_request->getParam('modelid')) ;
+        $result  = AttributeService::listAllAttributeByModel($modelId);
+        $this->_helper->json->sendJson($result);
+    }
+
 }

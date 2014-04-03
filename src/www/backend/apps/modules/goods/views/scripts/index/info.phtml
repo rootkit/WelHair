@@ -97,7 +97,7 @@ use \Welfony\Utility\Util;
             <div class="formitm">
                 <label class="lab">商品模型：</label>
                 <div class="ipt">
-                     <select id="isliveactivity"  class="u-sel">
+                     <select id="goodsmodel"  class="u-sel">
                         <option value="0" >通用模型</option>
                         <?php foreach( $this->categories as $category) :?>
                         <option value="<?php echo $category['CategoryId']; ?>" ><?php echo $category['Name']; ?></option>  
@@ -106,13 +106,10 @@ use \Welfony\Utility\Util;
                      <p></p>
                 </div>
             </div>
-            <div class="formitm">
+            <div class="formitm" id="attributepanel" style="display:none;">
                 <label class="lab">扩展属性：</label>
                 <div class="ipt">
-                     <table class="m-table" id="spectable" style="width:600px;">
-                        <tr>
-                            <th>aaa</th><td><input name="specval" type="text" value="" datatype="s" class="u-ipt"/></td> 
-                        </tr>
+                     <table class="m-table" id="attributestable" style="width:600px;">
                     </table>                    
                 </div>
             </div>
