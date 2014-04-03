@@ -10,6 +10,6 @@
 //
 // ==============================================================================
 
-@interface CommentsViewController : BaseViewController
+@interface CommentComposorViewController : BaseViewController
 
 @end

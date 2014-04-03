@@ -107,6 +107,7 @@
 		18A912E418BB26B6006B9A04 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A912E118BB26B6006B9A04 /* User.m */; };
 		18AC388818CD685C00328A78 /* WebSocketUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 18AC388718CD685C00328A78 /* WebSocketUtil.m */; };
 		18AC388B18CD762600328A78 /* ChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18AC388A18CD762600328A78 /* ChatViewController.m */; };
+		18F50A1518ED55DB00DC3167 /* CommentComposorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F50A1418ED55DB00DC3167 /* CommentComposorViewController.m */; };
 		18FAFAB518EAA6C200EF6960 /* BrickView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18FAFAB418EAA6C200EF6960 /* BrickView.m */; };
 		460C2F2A18C8BFFF00AD16E6 /* Comment.m in Sources */ = {isa = PBXBuildFile; fileRef = 460C2F2918C8BFFF00AD16E6 /* Comment.m */; };
 		460C2F4A18CAFDB200AD16E6 /* GroupCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 460C2F4918CAFDB200AD16E6 /* GroupCell.m */; };
@@ -456,6 +457,8 @@
 		18AC388718CD685C00328A78 /* WebSocketUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebSocketUtil.m; sourceTree = "<group>"; };
 		18AC388918CD762600328A78 /* ChatViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatViewController.h; sourceTree = "<group>"; };
 		18AC388A18CD762600328A78 /* ChatViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatViewController.m; sourceTree = "<group>"; };
+		18F50A1318ED55DB00DC3167 /* CommentComposorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommentComposorViewController.h; sourceTree = "<group>"; };
+		18F50A1418ED55DB00DC3167 /* CommentComposorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommentComposorViewController.m; sourceTree = "<group>"; };
 		18FAFAB318EAA6C200EF6960 /* BrickView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BrickView.h; sourceTree = "<group>"; };
 		18FAFAB418EAA6C200EF6960 /* BrickView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BrickView.m; sourceTree = "<group>"; };
 		460C2F2818C8BFFF00AD16E6 /* Comment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Comment.h; sourceTree = "<group>"; };
@@ -1971,14 +1974,16 @@
 			isa = PBXGroup;
 			children = (
 				46EAF98518D18D0D00D4C624 /* CityPicker */,
-				4665FD7A18BC7D4700E88C6B /* CommentsViewController.h */,
-				4665FD7B18BC7D4700E88C6B /* CommentsViewController.m */,
-				46A4704D18BE28DA0057F579 /* MapViewController.h */,
-				46B25AE518BF1CC60035F425 /* MapViewController.mm */,
-				46439C8F18C763EF00F01691 /* MapPickerViewController.h */,
-				46439C9018C763EF00F01691 /* MapPickerViewController.m */,
 				4630251318C76EF1000E0B51 /* CalendarViewController.h */,
 				4630251418C76EF1000E0B51 /* CalendarViewController.m */,
+				18F50A1318ED55DB00DC3167 /* CommentComposorViewController.h */,
+				18F50A1418ED55DB00DC3167 /* CommentComposorViewController.m */,
+				4665FD7A18BC7D4700E88C6B /* CommentsViewController.h */,
+				4665FD7B18BC7D4700E88C6B /* CommentsViewController.m */,
+				46439C8F18C763EF00F01691 /* MapPickerViewController.h */,
+				46439C9018C763EF00F01691 /* MapPickerViewController.m */,
+				46A4704D18BE28DA0057F579 /* MapViewController.h */,
+				46B25AE518BF1CC60035F425 /* MapViewController.mm */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -2379,6 +2384,7 @@
 				4659D27818E7E220005648C0 /* Address.m in Sources */,
 				467F0EE718CB4FCF009FFE08 /* NSDate+WelKit.m in Sources */,
 				467F0EB218CB16EB009FFE08 /* ProductCardView.m in Sources */,
+				18F50A1518ED55DB00DC3167 /* CommentComposorViewController.m in Sources */,
 				4673BB9318D41B37000F64DE /* CouponManagerViewController.m in Sources */,
 				4673BB8618D41253000F64DE /* MyGroupStaffListViewController.m in Sources */,
 				46BDF11518D08B9D00999F50 /* StaffCell.m in Sources */,

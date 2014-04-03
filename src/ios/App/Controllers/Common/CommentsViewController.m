@@ -10,15 +10,16 @@
 //
 // ==============================================================================
 
-#import "CommentsViewController.h"
-#import "CommentsViewController.h"
-#import "UIScrollView+UzysCircularProgressPullToRefresh.h"
 #import "Comment.h"
 #import "CommentCell.h"
+#import "CommentComposorViewController.h"
+#import "CommentsViewController.h"
 
 @interface CommentsViewController ()<UITableViewDataSource, UITableViewDelegate>
+
 @property (nonatomic, strong) NSMutableArray *datasource;
 @property (nonatomic, strong) UITableView *tableView;
+
 @end
 
 @implementation CommentsViewController
@@ -28,14 +29,15 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         self.title = @"评论";
+
         FAKIcon *leftIcon = [FAKIonIcons ios7ArrowBackIconWithSize:NAV_BAR_ICON_SIZE];
         [leftIcon addAttribute:NSForegroundColorAttributeName value:[UIColor whiteColor]];
         self.leftNavItemImg =[leftIcon imageWithSize:CGSizeMake(NAV_BAR_ICON_SIZE, NAV_BAR_ICON_SIZE)];
         
-//        FAKIcon *rightIcon = [FAKIonIcons ios7ComposeOutlineIconWithSize:NAV_BAR_ICON_SIZE];
-//        [rightIcon addAttribute:NSForegroundColorAttributeName value:[UIColor whiteColor]];
-//        self.rightNavItemImg =[rightIcon imageWithSize:CGSizeMake(NAV_BAR_ICON_SIZE, NAV_BAR_ICON_SIZE)];
-        
+        FAKIcon *rightIcon = [FAKIonIcons ios7ComposeOutlineIconWithSize:NAV_BAR_ICON_SIZE];
+        [rightIcon addAttribute:NSForegroundColorAttributeName value:[UIColor whiteColor]];
+        self.rightNavItemImg =[rightIcon imageWithSize:CGSizeMake(NAV_BAR_ICON_SIZE, NAV_BAR_ICON_SIZE)];
+
     }
     return self;
 }
@@ -47,7 +49,9 @@
 
 - (void) rightNavItemClick
 {
-    
+    CommentComposorViewController *commentComposorVc = [[CommentComposorViewController alloc] init];;
+    commentComposorVc.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:commentComposorVc animated:YES];
 }
 
 - (void)viewDidLoad
@@ -90,7 +94,6 @@
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 
