@@ -72,7 +72,7 @@
     UILabel *commentBodyLabel = [[UILabel alloc] initWithFrame:CGRectMake(margin, MaxY(viewRatingContainer) + margin, 100, 20)];
     commentBodyLabel.backgroundColor = [UIColor clearColor];
     commentBodyLabel.textColor = [UIColor blackColor];
-    commentBodyLabel.font = [UIFont systemFontOfSize:14];
+    commentBodyLabel.font = [UIFont boldSystemFontOfSize:14];
     commentBodyLabel.text = @"评论内容：";
     commentBodyLabel.textAlignment = NSTextAlignmentLeft;;
     [self.view addSubview:commentBodyLabel];
@@ -84,7 +84,7 @@
     UILabel *uploadPictureLabel = [[UILabel alloc] initWithFrame:CGRectMake(margin, MaxY(self.commentBodyView) + margin, 100, 20)];
     uploadPictureLabel.backgroundColor = [UIColor clearColor];
     uploadPictureLabel.textColor = [UIColor blackColor];
-    uploadPictureLabel.font = [UIFont systemFontOfSize:14];
+    uploadPictureLabel.font = [UIFont boldSystemFontOfSize:14];
     uploadPictureLabel.text = @"图片添加：";
     uploadPictureLabel.textAlignment = NSTextAlignmentLeft;
     [self.view addSubview:uploadPictureLabel];
