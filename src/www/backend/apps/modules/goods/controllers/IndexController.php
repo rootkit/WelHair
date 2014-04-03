@@ -15,6 +15,8 @@
 use Welfony\Controller\Base\AbstractAdminController;
 use Welfony\Service\GoodsService;
 use Welfony\Service\CategoryService;
+use Welfony\Service\BrandService;
+use Welfony\Service\ModelService;
 
 class Goods_IndexController extends AbstractAdminController
 {
@@ -42,6 +44,8 @@ class Goods_IndexController extends AbstractAdminController
         $this->view->pageTitle = '添加商品';
         $this->view->defaultgoodsno= self::GOODS_PREFIX.time().rand(10,99);
         $this->view->categories=CategoryService::listAllCategory();
+        $this->view->models=ModelService::listAllModel();
+        $this->view->brands=BrandService::listAllBrand();
 
         $goodsId = $this->_request->getParam('goods_id')?  intval($this->_request->getParam('goods_id')) : 0;
 

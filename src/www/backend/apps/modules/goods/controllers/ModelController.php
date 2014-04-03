@@ -89,6 +89,11 @@ class Goods_ModelController extends AbstractAdminController
                     // process not exist logic;
                 }
             }
+            else
+            {
+                $this->view->specs = [];
+                $this->view->attributes =[];
+            }
         }
 
         $this->view->modelInfo = $model;

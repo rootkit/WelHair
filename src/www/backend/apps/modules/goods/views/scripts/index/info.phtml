@@ -77,7 +77,7 @@ use \Welfony\Utility\Util;
                         </thead>
                         <tbody>
                             <tr>
-                                <td><input name="specval" type="text" value=""  class="u-ipt"/></td>
+                                <td><input name="specval" type="text" value="<?php echo $this->defaultgoodsno; ?>"  class="u-ipt"/></td>
                                 <td><input name="specval" type="text" value=""  class="u-ipt"/></td>  
                                 <td><input name="specval" type="text" value=""  class="u-ipt"/></td>  
                                 <td><input name="specval" type="text" value=""  class="u-ipt"/></td> 
@@ -98,8 +98,10 @@ use \Welfony\Utility\Util;
                 <label class="lab">商品模型：</label>
                 <div class="ipt">
                      <select id="isliveactivity"  class="u-sel">
-                        <option value="0" >否</option>
-                        <option value="1" >是</option>                       
+                        <option value="0" >通用模型</option>
+                        <?php foreach( $this->categories as $category) :?>
+                        <option value="<?php echo $category['CategoryId']; ?>" ><?php echo $category['Name']; ?></option>  
+                        <?php endforeach;?>                       
                      </select>
                      <p></p>
                 </div>
@@ -126,9 +128,11 @@ use \Welfony\Utility\Util;
               <div class="formitm">
                 <label class="lab">商品品牌：</label>
                 <div class="ipt">
-                     <select id="isliveactivity"  class="u-sel">
-                        <option value="0" >否</option>
-                        <option value="1" >是</option>                       
+                     <select id="goodsbrand"  class="u-sel">
+                        <option value="0" >请选择</option>  
+                        <?php foreach( $this->brands as $brand) :?>
+                        <option value="<?php echo $brand['BrandId']; ?>" ><?php echo $brand['Name']; ?></option>  
+                        <?php endforeach;?>                   
                      </select>
                      <p></p>
                 </div>
@@ -160,5 +164,8 @@ use \Welfony\Utility\Util;
             </div>
         </fieldset>
     </form>
+</div>
+<div id="specList" style="display:none;" title="规格列表">
+
 </div>
 <script src="<?php echo Util::baseAssetUrl('js/backend/goods-info.js'); ?>"></script>

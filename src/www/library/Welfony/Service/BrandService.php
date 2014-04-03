@@ -46,6 +46,14 @@ class BrandService
         return $result;
     }
 
+    public static function listAllBrand()
+    {
+
+        $searchResult = BrandRepository::getInstance()->getAllBrand();
+
+        return $searchResult;
+    }
+
     public static function save($data)
     {
         $result = array('success' => false, 'message' => '');
