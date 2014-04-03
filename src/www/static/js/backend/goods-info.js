@@ -102,7 +102,19 @@ $(function() {
           url = form.attr( "action" );
 
           var posting = $.post( url, { 
-                'name': name
+                'name': name,
+                'goodsno': $('#goodsno').val(),
+                'modelid': $('#goodsmodel').val(),
+                'brandid': $('#goodsbrand').val(),
+                'storenums': $('#storenums').val(),
+                'unit': $('#unit').val(),
+                'point': $('#point').val(),
+                'exprience': $('#exprience').val(),
+                'sort': $('#sort').val(),
+                'weight': $('#weight').val(),
+                'storenums': $('#sellprice').val(),
+                'marketprice': $('#marketprice').val(),
+                'costprice': $('#costprice').val()
             } );
 
 

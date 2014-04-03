@@ -30,14 +30,14 @@ use \Welfony\Utility\Util;
             <td class="col-center"><input type="checkbox" /></td>
             <td>
                 <a href="<?php echo $this->baseUrl('goods/index/info?goods_id=' .  $goods['GoodsId']); ?>">
-                    <?php echo $spec['Name']; ?>
+                    <?php echo $goods['Name']; ?>
                 </a>
             </td>
             <td></td>
-            <td> <?php echo $spec['SellPrice']; ?></td>
-            <td> <?php echo $spec['StoreNums']; ?></td>
+            <td> <?php echo $goods['SellPrice']; ?></td>
+            <td> <?php echo $goods['StoreNums']; ?></td>
             <td></td>
-            <td><?php echo $spec['Sort']; ?></td>
+            <td><?php echo $goods['Sort']; ?></td>
             <td> 
                 <a href="#" href="#" class="btnDelete" data-id="<?php echo $goods['GoodsId']; ?>" >
                     <i class="iconfont">&#xf013f;</i>&nbsp;&nbsp;删除

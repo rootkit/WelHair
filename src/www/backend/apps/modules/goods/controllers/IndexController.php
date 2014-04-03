@@ -52,12 +52,28 @@ class Goods_IndexController extends AbstractAdminController
         $goods = array(
             'GoodsId' => $goodsId,
             'Name' => '',
+            'GoodsNo'=>'',
+            'BrandId'=>0,
+            'ModelId'=>0,
+            'Point' =>0,
+            'Sort' => 0,
+            'StoreNums'=>0,
+            'Unit'=>'',
+            'Experience'=>0,
+            'SellPrice'=>0,
+            'MarketPrice'=>0,
+            'CostPrice'=>0,
+            'Weight'=>0,
             'IsDeleted' => 0,
             'Keywords' => '',
         );
 
         if ($this->_request->isPost()) {
             $goods['Name']= htmlspecialchars($this->_request->getParam('name'));
+            $goods['GoodsNo']= htmlspecialchars($this->_request->getParam('goodsno'));
+            $goods['ModelId']= $this->_request->getParam('modelid');
+            $goods['BrandId']= $this->_request->getParam('brandid');
+            $goods['CreateTime'] = date('Y-m-d H:i:s');
 
             $result = GoodsService::save($goods);
             if ($result['success']) {
@@ -78,6 +94,22 @@ class Goods_IndexController extends AbstractAdminController
         }
 
         $this->view->goodsInfo = $goods;
+    }
+
+    public function deleteAction()
+    {
+        $this->_helper->viewRenderer->setNoRender(true);
+        $this->_helper->layout->disableLayout();
+
+        $goodsId =  intval($this->_request->getParam('goodsid')) ;
+
+        $goods = array('GoodsId' => $goodsId);
+
+        if ($this->_request->isPost()) {
+
+            $result = GoodsService::deleteGoods($goods);
+            $this->_helper->json->sendJson($result);
+        }
     }
 
 }

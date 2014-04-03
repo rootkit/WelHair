@@ -13,7 +13,7 @@ use \Welfony\Utility\Util;
             <div class="formitm">
                 <label class="lab">关键词：</label>
                 <div class="ipt">
-                    <input id="goodskeywords" type="text"  datatype="s*" value="<?php echo $this->goodsInfo['Keywords']; ?>"  class="u-ipt"/> 
+                    <input id="goodskeywords" type="text"   value="<?php echo $this->goodsInfo['Keywords']; ?>"  class="u-ipt"/> 
                     <p>每个关键词最长为15个字符，超过后系统不予存储</p>
                 </div>
             </div>  
@@ -51,10 +51,10 @@ use \Welfony\Utility\Util;
                             </tr>
                         </thead>
                         <tbody>
-                            <td><input name="specval" type="text" value=""  class="u-ipt"/></td>
-                            <td><input name="specval" type="text" value="" class="u-ipt"/></td>  
-                            <td><input name="specval" type="text" value="" class="u-ipt"/></td>  
-                            <td><input name="specval" type="text" value=""  class="u-ipt"/></td>  
+                            <td><input id="point" type="text" value="0"  class="u-ipt"/></td>
+                            <td><input id="sort" type="text" value="99" class="u-ipt"/></td>  
+                            <td><input id="unit" type="text" value="千克" class="u-ipt"/></td>  
+                            <td><input id="experience" type="text" value="0"  class="u-ipt"/></td>  
                         </tbody>
                     </table>
                     <br/>
@@ -77,12 +77,12 @@ use \Welfony\Utility\Util;
                         </thead>
                         <tbody>
                             <tr>
-                                <td><input name="specval" type="text" value="<?php echo $this->defaultgoodsno; ?>"  class="u-ipt"/></td>
-                                <td><input name="specval" type="text" value=""  class="u-ipt"/></td>  
-                                <td><input name="specval" type="text" value=""  class="u-ipt"/></td>  
-                                <td><input name="specval" type="text" value=""  class="u-ipt"/></td> 
-                                <td><input name="specval" type="text" value=""  class="u-ipt"/></td>  
-                                <td><input name="specval" type="text" value=""  class="u-ipt"/></td> 
+                                <td><input id="goodsno" name="goodsno" type="text" value="<?php echo $this->defaultgoodsno; ?>"  class="u-ipt"/></td>
+                                <td><input id="storenums" type="text" value="100"  class="u-ipt"/></td>  
+                                <td><input id="marketprice" type="text" value=""  class="u-ipt"/></td>  
+                                <td><input id="sellprice" type="text" value=""  class="u-ipt"/></td> 
+                                <td><input id="costprice" type="text" value=""  class="u-ipt"/></td>  
+                                <td><input id="weight" type="text" value=""  class="u-ipt"/></td> 
                             </tr>
                         </tbody>
                     </table>
