@@ -14,5 +14,8 @@
 @property (nonatomic) float rate;
 @property (nonatomic) int groupId;
 @property (nonatomic, strong) NSString *groupName;
+@property (nonatomic, strong) NSArray *works;
+@property (nonatomic, strong) NSArray *services;
+@property (nonatomic, strong) NSString *bio;
 
 @end

@@ -56,5 +56,5 @@
 
 #define TABLEVIEW_PAGESIZE_DEFAULT 10
 
-
+#define CHARACTER_ARRAY  @[@'A',@'B',@'C',@'D',@'E',@'F',@'G',@'H',@'I',@'J',@'K',@'L',@'M',@'N',@'O',@'P',@'Q',@'R',@'S',@'T',@'U',@'V',@'W',@'X',@'Y',@'Z']
 

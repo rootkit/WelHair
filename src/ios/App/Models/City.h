@@ -13,6 +13,7 @@
 @property (nonatomic) int id;
 @property (nonatomic, strong) NSString *name;
 @property (nonatomic) int order;
+@property (nonatomic, strong) NSString *firstChar;
 
 - (City *)initWithDic:(NSDictionary *)dictionary;
 - (NSDictionary *)dictionaryFromUser:(City *)city;

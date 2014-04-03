@@ -53,23 +53,32 @@
 
 
 
-- (NSArray *)getCityList
+- (NSDictionary *)getCityList
 {
-    NSMutableArray *list =[NSMutableArray array];
+    NSMutableDictionary *dic = [NSMutableDictionary dictionary];
+    
     FMDatabase * db = [FMDatabase databaseWithPath:self.databasePath];
     if ([db open]) {
-        FMResultSet *set = [db executeQuery:@"Select * from City WHERE ParentId = 0 order by CityId asc"];
+        FMResultSet *set = [db executeQuery:@"Select * from City WHERE ParentId = 0 order by FirstChar asc"];
         while ([set next]) {
             City *city = [City new];
             city.id = [set intForColumn:@"CityId"];
             city.name = [set stringForColumn:@"CityName"];
             city.order = [set intForColumn:@"SortOrder"];
-            [list addObject:city];
+            city.firstChar = [set stringForColumn:@"FirstChar"];
+            
+            NSMutableArray *array = [dic objectForKey:city.firstChar];
+            if(array == nil){
+                array = [NSMutableArray array];
+                [dic setObject:array forKey:city.firstChar];
+            }
+            [array addObject:city];
         }
         [set close];
         [db close];
     }
-    return list;
+
+    return dic;
 }
 
 - (City *)getSelectedCity

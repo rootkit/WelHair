@@ -16,7 +16,8 @@
 @property (nonatomic) int cityId;
 @property (nonatomic, strong) UITableViewCell *locationCell;
 @property (nonatomic, strong) City *locatedCity;
-@property (nonatomic, strong) NSArray *cities;
+@property (nonatomic, strong) NSDictionary *cities;
+@property (nonatomic, strong) NSArray *cityKeys;
 @property(nonatomic,strong)UITableView *tableView;
 @end
 
@@ -44,6 +45,11 @@
     [super viewDidLoad];
     
     self.cities = [[CityManager SharedInstance] getCityList];
+    
+    id sortKey = ^(NSString * key1, NSString * key2){
+        return [key1 compare:key2];
+    };
+    self.cityKeys =[self.cities.allKeys sortedArrayUsingComparator:sortKey];
 	// Do any additional setup after loading the view.
     _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, self.topBarOffset, WIDTH(self.view), [self contentHeightWithNavgationBar:YES withBottomBar:NO])];
     _tableView.backgroundColor = [UIColor whiteColor];
@@ -80,9 +86,13 @@
     titleLabel.textColor = [UIColor blackColor];
     titleLabel.font = [UIFont systemFontOfSize:20];
     if(self.enableLocation){
-        titleLabel.text = section == 0 ? @"定位城市" : @"所有城市";
+        if(section == 0){
+            titleLabel.text =  @"定位城市";
+        }else{
+            titleLabel.text = [self.cityKeys objectAtIndex:section -1];
+        }
     }else{
-        titleLabel.text = @"所有城市";
+        titleLabel.text = [self.cityKeys objectAtIndex:section];
     }
 
     [bgView addSubview:titleLabel];
@@ -90,21 +100,25 @@
     return bgView;
 }
 
+- (NSArray *)sectionIndexTitlesForTableView:(UITableView *)tableView
+{
+    return self.cityKeys;
+}
+
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     // Return the number of sections.
-    return self.enableLocation ? 2 : 1;
+    return self.enableLocation ? self.cityKeys.count + 1 : 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    // Return the number of rows in the section.
-    if(self.enableLocation){
-        return section == 0 ? 1 : self.cities.count;
-    }else{
-        return self.cities.count;
+    if(self.enableLocation && section == 0){
+            return 1;
     }
+    return [self getSectionDatasource:section].count;
 }
+
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -156,7 +170,7 @@
         [cell.textLabel setTextColor:[UIColor blackColor]];
         cell.textLabel.font = [UIFont systemFontOfSize:18];
     }
-    City *item = (City *)[self.cities objectAtIndex:indexPath.row];
+    City *item = [[self getSectionDatasource:indexPath.section] objectAtIndex:indexPath.row];
     cell.textLabel.text = item.name;
     if(self.selectedCity.id == item.id){
         cell.accessoryType = UITableViewCellAccessoryCheckmark;
@@ -170,12 +184,17 @@
     if(cell == self.locationCell && self.locatedCity){
         [self.delegate  didPickCity:self.locatedCity];
     }else{
-        self.selectedCity = [self.cities objectAtIndex:indexPath.row];
+        self.selectedCity = [[self getSectionDatasource:indexPath.section] objectAtIndex:indexPath.row];
         [self.delegate  didPickCity:self.selectedCity];
     }
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
+
+- (NSArray *)getSectionDatasource:(int)section{
+    int keyIndex = self.enableLocation ?  section - 1: section;
+    return  [self.cities objectForKey:[self.cityKeys objectAtIndex:keyIndex]];
+}
 
 - (void)didReceiveMemoryWarning
 {

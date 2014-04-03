@@ -12,9 +12,10 @@
 
 +(id)SharedInstance;
 
-- (void)refreshCityList:(NSArray *)cityList;
+//- (void)refreshCityList:(NSArray *)cityList;
 
-- (NSArray *)getCityList;
+- (NSDictionary *)getCityList;
+- (NSArray *)getAreaListByCity:(int)cityCode;
 
 - (City *)getSelectedCity;
 - (void)setSelectedCity:(int)cityId;

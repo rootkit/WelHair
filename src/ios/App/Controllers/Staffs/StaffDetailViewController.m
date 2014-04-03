@@ -32,7 +32,6 @@
 @property (nonatomic, strong) UIScrollView *scrollView;
 @property (nonatomic, strong) UILabel *nameLbl;
 @property (nonatomic, strong) UILabel *groupNameLbl;
-@property (nonatomic, strong) UILabel *addressLbl;
 @property (nonatomic, strong) UILabel *distanceLbl;
 @property (nonatomic, strong) UIImage *foImg;
 @property (nonatomic, strong) ToggleButton *foBtn;
@@ -65,11 +64,18 @@ static const   float profileViewHeight = 80;
 {
     [super loadView];
 
+    
+}
+
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    
     float addressViewHeight = 50;
     float tabButtonViewHeight = 50;
     float avatorSize = 50;
     
-
+    
     self.scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, self.topBarOffset, WIDTH(self.view), [self contentHeightWithNavgationBar:YES withBottomBar:YES])];
     self.scrollView.delegate  =self;
     [self.view addSubview:self.scrollView];
@@ -91,7 +97,7 @@ static const   float profileViewHeight = 80;
     
     self.headerBackgroundView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, WIDTH
                                                                               (self.view), profileViewHeight)];
-
+    
     self.headerBackgroundView.image = [UIImage imageNamed:@"Profile_Banner_Bg"];
     [self.scrollView addSubview:self.headerBackgroundView];
     
@@ -126,22 +132,22 @@ static const   float profileViewHeight = 80;
     [self.avatorImgView setImageWithURL:[NSURL URLWithString:@"http://images-fast.digu365.com/sp/width/736/2fed77ea4898439f94729cd9df5ee5ca0001.jpg"]];
     [headerView_ addSubview:self.avatorImgView];
     
-    self.groupNameLbl = [[UILabel alloc] initWithFrame:CGRectMake(70 + 5, 0, WIDTH(addressView) - 10 - MaxX(self.avatorImgView), 20)];
+    self.nameLbl = [[UILabel alloc] initWithFrame:CGRectMake(70 + 5, 0, WIDTH(addressView) - 10 - MaxX(self.avatorImgView), 20)];
+    self.nameLbl.backgroundColor = [UIColor clearColor];
+    self.nameLbl.textColor = [UIColor blackColor];
+    self.nameLbl.font = [UIFont boldSystemFontOfSize:14];
+    self.nameLbl.text = @"沙宣";
+    self.nameLbl.textAlignment = NSTextAlignmentLeft;;
+    [addressView addSubview:self.groupNameLbl];
+    self.groupNameLbl = [[UILabel alloc] initWithFrame:CGRectMake(X(self.groupNameLbl),MaxY(self.groupNameLbl), WIDTH(addressView) - 10 - MaxX(self.avatorImgView) - 100, 20)];
     self.groupNameLbl.backgroundColor = [UIColor clearColor];
-    self.groupNameLbl.textColor = [UIColor blackColor];
-    self.groupNameLbl.font = [UIFont boldSystemFontOfSize:14];
-    self.groupNameLbl.text = @"沙宣";
+    self.groupNameLbl.textColor = [UIColor grayColor];
+    self.groupNameLbl.font = [UIFont systemFontOfSize:12];
+    self.groupNameLbl.text = @"济南高新区";
     self.groupNameLbl.textAlignment = NSTextAlignmentLeft;;
     [addressView addSubview:self.groupNameLbl];
-    self.addressLbl = [[UILabel alloc] initWithFrame:CGRectMake(X(self.groupNameLbl),MaxY(self.groupNameLbl), WIDTH(addressView) - 10 - MaxX(self.avatorImgView) - 100, 20)];
-    self.addressLbl.backgroundColor = [UIColor clearColor];
-    self.addressLbl.textColor = [UIColor grayColor];
-    self.addressLbl.font = [UIFont systemFontOfSize:12];
-    self.addressLbl.text = @"济南高新区";
-    self.addressLbl.textAlignment = NSTextAlignmentLeft;;
-    [addressView addSubview:self.addressLbl];
     
-    UIImageView *locationImg = [[UIImageView alloc] initWithFrame:CGRectMake(MaxX(self.addressLbl), Y(self.self.addressLbl),20,20)];
+    UIImageView *locationImg = [[UIImageView alloc] initWithFrame:CGRectMake(MaxX(self.groupNameLbl), Y(self.self.groupNameLbl),20,20)];
     FAKIcon *locationIcon = [FAKIonIcons locationIconWithSize:20];
     [locationIcon addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithHexString:@"000"]];
     locationImg.image = [locationIcon imageWithSize:CGSizeMake(20, 20)];
@@ -156,7 +162,19 @@ static const   float profileViewHeight = 80;
     self.distanceLbl.text = @"1.45千米";
     [addressView addSubview:self.distanceLbl];
     
+    if(self.staff.services.count > 0){
+        UIView *serviceView = [[UIView alloc] init];
+        
+        [self.scrollView addSubview:serviceView];
+    }
     
+    if(self.staff.works.count > 0){
+        
+        UIImageView *addressViewBg = [[UIImageView alloc] initWithFrame:addressView.bounds];
+        addressViewBg.image = [UIImage imageNamed:@"Profile_Bottom_Bg"];
+        [addressView addSubview:addressViewBg];
+        [headerView_ addSubview:addressView];
+    }
     UIImageView *imgView = [[UIImageView alloc] initWithFrame:CGRectMake(0, MaxY(addressView) + 10, WIDTH(self.view), 240)];
     [self.scrollView addSubview:imgView];
     imgView.image = [UIImage imageNamed:@"StaffDetailViewControl_TempBg"];
@@ -192,13 +210,6 @@ static const   float profileViewHeight = 80;
     [self.scrollView addSubview:commentCellView];
     self.scrollView.contentSize = CGSizeMake(self.scrollView.frame.size.width, MaxY(commentCellView) + 10);
     self.scrollView.scrollEnabled = YES;
-//    self.scrollView.contentSize = CGSizeMake(WIDTH(self.view), MaxY(commentCellView) + 10);
-}
-
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-	// Do any additional setup after loading the view.
 }
 
 - (void)didReceiveMemoryWarning
