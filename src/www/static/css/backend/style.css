@@ -176,6 +176,12 @@ a {
     line-height: 17px;
 }
 
+.small-tbl .u-ipt
+{
+    width: 80px;
+    text-align: center;
+}
+
 .u-ipt-err {
     border-color: #c00 #e00 #e00;
 }

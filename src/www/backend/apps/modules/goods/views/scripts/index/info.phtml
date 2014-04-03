@@ -29,7 +29,7 @@ use \Welfony\Utility\Util;
                 </div>
             </div>    
             <div class="formitm">
-                <label class="lab">是否：</label>
+                <label class="lab">是否上架：</label>
                 <div class="ipt">
                      <span class="u-btns" data-type="radio">
                         <span class="u-btn u-btn-c3" data-value="1" >是</span>
@@ -38,6 +38,119 @@ use \Welfony\Utility\Util;
                     <p></p>
                 </div>
             </div>
+            <div>
+                <label class="lab">附属数据：</label>
+                <div class="ipt">
+                    <table class="m-table small-tbl" id="spectable" style="width:485px;">
+                        <thead>
+                            <tr>
+                                <th class="cola">购买成功增加积分</th>
+                                <th class="cola">排序</th>
+                                <th class="cola">计量单位</th>
+                                <th class="cola">购买成功增加经验值</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <td><input name="specval" type="text" value=""  class="u-ipt"/></td>
+                            <td><input name="specval" type="text" value="" class="u-ipt"/></td>  
+                            <td><input name="specval" type="text" value="" class="u-ipt"/></td>  
+                            <td><input name="specval" type="text" value=""  class="u-ipt"/></td>  
+                        </tbody>
+                    </table>
+                    <br/>
+                </div>
+            </div>
+
+             <div>
+                <label class="lab">基本数据：</label>
+                <div class="ipt">
+                    <table class="m-table small-tbl" id="spectable" style="width:550px;">
+                        <thead>
+                            <tr>
+                                <th class="cola">商品货号</th>
+                                <th class="cola">库存</th>
+                                <th class="cola">市场价格</th>
+                                <th class="cola">销售价格</th>
+                                <th class="cola">成本价格</th>
+                                <th class="cola">重量</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><input name="specval" type="text" value=""  class="u-ipt"/></td>
+                                <td><input name="specval" type="text" value=""  class="u-ipt"/></td>  
+                                <td><input name="specval" type="text" value=""  class="u-ipt"/></td>  
+                                <td><input name="specval" type="text" value=""  class="u-ipt"/></td> 
+                                <td><input name="specval" type="text" value=""  class="u-ipt"/></td>  
+                                <td><input name="specval" type="text" value=""  class="u-ipt"/></td> 
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+             <div class="formitm">
+                <label class="lab"> 添加规格： </a></label>
+                <div class="ipt">
+                    <a class="t-action" id="btnAddSpec"><i class="iconfont">&#xf0175;</i>添加规格值</a>
+                </div>
+            </div>
+            <div class="formitm">
+                <label class="lab">商品模型：</label>
+                <div class="ipt">
+                     <select id="isliveactivity"  class="u-sel">
+                        <option value="0" >否</option>
+                        <option value="1" >是</option>                       
+                     </select>
+                     <p></p>
+                </div>
+            </div>
+            <div class="formitm">
+                <label class="lab">扩展属性：</label>
+                <div class="ipt">
+                     <table class="m-table" id="spectable" style="width:600px;">
+                        <tr>
+                            <th>aaa</th><td><input name="specval" type="text" value="" datatype="s" class="u-ipt"/></td> 
+                        </tr>
+                    </table>                    
+                </div>
+            </div>
+             <div class="formitm">
+                <label class="lab">商品推荐类型：</label>
+                <div class="ipt">
+                    <label class="attr"><input type="checkbox" value="1" name="_goods_commend[]">最新商品</label>
+                    <label class="attr"><input type="checkbox" value="2" name="_goods_commend[]">特价商品</label>
+                    <label class="attr"><input type="checkbox" value="3" name="_goods_commend[]">热卖商品</label>
+                    <label class="attr"><input type="checkbox" value="4" name="_goods_commend[]">推荐商品</label> 
+                </div>
+            </div>
+              <div class="formitm">
+                <label class="lab">商品品牌：</label>
+                <div class="ipt">
+                     <select id="isliveactivity"  class="u-sel">
+                        <option value="0" >否</option>
+                        <option value="1" >是</option>                       
+                     </select>
+                     <p></p>
+                </div>
+            </div>
+
+            <div class="formitm">
+                <label class="lab">产品相册：</label>
+                <div class="ipt">
+                    <span class="u-img2">
+                        <a href="javascript:;">
+                            <img id="goods-image" src=""  alt="">
+                            <input id="goods-url" type="hidden" name="goods_url" value="" />
+                        </a>
+                    </span>
+                </div>
+            </div>
+            <div class="formitm">
+                <label class="lab"></label>
+                <div class="ipt">
+                    <div id="goods-uploader"></div>
+                </div>
+            </div>           
             
             
             <div class="formitm formitm-1">

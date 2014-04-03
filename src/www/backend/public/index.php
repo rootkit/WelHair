@@ -22,7 +22,6 @@ define('ROOT_PATH', realpath(__DIR__ . '/../../'));
 define('STATIC_ROOT_PATH', ROOT_PATH . '/static');
 
 require ROOT_PATH . '/vendor/autoload.php';
-
 $config = new Zend_Config_Ini(ROOT_PATH . '/backend/apps/configs/application.ini', APP_ENV);
 $options = $config->toArray();
 
