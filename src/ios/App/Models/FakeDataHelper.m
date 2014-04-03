@@ -94,6 +94,9 @@
         product.name = @"护发素，洗发水";
         Group *group = [Group new];
         group.name = @"永琪";
+        group.logoUrl = @"http://img0.aibangjuxin.com/ipic/51f1abfead26fb22_0.jpg";
+        group.address = @"济南高新区牛王庄路西";
+        group.distance = 12;
         product.group = group;
         product.price = 87.9;
         product.imgUrlList = @[@"http://4.xiustatic.com/upload/goods20111107/65002396/650023960001/g1_600_600.1339481667492.jpg",@"http://d12.yihaodianimg.com/t1/2011/1117/506/180/3500538_600x600.jpg"];

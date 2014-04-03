@@ -25,13 +25,19 @@
 #import "ProductOpitionPanel.h"
 #import "UIViewController+KNSemiModal.h"
 #import "OrderPreviewViewController.h"
+#import "CircleImageView.h"
 
 @interface ProductDetailViewController ()<UMSocialUIDelegate,JOLImageSliderDelegate,MWPhotoBrowserDelegate>
 @property (nonatomic, strong) UIScrollView *scrollView;
 @property (nonatomic, strong) JOLImageSlider *imgSlider;
-@property (nonatomic, strong) UIImageView *staffImgView;
-@property (nonatomic, strong) UILabel *staffNameLbl;
-@property (nonatomic, strong) UILabel *distanceLbl;
+@property (nonatomic, strong) UILabel *productNameLbl;
+@property (nonatomic, strong) UILabel *productPriceLbl;
+
+@property (nonatomic, strong) UIImageView *groupImgImgView;
+@property (nonatomic, strong) UILabel *groupNameLbl;
+@property (nonatomic, strong) UILabel *groupAddressLbl;
+@property (nonatomic, strong) UILabel *groupDistanceLbl;
+
 @property (nonatomic, strong) NSMutableArray *productImgs;
 @property (nonatomic, strong) SelectOpition *selectOpition;
 @end
@@ -102,36 +108,105 @@
     [rightBtn addTarget:self action:@selector(rightBtnClick) forControlEvents:UIControlEventTouchUpInside];
     [rightBtn setImage:rightImg forState:UIControlStateNormal];
     [topNavView addSubview:rightBtn];
-    
-    self.scrollView.backgroundColor = [UIColor colorWithHexString:@"f6fbfe"];
-    
+#pragma image slider
+    self.scrollView.backgroundColor = [UIColor clearColor];
     self.imgSlider = [[JOLImageSlider alloc] initWithFrame:CGRectMake(0, 0, WIDTH(self.view), WIDTH(self.view))];
     self.imgSlider.delegate = self;
     [self.imgSlider setContentMode: UIViewContentModeScaleAspectFill];
     [self.scrollView addSubview:self.imgSlider];
+#pragma product name & price
+    self.productNameLbl = [[UILabel alloc] initWithFrame:CGRectMake(10, MaxY(self.imgSlider) + 5,220,40)];
+    self.productNameLbl.textAlignment = NSTextAlignmentLeft;
+    self.productNameLbl.textColor = [UIColor blackColor];
+    self.productNameLbl.font = [UIFont systemFontOfSize:18];
+    self.productNameLbl.backgroundColor = [UIColor clearColor];
+    [self.scrollView addSubview:self.productNameLbl];
     
-    UIView *tempView = [[UIView alloc] initWithFrame:CGRectMake(0, MaxY(self.imgSlider), WIDTH(self.scrollView), 264)];
-    [self.scrollView addSubview:tempView];
-    UIImageView *tempBgImg = [[UIImageView alloc] initWithFrame:tempView.bounds];
-    tempBgImg.image = [UIImage imageNamed:@"ProductDetailViewControl_TempBg"];
-    [tempView addSubview:tempBgImg];
+    self.productPriceLbl = [[UILabel alloc] initWithFrame:CGRectMake(MaxX(self.productNameLbl), Y(self.productNameLbl),80,40)];
+    self.productPriceLbl.textAlignment = NSTextAlignmentRight;
+    self.productPriceLbl.textColor = [UIColor colorWithHexString:APP_NAVIGATIONBAR_COLOR];
+    self.productPriceLbl.font = [UIFont systemFontOfSize:14];
+    self.productPriceLbl.backgroundColor = [UIColor clearColor];
+    [self.scrollView addSubview:self.productPriceLbl];
     
-    UIButton *groupBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    groupBtn.frame = CGRectMake(0, 30, 320, 50);
-    [groupBtn addTarget:self action:@selector(groupClick) forControlEvents:UIControlEventTouchUpInside];
-    [tempView addSubview:groupBtn];
+#pragma groupInfo
+    UIView *groupView = [[UIView alloc] initWithFrame:CGRectMake(10, MaxY(self.productNameLbl) + 5, WIDTH(self.view) - 20, 80)];
+    groupView.backgroundColor = [UIColor whiteColor];
+    groupView.layer.cornerRadius = 10;
+    [groupView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(groupTapped)]];
+    [self.scrollView addSubview:groupView];
+    self.groupImgImgView = [[CircleImageView alloc] initWithFrame:CGRectMake(10, 15, 50, 50)];
+    [groupView addSubview:self.groupImgImgView];
+    self.groupImgImgView.layer.borderColor = [[UIColor colorWithHexString:@"e0e0de"] CGColor];
+    self.groupImgImgView.layer.borderWidth = 2;
     
-    UIButton *detailBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    detailBtn.frame = CGRectMake(110, 90, 100, 25);
-    [detailBtn addTarget:self action:@selector(detailClick) forControlEvents:UIControlEventTouchUpInside];
-    [tempView addSubview:detailBtn];
+    self.groupNameLbl = [[UILabel alloc] initWithFrame:CGRectMake(MaxX(self.groupImgImgView) + 5,
+                                                             15,
+                                                             150,
+                                                             HEIGHT(self.groupImgImgView)/2)];
+    self.groupNameLbl.font = [UIFont boldSystemFontOfSize:14];
+    self.groupNameLbl.numberOfLines = 2;
+    self.groupNameLbl.backgroundColor = [UIColor clearColor];
+    self.groupNameLbl.textColor = [UIColor blackColor];
+    [groupView addSubview:self.groupNameLbl];
+    
+    self.groupAddressLbl = [[UILabel alloc] initWithFrame:CGRectMake(MaxX(self.groupImgImgView) + 5,
+                                                                MaxY(self.groupNameLbl),
+                                                                WIDTH(self.groupNameLbl),
+                                                                HEIGHT(self.groupImgImgView)/2)];
+    self.groupAddressLbl.font = [UIFont systemFontOfSize:12];
+    self.groupAddressLbl.numberOfLines = 2;
+    self.groupAddressLbl.backgroundColor = [UIColor clearColor];
+    self.groupAddressLbl.textColor = [UIColor blackColor];
+    [groupView addSubview:self.groupAddressLbl];
+    
+    UIImageView *locationImg = [[UIImageView alloc] initWithFrame:CGRectMake(WIDTH(groupView) - 70,Y(self.groupAddressLbl), 15, 15)];
+    FAKIcon *locationIcon = [FAKIonIcons locationIconWithSize:15];
+    [locationIcon addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithHexString:@"b7bcc2"]];
+    locationImg.image = [locationIcon imageWithSize:CGSizeMake(15, 15)];
+    [groupView addSubview:locationImg];
+    
+    self.groupDistanceLbl = [[UILabel alloc] initWithFrame:CGRectMake(MaxX(locationImg) + 2, Y(locationImg),50, 20)];
+    self.groupDistanceLbl.textAlignment = NSTextAlignmentLeft;
+    self.groupDistanceLbl.textColor = [UIColor lightGrayColor];
+    self.groupDistanceLbl.backgroundColor = [UIColor clearColor];
+    self.groupDistanceLbl.font = [UIFont systemFontOfSize:12];
+    [groupView addSubview:self.groupDistanceLbl];
+#pragma tab view 
+    UIView *tabView = [[UIView alloc] initWithFrame:CGRectMake(10, MaxY(groupView) + 10, 290, 30)];
+    UIColor *tabViewColor =[UIColor colorWithHexString:APP_NAVIGATIONBAR_COLOR] ;
+    [self.scrollView addSubview:tabView];
+    tabView.backgroundColor = [UIColor clearColor];
+    tabView.layer.borderColor = [tabViewColor CGColor];
+    tabView.layer.borderWidth = 1;
+    tabView.layer.cornerRadius = 5;
+    float tabButtonWidth = 290 / 2;
+    
+    UIButton *imageDetailBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    imageDetailBtn.frame = CGRectMake(0,0,tabButtonWidth,30);
+    imageDetailBtn.titleLabel.font = [UIFont systemFontOfSize:12];
+    [imageDetailBtn setTitle:@"图文详情" forState:UIControlStateNormal];
+    [imageDetailBtn setTitleColor:tabViewColor forState:UIControlStateNormal];
+    imageDetailBtn.tag = 0;
+    [imageDetailBtn addTarget:self action:@selector(tabClicked:) forControlEvents:UIControlEventTouchDown];
+    [tabView addSubview:imageDetailBtn];
+    
+    UIView *separatorView1 = [[UIView alloc] initWithFrame:CGRectMake(MaxX(imageDetailBtn),0, 1, HEIGHT(tabView))];
+    separatorView1.backgroundColor = tabViewColor;
+    [tabView addSubview:separatorView1];
     
     UIButton *commentBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    commentBtn.frame = CGRectMake(210, 90, 100, 25);
-    [commentBtn addTarget:self action:@selector(commentClick) forControlEvents:UIControlEventTouchUpInside];
-    [tempView addSubview:commentBtn];
+    commentBtn.frame = CGRectMake(MaxX(imageDetailBtn)+1,0,tabButtonWidth,30);
+    [commentBtn setTitle:@"评论" forState:UIControlStateNormal];
+    commentBtn.titleLabel.font = [UIFont systemFontOfSize:12];
+    [commentBtn setTitleColor:tabViewColor forState:UIControlStateNormal];
+    commentBtn.titleLabel.textColor = tabViewColor;
+    commentBtn.tag = 1;
+    [commentBtn addTarget:self action:@selector(tabClicked:) forControlEvents:UIControlEventTouchDown];
+    [tabView addSubview:commentBtn];
     
-    self.scrollView.contentSize = CGSizeMake(WIDTH(self.view), MaxY(tempView));
+
+    self.scrollView.contentSize = CGSizeMake(WIDTH(self.view), MaxY(tabView));
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -148,7 +223,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.distanceLbl.text = @"1千米";
+    // images
     NSMutableArray *sliderArray = [NSMutableArray array];
     for (NSString *item in self.product.imgUrlList) {
         JOLImageSlide * slideImg= [[JOLImageSlide alloc] init];
@@ -161,6 +236,17 @@
     for (NSString *item in self.product.imgUrlList) {
         [self.productImgs addObject:[MWPhoto photoWithURL:[NSURL URLWithString:item]]];
     }
+    
+    //product name & price
+    self.productNameLbl.text = self.product.name;
+    self.productPriceLbl.text = [NSString stringWithFormat:@"￥%.2f",self.product.price];
+    
+    // group info
+    [self.groupImgImgView setImageWithURL:[NSURL URLWithString:self.product.group.logoUrl]];
+    self.groupNameLbl.text = self.product.group.name;
+    self.groupAddressLbl.text = self.product.group.address;
+    self.groupDistanceLbl.text =[NSString stringWithFormat:@"%.0f千米", self.product.group.distance];
+    
 }
 
 - (void)didReceiveMemoryWarning
@@ -198,19 +284,19 @@
                                        delegate:self];
 }
 
-- (void)groupClick
+- (void)tabClicked:(id)sender
+{
+    UIButton *btn = (UIButton *)sender;
+    if(btn.tag == 0){
+       [self.navigationController pushViewController:[ProductDetailWebViewController new] animated:YES];
+    }else{
+        [self.navigationController pushViewController:[CommentsViewController new] animated:YES];
+    }
+}
+
+- (void)groupTapped
 {
     [self.navigationController pushViewController:[GroupDetailViewController new] animated:YES];
-}
-
-- (void)detailClick
-{
-    [self.navigationController pushViewController:[ProductDetailWebViewController new] animated:YES];
-}
-
-- (void)commentClick
-{
-    [self.navigationController pushViewController:[CommentsViewController new] animated:YES];
 }
 
 - (void) OpenImageGallery
@@ -276,6 +362,8 @@
                }];
     [self.tabBarController presentSemiView:panel withOptions:nil];
 }
+
+
 
 - (void)getSelectedOpitions:(NSArray *)array
 {
