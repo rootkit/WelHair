@@ -9,5 +9,6 @@
 #import "BaseModel.h"
 
 @interface Service : BaseModel
-
+@property (nonatomic) float originalPrice; // 原价
+@property (nonatomic) float salePrice; // 折扣价
 @end

@@ -19,6 +19,10 @@
 
 + (CGSize)textSizeForText:(NSString *)txt withFont:(UIFont *)font andLineHeight:(CGFloat)lineHeight;
 
++ (float)textHeightFortext:(NSString *)string
+               minumHeight:(float)minmunHeight
+                fixedWidth:(float)fixedWidth;
+
 + (NSDictionary *)parametersDictionaryFromQueryString:(NSString *)queryString;
 
 + (id)objectFromJson:(NSString *)JSONString;
@@ -26,5 +30,7 @@
 
 
 - (void)prepareApplicationData;
+
+
 
 @end

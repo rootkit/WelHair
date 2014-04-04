@@ -26,6 +26,7 @@
 #import "UIViewController+KNSemiModal.h"
 #import "OrderPreviewViewController.h"
 #import "CircleImageView.h"
+#import "Util.h"
 #import <Block-KVO/MTKObserving.h>
 
 @interface ProductDetailViewController ()<UMSocialUIDelegate,JOLImageSliderDelegate,MWPhotoBrowserDelegate>
@@ -69,22 +70,6 @@
     
 }
 
-- (float)calculateLblHeight:(NSString *)string
-                minumHeight:(float)minmunHeight
-                 fixedWidth:(float)fixedWidth
-{
-    CGSize constrainedSize = CGSizeMake(fixedWidth  , 9999);
-    
-    NSDictionary *attributesDictionary = [NSDictionary dictionaryWithObjectsAndKeys:
-                                          [UIFont systemFontOfSize:12], NSFontAttributeName,
-                                          nil];
-    
-    NSMutableAttributedString *str = [[NSMutableAttributedString alloc] initWithString:string attributes:attributesDictionary];
-    
-    CGRect requiredHeight = [str boundingRectWithSize:constrainedSize options:NSStringDrawingUsesLineFragmentOrigin context:nil];
-    return MAX(requiredHeight.size.height, minmunHeight);
-}
-
 
 - (void)viewWillAppear:(BOOL)animated
 {
@@ -112,14 +97,14 @@
     bottomView.layer.borderWidth  = 0.5;
     
     UIButton *btnDecrese = [UIButton buttonWithType:UIButtonTypeCustom];
-    btnDecrese.frame = CGRectMake(20, 15, 20, 20);
+    btnDecrese.frame = CGRectMake(20, 10, 30, 30);
     [btnDecrese addTarget:self action:@selector(countDownClick) forControlEvents:UIControlEventTouchDown];
     [btnDecrese setBackgroundImage:[UIImage imageNamed:@"CountDownBtn"] forState:UIControlStateNormal];
     [bottomView addSubview:btnDecrese];
     
     self.countLbl = [[UILabel alloc] initWithFrame:CGRectMake(MaxX(btnDecrese) + 10,
                                                               Y(btnDecrese),
-                                                              40  ,
+                                                              50  ,
                                                               HEIGHT(btnDecrese))];
     self.countLbl.layer.borderColor = [[UIColor whiteColor] CGColor];
     self.countLbl.layer.borderWidth = 1;
@@ -130,7 +115,7 @@
     [bottomView addSubview:self.countLbl];
     
     UIButton *btnIncrease = [UIButton buttonWithType:UIButtonTypeCustom];
-    btnIncrease.frame = CGRectMake(MaxX(self.countLbl)  + 10,Y(btnDecrese), 20, 20);
+    btnIncrease.frame = CGRectMake(MaxX(self.countLbl)  + 10,Y(btnDecrese), 30, 30);
     [btnIncrease addTarget:self action:@selector(countUpClick) forControlEvents:UIControlEventTouchDown];
     [btnIncrease setBackgroundImage:[UIImage imageNamed:@"CountUpBtn"] forState:UIControlStateNormal];
     [bottomView addSubview:btnIncrease];
@@ -298,8 +283,12 @@
         
         NSString *titleStr = [paramNameArry objectAtIndex:i];
         NSString *valueStr = [paramValueArry objectAtIndex:i];
-        float titleLblHeight = [self calculateLblHeight:titleStr minumHeight:paramLblHeight fixedWidth:60];
-        float valueLblHeight = [self calculateLblHeight:valueStr minumHeight:paramLblHeight fixedWidth:225];
+        float titleLblHeight = [Util textHeightFortext:titleStr
+                                           minumHeight:paramLblHeight
+                                            fixedWidth:60];
+        float valueLblHeight =[Util textHeightFortext:valueStr
+                                          minumHeight:paramLblHeight
+                                           fixedWidth:60];
         float fixedHeight = MAX(titleLblHeight, valueLblHeight);
         
         
@@ -317,7 +306,6 @@
         titleLbl.font = [UIFont systemFontOfSize:12];
         titleLbl.numberOfLines = 0;
         titleLbl.textAlignment = NSTextAlignmentCenter;
-        titleLbl.backgroundColor = [UIColor whiteColor];
         titleLbl.textColor = [UIColor blackColor];
         titleLbl.text = titleStr;
         [cellView addSubview:titleLbl];
@@ -336,7 +324,6 @@
         valueLbl.font = [UIFont systemFontOfSize:12];
         valueLbl.numberOfLines = 0;
         valueLbl.textAlignment = NSTextAlignmentLeft;
-        valueLbl.backgroundColor = [UIColor whiteColor];
         valueLbl.textColor = [UIColor blackColor];
         valueLbl.text = [paramValueArry objectAtIndex:i];
         [cellView addSubview:valueLbl];

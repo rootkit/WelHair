@@ -53,6 +53,19 @@
     return CGSizeMake(roundf(stringSize.width), roundf(stringSize.height));
 }
 
++ (float)textHeightFortext:(NSString *)string minumHeight:(float)minmunHeight fixedWidth:(float)fixedWidth
+{
+    CGSize constrainedSize = CGSizeMake(fixedWidth  , 9999);
+    NSDictionary *attributesDictionary = [NSDictionary dictionaryWithObjectsAndKeys:
+                                          [UIFont systemFontOfSize:12], NSFontAttributeName,
+                                          nil];
+    
+    NSMutableAttributedString *str = [[NSMutableAttributedString alloc] initWithString:string attributes:attributesDictionary];
+    
+    CGRect requiredHeight = [str boundingRectWithSize:constrainedSize options:NSStringDrawingUsesLineFragmentOrigin context:nil];
+    return MAX(requiredHeight.size.height, minmunHeight);
+}
+
 + (NSDictionary *)parametersDictionaryFromQueryString:(NSString *)queryString
 {
 

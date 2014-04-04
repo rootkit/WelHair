@@ -87,14 +87,14 @@
         [self addSubview:bottomView];
         
         UIButton *btnDecrese = [UIButton buttonWithType:UIButtonTypeCustom];
-        btnDecrese.frame = CGRectMake(20, 10, 20, 20);
+        btnDecrese.frame = CGRectMake(20, 5, 30, 30);
         [btnDecrese addTarget:self action:@selector(countDownClick) forControlEvents:UIControlEventTouchDown];
         [btnDecrese setBackgroundImage:[UIImage imageNamed:@"CountDownBtn"] forState:UIControlStateNormal];
         [bottomView addSubview:btnDecrese];
         
         countLbl = [[UILabel alloc] initWithFrame:CGRectMake(MaxX(btnDecrese) + 10,
                                                                           Y(btnDecrese),
-                                                                          40  ,
+                                                                          50,
                                                                            HEIGHT(btnDecrese))];
         countLbl.layer.borderColor = [[UIColor colorWithHexString:APP_CONTENT_BG_COLOR] CGColor];
         countLbl.layer.borderWidth = 1;
@@ -104,7 +104,7 @@
         [bottomView addSubview:countLbl];
         
         UIButton *btnIncrease = [UIButton buttonWithType:UIButtonTypeCustom];
-        btnIncrease.frame = CGRectMake(MaxX(countLbl)  + 10, 10, 20, 20);
+        btnIncrease.frame = CGRectMake(MaxX(countLbl)  + 10, Y(btnDecrese), 30, 30);
         [btnIncrease addTarget:self action:@selector(countUpClick) forControlEvents:UIControlEventTouchDown];
         [btnIncrease setBackgroundImage:[UIImage imageNamed:@"CountUpBtn"] forState:UIControlStateNormal];
         [bottomView addSubview:btnIncrease];
