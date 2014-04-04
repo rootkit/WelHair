@@ -26,6 +26,7 @@
 #import "UIViewController+KNSemiModal.h"
 #import "OrderPreviewViewController.h"
 #import "CircleImageView.h"
+#import <Block-KVO/MTKObserving.h>
 
 @interface ProductDetailViewController ()<UMSocialUIDelegate,JOLImageSliderDelegate,MWPhotoBrowserDelegate>
 @property (nonatomic, strong) UIScrollView *scrollView;
@@ -65,7 +66,7 @@
 {
     [super loadView];
     
-   
+    
 }
 
 - (float)calculateLblHeight:(NSString *)string
@@ -349,20 +350,15 @@
     self.scrollView.contentSize = CGSizeMake(WIDTH(self.view), MaxY(paramScrollView));
     
     // add kvo for product count
-    [self.product addObserver:self forKeyPath:@"count" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:nil];
+    [self observeProperty:@keypath(self.product.count) withBlock:
+     ^(__weak typeof(self) selfDelegate, NSNumber *oldCount, NSNumber *newCount) {
+         selfDelegate.countLbl.text =[NSString stringWithFormat:@"%d",[newCount intValue]];
+     }];
     if(self.product.count <= 0){
         self.product.count = 1;
     }
 }
 
--(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
-{
-    if([keyPath isEqualToString:@"count"])
-    {
-        NSNumber *count = (NSNumber *)[self.product valueForKey:@"count"];
-        self.countLbl.text =[NSString stringWithFormat:@"%d",[count intValue]];
-    }
-}
 
 - (void)didReceiveMemoryWarning
 {
@@ -414,7 +410,7 @@
 {
     UIButton *btn = (UIButton *)sender;
     if(btn.tag == 0){
-       [self.navigationController pushViewController:[ProductDetailWebViewController new] animated:YES];
+        [self.navigationController pushViewController:[ProductDetailWebViewController new] animated:YES];
     }else{
         [self.navigationController pushViewController:[CommentsViewController new] animated:YES];
     }
@@ -473,14 +469,14 @@
 {
     ProductOpitionPanel *panel =
     [[ProductOpitionPanel alloc] initWithFrame:CGRectMake(0,
-                                                         0,
-                                                         WIDTH(self.view),
-                                                         HEIGHT(self.view) - self.topBarOffset - 80)];
+                                                          0,
+                                                          WIDTH(self.view),
+                                                          HEIGHT(self.view) - self.topBarOffset - 80)];
     
     
     [panel setupTitle:@"产品"
              opitions:[self buildSelectionOpition]
-                product:self.product
+              product:self.product
                cancel:^(){[self.tabBarController dismissSemiModalView];}
                submit:^(SelectOpition *opitions){
                    self.selectOpition =opitions;
@@ -560,7 +556,7 @@
 }
 - (void)dealloc
 {
-    [self.product removeObserver:self forKeyPath:@"count" context:nil];
+    [self removeAllObservations];
 }
 
 @end

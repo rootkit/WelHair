@@ -24,6 +24,7 @@ pod 'RequestUtils'
 pod 'SDWebImage', '~> 3.5.4'
 pod 'SocketRocket'
 pod 'ZXingObjC', '2.2.2'
+pod 'Block-KVO', '~> 2.2.1'
 
 #pod 'CocoaLumberjack', '~> 1.8.1'
 #pod 'EGODatabase', '~> 2.0'
