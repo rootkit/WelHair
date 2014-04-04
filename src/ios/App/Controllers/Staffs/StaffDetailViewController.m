@@ -264,7 +264,7 @@ static const   float profileViewHeight = 80;
     [[OpitionSelectPanel alloc] initWithFrame:CGRectMake(0,
                                                          0,
                                                          WIDTH(self.view),
-                                                         HEIGHT(self.view) - self.topBarOffset - 100)];
+                                                         HEIGHT(self.view) - self.topBarOffset - 50)];
     
     
     [panel setupTitle:@"产品"

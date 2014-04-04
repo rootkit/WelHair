@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "SelectOpition.h"
+#import "Product.h"
 typedef void(^cancelSelection)(void);
 typedef void(^submitSelection)(SelectOpition *);
 
@@ -15,6 +16,7 @@ typedef void(^submitSelection)(SelectOpition *);
 
 - (void)setupTitle:(NSString *)title
           opitions:(SelectOpition *)selectOptioin
+           product:(Product *)product
             cancel:(cancelSelection )cancelHandler
             submit:(submitSelection )submitHandler;
 ;

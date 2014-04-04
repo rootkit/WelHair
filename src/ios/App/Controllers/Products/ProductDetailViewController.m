@@ -40,6 +40,7 @@
 
 @property (nonatomic, strong) NSMutableArray *productImgs;
 @property (nonatomic, strong) SelectOpition *selectOpition;
+@property (nonatomic, strong) UILabel  *countLbl;
 @end
 
 @implementation ProductDetailViewController
@@ -64,14 +65,76 @@
 {
     [super loadView];
     
+   
+}
+
+- (float)calculateLblHeight:(NSString *)string
+                minumHeight:(float)minmunHeight
+                 fixedWidth:(float)fixedWidth
+{
+    CGSize constrainedSize = CGSizeMake(fixedWidth  , 9999);
+    
+    NSDictionary *attributesDictionary = [NSDictionary dictionaryWithObjectsAndKeys:
+                                          [UIFont systemFontOfSize:12], NSFontAttributeName,
+                                          nil];
+    
+    NSMutableAttributedString *str = [[NSMutableAttributedString alloc] initWithString:string attributes:attributesDictionary];
+    
+    CGRect requiredHeight = [str boundingRectWithSize:constrainedSize options:NSStringDrawingUsesLineFragmentOrigin context:nil];
+    return MAX(requiredHeight.size.height, minmunHeight);
+}
+
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [self.navigationController setNavigationBarHidden:YES animated:YES];
+}
+
+- (void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    [self.navigationController setNavigationBarHidden:NO animated:YES];
+}
+
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
     self.scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, WIDTH(self.view), self.view.bounds.size.height - kBottomBarHeight)];
     [self.view addSubview:self.scrollView];
-    
+#pragma bottom bar
     UIView *bottomView = [[UIView alloc] initWithFrame:CGRectMake(0,
                                                                   MaxY(self.scrollView),
                                                                   WIDTH(self.view),
                                                                   kBottomBarHeight)];
-    bottomView.backgroundColor =[UIColor whiteColor];
+    bottomView.backgroundColor =[UIColor clearColor];
+    bottomView.layer.borderColor = [[UIColor lightGrayColor] CGColor];
+    bottomView.layer.borderWidth  = 0.5;
+    
+    UIButton *btnDecrese = [UIButton buttonWithType:UIButtonTypeCustom];
+    btnDecrese.frame = CGRectMake(20, 15, 20, 20);
+    [btnDecrese addTarget:self action:@selector(countDownClick) forControlEvents:UIControlEventTouchDown];
+    [btnDecrese setBackgroundImage:[UIImage imageNamed:@"CountDownBtn"] forState:UIControlStateNormal];
+    [bottomView addSubview:btnDecrese];
+    
+    self.countLbl = [[UILabel alloc] initWithFrame:CGRectMake(MaxX(btnDecrese) + 10,
+                                                              Y(btnDecrese),
+                                                              40  ,
+                                                              HEIGHT(btnDecrese))];
+    self.countLbl.layer.borderColor = [[UIColor whiteColor] CGColor];
+    self.countLbl.layer.borderWidth = 1;
+    self.countLbl.layer.cornerRadius = 2;
+    self.countLbl.font = [UIFont systemFontOfSize:14];
+    self.countLbl.backgroundColor = [UIColor whiteColor];
+    self.countLbl.textAlignment = NSTextAlignmentCenter;
+    [bottomView addSubview:self.countLbl];
+    
+    UIButton *btnIncrease = [UIButton buttonWithType:UIButtonTypeCustom];
+    btnIncrease.frame = CGRectMake(MaxX(self.countLbl)  + 10,Y(btnDecrese), 20, 20);
+    [btnIncrease addTarget:self action:@selector(countUpClick) forControlEvents:UIControlEventTouchDown];
+    [btnIncrease setBackgroundImage:[UIImage imageNamed:@"CountUpBtn"] forState:UIControlStateNormal];
+    [bottomView addSubview:btnIncrease];
+    
+    
     UIButton *submitBtn = [[UIButton alloc] initWithFrame:CGRectMake(220, 15, 80, 25)];
     [submitBtn setTitle:@"下单" forState:UIControlStateNormal];
     submitBtn.tag = 0;
@@ -114,6 +177,18 @@
     self.imgSlider.delegate = self;
     [self.imgSlider setContentMode: UIViewContentModeScaleAspectFill];
     [self.scrollView addSubview:self.imgSlider];
+    NSMutableArray *sliderArray = [NSMutableArray array];
+    for (NSString *item in self.product.imgUrlList) {
+        JOLImageSlide * slideImg= [[JOLImageSlide alloc] init];
+        slideImg.image = item;
+        [sliderArray addObject:slideImg];
+    }
+    [self.imgSlider setSlides:sliderArray];
+    
+    self.productImgs = [NSMutableArray array];
+    for (NSString *item in self.product.imgUrlList) {
+        [self.productImgs addObject:[MWPhoto photoWithURL:[NSURL URLWithString:item]]];
+    }
 #pragma product name & price
     self.productNameLbl = [[UILabel alloc] initWithFrame:CGRectMake(10, MaxY(self.imgSlider) + 5,220,40)];
     self.productNameLbl.textAlignment = NSTextAlignmentLeft;
@@ -121,6 +196,7 @@
     self.productNameLbl.font = [UIFont systemFontOfSize:18];
     self.productNameLbl.backgroundColor = [UIColor clearColor];
     [self.scrollView addSubview:self.productNameLbl];
+    self.productNameLbl.text = self.product.name;
     
     self.productPriceLbl = [[UILabel alloc] initWithFrame:CGRectMake(MaxX(self.productNameLbl), Y(self.productNameLbl),80,40)];
     self.productPriceLbl.textAlignment = NSTextAlignmentRight;
@@ -128,22 +204,23 @@
     self.productPriceLbl.font = [UIFont systemFontOfSize:14];
     self.productPriceLbl.backgroundColor = [UIColor clearColor];
     [self.scrollView addSubview:self.productPriceLbl];
+    self.productPriceLbl.text = [NSString stringWithFormat:@"￥%.2f",self.product.price];
     
 #pragma groupInfo
-    UIView *groupView = [[UIView alloc] initWithFrame:CGRectMake(10, MaxY(self.productNameLbl) + 5, WIDTH(self.view) - 20, 80)];
+    UIView *groupView = [[UIView alloc] initWithFrame:CGRectMake(10, MaxY(self.productNameLbl) + 5, WIDTH(self.view) - 20, 60)];
     groupView.backgroundColor = [UIColor whiteColor];
-    groupView.layer.cornerRadius = 10;
+    groupView.layer.cornerRadius = 5;
     [groupView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(groupTapped)]];
     [self.scrollView addSubview:groupView];
-    self.groupImgImgView = [[CircleImageView alloc] initWithFrame:CGRectMake(10, 15, 50, 50)];
+    self.groupImgImgView = [[CircleImageView alloc] initWithFrame:CGRectMake(10, 10, 40, 40)];
     [groupView addSubview:self.groupImgImgView];
     self.groupImgImgView.layer.borderColor = [[UIColor colorWithHexString:@"e0e0de"] CGColor];
     self.groupImgImgView.layer.borderWidth = 2;
     
     self.groupNameLbl = [[UILabel alloc] initWithFrame:CGRectMake(MaxX(self.groupImgImgView) + 5,
-                                                             15,
-                                                             150,
-                                                             HEIGHT(self.groupImgImgView)/2)];
+                                                                  10,
+                                                                  150,
+                                                                  HEIGHT(self.groupImgImgView)/2)];
     self.groupNameLbl.font = [UIFont boldSystemFontOfSize:14];
     self.groupNameLbl.numberOfLines = 2;
     self.groupNameLbl.backgroundColor = [UIColor clearColor];
@@ -151,9 +228,9 @@
     [groupView addSubview:self.groupNameLbl];
     
     self.groupAddressLbl = [[UILabel alloc] initWithFrame:CGRectMake(MaxX(self.groupImgImgView) + 5,
-                                                                MaxY(self.groupNameLbl),
-                                                                WIDTH(self.groupNameLbl),
-                                                                HEIGHT(self.groupImgImgView)/2)];
+                                                                     MaxY(self.groupNameLbl),
+                                                                     WIDTH(self.groupNameLbl),
+                                                                     HEIGHT(self.groupImgImgView)/2)];
     self.groupAddressLbl.font = [UIFont systemFontOfSize:12];
     self.groupAddressLbl.numberOfLines = 2;
     self.groupAddressLbl.backgroundColor = [UIColor clearColor];
@@ -172,15 +249,19 @@
     self.groupDistanceLbl.backgroundColor = [UIColor clearColor];
     self.groupDistanceLbl.font = [UIFont systemFontOfSize:12];
     [groupView addSubview:self.groupDistanceLbl];
-#pragma tab view 
-    UIView *tabView = [[UIView alloc] initWithFrame:CGRectMake(10, MaxY(groupView) + 10, 290, 30)];
+    [self.groupImgImgView setImageWithURL:[NSURL URLWithString:self.product.group.logoUrl]];
+    self.groupNameLbl.text = self.product.group.name;
+    self.groupAddressLbl.text = self.product.group.address;
+    self.groupDistanceLbl.text =[NSString stringWithFormat:@"%.0f千米", self.product.group.distance];
+#pragma tab view
+    UIView *tabView = [[UIView alloc] initWithFrame:CGRectMake(10, MaxY(groupView) + 10, 300, 30)];
     UIColor *tabViewColor =[UIColor colorWithHexString:APP_NAVIGATIONBAR_COLOR] ;
     [self.scrollView addSubview:tabView];
     tabView.backgroundColor = [UIColor clearColor];
     tabView.layer.borderColor = [tabViewColor CGColor];
     tabView.layer.borderWidth = 1;
     tabView.layer.cornerRadius = 5;
-    float tabButtonWidth = 290 / 2;
+    float tabButtonWidth = 300 / 2;
     
     UIButton *imageDetailBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     imageDetailBtn.frame = CGRectMake(0,0,tabButtonWidth,30);
@@ -205,48 +286,82 @@
     [commentBtn addTarget:self action:@selector(tabClicked:) forControlEvents:UIControlEventTouchDown];
     [tabView addSubview:commentBtn];
     
-
-    self.scrollView.contentSize = CGSizeMake(WIDTH(self.view), MaxY(tabView));
-}
-
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    [self.navigationController setNavigationBarHidden:YES animated:YES];
-}
-
-- (void)viewWillDisappear:(BOOL)animated{
-    [super viewWillDisappear:animated];
-    [self.navigationController setNavigationBarHidden:NO animated:YES];
-}
-
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-    // images
-    NSMutableArray *sliderArray = [NSMutableArray array];
-    for (NSString *item in self.product.imgUrlList) {
-        JOLImageSlide * slideImg= [[JOLImageSlide alloc] init];
-        slideImg.image = item;
-        [sliderArray addObject:slideImg];
+    UIScrollView *paramScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(10, MaxY(tabView)+10, 300, 0)];
+    NSArray *paramNameArry = @[@"商品名",@"价格",@"分类"];
+    NSArray *paramValueArry = @[@"洗发水洗发水洗发水洗发水洗发水洗发水洗发水洗发水洗发水洗发水洗发水洗发水发水洗发水洗发水洗发水洗发水洗发水发水洗发水洗发水洗发水11111",@"￥20",@"亮发防干枯"];
+    
+    float paramOffsetY = 0;
+    float paramLblHeight = 40;
+    float paramLblPadding = 5;
+    for (int i = 0; i < paramNameArry.count; i++) {
+        
+        NSString *titleStr = [paramNameArry objectAtIndex:i];
+        NSString *valueStr = [paramValueArry objectAtIndex:i];
+        float titleLblHeight = [self calculateLblHeight:titleStr minumHeight:paramLblHeight fixedWidth:60];
+        float valueLblHeight = [self calculateLblHeight:valueStr minumHeight:paramLblHeight fixedWidth:225];
+        float fixedHeight = MAX(titleLblHeight, valueLblHeight);
+        
+        
+        UIView *cellView = [[UIView alloc] initWithFrame:CGRectMake(0, paramOffsetY, WIDTH(paramScrollView), fixedHeight + 2 *paramLblPadding )];
+        cellView.layer.borderColor = [[UIColor colorWithHexString:APP_CONTENT_BG_COLOR] CGColor];
+        cellView.layer.borderWidth = 1;
+        cellView.backgroundColor = [UIColor whiteColor];
+        [paramScrollView addSubview:cellView];
+        
+        
+        UILabel *titleLbl = [[UILabel alloc] initWithFrame:CGRectMake(paramLblPadding,
+                                                                      paramLblPadding,
+                                                                      60,
+                                                                      fixedHeight)];
+        titleLbl.font = [UIFont systemFontOfSize:12];
+        titleLbl.numberOfLines = 0;
+        titleLbl.textAlignment = NSTextAlignmentCenter;
+        titleLbl.backgroundColor = [UIColor whiteColor];
+        titleLbl.textColor = [UIColor blackColor];
+        titleLbl.text = titleStr;
+        [cellView addSubview:titleLbl];
+        
+        UIView *cellSeparaterView = [[UIView alloc] initWithFrame:CGRectMake(MaxX(titleLbl)+1,
+                                                                             0,
+                                                                             1,
+                                                                             cellView.height)];
+        cellSeparaterView.backgroundColor = [UIColor colorWithHexString:APP_CONTENT_BG_COLOR];
+        [cellView addSubview:cellSeparaterView];
+        
+        UILabel *valueLbl = [[UILabel alloc] initWithFrame:CGRectMake(MaxX(titleLbl) + paramLblPadding,
+                                                                      paramLblPadding,
+                                                                      225,
+                                                                      fixedHeight)];
+        valueLbl.font = [UIFont systemFontOfSize:12];
+        valueLbl.numberOfLines = 0;
+        valueLbl.textAlignment = NSTextAlignmentLeft;
+        valueLbl.backgroundColor = [UIColor whiteColor];
+        valueLbl.textColor = [UIColor blackColor];
+        valueLbl.text = [paramValueArry objectAtIndex:i];
+        [cellView addSubview:valueLbl];
+        
+        paramOffsetY += cellView.height;
     }
-    [self.imgSlider setSlides:sliderArray];
+    CGRect newFrame = paramScrollView.frame;
+    newFrame.size.height = paramOffsetY;
+    paramScrollView.frame = newFrame;
+    [self.scrollView addSubview:paramScrollView];
+    self.scrollView.contentSize = CGSizeMake(WIDTH(self.view), MaxY(paramScrollView));
     
-    self.productImgs = [NSMutableArray array];
-    for (NSString *item in self.product.imgUrlList) {
-        [self.productImgs addObject:[MWPhoto photoWithURL:[NSURL URLWithString:item]]];
+    // add kvo for product count
+    [self.product addObserver:self forKeyPath:@"count" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:nil];
+    if(self.product.count <= 0){
+        self.product.count = 1;
     }
-    
-    //product name & price
-    self.productNameLbl.text = self.product.name;
-    self.productPriceLbl.text = [NSString stringWithFormat:@"￥%.2f",self.product.price];
-    
-    // group info
-    [self.groupImgImgView setImageWithURL:[NSURL URLWithString:self.product.group.logoUrl]];
-    self.groupNameLbl.text = self.product.group.name;
-    self.groupAddressLbl.text = self.product.group.address;
-    self.groupDistanceLbl.text =[NSString stringWithFormat:@"%.0f千米", self.product.group.distance];
-    
+}
+
+-(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
+{
+    if([keyPath isEqualToString:@"count"])
+    {
+        NSNumber *count = (NSNumber *)[self.product valueForKey:@"count"];
+        self.countLbl.text =[NSString stringWithFormat:@"%d",[count intValue]];
+    }
 }
 
 - (void)didReceiveMemoryWarning
@@ -260,6 +375,17 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 
+- (void)countDownClick
+{
+    if(self.product.count > 1){
+        self.product.count--;
+    }
+}
+
+- (void)countUpClick
+{
+    self.product.count++;
+}
 
 - (void) imagePager:(JOLImageSlider *)imagePager didSelectImageAtIndex:(NSUInteger)index {
     [self OpenImageGallery];
@@ -349,11 +475,12 @@
     [[ProductOpitionPanel alloc] initWithFrame:CGRectMake(0,
                                                          0,
                                                          WIDTH(self.view),
-                                                         HEIGHT(self.view) - self.topBarOffset - 100)];
+                                                         HEIGHT(self.view) - self.topBarOffset - 80)];
     
     
     [panel setupTitle:@"产品"
              opitions:[self buildSelectionOpition]
+                product:self.product
                cancel:^(){[self.tabBarController dismissSemiModalView];}
                submit:^(SelectOpition *opitions){
                    self.selectOpition =opitions;
@@ -431,4 +558,9 @@
     
     return self.selectOpition;
 }
+- (void)dealloc
+{
+    [self.product removeObserver:self forKeyPath:@"count" context:nil];
+}
+
 @end

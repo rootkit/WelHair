@@ -16,4 +16,6 @@
 @property (nonatomic, strong) NSArray *commentList;
 @property (nonatomic, strong) NSArray *imgUrlList;
 
+
+@property (nonatomic) NSInteger count;
 @end

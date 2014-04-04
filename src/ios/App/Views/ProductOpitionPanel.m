@@ -13,10 +13,11 @@
 #import "UIImageView+WebCache.h"
 @interface ProductOpitionPanel ()
 {
+    Product *_product;
     SelectOpition *opition;
     cancelSelection _cancelHandler;
     submitSelection _submitHandler;
-    int count;
+
     UILabel *titleLbl;
     
     UIScrollView *scrollView;
@@ -33,8 +34,6 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
-        count = 1;
-        
         self.backgroundColor = [UIColor whiteColor];
         float topHeight = 100;
         
@@ -100,7 +99,6 @@
         countLbl.layer.borderColor = [[UIColor colorWithHexString:APP_CONTENT_BG_COLOR] CGColor];
         countLbl.layer.borderWidth = 1;
         countLbl.layer.cornerRadius = 2;
-        countLbl.text = @"1";
         countLbl.font = [UIFont systemFontOfSize:14];
         countLbl.textAlignment = NSTextAlignmentCenter;
         [bottomView addSubview:countLbl];
@@ -112,15 +110,15 @@
         [bottomView addSubview:btnIncrease];
         
         UIButton *orderBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        orderBtn.frame = CGRectMake(240, 5, 60, 20);
+        orderBtn.frame = CGRectMake(220, 5, 80, 30);
         [orderBtn setTitle:@"下单" forState:UIControlStateNormal];
         orderBtn.layer.borderWidth = 1;
         orderBtn.layer.borderColor = [[UIColor colorWithHexString:APP_CONTENT_BG_COLOR] CGColor];
         orderBtn.layer.cornerRadius = 2;
-        [orderBtn setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
+
+        [orderBtn setBackgroundColor:[UIColor colorWithHexString:@"e43a3d"]];
         [orderBtn addTarget:self action:@selector(orderClick) forControlEvents:UIControlEventTouchDown];
         [bottomView addSubview:orderBtn];
-        
         
         scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, MaxY(topView), WIDTH(self), HEIGHT(self) - bottomHeight - HEIGHT(topView))];
         scrollView.contentSize = CGSizeMake(WIDTH(scrollView), HEIGHT(scrollView) * 2);
@@ -132,16 +130,16 @@
 
 - (void)countDownClick
 {
-    if(count > 1){
-        count--;
-        countLbl.text = [NSString stringWithFormat:@"%d", count];
+    if(_product.count > 1){
+        _product.count--;
+        countLbl.text = [NSString stringWithFormat:@"%d", _product.count];
     }
 }
 
 - (void)countUpClick
 {
-    count++;
-    countLbl.text = [NSString stringWithFormat:@"%d", count];
+    _product.count++;
+    countLbl.text = [NSString stringWithFormat:@"%d", _product.count];
 }
 
 - (void)orderClick
@@ -166,9 +164,11 @@
 
 - (void)setupTitle:(NSString *)title
           opitions:(SelectOpition *)selectOptioin
+           product:(Product *)product
             cancel:(cancelSelection)cancelHandler
             submit:(submitSelection)submitHandler
 {
+    _product = product;
     titleLbl.text = title;
     _cancelHandler = cancelHandler;
     _submitHandler = submitHandler;
@@ -183,7 +183,7 @@
     for (OpitionCategory *category in opition.opitionCateogries) {
         offsetY = [self fillCategory:category withOffsetY:offsetY];
     }
-
+    countLbl.text = [NSString stringWithFormat:@"%d", _product.count];
     scrollView.contentSize = CGSizeMake(WIDTH(self), offsetY);
 }
 
