@@ -24,7 +24,7 @@ class CompanyRepository extends AbstractRepository
         $strSql = "SELECT
                      COUNT(1) `Total`
                    FROM Company C
-                   WHERE (? = 0 || C.City = ?) && (? = 0 || C.District= ?)
+                   WHERE C.Status = 1 AND (? = 0 || C.City = ?) AND (? = 0 || C.District= ?)
                    LIMIT 1";
 
         $row = $this->conn->fetchAssoc($strSql, array($city, $city, $district, $district));
@@ -58,11 +58,11 @@ class CompanyRepository extends AbstractRepository
                        C.*,
                        PA.Name ProvinceName,
                        PC.Name CityName,
-                       PD.Name DistrictName
+                       IFNULL(PD.Name, '') DistrictName
                    FROM Company C
                    INNER JOIN Area PA ON PA.AreaId = C.Province
                    INNER JOIN Area PC ON PC.AreaId = C.City
-                   INNER JOIN Area PD ON PD.AreaId = C.District
+                   LEFT OUTER JOIN Area PD ON PD.AreaId = C.District
                    ORDER BY C.CompanyId DESC
                    LIMIT $offset, $pageSize";
 
@@ -75,11 +75,11 @@ class CompanyRepository extends AbstractRepository
                        C.*,
                        PA.Name ProvinceName,
                        PC.Name CityName,
-                       PD.Name DistrictName
+                       IFNULL(PD.Name, '') DistrictName
                    FROM Company C
                    INNER JOIN Area PA ON PA.AreaId = C.Province
                    INNER JOIN Area PC ON PC.AreaId = C.City
-                   INNER JOIN Area PD ON PD.AreaId = C.District
+                   LEFT OUTER JOIN Area PD ON PD.AreaId = C.District
                    WHERE C.Name LIKE '%$searchText%' OR C.Tel LIKE '%$searchText%' OR C.Mobile LIKE '%$searchText%'
                    ORDER BY C.CompanyId DESC
                    LIMIT 5";
@@ -89,17 +89,17 @@ class CompanyRepository extends AbstractRepository
 
     public function findCompanyById($companyId)
     {
-        $strSql = 'SELECT
+        $strSql = "SELECT
                        C.*,
                        PA.Name ProvinceName,
                        PC.Name CityName,
-                       PD.Name DistrictName
+                       IFNULL(PD.Name, '') DistrictName
                    FROM Company C
                    INNER JOIN Area PA ON PA.AreaId = C.Province
                    INNER JOIN Area PC ON PC.AreaId = C.City
-                   INNER JOIN Area PD ON PD.AreaId = C.District
+                   LEFT OUTER JOIN Area PD ON PD.AreaId = C.District
                    WHERE C.CompanyId = ?
-                   LIMIT 1';
+                   LIMIT 1";
 
         return $this->conn->fetchAssoc($strSql, array($companyId));
     }

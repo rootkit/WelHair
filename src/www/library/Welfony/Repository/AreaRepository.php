@@ -19,6 +19,17 @@ use Welfony\Repository\Base\AbstractRepository;
 class AreaRepository extends AbstractRepository
 {
 
+    public function findParentAreaByChildId($childId)
+    {
+        $strSql = 'SELECT
+                       *
+                   FROM Area A
+                   WHERE A.AreaId = (SELECT ParentId FROM Area CA WHERE CA.AreaId = ?)
+                   LIMIT 1';
+
+        return $this->conn->fetchAssoc($strSql, array($childId));
+    }
+
     public function getAreasByParent($parentId)
     {
         $strSql = "SELECT

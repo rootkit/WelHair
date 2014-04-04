@@ -61,7 +61,7 @@ FROM (
                  INNER JOIN Work W ON W.WorkId = CMW.WorkId
                  INNER JOIN CompanyUser CU ON CU.UserId = W.UserId
                 ) AS TBLRate ON TBLRate.CompanyId = C.CompanyId
-    WHERE (city = 0 || C.City = city) && (district = 0 || C.District = district)
+    WHERE C.Status = 1 AND (city = 0 || C.City = city) AND (district = 0 || C.District = district)
     GROUP BY C.CompanyId
     ORDER BY CASE WHEN sort = 0 THEN Distance END ASC,
              CASE WHEN sort = 1 THEN Rate END DESC

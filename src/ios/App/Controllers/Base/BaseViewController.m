@@ -23,12 +23,23 @@
 
 @implementation BaseViewController
 
+- (void)dealloc
+{
+    for (ASIHTTPRequest *request in self.requests) {
+        [request clearDelegatesAndCancel];
+    }
+
+    [self.requests removeAllObjects];
+}
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         self.topBarOffset = isIOS70 ? kStatusBarHeight + kTopBarHeight : 0;
         self.bottomBarOffset = isIOS70 ? kBottomBarHeight : 0;
+
+        self.requests = [[NSMutableArray alloc] initWithCapacity:10];
     }
     return self;
 }

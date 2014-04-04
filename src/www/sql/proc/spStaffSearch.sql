@@ -56,7 +56,7 @@ FROM (
       FROM Comment CMW
       INNER JOIN Work W ON W.WorkId = CMW.WorkId
     ) AS TBLRate ON TBLRate.UserId = U.UserId
-    WHERE (city = 0 || C.City = city) && (district = 0 || C.District = district)
+    WHERE (city = 0 || C.City = city) AND (district = 0 || C.District = district)
     GROUP BY U.UserId
     ORDER BY CASE WHEN sort = 0 THEN Distance END ASC,
              CASE WHEN sort = 1 THEN Rate END DESC,

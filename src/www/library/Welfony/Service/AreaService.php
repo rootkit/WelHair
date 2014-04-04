@@ -22,6 +22,11 @@ class AreaService
 
     const ROOT_ID = 0;
 
+    public static function findParentAreaByChild($childId)
+    {
+        return AreaRepository::getInstance()->findParentAreaByChildId($childId);
+    }
+
     public static function listAreaByParent($parentId)
     {
         $areaList = AreaRepository::getInstance()->getAreasByParent($parentId);

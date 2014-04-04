@@ -15,12 +15,33 @@
 namespace Welfony\Controller\API;
 
 use Welfony\Controller\Base\AbstractAPIController;
+use Welfony\Service\AreaService;
 use Welfony\Service\CommentService;
 use Welfony\Service\CompanyService;
 use Welfony\Service\UserLikeService;
 
 class CompanyController extends AbstractAPIController
 {
+
+    public function create()
+    {
+        $reqData = $this->getDataFromRequestWithJsonFormat();
+        $reqData['CompanyId'] = 0;
+        if ($reqData['City'] > 0) {
+            $province = AreaService::findParentAreaByChild($reqData['City']);
+            $reqData['Province'] = $province['AreaId'];
+        } else {
+            $reqData['Province'] = 0;
+        }
+        $reqData['District'] = 0;
+
+        $result = CompanyService::save($reqData);
+        $this->sendResponse($result);
+    }
+
+    public function join($companyId)
+    {
+    }
 
     public function search()
     {

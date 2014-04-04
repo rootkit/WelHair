@@ -19,7 +19,9 @@
 @property (nonatomic, strong) UIImage *rightNavItemImg;
 
 @property (nonatomic, strong) NSString *leftNavItemTitle;
-@property (nonatomic, strong) NSString *rightNavItemTitle; 
+@property (nonatomic, strong) NSString *rightNavItemTitle;
+
+@property (nonatomic, strong) NSMutableArray *requests;
 
 - (float)contentHeightWithNavgationBar:(BOOL)showNav
                      withBottomBar:(BOOL)showBottom;

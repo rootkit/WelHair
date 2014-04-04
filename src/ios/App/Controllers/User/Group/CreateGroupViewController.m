@@ -31,10 +31,15 @@ static const float kMargin = 10;
 @property (nonatomic) int uploadIndex;
 @property (nonatomic) int uploadRemoveIndex;
 @property (nonatomic, strong) UIImageView *uploadLogo;
+@property (nonatomic, strong) UIActivityIndicatorView *uploadLogoActivityIndicator;
 @property (nonatomic, strong) UIImageView *uploadPic1;
+@property (nonatomic, strong) UIActivityIndicatorView *uploadPictureActivityIndicator1;
 @property (nonatomic, strong) UIImageView *uploadPic2;
+@property (nonatomic, strong) UIActivityIndicatorView *uploadPictureActivityIndicator2;
 @property (nonatomic, strong) UIImageView *uploadPic3;
+@property (nonatomic, strong) UIActivityIndicatorView *uploadPictureActivityIndicator3;
 @property (nonatomic, strong) UIImageView *uploadPic4;
+@property (nonatomic, strong) UIActivityIndicatorView *uploadPictureActivityIndicator4;
 
 @property (nonatomic, strong) NSMutableArray *uploadedPictures;
 
@@ -52,7 +57,7 @@ static const float kMargin = 10;
         [leftIcon addAttribute:NSForegroundColorAttributeName value:[UIColor whiteColor]];
         self.leftNavItemImg =[leftIcon imageWithSize:CGSizeMake(NAV_BAR_ICON_SIZE, NAV_BAR_ICON_SIZE)];
 
-        self.rightNavItemTitle = @"确认添加";
+        self.rightNavItemTitle = @"提交";
 
         self.uploadIndex = -1;
         self.uploadRemoveIndex = -1;
@@ -76,15 +81,85 @@ static const float kMargin = 10;
                   self.groupAddressTxt.text.length >0 &&
                   self.selectedCity.id > 0 &&
                   self.location != nil &&
-                  self.phoneNumTxt.text.length >0);
-    if(!valid){
+                  self.phoneNumTxt.text.length >0 &&
+                  self.mobileTxt.text.length >0);
+
+    if (!valid) {
         [SVProgressHUD showSuccessWithStatus:@"请填写所有项目" duration:1];
         return;
     }
 
-    [FakeDataHelper setUserCreateGroupSuccess];
-    [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_USER_CREATE_GROUP_SUCCESS object:nil];
+    if ([[self.uploadedPictures objectAtIndex:0] isEqualToString:@""]) {
+        [SVProgressHUD showSuccessWithStatus:@"请选择Logo" duration:1];
+        return;
+    }
 
+    if (self.uploadedPictures.count < 2) {
+        [SVProgressHUD showSuccessWithStatus:@"请至少选择一张沙龙展示图" duration:1];
+        return;
+    }
+
+    [SVProgressHUD showWithMaskType:SVProgressHUDMaskTypeClear];
+
+    NSMutableDictionary *reqData = [[NSMutableDictionary alloc] initWithCapacity:1];
+    [reqData setObject:self.groupNameTxt.text forKey:@"Name"];
+    [reqData setObject:self.phoneNumTxt.text forKey:@"Tel"];
+    [reqData setObject:self.mobileTxt.text forKey:@"Mobile"];
+    [reqData setObject:@(self.selectedCity.id) forKey:@"City"];
+    [reqData setObject:self.groupAddressTxt.text forKey:@"Address"];
+    [reqData setObject:self.uploadedPictures[0] forKey:@"LogoUrl"];
+    [reqData setObject:@(self.location.coordinate.latitude) forKey:@"Latitude"];
+    [reqData setObject:@(self.location.coordinate.longitude) forKey:@"Longitude"];
+
+    NSMutableArray *uploadPictures = [[NSMutableArray alloc] initWithCapacity:4];
+    for (NSString *pictureURL in self.uploadedPictures) {
+        if ([pictureURL isEqualToString:@""]) {
+            continue;
+        }
+
+        [uploadPictures addObject:pictureURL];
+    }
+    [uploadPictures removeObjectAtIndex:0];
+    [reqData setObject:uploadPictures forKey:@"PictureUrl"];
+
+    ASIFormDataRequest *request = [RequestUtil createPOSTRequestWithURL:[NSURL URLWithString:API_COMPANIES_CREATE]
+                                                                andData:reqData];
+
+    [request setDelegate:self];
+    [request setDidFinishSelector:@selector(createGroupFinish:)];
+    [request setDidFailSelector:@selector(createGroupFail:)];
+    [request startAsynchronous];
+}
+
+- (void)createGroupFinish:(ASIHTTPRequest *)request
+{
+    [SVProgressHUD dismiss];
+
+    if (request.responseStatusCode == 200) {
+        NSDictionary *responseMessage = [Util objectFromJson:request.responseString];
+        if (responseMessage) {
+//            if ([responseMessage objectForKey:@"company"] == nil) {
+//                [SVProgressHUD showErrorWithStatus:[responseMessage objectForKey:@"message"]];
+//                return;
+//            }
+
+            [SVProgressHUD dismiss];
+
+            [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_USER_CREATE_GROUP_SUCCESS object:nil];
+
+            [self.navigationController popViewControllerAnimated:YES];
+
+            return;
+        }
+    }
+
+    [SVProgressHUD showErrorWithStatus:@"添加沙龙失败，请重试！"];
+
+}
+
+- (void)createGroupFail:(ASIHTTPRequest *)request
+{
+    [SVProgressHUD showErrorWithStatus:@"添加沙龙失败，请重试！"];
 }
 
 - (void)loadView
@@ -130,9 +205,13 @@ static const float kMargin = 10;
     UIButton *uploadLogoButton = [UIButton buttonWithType:UIButtonTypeCustom];
     uploadLogoButton.tag = 0;
     uploadLogoButton.backgroundColor = [UIColor clearColor];
-    uploadLogoButton.frame = self.uploadLogo.frame;
+    uploadLogoButton.frame = CGRectInset(self.uploadLogo.frame, 3, 3);
     [uploadLogoView addSubview:uploadLogoButton];
     [uploadLogoButton addTarget:self action:@selector(uploadPictureTapped:) forControlEvents:UIControlEventTouchUpInside];
+
+    self.uploadLogoActivityIndicator = [[UIActivityIndicatorView alloc] initWithFrame:CGRectInset(self.uploadLogo.frame, 3, 3)];
+    self.uploadLogoActivityIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyleGray;
+    [uploadLogoView addSubview:self.uploadLogoActivityIndicator];
 
     UIView *cityView = [[UIView alloc] initWithFrame:CGRectMake(kMargin, MaxY(uploadLogoView) + kMargin, WIDTH(self.view) - 2 * kMargin, 40)];
     cityView.backgroundColor = [UIColor whiteColor];
@@ -228,12 +307,16 @@ static const float kMargin = 10;
     UIButton *uploadPictureButton1 = [UIButton buttonWithType:UIButtonTypeCustom];
     uploadPictureButton1.tag = 1;
     uploadPictureButton1.backgroundColor = [UIColor clearColor];
-    uploadPictureButton1.frame = self.uploadPic1.frame;
+    uploadPictureButton1.frame = CGRectInset(self.uploadPic1.frame, 3, 3);
     [uploadPictureView addSubview:uploadPictureButton1];
     [uploadPictureButton1 addTarget:self action:@selector(uploadPictureTapped:) forControlEvents:UIControlEventTouchUpInside];
     UILongPressGestureRecognizer *uploadPictureLongPress1 = [[UILongPressGestureRecognizer alloc] initWithTarget:self
                                                                                                          action:@selector(uploadPictureLongPress:)];
     [uploadPictureButton1 addGestureRecognizer:uploadPictureLongPress1];
+
+    self.uploadPictureActivityIndicator1 = [[UIActivityIndicatorView alloc] initWithFrame:CGRectInset(self.uploadPic1.frame, 3, 3)];
+    self.uploadPictureActivityIndicator1.activityIndicatorViewStyle = UIActivityIndicatorViewStyleGray;
+    [uploadPictureView addSubview:self.uploadPictureActivityIndicator1];
 
     self.uploadPic2 = [[UIImageView alloc] initWithFrame:CGRectMake(MaxX(self.uploadPic1) + 3, 5, 70, 70)];
     self.uploadPic2.image = [UIImage imageNamed:@"AddImage"];
@@ -242,12 +325,16 @@ static const float kMargin = 10;
     UIButton *uploadPictureButton2 = [UIButton buttonWithType:UIButtonTypeCustom];
     uploadPictureButton2.tag = 2;
     uploadPictureButton2.backgroundColor = [UIColor clearColor];
-    uploadPictureButton2.frame = self.uploadPic2.frame;
+    uploadPictureButton2.frame = CGRectInset(self.uploadPic2.frame, 3, 3);
     [uploadPictureView addSubview:uploadPictureButton2];
     [uploadPictureButton2 addTarget:self action:@selector(uploadPictureTapped:) forControlEvents:UIControlEventTouchUpInside];
     UILongPressGestureRecognizer *uploadPictureLongPress2 = [[UILongPressGestureRecognizer alloc] initWithTarget:self
                                                                                                           action:@selector(uploadPictureLongPress:)];
     [uploadPictureButton2 addGestureRecognizer:uploadPictureLongPress2];
+
+    self.uploadPictureActivityIndicator2 = [[UIActivityIndicatorView alloc] initWithFrame:CGRectInset(self.uploadPic2.frame, 3, 3)];
+    self.uploadPictureActivityIndicator2.activityIndicatorViewStyle = UIActivityIndicatorViewStyleGray;
+    [uploadPictureView addSubview:self.uploadPictureActivityIndicator2];
 
     self.uploadPic3 = [[UIImageView alloc] initWithFrame:CGRectMake(MaxX(self.uploadPic2) + 3, 5, 70, 70)];
     self.uploadPic3.image = [UIImage imageNamed:@"AddImage"];
@@ -256,12 +343,16 @@ static const float kMargin = 10;
     UIButton *uploadPictureButton3 = [UIButton buttonWithType:UIButtonTypeCustom];
     uploadPictureButton3.tag = 3;
     uploadPictureButton3.backgroundColor = [UIColor clearColor];
-    uploadPictureButton3.frame = self.uploadPic3.frame;
+    uploadPictureButton3.frame = CGRectInset(self.uploadPic3.frame, 3, 3);
     [uploadPictureView addSubview:uploadPictureButton3];
     [uploadPictureButton3 addTarget:self action:@selector(uploadPictureTapped:) forControlEvents:UIControlEventTouchUpInside];
     UILongPressGestureRecognizer *uploadPictureLongPress3 = [[UILongPressGestureRecognizer alloc] initWithTarget:self
                                                                                                           action:@selector(uploadPictureLongPress:)];
     [uploadPictureButton3 addGestureRecognizer:uploadPictureLongPress3];
+
+    self.uploadPictureActivityIndicator3 = [[UIActivityIndicatorView alloc] initWithFrame:CGRectInset(self.uploadPic3.frame, 3, 3)];
+    self.uploadPictureActivityIndicator3.activityIndicatorViewStyle = UIActivityIndicatorViewStyleGray;
+    [uploadPictureView addSubview:self.uploadPictureActivityIndicator3];
 
     self.uploadPic4 = [[UIImageView alloc] initWithFrame:CGRectMake(MaxX(self.uploadPic3) + 3, 5, 70, 70)];
     self.uploadPic4.image = [UIImage imageNamed:@"AddImage"];
@@ -270,12 +361,16 @@ static const float kMargin = 10;
     UIButton *uploadPictureButton4 = [UIButton buttonWithType:UIButtonTypeCustom];
     uploadPictureButton4.tag = 4;
     uploadPictureButton4.backgroundColor = [UIColor clearColor];
-    uploadPictureButton4.frame = self.uploadPic4.frame;
+    uploadPictureButton4.frame = CGRectInset(self.uploadPic4.frame, 3, 3);
     [uploadPictureView addSubview:uploadPictureButton4];
     [uploadPictureButton4 addTarget:self action:@selector(uploadPictureTapped:) forControlEvents:UIControlEventTouchUpInside];
     UILongPressGestureRecognizer *uploadPictureLongPress4 = [[UILongPressGestureRecognizer alloc] initWithTarget:self
                                                                                                           action:@selector(uploadPictureLongPress:)];
     [uploadPictureButton4 addGestureRecognizer:uploadPictureLongPress4];
+
+    self.uploadPictureActivityIndicator4 = [[UIActivityIndicatorView alloc] initWithFrame:CGRectInset(self.uploadPic4.frame, 3, 3)];
+    self.uploadPictureActivityIndicator4.activityIndicatorViewStyle = UIActivityIndicatorViewStyleGray;
+    [uploadPictureView addSubview:self.uploadPictureActivityIndicator4];
 }
 
 - (void)didReceiveMemoryWarning
@@ -443,6 +538,7 @@ static const float kMargin = 10;
             self.uploadPic4.image  = [UIImage imageNamed:@"AddImage"];
         }
 
+        self.uploadedPictures[self.uploadRemoveIndex] = @"";
         self.uploadRemoveIndex = -1;
     }
 }
@@ -452,25 +548,88 @@ static const float kMargin = 10;
     [picker dismissViewControllerAnimated:YES completion:nil];
 
     UIImage *pickedImg = [info objectForKey:UIImagePickerControllerEditedImage];
-    
+    pickedImg = [pickedImg createThumbnailWithWidth:pickedImg.size.width];
+
     if (self.uploadIndex == 0) {
         self.uploadLogo.image  = pickedImg;
+        [self.uploadLogoActivityIndicator startAnimating];
     }
 
     if (self.uploadIndex == 1) {
         self.uploadPic1.image  = pickedImg;
+        [self.uploadPictureActivityIndicator1 startAnimating];
     }
     if (self.uploadIndex == 2) {
         self.uploadPic2.image  = pickedImg;
+        [self.uploadPictureActivityIndicator2 startAnimating];
     }
     if (self.uploadIndex == 3) {
         self.uploadPic3.image  = pickedImg;
+        [self.uploadPictureActivityIndicator3 startAnimating];
     }
     if (self.uploadIndex == 4) {
         self.uploadPic4.image  = pickedImg;
+        [self.uploadPictureActivityIndicator4 startAnimating];
     }
 
-    self.uploadedPictures[self.uploadIndex] = @"http://baidu.com";
+    NSMutableDictionary *reqData = [[NSMutableDictionary alloc] initWithCapacity:1];
+
+    ASIFormDataRequest *request = [RequestUtil createPOSTRequestWithURL:[NSURL URLWithString:API_UPLOAD_PICTURE]
+                                                                andData:reqData];
+    [self.requests addObject:request];
+
+    [request setUserInfo:@{@"UploadPictureIndex": @(self.uploadIndex)}];
+    [request addData:UIImageJPEGRepresentation(pickedImg, 1) withFileName:@"uploadfile.jpg" andContentType:@"mage/JPEG" forKey:@"uploadfile"];
+    [request setDelegate:self];
+    [request setDidFinishSelector:@selector(uploadPictureFinish:)];
+    [request setDidFailSelector:@selector(uploadPictureFail:)];
+    [request startAsynchronous];
+}
+
+- (void)uploadPictureFinish:(ASIHTTPRequest *)request
+{
+    self.uploadIndex = [[request.userInfo objectForKey:@"UploadPictureIndex"] intValue];
+
+    if (request.responseStatusCode == 200) {
+        NSDictionary *responseMessage = [Util objectFromJson:request.responseString];
+        if ([responseMessage objectForKey:@"Thumb480Url"] && [responseMessage objectForKey:@"Thumb480Url"] != [NSNull null]) {
+            NSString *picUrl = [responseMessage objectForKey:@"Thumb480Url"];
+            self.uploadedPictures[self.uploadIndex] = picUrl;
+        } else {
+            [SVProgressHUD showErrorWithStatus:@"上传图片失败，请重试！"];
+        }
+    } else {
+        [SVProgressHUD showErrorWithStatus:@"上传图片失败，请重试！"];
+    }
+
+    [self stopUploadActivityIndicator];
+}
+
+- (void)uploadPictureFail:(ASIHTTPRequest *)request
+{
+    [SVProgressHUD showErrorWithStatus:@"上传图片失败，请重试！"];
+
+    self.uploadIndex = [[request.userInfo objectForKey:@"UploadPictureIndex"] intValue];
+    [self stopUploadActivityIndicator];
+}
+
+- (void)stopUploadActivityIndicator
+{
+    if (self.uploadIndex == 0) {
+        [self.uploadLogoActivityIndicator stopAnimating];
+    }
+    if (self.uploadIndex == 1) {
+        [self.uploadPictureActivityIndicator1 stopAnimating];
+    }
+    if (self.uploadIndex == 2) {
+        [self.uploadPictureActivityIndicator2 stopAnimating];
+    }
+    if (self.uploadIndex == 3) {
+        [self.uploadPictureActivityIndicator3 stopAnimating];
+    }
+    if (self.uploadIndex == 4) {
+        [self.uploadPictureActivityIndicator4 stopAnimating];
+    }
 
     self.uploadIndex = -1;
 }

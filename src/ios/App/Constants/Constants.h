@@ -28,6 +28,9 @@
 #define API_WORKS_SEARCH API_PATH(@"/works")
 #define API_STAFFS_SEARCH API_PATH(@"/staffs")
 #define API_COMPANIES_SEARCH API_PATH(@"/companies")
+#define API_COMPANIES_CREATE API_PATH(@"/companies")
+#define API_COMPANIES_JOIN API_PATH(@"/companies/join")
+#define API_UPLOAD_PICTURE API_PATH(@"/upload/image")
 
 
 #define APP_BASE_COLOR              @"206ba7"

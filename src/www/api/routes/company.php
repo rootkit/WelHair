@@ -33,3 +33,13 @@ $app->post('/companies/:companyId/likes', function ($companyId) use ($app) {
     $ctrl = new CompanyController();
     $ctrl->addCompanyLike($companyId);
 })->conditions(array('companyId' => '\d{1,10}'));
+
+$app->post('/companies', function () use ($app) {
+    $ctrl = new CompanyController();
+    $ctrl->create();
+});
+
+$app->post('/companies/:companyId/join', function ($companyId) use ($app) {
+    $ctrl = new CompanyController();
+    $ctrl->join($companyId);
+});

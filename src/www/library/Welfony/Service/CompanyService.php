@@ -53,7 +53,7 @@ class CompanyService
             return $result;
         }
 
-        if (intval($data['Province']) <= 0 || intval($data['City']) <= 0 || intval($data['District']) <= 0) {
+        if (intval($data['Province']) <= 0 || intval($data['City']) <= 0) {
             $result['message'] = '地区选择不全。';
 
             return $result;

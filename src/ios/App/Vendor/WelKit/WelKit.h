@@ -25,6 +25,7 @@
 
 #endif
 
+#import "UIImage+WelKit.h"
 #import "UIView+WelKit.h"
 #import "UINavigationBar+WelKit.h"
 #import "UITextField+WelKit.h"
