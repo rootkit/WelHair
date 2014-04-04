@@ -42,7 +42,7 @@ class UserService
 
         $data = array();
         $data['Username'] = Util::genRandomUsername();
-        $data['Nickname'] = '';
+        $data['Nickname'] = $email;
         $data['Role'] = UserRole::Client;
         $data['Email'] = $email;
         $data['Password'] = PassHash::hash($password);

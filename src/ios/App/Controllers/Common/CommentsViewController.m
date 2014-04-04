@@ -14,6 +14,8 @@
 #import "CommentCell.h"
 #import "CommentComposorViewController.h"
 #import "CommentsViewController.h"
+#import "LoginViewController.h"
+#import "UserManager.h"
 
 @interface CommentsViewController ()<UITableViewDataSource, UITableViewDelegate>
 
@@ -49,6 +51,13 @@
 
 - (void) rightNavItemClick
 {
+    if (![UserManager SharedInstance].userLogined) {
+        [self.navigationController presentViewController:[[UINavigationController alloc] initWithRootViewController:[LoginViewController new]]
+                                                animated:YES
+                                              completion:nil];
+        return;
+    }
+
     CommentComposorViewController *commentComposorVc = [[CommentComposorViewController alloc] init];;
     commentComposorVc.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:commentComposorVc animated:YES];
@@ -67,7 +76,7 @@
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
-    self.tableView.backgroundColor = [UIColor whiteColor];//[UIColor colorWithHexString:@"f2f2f2"];
+    self.tableView.backgroundColor = [UIColor whiteColor];
         __weak typeof(self) weakSelf = self;
     [self.tableView addPullToRefreshActionHandler:^{
             [weakSelf insertRowAtTop];

@@ -19,9 +19,9 @@
 
 #define DB_FILE_NAME   @"db.sqlite"
 
-//#define API_PATH(path) [NSString stringWithFormat:@"http://welhair.com/api%@", path]
+#define API_PATH(path) [NSString stringWithFormat:@"http://welhair.com/api%@", path]
 
-#define API_PATH(path) [NSString stringWithFormat:@"http://115.28.208.165/api%@", path]
+//#define API_PATH(path) [NSString stringWithFormat:@"http://115.28.208.165/api%@", path]
 #define API_SOCIAL_LOGIN API_PATH(@"/socials/login")
 #define API_USERS_SIGNIN_EMAIL API_PATH(@"/users/signin/email")
 #define API_USERS_SIGNUP_EMAIL API_PATH(@"/users/signup/email")
