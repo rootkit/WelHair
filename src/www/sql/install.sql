@@ -716,6 +716,25 @@ CREATE TABLE IF NOT EXISTS `UserPoint` (
   PRIMARY KEY (`UserPointId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+
+CREATE TABLE IF NOT EXISTS `RecommendGoods` (
+  `Id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `RecommendId` int(11) unsigned NOT NULL COMMENT '推荐类型ID 1:最新商品 2:特价商品 3:热卖排行 4:推荐商品',
+  `GoodsId` int(11) unsigned NOT NULL COMMENT '商品ID',
+  PRIMARY KEY (`Id`),
+  KEY `GoodsId` (`GoodsId`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='推荐类商品';
+
+CREATE TABLE IF NOT EXISTS `CompanyGoods` (
+  `Id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `CompanyId` int(11) unsigned NOT NULL COMMENT '沙龙ID',
+  `GoodsId` int(11) unsigned NOT NULL COMMENT '商品ID',
+  PRIMARY KEY (`Id`),
+  KEY `GoodsId` (`GoodsId`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='沙龙和商品关联表';
+
+
+
 -- ==============================================================================
 
 
