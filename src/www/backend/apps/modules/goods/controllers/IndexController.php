@@ -76,12 +76,18 @@ class Goods_IndexController extends AbstractAdminController
             $goods['CreateTime'] = date('Y-m-d H:i:s');
 
             $result = GoodsService::save($goods);
+            /*
             if ($result['success']) {
 
                 $this->view->successMessage = '保存商品成功！';
             } else {
                 $this->view->errorMessage = $result['message'];
             }
+            */
+            if ($result['success']) {
+                $result['message'] = '保存商品成功！';
+            }
+            $this->_helper->json->sendJson($result);
         } else {
 
             if ($goodsId > 0) {

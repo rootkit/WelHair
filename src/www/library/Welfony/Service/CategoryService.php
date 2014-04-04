@@ -54,10 +54,10 @@ class CategoryService
         return $searchResult;
     }
 
-    public static function listCategoryByGoods()
+    public static function listAllCategoryByGoods($goodsid)
     {
 
-        $searchResult = CategoryRepository::getInstance()->getAllCategoryByGoods();
+        $searchResult = CategoryRepository::getInstance()->getAllCategoryByGoods($goodsid);
 
         return $searchResult;
     }
