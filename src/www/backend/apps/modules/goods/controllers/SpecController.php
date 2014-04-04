@@ -103,7 +103,19 @@ class Goods_SpecController extends AbstractAdminController
 
         $page = intval($this->_request->getParam('page'));
         $func = intval($this->_request->getParam('func'));
-        $searchResult = SpecService::listSpec($page, $pageSize);
+        $modelid = intval($this->_request->getParam('modelid'));
+        if( !$modelid)
+        {
+            $searchResult = SpecService::listSpec($page, $pageSize);
+        }
+        else
+        {
+            $searchResult = SpecService::listSpecByModel($modelid, $page, $pageSize);
+            if( empty($searchResult['specs']))
+            {
+                $searchResult = SpecService::listSpec( $page, $pageSize);
+            }
+        }
 
         $this->view->dataList = $searchResult['specs'];
         $this->view->pager = $this->renderPager('',

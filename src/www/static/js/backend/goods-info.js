@@ -14,6 +14,10 @@ WF.Model = {
   updateSpecList :function(page)
   {
      var url =globalSetting.baseUrl + '/goods/spec/select?page=' + page + '&func= WF.Model.updateSpecList';
+     if( $('#goodsmodel').val() != 0)
+     {
+        url += "&modelid=" + $('#goodsmodel').val();
+     }
      $.get( url, function(data) {
         $('#specList').empty();
         $('#specList').html(data);
