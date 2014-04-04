@@ -20,6 +20,11 @@ WF.Model = {
 
         $('#specList input[type=radio]').click(function(){
           
+          var first= $('#basicdatatable thead tr th:first');
+          var row = $('<th class="cola">' + $(this).attr('data-name') + '</th>');
+          first.after(row);
+          var val = $(this).attr('data-value');
+          //var vals = json_
           $('#specList').dialog("close");
         });
      });
@@ -55,8 +60,52 @@ $(function() {
                         var index ;
                          for(  index in data)
                          {
-                              var row = "<tr><th>" + data[index].Name +"</th><td></td></tr>"; 
-                              $('#attributestable').append( $(row));
+                            var val = data[index].Value;
+                            var valstr='';
+                            if( val != null && val.replace(/\s+/g, '').length > 0)
+                            {
+
+                                switch( data[index].Type )
+                                {
+                                  case '1':
+                                  {
+                                      var va = val.split(',');
+                                      var i;
+                                      for( i in va )
+                                      {
+                                          valstr += '<label class="attr"><input type="radio" value="' +va[i] + '" name="attr_id_"' + data[index].AttributeId + '>' +va[i] + '</label>';
+                                      }
+                                      break;
+                                  }
+                                  case '2':
+                                  {
+                                      var va = val.split(',');
+                                      var i;
+                                      for( i in va )
+                                      {
+                                          valstr += '<label class="attr"><input type="checkbox" value="' +va[i] + '" name="attr_id_"' + data[index].AttributeId + '>' +va[i] + '</label>';
+                                      }
+                                      break;
+                                  }
+                                  case '3':
+                                  {
+                                      var va = val.split(',');
+                                      var i;
+                                      valstr="<select>";
+                                      for( i in va )
+                                      {
+                                         
+                                          valstr += '<option value="' +va[i] + '" name="attr_id_"' + data[index].AttributeId + '>' +va[i] + '</option>';
+                                      }
+                                      valstr +="</select>";
+                                      break;
+                                  }
+                                }
+
+                            }
+
+                            var row = "<tr><th>" + data[index].Name +"</th><td>" + valstr +"</td></tr>"; 
+                            $('#attributestable').append( $(row));
                          }
                       }
                       else
