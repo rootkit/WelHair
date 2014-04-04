@@ -20,11 +20,48 @@ WF.Model = {
 
         $('#specList input[type=radio]').click(function(){
           
-          var first= $('#basicdatatable thead tr th:first');
-          var row = $('<th class="cola">' + $(this).attr('data-name') + '</th>');
-          first.after(row);
+          //var first= $('#basicdatatable thead tr th:first');
+          //var row = $('<th class="cola">' + $(this).attr('data-name') + '</th>');
+          //first.after(row);
+          $('#basicdatatable thead tr').empty();
+
+
+          var headerline = '' +
+          '<th class="cola">商品货号</th>' +
+          '<th class="cola">'+$(this).attr('data-name') +'</th>' +
+          '<th class="cola">库存</th>'+
+          '<th class="cola">市场价格</th>'+
+          '<th class="cola">销售价格</th>'+
+          '<th class="cola">成本价格</th>'+
+          '<th class="cola">重量</th>';
+          $('#basicdatatable thead tr').append( $(headerline));
+
           var val = $(this).attr('data-value');
-          //var vals = json_
+          
+          $('#basicdatatable tbody').empty();
+
+          if( val != null && val.replace(/\s+/g, '').length > 0 )
+          {
+
+              console.log( val);
+              val = JSON.parse(val );
+              var i= 0;
+              for( var idx in val)
+              {
+
+                var addedrow = '<tr>' +
+                '<td><input name="goodsno" type="text" value="' + $('#goodsno').val() + '-' + (++i) + '"  class="u-ipt"/></td>' +
+                '<td>' + val[idx] + '</td>' +
+                '<td><input name="storenums" type="text" value="100"  class="u-ipt"/></td>' +
+                '<td><input name="marketprice" type="text" value=""  class="u-ipt"/></td>' +
+                '<td><input name="sellprice" type="text" value=""  class="u-ipt"/></td>' +
+                '<td><input name="costprice" type="text" value=""  class="u-ipt"/></td>' +
+                '<td><input name="weight" type="text" value=""  class="u-ipt"/></td>' +
+                '</tr>';
+                $('#basicdatatable tbody').append(addedrow);
+              }
+          }
+
           $('#specList').dialog("close");
         });
      });
@@ -120,6 +157,32 @@ $(function() {
                     }
         });
 
+    });
+
+    $('#goods-uploader').uploadify({
+        fileObjName: 'uploadfile',
+        width: 78,
+        height: 32,
+        multi: false,
+        checkExisting: false,
+        preventCaching: false,
+        fileExt: '*.jpg;*.jpeg;*.png',
+        fileDesc: 'Image file (.jpg, .jpeg, .png)',
+        buttonText: '选择文件',
+        swf: WF.setting.staticAssetBaseUrl + '/swf/uploadify.swf',
+        uploader: WF.setting.apiBaseUrl + '/upload/image/original',
+        onUploadError: function(file, errorCode, errorMsg, errorString) {
+            console.log(errorString);
+        },
+        onUploadSuccess: function(file, data, response) {
+            var result = $.parseJSON(data);
+            if (result.success !== false) {
+                $('#goods-image').attr('src', result.OriginalUrl);
+                $('#goods-url').val(result.OriginalUrl);
+            } else {
+                WF.showMessage('error', '错误', '上传失败，请重试！');
+            }
+        }
     });
 
 

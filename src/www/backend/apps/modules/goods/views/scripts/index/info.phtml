@@ -77,12 +77,12 @@ use \Welfony\Utility\Util;
                         </thead>
                         <tbody>
                             <tr>
-                                <td><input id="goodsno" name="goodsno" type="text" value="<?php echo $this->defaultgoodsno; ?>"  class="u-ipt"/></td>
-                                <td><input id="storenums" type="text" value="100"  class="u-ipt"/></td>  
-                                <td><input id="marketprice" type="text" value=""  class="u-ipt"/></td>  
-                                <td><input id="sellprice" type="text" value=""  class="u-ipt"/></td> 
-                                <td><input id="costprice" type="text" value=""  class="u-ipt"/></td>  
-                                <td><input id="weight" type="text" value=""  class="u-ipt"/></td> 
+                                <td><input name="goodsno"  type="text" value="<?php echo $this->defaultgoodsno; ?>"  class="u-ipt"/></td>
+                                <td><input name="storenums" type="text" value="100"  class="u-ipt"/></td>  
+                                <td><input name="marketprice" type="text" value=""  class="u-ipt"/></td>  
+                                <td><input name="sellprice" type="text" value=""  class="u-ipt"/></td> 
+                                <td><input name="costprice" type="text" value=""  class="u-ipt"/></td>  
+                                <td><input name="weight" type="text" value=""  class="u-ipt"/></td> 
                             </tr>
                         </tbody>
                     </table>
@@ -156,6 +156,7 @@ use \Welfony\Utility\Util;
             
             <div class="formitm formitm-1">
                 <input type="hidden" name="goods_id" value="<?php echo intval($this->goodsInfo['GoodsId']); ?>" />
+                <input type="hidden" id="goodsno" name="goodsno" value="<?php echo $this->defaultgoodsno; ?>"/>
                 <button class="u-btn u-btn-submit" type="button">确定</button>
                 <button class="u-btn" id="btnCancel" type="button">取消</button>
             </div>

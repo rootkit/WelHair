@@ -11,7 +11,7 @@
         <?php if (count($this->dataList) > 0): ?>
         <?php foreach ($this->dataList as $spec): ?>
         <tr>
-            <td class="col-center"><input name="chk_ids[]" type="radio"  data-name="<?php echo $spec['Name']; ?>" data-id="<?php echo $spec['SpecId']; ?>" data-value="<?php echo $spec['Value']; ?>"/></td>
+            <td class="col-center"><input name="chk_ids[]" type="radio"  data-name="<?php echo $spec['Name']; ?>" data-id="<?php echo $spec['SpecId']; ?>" data-value='<?php echo $spec['Value']; ?>'/></td>
             <td>
                 <a href="<?php echo $this->baseUrl('goods/spec/info?spec_id=' .  $spec['SpecId']); ?>">
                     <?php echo $spec['Name']; ?>
