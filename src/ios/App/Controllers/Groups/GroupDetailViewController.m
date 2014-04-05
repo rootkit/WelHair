@@ -112,11 +112,6 @@ static const   float profileViewHeight = 320;
     float tabButtonViewHeight = 50;
     float avatorSize = 50;
     
-//    self.headerBackgroundView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, WIDTH
-//                                                                              (self.view), profileViewHeight)];
-//    self.headerBackgroundView.image = [UIImage imageNamed:@"Profile_Banner_Bg@2x"];
-//    [self.view addSubview:self.headerBackgroundView];
-    
     float topViewHeight = isIOS7 ? kStatusBarHeight + kTopBarHeight : kTopBarHeight;
     UIView *topNavView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, WIDTH(self.view), topViewHeight)];
     topNavView.backgroundColor = [UIColor clearColor];
@@ -354,21 +349,6 @@ static const   float profileViewHeight = 320;
         [self.navigationController pushViewController:vc animated:YES];
     }
 }
-
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView
-{
-    CGFloat yOffset   = scrollView.contentOffset.y;
-    if (yOffset < 0) {
-        CGFloat factor = ((ABS(yOffset) + 320) * 320) / profileViewHeight;
-        CGRect f = CGRectMake(-(factor - 320) / 2, self.topBarOffset, factor, profileViewHeight + ABS(yOffset));
-        self.headerBackgroundView.frame = f;
-    } else {
-        CGRect f = self.headerBackgroundView.frame;
-        f.origin.y = -yOffset + self.topBarOffset;
-        self.headerBackgroundView.frame = f;
-    }
-}
-
 
 - (void)favClick:(BOOL)isOn
 {

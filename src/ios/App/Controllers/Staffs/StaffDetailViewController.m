@@ -76,6 +76,11 @@ static const   float profileViewHeight = 80;
     float tabButtonViewHeight = 50;
     float avatorSize = 50;
     
+    self.headerBackgroundView = [[UIImageView alloc] initWithFrame:CGRectMake(0, self.topBarOffset, WIDTH
+                                                                              (self.view), profileViewHeight)];
+    
+    self.headerBackgroundView.image = [UIImage imageNamed:@"Profile_Banner_Bg"];
+    [self.view addSubview:self.headerBackgroundView];
     
     self.scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, self.topBarOffset, WIDTH(self.view), [self contentHeightWithNavgationBar:YES withBottomBar:YES])];
     self.scrollView.delegate  =self;
@@ -95,12 +100,6 @@ static const   float profileViewHeight = 80;
     [bottomView addSubview:submitBtn];
     [self.view addSubview:bottomView];
     
-    
-    self.headerBackgroundView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, WIDTH
-                                                                              (self.view), profileViewHeight)];
-    
-    self.headerBackgroundView.image = [UIImage imageNamed:@"Profile_Banner_Bg"];
-    [self.scrollView addSubview:self.headerBackgroundView];
     
     UIView *headerView_ = [[UIView alloc] initWithFrame:CGRectMake(0, 0, WIDTH(self.view), profileViewHeight + addressViewHeight+ tabButtonViewHeight)];
     headerView_.backgroundColor = [UIColor clearColor];
@@ -127,7 +126,7 @@ static const   float profileViewHeight = 80;
     [addressView addSubview:addressViewBg];
     [headerView_ addSubview:addressView];
     
-    self.avatorImgView = [[CircleImageView alloc] initWithFrame:CGRectMake(20, MaxY(self.headerBackgroundView) - avatorSize/2, avatorSize, avatorSize)];
+    self.avatorImgView = [[CircleImageView alloc] initWithFrame:CGRectMake(20, profileViewHeight - avatorSize/2, avatorSize, avatorSize)];
     self.avatorImgView.layer.borderColor = [[UIColor whiteColor] CGColor];
     self.avatorImgView.layer.borderWidth = 1;
     [self.avatorImgView setImageWithURL:[NSURL URLWithString:@"http://images-fast.digu365.com/sp/width/736/2fed77ea4898439f94729cd9df5ee5ca0001.jpg"]];
@@ -378,17 +377,17 @@ static const   float profileViewHeight = 80;
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
-//    CGFloat yOffset   = self.scrollView.contentOffset.y;
-//    
-//    if (yOffset < 0) {
-//        CGFloat factor = ((ABS(yOffset) + 320) * 320) / profileViewHeight;
-//        CGRect f = CGRectMake(-(factor - 320) / 2, self.topBarOffset, factor, profileViewHeight + ABS(yOffset));
-//        self.headerBackgroundView.frame = f;
-//    } else {
-//        CGRect f = self.headerBackgroundView.frame;
-//        f.origin.y = -yOffset + self.topBarOffset;
-//        self.headerBackgroundView.frame = f;
-//    }
+    CGFloat yOffset   = self.scrollView.contentOffset.y;
+    
+    if (yOffset < 0) {
+        CGFloat factor = ((ABS(yOffset) + 320) * 320) / profileViewHeight;
+        CGRect f = CGRectMake(-(factor - 320) / 2, self.topBarOffset, factor, profileViewHeight + ABS(yOffset));
+        self.headerBackgroundView.frame = f;
+    } else {
+        CGRect f = self.headerBackgroundView.frame;
+        f.origin.y = -yOffset + self.topBarOffset;
+        self.headerBackgroundView.frame = f;
+    }
 }
 
 - (void)foClick:(BOOL)isFo

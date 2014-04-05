@@ -91,7 +91,7 @@ static const   float profileViewHeight = 80;
     float tabButtonViewHeight = 56;
     float avatorSize = 50;
     
-    self.headerBackgroundView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, WIDTH(self.view), profileViewHeight)];
+    self.headerBackgroundView = [[UIImageView alloc] initWithFrame:CGRectMake(0, self.topBarOffset, WIDTH(self.view), profileViewHeight)];
     self.headerBackgroundView.image = [UIImage imageNamed:@"Profile_Banner_Bg"];
     [self.view addSubview:self.headerBackgroundView];
     
