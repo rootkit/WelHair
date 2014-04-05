@@ -25,6 +25,7 @@
 +(NSArray *)getFakeAddressLit;
 +(Address *)getFakeDefaultAddress;
 + (NSArray *)getFakeServiceList;
++(NSArray *)getFakeAppointmentList;
 
 + (bool)isLogin;
 + (void)login;

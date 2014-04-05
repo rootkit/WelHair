@@ -7,7 +7,12 @@
 //
 
 #import "BaseModel.h"
-
+#import "Staff.h"
+#import "Service.h"
 @interface Appointment : BaseModel
+@property (nonatomic, strong) Staff *staff;
+@property (nonatomic, strong) Service *service;
+@property (nonatomic) float price;
+@property (nonatomic, strong) NSDate *date;
 
 @end

@@ -168,7 +168,6 @@
 		4631CEF218E315A800F39814 /* ProductOpitionPanel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4631CEF118E315A800F39814 /* ProductOpitionPanel.m */; };
 		4631CEF518E319F600F39814 /* CountDownBtn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4631CEF318E319F600F39814 /* CountDownBtn@2x.png */; };
 		4631CEF618E319F600F39814 /* CountUpBtn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4631CEF418E319F600F39814 /* CountUpBtn@2x.png */; };
-		4631CEF918E31D0F00F39814 /* OrderPreviewViewController_TempBg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4631CEF818E31D0F00F39814 /* OrderPreviewViewController_TempBg@2x.png */; };
 		4631CEFC18E31F4C00F39814 /* OrderPreviewViewController_AddressBtn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4631CEFA18E31F4C00F39814 /* OrderPreviewViewController_AddressBtn@2x.png */; };
 		4631CEFD18E31F4C00F39814 /* OrderPreviewViewController_AddressTempBtn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4631CEFB18E31F4C00F39814 /* OrderPreviewViewController_AddressTempBtn@2x.png */; };
 		4631CF0418E3209900F39814 /* AddressListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4631CF0318E3209900F39814 /* AddressListViewController.m */; };
@@ -271,6 +270,10 @@
 		46A46FE918BE21280057F579 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46A46FE818BE21280057F579 /* OpenGLES.framework */; };
 		46AD849418EFB142005B2C3C /* StaffDetailViewControl_Memo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 46AD849218EFB142005B2C3C /* StaffDetailViewControl_Memo@2x.png */; };
 		46AD849518EFB142005B2C3C /* StaffDetailViewControl_Memo.png in Resources */ = {isa = PBXBuildFile; fileRef = 46AD849318EFB142005B2C3C /* StaffDetailViewControl_Memo.png */; };
+		46AD849918EFC901005B2C3C /* OrderPreviewViewController_Bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 46AD849618EFC901005B2C3C /* OrderPreviewViewController_Bg.png */; };
+		46AD849A18EFC901005B2C3C /* OrderPreviewViewController_Bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 46AD849718EFC901005B2C3C /* OrderPreviewViewController_Bg@2x.png */; };
+		46AD849B18EFC901005B2C3C /* OrderPreviewViewController_BgBar.png in Resources */ = {isa = PBXBuildFile; fileRef = 46AD849818EFC901005B2C3C /* OrderPreviewViewController_BgBar.png */; };
+		46AD849D18EFC907005B2C3C /* OrderPreviewViewController_BgBar@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 46AD849C18EFC907005B2C3C /* OrderPreviewViewController_BgBar@2x.png */; };
 		46B233B718BCDC4200CC27A3 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 46B233B618BCDC4200CC27A3 /* LoginViewController.m */; };
 		46B233B918BCE58400CC27A3 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46B233B818BCE58400CC27A3 /* Security.framework */; };
 		46B233BB18BCE58E00CC27A3 /* libiconv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 46B233BA18BCE58E00CC27A3 /* libiconv.dylib */; };
@@ -530,7 +533,6 @@
 		4631CEF118E315A800F39814 /* ProductOpitionPanel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProductOpitionPanel.m; sourceTree = "<group>"; };
 		4631CEF318E319F600F39814 /* CountDownBtn@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "CountDownBtn@2x.png"; sourceTree = "<group>"; };
 		4631CEF418E319F600F39814 /* CountUpBtn@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "CountUpBtn@2x.png"; sourceTree = "<group>"; };
-		4631CEF818E31D0F00F39814 /* OrderPreviewViewController_TempBg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "OrderPreviewViewController_TempBg@2x.png"; sourceTree = "<group>"; };
 		4631CEFA18E31F4C00F39814 /* OrderPreviewViewController_AddressBtn@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "OrderPreviewViewController_AddressBtn@2x.png"; sourceTree = "<group>"; };
 		4631CEFB18E31F4C00F39814 /* OrderPreviewViewController_AddressTempBtn@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "OrderPreviewViewController_AddressTempBtn@2x.png"; sourceTree = "<group>"; };
 		4631CF0218E3209900F39814 /* AddressListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddressListViewController.h; sourceTree = "<group>"; };
@@ -792,6 +794,10 @@
 		46A4704D18BE28DA0057F579 /* MapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapViewController.h; sourceTree = "<group>"; };
 		46AD849218EFB142005B2C3C /* StaffDetailViewControl_Memo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "StaffDetailViewControl_Memo@2x.png"; sourceTree = "<group>"; };
 		46AD849318EFB142005B2C3C /* StaffDetailViewControl_Memo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = StaffDetailViewControl_Memo.png; sourceTree = "<group>"; };
+		46AD849618EFC901005B2C3C /* OrderPreviewViewController_Bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = OrderPreviewViewController_Bg.png; sourceTree = "<group>"; };
+		46AD849718EFC901005B2C3C /* OrderPreviewViewController_Bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "OrderPreviewViewController_Bg@2x.png"; sourceTree = "<group>"; };
+		46AD849818EFC901005B2C3C /* OrderPreviewViewController_BgBar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = OrderPreviewViewController_BgBar.png; sourceTree = "<group>"; };
+		46AD849C18EFC907005B2C3C /* OrderPreviewViewController_BgBar@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "OrderPreviewViewController_BgBar@2x.png"; sourceTree = "<group>"; };
 		46B233B518BCDC4200CC27A3 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
 		46B233B618BCDC4200CC27A3 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 		46B233B818BCE58400CC27A3 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
@@ -1485,9 +1491,12 @@
 		4631CEF718E31D0F00F39814 /* OrderPreviewViewController */ = {
 			isa = PBXGroup;
 			children = (
+				46AD849C18EFC907005B2C3C /* OrderPreviewViewController_BgBar@2x.png */,
+				46AD849618EFC901005B2C3C /* OrderPreviewViewController_Bg.png */,
+				46AD849718EFC901005B2C3C /* OrderPreviewViewController_Bg@2x.png */,
+				46AD849818EFC901005B2C3C /* OrderPreviewViewController_BgBar.png */,
 				4631CEFA18E31F4C00F39814 /* OrderPreviewViewController_AddressBtn@2x.png */,
 				4631CEFB18E31F4C00F39814 /* OrderPreviewViewController_AddressTempBtn@2x.png */,
-				4631CEF818E31D0F00F39814 /* OrderPreviewViewController_TempBg@2x.png */,
 			);
 			path = OrderPreviewViewController;
 			sourceTree = "<group>";
@@ -2194,6 +2203,7 @@
 				461B0C5A18DC3BD700E0DAF5 /* RootBottomTab4Selected@2x.png in Resources */,
 				184B82D218DAC7F000177BAB /* bubble-default-outgoing-green.png in Resources */,
 				184B82E218DAC7F000177BAB /* bubble-square-incoming-selected.png in Resources */,
+				46AD849A18EFC901005B2C3C /* OrderPreviewViewController_Bg@2x.png in Resources */,
 				184B82D718DAC7F000177BAB /* bubble-default-outgoing@2x.png in Resources */,
 				184B82F918DAC7F000177BAB /* messageSent.aiff in Resources */,
 				461B0C4818DC3BD700E0DAF5 /* QQWeiboIcon.png in Resources */,
@@ -2202,6 +2212,7 @@
 				183B03DF18E1110500765116 /* groupedTableViewCell_middleRow_highlighted@2x.png in Resources */,
 				184B82D418DAC7F000177BAB /* bubble-default-outgoing-selected.png in Resources */,
 				461B0C4318DC3BD700E0DAF5 /* AppointmentBtn@2x.png in Resources */,
+				46AD849B18EFC901005B2C3C /* OrderPreviewViewController_BgBar.png in Resources */,
 				461B0C4618DC3BD700E0DAF5 /* QQIcon.png in Resources */,
 				469B9FF618D1A7EB00948740 /* UMSLoginViewController.xib in Resources */,
 				461B0C5618DC3BD700E0DAF5 /* RootBottomTab2Selected@2x.png in Resources */,
@@ -2218,6 +2229,7 @@
 				461B0C4418DC3BD700E0DAF5 /* GrayArrow.png in Resources */,
 				4693AAA718D8426100104F01 /* Images.xcassets in Resources */,
 				461B0C5F18DC3BD700E0DAF5 /* CouponDetailViewControl_Coupon@2x.png in Resources */,
+				46AD849918EFC901005B2C3C /* OrderPreviewViewController_Bg.png in Resources */,
 				461B0C6E18DC3BD700E0DAF5 /* UploadWorkViewControl_FaceStyleSquareSelected@2x.png in Resources */,
 				183B03DA18E1110500765116 /* groupedTableView_bg@2x.png in Resources */,
 				183B03DB18E1110500765116 /* groupedTableViewCell_bottomRow@2x.png in Resources */,
@@ -2233,6 +2245,7 @@
 				4659D27F18E7E8E2005648C0 /* AddressEditBtn.png in Resources */,
 				461B0C4518DC3BD700E0DAF5 /* GrayArrow@2x.png in Resources */,
 				461B0C6018DC3BD700E0DAF5 /* Profile_Banner_Bg@2x.png in Resources */,
+				46AD849D18EFC907005B2C3C /* OrderPreviewViewController_BgBar@2x.png in Resources */,
 				4631CEF518E319F600F39814 /* CountDownBtn@2x.png in Resources */,
 				4659D28218E7E8E2005648C0 /* AddressSelectedBtn@2x.png in Resources */,
 				184B82F518DAC7F000177BAB /* send-highlighted@2x.png in Resources */,
@@ -2322,7 +2335,6 @@
 				184B82EB18DAC7F000177BAB /* bubble-typing@2x.png in Resources */,
 				461B0C4D18DC3BD700E0DAF5 /* ShareIcon@2x.png in Resources */,
 				4631CEFD18E31F4C00F39814 /* OrderPreviewViewController_AddressTempBtn@2x.png in Resources */,
-				4631CEF918E31D0F00F39814 /* OrderPreviewViewController_TempBg@2x.png in Resources */,
 				461B0C6618DC3BD700E0DAF5 /* StaffManageViewControl_Bg@2x.png in Resources */,
 				469B9FF718D1A7EB00948740 /* UMSnsAccountViewController.xib in Resources */,
 				184B82EE18DAC7F000177BAB /* input-bar.png in Resources */,

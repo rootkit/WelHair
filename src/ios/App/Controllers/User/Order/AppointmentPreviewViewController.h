@@ -7,7 +7,8 @@
 //
 
 #import "BaseViewController.h"
+#import "Appointment.h"
 
 @interface AppointmentPreviewViewController : BaseViewController
-
+@property (nonatomic, strong) Appointment *appointment;
 @end

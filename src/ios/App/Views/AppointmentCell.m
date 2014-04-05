@@ -119,7 +119,7 @@
     Staff *staff = [FakeDataHelper getFakeStaffList][0];
     [self.imgView setImageWithURL:staff.avatorUrl];
     self.staffNameLbl.text = @"高级总监";
-    self.groupNameLbl.text = staff.groupName;
+    self.groupNameLbl.text = staff.group.name;
     self.datetimeLbl.text = @"2014-3-10 09:30";
     self.addressLbl.text = @"新泺大街11号";
     self.priceLbl.text = @"￥100";

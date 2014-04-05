@@ -32,7 +32,7 @@
         NSDictionary *staffDic = [dictionary objectForKey:@"Staff"];
         self.creator.id = [[staffDic objectForKey:@"UserId"] intValue];
         self.creator.avatorUrl = [NSURL URLWithString:[staffDic objectForKey:@"AvatarUrl"]];
-        self.creator.groupName = [staffDic objectForKey:@"Nickname"];
+        self.creator.group.name = [staffDic objectForKey:@"Nickname"];
 
         self.commentCount = [[dictionary objectForKey:@"WorkCommentCount"] intValue];
         if (self.commentCount > 0) {

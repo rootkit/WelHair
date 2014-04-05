@@ -15,6 +15,7 @@
 #import "Coupon.h"
 #import "Address.h"
 #import "Service.h"
+#import "Appointment.h"
 @implementation FakeDataHelper
 
 
@@ -138,7 +139,8 @@
     for (int i = 0; i < 10 ; i++) {
         Staff *staff = [Staff new];
         staff.name = @"高级总监";
-        staff.groupName = @"上海永琪";
+        staff.group = [Group new];
+        staff.group.name = @"上海永琪";
         staff.rate = 0.5;
         staff.description = @"最近咋样，老哥?";
         staff.distance = 1.2;
@@ -188,6 +190,20 @@
         address.id = i;
         address.isDefault = 0;
         [ar addObject:address];
+    }
+    return ar;
+}
+
++ (NSArray *)getFakeAppointmentList
+{
+    NSMutableArray *ar = [NSMutableArray array];
+    for (int i = 0; i < 10 ; i++) {
+        Appointment *a = [Appointment new];
+        a.service = [FakeDataHelper getFakeServiceList][i];
+        a.staff = [FakeDataHelper getFakeStaffList][i];
+        a.price = 12;
+        a.date = [NSDate date];
+        [ar addObject:a];
     }
     return ar;
 }

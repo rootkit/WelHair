@@ -7,13 +7,13 @@
 //
 
 #import "BaseModel.h"
+#import "Group.h"
 
 @interface Staff : BaseModel
 
 @property (nonatomic, strong) NSURL *avatorUrl;
 @property (nonatomic) float rate;
-@property (nonatomic) int groupId;
-@property (nonatomic, strong) NSString *groupName;
+@property (nonatomic, strong) Group *group;
 @property (nonatomic, strong) NSArray *works;
 @property (nonatomic, strong) NSArray *services;
 @property (nonatomic, strong) NSString *bio;

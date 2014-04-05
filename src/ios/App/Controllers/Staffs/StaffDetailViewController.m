@@ -142,7 +142,7 @@ static const   float profileViewHeight = 80;
     self.groupNameLbl.backgroundColor = [UIColor clearColor];
     self.groupNameLbl.textColor = [UIColor grayColor];
     self.groupNameLbl.font = [UIFont systemFontOfSize:12];
-    self.groupNameLbl.text = self.staff.groupName;
+    self.groupNameLbl.text = self.staff.group.name;
     self.groupNameLbl.textAlignment = NSTextAlignmentLeft;;
     [addressView addSubview:self.groupNameLbl];
     
@@ -420,7 +420,7 @@ static const   float profileViewHeight = 80;
     [[OpitionSelectPanel alloc] initWithFrame:CGRectMake(0,
                                                          0,
                                                          WIDTH(self.view),
-                                                         HEIGHT(self.view) - self.topBarOffset - 50)];
+                                                         HEIGHT(self.view) - self.topBarOffset )];
     
     
     [panel setupTitle:@"产品"

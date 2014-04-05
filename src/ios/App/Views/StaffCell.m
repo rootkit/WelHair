@@ -106,7 +106,7 @@
     self.staffData = staff;
     [self.imgView setImageWithURL:self.staffData.avatorUrl];
     self.nameLbl.text = [NSString stringWithFormat:@"%@:",staff.name];
-    self.groupLbl.text = [NSString stringWithFormat:@"%@:",staff.groupName];
+    self.groupLbl.text = [NSString stringWithFormat:@"%@:",staff.group.name];
     self.groupAddressLbl.text = @"历下区文化西路7号";
     self.workCountLbl.text = @"13件";
     self.distanceLbl.text = @"1千米";
