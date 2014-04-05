@@ -81,6 +81,11 @@
     return dic;
 }
 
+- (NSArray *)getAreaListByCity:(int)cityCode
+{
+    return nil;
+}
+
 - (City *)getSelectedCity
 {
     City *city;

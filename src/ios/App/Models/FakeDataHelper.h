@@ -24,6 +24,7 @@
 +(NSArray *)getFakeCouponList;
 +(NSArray *)getFakeAddressLit;
 +(Address *)getFakeDefaultAddress;
++ (NSArray *)getFakeServiceList;
 
 + (bool)isLogin;
 + (void)login;

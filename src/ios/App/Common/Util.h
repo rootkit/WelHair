@@ -19,7 +19,7 @@
 
 + (CGSize)textSizeForText:(NSString *)txt withFont:(UIFont *)font andLineHeight:(CGFloat)lineHeight;
 
-+ (float)textHeightFortext:(NSString *)string
++ (float)heightFortext:(NSString *)string
                minumHeight:(float)minmunHeight
                 fixedWidth:(float)fixedWidth;
 

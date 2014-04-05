@@ -134,17 +134,16 @@ static const   float profileViewHeight = 80;
     [headerView_ addSubview:self.avatorImgView];
     
     self.nameLbl = [[UILabel alloc] initWithFrame:CGRectMake(70 + 5, 0, WIDTH(addressView) - 10 - MaxX(self.avatorImgView), 20)];
-    self.nameLbl.backgroundColor = [UIColor clearColor];
     self.nameLbl.textColor = [UIColor blackColor];
     self.nameLbl.font = [UIFont boldSystemFontOfSize:14];
-    self.nameLbl.text = @"沙宣";
+    self.nameLbl.text = @"Danny";
     self.nameLbl.textAlignment = NSTextAlignmentLeft;;
-    [addressView addSubview:self.groupNameLbl];
-    self.groupNameLbl = [[UILabel alloc] initWithFrame:CGRectMake(X(self.groupNameLbl),MaxY(self.groupNameLbl), WIDTH(addressView) - 10 - MaxX(self.avatorImgView) - 100, 20)];
+    [addressView addSubview:self.nameLbl];
+    self.groupNameLbl = [[UILabel alloc] initWithFrame:CGRectMake(X(self.nameLbl),MaxY(self.nameLbl), WIDTH(addressView) - 10 - MaxX(self.avatorImgView) - 100, 20)];
     self.groupNameLbl.backgroundColor = [UIColor clearColor];
     self.groupNameLbl.textColor = [UIColor grayColor];
     self.groupNameLbl.font = [UIFont systemFontOfSize:12];
-    self.groupNameLbl.text = @"济南高新区";
+    self.groupNameLbl.text = self.staff.groupName;
     self.groupNameLbl.textAlignment = NSTextAlignmentLeft;;
     [addressView addSubview:self.groupNameLbl];
     
@@ -160,23 +159,23 @@ static const   float profileViewHeight = 80;
     self.distanceLbl.textColor = [UIColor grayColor];
     self.distanceLbl.font = [UIFont systemFontOfSize:12];
     self.distanceLbl.backgroundColor = [UIColor clearColor];
-    self.distanceLbl.text = @"1.45千米";
+    self.distanceLbl.text = [NSString stringWithFormat:@"%.2f 千米", self.staff.distance];
     [addressView addSubview:self.distanceLbl];
     float contentPadding = 10;
     float scrollViewOffsetY = MaxY(addressView);
     if(self.staff.services.count > 0){
+        NSMutableArray *services =[NSMutableArray arrayWithArray:self.staff.services];
+        [services insertObject:[Service new] atIndex:0]; // this is for title cell
         UIScrollView *serviceScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(contentPadding, MaxY(addressView)+contentPadding, 300, 0)];
         float serviceOffsetY = 0;
         float serviceCellHeight = 30;
         float serviceItemWidth = 300/3;
-        for (int i = 0; i < self.staff.services.count; i++) {
-            Service *service = self.staff.services[i];
+        for (int i = 0; i < services.count; i++) {
+            Service *service = services[i];
             
-            float serviceItemHeight = [Util textHeightFortext:service.name
+            float serviceItemHeight = [Util heightFortext:service.name
                                                minumHeight:serviceCellHeight
                                                 fixedWidth:serviceItemWidth];
-            
-            
             UIView *cellView = [[UIView alloc] initWithFrame:CGRectMake(0, serviceOffsetY, WIDTH(serviceScrollView), serviceItemHeight )];
             cellView.layer.borderColor = [[UIColor colorWithHexString:APP_CONTENT_BG_COLOR] CGColor];
             cellView.layer.borderWidth = 1;
@@ -192,17 +191,10 @@ static const   float profileViewHeight = 80;
             titleLbl.numberOfLines = 0;
             titleLbl.textAlignment = NSTextAlignmentCenter;
             titleLbl.textColor = [UIColor blackColor];
-            titleLbl.text = service.name;
             [cellView addSubview:titleLbl];
             
-            UIView *cellSeparaterView = [[UIView alloc] initWithFrame:CGRectMake(MaxX(titleLbl)+1,
-                                                                                 0,
-                                                                                 1,
-                                                                                 cellView.height)];
-            cellSeparaterView.backgroundColor = [UIColor lightGrayColor];
-            [cellView addSubview:cellSeparaterView];
             
-            UILabel *originalPriceLbl = [[UILabel alloc] initWithFrame:CGRectMake(MaxX(cellSeparaterView),
+            UILabel *originalPriceLbl = [[UILabel alloc] initWithFrame:CGRectMake(MaxX(titleLbl)+1,
                                                                           0,
                                                                           serviceItemWidth,
                                                                           serviceItemHeight)];
@@ -210,17 +202,10 @@ static const   float profileViewHeight = 80;
             originalPriceLbl.numberOfLines = 0;
             originalPriceLbl.textAlignment = NSTextAlignmentCenter;
             originalPriceLbl.textColor = [UIColor blackColor];
-            originalPriceLbl.text = [NSString stringWithFormat:@"%.2f", service.originalPrice];
+
             [cellView addSubview:originalPriceLbl];
             
-            UIView *cellSeparaterView2 = [[UIView alloc] initWithFrame:CGRectMake(MaxX(originalPriceLbl)+1,
-                                                                                 0,
-                                                                                 1,
-                                                                                 cellView.height)];
-            cellSeparaterView2.backgroundColor = [UIColor lightGrayColor];
-            [cellView addSubview:cellSeparaterView2];
-            
-            UILabel *salePriceLbl = [[UILabel alloc] initWithFrame:CGRectMake(MaxX(cellSeparaterView2),
+            UILabel *salePriceLbl = [[UILabel alloc] initWithFrame:CGRectMake(MaxX(originalPriceLbl)+1,
                                                                                   0,
                                                                                   serviceItemWidth,
                                                                                   serviceItemHeight)];
@@ -228,10 +213,39 @@ static const   float profileViewHeight = 80;
             salePriceLbl.numberOfLines = 0;
             salePriceLbl.textAlignment = NSTextAlignmentCenter;
             salePriceLbl.textColor = [UIColor blackColor];
-            salePriceLbl.text = [NSString stringWithFormat:@"%.2f", service.salePrice];
+
             [cellView addSubview:salePriceLbl];
             serviceOffsetY += serviceItemHeight;
+            
+            if(i == 0){
+                titleLbl.text = @"项目";
+                originalPriceLbl.text = @"原价";
+                salePriceLbl.text = @"折扣价";
+            }else{
+                titleLbl.text = service.name;
+                originalPriceLbl.text = [NSString stringWithFormat:@"%.2f", service.originalPrice];
+                salePriceLbl.text = [NSString stringWithFormat:@"%.2f", service.salePrice];
+                
+                UIView *deleteLine = [[UIView alloc] initWithFrame:CGRectMake(20, HEIGHT(originalPriceLbl)/2, WIDTH(originalPriceLbl) - 40, 1)];
+                deleteLine.backgroundColor = [UIColor lightGrayColor];
+                [originalPriceLbl addSubview:deleteLine];
+            }
         }
+        
+        UIView *cellSeparaterView = [[UIView alloc] initWithFrame:CGRectMake(101,
+                                                                             serviceCellHeight,
+                                                                             1,
+                                                                             serviceOffsetY - serviceCellHeight )];
+        cellSeparaterView.backgroundColor = [UIColor colorWithHexString:APP_CONTENT_BG_COLOR];
+        [serviceScrollView addSubview:cellSeparaterView];
+        
+        UIView *cellSeparaterView2 = [[UIView alloc] initWithFrame:CGRectMake(201,
+                                                                             serviceCellHeight,
+                                                                             1,
+                                                                             serviceOffsetY - serviceCellHeight )];
+        cellSeparaterView2.backgroundColor = [UIColor colorWithHexString:APP_CONTENT_BG_COLOR];
+        [serviceScrollView addSubview:cellSeparaterView2];
+        
         CGRect newFrame = serviceScrollView.frame;
         newFrame.size.height = serviceOffsetY;
         serviceScrollView.frame = newFrame;
@@ -241,14 +255,14 @@ static const   float profileViewHeight = 80;
     
     if(self.staff.works.count > 0){
         
-        UIImageView *workTitleImg = [[UIImageView alloc] initWithFrame:CGRectMake(contentPadding, scrollViewOffsetY + contentPadding, 300, 30)];
+        UIImageView *workTitleImg = [[UIImageView alloc] initWithFrame:CGRectMake(contentPadding, scrollViewOffsetY + contentPadding, 20, 20)];
         workTitleImg.image = [UIImage imageNamed:@"StaffCellI_WorkIcon"];
         [self.scrollView addSubview:workTitleImg];
         
         UILabel *workTitleLbl = [[UILabel alloc] initWithFrame:CGRectMake(MaxX(workTitleImg)+5,
                                                                           Y(workTitleImg),
-                                                                          50,
-                                                                          50)];
+                                                                          scrollViewOffsetY,
+                                                                          20)];
         workTitleLbl.font = [UIFont systemFontOfSize:16];
         workTitleLbl.numberOfLines = 1;
         workTitleLbl.textAlignment = NSTextAlignmentLeft;
@@ -260,26 +274,80 @@ static const   float profileViewHeight = 80;
         workView.layer.cornerRadius = 5;
         workView.backgroundColor = [UIColor whiteColor];
         [self.scrollView addSubview:workView];
-        float imgPadding = 5;
+        float imgHorizontalPadding = 5;
+        float imgVeritalPadding = 3;
         float imgSize = 54;
-        int count = self.staff.works.count >=5? 5 : self.staff.works.count;
+        int count = MIN(self.staff.works.count, 5);
         for (int i=0; i<count; i++) {
-            Work *work  =self.staff.works[i];
-            UIImageView *img = [[UIImageView alloc] initWithFrame:CGRectMake(imgPadding + i *(imgPadding + imgSize), 5, imgSize, imgSize)];
-            img.userInteractionEnabled = YES;
-            img.tag = i;
-            [img addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(workImgTapped:)]];
-            [workView addSubview:img];
-            if(i <4){
+            if(i < 4){
+                Work *work  =self.staff.works[i];
+                UIImageView *img = [[UIImageView alloc] initWithFrame:CGRectMake(imgHorizontalPadding + i *(imgHorizontalPadding + imgSize), imgVeritalPadding, imgSize, imgSize)];
+                img.userInteractionEnabled = YES;
+                img.layer.borderColor = [[UIColor colorWithHexString:APP_CONTENT_BG_COLOR] CGColor];
+                img.layer.borderWidth = 1;
+                img.tag = i;
+                [img addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(workImgTapped:)]];
+                [workView addSubview:img];
                 [img setImageWithURL:[NSURL URLWithString:work.imgUrlList[0]]];
+
             }else{
-                [img setImage:[UIImage imageNamed:@""]];
+                UILabel *moreLbl = [[UILabel alloc] initWithFrame:CGRectMake(imgHorizontalPadding + i *(imgHorizontalPadding + imgSize), imgVeritalPadding, imgSize, imgSize)];
+                moreLbl.font = [UIFont systemFontOfSize:16];
+                moreLbl.numberOfLines = 1;
+                moreLbl.textAlignment = NSTextAlignmentCenter;
+                moreLbl.textColor = [UIColor blackColor];
+                moreLbl.text = @"更多";
+                moreLbl.tag =  i;
+                moreLbl.layer.borderColor = [[UIColor colorWithHexString:APP_CONTENT_BG_COLOR] CGColor];
+                moreLbl.layer.borderWidth = 1;
+                [workView addSubview:moreLbl];
+                moreLbl.userInteractionEnabled = YES;
+                [moreLbl addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(workImgTapped:)]];
             }
         }
         scrollViewOffsetY = MaxY(workView);
     }
     
-    UIView *commentCellView = [[UIView alloc] initWithFrame:CGRectMake(15, scrollViewOffsetY + 20, 290, 40)];
+    if(self.staff.bio.length > 0){
+        UIImageView *bioImg = [[UIImageView alloc] initWithFrame:CGRectMake(contentPadding, scrollViewOffsetY + contentPadding, 20, 20)];
+        bioImg.image = [UIImage imageNamed:@"StaffDetailViewControl_Memo"];
+        [self.scrollView addSubview:bioImg];
+        
+        UILabel *bioTitleLbl = [[UILabel alloc] initWithFrame:CGRectMake(MaxX(bioImg)+5,
+                                                                          Y(bioImg),
+                                                                          scrollViewOffsetY,
+                                                                          20)];
+        bioTitleLbl.font = [UIFont systemFontOfSize:16];
+        bioTitleLbl.numberOfLines = 1;
+        bioTitleLbl.textAlignment = NSTextAlignmentLeft;
+        bioTitleLbl.textColor = [UIColor blackColor];
+        bioTitleLbl.text = @"备注";
+        [self.scrollView addSubview:bioTitleLbl];
+        
+
+        float bioHeight = [Util heightFortext:self.staff.bio minumHeight:40 fixedWidth:WIDTH(self.view) -  4 *contentPadding];
+        UIView *bioView = [[UIView alloc] initWithFrame:CGRectMake( contentPadding,
+                                                                 MaxY(bioTitleLbl) + 5,
+                                                                 WIDTH(self.view) -  2*contentPadding,
+                                                                 bioHeight + 10)];
+        bioView.backgroundColor = [UIColor whiteColor];
+        bioView.layer.cornerRadius = 5;
+        [self.scrollView addSubview:bioView];
+        UILabel *bioLbl = [[UILabel alloc] initWithFrame:CGRectMake(contentPadding,
+                                                                        5,
+                                                                         WIDTH(bioView) - 2 *contentPadding,
+                                                                         bioHeight)];
+        [bioView addSubview:bioLbl];
+        bioLbl.font = [UIFont systemFontOfSize:14];
+        bioLbl.numberOfLines = 0;
+        bioLbl.textAlignment = NSTextAlignmentLeft;
+        bioLbl.textColor = [UIColor blackColor];
+        bioLbl.text = self.staff.bio;
+
+        scrollViewOffsetY = MaxY(bioView);
+    }
+    
+    UIView *commentCellView = [[UIView alloc] initWithFrame:CGRectMake(10, scrollViewOffsetY + 20, 300, 40)];
     commentCellView.layer.borderColor = [[UIColor colorWithHexString:@"e1e1e1"] CGColor];
     commentCellView.layer.borderWidth = 1.0;
     commentCellView.layer.cornerRadius = 5;
@@ -335,13 +403,13 @@ static const   float profileViewHeight = 80;
 
 - (void)workImgTapped:(UITapGestureRecognizer *)tap
 {
-    UIView *imgView = tap.view;
-    if(imgView.tag <4){
-        Work *work = self.staff.works[imgView.tag];
+    UIView *view = tap.view;
+    if(view.tag <4){
+        Work *work = self.staff.works[view.tag];
         WorkDetailViewController *detail = [WorkDetailViewController new];
         detail.work = work;
         [self.navigationController pushViewController:detail animated:YES];
-    }else if(imgView.tag == 5){
+    }else if(view.tag == 4){
         [self.navigationController pushViewController:[StaffWorksViewController new] animated:YES];
     }
 }

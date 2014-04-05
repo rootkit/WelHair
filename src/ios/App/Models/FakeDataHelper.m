@@ -14,6 +14,7 @@
 #import "ChatSession.h"
 #import "Coupon.h"
 #import "Address.h"
+#import "Service.h"
 @implementation FakeDataHelper
 
 
@@ -140,7 +141,23 @@
         staff.groupName = @"上海永琪";
         staff.rate = 0.5;
         staff.description = @"最近咋样，老哥?";
+        staff.distance = 1.2;
+        staff.works =[FakeDataHelper getFakeWorkList];
+        staff.services = [FakeDataHelper getFakeServiceList];
+        staff.bio = @"蓝翔技校美容美发专业毕业";
         [ar addObject:staff];
+    }
+    return ar;
+}
++ (NSArray *)getFakeServiceList
+{
+    NSMutableArray *ar = [NSMutableArray array];
+    for (int i = 0; i < 10 ; i++) {
+        Service *s = [Service new];
+        s.name = @"精剪";
+        s.originalPrice = 10;
+        s.salePrice = 5;
+        [ar addObject:s];
     }
     return ar;
 }

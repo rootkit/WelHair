@@ -53,8 +53,11 @@
     return CGSizeMake(roundf(stringSize.width), roundf(stringSize.height));
 }
 
-+ (float)textHeightFortext:(NSString *)string minumHeight:(float)minmunHeight fixedWidth:(float)fixedWidth
++ (float)heightFortext:(NSString *)string minumHeight:(float)minmunHeight fixedWidth:(float)fixedWidth
 {
+    if(string.length == 0){
+        return minmunHeight;
+    }
     CGSize constrainedSize = CGSizeMake(fixedWidth  , 9999);
     NSDictionary *attributesDictionary = [NSDictionary dictionaryWithObjectsAndKeys:
                                           [UIFont systemFontOfSize:12], NSFontAttributeName,

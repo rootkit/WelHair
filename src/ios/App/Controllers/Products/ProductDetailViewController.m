@@ -283,12 +283,12 @@
         
         NSString *titleStr = [paramNameArry objectAtIndex:i];
         NSString *valueStr = [paramValueArry objectAtIndex:i];
-        float titleLblHeight = [Util textHeightFortext:titleStr
+        float titleLblHeight = [Util heightFortext:titleStr
                                            minumHeight:paramLblHeight
                                             fixedWidth:60];
-        float valueLblHeight =[Util textHeightFortext:valueStr
+        float valueLblHeight =[Util heightFortext:valueStr
                                           minumHeight:paramLblHeight
-                                           fixedWidth:60];
+                                           fixedWidth:240];
         float fixedHeight = MAX(titleLblHeight, valueLblHeight);
         
         
