@@ -105,7 +105,7 @@ $(function() {
                     data: {'modelid':modelid },
                     success: function(data){
                       //console.log( data);
-                      $('#attributestable').empty();
+                      $('#attributestable tbody').empty();
                       if( data != null && data.length > 0)
                       {
                         $('#attributepanel').show();
@@ -130,10 +130,10 @@ $(function() {
                                   {
                                       var va = val.split(',');
                                       var i;
-                                      valstr = "<td attr-type='1'>";
+                                      valstr = "<td attr-type='1' attr-id='" + data[index].AttributeId + "'>";
                                       for( i in va )
                                       {
-                                          valstr += '<label class="attr"><input class="attribute" type="radio" value="' +va[i] + '" attr-id="' + data[index].AttributeId + '">' +va[i] + '</label>';
+                                          valstr += '<label class="attr"><input class="attribute" type="radio" value="' +va[i] + '">' +va[i] + '</label>';
                                       }
                                       valstr += "</td>";
                                       break;
@@ -142,10 +142,10 @@ $(function() {
                                   {
                                       var va = val.split(',');
                                       var i;
-                                      valstr="<td attr-type='2'>";
+                                      valstr="<td attr-type='2' attr-id='" + data[index].AttributeId + "'>";
                                       for( i in va )
                                       {
-                                          valstr += '<label class="attr"><input class="attribute" type="checkbox" value="' +va[i] + '" attr-id="' + data[index].AttributeId + '">' +va[i] + '</label>';
+                                          valstr += '<label class="attr"><input class="attribute" type="checkbox" value="' +va[i] + '" >' +va[i] + '</label>';
                                       }
                                       valstr +="</td>";
                                       break;
@@ -154,11 +154,11 @@ $(function() {
                                   {
                                       var va = val.split(',');
                                       var i;
-                                      valstr="<td attr-type='3'><select class='attribute' attr-id='" + data[index].AttributeId + "'>";
+                                      valstr="<td attr-type='3' attr-id='" + data[index].AttributeId + "'><select class='attribute'>";
                                       for( i in va )
                                       {
                                          
-                                          valstr += '<option value="' +va[i] + '" attr-id="' + data[index].AttributeId + '">' +va[i] + '</option>';
+                                          valstr += '<option value="' +va[i] + '" >' +va[i] + '</option>';
                                       }
                                       valstr +="</select></td>";
                                       break;
@@ -316,10 +316,10 @@ $(function() {
 
         if( $('#attributepanel').hasClass('hasattribute'))
         {
-            var extAttributes = $('#attributestable tr').map(function(i,n){
+            var extAttributes = $('#attributestable tbody tr').map(function(i,n){
 
               var attrtype=$(n).find('td:first').attr('attr-type');
-              var attrid= '';
+              var attrid= $(n).find('td:first').attr('attr-id');
               var attrvalue='';
 
               switch( attrtype)
@@ -327,7 +327,6 @@ $(function() {
                   case "1":
                   {
                     attrvalue = $(n).find( '.attribute:checked').val();
-                    attrid = $(n).find( '.attribute:checked').attr('attr-id');
                     break;
                   }
                   case "2":
@@ -335,13 +334,11 @@ $(function() {
                     attrvalue = $(n).find( '.attribute:checked').map(function(idx,node){
                       return $(node).val();
                     }).get().join(',');
-                    attrid = $(n).find( '.attribute:checked').attr('attr-id');
                     break;
                   }
                   case "3":
                   {
                     attrvalue = $(n).find( '.attribute').val();
-                    attrid = $(n).find( '.attribute').attr('attr-id');
                     break;
                   }
               }

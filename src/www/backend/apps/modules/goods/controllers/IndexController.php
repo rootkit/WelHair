@@ -20,6 +20,7 @@ use Welfony\Service\ModelService;
 use Welfony\Service\CompanyService;
 use Welfony\Service\ProductsService;
 use Welfony\Service\RecommendGoodsService;
+use Welfony\Service\GoodsAttributeService;
 
 class Goods_IndexController extends AbstractAdminController
 {
@@ -76,6 +77,7 @@ class Goods_IndexController extends AbstractAdminController
         $this->view->goodscategories=[];
         $this->view->recommends = [];
         $this->view->products = [];
+        $this->view->goodsattributes = [];
 
         if ($this->_request->isPost()) {
             $goods['Name']= htmlspecialchars($this->_request->getParam('name'));
@@ -180,6 +182,7 @@ class Goods_IndexController extends AbstractAdminController
                 $this->view->recommends=$recommends;
 
                 $this->view->products=ProductsService::listAllProductsByGoods($goodsId);
+                $this->view->goodsattributes = GoodsAttributeService::listExtendByGoods($goodsId);
 
                 if (!$goods) {
                     // process not exist logic;

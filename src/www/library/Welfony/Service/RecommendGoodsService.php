@@ -23,10 +23,4 @@ class RecommendGoodsService
         return $searchResult = RecommendGoodsRepository::getInstance()->listByGoods($goodsId);
     }
 
-    public static function listExtendByGoods($goodsId)
-    {
-        return $searchResult = RecommendGoodsRepository::getInstance()->listExtendByGoods($goodsId);
-    }   
-   
-
 }

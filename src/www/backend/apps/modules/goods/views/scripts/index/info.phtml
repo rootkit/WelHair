@@ -117,7 +117,7 @@ use \Welfony\Utility\Util;
                             <?php $specrow = json_decode($product['SpecArray'], true); ?>
                             <tr spec-id="<?php echo $specrow['Id']; ?>" spec-value="<?php echo $specrow['Value']; ?>">
                                 <td><input name="goodsno"  type="text" value="<?php echo $product['ProductsNo']; ?>"  class="u-ipt"/></td>
-                                <td><?php echo $specrow['Name']; ?><input type=hidden name="spec" value='<?php echo $product['SpecArray']; ?>'></td>
+                                <td><?php echo $specrow['Value']; ?><input type=hidden name="spec" value='<?php echo $product['SpecArray']; ?>'></td>
                                 <td><input name="storenums" type="text" value="<?php echo $product['StoreNums']; ?>"  class="u-ipt"/></td>  
                                 <td><input name="marketprice" type="text" value="<?php echo $product['MarketPrice']; ?>"  class="u-ipt"/></td>  
                                 <td><input name="sellprice" type="text" value="<?php echo $product['SellPrice']; ?>"  class="u-ipt"/></td> 
@@ -149,13 +149,48 @@ use \Welfony\Utility\Util;
                      <p></p>
                 </div>
             </div>
+            <?php if( empty($this->goodsattributes)) :?>
             <div class="formitm" id="attributepanel" style="display:none;">
                 <label class="lab">扩展属性：</label>
                 <div class="ipt">
                      <table class="m-table" id="attributestable" style="width:600px;">
+                        <tbody>
+                        </tbody>
                     </table>                    
                 </div>
             </div>
+            <?php else: ?>
+            <div class="formitm hasattribute" id="attributepanel">
+                <label class="lab">扩展属性：</label>
+                <div class="ipt">
+                     <table class="m-table" id="attributestable" style="width:600px;">
+                        <tbody>
+                        <?php foreach( $this->goodsattributes as $attribute): ?>
+                        <tr><th><?php echo $attribute['Name']; ?></th>
+                            <td attr-type='<?php echo $attribute['Type']; ?>' attr-id='<?php echo $attribute['AttributeId']; ?>'>
+                                <?php if($attribute['Type'] == '1'): ?>
+                                    <?php foreach( explode(',',$attribute['Value']) as $val): ?>
+                                    <label class="attr"><input class="attribute" <?php echo $val == $attribute['AttributeValue'] ? 'checked' :''; ?> type="radio" value="<?php echo $val; ?>"><?php echo $val; ?></label>
+                                    <?php endforeach; ?>
+                                <?php elseif($attribute['Type'] == '2') :?>
+                                    <?php foreach( explode(',',$attribute['Value']) as $val): ?>
+                                    <label class="attr"><input class="attribute" type="checkbox" <?php echo in_array($val,explode(',',$attribute['AttributeValue'])) ? 'checked' :''; ?> value="<?php echo $val; ?>" ><?php echo $val; ?></label>
+                                    <?php endforeach; ?>
+                                <?php elseif($attribute['Type'] == '3') :?>
+                                    <select class='attribute'>
+                                        <?php foreach( explode(',',$attribute['Value']) as $val): ?>
+                                        <option value="<?php echo $val; ?>" <?php echo $val == $attribute['AttributeValue'] ? 'selected' :''; ?>><?php echo $val; ?></option>
+                                        <?php endforeach; ?>
+                                    </select>
+                                <?php endif; ?>
+                            </td>
+                        </tr>
+                        <?php endforeach;?>
+                        </tbody>
+                    </table>                    
+                </div>
+            </div>
+            <?php endif; ?>
              <div class="formitm">
                 <label class="lab">商品推荐类型：</label>
                 <div class="ipt">

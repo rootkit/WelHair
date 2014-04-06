@@ -14,13 +14,19 @@
 
 namespace Welfony\Service;
 
-use Welfony\Repository\RecommendGoodsRepository;
+use Welfony\Repository\GoodsAttributeRepository;
 
-class RecommendGoodsService
+class GoodsAttributeService
 {
     public static function listAllByGoods($goodsId)
     {
-        return $searchResult = RecommendGoodsRepository::getInstance()->listByGoods($goodsId);
+        return $searchResult = GoodsAttributeRepository::getInstance()->listByGoods($goodsId);
     }   
+
+    public static function listExtendByGoods($goodsId)
+    {
+        return $searchResult = GoodsAttributeRepository::getInstance()->listExtendByGoods($goodsId);
+    }   
+   
 
 }

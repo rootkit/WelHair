@@ -34,7 +34,7 @@ class GoodsAttributeRepository extends AbstractRepository
     {
 
         $strSql = "  SELECT *
-                     FROM GoodsAttribute
+                     FROM GoodsAttribute                  
                      WHERE  GoodsId = $goodsId ";
 
         return $this->conn->fetchAll($strSql);
@@ -46,8 +46,9 @@ class GoodsAttributeRepository extends AbstractRepository
     {
 
         $strSql = "  SELECT *
-                     FROM GoodsAttribute
-                     WHERE  GoodsId = $goodsId AND AttributeId IS NOT NULL";
+                     FROM GoodsAttribute GA
+                     JOIN Attribute A ON GA.AttributeId = A.AttributeId
+                     WHERE  GoodsId = $goodsId AND GA.AttributeId IS NOT NULL";
 
         return $this->conn->fetchAll($strSql);
 
