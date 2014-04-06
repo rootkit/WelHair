@@ -22,7 +22,7 @@ use \Welfony\Utility\Util;
                 <div class="ipt">
                     <ul class="ipt-mul-select">
                         <?php foreach( $this->companies as $company) : ?>
-                        <li><label><input type="checkbox" name="company[]" value="<?php echo $company['CompanyId']; ?>" ><?php echo $company['Name']; ?></label></li>
+                        <li><label><input type="checkbox" name="company[]" value="<?php echo $company['CompanyId']; ?>" <?php echo in_array($company['CompanyId'], $this->goodscompanies)? 'checked':'' ?> ><?php echo $company['Name']; ?></label></li>
                         <?php endforeach; ?>
 
                     </ul>
@@ -33,7 +33,7 @@ use \Welfony\Utility\Util;
                 <div class="ipt">
                     <ul class="ipt-mul-select">
                         <?php foreach( $this->categories as $category) : ?>
-                        <li><label><input type="checkbox" name="category[]" value="<?php echo $category['CategoryId']; ?>" ><?php echo $category['Name']; ?></label></li>
+                        <li><label><input type="checkbox" name="category[]" value="<?php echo $category['CategoryId']; ?>" <?php echo in_array($category['CategoryId'], $this->goodscategories)? 'checked':'' ?> ><?php echo $category['Name']; ?></label></li>
                         <?php endforeach; ?>
 
                     </ul>
@@ -110,8 +110,8 @@ use \Welfony\Utility\Util;
                 <div class="ipt">
                      <select id="goodsmodel"  class="u-sel">
                         <option value="0" >通用模型</option>
-                        <?php foreach( $this->categories as $category) :?>
-                        <option value="<?php echo $category['CategoryId']; ?>" ><?php echo $category['Name']; ?></option>  
+                        <?php foreach( $this->models as $model) :?>
+                        <option value="<?php echo $model['ModelId']; ?>"  <?php echo $this->goodsInfo['ModelId'] == $model['ModelId']? 'selected':''; ?>><?php echo $model['Name']; ?></option>  
                         <?php endforeach;?>                       
                      </select>
                      <p></p>
@@ -139,7 +139,7 @@ use \Welfony\Utility\Util;
                      <select id="goodsbrand"  class="u-sel">
                         <option value="0" >请选择</option>  
                         <?php foreach( $this->brands as $brand) :?>
-                        <option value="<?php echo $brand['BrandId']; ?>" ><?php echo $brand['Name']; ?></option>  
+                        <option value="<?php echo $brand['BrandId']; ?>" <?php echo $this->goodsInfo['BrandId'] == $brand['BrandId']? 'selected':''; ?>><?php echo $brand['Name']; ?></option>  
                         <?php endforeach;?>                   
                      </select>
                      <p></p>
@@ -151,8 +151,8 @@ use \Welfony\Utility\Util;
                 <div class="ipt">
                     <span class="u-img2">
                         <a href="javascript:;">
-                            <img id="goods-image" src=""  alt="">
-                            <input id="goods-url" type="hidden" name="goods_url" value="" />
+                            <img id="goods-image" src="<?php echo $this->goodsInfo['Img']? $this->goodsInfo['Img']:''; ?>"  alt="">
+                            <input id="goods-url" type="hidden" name="goods_url" value="<?php echo $this->goodsInfo['Img']? $this->goodsInfo['Img']:''; ?>" />
                         </a>
                     </span>
                 </div>

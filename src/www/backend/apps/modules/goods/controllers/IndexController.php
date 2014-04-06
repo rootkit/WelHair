@@ -71,6 +71,8 @@ class Goods_IndexController extends AbstractAdminController
             'IsDeleted' => 0,
             'Keywords' => '',
         );
+        $this->view->goodscompanies=[];
+        $this->view->goodscategories=[];
 
         if ($this->_request->isPost()) {
             $goods['Name']= htmlspecialchars($this->_request->getParam('name'));
@@ -149,8 +151,21 @@ class Goods_IndexController extends AbstractAdminController
 
             if ($goodsId > 0) {
                 $goods = GoodsService::getGoodsById($goodsId);
-                $this->view->goodscategories=CategoryService::listAllCategoryByGoods($goodsId);
-                $this->view->goodscompanies=CompanyService::listAllByGoods($goodsId);
+                $catArray = CategoryService::listAllCategoryByGoods($goodsId);
+                $goodsCats = array();
+                foreach( $catArray as $cat )
+                {
+                    $goodsCats[] = $cat['CategoryId'];
+                }
+                $this->view->goodscategories=$goodsCats;
+
+                $comArray = CompanyService::listAllByGoods($goodsId);
+                $cArray = array();
+                foreach( $comArray as $com)
+                {
+                    $cArray[] = $com['CompanyId'];
+                }
+                $this->view->goodscompanies=$cArray;
                 if (!$goods) {
                     // process not exist logic;
                 }
