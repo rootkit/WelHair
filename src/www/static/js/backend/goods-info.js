@@ -349,8 +349,8 @@ $(function() {
               return {
                     'SpecId': null,
                     'SpecValue': null,
-                    'AttributeId':attrid,
-                    'AttributeValue': attrvalue
+                    'AttributeId':( attrid == undefined ? null: attrid),
+                    'AttributeValue': (attrvalue == undefined? null: attrvalue)
                   };
 
             }).get();

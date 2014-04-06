@@ -104,6 +104,7 @@ class Goods_IndexController extends AbstractAdminController
 
             $categories =  $this->_request->getParam('categories');
             $attributes = $this->_request->getParam('attributes');
+            $attrArray = array();
             if( $attributes)
             {
                 foreach( $attributes as &$attr)
@@ -118,16 +119,20 @@ class Goods_IndexController extends AbstractAdminController
                         $attr['AttributeId'] = NULL;
                         $attr['AttributeValue'] = NULL;
                     }
-                    //error_log(serialize($attr));
+                    if( $attr['SpecId'] || $attr['AttributeId'] )
+                    {
+                        $attrArray[] = $attr;
+                    }
+                    
                 }
             }
             $products = $this->_request->getParam('products');
             $recommends = $this->_request->getParam('recommendgoods');
             $companies = $this->_request->getParam('companies');
 
-            
 
-            $result = GoodsService::save($goods,$categories,$attributes,$products,$recommends,$companies);
+
+            $result = GoodsService::save($goods,$categories,$attrArray,$products,$recommends,$companies);
             /*
             if ($result['success']) {
 
