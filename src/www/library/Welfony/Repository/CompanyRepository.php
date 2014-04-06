@@ -69,6 +69,26 @@ class CompanyRepository extends AbstractRepository
         return $this->conn->fetchAll($strSql);
     }
 
+    public function listAllCompanies()
+    {
+        $strSql = "SELECT
+                      *
+                   FROM Company ";
+
+        return $this->conn->fetchAll($strSql);
+    }
+
+    public function listAllCompaniesByGoods($goodsId)
+    {
+        $strSql = "SELECT
+                      C.*
+                   FROM CompanyGoods CG
+                   JOIN Company C ON CG.CompanyId = CG.CompanyId
+                   WHERE CG.GoodsId = $goodsId ";
+
+        return $this->conn->fetchAll($strSql);
+    }
+
     public function seachByNameAndPhone($searchText)
     {
         $strSql = "SELECT

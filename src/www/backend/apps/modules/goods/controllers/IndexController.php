@@ -17,6 +17,8 @@ use Welfony\Service\GoodsService;
 use Welfony\Service\CategoryService;
 use Welfony\Service\BrandService;
 use Welfony\Service\ModelService;
+use Welfony\Service\CompanyService;
+use Welfony\Service\ProductsService;
 
 class Goods_IndexController extends AbstractAdminController
 {
@@ -46,6 +48,7 @@ class Goods_IndexController extends AbstractAdminController
         $this->view->categories=CategoryService::listAllCategory();
         $this->view->models=ModelService::listAllModel();
         $this->view->brands=BrandService::listAllBrand();
+        $this->view->companies = CompanyService::listAll();
 
         $goodsId = $this->_request->getParam('goods_id')?  intval($this->_request->getParam('goods_id')) : 0;
 
@@ -64,6 +67,7 @@ class Goods_IndexController extends AbstractAdminController
             'MarketPrice'=>0,
             'CostPrice'=>0,
             'Weight'=>0,
+            'Img'=>'',
             'IsDeleted' => 0,
             'Keywords' => '',
         );
@@ -73,9 +77,57 @@ class Goods_IndexController extends AbstractAdminController
             $goods['GoodsNo']= htmlspecialchars($this->_request->getParam('goodsno'));
             $goods['ModelId']= $this->_request->getParam('modelid');
             $goods['BrandId']= $this->_request->getParam('brandid');
-            $goods['CreateTime'] = date('Y-m-d H:i:s');
+            $goods['Sort']= $this->_request->getParam('sort');
+            $goods['Unit']= $this->_request->getParam('unit');
+            $goods['Experience']= $this->_request->getParam('experience');
+            $goods['CostPrice']= $this->_request->getParam('costprice');
+            $goods['SellPrice']= $this->_request->getParam('sellprice');
+            $goods['MarketPrice']= $this->_request->getParam('marketprice');
+            $goods['Keywords']= $this->_request->getParam('keywords');
+            $goods['SpecArray']= $this->_request->getParam('specarray');
+            $goods['StoreNums']= $this->_request->getParam('storenums');
+            $goods['Weight']= $this->_request->getParam('weight');
+            $goods['Img']= $this->_request->getParam('img');
 
-            $result = GoodsService::save($goods);
+            $goods['CreateTime'] = date('Y-m-d H:i:s');
+            if( $goodsId )
+            {
+                if( $this->_request->getParam('isup'))
+                {
+                     $goods['UpTime'] = date('Y-m-d H:i:s');
+                }
+                else
+                {
+                    $goods['DownTime'] = date('Y-m-d H:i:s');
+                }
+            }
+
+            $categories =  $this->_request->getParam('categories');
+            $attributes = $this->_request->getParam('attributes');
+            if( $attributes)
+            {
+                foreach( $attributes as &$attr)
+                {
+                    if( !$attr['SpecId'] )
+                    {
+                        $attr['SpecId'] = NULL;
+                        $attr['SpecValue'] = NULL;
+                    }
+                    if( !$attr['AttributeId'] )
+                    {
+                        $attr['AttributeId'] = NULL;
+                        $attr['AttributeValue'] = NULL;
+                    }
+                    //error_log(serialize($attr));
+                }
+            }
+            $products = $this->_request->getParam('products');
+            $recommends = $this->_request->getParam('recommendgoods');
+            $companies = $this->_request->getParam('companies');
+
+            
+
+            $result = GoodsService::save($goods,$categories,$attributes,$products,$recommends,$companies);
             /*
             if ($result['success']) {
 
@@ -93,6 +145,7 @@ class Goods_IndexController extends AbstractAdminController
             if ($goodsId > 0) {
                 $goods = GoodsService::getGoodsById($goodsId);
                 $this->view->goodscategories=CategoryService::listAllCategoryByGoods($goodsId);
+                $this->view->goodscompanies=CompanyService::listAllByGoods($goodsId);
                 if (!$goods) {
                     // process not exist logic;
                 }

@@ -51,13 +51,12 @@ class GoodsService
         return $searchResult = GoodsRepository::getInstance()->getAllGoods();
     }
 
-    public static function save($data)
+    public static function save($data,$categories=null,$attributes=null, $products=null, $recommends=null, $companies=null)
     {
         $result = array('success' => false, 'message' => '');
 
         if ($data['GoodsId'] == 0) {
-
-            $newId = GoodsRepository::getInstance()->save($data);
+            $newId = GoodsRepository::getInstance()->save($data,$categories,$attributes, $products, $recommends, $companies);
             if ($newId) {
                 $data['GoodsId'] = $newId;
 
@@ -73,7 +72,7 @@ class GoodsService
             }
         } else {
 
-            $r = GoodsRepository::getInstance()->update($data['GoodsId'],$data);
+            $r = GoodsRepository::getInstance()->update($data['GoodsId'],$data,$categories,$attributes, $products, $recommends, $companies);
             if ($r) {
 
                 $result['success'] = true;

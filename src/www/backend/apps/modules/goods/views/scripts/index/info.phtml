@@ -17,7 +17,18 @@ use \Welfony\Utility\Util;
                     <p>每个关键词最长为15个字符，超过后系统不予存储</p>
                 </div>
             </div>  
-             <div class="formitm">
+            <div class="formitm">
+                <label class="lab">沙龙：</label>
+                <div class="ipt">
+                    <ul class="ipt-mul-select">
+                        <?php foreach( $this->companies as $company) : ?>
+                        <li><label><input type="checkbox" name="company[]" value="<?php echo $company['CompanyId']; ?>" ><?php echo $company['Name']; ?></label></li>
+                        <?php endforeach; ?>
+
+                    </ul>
+                </div>
+            </div>  
+            <div class="formitm">
                 <label class="lab">分类：</label>
                 <div class="ipt">
                     <ul class="ipt-mul-select">
@@ -79,10 +90,10 @@ use \Welfony\Utility\Util;
                             <tr>
                                 <td><input name="goodsno"  type="text" value="<?php echo $this->defaultgoodsno; ?>"  class="u-ipt"/></td>
                                 <td><input name="storenums" type="text" value="100"  class="u-ipt"/></td>  
-                                <td><input name="marketprice" type="text" value=""  class="u-ipt"/></td>  
-                                <td><input name="sellprice" type="text" value=""  class="u-ipt"/></td> 
-                                <td><input name="costprice" type="text" value=""  class="u-ipt"/></td>  
-                                <td><input name="weight" type="text" value=""  class="u-ipt"/></td> 
+                                <td><input name="marketprice" type="text" value="0.00"  class="u-ipt"/></td>  
+                                <td><input name="sellprice" type="text" value="0.00"  class="u-ipt"/></td> 
+                                <td><input name="costprice" type="text" value="0.00"  class="u-ipt"/></td>  
+                                <td><input name="weight" type="text" value="0.00"  class="u-ipt"/></td> 
                             </tr>
                         </tbody>
                     </table>
@@ -116,10 +127,10 @@ use \Welfony\Utility\Util;
              <div class="formitm">
                 <label class="lab">商品推荐类型：</label>
                 <div class="ipt">
-                    <label class="attr"><input type="checkbox" value="1" name="_goods_commend[]">最新商品</label>
-                    <label class="attr"><input type="checkbox" value="2" name="_goods_commend[]">特价商品</label>
-                    <label class="attr"><input type="checkbox" value="3" name="_goods_commend[]">热卖商品</label>
-                    <label class="attr"><input type="checkbox" value="4" name="_goods_commend[]">推荐商品</label> 
+                    <label class="attr"><input type="checkbox" value="1" name="goods_commend[]">最新商品</label>
+                    <label class="attr"><input type="checkbox" value="2" name="goods_commend[]">特价商品</label>
+                    <label class="attr"><input type="checkbox" value="3" name="goods_commend[]">热卖商品</label>
+                    <label class="attr"><input type="checkbox" value="4" name="goods_commend[]">推荐商品</label> 
                 </div>
             </div>
               <div class="formitm">

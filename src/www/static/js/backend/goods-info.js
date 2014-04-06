@@ -47,22 +47,31 @@ WF.Model = {
           if( val != null && val.replace(/\s+/g, '').length > 0 )
           {
 
-              console.log( val);
+              $('#basicdatatable').addClass('hasspecs');
+              $('#basicdatatable').attr('specarray',JSON.stringify({'Name': $(this).attr('data-name'), 'Id': $(this).attr('data-id'), 'Value': val, "Type":"1"}));
               val = JSON.parse(val );
               var i= 0;
               for( var idx in val)
               {
-
-                var addedrow = '<tr>' +
+                var spec = {'Name': $(this).attr('data-name'), 'Id': $(this).attr('data-id'), 'Value': val[idx]};
+                var addedrow = '<tr spec-id="'+$(this).attr('data-id')+'" spec-value="'+ val[idx]  +'">' +
                 '<td><input name="goodsno" type="text" value="' + $('#goodsno').val() + '-' + (++i) + '"  class="u-ipt"/></td>' +
-                '<td>' + val[idx] + '</td>' +
+                '<td>' + val[idx] + '<input type=hidden name="spec" value=\'' + JSON.stringify(spec) +'\'></td>' +
                 '<td><input name="storenums" type="text" value="100"  class="u-ipt"/></td>' +
-                '<td><input name="marketprice" type="text" value=""  class="u-ipt"/></td>' +
-                '<td><input name="sellprice" type="text" value=""  class="u-ipt"/></td>' +
-                '<td><input name="costprice" type="text" value=""  class="u-ipt"/></td>' +
-                '<td><input name="weight" type="text" value=""  class="u-ipt"/></td>' +
+                '<td><input name="marketprice" type="text" value="0.00"  class="u-ipt"/></td>' +
+                '<td><input name="sellprice" type="text" value="0.00"  class="u-ipt"/></td>' +
+                '<td><input name="costprice" type="text" value="0.00"  class="u-ipt"/></td>' +
+                '<td><input name="weight" type="text" value="0.00"  class="u-ipt"/></td>' +
                 '</tr>';
                 $('#basicdatatable tbody').append(addedrow);
+                if( i> window.addedspecs )
+                {
+                    $('.content').height($('.content').height() + 50);
+                }
+              }
+              if( i> window.addedspecs )
+              {
+                window.addedspecs = 1;
               }
           }
 
@@ -75,6 +84,8 @@ WF.Model = {
 
 
 $(function() {
+    window.addedspecs = 0;
+    window.addattributes = 0;
     $('#frm-goods-info').Validform({
         tiptype: 3
     });
@@ -98,9 +109,16 @@ $(function() {
                       if( data != null && data.length > 0)
                       {
                         $('#attributepanel').show();
-                        var index ;
+                        $('#attributepanel').addClass('hasattribute');
+                         var index ;
+                         var i = 0;
                          for(  index in data)
                          {
+                            i++;
+                            if( i > window.addattributes )
+                            {
+                                $('.content').height($('.content').height() + 50);
+                            }
                             var val = data[index].Value;
                             var valstr='';
                             if( val != null && val.replace(/\s+/g, '').length > 0)
@@ -112,46 +130,54 @@ $(function() {
                                   {
                                       var va = val.split(',');
                                       var i;
+                                      valstr = "<td attr-type='1'>";
                                       for( i in va )
                                       {
-                                          valstr += '<label class="attr"><input type="radio" value="' +va[i] + '" name="attr_id_"' + data[index].AttributeId + '>' +va[i] + '</label>';
+                                          valstr += '<label class="attr"><input class="attribute" type="radio" value="' +va[i] + '" attr-id="' + data[index].AttributeId + '">' +va[i] + '</label>';
                                       }
+                                      valstr += "</td>";
                                       break;
                                   }
                                   case '2':
                                   {
                                       var va = val.split(',');
                                       var i;
+                                      valstr="<td attr-type='2'>";
                                       for( i in va )
                                       {
-                                          valstr += '<label class="attr"><input type="checkbox" value="' +va[i] + '" name="attr_id_"' + data[index].AttributeId + '>' +va[i] + '</label>';
+                                          valstr += '<label class="attr"><input class="attribute" type="checkbox" value="' +va[i] + '" attr-id="' + data[index].AttributeId + '">' +va[i] + '</label>';
                                       }
+                                      valstr +="</td>";
                                       break;
                                   }
                                   case '3':
                                   {
                                       var va = val.split(',');
                                       var i;
-                                      valstr="<select>";
+                                      valstr="<td attr-type='3'><select class='attribute' attr-id='" + data[index].AttributeId + "'>";
                                       for( i in va )
                                       {
                                          
-                                          valstr += '<option value="' +va[i] + '" name="attr_id_"' + data[index].AttributeId + '>' +va[i] + '</option>';
+                                          valstr += '<option value="' +va[i] + '" attr-id="' + data[index].AttributeId + '">' +va[i] + '</option>';
                                       }
-                                      valstr +="</select>";
+                                      valstr +="</select></td>";
                                       break;
                                   }
                                 }
 
                             }
 
-                            var row = "<tr><th>" + data[index].Name +"</th><td>" + valstr +"</td></tr>"; 
+                            var row = "<tr><th>" + data[index].Name +"</th>" + valstr +"</tr>"; 
                             $('#attributestable').append( $(row));
                          }
                       }
                       else
                       {
                         $('#attributepanel').hide();
+                      }
+                      if( i > window.addattributes)
+                      { 
+                        window.addattributes = i;
                       }
                         
                     },
@@ -198,6 +224,20 @@ $(function() {
 
           var name = $('#goodsname').val();
 
+
+          var goodsdata= { 
+                'name': name,
+                'goodsno': $('#goodsno').val(),
+                'modelid': $('#goodsmodel').val(),
+                'brandid': $('#goodsbrand').val(),
+                'unit': $('#unit').val(),
+                'point': $('#point').val(),
+                'experience': $('#experience').val(),
+                'sort': $('#sort').val(),
+                'keywords': $( '#goodskeywords').val()
+               
+            };
+
           //var specids  = $('tr.specid').map(function(i,n) {
           //      return $(n).attr('data-id');
           //}).get().join(",");
@@ -211,27 +251,120 @@ $(function() {
                  };
           }).get();
           */
+
+          var companies = $('input[name="company[]"]:checked').map(function(i,n){
+            return {'CompanyId':$(n).val()};
+          }).get();
+
+          goodsdata['companies'] = companies;
+
+          var categories = $('input[name="category[]"]:checked').map(function(i,n){
+            return {'CategoryId':$(n).val()};
+          }).get();
+
+          goodsdata['categories'] = categories;
+
+          var isup = $('.u-btn-c3').attr('data-value');
+          goodsdata['isup'] = isup;
+          var attributes = [];
+          if( $('#basicdatatable').hasClass('hasspecs'))
+          {
+            var products=  $('#basicdatatable tbody tr').map(function(i,n){
+                  return {
+                    'ProductsNo': $(n).find('input[name="goodsno"]').val(),
+                    'SpecArray': $(n).find('input[name="spec"]').val(),
+                    'StoreNums': $(n).find('input[name="sellprice"]').val(),
+                    'Weight':$(n).find('input[name="weight"]').val(),
+                    'MarketPrice': $(n).find('input[name="marketprice"]').val(),
+                    'SellPrice':$(n).find('input[name="sellprice"]').val(),
+                    'CostPrice':$(n).find('input[name="costprice"]').val()
+                  };
+              }).get();
+            var specarray = $('#basicdatatable').attr('specarray');
+
+             goodsdata['weight']= $('input[name="weight"]:first').val();
+             goodsdata['storenums']= $('input[name="sellprice"]:first').val();
+             goodsdata['marketprice']= $('input[name="marketprice"]:first').val();
+             goodsdata['costprice']= $('input[name="costprice"]:first').val();
+             goodsdata['sellprice']= $('input[name="sellprice"]:first').val();
+             goodsdata['specarray'] = specarray;
+             goodsdata['products'] = products;
+             attributes =  $('#basicdatatable tbody tr').map(function(i,n){
+                  return {
+                    'SpecId': $(n).attr('spec-id'),
+                    'SpecValue': $(n).attr('spec-value'),
+                    'AttributeId':null,
+                    'AttributeValue': null
+                  };
+              }).get();
+
+          }
+          else
+          {
+               goodsdata['weight']= $('input[name="weight"]:first').val();
+               goodsdata['storenums']= $('input[name="sellprice"]:first').val();
+               goodsdata['marketprice']= $('input[name="marketprice"]:first').val();
+               goodsdata['costprice']= $('input[name="costprice"]:first').val();
+               goodsdata['sellprice']= $('input[name="sellprice"]:first').val();
+          }
+
+          var recommendgoods = $('input[name="goods_commend[]"]:checked').map(function(i,n){
+            return {"RecommendId":$(n).val()};
+          }).get();
+
+         goodsdata['recommendgoods'] = recommendgoods;
+
+        if( $('#attributepanel').hasClass('hasattribute'))
+        {
+            var extAttributes = $('#attributestable tr').map(function(i,n){
+
+              var attrtype=$(n).find('td:first').attr('attr-type');
+              var attrid= '';
+              var attrvalue='';
+
+              switch( attrtype)
+              {
+                  case "1":
+                  {
+                    attrvalue = $(n).find( '.attribute:checked').val();
+                    attrid = $(n).find( '.attribute:checked').attr('attr-id');
+                    break;
+                  }
+                  case "2":
+                  {
+                    attrvalue = $(n).find( '.attribute:checked').map(function(idx,node){
+                      return $(node).val();
+                    }).get().join(',');
+                    attrid = $(n).find( '.attribute:checked').attr('attr-id');
+                    break;
+                  }
+                  case "3":
+                  {
+                    attrvalue = $(n).find( '.attribute').val();
+                    attrid = $(n).find( '.attribute').attr('attr-id');
+                    break;
+                  }
+              }
+
+              return {
+                    'SpecId': null,
+                    'SpecValue': null,
+                    'AttributeId':attrid,
+                    'AttributeValue': attrvalue
+                  };
+
+            }).get();
+        }
+
+         goodsdata['attributes'] = attributes.concat(extAttributes);
+
+         goodsdata['img'] =$('#goods-url').val();
+      
+         console.log(goodsdata);
          
-         
-          
 
           url = form.attr( "action" );
-
-          var posting = $.post( url, { 
-                'name': name,
-                'goodsno': $('#goodsno').val(),
-                'modelid': $('#goodsmodel').val(),
-                'brandid': $('#goodsbrand').val(),
-                'storenums': $('#storenums').val(),
-                'unit': $('#unit').val(),
-                'point': $('#point').val(),
-                'exprience': $('#exprience').val(),
-                'sort': $('#sort').val(),
-                'weight': $('#weight').val(),
-                'storenums': $('#sellprice').val(),
-                'marketprice': $('#marketprice').val(),
-                'costprice': $('#costprice').val()
-            } );
+          var posting = $.post( url, goodsdata );
 
 
           posting.done(function( data ) {
@@ -239,7 +372,7 @@ $(function() {
               if( data.success)
               {
 
-                window.location = globalSetting.baseUrl + '/goods/index/search';
+                //window.location = globalSetting.baseUrl + '/goods/index/search';
                 return;
               }
 

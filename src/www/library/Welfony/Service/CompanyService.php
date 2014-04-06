@@ -127,6 +127,20 @@ class CompanyService
         return array('total' => $total, 'companies' => $companies);
     }
 
+    public static function listAll()
+    {
+      
+        $companyList = CompanyRepository::getInstance()->listAllCompanies();
+        return $companyList;
+    }
+
+    public static function listAllByGoods($goodsId)
+    {
+      
+        $companyList = CompanyRepository::getInstance()->listAllCompaniesByGoods( $goodsId);
+        return $companyList;
+    }
+
     public static function getCompanyById($companyId)
     {
         $company = CompanyRepository::getInstance()->findCompanyById($companyId);
