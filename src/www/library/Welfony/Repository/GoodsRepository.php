@@ -60,10 +60,14 @@ class GoodsRepository extends AbstractRepository
     {
 
         $offset = ($pageNumber - 1) * $pageSize;
-        $strSql = "  SELECT *
-                     FROM Goods
-                     WHERE IsDeleted = 0
-                     ORDER BY GoodsId
+        $strSql = "  SELECT G.*, B.Name AS BrandName, GROUP_CONCAT(C.Name SEPARATOR ',') AS CategoryName
+                     FROM Goods G
+                     LEFT JOIN Brand B ON B.BrandId = G.BrandId
+                     LEFT JOIN CategoryExtend CE ON CE.GoodsId = G.GoodsId
+                     LEFT JOIN Category C ON CE.CategoryId = C.CategoryId
+                     WHERE G.IsDeleted = 0
+                     GROUP BY G.GoodsId
+                     ORDER BY G.GoodsId
                      LIMIT $offset, $pageSize ";
 
         return $this->conn->fetchAll($strSql);
