@@ -51,6 +51,11 @@ class GoodsService
         return $searchResult = GoodsRepository::getInstance()->getAllGoods();
     }
 
+    public static function listAllGoodsByCompany($companyId)
+    {
+        return $searchResult = GoodsRepository::getInstance()->getAllGoodsByCompany($companyId);
+    }
+
     public static function save($data,$categories=null,$attributes=null, $products=null, $recommends=null, $companies=null)
     {
         $result = array('success' => false, 'message' => '');

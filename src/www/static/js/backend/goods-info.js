@@ -372,7 +372,7 @@ $(function() {
               if( data.success)
               {
 
-                //window.location = globalSetting.baseUrl + '/goods/index/search';
+                window.location = globalSetting.baseUrl + '/goods/index/search';
                 return;
               }
 

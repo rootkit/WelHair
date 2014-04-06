@@ -16,61 +16,39 @@ namespace Welfony\Repository;
 
 use Welfony\Repository\Base\AbstractRepository;
 
-class ProductsRepository extends AbstractRepository
+class RecommendGoodsRepository extends AbstractRepository
 {
 
-    public function getAllProductsCount()
-    {
-        $strSql = "SELECT
-                       COUNT(1) `Total`
-                   FROM Products
-                   LIMIT 1";
-
-        $row = $this->conn->fetchAssoc($strSql);
-
-        return $row['Total'];
-    }
-
-    public function getAllProducts()
+    
+    public function getAll()
     {
         $strSql = 'SELECT
                        *
-                   FROM Products
+                   FROM RecommendGoods
                   ';
 
         return $this->conn->fetchAll($strSql);
     }
 
-    public function getAllProductsByGoods($goodsId)
-    {
-        $strSql = "SELECT
-                       *
-                   FROM Products
-                   WHERE GoodsId = $goodsId
-                  ";
-
-        return $this->conn->fetchAll($strSql);
-    }
-
-    public function listProducts($pageNumber, $pageSize)
+    public function listByGoods($goodsId)
     {
 
-        $offset = ($pageNumber - 1) * $pageSize;
         $strSql = "  SELECT *
-                     FROM Products
-                     ORDER BY ProductsId
-                     LIMIT $offset, $pageSize ";
+                     FROM RecommendGoods
+                     WHERE  GoodsId = $goodsId ";
 
         return $this->conn->fetchAll($strSql);
 
     }
 
-    public function findProductsById($id)
+    
+
+    public function findById($id)
     {
         $strSql = 'SELECT
                        *
-                   FROM Products
-                   WHERE ProductsId = ?
+                   FROM RecommendGoods
+                   WHERE RecommendGoodsId = ?
                    LIMIT 1';
 
         return $this->conn->fetchAssoc($strSql, array($id));
@@ -79,7 +57,7 @@ class ProductsRepository extends AbstractRepository
     public function save($data)
     {
         try {
-            if ($this->conn->insert('Products', $data)) {
+            if ($this->conn->insert('RecommendGoods', $data)) {
                 return $this->conn->lastInsertId();
             }
         } catch (\Exception $e) {
@@ -91,10 +69,10 @@ class ProductsRepository extends AbstractRepository
         return false;
     }
 
-    public function update($productsId, $data)
+    public function update($recommendGoodsId, $data)
     {
         try {
-            return $this->conn->update('Products', $data, array('ProductsId' => $productsId));
+            return $this->conn->update('RecommendGoods', $data, array("RecommendGoodsId" => $recommendGoodsId));
         } catch (\Exception $e) {
             $this->logger->log($e, \Zend_Log::ERR);
 
@@ -102,10 +80,10 @@ class ProductsRepository extends AbstractRepository
         }
     }
 
-    public function delete($produtsId)
+    public function delete($recommendGoodsId)
     {
         try {
-            return $this->conn->delete('Products',  array('ProductsId' => $productsId));
+            return $this->conn->delete("RecommendGoods", array("RecommendGoodsId" => $recommendGoodsId));
         } catch (\Exception $e) {
             $this->logger->log($e, \Zend_Log::ERR);
 

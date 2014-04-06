@@ -43,8 +43,8 @@ use \Welfony\Utility\Util;
                 <label class="lab">是否上架：</label>
                 <div class="ipt">
                      <span class="u-btns" data-type="radio">
-                        <span class="u-btn u-btn-c3" data-value="1" >是</span>
-                        <span class="u-btn u-btn-c4" data-value="0" >否</span>
+                        <span class="u-btn <?php echo $this->goodsInfo['DownTime']? 'u-btn-c4': 'u-btn-c3'; ?>" data-value="1" >是</span>
+                        <span class="u-btn <?php echo $this->goodsInfo['DownTime']? 'u-btn-c3': 'u-btn-c4'; ?>" data-value="0" >否</span>
                     </span>
                     <p></p>
                 </div>
@@ -62,10 +62,10 @@ use \Welfony\Utility\Util;
                             </tr>
                         </thead>
                         <tbody>
-                            <td><input id="point" type="text" value="0"  class="u-ipt"/></td>
-                            <td><input id="sort" type="text" value="99" class="u-ipt"/></td>  
-                            <td><input id="unit" type="text" value="千克" class="u-ipt"/></td>  
-                            <td><input id="experience" type="text" value="0"  class="u-ipt"/></td>  
+                            <td><input id="point" type="text" value="<?php echo $this->goodsInfo['Point']? $this->goodsInfo['Point']: '0'; ?>"  class="u-ipt"/></td>
+                            <td><input id="sort" type="text" value="<?php echo $this->goodsInfo['Sort']? $this->goodsInfo['Sort']: '99'; ?>" class="u-ipt"/></td>  
+                            <td><input id="unit" type="text" value="<?php echo $this->goodsInfo['Unit']? $this->goodsInfo['Unit']: '千克'; ?>" class="u-ipt"/></td>  
+                            <td><input id="experience" type="text" value="<?php echo $this->goodsInfo['Experience']? $this->goodsInfo['Experience']: '0'; ?>"  class="u-ipt"/></td>  
                         </tbody>
                     </table>
                     <br/>
@@ -75,6 +75,7 @@ use \Welfony\Utility\Util;
              <div>
                 <label class="lab">基本数据：</label>
                 <div class="ipt">
+                    <?php if( empty($this->products)) :?>
                     <table class="m-table small-tbl" id="basicdatatable" style="width:550px;">
                         <thead>
                             <tr>
@@ -97,6 +98,37 @@ use \Welfony\Utility\Util;
                             </tr>
                         </tbody>
                     </table>
+                    <?php else: ?>
+
+                     <table class="m-table small-tbl hasspecs" id="basicdatatable" style="width:550px;">
+                        <thead>
+                            <tr>
+                                <th class="cola">商品货号</th>
+                                <th class="cola"><?php echo json_decode($this->products[0]['SpecArray'], true)['Name']; ?></th>
+                                <th class="cola">库存</th>
+                                <th class="cola">市场价格</th>
+                                <th class="cola">销售价格</th>
+                                <th class="cola">成本价格</th>
+                                <th class="cola">重量</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php foreach( $this->products as $product) :?>
+                            <?php $specrow = json_decode($product['SpecArray'], true); ?>
+                            <tr spec-id="<?php echo $specrow['Id']; ?>" spec-value="<?php echo $specrow['Value']; ?>">
+                                <td><input name="goodsno"  type="text" value="<?php echo $product['ProductsNo']; ?>"  class="u-ipt"/></td>
+                                <td><?php echo $specrow['Name']; ?><input type=hidden name="spec" value='<?php echo $product['SpecArray']; ?>'></td>
+                                <td><input name="storenums" type="text" value="<?php echo $product['StoreNums']; ?>"  class="u-ipt"/></td>  
+                                <td><input name="marketprice" type="text" value="<?php echo $product['MarketPrice']; ?>"  class="u-ipt"/></td>  
+                                <td><input name="sellprice" type="text" value="<?php echo $product['SellPrice']; ?>"  class="u-ipt"/></td> 
+                                <td><input name="costprice" type="text" value="<?php echo $product['CostPrice']; ?>"  class="u-ipt"/></td>  
+                                <td><input name="weight" type="text" value="<?php echo $product['Weight']; ?>"  class="u-ipt"/></td> 
+                            </tr>
+                            <?php endforeach;?>
+                        </tbody>
+                    </table>
+
+                    <?php endif; ?>
                 </div>
             </div>
              <div class="formitm">
@@ -127,10 +159,10 @@ use \Welfony\Utility\Util;
              <div class="formitm">
                 <label class="lab">商品推荐类型：</label>
                 <div class="ipt">
-                    <label class="attr"><input type="checkbox" value="1" name="goods_commend[]">最新商品</label>
-                    <label class="attr"><input type="checkbox" value="2" name="goods_commend[]">特价商品</label>
-                    <label class="attr"><input type="checkbox" value="3" name="goods_commend[]">热卖商品</label>
-                    <label class="attr"><input type="checkbox" value="4" name="goods_commend[]">推荐商品</label> 
+                    <label class="attr"><input type="checkbox" value="1" <?php echo in_array("1", $this->recommends) ? 'checked':''; ?> name="goods_commend[]">最新商品</label>
+                    <label class="attr"><input type="checkbox" value="2" <?php echo in_array("2", $this->recommends)? 'checked':''; ?> name="goods_commend[]">特价商品</label>
+                    <label class="attr"><input type="checkbox" value="3" <?php echo in_array("3", $this->recommends) ? 'checked':''; ?> name="goods_commend[]">热卖商品</label>
+                    <label class="attr"><input type="checkbox" value="4" <?php echo in_array("4", $this->recommends) ? 'checked':''; ?> name="goods_commend[]">推荐商品</label> 
                 </div>
             </div>
               <div class="formitm">

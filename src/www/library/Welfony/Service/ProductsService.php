@@ -13,6 +13,7 @@
 // ==============================================================================
 
 namespace Welfony\Service;
+use Welfony\Repository\ProductsRepository;
 
 class ProductsService
 {
@@ -46,6 +47,11 @@ class ProductsService
     public static function listAllProducts()
     {
         return $searchResult = ProductsRepository::getInstance()->getAllProducts();
+    }
+    
+    public static function listAllProductsByGoods($goodsId)
+    {
+        return $searchResult = ProductsRepository::getInstance()->getAllProductsByGoods($goodsId);
     }
 
     public static function save($data)

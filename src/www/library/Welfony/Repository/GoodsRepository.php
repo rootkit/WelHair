@@ -43,6 +43,19 @@ class GoodsRepository extends AbstractRepository
         return $this->conn->fetchAll($strSql);
     }
 
+    public function getAllGoodsByCompany($companyId)
+    {
+        $strSql = "SELECT
+                       *
+                   FROM CompanyGoods CG
+                   JOIN  Goods G ON CG.GoodsId = G.GoodsId
+                   WHERE CG.CompanyId = $companyId
+                  ";
+
+        return $this->conn->fetchAll($strSql);
+    }
+
+
     public function listGoods($pageNumber, $pageSize)
     {
 
