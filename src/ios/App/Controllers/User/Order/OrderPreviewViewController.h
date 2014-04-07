@@ -7,7 +7,8 @@
 //
 
 #import "BaseViewController.h"
-
+#import "Order.h"
 @interface OrderPreviewViewController : BaseViewController
 @property (nonatomic) BOOL isAddressFilled;
+@property (nonatomic, strong) Order *order;
 @end

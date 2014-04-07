@@ -253,6 +253,7 @@
 		467F0F2518CC8FFB009FFE08 /* CommentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 467F0F2418CC8FFB009FFE08 /* CommentCell.m */; };
 		467F0F2B18CC95CA009FFE08 /* JOLImageSlide.m in Sources */ = {isa = PBXBuildFile; fileRef = 467F0F2818CC95CA009FFE08 /* JOLImageSlide.m */; };
 		467F0F2C18CC95CA009FFE08 /* JOLImageSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = 467F0F2A18CC95CA009FFE08 /* JOLImageSlider.m */; };
+		468BD8A818F243EB00B11209 /* Order.m in Sources */ = {isa = PBXBuildFile; fileRef = 468BD8A718F243EB00B11209 /* Order.m */; };
 		4693AAA718D8426100104F01 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4693AAA618D8426100104F01 /* Images.xcassets */; };
 		469B9FEF18D1A7EB00948740 /* UMSocialLocalizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 469B9FD518D1A7EB00948740 /* UMSocialLocalizable.strings */; };
 		469B9FF018D1A7EB00948740 /* libUMSocial_Sdk_3.3.6.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 469B9FE318D1A7EB00948740 /* libUMSocial_Sdk_3.3.6.a */; };
@@ -764,6 +765,8 @@
 		467F0F2818CC95CA009FFE08 /* JOLImageSlide.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JOLImageSlide.m; sourceTree = "<group>"; };
 		467F0F2918CC95CA009FFE08 /* JOLImageSlider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JOLImageSlider.h; sourceTree = "<group>"; };
 		467F0F2A18CC95CA009FFE08 /* JOLImageSlider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JOLImageSlider.m; sourceTree = "<group>"; };
+		468BD8A618F243EB00B11209 /* Order.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Order.h; sourceTree = "<group>"; };
+		468BD8A718F243EB00B11209 /* Order.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Order.m; sourceTree = "<group>"; };
 		4693AAA618D8426100104F01 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		469B9FD618D1A7EB00948740 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/UMSocialLocalizable.strings; sourceTree = "<group>"; };
 		469B9FD818D1A7EB00948740 /* UMSocial.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMSocial.h; sourceTree = "<group>"; };
@@ -1241,6 +1244,8 @@
 				4665FD8418BC801000E88C6B /* Work.m */,
 				4621AADF18EE9D3A00B8E18D /* Service.h */,
 				4621AAE018EE9D3A00B8E18D /* Service.m */,
+				468BD8A618F243EB00B11209 /* Order.h */,
+				468BD8A718F243EB00B11209 /* Order.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -2471,6 +2476,7 @@
 				4673BB8918D41260000F64DE /* MyGroupAddStaffViewController.m in Sources */,
 				4630D13A18C603B000DA7CAD /* CircleImageView.m in Sources */,
 				4673BB6718D2F2B8000F64DE /* Appointment.m in Sources */,
+				468BD8A818F243EB00B11209 /* Order.m in Sources */,
 				46E84EC118C2C7040004C146 /* UzysRadialProgressActivityIndicator.m in Sources */,
 				46E84ECE18C2DB930004C146 /* UIViewController+KNSemiModal.m in Sources */,
 				18A912E218BB26B6006B9A04 /* BaseViewController.m in Sources */,

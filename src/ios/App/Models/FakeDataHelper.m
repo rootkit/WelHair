@@ -16,6 +16,7 @@
 #import "Address.h"
 #import "Service.h"
 #import "Appointment.h"
+#import "Order.h"
 @implementation FakeDataHelper
 
 
@@ -204,6 +205,22 @@
         a.price = 12;
         a.date = [NSDate date];
         [ar addObject:a];
+    }
+    return ar;
+}
+
++ (NSArray *)getFakeOrderList
+{
+    NSMutableArray *ar = [NSMutableArray array];
+    for (int i = 0; i < 10 ; i++) {
+        Order *o = [Order new];
+        o.id = i;
+        o.address = [FakeDataHelper getFakeAddressLit][i];
+        o.product = [FakeDataHelper getFakeProductList][i];
+        o.group = [FakeDataHelper getFakeGroupList][i];
+        o.price = 149.0;
+        o.count = 2;
+        [ar addObject:o];
     }
     return ar;
 }
