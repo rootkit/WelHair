@@ -20,6 +20,19 @@ class Order_IndexController extends AbstractAdminController
     public function searchAction()
     {
         $this->view->pageTitle = '订单列表';
+        $this->view->rows = [];
     }
+
+    public function infoAction()
+    {
+        $this->view->pageTitle = '添加订单';
+        $this->view->orderno = date('YmdHis').rand(100000,999999);
+    }
+
+	public function detailAction()
+    {
+        $this->view->pageTitle = '订单详情';
+    }
+
 
 }

@@ -1,97 +1,58 @@
+<?php
+use \Welfony\Utility\Util;
+?>
+<div class="toolbar">
+    <ul class="clearfix">
+        <li>
+            <a href="<?php echo $this->baseUrl('order/index/info'); ?>">
+                <i class="iconfont">&#xf0175;</i>
+                添加
+            </a>
+      </li>
+    </ul>
+</div>
 <table class="m-table">
     <thead>
         <tr>
             <th class="col-chk"><input type="checkbox" /></th>
             <th class="cola">订单号</th>
-            <th>详情</th>
             <th class="cola">收货人</th>
-            <th class="cola">状态</th>
-            <th class="colb">下单日期</th>
+            <th class="cola">支付状态</th>
+            <th class="cola">发货状态</th>
+            <th class="cola">配送方式</th>
+            <th class="cola">支付方式</th>
+            <th class="cola">用户</th>
+            <th class="cola">下单时间</th>
+            <th class="cola">操作</th>
         </tr>
     </thead>
     <tbody>
+      <?php foreach( $this->rows as $order) : ?>
         <tr>
             <td class="col-center"><input type="checkbox" /></td>
-            <td>内容</td>
-            <td>内容内容内容内容内容内容内容</td>
-            <td>内容内容</td>
-            <td>内容内容</td>
-            <td>内容内容内容</td>
+            <td>
+                <a href="<?php echo $this->baseUrl('order/index/info?order_id=' .  $order['OrderId']); ?>">
+                    <?php echo $order['OrderNo']; ?>
+                </a>
+            </td>
+            <td> <?php echo $order['AcceptName']; ?></td>
+            <td> <?php echo $order['PayStatus']; ?></td>
+            <td> <?php echo $order['DistributionStatus']; ?></td>
+            <td> <?php echo $order['Distribution']; ?></td>
+            <td><?php echo $order['PayType']; ?></td>
+            <td><?php echo $order['UserId']; ?></td>
+            <td><?php echo $order['CreateTime']; ?></td>
+            <td> 
+                <a href="#" href="#" class="btnDelete" data-id="<?php echo $order['OrderId']; ?>" >
+                    <i class="iconfont">&#xf013f;</i>&nbsp;&nbsp;删除
+                </a>
+            </td>
         </tr>
-        <tr>
-            <td class="col-center"><input type="checkbox" /></td>
-            <td>内容</td>
-            <td>内容内容内容内容内容内容内容</td>
-            <td>内容内容</td>
-            <td>内容内容</td>
-            <td>内容内容内容</td>
-        </tr>
-        <tr>
-            <td class="col-center"><input type="checkbox" /></td>
-            <td>内容</td>
-            <td>内容内容内容内容内容内容内容</td>
-            <td>内容内容</td>
-            <td>内容内容</td>
-            <td>内容内容内容</td>
-        </tr>
-        <tr>
-            <td class="col-center"><input type="checkbox" /></td>
-            <td>内容</td>
-            <td>内容内容内容内容内容内容内容</td>
-            <td>内容内容</td>
-            <td>内容内容</td>
-            <td>内容内容内容</td>
-        </tr>
-        <tr>
-            <td class="col-center"><input type="checkbox" /></td>
-            <td>内容</td>
-            <td>内容内容内容内容内容内容内容</td>
-            <td>内容内容</td>
-            <td>内容内容</td>
-            <td>内容内容内容</td>
-        </tr>
-        <tr>
-            <td class="col-center"><input type="checkbox" /></td>
-            <td>内容</td>
-            <td>内容内容内容内容内容内容内容</td>
-            <td>内容内容</td>
-            <td>内容内容</td>
-            <td>内容内容内容</td>
-        </tr>
-        <tr>
-            <td class="col-center"><input type="checkbox" /></td>
-            <td>内容</td>
-            <td>内容内容内容内容内容内容内容</td>
-            <td>内容内容</td>
-            <td>内容内容</td>
-            <td>内容内容内容</td>
-        </tr>
-        <tr>
-            <td class="col-center"><input type="checkbox" /></td>
-            <td>内容</td>
-            <td>内容内容内容内容内容内容内容</td>
-            <td>内容内容</td>
-            <td>内容内容</td>
-            <td>内容内容内容</td>
-        </tr>
-        <tr>
-            <td class="col-center"><input type="checkbox" /></td>
-            <td>内容</td>
-            <td>内容内容内容内容内容内容内容</td>
-            <td>内容内容</td>
-            <td>内容内容</td>
-            <td>内容内容内容</td>
-        </tr>
+    <?php endforeach; ?>
     </tbody>
 </table>
 
 <div class="m-page m-page-rt">
-    <a href="#" class="first pageprv z-dis">上一页</a>
-    <a href="#">1</a>
-    <a href="#" class="z-crt">2</a>
-    <a href="#">3</a>
-    <a href="#">4</a>
-    <i>...</i>
-    <a href="#">10</a>
-    <a href="#" class="last pagenxt">下一页</a>
+    <?php echo $this->pagerHTML; ?>
 </div>
+<script src="<?php echo Util::baseAssetUrl('js/backend/order-list.js'); ?>"></script>

@@ -735,6 +735,86 @@ CREATE TABLE IF NOT EXISTS `CompanyGoods` (
 
 
 
+
+CREATE TABLE IF NOT EXISTS `Order` (
+  `OrderId` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `OrderNo` varchar(20) NOT NULL COMMENT '订单号',
+  `UserId` int(11) unsigned NOT NULL COMMENT '用户ID',
+  `PayType` int(11) NOT NULL COMMENT '支付方式ID,当为0时表示货到付款',
+  `Distribution` varchar(11) DEFAULT NULL COMMENT '配送ID',
+  `Status` tinyint(1) DEFAULT '1' COMMENT '订单状态1:生成订单,2：确认订单,3取消订单,4作废订单,5完成订单',
+  `PayStatus` tinyint(1) DEFAULT '0' COMMENT '支付状态 0：未支付，1：已支付，2：退款',
+  `DistributionStatus` tinyint(1) DEFAULT '0' COMMENT '配送状态0：未发送，1：已发送',
+  `AcceptName` varchar(20) NOT NULL COMMENT '收货人姓名',
+  `Postcode` varchar(6) DEFAULT NULL COMMENT '邮编',
+  `Telphone` varchar(20) DEFAULT NULL COMMENT '联系电话',
+  `Country` int(11) DEFAULT NULL COMMENT '国ID',
+  `Province` int(11) DEFAULT NULL COMMENT '省ID',
+  `City` int(11) DEFAULT NULL COMMENT '市ID',
+  `Area` int(11) DEFAULT NULL COMMENT '区ID',
+  `Address` varchar(250) DEFAULT NULL COMMENT '收货地址',
+  `Mobile` varchar(20) DEFAULT NULL COMMENT '手机',
+  `PayableAmount` decimal(15,2) DEFAULT '0.00' COMMENT '应付商品总金额',
+  `RealAmount` decimal(15,2) NOT NULL DEFAULT '0.00' COMMENT '实付商品总金额',
+  `PayableFreight` decimal(15,2) NOT NULL DEFAULT '0.00' COMMENT '总运费金额',
+  `RealFreight` decimal(15,2) NOT NULL DEFAULT '0.00' COMMENT '实付运费',
+  `PayTime` datetime DEFAULT NULL COMMENT '付款时间',
+  `SendTime` datetime DEFAULT NULL COMMENT '发货时间',
+  `CreateTime` datetime DEFAULT NULL COMMENT '下单时间',
+  `CompletionTime` datetime DEFAULT NULL COMMENT '订单完成时间',
+  `Invoice` tinyint(1) NOT NULL DEFAULT '0' COMMENT '发票：0不索要1索要',
+  `Postscript` varchar(255) DEFAULT NULL COMMENT '用户附言',
+  `Note` text COMMENT '管理员备注',
+  `IsDeleted` tinyint(1) DEFAULT '0' COMMENT '是否删除1为删除',
+  `Insured` decimal(15,2) NOT NULL DEFAULT '0.00' COMMENT '保价',
+  `IfInsured` tinyint(1) DEFAULT '0' COMMENT '是否保价0:不保价，1保价',
+  `PayFee` decimal(15,2) NOT NULL DEFAULT '0.00' COMMENT '支付手续费',
+  `InvoiceTitle` varchar(100) DEFAULT NULL COMMENT '发票抬头',
+  `Taxes` decimal(15,2) NOT NULL DEFAULT '0.00' COMMENT '税金',
+  `Promotions` decimal(15,2) NOT NULL DEFAULT '0.00' COMMENT '促销优惠金额',
+  `Discount` decimal(15,2) NOT NULL DEFAULT '0.00' COMMENT '订单折扣或涨价',
+  `OrderAmount` decimal(15,2) NOT NULL DEFAULT '0.00' COMMENT '订单总金额',
+  `IfPrint` varchar(255) DEFAULT NULL COMMENT '已打印的类型,类型的代码以逗号进行分割; shop购物单,pick配货单,merge购物和配货,express快递单',
+  `Prop` varchar(255) DEFAULT NULL COMMENT '使用的道具id',
+  `AcceptTime` varchar(80) DEFAULT NULL COMMENT '用户收货时间',
+  `Experience` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT '增加的经验',
+  `Point` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT '增加的积分',
+  `Type` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '0普通订单,1团购订单,2限时抢购',
+  PRIMARY KEY (`OrderId`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='订单表';
+
+
+CREATE TABLE IF NOT EXISTS `OrderGoods` (
+  `Id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `OrderId` int(11) unsigned NOT NULL COMMENT '订单ID',
+  `GoodsId` int(11) unsigned DEFAULT NULL COMMENT '商品ID',
+  `Img` varchar(255) NOT NULL COMMENT '商品图片',
+  `ProductsId` int(11) DEFAULT NULL COMMENT '货品ID',
+  `GoodsPrice` decimal(15,2) NOT NULL DEFAULT '0.00' COMMENT '商品价格',
+  `RealPrice` decimal(15,2) NOT NULL DEFAULT '0.00' COMMENT '实付金额',
+  `GoodsNums` int(11) NOT NULL DEFAULT '1' COMMENT '商品数量',
+  `GoodsWeight` decimal(15,2) NOT NULL DEFAULT '0.00' COMMENT '重量',
+  `GoodsArray` text COMMENT '商品和货品名称name和规格value串json数据格式',
+  PRIMARY KEY (`Id`),
+  KEY `GoodsId` (`GoodsId`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='订单商品表';
+
+
+CREATE TABLE IF NOT EXISTS `OrderLog` (
+  `Id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `OrderId` int(11) DEFAULT NULL COMMENT '订单id',
+  `User` varchar(20) DEFAULT NULL COMMENT '操作人：顾客或admin',
+  `Action` varchar(20) DEFAULT NULL COMMENT '动作',
+  `AddTime` datetime DEFAULT NULL COMMENT '添加时间',
+  `Result` varchar(10) DEFAULT NULL COMMENT '操作的结果',
+  `Note` varchar(100) DEFAULT NULL COMMENT '备注',
+  PRIMARY KEY (`Id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='订单日志表';
+
+
+
+
+
 -- ==============================================================================
 
 
