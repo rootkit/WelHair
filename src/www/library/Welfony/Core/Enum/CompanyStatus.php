@@ -21,5 +21,6 @@ class CompanyStatus extends Enum
 
     const Invalid = 0;
     const Valid = 1;
+    const Requested = 2;
 
 }

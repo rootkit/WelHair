@@ -39,11 +39,16 @@ class CompanyRepository extends AbstractRepository
         return $this->conn->fetchAll($strSql, array($currentUserId, $city, $district, $sort, $location['Latitude'], $location['Longitude'], $page, $pageSize));
     }
 
-    public function getAllCompaniesCount()
+    public function getAllCompaniesCount($status)
     {
+        if (is_array($status)) {
+            $status = implode(',', $status);
+        }
+
         $strSql = "SELECT
                        COUNT(1) `Total`
-                   FROM Company
+                   FROM Company C
+                   WHERE C.Status IN ($status)
                    LIMIT 1";
 
         $row = $this->conn->fetchAssoc($strSql);
@@ -51,8 +56,12 @@ class CompanyRepository extends AbstractRepository
         return $row['Total'];
     }
 
-    public function getAllCompanies($page, $pageSize)
+    public function getAllCompanies($status, $page, $pageSize)
     {
+        if (is_array($status)) {
+            $status = implode(',', $status);
+        }
+
         $offset = ($page - 1) * $pageSize;
         $strSql = "SELECT
                        C.*,
@@ -63,6 +72,7 @@ class CompanyRepository extends AbstractRepository
                    INNER JOIN Area PA ON PA.AreaId = C.Province
                    INNER JOIN Area PC ON PC.AreaId = C.City
                    LEFT OUTER JOIN Area PD ON PD.AreaId = C.District
+                   WHERE C.Status IN ($status)
                    ORDER BY C.CompanyId DESC
                    LIMIT $offset, $pageSize";
 

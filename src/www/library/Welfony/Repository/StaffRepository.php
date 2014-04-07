@@ -46,7 +46,7 @@ class StaffRepository extends AbstractRepository
     {
         $filter = '';
         if ($includeClient) {
-            $filter = "(U.Role = " . UserRole::Staff . " OR U.Role = " . UserRole::Client . ") AND";
+            $filter = "((U.Role = " . UserRole::Staff . ") OR (U.Role = " . UserRole::Client . ")) AND";
         } else {
             $filter = "(U.Role = " . UserRole::Staff . ") AND";
         }
@@ -60,6 +60,7 @@ class StaffRepository extends AbstractRepository
                        C.CompanyId,
                        C.Name CompanyName,
                        C.Address CompanyAddress,
+                       C.Status CompanyStatus,
 
                        S.ServiceId,
                        S.Title ServiceTitle,
@@ -68,7 +69,9 @@ class StaffRepository extends AbstractRepository
 
                        W.WorkId,
                        W.Title WorkTitle,
-                       W.PictureUrl WorkPictureUrl
+                       W.PictureUrl WorkPictureUrl,
+
+                       CU.IsApproved
 
                    FROM Users U
                    LEFT OUTER JOIN CompanyUser CU ON CU.UserId = U.UserId
@@ -92,6 +95,7 @@ class StaffRepository extends AbstractRepository
                        C.CompanyId,
                        C.Name CompanyName,
                        C.Address CompanyAddress,
+                       C.Status CompanyStatus,
 
                        S.ServiceId,
                        S.Title ServiceTitle,
@@ -100,14 +104,16 @@ class StaffRepository extends AbstractRepository
 
                        W.WorkId,
                        W.Title WorkTitle,
-                       W.PictureUrl WorkPictureUrl
+                       W.PictureUrl WorkPictureUrl,
+
+                       CU.IsApproved
 
                    FROM Users U
                    LEFT OUTER JOIN CompanyUser CU ON CU.UserId = U.UserId
                    LEFT OUTER JOIN Company C ON C.CompanyId = CU.CompanyId
                    LEFT OUTER JOIN Service S ON S.UserId = U.UserId
                    LEFT OUTER JOIN Work W ON W.UserId = U.UserId
-                   WHERE U.UserId = ? AND U.Role = 3';
+                   WHERE U.UserId = ?';
 
         return $this->conn->fetchAll($strSql, array($staffId));
     }

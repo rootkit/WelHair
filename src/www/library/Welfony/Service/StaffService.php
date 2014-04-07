@@ -60,7 +60,7 @@ class StaffService
         $resultSet = StaffRepository::getInstance()->findStaffDetailById($staffId);
         $staffDataset = self::composeStaffDetail($resultSet);
 
-        return $staffDataset[0];
+        return count($staffDataset) > 0 ? $staffDataset[0] : null;
     }
 
     public static function listAllStaff($page, $pageSize, $companyId)
@@ -85,9 +85,9 @@ class StaffService
         return self::composeStaffDetail($resultSet);
     }
 
-    public static function saveCompanyStaff($staffId, $companyId, $isApproved = false)
+    public static function saveCompanyStaff($staffId, $companyId, $isApproved = false, $role = UserRole::Staff)
     {
-        $staff = array('UserId' => $staffId, 'Role' => $isApproved ? UserRole::Staff : UserRole::Client);
+        $staff = array('UserId' => $staffId, 'Role' => $isApproved ? $role : UserRole::Client);
 
         $existedItem = CompanyUserRepository::getInstance()->findByUserAndCompany($staffId, $companyId);
         if ($existedItem) {
@@ -141,11 +141,13 @@ class StaffService
             $staffDetail['Username'] = $row['Username'];
             $staffDetail['Nickname'] = $row['Nickname'];
             $staffDetail['AvatarUrl'] = $row['AvatarUrl'];
+            $staffDetail['IsApproved'] = $row['IsApproved'];
 
             if ($row['CompanyId'] > 0) {
                 $staffDetail['Company']['CompanyId'] =  $row['CompanyId'];
                 $staffDetail['Company']['Name'] = $row['CompanyName'];
                 $staffDetail['Company']['Address'] = $row['CompanyAddress'];
+                $staffDetail['Company']['Status'] = $row['CompanyStatus'];
             }
 
             if ($row['ServiceId'] > 0 && Util::keyValueExistedInArray($staffDetail['Services'], 'ServiceId', $row['ServiceId']) === false) {

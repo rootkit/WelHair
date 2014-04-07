@@ -15,9 +15,11 @@
 namespace Welfony\Controller\API;
 
 use Welfony\Controller\Base\AbstractAPIController;
+use Welfony\Core\Enum\CompanyStatus;
 use Welfony\Service\AreaService;
 use Welfony\Service\CommentService;
 use Welfony\Service\CompanyService;
+use Welfony\Service\StaffService;
 use Welfony\Service\UserLikeService;
 
 class CompanyController extends AbstractAPIController
@@ -25,17 +27,28 @@ class CompanyController extends AbstractAPIController
 
     public function create()
     {
+        $staff = StaffService::getStaffDetail($this->currentContext['UserId']);
+        if ($staff) {
+            $result = array('success' => false, 'message' => '您已经在一个沙龙中了。');
+            $this->sendResponse($result);
+        }
+
         $reqData = $this->getDataFromRequestWithJsonFormat();
         $reqData['CompanyId'] = 0;
-        if ($reqData['City'] > 0) {
+        if (isset($reqData['City']) && $reqData['City'] > 0) {
             $province = AreaService::findParentAreaByChild($reqData['City']);
             $reqData['Province'] = $province['AreaId'];
         } else {
             $reqData['Province'] = 0;
         }
         $reqData['District'] = 0;
+        $reqData['Status'] = CompanyStatus::Requested;
+        $reqData['CreatedBy'] = $this->currentContext['UserId'];
 
         $result = CompanyService::save($reqData);
+        if ($result['success']) {
+            StaffService::saveCompanyStaff($this->currentContext['UserId'], $result['company']['CompanyId'], 0);
+        }
         $this->sendResponse($result);
     }
 

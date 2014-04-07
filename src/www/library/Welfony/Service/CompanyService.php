@@ -14,7 +14,11 @@
 
 namespace Welfony\Service;
 
+use Welfony\Core\Enum\CompanyStatus;
+use Welfony\Core\Enum\UserRole;
 use Welfony\Repository\CompanyRepository;
+use Welfony\Repository\UserRepository;
+use Welfony\Service\StaffService;
 
 class CompanyService
 {
@@ -65,7 +69,7 @@ class CompanyService
             return $result;
         }
 
-        if (count($data['PictureUrl']) <= 0) {
+        if (!isset($data['PictureUrl']) || count($data['PictureUrl']) <= 0) {
             $result['message'] = '请至少选择一张沙龙图片。';
 
             return $result;
@@ -92,6 +96,18 @@ class CompanyService
         } else {
             $data['LastModifiedDate'] = date('Y-m-d H:i:s');
 
+            if (isset($data['Status']) && $data['Status'] == CompanyStatus::Valid) {
+                $companyInfo = CompanyRepository::getInstance()->findCompanyById($data['CompanyId']);
+                if ($companyInfo['CreatedBy'] > 0) {
+                    $companyManagerData = array(
+                        'UserId' => $companyInfo['CreatedBy'],
+                        'Role' => UserRole::Manager
+                    );
+                    UserRepository::getInstance()->update($companyManagerData['UserId'], $companyManagerData);
+                    StaffService::saveCompanyStaff($companyManagerData['UserId'], $data['CompanyId'], 1, UserRole::Manager);
+                }
+            }
+
             $result['success'] = CompanyRepository::getInstance()->update($data['CompanyId'], $data);
             $result['message'] = $result['success'] ? '更新沙龙成功！' : '更新沙龙失败！';
 
@@ -111,13 +127,13 @@ class CompanyService
         return $companies;
     }
 
-    public static function listAllCompanies($page, $pageSize)
+    public static function listAllCompanies($status, $page, $pageSize)
     {
         $page = $page <= 0 ? 1 : $page;
         $pageSize = $pageSize <= 0 ? 20 : $pageSize;
 
-        $total = CompanyRepository::getInstance()->getAllCompaniesCount();
-        $companyList = CompanyRepository::getInstance()->getAllCompanies($page, $pageSize);
+        $total = CompanyRepository::getInstance()->getAllCompaniesCount($status);
+        $companyList = CompanyRepository::getInstance()->getAllCompanies($status, $page, $pageSize);
         $companies = array();
         foreach ($companyList as $company) {
             $company['PictureUrl'] = json_decode($company['PictureUrl'], true);
@@ -129,14 +145,14 @@ class CompanyService
 
     public static function listAll()
     {
-      
+
         $companyList = CompanyRepository::getInstance()->listAllCompanies();
         return $companyList;
     }
 
     public static function listAllByGoods($goodsId)
     {
-      
+
         $companyList = CompanyRepository::getInstance()->listAllCompaniesByGoods( $goodsId);
         return $companyList;
     }

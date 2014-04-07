@@ -27,7 +27,10 @@ class Company_IndexController extends AbstractAdminController
         $this->view->pageTitle = '沙龙列表';
 
         $page = intval($this->_request->getParam('page'));
-        $searchResult = CompanyService::listAllCompanies($page, $pageSize);
+        $searchResult = CompanyService::listAllCompanies(array(
+            CompanyStatus::Invalid,
+            CompanyStatus::Valid
+        ), $page, $pageSize);
 
         $this->view->dataList = $searchResult['companies'];
         $this->view->pager = $this->renderPager($this->view->baseUrl('company/index/search?s='),
@@ -109,21 +112,30 @@ class Company_IndexController extends AbstractAdminController
 
     public function authenticationAction()
     {
-        static $pageSize = 1;
+        static $pageSize = 10;
 
-        $this->view->pageTitle = '沙龙认证';
+        $this->view->pageTitle = '沙龙请求';
+
+        $page = intval($this->_request->getParam('page'));
+        $searchResult = CompanyService::listAllCompanies(array(
+            CompanyStatus::Requested
+        ), $page, $pageSize);
+
+        $this->view->dataList = $searchResult['companies'];
+        $this->view->pager = $this->renderPager($this->view->baseUrl('company/index/authentication?s='),
+                                                $page,
+                                                ceil($searchResult['total'] / $pageSize));
     }
 
     public function selectAction()
     {
-        //$this->_helper->viewRenderer->setNoRender(true);
         $this->_helper->layout->disableLayout();
 
         static $pageSize = 10;
 
         $page = intval($this->_request->getParam('page'));
         $func = intval($this->_request->getParam('func'));
-        $searchResult = CompanyService::listAllCompanies($page, $pageSize);
+        $searchResult = CompanyService::listAllCompanies(CompanyStatus::Valid, $page, $pageSize);
 
         $this->view->dataList = $searchResult['companies'];
         $this->view->pager = $this->renderPager('',

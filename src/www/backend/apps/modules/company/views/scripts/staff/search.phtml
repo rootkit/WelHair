@@ -34,6 +34,7 @@ use Welfony\Utility\Converter;
         <tr>
             <th class="col-chk"><input id="chk_all" type="checkbox" /></th>
             <th class="cola">沙龙</th>
+            <th>角色</th>
             <th>账号</th>
             <th>昵称</th>
             <th>认证</th>
@@ -47,6 +48,9 @@ use Welfony\Utility\Converter;
         <tr>
             <td class="col-center"><input name="chk_ids[]" type="checkbox" /></td>
             <td><?php echo $data['CompanyName']; ?></td>
+            <td class="cola">
+                <?php echo Converter::userRoleFromEnumToString($data['Role']); ?>
+            </td>
             <td>
                 <a href="<?php echo $this->baseUrl('user/index/info?user_id=' . $data['UserId']); ?>">
                     <?php echo $data['Username']; ?>

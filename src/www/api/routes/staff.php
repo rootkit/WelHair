@@ -19,6 +19,11 @@ $app->get('/staffs', function () use ($app) {
     $ctrl->search();
 });
 
+$app->get('/staffs/:staffId', function ($staffId) use ($app) {
+    $ctrl = new StaffController();
+    $ctrl->detail($staffId);
+})->conditions(array('staffId' => '\d{1,10}'));
+
 $app->get('/staffs/:staffId/comments', function ($staffId) use ($app) {
     $ctrl = new StaffController();
     $ctrl->listComments($staffId);
