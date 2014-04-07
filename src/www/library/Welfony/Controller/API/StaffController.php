@@ -16,8 +16,10 @@ namespace Welfony\Controller\API;
 
 use Welfony\Controller\Base\AbstractAPIController;
 use Welfony\Service\CommentService;
+use Welfony\Service\ServiceService;
 use Welfony\Service\StaffService;
 use Welfony\Service\UserLikeService;
+use Welfony\Service\WorkService;
 
 class StaffController extends AbstractAPIController
 {
@@ -39,6 +41,24 @@ class StaffController extends AbstractAPIController
     public function detail($staffId)
     {
         $this->sendResponse(StaffService::getStaffDetail($staffId));
+    }
+
+    public function listWorks($userId)
+    {
+        $page = intval($this->app->request->get('page'));
+        $pageSize = intval($this->app->request->get('pageSize'));
+
+        $workList = WorkService::listAllWorks($page, $pageSize, $userId);
+        $this->sendResponse($workList);
+    }
+
+    public function listServices($userId)
+    {
+        $page = intval($this->app->request->get('page'));
+        $pageSize = intval($this->app->request->get('pageSize'));
+
+        $serviceList = ServiceService::listAllServices($page, $pageSize, $userId);
+        $this->sendResponse($serviceList);
     }
 
     public function listComments($staffId)

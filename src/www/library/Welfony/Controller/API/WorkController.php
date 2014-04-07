@@ -22,6 +22,16 @@ use Welfony\Service\WorkService;
 class WorkController extends AbstractAPIController
 {
 
+    public function create()
+    {
+        $reqData = $this->getDataFromRequestWithJsonFormat();
+        $reqData['WorkId'] = 0;
+        $reqData['UserId'] = $this->currentContext['UserId'];
+
+        $result = WorkService::save($reqData);
+        $this->sendResponse($result);
+    }
+
     public function search()
     {
         $page = intval($this->app->request->get('page'));
@@ -61,6 +71,13 @@ class WorkController extends AbstractAPIController
         $reqData['WorkId'] = $workId;
 
         $result = UserLikeService::save($reqData);
+        $this->sendResponse($result);
+    }
+
+    public function remove($workId)
+    {
+        $result = array('success' => false, 'message' => '');
+        $result['success'] = WorkService::removeById($workId);
         $this->sendResponse($result);
     }
 

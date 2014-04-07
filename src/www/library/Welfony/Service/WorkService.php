@@ -143,4 +143,9 @@ class WorkService
         return $work;
     }
 
+    public static function removeById($id)
+    {
+        return WorkRepository::getInstance()->remove($id);
+    }
+
 }

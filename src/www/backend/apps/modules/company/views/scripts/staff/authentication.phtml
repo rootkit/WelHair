@@ -1,0 +1,90 @@
+<?php
+use Welfony\Utility\Converter;
+use Welfony\Utility\Util;
+?>
+<div class="toolbar">
+    <ul class="clearfix">
+        <li>
+            <a href="<?php echo $this->baseUrl('company/staff/add' . ($this->companyInfo['CompanyId'] > 0 ? '?company_id=' . $this->companyInfo['CompanyId'] : '')); ?>">
+                <i class="iconfont">&#xf0175;</i>
+                添加
+            </a>
+        </li>
+        <li>
+            <a id="staff-batch-remove" href="#">
+                <i class="iconfont">&#xf013f;</i>
+                踢出沙龙
+            </a>
+        </li>
+        <li>
+            <a id="staff-batch-approve" href="#">
+                <i class="iconfont">&#xf00b2;</i>
+                批量通过认证
+            </a>
+        </li>
+        <li>
+            <a id="staff-batch-unapprove" href="#">
+                <i class="iconfont">&#xf00b3;</i>
+                批量不通过认证
+            </a>
+        </li>
+    </ul>
+</div>
+<table class="m-table">
+    <thead>
+        <tr>
+            <th class="col-chk"><input id="chk_all" type="checkbox" /></th>
+            <th class="cola">沙龙</th>
+            <th>角色</th>
+            <th>账号</th>
+            <th>昵称</th>
+            <th>认证</th>
+            <th>创建时间</th>
+            <th class="colb"></th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php if (count($this->dataList) > 0): ?>
+        <?php foreach ($this->dataList as $data): ?>
+        <tr>
+            <td class="col-center"><input name="chk_ids[]" value="<?php echo $data['CompanyUserId']; ?>" type="checkbox" /></td>
+            <td><?php echo $data['CompanyName']; ?></td>
+            <td class="cola">
+                <?php echo Converter::userRoleFromEnumToString($data['Role']); ?>
+            </td>
+            <td>
+                <a href="<?php echo $this->baseUrl('user/index/info?user_id=' . $data['UserId']); ?>">
+                    <?php echo $data['Username']; ?>
+                </a>
+            </td>
+            <td><?php echo $data['Nickname']; ?></td>
+            <td class="col-center"><?php echo $data['IsApproved'] == 1 ? '通过' : '未通过'; ?></td>
+            <td><?php echo date('Y-m-d', strtotime($data['StaffCreatedDate'])); ?></td>
+            <td>
+                <a href="<?php echo $this->baseUrl('company/staff/work?staff_id=' . $data['UserId']); ?>">
+                    <i class="iconfont">&#xf0198;</i>&nbsp;
+                    作品
+                </a>
+                &nbsp;&nbsp;
+                <a href="<?php echo $this->baseUrl('company/staff/service?staff_id=' . $data['UserId']); ?>">
+                    <i class="iconfont">&#xf0020;</i>&nbsp;
+                    服务
+                </a>
+                &nbsp;&nbsp;
+                <a href="<?php echo $this->baseUrl('appointment/index/search?staff_id=' . $data['UserId']); ?>">
+                    <i class="iconfont">&#xf0152;</i>&nbsp;
+                    预约
+                </a>
+            </td>
+        </tr>
+        <?php endforeach; ?>
+        <?php else: ?>
+        <tr>
+            <td class="col-center" colspan="8">暂时没有任何发型师认证请求</td>
+        </tr>
+        <?php endif; ?>
+    </tbody>
+</table>
+<?php echo $this->pager; ?>
+
+<script src="<?php echo Util::baseAssetUrl('js/backend/staff-list.js'); ?>"></script>

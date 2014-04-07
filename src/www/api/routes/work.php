@@ -24,6 +24,11 @@ $app->get('/works/:workId/comments', function ($workId) use ($app) {
     $ctrl->listComments($workId);
 })->conditions(array('workId' => '\d{1,10}'));
 
+$app->post('/works', function () use ($app) {
+    $ctrl = new WorkController();
+    $ctrl->create();
+});
+
 $app->post('/works/:workId/comments', function ($workId) use ($app) {
     $ctrl = new WorkController();
     $ctrl->addComment($workId);
@@ -32,4 +37,9 @@ $app->post('/works/:workId/comments', function ($workId) use ($app) {
 $app->post('/works/:workId/likes', function ($workId) use ($app) {
     $ctrl = new WorkController();
     $ctrl->addWorkLike($workId);
+})->conditions(array('workId' => '\d{1,10}'));
+
+$app->post('/works/:workId/remove', function ($workId) use ($app) {
+    $ctrl = new WorkController();
+    $ctrl->remove($workId);
 })->conditions(array('workId' => '\d{1,10}'));

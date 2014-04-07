@@ -1,5 +1,6 @@
 <?php
 use Welfony\Utility\Converter;
+use Welfony\Utility\Util;
 ?>
 <div class="toolbar">
     <ul class="clearfix">
@@ -12,7 +13,7 @@ use Welfony\Utility\Converter;
         </li>
         <?php endif; ?>
         <li>
-            <a href="#">
+            <a id="work-batch-remove" href="#">
                 <i class="iconfont">&#xf013f;</i>
                 删除
             </a>
@@ -36,7 +37,7 @@ use Welfony\Utility\Converter;
         <?php if (count($this->dataList) > 0): ?>
         <?php foreach ($this->dataList as $data): ?>
         <tr>
-            <td class="col-center"><input name="chk_ids[]" type="checkbox" /></td>
+            <td class="col-center"><input name="chk_ids[]" value="<?php echo $data['WorkId']; ?>" type="checkbox" /></td>
             <td><?php echo $data['Nickname']; ?></td>
             <td>
                 <a href="<?php echo $this->baseUrl('company/staff/work/info?staff_id=' . $data['UserId'] . '&work_id=' . $data['WorkId']); ?>">
@@ -72,3 +73,4 @@ use Welfony\Utility\Converter;
     </tbody>
 </table>
 <?php echo $this->pager; ?>
+<script src="<?php echo Util::baseAssetUrl('js/backend/work-list.js'); ?>"></script>

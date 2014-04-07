@@ -19,11 +19,14 @@ use Welfony\Repository\Base\AbstractRepository;
 class CompanyUserRepository extends AbstractRepository
 {
 
-    public function getAllStaffCount($companyId)
+    public function getAllStaffCount($companyId, $status)
     {
         $filter = '';
         if ($companyId > 0) {
-            $filter = "AND CU.CompanyId = $companyId";
+            $filter .= " AND CU.CompanyId = $companyId";
+        }
+        if ($status !== null) {
+            $filter .= " AND CU.IsApproved = '$status'";
         }
 
         $strSql = "SELECT
@@ -37,17 +40,21 @@ class CompanyUserRepository extends AbstractRepository
         return $row['Total'];
     }
 
-    public function getAllStaff($page, $pageSize, $companyId)
+    public function getAllStaff($companyId, $status, $page, $pageSize)
     {
         $filter = '';
         if ($companyId > 0) {
-            $filter = "AND CU.CompanyId = $companyId";
+            $filter .= " AND CU.CompanyId = $companyId";
+        }
+        if ($status !== null) {
+            $filter .= " AND CU.IsApproved = '$status'";
         }
 
         $offset = ($page - 1) * $pageSize;
         $strSql = "SELECT
                        U.*,
                        C.Name CompanyName,
+                       CU.CompanyUserId,
                        CU.IsApproved,
                        CU.CreatedDate StaffCreatedDate
                    FROM CompanyUser CU
@@ -69,6 +76,17 @@ class CompanyUserRepository extends AbstractRepository
                    LIMIT 1';
 
         return $this->conn->fetchAssoc($strSql, array($companyId, $userId));
+    }
+
+    public function findById($companyUserId)
+    {
+        $strSql = 'SELECT
+                       *
+                   FROM CompanyUser CU
+                   WHERE CU.CompanyUserId = ?
+                   LIMIT 1';
+
+        return $this->conn->fetchAssoc($strSql, array($companyUserId));
     }
 
     public function save($data)
@@ -95,6 +113,19 @@ class CompanyUserRepository extends AbstractRepository
 
             return false;
         }
+    }
+
+    public function remove($companyUserId)
+    {
+        try {
+            $this->conn->delete('CompanyUser', array('CompanyUserId' => $companyUserId));
+        } catch (\Exception $e) {
+            $this->logger->log($e, \Zend_Log::ERR);
+
+            return false;
+        }
+
+        return true;
     }
 
 }

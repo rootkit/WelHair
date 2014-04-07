@@ -29,6 +29,16 @@ $app->get('/staffs/:staffId/comments', function ($staffId) use ($app) {
     $ctrl->listComments($staffId);
 })->conditions(array('staffId' => '\d{1,10}'));
 
+$app->get('/staffs/:staffId/works', function ($staffId) use ($app) {
+    $ctrl = new StaffController();
+    $ctrl->listWorks($staffId);
+})->conditions(array('staffId' => '\d{1,10}'));
+
+$app->get('/staffs/:staffId/services', function ($staffId) use ($app) {
+    $ctrl = new StaffController();
+    $ctrl->listServices($staffId);
+})->conditions(array('staffId' => '\d{1,10}'));
+
 $app->post('/staffs/:staffId/comments', function ($staffId) use ($app) {
     $ctrl = new StaffController();
     $ctrl->addComment($staffId);

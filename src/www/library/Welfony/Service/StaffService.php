@@ -15,6 +15,7 @@
 namespace Welfony\Service;
 
 use Welfony\Core\Enum\UserRole;
+use Welfony\Repository\CompanyRepository;
 use Welfony\Repository\CompanyUserRepository;
 use Welfony\Repository\StaffRepository;
 use Welfony\Repository\UserRepository;
@@ -63,13 +64,13 @@ class StaffService
         return count($staffDataset) > 0 ? $staffDataset[0] : null;
     }
 
-    public static function listAllStaff($page, $pageSize, $companyId)
+    public static function listAllStaff($companyId, $status, $page, $pageSize)
     {
         $page = $page <= 0 ? 1 : $page;
         $pageSize = $pageSize <= 0 ? 20 : $pageSize;
 
-        $total = CompanyUserRepository::getInstance()->getAllStaffCount($companyId);
-        $staffList = CompanyUserRepository::getInstance()->getAllStaff($page, $pageSize, $companyId);
+        $total = CompanyUserRepository::getInstance()->getAllStaffCount($companyId, $status);
+        $staffList = CompanyUserRepository::getInstance()->getAllStaff($companyId, $status, $page, $pageSize);
         $staffes = array();
         foreach ($staffList as $staff) {
             $staffes[] = $staff;
@@ -83,6 +84,41 @@ class StaffService
         $resultSet = StaffRepository::getInstance()->seachByNameAndPhoneAndEmail($searchText, $includeClient);
 
         return self::composeStaffDetail($resultSet);
+    }
+
+    public static function removeCompanyStaffByCompanyUser($companyUserId)
+    {
+        return CompanyUserRepository::getInstance()->remove($companyUserId);
+    }
+
+    public static function saveCompanyStaffByCompanyUser($companyUserId, $isApproved = false)
+    {
+        $data = array();
+        $data['IsApproved'] = $isApproved;
+        $data['LastModifiedDate'] = date('Y-m-d H:i:s');
+        if (CompanyUserRepository::getInstance()->update($companyUserId, $data)) {
+            $role = UserRole::Client;
+
+            $companyUser = CompanyUserRepository::getInstance()->findById($companyUserId);
+
+            if ($isApproved) {
+                if ($companyUser) {
+                    $company = CompanyRepository::getInstance()->findCompanyById($companyUser['CompanyId']);
+                    if ($company && $company['CreatedBy'] == $companyUser['UserId']) {
+                        $role = UserRole::Manager;
+                    } else {
+                        $role = UserRole::Staff;
+                    }
+                } else {
+                    $role = UserRole::Staff;
+                }
+            }
+
+            $staff = array('UserId' => $companyUser['UserId'], 'Role' => $role);
+            UserRepository::getInstance()->update($staff['UserId'], $staff);
+        }
+
+        return true;
     }
 
     public static function saveCompanyStaff($staffId, $companyId, $isApproved = false, $role = UserRole::Staff)

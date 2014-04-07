@@ -45,7 +45,7 @@ class Company_StaffController extends AbstractAdminController
         $this->view->companyInfo = $company;
 
         $page = intval($this->_request->getParam('page'));
-        $searchResult = StaffService::listAllStaff($page, $pageSize, $companyId);
+        $searchResult = StaffService::listAllStaff($companyId, null, $page, $pageSize);
 
         $this->view->dataList = $searchResult['staffes'];
         $this->view->pager = $this->renderPager($this->view->baseUrl('company/staff/search?s=' . ($companyId > 0 ? '&company_id=' . $companyId : '')),
@@ -95,6 +95,26 @@ class Company_StaffController extends AbstractAdminController
         static $pageSize = 10;
 
         $this->view->pageTitle = '发型师认证';
+
+        $company = array(
+            'CompanyId' => 0
+        );
+
+        $companyId = intval($this->_request->getParam('company_id'));
+        if ($companyId > 0) {
+            $company = CompanyService::getCompanyById($companyId);
+            $this->view->pageTitle .= (' - ' . $company['Name']);
+        }
+
+        $this->view->companyInfo = $company;
+
+        $page = intval($this->_request->getParam('page'));
+        $searchResult = StaffService::listAllStaff($companyId, 0, $page, $pageSize);
+
+        $this->view->dataList = $searchResult['staffes'];
+        $this->view->pager = $this->renderPager($this->view->baseUrl('company/staff/authentication?s=' . ($companyId > 0 ? '&company_id=' . $companyId : '')),
+                                                $page,
+                                                ceil($searchResult['total'] / $pageSize));
     }
 
     public function serviceAction()

@@ -8,6 +8,7 @@ use \Welfony\Utility\Util;
                 <label class="lab">作品图：</label>
                 <div class="ipt">
                     <ul class="formimglst clearfix">
+                        <?php if (count($this->workInfo['PictureUrl']) > 0): ?>
                         <?php foreach ($this->workInfo['PictureUrl'] as $pic): ?>
                         <li>
                             <span class="u-img2">
@@ -20,6 +21,7 @@ use \Welfony\Utility\Util;
                             <a class="remove-thumb" href="#">移除</a>
                         </li>
                         <?php endforeach; ?>
+                        <?php endif; ?>
                         <li<?php echo count($this->workInfo['PictureUrl']) >= 6 ? ' style="display: none;"' : ''; ?>>
                             <span class="u-img2">
                                 <a id="work-image-uploader"></a>

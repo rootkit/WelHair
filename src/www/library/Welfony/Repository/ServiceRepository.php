@@ -105,4 +105,17 @@ class ServiceRepository extends AbstractRepository
         }
     }
 
+    public function remove($serviceId)
+    {
+        try {
+            $this->conn->delete('Service', array('ServiceId' => $serviceId));
+        } catch (\Exception $e) {
+            $this->logger->log($e, \Zend_Log::ERR);
+
+            return false;
+        }
+
+        return true;
+    }
+
 }

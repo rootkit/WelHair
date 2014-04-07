@@ -130,4 +130,24 @@ class UserRepository extends AbstractRepository
         return $this->conn->fetchAll($strSql);
     }
 
+    public function remove($userId)
+    {
+        try {
+            $this->conn->delete('Comment', array('CreatedBy' => $userId));
+            $this->conn->delete('Comment', array('UserId' => $userId));
+            $this->conn->delete('Work', array('UserId' => $userId));
+            $this->conn->delete('Service', array('UserId' => $userId));
+            $this->conn->delete('UserPoint', array('UserId' => $userId));
+            $this->conn->delete('UserLike', array('UserId' => $userId));
+            $this->conn->delete('CompanyUser', array('UserId' => $userId));
+            $this->conn->delete('Users', array('UserId' => $userId));
+        } catch (\Exception $e) {
+            $this->logger->log($e, \Zend_Log::ERR);
+
+            return false;
+        }
+
+        return true;
+    }
+
 }

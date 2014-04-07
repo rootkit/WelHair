@@ -116,4 +116,17 @@ class WorkRepository extends AbstractRepository
         }
     }
 
+    public function remove($workId)
+    {
+        try {
+            $this->conn->delete('Work', array('WorkId' => $workId));
+        } catch (\Exception $e) {
+            $this->logger->log($e, \Zend_Log::ERR);
+
+            return false;
+        }
+
+        return true;
+    }
+
 }

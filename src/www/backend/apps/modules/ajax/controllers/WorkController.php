@@ -13,27 +13,10 @@
 // ==============================================================================
 
 use Welfony\Controller\Base\AbstractAdminController;
-use Welfony\Service\UserService;
+use Welfony\Service\WorkService;
 
-class Ajax_UserController extends AbstractAdminController
+class Ajax_WorkController extends AbstractAdminController
 {
-
-    public function searchAction()
-    {
-        $searchText = htmlspecialchars($this->_request->getParam('search'));
-        $response = array();
-
-        $userList = UserService::seachByNameAndPhone($searchText);
-        foreach ($userList as $user) {
-            $response[] = array(
-                'value' => $user['UserId'],
-                'title' => $user['Nickname'],
-                'detail' => $user['Username'],
-                'icon' => $user['AvatarUrl']
-            );
-        }
-        $this->_helper->json->sendJson($response);
-    }
 
     public function batchAction()
     {
@@ -45,7 +28,7 @@ class Ajax_UserController extends AbstractAdminController
         switch($action) {
             case 'remove': {
                 foreach ($idList as $id) {
-                    UserService::removeByUser($id);
+                    WorkService::removeById($id);
                 }
                 break;
             }

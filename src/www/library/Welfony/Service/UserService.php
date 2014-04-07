@@ -283,4 +283,9 @@ class UserService
         return UserRepository::getInstance()->seachByNameAndPhoneAndEmail($searchText);
     }
 
+    public static function removeByUser($userId)
+    {
+        return UserRepository::getInstance()->remove($userId);
+    }
+
 }

@@ -35,7 +35,42 @@ class Ajax_StaffController extends AbstractAdminController
                 'services' => $user['Services']
             );
         }
+
         $this->_helper->json->sendJson($response);
+    }
+
+    public function batchAction()
+    {
+        $action = htmlspecialchars($this->_request->getParam('act'));
+        $ids = htmlspecialchars($this->_request->getParam('ids'));
+        $idList = explode(',', $ids);
+
+        $result = array('success' => true, 'message' => '');
+        switch($action) {
+            case 'remove': {
+                foreach ($idList as $id) {
+                    StaffService::removeCompanyStaffByCompanyUser($id);
+                }
+                break;
+            }
+            case 'approve': {
+                foreach ($idList as $id) {
+                    StaffService::saveCompanyStaffByCompanyUser($id, true);
+                }
+                break;
+            }
+            case 'unapprove': {
+                foreach ($idList as $id) {
+                    StaffService::saveCompanyStaffByCompanyUser($id, false);
+                }
+                break;
+            }
+            default: {
+                break;
+            }
+        }
+
+        $this->_helper->json->sendJson($result);
     }
 
 }

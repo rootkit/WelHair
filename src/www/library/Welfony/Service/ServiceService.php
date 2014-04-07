@@ -29,7 +29,7 @@ class ServiceService
             return $result;
         }
 
-        if (floatval($data['OldPrice']) <= 0 || floatval($data['Price']) <= 0) {
+        if (!isset($data['OldPrice']) || floatval($data['OldPrice']) <= 0 || !isset($data['Price']) || floatval($data['Price']) <= 0) {
             $result['message'] = '请填写服务价格。';
 
             return $result;
@@ -94,6 +94,11 @@ class ServiceService
         $service = ServiceRepository::getInstance()->findServiceById($serviceId);
 
         return $service;
+    }
+
+    public static function removeById($id)
+    {
+        return ServiceRepository::getInstance()->remove($id);
     }
 
 }
