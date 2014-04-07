@@ -23,7 +23,7 @@ class OrderRepository extends AbstractRepository
     {
         $strSql = "SELECT
                        COUNT(1) `Total`
-                   FROM Order
+                   FROM `Order`
                    LIMIT 1";
 
         $row = $this->conn->fetchAssoc($strSql);
@@ -46,7 +46,7 @@ class OrderRepository extends AbstractRepository
 
         $offset = ($pageNumber - 1) * $pageSize;
         $strSql = "  SELECT *
-                     FROM Order
+                     FROM `Order`
                      ORDER BY OrderId
                      LIMIT $offset, $pageSize ";
 

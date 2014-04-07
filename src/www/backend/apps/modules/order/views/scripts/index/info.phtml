@@ -43,9 +43,142 @@ use \Welfony\Utility\Util;
                             <input id="orderno" type="text"  datatype="*" value="<?php echo $this->orderno; ?>"  errormsg="名称不能为空！" class="u-ipt"/> *
                         </div>
                     </div>
+
+                    <div class="formitm">
+                        <label class="lab">配送方式：</label>
+                        <div class="ipt">
+                            <select class="u-sel">
+                                <option value="1">快递</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="formitm">
+                        <label class="lab">支付方式：</label>
+                        <div class="ipt">
+                            <select class="u-sel">
+                                <option value="1">预存款支付</option>
+                                <option value="2">支付宝</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="formitm">
+                        <label class="lab">是否保价：</label>
+                        <div class="ipt">
+                             <span class="u-btns" data-type="radio">
+                                <span class="u-btn u-btn-c3" data-value="1" >是</span>
+                                <span class="u-btn u-btn-c4" data-value="0" >否</span>
+                             </span>
+                        </div>
+                    </div>
+                    <div class="formitm">
+                        <label class="lab">是否发票：</label>
+                        <div class="ipt">
+                            <span class="u-btns" data-type="radio">
+                                <span class="u-btn u-btn-c3" data-value="1" >是</span>
+                                <span class="u-btn u-btn-c4" data-value="0" >否</span>
+                             </span>
+                        </div>
+                    </div>
+                    <div class="formitm">
+                        <label class="lab">发票抬头：</label>
+                        <div class="ipt">
+                            <input  type="text"    class="u-ipt"/> *
+                        </div>
+                    </div>
+                    <div class="formitm">
+                        <label class="lab">指定送货时间：</label>
+                        <div class="ipt">
+                            <label class="attr"><input type="radio" value="任意" checked="checked" name="accept_time">任意</label>
+                            <label class="attr"><input type="radio" value="周一到周五" name="accept_time">周一到周五</label>
+                            <label class="attr"><input type="radio" value="周末" name="accept_time">周末</label>
+                        </div>
+                    </div>
+
+                    <div class="formitm">
+                        <label class="lab">订单折扣或涨价：</label>
+                        <div class="ipt">
+                            <input id="" type="text"  value=""  class="u-ipt"/>￥
+                            <p>折扣用" - ",涨价用" + "</p>
+                        </div>
+                    </div>
+
                     
                 </div>
                 <div id="tabs-3">
+                    <div class="formitm">
+                        <label class="lab">所属用户名：</label>
+                        <div class="ipt">
+                            <input id="" type="text"  value=""  class="u-ipt"/>
+                            <p>订单所属于的用户，直接填写用户名，订单创建后与该用户绑定在一起，如果为空则为游客订单或者线下订单</p>
+                        </div>
+                    </div>
+                    <div class="formitm">
+                        <label class="lab">收货人姓名：</label>
+                        <div class="ipt">
+                            <input id="" type="text"  value=""  class="u-ipt"/>
+                            <p></p>
+                        </div>
+                    </div>
+                    <div class="formitm">
+                        <label class="lab">地区：</label>
+                        <div class="ipt v-l-650">
+                            <select id="sel-province" name="province" class="u-sel">
+                                <option value="">请选择</option>
+                                <?php foreach ($this->provinceList as $province): ?>
+                                <option value="<?php echo $province['AreaId']; ?>"<?php echo $this->companyInfo['Province'] == $province['AreaId'] ? ' selected' : ''; ?>><?php echo $province['Name']; ?></option>
+                                <?php endforeach; ?>
+                            </select>
+                            <select id="sel-city" name="city" class="u-sel">
+                                <option value="">请选择</option>
+                                <?php foreach ($this->cityList as $city): ?>
+                                <option value="<?php echo $city['AreaId']; ?>"<?php echo $this->companyInfo['City'] == $city['AreaId'] ? ' selected' : ''; ?>><?php echo $city['Name']; ?></option>
+                                <?php endforeach; ?>
+                            </select>
+                            <select id="sel-district" name="district" class="u-sel" datatype="*">
+                                <option value="">请选择</option>
+                                <?php foreach ($this->districtList as $district): ?>
+                                <option value="<?php echo $district['AreaId']; ?>"<?php echo $this->companyInfo['District'] == $district['AreaId'] ? ' selected' : ''; ?>><?php echo $district['Name']; ?></option>
+                                <?php endforeach; ?>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="formitm">
+                        <label class="lab">收货地址：</label>
+                        <div class="ipt">
+                            <input id="" type="text"  value=""  class="u-ipt"/>
+                            <p></p>
+                        </div>
+                    </div>
+                    <div class="formitm">
+                        <label class="lab">联系手机：</label>
+                        <div class="ipt">
+                            <input id="" type="text"  value=""  class="u-ipt"/>
+                            <p></p>
+                        </div>
+                    </div>
+                    <div class="formitm">
+                        <label class="lab">联系电话：</label>
+                        <div class="ipt">
+                            <input id="" type="text"  value=""  class="u-ipt"/>
+                            <p></p>
+                        </div>
+                    </div>
+                    <div class="formitm">
+                        <label class="lab">邮编：</label>
+                        <div class="ipt">
+                            <input id="" type="text"  value=""  class="u-ipt"/>
+                            <p></p>
+                        </div>
+                    </div>
+                    <div class="formitm">
+                        <label class="lab">用户附言：</label>
+                        <div class="ipt">
+                           <textarea class="u-ipt"  type="text" id=""></textarea>
+                            <p></p>
+                        </div>
+                    </div>
                     
                 </div>
             </div>
