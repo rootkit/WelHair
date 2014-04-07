@@ -122,9 +122,15 @@
     <?php if ($this->module == 'order'): ?>
     <ul class="lists">
         <li>
-            <a href="<?php echo $this->baseUrl('user/index/info'); ?>">
+            <a href="<?php echo $this->baseUrl('order/index/search'); ?>">
                 <i class="iconfont">&#x344a;</i>
                 订单列表
+            </a>
+        </li>
+        <li>
+            <a href="<?php echo $this->baseUrl('order/index/info'); ?>">
+                <i class="iconfont">&#xf0175;</i>
+                添加订单
             </a>
         </li>
     </ul>

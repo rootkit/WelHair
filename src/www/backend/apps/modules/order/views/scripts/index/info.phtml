@@ -1,0 +1,27 @@
+<?php
+use \Welfony\Utility\Util;
+?>
+<div class="m-form">
+    <form id="frm-order-info" method="post">
+        <fieldset>
+           <div class="formitm">
+                <label class="lab">订单号：</label>
+                <div class="ipt">
+                    <input id="orderno" type="text"  datatype="*" value="<?php echo $this->orderno; ?>"  errormsg="名称不能为空！" class="u-ipt"/> *
+                </div>
+            </div>
+     
+            
+            
+            <div class="formitm formitm-1">
+                <input type="hidden" name="order_id" value="<?php echo intval($this->orderInfo['OrderId']); ?>" />
+                <button class="u-btn u-btn-submit" type="button">确定</button>
+                <button class="u-btn" id="btnCancel" type="button">取消</button>
+            </div>
+        </fieldset>
+    </form>
+</div>
+<div id="specList" style="display:none;" title="商品列表">
+
+</div>
+<script src="<?php echo Util::baseAssetUrl('js/backend/order-info.js'); ?>"></script>
