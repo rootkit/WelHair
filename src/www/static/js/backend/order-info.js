@@ -14,7 +14,7 @@ $(function() {
     $('#frm-order-info').Validform({
         tiptype: 3
     });
-
+    $( "#tabs" ).tabs();
 
     $( "#frm-order-info" ).submit(function( event ) {
 

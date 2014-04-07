@@ -4,10 +4,49 @@ use \Welfony\Utility\Util;
 <div class="m-form">
     <form id="frm-order-info" method="post">
         <fieldset>
-           <div class="formitm">
-                <label class="lab">订单号：</label>
-                <div class="ipt">
-                    <input id="orderno" type="text"  datatype="*" value="<?php echo $this->orderno; ?>"  errormsg="名称不能为空！" class="u-ipt"/> *
+            <div id="tabs">
+                <ul>
+                    <li><a href="#tabs-1">商品信息</a></li>
+                    <li><a href="#tabs-2">订单配置</a></li>
+                    <li><a href="#tabs-3">收货人信息</a></li>
+                </ul>
+                <div id="tabs-1">
+                    <div class="formitm">
+                        <label class="lab"> 添加： </a></label>
+                        <div class="ipt">
+                            <a class="t-action" id="btnAddSpec"><i class="iconfont">&#xf0175;</i>添加商品</a>
+                        </div>
+                    </div>
+                    <div>
+                        <label class="lab"></label>
+                        <div class="ipt">
+                            <table class="m-table" id="goodstable">
+                                 <thead>
+                                    <tr>
+                                        <th class="cola">商品名称</th>
+                                        <th class="cola">商品价格</th>
+                                        <th class="cola">数量</th>
+                                        <th class="cola">操作</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div id="tabs-2">
+
+                    <div class="formitm">
+                        <label class="lab">订单号：</label>
+                        <div class="ipt">
+                            <input id="orderno" type="text"  datatype="*" value="<?php echo $this->orderno; ?>"  errormsg="名称不能为空！" class="u-ipt"/> *
+                        </div>
+                    </div>
+                    
+                </div>
+                <div id="tabs-3">
+                    
                 </div>
             </div>
      
