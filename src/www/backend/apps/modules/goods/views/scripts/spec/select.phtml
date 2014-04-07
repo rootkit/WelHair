@@ -18,10 +18,10 @@
                 </a>
             </td>
             <td>文字</td>
-            <td><?php  
+            <td><?php
                 if( isset( $spec['Value'] ) && $spec['Value'])
                 {
-                    $val = json_decode( $spec['Value']); 
+                    $val = json_decode( $spec['Value']);
                     if($val && is_array($val))
                     {
                         echo implode(',', $val);
@@ -32,7 +32,7 @@
         <?php endforeach; ?>
         <?php else: ?>
         <tr>
-            <td class="col-center" colspan="8">您还没有添加任何记录</td>
+            <td class="col-center" colspan="4">您还没有添加任何记录</td>
         </tr>
         <?php endif; ?>
     </tbody>

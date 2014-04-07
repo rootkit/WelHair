@@ -141,6 +141,7 @@ class StaffService
             $staffDetail['Username'] = $row['Username'];
             $staffDetail['Nickname'] = $row['Nickname'];
             $staffDetail['AvatarUrl'] = $row['AvatarUrl'];
+            $staffDetail['Role'] = $row['Role'];
             $staffDetail['IsApproved'] = $row['IsApproved'];
 
             if ($row['CompanyId'] > 0) {
@@ -148,6 +149,7 @@ class StaffService
                 $staffDetail['Company']['Name'] = $row['CompanyName'];
                 $staffDetail['Company']['Address'] = $row['CompanyAddress'];
                 $staffDetail['Company']['Status'] = $row['CompanyStatus'];
+                $staffDetail['Company']['LogoUrl'] = $row['CompanyLogoUrl'];
             }
 
             if ($row['ServiceId'] > 0 && Util::keyValueExistedInArray($staffDetail['Services'], 'ServiceId', $row['ServiceId']) === false) {

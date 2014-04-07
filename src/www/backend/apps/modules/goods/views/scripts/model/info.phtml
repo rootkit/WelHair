@@ -22,27 +22,29 @@ use \Welfony\Utility\Util;
                     <table class="m-table" id="attributetable" style="width:95%;">
                         <thead>
                             <tr>
-                                <th class="cola">属性名</th>
+                                <th>属性名</th>
                                 <th class="cola">操作方式</th>
-                                <th class="cola">选择项数据【每项数据之间用逗号','做分割】</th>
-                                <th  style="width: 20px;">是否作为商品筛选项</th>
-                                <th class="cola">操作</th>
+                                <th>选择项数据【每项数据之间用逗号','做分割】</th>
+                                <th style="width: 120px;">是否作为商品筛选项</th>
+                                <th style="width: 40px;">操作</th>
                             </tr>
                         </thead>
                         <tbody>
                         <?php foreach( $this->attributes as $attr) : ?>
                         <tr class="attributerow">
-                            <td><input name="attributename" type="text" value="<?php echo $attr['Name']; ?>" datatype="s" class="u-ipt"/></td> 
                             <td>
-                                     <select name="attributetype"  class="u-sel" > 
-                                        <option value="1" <?php echo $attr['Type'] == '1'? 'selected': ''; ?> >单选框</option> 
-                                        <option value="2" <?php echo $attr['Type']== '2'? 'selected': ''; ?> >复选框</option> 
-                                       <option value="3" <?php echo $attr['Type'] == '3'? 'selected': ''; ?> >下拉框</option>                        
-                                     </select> 
-                            </td> 
-                            <td><input name="attributevalue" type="text" value="<?php echo $attr['Value']; ?>"  class="u-ipt"/></td>
-                            <td> <input name="attributesearch" type="checkbox" <?php echo $attr['Search']? 'checked': ''; ?> /></td> 
-                            <td><a href="#" class="btnDelete"><i class="iconfont">&#xf013f;</i></a></td>
+                                <input name="attributename" type="text" value="<?php echo $attr['Name']; ?>" datatype="s" class="u-ipt u-auto-width"/>
+                            </td>
+                            <td>
+                                 <select name="attributetype" class="u-sel u-auto-width" >
+                                    <option value="1" <?php echo $attr['Type'] == '1'? 'selected': ''; ?> >单选框</option>
+                                    <option value="2" <?php echo $attr['Type']== '2'? 'selected': ''; ?> >复选框</option>
+                                    <option value="3" <?php echo $attr['Type'] == '3'? 'selected': ''; ?> >下拉框</option>
+                                 </select>
+                            </td>
+                            <td><input name="attributevalue" type="text" value="<?php echo $attr['Value']; ?>"  class="u-ipt u-auto-width"/></td>
+                            <td class="col-center"> <input name="attributesearch" type="checkbox" <?php echo $attr['Search']? 'checked': ''; ?> /></td>
+                            <td class="col-center"><a href="#" class="btnDelete"><i class="iconfont">&#xf013f;</i></a></td>
                         </tr>
                         <?php endforeach; ?>
                         </tbody>
@@ -81,8 +83,8 @@ use \Welfony\Utility\Util;
 
                 </div>
             </div>
-            
-            
+
+
             <div class="formitm formitm-1">
                 <input type="hidden" name="model_id" value="<?php echo intval($this->modelInfo['ModelId']); ?>" />
                 <button class="u-btn u-btn-submit" type="button">确定</button>

@@ -22,7 +22,7 @@ WF.Model = {
 
           if( $('#spectable tbody').find( 'tr[data-id="' + $(this).attr('data-id') + '"]').get(0) == null )
           {
-          
+
              var row = '   <tr class="specid" data-id="' +  $(this).attr('data-id')  + '"> ' +
                     '               <td>' + $(this).attr('data-name') +'</td> ' +
 
@@ -59,17 +59,17 @@ $(function() {
     $('#btnAddAttribute').click(function(){
 
       var row = '   <tr class="attributerow"> ' +
-                '               <td><input name="attributename" type="text" value="" datatype="s" class="u-ipt"/></td> ' +
+                '               <td><input name="attributename" type="text" value="" datatype="s" class="u-ipt u-auto-width"/></td> ' +
                 '               <td>'+
-                '                     <select name="attributetype"  class="u-sel" > '+
+                '                     <select name="attributetype"  class="u-sel u-auto-width" > '+
                 '                        <option value="1" >单选框</option> ' +
                 '                        <option value="2" >复选框</option> ' +
-                '                       <option value="3" >下拉框</option>  ' +                        
+                '                       <option value="3" >下拉框</option>  ' +
                 '                     </select> '+
                 '                </td> '+
-                '                <td><input name="attributevalue" type="text" value=""  class="u-ipt"/></td>'+
-                '                <td> <input name="attributesearch" type="checkbox"/></td> ' +
-                '                <td><a href="#" class="btnDelete"><i class="iconfont">&#xf013f;</i></a></td>' +
+                '                <td><input name="attributevalue" type="text" value=""  class="u-ipt u-auto-width"/></td>'+
+                '                <td class="col-center"> <input name="attributesearch" type="checkbox"/></td> ' +
+                '                <td class="col-center"><a href="#" class="btnDelete"><i class="iconfont">&#xf013f;</i></a></td>' +
                 '            </tr>';
 
         $('#attributetable tbody').append( $(row));
@@ -78,7 +78,7 @@ $(function() {
 
     });
 
-    
+
 
     $('#btnAddSpec').click(function(){
       $('#specList').dialog({"modal": true, "width":800, "height":640});
@@ -100,20 +100,20 @@ $(function() {
           }).get().join(",");
 
           var attributes =  $('tr.attributerow').map(function(i,n) {
-                return { 
+                return {
                     'name':$(n).find('input[name="attributename"]').val(),
                     'type':$(n).find('select[name="attributetype"]').val(),
                     'value':$(n).find('input[name="attributevalue"]').val(),
                     'search' : $(n).find('input[name="attributesearch"]:checked').length
                  };
           }).get();
-         
-         
-          
+
+
+
 
           url = form.attr( "action" );
 
-          var posting = $.post( url, { 
+          var posting = $.post( url, {
                 'name': name,
                 'specids':specids,
                 'attributes': attributes

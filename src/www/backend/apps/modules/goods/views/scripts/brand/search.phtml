@@ -22,10 +22,10 @@ use \Welfony\Utility\Util;
         <tr>
             <th class="col-chk"><input type="checkbox" /></th>
             <th class="cola">排序</th>
-            <th class="cola">品牌名称</th>
-            <th class="cola">网址</th>
+            <th>品牌名称</th>
+            <th>网址</th>
             <th class="cola">品牌分类</th>
-            <th class="colb">操作</th>
+            <th class="cola">操作</th>
         </tr>
     </thead>
     <tbody>
@@ -39,7 +39,7 @@ use \Welfony\Utility\Util;
                 </a>
             </td>
             <td><?php echo $brand['Url']; ?></td>
-            <td><?php  
+            <td><?php
                 $cats = explode(',', $brand['BrandCategoryIds']);
                 $names= array();
                 foreach ($cats as $cat) {

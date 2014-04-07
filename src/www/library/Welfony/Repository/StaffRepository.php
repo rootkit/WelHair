@@ -91,11 +91,13 @@ class StaffRepository extends AbstractRepository
                        U.Username,
                        U.Nickname,
                        U.AvatarUrl,
+                       U.Role,
 
                        C.CompanyId,
                        C.Name CompanyName,
                        C.Address CompanyAddress,
                        C.Status CompanyStatus,
+                       C.LogoUrl CompanyLogoUrl,
 
                        S.ServiceId,
                        S.Title ServiceTitle,

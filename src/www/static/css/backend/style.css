@@ -780,3 +780,7 @@ a.u-upload,a.u-upload:hover {
     background-color: #fff !important;
 }
 
+.u-auto-width {
+    width: auto;
+}
+
