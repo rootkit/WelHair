@@ -1,5 +1,5 @@
 //
-//  AppointmentCell.h
+//  AddressCell
 //  WelHair
 //
 //  Created by lu larry on 3/14/14.

@@ -218,6 +218,7 @@
         o.address = [FakeDataHelper getFakeAddressLit][i];
         o.product = [FakeDataHelper getFakeProductList][i];
         o.group = [FakeDataHelper getFakeGroupList][i];
+        o.status = OrderStatusEnum_Paid;
         o.price = 149.0;
         o.count = 2;
         [ar addObject:o];

@@ -63,41 +63,41 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    UIView *tabView = [[UIView alloc] initWithFrame:CGRectMake(10, self.topBarOffset + 5, 300, 30)];
+    UIColor *tabViewColor =[UIColor colorWithHexString:APP_NAVIGATIONBAR_COLOR] ;
+    [self.view addSubview:tabView];
+    tabView.backgroundColor = [UIColor clearColor];
+    tabView.layer.borderColor = [tabViewColor CGColor];
+    tabView.layer.borderWidth = 1;
+    tabView.layer.cornerRadius = 5;
+    float tabButtonWidth = 300 / 2;
+    
+    UIButton *unPaidBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    unPaidBtn.frame = CGRectMake(0,0,tabButtonWidth,30);
+    unPaidBtn.titleLabel.font = [UIFont systemFontOfSize:12];
+    [unPaidBtn setTitle:@"未付款" forState:UIControlStateNormal];
+    [unPaidBtn setTitleColor:tabViewColor forState:UIControlStateNormal];
+    [unPaidBtn addTarget:self action:@selector(tabClicked:) forControlEvents:UIControlEventTouchDown];       unPaidBtn.tag = 0;
+    [tabView addSubview:unPaidBtn];
+    
+    UIView *separatorView1 = [[UIView alloc] initWithFrame:CGRectMake(MaxX(unPaidBtn),0, 1, HEIGHT(tabView))];
+    separatorView1.backgroundColor = tabViewColor;
+    [tabView addSubview:separatorView1];
+    UIButton *paidBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    paidBtn.frame = CGRectMake(MaxX(separatorView1),0,tabButtonWidth,HEIGHT(tabView));
+    paidBtn.titleLabel.font = [UIFont systemFontOfSize:12];
+    [paidBtn setTitle:@"已付款" forState:UIControlStateNormal];
+    [paidBtn setTitleColor:tabViewColor forState:UIControlStateNormal];
+    [paidBtn addTarget:self action:@selector(tabClicked:) forControlEvents:UIControlEventTouchDown];       paidBtn.tag = 1;
+    [tabView addSubview:paidBtn];
 
-    float topTabButtonWidth = WIDTH(self.view)/2;
-    UIView *topTabView = [[UIView alloc] initWithFrame:CGRectMake(0, self.topBarOffset,WIDTH(self.view),TOP_TAB_BAR_HEIGHT)];
-    UIView *topTabBottomShadowView = [[UIView alloc] initWithFrame:topTabView.frame];
-    topTabBottomShadowView.backgroundColor = [UIColor lightGrayColor];
-    [topTabBottomShadowView drawBottomShadowOffset:1 opacity:1];
-    [self.view addSubview:topTabBottomShadowView];
-    [self.view addSubview:topTabView];
-    topTabView.backgroundColor = [UIColor whiteColor];
-    self.areaBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [self.areaBtn setTitleColor:[UIColor colorWithHexString:@"666666"] forState:UIControlStateNormal];
-    self.areaBtn.frame = CGRectMake(0, 0, topTabButtonWidth, TOP_TAB_BAR_HEIGHT);
-    [self.areaBtn setTitle:@"未付款" forState:UIControlStateNormal];
-    self.areaBtn.tag = 0;
-    self.areaBtn.backgroundColor = [UIColor whiteColor];
-    [topTabView addSubview:self.areaBtn];
-    
-    UIView *separatorView = [[UIView alloc] initWithFrame:CGRectMake(MaxX(self.areaBtn), 10, 1, 20)];
-    separatorView.backgroundColor = [UIColor grayColor];
-    [topTabView addSubview:separatorView];
-    
-    self.colorBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [self.colorBtn setTitleColor:[UIColor colorWithHexString:@"666666"] forState:UIControlStateNormal];
-    self.colorBtn.frame = CGRectMake(MaxX(self.areaBtn)+1, 0, topTabButtonWidth, TOP_TAB_BAR_HEIGHT);
-    [self.colorBtn setTitle:@"已付款" forState:UIControlStateNormal];
-    self.colorBtn.backgroundColor = [UIColor whiteColor];
-    self.colorBtn.tag = 1;
-    [topTabView addSubview:self.colorBtn];
-    
+
     self.tableView = [[UITableView alloc] init];
     self.tableView.frame = CGRectMake(0,
-                                      self.topBarOffset + topTabView.height,
+                                      self.topBarOffset + tabView.height + 10,
                                       WIDTH(self.view) ,
-                                      [self contentHeightWithNavgationBar:YES withBottomBar:NO] - topTabView.height);
-    debugLog(@"%f",MaxY(topTabView));
+                                      [self contentHeightWithNavgationBar:YES withBottomBar:NO] - tabView.height - 10);
     self.tableView.backgroundColor = [UIColor clearColor];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
@@ -113,7 +113,7 @@
     [self.tableView.pullToRefreshView setBorderColor:[UIColor whiteColor]];
     [self.tableView.pullToRefreshView setImageIcon:[UIImage imageNamed:@"centerIcon"]];
     [self.view addSubview:self.tableView];
-    self.datasource = [NSMutableArray arrayWithArray:[FakeDataHelper getFakeGroupList]];
+    self.datasource = [NSMutableArray arrayWithArray:[FakeDataHelper getFakeOrderList]];
 }
 
 - (void)didReceiveMemoryWarning
@@ -137,7 +137,7 @@
 #pragma mark UITableView delegate
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 220;
+    return 180;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -153,14 +153,20 @@
         cell = [[OrderCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
+    [cell setup:[self.datasource objectAtIndex:indexPath.row]];
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     OrderPreviewViewController *vc = [OrderPreviewViewController new];
-    vc.isAddressFilled = YES;
+    vc.order = [self.datasource objectAtIndex:indexPath.row];
     [self.navigationController pushViewController:vc animated:YES];
 }
 
+
+- (void)tabClicked:(id)sender
+{
+    
+}
 @end
