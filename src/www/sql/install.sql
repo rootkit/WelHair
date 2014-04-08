@@ -812,6 +812,60 @@ CREATE TABLE IF NOT EXISTS `OrderLog` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='订单日志表';
 
 
+CREATE TABLE IF NOT EXISTS `Freight` (
+  `FreightId` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `FreightType` varchar(255) NOT NULL COMMENT '货运类型',
+  `FreightName` varchar(255) NOT NULL COMMENT '货运公司名称',
+  `Url` varchar(255) NOT NULL COMMENT '网址',
+  `Sort` smallint(5) NOT NULL DEFAULT '99' COMMENT '排序',
+  `IsDeleted` tinyint(1) NOT NULL DEFAULT '0' COMMENT '0未删除1删除',
+  PRIMARY KEY (`Freightid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='货运公司';
+
+
+CREATE TABLE IF NOT EXISTS `Delivery` (
+  `DeliveryId` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `Name` varchar(50) DEFAULT NULL COMMENT '快递名称',
+  `Description` varchar(50) DEFAULT NULL COMMENT '快递描述',
+  `AreaGroupId` text COMMENT '配送区域id',
+  `AreaFirstPrice` text COMMENT '配送地址对应的首重价格',
+  `AreaSecondPrice` text COMMENT '配送地区对应的续重价格',
+  `Type` tinyint(1) NOT NULL DEFAULT '0' COMMENT '配送类型 0先付款后发货 1先发货后付款',
+  `FirstWeight` int(11) unsigned NOT NULL COMMENT '首重重量(克)',
+  `SecondWeight` int(11) unsigned NOT NULL COMMENT '续重重量(克)',
+  `FirstPrice` decimal(15,2) NOT NULL DEFAULT '0.00' COMMENT '首重价格',
+  `SecondPrice` decimal(15,2) NOT NULL DEFAULT '0.00' COMMENT '续重价格',
+  `Status` tinyint(1) NOT NULL DEFAULT '0' COMMENT '开启状态',
+  `Sort` smallint(5) NOT NULL DEFAULT '99' COMMENT '排序',
+  `IsSavePrice` tinyint(1) NOT NULL DEFAULT '0' COMMENT '是否支持物流保价 1支持保价 0  不支持保价',
+  `SaveRate` decimal(15,2) NOT NULL DEFAULT '0.00' COMMENT '保价费率',
+  `LowPrice` decimal(15,2) NOT NULL DEFAULT '0.00' COMMENT '最低保价',
+  `PriceType` tinyint(1) NOT NULL DEFAULT '0' COMMENT '费用类型 0统一设置 1指定地区费用',
+  `OpenDefault` tinyint(1) NOT NULL DEFAULT '1' COMMENT '启用默认费用 1启用 0 不启用',
+  `IsDeleted` tinyint(1) NOT NULL DEFAULT '0' COMMENT '是否删除 0:未删除 1:删除',
+  `FreightId` int(11) unsigned NOT NULL COMMENT '货运公司ID',
+  PRIMARY KEY (`DeliveryId`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='配送方式表';
+
+
+CREATE TABLE IF NOT EXISTS `Payment` (
+  `PaymentId` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `Name` varchar(50) NOT NULL COMMENT '支付名称',
+  `Type` tinyint(1) NOT NULL DEFAULT '1' COMMENT '1:线上、2:线下',
+  `ClassName` varchar(50)  NULL COMMENT '支付类名称',
+  `Description` text COMMENT '描述',
+  `Logo` varchar(255) NULL COMMENT '支付方式logo图片路径',
+  `Status` tinyint(1) NOT NULL DEFAULT '1' COMMENT '安装状态 0启用 1禁用',
+  `Order` smallint(5) NOT NULL DEFAULT '99' COMMENT '排序',
+  `Note` text COMMENT '支付说明',
+  `Poundage` decimal(15,2) NOT NULL DEFAULT '0.00' COMMENT '手续费',
+  `PoundageType` tinyint(1) NOT NULL DEFAULT '1' COMMENT '手续费方式 1百分比 2固定值',
+  `PartnerId` varchar(80) DEFAULT NULL COMMENT '支付方提供的合作者ID',
+  `PartnerKey` varchar(80) DEFAULT NULL COMMENT '支付方提供的密钥',
+  PRIMARY KEY (`PaymentId`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='支付方式表';
+
+
 
 
 

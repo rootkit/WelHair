@@ -1,5 +1,5 @@
 <?php if ($this->currentUser): ?>
-    <?php if ($this->module == 'default'): ?>
+    <?php if ($this->module == 'default' || $this->module == 'system'): ?>
     <ul class="lists">
         <li<?php echo ($this->controller == 'index' && $this->action == 'index') ? ' class="active"' : ''; ?>>
             <a href="<?php echo $this->baseUrl(''); ?>">
@@ -9,9 +9,21 @@
         </li>
         <li></li>
         <li>
-            <a href="<?php echo $this->baseUrl(''); ?>">
+            <a href="<?php echo $this->baseUrl('system/payment/search'); ?>">
                 <i class="iconfont">&#xf0103;</i>
                 支付方式
+            </a>
+        </li>
+        <li>
+            <a href="<?php echo $this->baseUrl('system/delivery/search'); ?>">
+                <i class="iconfont">&#xf0026;</i>
+                配送方式
+            </a>
+        </li>
+        <li>
+            <a href="<?php echo $this->baseUrl('system/freight/search'); ?>">
+                <i class="iconfont">&#xf0043;</i>
+                物流公司
             </a>
         </li>
         <li>
