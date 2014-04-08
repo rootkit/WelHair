@@ -43,6 +43,7 @@
                     user.avatarUrl = [NSURL URLWithString:[set stringForColumn:@"AvatorUrl"]];
                     user.role = [set intForColumn:@"Role"];
                     user.followed = [set boolForColumn:@"Followed"];
+                    user.isApproving = [set boolForColumn:@"IsApproving"];
                     _userLogined = user;
                     break;
                 }
@@ -70,9 +71,9 @@
             FMResultSet *set = [db executeQuery:findUserSql];
             NSString *userSql;
             if ([set next]) {
-                userSql = @"update User set UserId = ?, UserName = ?, Email = ?,AvatorUrl = ?,NickName = ?, Role = ?";
+                userSql = @"update User set UserId = ?, UserName = ?, Email = ?,AvatorUrl = ?,NickName = ?, Role = ?, Followed = ?, IsApproving = ?";
             }else{
-                userSql = @"insert into User (UserId, UserName, Email,AvatorUrl,NickName, Role) values(?,?,?,?,?,?) ";
+                userSql = @"insert into User (UserId, UserName, Email,AvatorUrl,NickName, Role, Followed, IsApproving) values(?,?,?,?,?,?,?,?) ";
             }
             [set close];
             BOOL runSqlSuccess = [db executeUpdate:userSql,
@@ -81,7 +82,9 @@
                              userLogined.email,
                              userLogined.avatarUrl,
                              userLogined.nickname,
-                             @(userLogined.role)];
+                             @(userLogined.role),
+                             @(userLogined.followed),
+                             @(userLogined.isApproving)];
 
             
             if (!runSqlSuccess) {

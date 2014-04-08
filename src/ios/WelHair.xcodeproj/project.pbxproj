@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		181776AA18F3CC4300083C1E /* JoinGroupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 181776A918F3CC4300083C1E /* JoinGroupViewController.m */; };
 		1825E1CC18E183B70052AA9A /* Juchi@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1825E1C318E183B70052AA9A /* Juchi@2x.png */; };
 		1825E1CD18E183B70052AA9A /* MeTab1.png in Resources */ = {isa = PBXBuildFile; fileRef = 1825E1C418E183B70052AA9A /* MeTab1.png */; };
 		1825E1CE18E183B70052AA9A /* MeTab1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1825E1C518E183B70052AA9A /* MeTab1@2x.png */; };
@@ -324,6 +325,8 @@
 
 /* Begin PBXFileReference section */
 		0DEE8FDE44A64A6986F93371 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		181776A818F3CC4300083C1E /* JoinGroupViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JoinGroupViewController.h; sourceTree = "<group>"; };
+		181776A918F3CC4300083C1E /* JoinGroupViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JoinGroupViewController.m; sourceTree = "<group>"; };
 		1825E1C318E183B70052AA9A /* Juchi@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Juchi@2x.png"; sourceTree = "<group>"; };
 		1825E1C418E183B70052AA9A /* MeTab1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MeTab1.png; sourceTree = "<group>"; };
 		1825E1C518E183B70052AA9A /* MeTab1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "MeTab1@2x.png"; sourceTree = "<group>"; };
@@ -2037,6 +2040,8 @@
 				46EAF99318D19E2100D4C624 /* Staff */,
 				46BDF13A18D17AF300999F50 /* CreateGroupViewController.h */,
 				46BDF13B18D17AF300999F50 /* CreateGroupViewController.m */,
+				181776A818F3CC4300083C1E /* JoinGroupViewController.h */,
+				181776A918F3CC4300083C1E /* JoinGroupViewController.m */,
 				46BDF12F18D1516F00999F50 /* MyGroupViewController.h */,
 				46BDF13018D1516F00999F50 /* MyGroupViewController.m */,
 			);
@@ -2465,6 +2470,7 @@
 				46BCD25718BC628E005C4BD6 /* ChatSessionListViewController.m in Sources */,
 				46BCD26618BC796B005C4BD6 /* WorkDetailViewController.m in Sources */,
 				4631CF1D18E3284C00F39814 /* OrderListViewController.m in Sources */,
+				181776AA18F3CC4300083C1E /* JoinGroupViewController.m in Sources */,
 				4673BB6A18D2F848000F64DE /* UploadWorkFormViewController.m in Sources */,
 				184B82FC18DAC7F000177BAB /* UIImage+JSMessagesView.m in Sources */,
 				18A3E61318DC0C280080DC0B /* RegisterViewController.m in Sources */,

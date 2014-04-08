@@ -27,9 +27,10 @@
 #define API_USERS_SIGNUP_EMAIL API_PATH(@"/users/signup/email")
 #define API_WORKS_SEARCH API_PATH(@"/works")
 #define API_STAFFS_SEARCH API_PATH(@"/staffs")
+#define API_STAFFS_DETAIL API_PATH(@"/staffs/%d")
 #define API_COMPANIES_SEARCH API_PATH(@"/companies")
 #define API_COMPANIES_CREATE API_PATH(@"/companies")
-#define API_COMPANIES_JOIN API_PATH(@"/companies/join")
+#define API_COMPANIES_JOIN API_PATH(@"/companies/%d/join")
 #define API_UPLOAD_PICTURE API_PATH(@"/upload/image")
 
 

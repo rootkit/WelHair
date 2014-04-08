@@ -138,23 +138,20 @@ static const float kMargin = 10;
     if (request.responseStatusCode == 200) {
         NSDictionary *responseMessage = [Util objectFromJson:request.responseString];
         if (responseMessage) {
-//            if ([responseMessage objectForKey:@"company"] == nil) {
-//                [SVProgressHUD showErrorWithStatus:[responseMessage objectForKey:@"message"]];
-//                return;
-//            }
+            if ([responseMessage objectForKey:@"company"] == nil) {
+                [SVProgressHUD showErrorWithStatus:[responseMessage objectForKey:@"message"]];
+                return;
+            }
 
             [SVProgressHUD dismiss];
 
             [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_USER_CREATE_GROUP_SUCCESS object:nil];
-
-            [self.navigationController popViewControllerAnimated:YES];
 
             return;
         }
     }
 
     [SVProgressHUD showErrorWithStatus:@"添加沙龙失败，请重试！"];
-
 }
 
 - (void)createGroupFail:(ASIHTTPRequest *)request

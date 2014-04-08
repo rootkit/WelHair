@@ -87,7 +87,6 @@
                                       self.topBarOffset + topTabView.height,
                                       WIDTH(self.view) ,
                                       [self contentHeightWithNavgationBar:YES withBottomBar:YES] - topTabView.height);
-    debugLog(@"%f",MaxY(topTabView));
     self.tableView.backgroundColor = [UIColor clearColor];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;

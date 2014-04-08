@@ -6,16 +6,18 @@
 //  Copyright (c) 2014 Welfony. All rights reserved.
 //
 
-#import "GroupCell.h"
-#import "UIImageView+WebCache.h"
 #import <AMRatingControl.h>
+#import "GroupCell.h"
+
 @interface GroupCell()
+
 @property (nonatomic, strong) Group *groupData;
 @property (nonatomic, strong) UIImageView *imgView;
 @property (nonatomic, strong) UILabel *nameLbl;
 @property (nonatomic, strong) UILabel *addressLbl;
 @property (nonatomic, strong) UILabel *distanceLbl;
 @property (nonatomic, strong) AMRatingControl *rateControl;
+
 @end
 
 @implementation GroupCell
@@ -57,7 +59,7 @@
         self.rateControl.enabled = NO;
         [self addSubview:self.rateControl];
         
-        UIImageView *locationImg = [[UIImageView alloc] initWithFrame:CGRectMake(WIDTH(self) - 60, Y(self.addressLbl)    + 10,15,15)];
+        UIImageView *locationImg = [[UIImageView alloc] initWithFrame:CGRectMake(WIDTH(self) - 80, Y(self.addressLbl)    + 10,15,15)];
         FAKIcon *locationIcon = [FAKIonIcons locationIconWithSize:15];
         [locationIcon addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithHexString:@"b7bcc2"]];
         locationImg.image = [locationIcon imageWithSize:CGSizeMake(15, 15)];
@@ -70,6 +72,7 @@
         self.distanceLbl.font = [UIFont systemFontOfSize:12];
         [self addSubview:self.distanceLbl];
     }
+
     return self;
 }
 
@@ -81,12 +84,12 @@
 - (void)setup:(Group *)group
 {
     self.groupData = group;
-    [self.imgView setImageWithURL:[NSURL URLWithString:self.groupData.imgUrls[0]]];
-    self.nameLbl.text = [NSString stringWithFormat:@"%@:",group.name];
-    self.rateControl.rating = 0.8;
-    self.addressLbl.text = [NSString stringWithFormat:@"%@:",group.address];
-    self.distanceLbl.text = [NSString stringWithFormat:@"%.0f千米",group.distance];
-}
 
+    [self.imgView setImageWithURL:[NSURL URLWithString:group.logoUrl]];
+    self.nameLbl.text = [NSString stringWithFormat:@"%@", group.name];
+    self.rateControl.rating = group.rating;
+    self.addressLbl.text = [NSString stringWithFormat:@"地址：%@", group.address];
+    self.distanceLbl.text = [NSString stringWithFormat:@"%.0f千米", group.distance / 1000];
+}
 
 @end

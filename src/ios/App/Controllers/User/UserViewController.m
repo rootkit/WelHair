@@ -183,18 +183,19 @@ static const   float profileViewHeight = 80;
 
 - (void) navigateToGroupPanel
 {
-    if([FakeDataHelper isUserGroupAdmin]){
-        [self.navigationController popToViewController:self animated:NO];
+    [self.navigationController popToViewController:self animated:NO];
+    [self getStaffDetail];
+
+    if([UserManager SharedInstance].userLogined.role == WHManager){
         MyGroupViewController *myGroupVc = [MyGroupViewController new];
         myGroupVc.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:myGroupVc animated:NO];
-    }else if([FakeDataHelper isUserGroupStaff]){
-        [self.navigationController popToViewController:self animated:NO];
+    } else if ([UserManager SharedInstance].userLogined.role == WHStaff) {
         StaffManageViewController *vc = [StaffManageViewController new];
         vc.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:vc animated:NO];
-    }else{
-        
+    } else {
+        [SVProgressHUD showErrorWithStatus:@"正在审核中，请耐心等待。" duration:1];
     }
 }
 
@@ -288,6 +289,14 @@ static const   float profileViewHeight = 80;
                 [self.navigationController presentViewController:[[UINavigationController alloc] initWithRootViewController:[LoginViewController new]] animated:YES completion:nil];
                 return;
             }
+
+            [self getStaffDetail];
+
+            if ([UserManager SharedInstance].userLogined.isApproving) {
+                [SVProgressHUD showErrorWithStatus:@"正在审核中，请耐心等待。" duration:1];
+                return;
+            }
+
             if([UserManager SharedInstance].userLogined.role == WHManager){
                 MyGroupViewController *vc = [MyGroupViewController new];
                 vc.hidesBottomBarWhenPushed = YES;
@@ -308,6 +317,47 @@ static const   float profileViewHeight = 80;
     }
 }
 
+- (void)getStaffDetail
+{
+    ASIHTTPRequest *request = [RequestUtil createGetRequestWithURL:[NSURL URLWithString:[NSString stringWithFormat:API_STAFFS_DETAIL, [UserManager SharedInstance].userLogined.id]]
+                                                          andParam:nil];
+
+    [request setDelegate:self];
+    [request setDidFinishSelector:@selector(finishGetStaffDetail:)];
+    [request setDidFailSelector:@selector(failGetStaffDetail:)];
+    [request startAsynchronous];
+}
+
+- (void)finishGetStaffDetail:(ASIHTTPRequest *)request
+{
+    NSDictionary *rst = [Util objectFromJson:request.responseString];
+    id companyDic = [rst objectForKey:@"Company"];
+    if (companyDic == [NSNull null]) {
+        return;
+    }
+
+    if ([[rst objectForKey:@"IsApproved"] isEqualToString:@"0"] || [[(NSDictionary *)companyDic objectForKey:@"Status"] intValue] == Requested) {
+        User *usr = [UserManager SharedInstance].userLogined;
+        usr.isApproving = true;
+        [UserManager SharedInstance].userLogined = usr;
+        
+        return;
+    }
+
+    if ([[rst objectForKey:@"IsApproved"] isEqualToString:@"1"] && [[(NSDictionary *)companyDic objectForKey:@"Status"] intValue] == Valid) {
+        User *usr = [UserManager SharedInstance].userLogined;
+        usr.isApproving = false;
+        usr.role = [[rst objectForKey:@"Role"] intValue];
+        [UserManager SharedInstance].userLogined = usr;
+
+        return;
+    }
+
+}
+
+- (void)failGetStaffDetail:(ASIHTTPRequest *)request
+{
+}
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {

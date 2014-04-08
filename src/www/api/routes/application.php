@@ -20,9 +20,13 @@ $app->hook('slim.before.router', function () use ($app) {
     $ip = Util::getRealIp();
     $isLocalhost = $ip == '127.0.0.1';
 
-    $location = htmlspecialchars($app->request->get('currentLocation'));
-    if (empty($location)) {
+    $contextArr = json_decode($app->request->headers->get('WH-Context'), true);
+
+    $location = null;
+    if (!isset($contextArr['currentLocation']) || empty($contextArr['currentLocation'])) {
         $location = $isLocalhost ? '36.68278473,117.02496707' : '0,0';
+    } else {
+        $location = htmlspecialchars($contextArr['currentLocation']);
     }
     $locationArr = explode(',', $location);
     if (count($locationArr) != 2) {
@@ -36,7 +40,7 @@ $app->hook('slim.before.router', function () use ($app) {
         $locationArr[1] = $bdData['content']['point']['x'];
     }
 
-    $currentUserId = intval($app->request->get('currentUserId'));
+    $currentUserId = intval($contextArr['currentUserId']);
 
     $currentContext = array(
         'Location' => array(

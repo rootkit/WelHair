@@ -28,7 +28,7 @@ class CompanyController extends AbstractAPIController
     public function create()
     {
         $staff = StaffService::getStaffDetail($this->currentContext['UserId']);
-        if ($staff) {
+        if ($staff['Company'] != null) {
             $result = array('success' => false, 'message' => '您已经在一个沙龙中了。');
             $this->sendResponse($result);
         }

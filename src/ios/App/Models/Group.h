@@ -11,7 +11,8 @@
 
 typedef enum {
     Invalid = 0,
-    Valid = 1
+    Valid = 1,
+    Requested = 2
 } WHGroupStatus;
 
 @interface Group : BaseModel
@@ -19,9 +20,6 @@ typedef enum {
 @property (nonatomic, strong) NSString *tel;
 @property (nonatomic, strong) NSString *mobile;
 
-@property (nonatomic, strong) City *province;
-@property (nonatomic, strong) City *city;
-@property (nonatomic, strong) City *district;
 @property (nonatomic, strong) NSString *address;
 
 @property (nonatomic) double latitude;
@@ -34,5 +32,14 @@ typedef enum {
 @property (nonatomic, strong) NSArray *commentList;
 
 @property (nonatomic) WHGroupStatus status;
+
+@property (nonatomic) int rating;
+@property (nonatomic) int staffCount;
+@property (nonatomic) int commentCount;
+@property (nonatomic) BOOL isLiked;
+
+
+- (Group *)initWithDic:(NSDictionary *)dictionary;
+- (NSDictionary *)dictionaryFromGroup:(Group *)group;
 
 @end
