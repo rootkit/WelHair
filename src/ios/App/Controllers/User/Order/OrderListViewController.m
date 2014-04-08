@@ -23,6 +23,8 @@
 @property (nonatomic, strong) UIButton *colorBtn;
 @property (nonatomic, strong) UIButton *lengthBtn;
 
+@property (nonatomic, strong) UIButton *paidBtn;
+@property (nonatomic, strong) UIButton *unpaidBtn;
 @end
 
 @implementation OrderListViewController
@@ -64,6 +66,9 @@
 {
     [super viewDidLoad];
     
+    UIView *topBgView = [[UIView alloc] initWithFrame:CGRectMake(0, self.topBarOffset , 320, 40)];
+    topBgView.backgroundColor = [UIColor whiteColor];
+    [self.view addSubview:topBgView];
     UIView *tabView = [[UIView alloc] initWithFrame:CGRectMake(10, self.topBarOffset + 5, 300, 30)];
     UIColor *tabViewColor =[UIColor colorWithHexString:APP_NAVIGATIONBAR_COLOR] ;
     [self.view addSubview:tabView];
@@ -73,24 +78,28 @@
     tabView.layer.cornerRadius = 5;
     float tabButtonWidth = 300 / 2;
     
-    UIButton *unPaidBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    unPaidBtn.frame = CGRectMake(0,0,tabButtonWidth,30);
-    unPaidBtn.titleLabel.font = [UIFont systemFontOfSize:12];
-    [unPaidBtn setTitle:@"未付款" forState:UIControlStateNormal];
-    [unPaidBtn setTitleColor:tabViewColor forState:UIControlStateNormal];
-    [unPaidBtn addTarget:self action:@selector(tabClicked:) forControlEvents:UIControlEventTouchDown];       unPaidBtn.tag = 0;
-    [tabView addSubview:unPaidBtn];
+    self.unpaidBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    self.unpaidBtn.frame = CGRectMake(0,0,tabButtonWidth,30);
+    self.unpaidBtn.titleLabel.font = [UIFont systemFontOfSize:12];
+    [self.unpaidBtn setTitle:@"未付款" forState:UIControlStateNormal];
+    [self.unpaidBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [self.unpaidBtn addTarget:self action:@selector(tabClicked:) forControlEvents:UIControlEventTouchDown];
+    [self.unpaidBtn setBackgroundColor:[UIColor colorWithHexString:APP_NAVIGATIONBAR_COLOR]];
     
-    UIView *separatorView1 = [[UIView alloc] initWithFrame:CGRectMake(MaxX(unPaidBtn),0, 1, HEIGHT(tabView))];
+    
+    [tabView addSubview:self.unpaidBtn];
+    
+    
+    UIView *separatorView1 = [[UIView alloc] initWithFrame:CGRectMake(MaxX(self.unpaidBtn),0, 1, HEIGHT(tabView))];
     separatorView1.backgroundColor = tabViewColor;
     [tabView addSubview:separatorView1];
-    UIButton *paidBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    paidBtn.frame = CGRectMake(MaxX(separatorView1),0,tabButtonWidth,HEIGHT(tabView));
-    paidBtn.titleLabel.font = [UIFont systemFontOfSize:12];
-    [paidBtn setTitle:@"已付款" forState:UIControlStateNormal];
-    [paidBtn setTitleColor:tabViewColor forState:UIControlStateNormal];
-    [paidBtn addTarget:self action:@selector(tabClicked:) forControlEvents:UIControlEventTouchDown];       paidBtn.tag = 1;
-    [tabView addSubview:paidBtn];
+    self.paidBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    self.paidBtn.frame = CGRectMake(MaxX(separatorView1),0,tabButtonWidth,HEIGHT(tabView));
+    self.paidBtn.titleLabel.font = [UIFont systemFontOfSize:12];
+    [self.paidBtn setTitle:@"已付款" forState:UIControlStateNormal];
+    [self.paidBtn setTitleColor:tabViewColor forState:UIControlStateNormal];
+    [self.paidBtn addTarget:self action:@selector(tabClicked:) forControlEvents:UIControlEventTouchDown];
+    [tabView addSubview:self.paidBtn];
 
 
     self.tableView = [[UITableView alloc] init];
@@ -113,7 +122,7 @@
     [self.tableView.pullToRefreshView setBorderColor:[UIColor whiteColor]];
     [self.tableView.pullToRefreshView setImageIcon:[UIImage imageNamed:@"centerIcon"]];
     [self.view addSubview:self.tableView];
-    self.datasource = [NSMutableArray arrayWithArray:[FakeDataHelper getFakeOrderList]];
+    self.datasource = [NSMutableArray arrayWithArray:[FakeDataHelper getFakeOrderList:NO]];
 }
 
 - (void)didReceiveMemoryWarning
@@ -167,6 +176,22 @@
 
 - (void)tabClicked:(id)sender
 {
-    
+    UIButton *btn = (UIButton *)sender;
+    if(btn == self.paidBtn){
+        [self.paidBtn setBackgroundColor:[UIColor colorWithHexString:APP_NAVIGATIONBAR_COLOR]];
+        [self.paidBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [self.unpaidBtn setBackgroundColor:[UIColor whiteColor]];
+        [self.unpaidBtn setTitleColor:[UIColor colorWithHexString:APP_NAVIGATIONBAR_COLOR] forState:UIControlStateNormal];
+        self.datasource = [NSMutableArray arrayWithArray:[FakeDataHelper getFakeOrderList:YES]];
+        [self.tableView reloadData];
+    }else{
+        [self.unpaidBtn setBackgroundColor:[UIColor colorWithHexString:APP_NAVIGATIONBAR_COLOR]];
+        [self.unpaidBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [self.paidBtn setBackgroundColor:[UIColor whiteColor]];
+        [self.paidBtn setTitleColor:[UIColor colorWithHexString:APP_NAVIGATIONBAR_COLOR] forState:UIControlStateNormal];
+        self.datasource = [NSMutableArray arrayWithArray:[FakeDataHelper getFakeOrderList:NO]];
+        [self.tableView reloadData];
+    }
 }
+
 @end

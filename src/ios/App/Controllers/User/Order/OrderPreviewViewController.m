@@ -38,7 +38,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.order = [FakeDataHelper getFakeOrderList][0];
+    self.order = [FakeDataHelper getFakeOrderList:NO][0];
     self.addressView = [[AddressView alloc] initWithFrame:CGRectMake(15, self.topBarOffset+10, 290, 80)];
     [self.addressView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(pickAddress)]];
     [self.view addSubview:self.addressView];

@@ -209,7 +209,7 @@
     return ar;
 }
 
-+ (NSArray *)getFakeOrderList
++ (NSArray *)getFakeOrderList:(BOOL)paid
 {
     NSMutableArray *ar = [NSMutableArray array];
     for (int i = 0; i < 10 ; i++) {
@@ -218,7 +218,7 @@
         o.address = [FakeDataHelper getFakeAddressLit][i];
         o.product = [FakeDataHelper getFakeProductList][i];
         o.group = [FakeDataHelper getFakeGroupList][i];
-        o.status = OrderStatusEnum_Paid;
+        o.status = paid ? OrderStatusEnum_Paid : OrderStatusEnum_UnPaid;
         o.price = 149.0;
         o.count = 2;
         [ar addObject:o];
