@@ -6,8 +6,8 @@
 //  Copyright (c) 2014 Welfony. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
 #import "BaseViewController.h"
+
 @interface MyGroupViewController : BaseViewController
 
 @end

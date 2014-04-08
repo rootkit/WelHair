@@ -18,11 +18,15 @@
 
 +(ASIHTTPRequest *)createGetRequestWithURL:(NSURL *)url andParam:(NSDictionary *)params
 {
-    NSMutableDictionary *newParams = [[NSMutableDictionary alloc] initWithDictionary:params];
-    [newParams setObject:[NSString stringWithFormat:@"%d", [UserManager SharedInstance].userLogined.id] forKey:@"currentUserId"];
 
-    ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:[url URLWithQuery:[NSString URLQueryWithParameters:newParams]]];
+    ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:[url URLWithQuery:[NSString URLQueryWithParameters:params]]];
     [request addRequestHeader:@"Content-Type" value:@"application/json"];
+
+    NSMutableDictionary *contextParams = [[NSMutableDictionary alloc] initWithCapacity:2];
+    [contextParams setObject:@([UserManager SharedInstance].userLogined.id) forKey:@"currentUserId"];
+    [contextParams setObject:@"36.68278473,117.02496707" forKey:@"currentLocation"];
+    [request addRequestHeader:@"WH-Context" value:[Util parseJsonFromObject:contextParams]];
+
 
     return request;
 }
@@ -31,7 +35,16 @@
 {
     ASIFormDataRequest *request = [ASIFormDataRequest requestWithURL:url];
     [request addRequestHeader:@"Content-Type" value:@"application/json"];
-    [request setPostBody:[[[Util parseJsonFromObject:data] dataUsingEncoding:NSUTF8StringEncoding] mutableCopy]];
+
+    NSMutableDictionary *contextParams = [[NSMutableDictionary alloc] initWithCapacity:2];
+    [contextParams setObject:@([UserManager SharedInstance].userLogined.id) forKey:@"currentUserId"];
+    [request addRequestHeader:@"WH-Context" value:[Util parseJsonFromObject:contextParams]];
+
+    request.requestMethod = @"POST";
+
+    if (data) {
+        [request setPostBody:[[[Util parseJsonFromObject:data] dataUsingEncoding:NSUTF8StringEncoding] mutableCopy]];
+    }
 
     return request;
 }
@@ -39,8 +52,17 @@
 +(ASIFormDataRequest *)createPUTRequestWithURL:(NSURL *)url andData:(NSDictionary *)data
 {
     ASIFormDataRequest *request = [ASIFormDataRequest requestWithURL:url];
-    request.requestMethod = @"PUT";
     [request addRequestHeader:@"Content-Type" value:@"application/json"];
+
+    NSMutableDictionary *contextParams = [[NSMutableDictionary alloc] initWithCapacity:2];
+    [contextParams setObject:@([UserManager SharedInstance].userLogined.id) forKey:@"currentUserId"];
+    [request addRequestHeader:@"WH-Context" value:[Util parseJsonFromObject:contextParams]];
+
+    request.requestMethod = @"PUT";
+
+    if (data) {
+        [request setPostBody:[[[Util parseJsonFromObject:data] dataUsingEncoding:NSUTF8StringEncoding] mutableCopy]];
+    }
 
     return request;
 }

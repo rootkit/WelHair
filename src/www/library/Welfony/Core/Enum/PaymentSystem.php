@@ -1,15 +1,24 @@
+<?php
+
 // ==============================================================================
 //
-// This file is part of the WelHair
+// This file is part of the WelStory.
 //
-// Create by Welfony <support@welfony.com>
-// Copyright (c) 2013-2014 welfony.com
+// Create by Welfony Support <support@welfony.com>
+// Copyright (c) 2012-2014 welfony.com
 //
 // For the full copyright and license information, please view the LICENSE
 // file that was distributed with this source code.
 //
 // ==============================================================================
 
-@interface GroupsViewController : BaseViewController
+namespace Welfony\Core\Enum;
 
-@end
+use Welfony\Core\Enum;
+
+class PaymentSystem extends Enum
+{
+
+    const Alipay = 1;
+
+}

@@ -34,72 +34,64 @@
         self.imgView.layer.borderColor = [[UIColor colorWithHexString:@"e0e0de"] CGColor];
         self.imgView.layer.borderWidth = 2;
         
-        self.staffNameLbl = [[UILabel alloc] initWithFrame:CGRectMake(MaxX(self.imgView) + 10,
+        self.staffNameLbl = [[UILabel alloc] initWithFrame:CGRectMake(MaxX(self.imgView) + 5,
                                                                  Y(self.imgView),
-                                                                 150,
-                                                                 20)];
+                                                                 120,
+                                                                 HEIGHT(self.imgView)/2)];
         self.staffNameLbl.font = [UIFont boldSystemFontOfSize:16];
         self.staffNameLbl.numberOfLines = 2;
         self.staffNameLbl.backgroundColor = [UIColor clearColor];
         self.staffNameLbl.textColor = [UIColor blackColor];
         [self addSubview:self.staffNameLbl];
         
-        self.datetimeLbl = [[UILabel alloc] initWithFrame:CGRectMake(MaxX(self.imgView) + 5,
-                                                                    MaxY(self.staffNameLbl),
-                                                                    WIDTH(self.staffNameLbl),
-                                                                    HEIGHT(self.imgView)/2)];
-        self.datetimeLbl.font = [UIFont systemFontOfSize:12];
-        self.datetimeLbl.numberOfLines = 2;
-        self.datetimeLbl.backgroundColor = [UIColor clearColor];
-        self.datetimeLbl.textColor = [UIColor grayColor];
-        [self addSubview:self.datetimeLbl];
-        
-        self.priceLbl = [[UILabel alloc] initWithFrame:CGRectMake(MaxX(self.staffNameLbl) + 5,
-                                                                    MaxY(self.staffNameLbl),
-                                                                    50,
-                                                                    HEIGHT(self.staffNameLbl))];
-        self.priceLbl.font = [UIFont systemFontOfSize:12];
-        self.priceLbl.numberOfLines = 2;
-        self.priceLbl.backgroundColor = [UIColor clearColor];
-        self.priceLbl.textColor = [UIColor blackColor];
-        [self addSubview:self.priceLbl];
-        
-        self.statusLbl = [[UILabel alloc] initWithFrame:CGRectMake(MaxX(self.datetimeLbl) + 5,
-                                                                  MaxY(self.datetimeLbl),
-                                                                  50,
-                                                                  HEIGHT(self.datetimeLbl))];
-        self.statusLbl.font = [UIFont systemFontOfSize:12];
-        self.statusLbl.numberOfLines = 2;
-        self.statusLbl.backgroundColor = [UIColor clearColor];
-        self.statusLbl.textColor = [UIColor greenColor];
-        [self addSubview:self.statusLbl];
-
-        UIView *linerView = [[UIView alloc] initWithFrame:CGRectMake(20, MaxY(self.imgView) + 5, 280, 1)];
-        linerView.backgroundColor = [UIColor lightGrayColor];
-//        [self addSubview:linerView];
-        
-        self.groupNameLbl = [[UILabel alloc] initWithFrame:CGRectMake(20 ,
-                                                                      MaxY(linerView) ,
-                                                                      200,
-                                                                      HEIGHT(self.staffNameLbl))];
+        self.groupNameLbl = [[UILabel alloc] initWithFrame:CGRectMake(MaxX(self.imgView) + 5,
+                                                                      MaxY(self.staffNameLbl),
+                                                                      WIDTH(self.staffNameLbl),
+                                                                      HEIGHT(self.imgView)/2)];
         self.groupNameLbl.font = [UIFont boldSystemFontOfSize:12];
         self.groupNameLbl.numberOfLines = 2;
         self.groupNameLbl.backgroundColor = [UIColor clearColor];
         self.groupNameLbl.textColor = [UIColor blackColor];
         [self addSubview:self.groupNameLbl];
         
-        self.addressLbl = [[UILabel alloc] initWithFrame:CGRectMake(X(self.groupNameLbl) ,
-                                                                     MaxY(self.groupNameLbl),
-                                                                     WIDTH(self.groupNameLbl),
-                                                                     HEIGHT(self.groupNameLbl))];
+        self.addressLbl = [[UILabel alloc] initWithFrame:CGRectMake(X(self.imgView) ,
+                                                                    MaxY(self.imgView),
+                                                                    200,
+                                                                    HEIGHT(self.groupNameLbl))];
         self.addressLbl.font = [UIFont systemFontOfSize:12];
         self.addressLbl.numberOfLines = 2;
         self.addressLbl.backgroundColor = [UIColor clearColor];
         self.addressLbl.textColor = [UIColor grayColor];
         [self addSubview:self.addressLbl];
+        
+      
+        
+        self.priceLbl = [[UILabel alloc] initWithFrame:CGRectMake(MaxX(self.staffNameLbl) + 5,
+                                                                    Y(self.staffNameLbl),
+                                                                    100,
+                                                                    HEIGHT(self.staffNameLbl))];
+        self.priceLbl.font = [UIFont systemFontOfSize:12];
+        self.priceLbl.numberOfLines = 2;
+        self.priceLbl.textAlignment = NSTextAlignmentRight;
+        self.priceLbl.backgroundColor = [UIColor clearColor];
+        self.priceLbl.textColor = [UIColor blackColor];
+        [self addSubview:self.priceLbl];
+        
+        self.datetimeLbl = [[UILabel alloc] initWithFrame:CGRectMake(MaxX(self.groupNameLbl) + 5,
+                                                                     MaxY(self.priceLbl),
+                                                                     WIDTH(self.priceLbl),
+                                                                     HEIGHT(self.priceLbl))];
+        self.datetimeLbl.font = [UIFont systemFontOfSize:12];
+        self.datetimeLbl.textAlignment = NSTextAlignmentRight;
+        self.datetimeLbl.numberOfLines = 2;
+        self.datetimeLbl.backgroundColor = [UIColor clearColor];
+        self.datetimeLbl.textColor = [UIColor grayColor];
+        [self addSubview:self.datetimeLbl];
+        
 
-        UIButton *cancelBtn = [[UIButton alloc] initWithFrame:CGRectMake(X(self.statusLbl) , Y(self.groupNameLbl) + 10 , 50, 20)];
+        UIButton *cancelBtn = [[UIButton alloc] initWithFrame:CGRectMake(245 , Y(self.addressLbl) , 60,25 )];
         [cancelBtn setTitle:@"取消" forState:UIControlStateNormal];
+        cancelBtn.titleLabel.font = [UIFont systemFontOfSize:12];
         cancelBtn.tag = 0;
         [cancelBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         [cancelBtn setBackgroundColor:[UIColor colorWithHexString:@"e43a3d"]];

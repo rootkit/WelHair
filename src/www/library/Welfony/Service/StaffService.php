@@ -165,7 +165,7 @@ class StaffService
             if ($staffDetailIndex === false) {
                 $staffDetail = array(
                     'UserId' => 0,
-                    'Company' => array(),
+                    'Company' => null,
                     'Services' => array(),
                     'Works' => array()
                 );

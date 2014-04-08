@@ -38,15 +38,15 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.order = [FakeDataHelper getFakeOrderList][0];
-    self.addressView = [[AddressView alloc] initWithFrame:CGRectMake(15, self.topBarOffset, 290, 80)];
+    self.order = [FakeDataHelper getFakeOrderList:NO][0];
+    self.addressView = [[AddressView alloc] initWithFrame:CGRectMake(15, self.topBarOffset+10, 290, 80)];
     [self.addressView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(pickAddress)]];
     [self.view addSubview:self.addressView];
     
     if(!self.address){
         self.addressBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         self.addressBtn.frame = self.addressView.frame;
-        NSString *img = self.isAddressFilled ?@"OrderPreviewViewController_AddressBtn": @"OrderPreviewViewController_AddressTempBtn";
+        NSString *img = @"OrderPreviewViewController_AddressTempBtn";
         [self.addressBtn setBackgroundImage:[UIImage imageNamed: img] forState:UIControlStateNormal];
         [self.addressBtn addTarget:self action:@selector(pickAddress) forControlEvents:UIControlEventTouchUpInside];
         [self.view addSubview:self.addressBtn];
@@ -182,7 +182,7 @@
 
 - (void)submitClick:(id)sender
 {
-    if(self.isAddressFilled){
+    if(self.order.address){
         [SVProgressHUD showSuccessWithStatus:@"去支付宝支付" duration:1];
     }else
     {
@@ -201,6 +201,7 @@
 {
     self.addressBtn.hidden = address != nil;
     self.address = address;
+    self.order.address = address;
     [self setupAddressView];
 }
 

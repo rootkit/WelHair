@@ -108,7 +108,7 @@ class StaffRepository extends AbstractRepository
                        W.Title WorkTitle,
                        W.PictureUrl WorkPictureUrl,
 
-                       CU.IsApproved
+                       IFNULL(CU.IsApproved, 0) IsApproved
 
                    FROM Users U
                    LEFT OUTER JOIN CompanyUser CU ON CU.UserId = U.UserId

@@ -81,6 +81,9 @@
 {
     [[CityManager SharedInstance] setSelectedCity:city.id];
     [self setTopLeftCityName];
+
+    self.currentPage = 1;
+    [self.tableView triggerPullToRefresh];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -235,7 +238,7 @@
     }
 
     self.currentPage = 1;
-    [self getWorks];
+    [self.tableView triggerPullToRefresh];
 }
 
 #pragma mark UITableView delegate

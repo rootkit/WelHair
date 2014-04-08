@@ -6,11 +6,11 @@
 //  Copyright (c) 2014 Welfony. All rights reserved.
 //
 
-#import "MyGroupViewController.h"
-#import "UploadWorkFormViewController.h"
 #import "CreateGroupViewController.h"
 #import "GroupManageViewController.h"
 #import "MyGroupStaffListViewController.h"
+#import "MyGroupViewController.h"
+#import "UploadWorkFormViewController.h"
 
 @interface MyGroupViewController ()
 
@@ -38,6 +38,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+
     UIView *contentView = [[UIView alloc] initWithFrame:CGRectMake(0, self.topBarOffset, WIDTH(self.view), 416)];
     [self.view addSubview:contentView];
     UIImageView *btnBg = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, WIDTH(contentView),HEIGHT(contentView))];
@@ -63,7 +64,6 @@
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 - (void)staffClick

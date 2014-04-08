@@ -30,6 +30,7 @@ typedef enum {
 @property (nonatomic, strong) NSURL *avatarUrl;
 @property (nonatomic, strong) NSDate *createdDate;
 @property (nonatomic, assign) BOOL followed;
+@property (nonatomic, assign) BOOL isApproving;
 
 - (User *)initWithDic:(NSDictionary *)dictionary;
 - (NSDictionary *)dictionaryFromUser:(User *)user;

@@ -10,6 +10,6 @@
 //
 // ==============================================================================
 
-@interface GroupsViewController : BaseViewController
+@interface JoinGroupViewController : BaseViewController
 
 @end

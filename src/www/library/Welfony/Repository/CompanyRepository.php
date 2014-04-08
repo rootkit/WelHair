@@ -19,24 +19,24 @@ use Welfony\Repository\Base\AbstractRepository;
 class CompanyRepository extends AbstractRepository
 {
 
-    public function searchCount($city, $district)
+    public function searchCount($searchText, $city, $district)
     {
         $strSql = "SELECT
                      COUNT(1) `Total`
                    FROM Company C
-                   WHERE C.Status = 1 AND (? = 0 || C.City = ?) AND (? = 0 || C.District= ?)
+                   WHERE C.Status = 1 AND (? = '' || C.Name LIKE ?) AND (? = 0 || C.City = ?) AND (? = 0 || C.District= ?)
                    LIMIT 1";
 
-        $row = $this->conn->fetchAssoc($strSql, array($city, $city, $district, $district));
+        $row = $this->conn->fetchAssoc($strSql, array($searchText, "%$searchText%", $city, $city, $district, $district));
 
         return $row['Total'];
     }
 
-    public function search($currentUserId, $city, $district, $sort, $location, $page, $pageSize)
+    public function search($currentUserId, $searchText, $city, $district, $sort, $location, $page, $pageSize)
     {
-        $strSql = "CALL spCompanySearch(?, ?, ?, ?, ?, ?, ?, ?);";
+        $strSql = "CALL spCompanySearch(?, ?, ?, ?, ?, ?, ?, ?, ?);";
 
-        return $this->conn->fetchAll($strSql, array($currentUserId, $city, $district, $sort, $location['Latitude'], $location['Longitude'], $page, $pageSize));
+        return $this->conn->fetchAll($strSql, array($currentUserId, $searchText, $city, $district, $sort, $location['Latitude'], $location['Longitude'], $page, $pageSize));
     }
 
     public function getAllCompaniesCount($status)

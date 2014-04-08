@@ -13,7 +13,7 @@ DROP PROCEDURE IF EXISTS `spCompanySearch`;
 
 DELIMITER $$
 
-CREATE PROCEDURE `spCompanySearch` (IN currentUserId INT, IN city INT, IN district INT, IN sort INT, IN latitude DOUBLE, IN longitude DOUBLE, IN page INT, IN pageSize INT)
+CREATE PROCEDURE `spCompanySearch` (IN currentUserId INT, IN searchText VARCHAR(255), IN city INT, IN district INT, IN sort INT, IN latitude DOUBLE, IN longitude DOUBLE, IN page INT, IN pageSize INT)
 BEGIN
 
 DECLARE offset INT;
@@ -61,7 +61,7 @@ FROM (
                  INNER JOIN Work W ON W.WorkId = CMW.WorkId
                  INNER JOIN CompanyUser CU ON CU.UserId = W.UserId
                 ) AS TBLRate ON TBLRate.CompanyId = C.CompanyId
-    WHERE C.Status = 1 AND (city = 0 || C.City = city) AND (district = 0 || C.District = district)
+    WHERE C.Status = 1 AND (searchText = '' || C.Name LIKE CONCAT('%', searchText, '%')) AND (city = 0 || C.City = city) AND (district = 0 || C.District = district)
     GROUP BY C.CompanyId
     ORDER BY CASE WHEN sort = 0 THEN Distance END ASC,
              CASE WHEN sort = 1 THEN Rate END DESC

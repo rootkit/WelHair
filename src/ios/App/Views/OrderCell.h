@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
+#import "Order.h"
 @interface OrderCell : UITableViewCell
-
+- (void)setup:(Order *)order;
 @end

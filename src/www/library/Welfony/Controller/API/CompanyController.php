@@ -28,7 +28,7 @@ class CompanyController extends AbstractAPIController
     public function create()
     {
         $staff = StaffService::getStaffDetail($this->currentContext['UserId']);
-        if ($staff) {
+        if ($staff['Company'] != null) {
             $result = array('success' => false, 'message' => '您已经在一个沙龙中了。');
             $this->sendResponse($result);
         }
@@ -80,12 +80,14 @@ class CompanyController extends AbstractAPIController
         $page = intval($this->app->request->get('page'));
         $pageSize = intval($this->app->request->get('pageSize'));
 
+        $searchText = htmlspecialchars($this->app->request->get('searchText'));
+
         $city = intval($this->app->request->get('city'));
         $district = intval($this->app->request->get('district'));
 
         $sort = intval($this->app->request->get('sort'));
 
-        $companyList = CompanyService::search($this->currentContext['UserId'], $city, $district, $sort, $this->currentContext['Location'], $page, $pageSize);
+        $companyList = CompanyService::search($this->currentContext['UserId'], $searchText, $city, $district, $sort, $this->currentContext['Location'], $page, $pageSize);
         $this->sendResponse($companyList);
     }
 
