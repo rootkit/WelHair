@@ -112,4 +112,9 @@ class UserController extends AbstractAPIController
         $this->sendResponse($result);
     }
 
+    public function listPointsByUser($userId)
+    {
+
+    }
+
 }

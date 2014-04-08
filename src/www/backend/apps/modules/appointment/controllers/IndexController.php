@@ -40,7 +40,7 @@ class Appointment_IndexController extends AbstractAdminController
         $this->view->staffInfo = $staff;
 
         $page = intval($this->_request->getParam('page'));
-        $searchResult = AppointmentService::listAllAppointments($page, $pageSize, $staffId);
+        $searchResult = AppointmentService::listAllAppointments($page, $pageSize, $staffId, 0, -1);
 
         $this->view->dataList = $searchResult['appointments'];
         $this->view->pager = $this->renderPager($this->view->baseUrl('appointment/index/search?s=' . ($staffId > 0 ? '&staff_id=' . $staffId : '')),

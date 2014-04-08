@@ -115,13 +115,13 @@ class AppointmentService
 
     }
 
-    public static function listAllAppointments($page, $pageSize, $staffId)
+    public static function listAllAppointments($page, $pageSize, $staffId, $userId, $status)
     {
         $page = $page <= 0 ? 1 : $page;
         $pageSize = $pageSize <= 0 ? 20 : $pageSize;
 
-        $total = AppointmentRepository::getInstance()->getAllAppointmentsCount($staffId);
-        $appointmentList = AppointmentRepository::getInstance()->getAllAppointments($page, $pageSize, $staffId);
+        $total = AppointmentRepository::getInstance()->getAllAppointmentsCount($staffId, $userId, $status);
+        $appointmentList = AppointmentRepository::getInstance()->getAllAppointments($page, $pageSize, $staffId, $userId, $status);
         $appointments = array();
         foreach ($appointmentList as $appointment) {
             $appointments[] = $appointment;

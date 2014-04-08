@@ -19,11 +19,22 @@ use Welfony\Repository\Base\AbstractRepository;
 class AppointmentRepository extends AbstractRepository
 {
 
-    public function getAllAppointmentsCount($staffId)
+    public function getAllAppointmentsCount($staffId, $userId, $status)
     {
         $filter = '';
         if ($staffId > 0) {
             $filter = "AND A.StaffId = $staffId";
+        }
+        if ($userId > 0) {
+            $filter = "AND A.UserId = $userId";
+        }
+        if (is_array($status)) {
+            $inStatus = implode(',', $status);
+            $filter = "AND A.Status IN ($inStatus)";
+        } else {
+          if ($status >= 0) {
+              $filter = "AND A.Status = $status";
+          }
         }
 
         $strSql = "SELECT
@@ -37,11 +48,22 @@ class AppointmentRepository extends AbstractRepository
         return $row['Total'];
     }
 
-    public function getAllAppointments($page, $pageSize, $staffId)
+    public function getAllAppointments($page, $pageSize, $staffId, $userId, $status)
     {
         $filter = '';
         if ($staffId > 0) {
             $filter = "AND A.StaffId = $staffId";
+        }
+        if ($userId > 0) {
+            $filter = "AND A.UserId = $userId";
+        }
+        if (is_array($status)) {
+            $inStatus = implode(',', $status);
+            $filter = "AND A.Status IN ($inStatus)";
+        } else {
+          if ($status >= 0) {
+              $filter = "AND A.Status = $status";
+          }
         }
 
         $offset = ($page - 1) * $pageSize;
