@@ -23,13 +23,13 @@ use Welfony\Service\StaffService;
 class CompanyService
 {
 
-    public static function search($currentUserId, $city, $district, $sort, $location, $page, $pageSize)
+    public static function search($currentUserId, $searchText, $city, $district, $sort, $location, $page, $pageSize)
     {
         $page = $page <= 0 ? 1 : $page;
         $pageSize = $pageSize <= 0 ? 20 : $pageSize;
 
-        $total = CompanyRepository::getInstance()->searchCount($city, $district);
-        $companyList = CompanyRepository::getInstance()->search($currentUserId, $city, $district, $sort, $location, $page, $pageSize);
+        $total = CompanyRepository::getInstance()->searchCount($searchText, $city, $district);
+        $companyList = CompanyRepository::getInstance()->search($currentUserId, $searchText, $city, $district, $sort, $location, $page, $pageSize);
 
         $companies = array();
         foreach ($companyList as $company) {

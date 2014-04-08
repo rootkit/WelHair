@@ -14,6 +14,7 @@
 
 namespace Welfony\Service;
 
+use Welfony\Core\Enum\CompanyStatus;
 use Welfony\Repository\AppointmentRepository;
 use Welfony\Repository\ServiceRepository;
 
@@ -24,32 +25,42 @@ class AppointmentService
     {
         $result = array('success' => false, 'message' => '');
 
-        if (intval($data['UserId']) <= 0) {
+        if (!isset($data['UserId']) || intval($data['UserId']) <= 0) {
             $result['message'] = '请选择预约人。';
 
             return $result;
         }
 
-        if (intval($data['StaffId']) <= 0) {
+        if (!isset($data['StaffId']) || intval($data['StaffId']) <= 0) {
             $result['message'] = '请选择发型师。';
 
             return $result;
         }
 
-        if (intval($data['ServiceId']) <= 0) {
+        if (!isset($data['ServiceId']) || intval($data['ServiceId']) <= 0) {
             $result['message'] = '请选择一项服务。';
 
             return $result;
         }
 
-        if (strtotime($data['AppointmentDate']) === false) {
+        if (!isset($data['AppointmentDate']) || strtotime($data['AppointmentDate']) === false) {
             $result['message'] = '请选择预约时间。';
 
             return $result;
         }
 
         $staff = StaffService::getStaffDetail($data['StaffId']);
+        if (!$staff['IsApproved'] || $staff['Company']['Status'] != CompanyStatus::Valid) {
+            $result['message'] = '该发型师暂时不可预约。';
+
+            return $result;
+        }
         $service = ServiceRepository::getInstance()->findServiceById($data['ServiceId']);
+        if (!$service || $service['UserId'] != $data['StaffId']) {
+            $result['message'] = '该服务暂时不可预约。';
+
+            return $result;
+        }
 
         $data = array(
             'AppointmentId' => $data['AppointmentId'],
@@ -89,6 +100,19 @@ class AppointmentService
 
             return $result;
         }
+    }
+
+    public static function update($appointmentId, $data)
+    {
+        $result = array('success' => false, 'message' => '');
+
+        $data['LastModifiedDate'] = date('Y-m-d H:i:s');
+
+        $result['success'] = AppointmentRepository::getInstance()->update($appointmentId, $data);
+        $result['message'] = $result['success'] ? '更新预约成功！' : '更新预约失败！';
+
+        return $result;
+
     }
 
     public static function listAllAppointments($page, $pageSize, $staffId)
