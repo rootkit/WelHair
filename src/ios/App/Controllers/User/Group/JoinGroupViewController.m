@@ -63,7 +63,7 @@
     [self setTopLeftCityName];
 
     self.currentPage = 1;
-    [self searchGroups];
+    [self.tableView triggerPullToRefresh];
 }
 
 - (void)viewDidLoad
@@ -135,6 +135,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString * cellIdentifier = @"GroupCellIdentifier";
+
     GroupCell * cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
     if (!cell) {
         cell = [[GroupCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
@@ -186,6 +187,8 @@
 
 - (void)searchGroups
 {
+    [self.searchBar resignFirstResponder];
+
     NSMutableDictionary *reqData = [[NSMutableDictionary alloc] initWithCapacity:1];
     [reqData setObject:self.searchBar.text forKey:@"searchText"];
     [reqData setObject:[NSString stringWithFormat:@"%d", self.currentPage] forKey:@"page"];
