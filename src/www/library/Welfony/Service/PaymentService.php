@@ -16,28 +16,28 @@ namespace Welfony\Service;
 
 use Welfony\Repository\ModelRepository;
 
-class ModelService
+class PaymentService
 {
 
     public static function getModelById($id)
     {
-        return  ModelRepository::getInstance()->findModelById( $id);
+        return  PaymentRepository::getInstance()->findPaymentById( $id);
 
     }
-    public static function listModel($pageNumber, $pageSize)
+    public static function listPayment($pageNumber, $pageSize)
     {
         $result = array(
-            'models' => array(),
+            'payments' => array(),
             'total' => 0
         );
 
-        $totalCount = ModelRepository::getInstance()->getAllModelCount();
+        $totalCount = PaymentRepository::getInstance()->getAllPaymentCount();
 
         if ($totalCount > 0 && $pageNumber <= ceil($totalCount / $pageSize)) {
 
-            $searchResult = ModelRepository::getInstance()->listModel( $pageNumber, $pageSize);
+            $searchResult = PaymentRepository::getInstance()->listPayment( $pageNumber, $pageSize);
 
-            $result['models']= $searchResult;
+            $result['payments']= $searchResult;
         }
 
         $result['total'] = $totalCount;
@@ -45,64 +45,47 @@ class ModelService
         return $result;
     }
 
-    public static function listAllModel()
+    public static function listAllPayment()
     {
-        return $searchResult = ModelRepository::getInstance()->getAllModel();
+        return $searchResult = PaymentRepository::getInstance()->getAllPayment();
 
     }
 
-    public static function save($data, $attributes = null)
+    public static function save($data)
     {
         $result = array('success' => false, 'message' => '');
 
-        if ($data['ModelId'] == 0) {
+        if ($data['PaymentId'] == 0) {
 
-            $newId = ModelRepository::getInstance()->save($data, $attributes);
+            $newId = PaymentRepository::getInstance()->save($data);
             if ($newId) {
-                $data['ModelId'] = $newId;
+                $data['PaymentId'] = $newId;
 
                 $result['success'] = true;
-                $result['model'] = $data;
+                $result['payment'] = $data;
 
                 return $result;
             } else {
-                $result['message'] = '添加模型失败！';
+                $result['message'] = '添加支付方式失败！';
 
                 return $result;
             }
         } else {
 
-            $r = ModelRepository::getInstance()->update($data['ModelId'],$data, $attributes);
+            $r = PaymentRepository::getInstance()->update($data['PaymentId'],$data);
             if ($r) {
 
                 $result['success'] = true;
-                $result['model'] = $data;
+                $result['payment'] = $data;
 
                 return $result;
             } else {
-                $result['message'] = '更新模型失败！';
+                $result['message'] = '更新支付方式失败！';
 
                 return $result;
             }
 
             return true;
-        }
-    }
-
-    public static function deleteModel($data)
-    {
-        $result = array('success' => false, 'message' => '');
-        $r = ModelRepository::getInstance()->delete($data['ModelId']);
-        if ($r) {
-
-            $result['success'] = true;
-            $result['message'] = '删除模型成功！';
-
-            return $result;
-        } else {
-            $result['message'] = '删除模型失败！';
-
-            return $result;
         }
     }
 

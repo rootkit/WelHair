@@ -14,30 +14,30 @@
 
 namespace Welfony\Service;
 
-use Welfony\Repository\ModelRepository;
+use Welfony\Repository\DeliveryRepository;
 
-class ModelService
+class DeliveryService
 {
 
-    public static function getModelById($id)
+    public static function getDeliveryById($id)
     {
-        return  ModelRepository::getInstance()->findModelById( $id);
+        return  DeliveryRepository::getInstance()->findDeliveryById( $id);
 
     }
-    public static function listModel($pageNumber, $pageSize)
+    public static function listDelivery($pageNumber, $pageSize)
     {
         $result = array(
-            'models' => array(),
+            'deliveries' => array(),
             'total' => 0
         );
 
-        $totalCount = ModelRepository::getInstance()->getAllModelCount();
+        $totalCount = DeliveryRepository::getInstance()->getAllDeliveryCount();
 
         if ($totalCount > 0 && $pageNumber <= ceil($totalCount / $pageSize)) {
 
-            $searchResult = ModelRepository::getInstance()->listModel( $pageNumber, $pageSize);
+            $searchResult = DeliveryRepository::getInstance()->listDelivery( $pageNumber, $pageSize);
 
-            $result['models']= $searchResult;
+            $result['deliveries']= $searchResult;
         }
 
         $result['total'] = $totalCount;
@@ -45,42 +45,42 @@ class ModelService
         return $result;
     }
 
-    public static function listAllModel()
+    public static function listAllDelivery()
     {
-        return $searchResult = ModelRepository::getInstance()->getAllModel();
+        return $searchResult = DeliveryRepository::getInstance()->getAllDelivery();
 
     }
 
-    public static function save($data, $attributes = null)
+    public static function save($data)
     {
         $result = array('success' => false, 'message' => '');
 
-        if ($data['ModelId'] == 0) {
+        if ($data['DeliveryId'] == 0) {
 
-            $newId = ModelRepository::getInstance()->save($data, $attributes);
+            $newId = DeliveryRepository::getInstance()->save($data);
             if ($newId) {
-                $data['ModelId'] = $newId;
+                $data['DeliveryId'] = $newId;
 
                 $result['success'] = true;
-                $result['model'] = $data;
+                $result['delivery'] = $data;
 
                 return $result;
             } else {
-                $result['message'] = '添加模型失败！';
+                $result['message'] = '添加配送方式失败！';
 
                 return $result;
             }
         } else {
 
-            $r = ModelRepository::getInstance()->update($data['ModelId'],$data, $attributes);
+            $r = DeliveryRepository::getInstance()->update($data['DeliveryId'],$data);
             if ($r) {
 
                 $result['success'] = true;
-                $result['model'] = $data;
+                $result['delivery'] = $data;
 
                 return $result;
             } else {
-                $result['message'] = '更新模型失败！';
+                $result['message'] = '更新配送方式失败！';
 
                 return $result;
             }
@@ -89,18 +89,18 @@ class ModelService
         }
     }
 
-    public static function deleteModel($data)
+    public static function deleteDelivery($data)
     {
         $result = array('success' => false, 'message' => '');
-        $r = ModelRepository::getInstance()->delete($data['ModelId']);
+        $r = DeliveryRepository::getInstance()->delete($data['DeliveryId']);
         if ($r) {
 
             $result['success'] = true;
-            $result['message'] = '删除模型成功！';
+            $result['message'] = '删除配送方式成功！';
 
             return $result;
         } else {
-            $result['message'] = '删除模型失败！';
+            $result['message'] = '删除配送方式失败！';
 
             return $result;
         }

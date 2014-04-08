@@ -16,14 +16,14 @@ namespace Welfony\Repository;
 
 use Welfony\Repository\Base\AbstractRepository;
 
-class ModelRepository extends AbstractRepository
+class DeliveryRepository extends AbstractRepository
 {
 
-    public function getAllModelCount()
+    public function getAllDeliveryCount()
     {
         $strSql = "SELECT
                        COUNT(1) `Total`
-                   FROM Model
+                   FROM Delivery
                    WHERE IsDeleted = 0
                    LIMIT 1";
 
@@ -32,47 +32,47 @@ class ModelRepository extends AbstractRepository
         return $row['Total'];
     }
 
-    public function getAllModel()
+    public function getAllDelivery()
     {
         $strSql = 'SELECT
                        *
-                   FROM Model
+                   FROM Delivery
                    WHERE IsDeleted = 0
                   ';
 
         return $this->conn->fetchAll($strSql);
     }
 
-    public function listModel($pageNumber, $pageSize)
+    public function listDelivery($pageNumber, $pageSize)
     {
 
         $offset = ($pageNumber - 1) * $pageSize;
         $strSql = "SELECT *
-                   FROM Model
+                   FROM Delivery
                    WHERE IsDeleted = 0
-                   ORDER BY ModelId
+                   ORDER BY DeliveryId
                    LIMIT $offset, $pageSize ";
 
         return $this->conn->fetchAll($strSql);
 
     }
 
-    public function findModelById($id)
+    public function findDeliveryById($id)
     {
         $strSql = 'SELECT
                        *
-                   FROM Model
-                   WHERE ModelId = ?
+                   FROM Delivery
+                   WHERE DeliveryId = ?
                    LIMIT 1';
 
         return $this->conn->fetchAssoc($strSql, array($id));
     }
 
-    /*
-    public function save($data, $attributes = null)
+    
+    public function save($data)
     {
         try {
-            if ($this->conn->insert('Model', $data)) {
+            if ($this->conn->insert('Delivery', $data)) {
                 return $this->conn->lastInsertId();
             }
         } catch (\Exception $e) {
@@ -83,77 +83,25 @@ class ModelRepository extends AbstractRepository
 
         return false;
     }
-    */
+    
 
-    public function save($data, $attributes= null)
-    {
-        $conn = $this->conn;
-        $conn->beginTransaction();
-        try {
-
-            if ($this->conn->insert('Model', $data)) {
-                $modelId= $this->conn->lastInsertId();
-            } else {
-              return false;
-            }
-            if ($attributes) {
-              foreach ($attributes as $row) {
-                $row['ModelId'] = $modelId;
-                $this->conn->insert('Attribute', $row);
-              }
-            }
-            $conn->commit();
-
-            return $modelId;
-        } catch (\Exception $e) {
-            $conn->rollback();
-            $this->logger->log($e, \Zend_Log::ERR);
-
-            return false;
-        }
-
-        return true;
-    }
-
-    /*
-    public function update($modelId, $data)
+    public function update($deliveryId, $data)
     {
         try {
-            return $this->conn->update('Model', $data, array('ModelId' => $modelId));
+            return $this->conn->update('Delivery', $data, array('DeliveryId' => $deliveryId));
         } catch (\Exception $e) {
             $this->logger->log($e, \Zend_Log::ERR);
 
             return false;
         }
     }
-    */
+    
 
-    public function update($modelId, $data, $attributes = null)
+
+    public function delete($deliveryId)
     {
         try {
-            if ($attributes) {
-                $this->conn->delete('Attribute', array('ModelId' => $modelId));
-                foreach ($attributes as $attr) {
-                    $attr['ModelId'] = $modelId;
-                    $this->conn->insert('Attribute', $attr);
-                }
-
-            } else {
-                $this->conn->delete('Attribute', array('ModelId' => $modelId));
-            }
-
-            return $this->conn->update('Model', $data, array('ModelId' => $modelId));
-        } catch (\Exception $e) {
-            $this->logger->log($e, \Zend_Log::ERR);
-
-            return false;
-        }
-    }
-
-    public function delete($modelId)
-    {
-        try {
-            return $this->conn->executeUpdate(" UPDATE Model SET IsDeleted = 1 WHERE ModelId  = $modelId; ");
+            return $this->conn->executeUpdate(" UPDATE Delivery SET IsDeleted = 1 WHERE DeliveryId  = $deliveryId; ");
         } catch (\Exception $e) {
             $this->logger->log($e, \Zend_Log::ERR);
 

@@ -14,30 +14,30 @@
 
 namespace Welfony\Service;
 
-use Welfony\Repository\ModelRepository;
+use Welfony\Repository\FreightRepository;
 
-class ModelService
+class FreightService
 {
 
-    public static function getModelById($id)
+    public static function getFreightById($id)
     {
-        return  ModelRepository::getInstance()->findModelById( $id);
+        return  FreightRepository::getInstance()->findFreightById( $id);
 
     }
-    public static function listModel($pageNumber, $pageSize)
+    public static function listFreight($pageNumber, $pageSize)
     {
         $result = array(
-            'models' => array(),
+            'freights' => array(),
             'total' => 0
         );
 
-        $totalCount = ModelRepository::getInstance()->getAllModelCount();
+        $totalCount = FreightRepository::getInstance()->getAllFreightCount();
 
         if ($totalCount > 0 && $pageNumber <= ceil($totalCount / $pageSize)) {
 
-            $searchResult = ModelRepository::getInstance()->listModel( $pageNumber, $pageSize);
+            $searchResult = FreightRepository::getInstance()->listFreight( $pageNumber, $pageSize);
 
-            $result['models']= $searchResult;
+            $result['freights']= $searchResult;
         }
 
         $result['total'] = $totalCount;
@@ -45,42 +45,42 @@ class ModelService
         return $result;
     }
 
-    public static function listAllModel()
+    public static function listAllFreight()
     {
-        return $searchResult = ModelRepository::getInstance()->getAllModel();
+        return $searchResult = FreightRepository::getInstance()->getAllFreight();
 
     }
 
-    public static function save($data, $attributes = null)
+    public static function save($data)
     {
         $result = array('success' => false, 'message' => '');
 
-        if ($data['ModelId'] == 0) {
+        if ($data['FreightId'] == 0) {
 
-            $newId = ModelRepository::getInstance()->save($data, $attributes);
+            $newId = FreightRepository::getInstance()->save($data);
             if ($newId) {
-                $data['ModelId'] = $newId;
+                $data['FreightId'] = $newId;
 
                 $result['success'] = true;
-                $result['model'] = $data;
+                $result['freight'] = $data;
 
                 return $result;
             } else {
-                $result['message'] = '添加模型失败！';
+                $result['message'] = '添加物流公司失败！';
 
                 return $result;
             }
         } else {
 
-            $r = ModelRepository::getInstance()->update($data['ModelId'],$data, $attributes);
+            $r = FreightRepository::getInstance()->update($data['FreightId'],$data);
             if ($r) {
 
                 $result['success'] = true;
-                $result['model'] = $data;
+                $result['freight'] = $data;
 
                 return $result;
             } else {
-                $result['message'] = '更新模型失败！';
+                $result['message'] = '更新物流公司失败！';
 
                 return $result;
             }
@@ -89,18 +89,18 @@ class ModelService
         }
     }
 
-    public static function deleteModel($data)
+    public static function deleteFreight($data)
     {
         $result = array('success' => false, 'message' => '');
-        $r = ModelRepository::getInstance()->delete($data['ModelId']);
+        $r = FreightRepository::getInstance()->delete($data['FreightId']);
         if ($r) {
 
             $result['success'] = true;
-            $result['message'] = '删除模型成功！';
+            $result['message'] = '删除物流公司成功！';
 
             return $result;
         } else {
-            $result['message'] = '删除模型失败！';
+            $result['message'] = '删除物流公司失败！';
 
             return $result;
         }
