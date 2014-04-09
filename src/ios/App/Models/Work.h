@@ -14,19 +14,20 @@
 #import "Comment.h"
 #import "Staff.h"
 
-typedef NS_ENUM(NSInteger, HairStyleEnum) {
-    HairStyleEnumLong = 1,
-    HairStyleEnumMiddle = 2,
-    HairStyleEnumShort = 3
+typedef NS_ENUM(int, HairStyleEnum) {
+    HairStyleEnumShort = 1,
+    HairStyleEnumLong = 2,
+    HairStyleEnumPlait = 3,
+    HairStyleEnumMiddle = 4,
 };
 
-typedef NS_ENUM(NSInteger, HairQualityEnum) {
+typedef NS_ENUM(int, HairQualityEnum) {
     HairQualityHeavy = 1,
     HairQualityMiddle = 2,
     HairQualityLittle = 3
 };
 
-typedef NS_ENUM(NSInteger, GenderEnum) {
+typedef NS_ENUM(int, GenderEnum) {
     GenderEnumUnspecific = 0,
     GenderEnumMale = 1,
     GenderEnumFemale= 2
@@ -44,17 +45,16 @@ typedef NS_ENUM(NSInteger, GenderEnum) {
 
 // work param
 // face sytle
-@property (nonatomic) BOOL faceStyleLong;
-@property (nonatomic) BOOL faceStyleSquare;
 @property (nonatomic) BOOL faceStyleCircle;
 @property (nonatomic) BOOL faceStyleGuaZi;
+@property (nonatomic) BOOL faceStyleSquare;
+@property (nonatomic) BOOL faceStyleLong;
 
 // hair quality
-@property (nonatomic) HairStyleEnum hairQuality;
+@property (nonatomic) HairQualityEnum hairQuality;
 // hair style
-@property (nonatomic) HairQualityEnum hairStyle;
-
-//
+@property (nonatomic) HairStyleEnum hairStyle;
+// gender
 @property (nonatomic) GenderEnum gender;
 
 

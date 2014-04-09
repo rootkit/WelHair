@@ -25,7 +25,7 @@ use Welfony\Utility\Util;
     <thead>
         <tr>
             <th class="col-chk"><input id="chk_all" type="checkbox" /></th>
-            <th class="cola">发型师</th>
+            <th>发型师</th>
             <th>标题</th>
             <th>性别</th>
             <th>脸型</th>
@@ -50,6 +50,7 @@ use Welfony\Utility\Util;
             <td class="col-center">
                 <?php
                 $faceIdArr = explode(',', $data['Face']);
+                $faceNameArr = array();
                 foreach ($faceIdArr as $faceId) {
                     $faceNameArr[] = Converter::faceFromEnumToString($faceId);
                 }

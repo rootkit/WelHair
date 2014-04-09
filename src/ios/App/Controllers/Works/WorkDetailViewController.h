@@ -9,9 +9,11 @@
 // file that was distributed with this source code.
 //
 // ==============================================================================
-#import <UIKit/UIKit.h>
+
 #import "Work.h"
+
 @interface WorkDetailViewController : BaseViewController
 
 @property (nonatomic, strong) Work *work;
+
 @end

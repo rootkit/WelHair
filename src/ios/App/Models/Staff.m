@@ -21,7 +21,7 @@
         if ([dictionary objectForKey:@"Rate"]) {
             self.rating = [[dictionary objectForKey:@"Rate"] intValue];
         }
-        if ([dictionary objectForKey:@"StaffCount"]) {
+        if ([dictionary objectForKey:@"WorkCount"]) {
             self.workCount = [[dictionary objectForKey:@"WorkCount"] intValue];
         }
         if ([dictionary objectForKey:@"Company"]) {

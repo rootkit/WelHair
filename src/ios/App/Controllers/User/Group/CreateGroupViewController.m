@@ -1,10 +1,14 @@
+// ==============================================================================
 //
-//  CreateGroupViewController.m
-//  WelHair
+// This file is part of the WelHair
 //
-//  Created by lu larry on 3/13/14.
-//  Copyright (c) 2014 Welfony. All rights reserved.
+// Create by Welfony <support@welfony.com>
+// Copyright (c) 2013-2014 welfony.com
 //
+// For the full copyright and license information, please view the LICENSE
+// file that was distributed with this source code.
+//
+// ==============================================================================
 
 #import "City.h"
 #import "CityListViewController.h"
@@ -14,7 +18,7 @@
 static const float kOffsetY = 40;
 static const float kMargin = 10;
 
-@interface CreateGroupViewController ()<UITextFieldDelegate, MapPickViewDelegate, CityPickViewDelegate, UIActionSheetDelegate, UIImagePickerControllerDelegate,UINavigationControllerDelegate>
+@interface CreateGroupViewController ()<UITextFieldDelegate, MapPickViewDelegate, CityPickViewDelegate, UIActionSheetDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 
 @property (nonatomic, strong) UIScrollView *scrollView;
 
@@ -416,7 +420,6 @@ static const float kMargin = 10;
                      animations:animations
                      completion:nil];
 }
-
 
 - (void)resignInputResponder
 {
