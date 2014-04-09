@@ -87,6 +87,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_PUSH_TO_GROUP_DETAIL_VIEW  object:[self.datasource objectAtIndex:indexPath.row]];
 }
 
 

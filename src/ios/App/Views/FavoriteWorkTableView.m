@@ -80,9 +80,9 @@
         cell = [[WorkCell alloc] initWithReuseIdentifier:cellIdentifier];
     }
     
-    __weak typeof(self) selfDelegate = self;
     [cell setupWithData:[self.datasource objectAtIndex:index] tapHandler:^(id model){
         Work *work = (Work *)model;
+        [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_PUSH_TO_WORK_DETAIL_VIEW  object:work];
     }];
     
     return cell;

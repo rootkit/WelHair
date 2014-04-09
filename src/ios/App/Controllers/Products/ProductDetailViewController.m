@@ -189,11 +189,11 @@
     FAKIcon *heartIconOff = [FAKIonIcons ios7HeartOutlineIconWithSize:25];
     [heartIconOff addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithHexString:@"e43a3d"]];
     self.heartBtn = [ToggleButton buttonWithType:UIButtonTypeCustom];
-    __weak ProductDetailViewController *selfDelegate = self;
+    __weak ProductDetailViewController *weakSelf = self;
     [self.heartBtn setToggleButtonOnImage:[heartIconOn imageWithSize:CGSizeMake(25, 25)]
                                    offImg:[heartIconOff imageWithSize:CGSizeMake(25, 25)]
                        toggleEventHandler:^(BOOL isOn){
-                           [selfDelegate favClick:isOn];
+                           [weakSelf favClick:isOn];
                        }];
     self.heartBtn.frame = CGRectMake(260, Y(self.productNameLbl) + 5,30,30);
     [self.scrollView addSubview:self.heartBtn];

@@ -10,7 +10,8 @@
 #import "PPiFlatSegmentedControl.h"
 #import "FavoriteWorkTableView.h"
 #import "FavoriteGroupTableView.h"
-
+#import "FavoriteStaffTableView.h"
+#import "FavoriteProductTableView.h"
 #import "WorkDetailViewController.h"
 #import "StaffDetailViewController.h"
 #import "GroupDetailViewController.h"
@@ -20,6 +21,9 @@
 @property (nonatomic, strong) PPiFlatSegmentedControl *segment;
 @property (nonatomic, strong) FavoriteWorkTableView *workTableView;
 @property (nonatomic, strong) FavoriteGroupTableView *groupTableView;
+@property (nonatomic, strong) FavoriteStaffTableView *staffTableView;
+@property (nonatomic, strong) FavoriteProductTableView *productTableView;
+
 @property (nonatomic, strong) UIView *segmentContentView;
 @property (nonatomic) int activeIndex;
 @end
@@ -46,6 +50,27 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(pushToWorkDetail:)
+                                                 name:NOTIFICATION_PUSH_TO_WORK_DETAIL_VIEW
+                                               object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(pushToGroupDetail:)
+                                                 name:NOTIFICATION_PUSH_TO_GROUP_DETAIL_VIEW
+                                               object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(pushToStaffDetail:)
+                                                 name:NOTIFICATION_PUSH_TO_STAFF_DETAIL_VIEW
+                                               object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(pushToProductDetail:)
+                                                 name:NOTIFICATION_PUSH_TO_PRODUCT_DETAIL_VIEW
+                                               object:nil];
+    
     UIView *segmentView = [[UIView alloc] initWithFrame:CGRectMake(0, self.topBarOffset, WIDTH(self.view), 40)];
     segmentView.backgroundColor = [UIColor colorWithHexString:APP_CONTENT_BG_COLOR];
     [self.view addSubview:segmentView];
@@ -93,11 +118,14 @@
         return;
     }
     self.activeIndex = index;
+    self.workTableView.hidden = YES;
+    self.groupTableView.hidden = YES;
+    self.staffTableView.hidden = YES;
+    self.productTableView.hidden = YES;
     switch (self.activeIndex) {
         case 0:
         {
             self.workTableView.hidden = NO;
-            self.groupTableView.hidden = YES;
         }
             break;
         case 1:
@@ -106,8 +134,25 @@
                 self.groupTableView = [[FavoriteGroupTableView alloc] initWithFrame:self.segmentContentView.bounds];
                 [self.segmentContentView addSubview:self.groupTableView];
             }
-            self.workTableView.hidden = YES;
             self.groupTableView.hidden = NO;
+        }
+            break;
+        case 2:
+        {
+            if(!self.staffTableView){
+                self.staffTableView = [[FavoriteStaffTableView alloc] initWithFrame:self.segmentContentView.bounds];
+                [self.segmentContentView addSubview:self.staffTableView];
+            }
+            self.staffTableView.hidden = NO;
+        }
+            break;
+        case 3:
+        {
+            if(!self.productTableView){
+                self.productTableView = [[FavoriteProductTableView alloc] initWithFrame:self.segmentContentView.bounds];
+                [self.segmentContentView addSubview:self.productTableView];
+            }
+            self.productTableView.hidden = NO;
         }
             break;
             
@@ -116,6 +161,38 @@
     }
 }
 
+
+- (void)pushToWorkDetail:(NSNotification *)noti
+{
+    Work *w = (Work *)noti.object;
+    WorkDetailViewController *vc = [WorkDetailViewController new];
+    vc.work = w;
+    [self.navigationController pushViewController:vc animated:YES];
+}
+
+- (void)pushToGroupDetail:(NSNotification *)noti
+{
+    Group *g = (Group *)noti.object;
+    GroupDetailViewController *vc = [GroupDetailViewController new];
+    vc.group = g;
+    [self.navigationController pushViewController:vc animated:YES];
+}
+
+- (void)pushToStaffDetail:(NSNotification *)noti
+{
+    Staff *s = (Staff *)noti.object;
+    StaffDetailViewController *vc = [StaffDetailViewController new];
+    vc.staff = s;
+    [self.navigationController pushViewController:vc animated:YES];
+}
+
+- (void)pushToProductDetail:(NSNotification *)noti
+{
+    Product *p = (Product *)noti.object;
+    ProductDetailViewController *vc = [ProductDetailViewController new];
+    vc.product = p;
+    [self.navigationController pushViewController:vc animated:YES];
+}
 
 
 @end

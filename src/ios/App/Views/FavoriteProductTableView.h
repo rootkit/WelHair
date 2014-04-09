@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
+#define NOTIFICATION_PUSH_TO_PRODUCT_DETAIL_VIEW @"Notification_PushToProductView"
+
 @interface FavoriteProductTableView : UIView
 
 @end

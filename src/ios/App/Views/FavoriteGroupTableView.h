@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#define NOTIFICATION_PUSH_TO_GROUP_DETAIL_VIEW @"Notification_PushToGroupView"
 @interface FavoriteGroupTableView : UIView
 
 @end

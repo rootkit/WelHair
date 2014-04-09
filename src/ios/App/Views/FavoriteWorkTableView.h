@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#define NOTIFICATION_PUSH_TO_WORK_DETAIL_VIEW @"Notification_PushToWorkView"
 @interface FavoriteWorkTableView : UIView
 
 @end

@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#define NOTIFICATION_PUSH_TO_STAFF_DETAIL_VIEW @"Notification_PushToStaffView"
 @interface FavoriteStaffTableView : UIView
 
 @end
