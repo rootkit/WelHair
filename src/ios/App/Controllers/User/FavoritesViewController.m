@@ -10,7 +10,7 @@
 #import "PPiFlatSegmentedControl.h"
 @interface FavoritesViewController ()
 @property (nonatomic) int activeIndex;
-@property (nonatomic, strong) i
+//@property (nonatomic, strong) i
 @end
 
 @implementation FavoritesViewController

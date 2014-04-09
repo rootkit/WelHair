@@ -1,10 +1,14 @@
+// ==============================================================================
 //
-//  WorkCardView.m
-//  WelHair
+// This file is part of the WelHair
 //
-//  Created by lu larry on 3/6/14.
-//  Copyright (c) 2014 Welfony. All rights reserved.
+// Create by Welfony <support@welfony.com>
+// Copyright (c) 2013-2014 welfony.com
 //
+// For the full copyright and license information, please view the LICENSE
+// file that was distributed with this source code.
+//
+// ==============================================================================
 
 #import "CircleImageView.h"
 #import "Comment.h"
@@ -112,7 +116,7 @@
         Comment *comment = workData.lastComment;
         [self.commentorImgView setImageWithURL:comment.commentor.avatarUrl];
         self.commentorNameLbl.text = [NSString stringWithFormat:@"%@:",comment.commentor.nickname];
-        self.commentContentLbl.text = [NSString stringWithFormat:@"%@:",comment.description];
+        self.commentContentLbl.text = [NSString stringWithFormat:@"%@",comment.description];
     }
 
     self.commentorImgView.hidden = self.workData.commentCount <= 0;

@@ -84,8 +84,6 @@
 
 - (void)rightNavItemClick
 {
-    [SVProgressHUD showWithMaskType:SVProgressHUDMaskTypeClear];
-
     NSMutableDictionary *reqData = [[NSMutableDictionary alloc] initWithCapacity:1];
     [reqData setObject:self.infoTxtView.text forKey:@"Title"];
     [reqData setObject:@(self.work.gender) forKey:@"Gender"];
@@ -128,9 +126,11 @@
 
     [reqData setObject:uploadPictures forKey:@"PictureUrl"];
 
+    [SVProgressHUD showWithMaskType:SVProgressHUDMaskTypeClear];
+
     ASIFormDataRequest *request = [RequestUtil createPOSTRequestWithURL:[NSURL URLWithString:API_WORKS_CREATE]
                                                                 andData:reqData];
-
+    [self.requests addObject:request];
     [request setDelegate:self];
     [request setDidFinishSelector:@selector(createWorkFinish:)];
     [request setDidFailSelector:@selector(createWorkFail:)];

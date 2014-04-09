@@ -60,6 +60,10 @@
 
     CommentComposorViewController *commentComposorVc = [[CommentComposorViewController alloc] init];;
     commentComposorVc.hidesBottomBarWhenPushed = YES;
+    commentComposorVc.userId = self.userId;
+    commentComposorVc.companyId = self.companyId;
+    commentComposorVc.workId = self.workId;
+    commentComposorVc.goodsId = self.goodsId;
     [self.navigationController pushViewController:commentComposorVc animated:YES];
 }
 

@@ -292,6 +292,7 @@
     [reqData setObject:[NSString stringWithFormat:@"%d", self.genderSelectedIndex] forKey:@"gender"];
     [reqData setObject:[NSString stringWithFormat:@"%d", self.hairStyleSelectedIndex] forKey:@"hairStyle"];
     [reqData setObject:[NSString stringWithFormat:@"%d", self.sortSelectedIndex] forKey:@"sort"];
+    [reqData setObject:[NSString stringWithFormat:@"%d", [[CityManager SharedInstance] getSelectedCity].id] forKey:@"city"];
 
     ASIHTTPRequest *request = [RequestUtil createGetRequestWithURL:[NSURL URLWithString:API_WORKS_SEARCH] andParam:reqData];
     [request setDelegate:self];

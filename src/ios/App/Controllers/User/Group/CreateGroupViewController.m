@@ -128,6 +128,7 @@ static const float kMargin = 10;
 
     ASIFormDataRequest *request = [RequestUtil createPOSTRequestWithURL:[NSURL URLWithString:API_COMPANIES_CREATE]
                                                                 andData:reqData];
+    [self.requests addObject:request];
 
     [request setDelegate:self];
     [request setDidFinishSelector:@selector(createGroupFinish:)];

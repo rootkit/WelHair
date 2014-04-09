@@ -33,7 +33,7 @@ class WorkService
                 $work['Comment'] = array(
                     'CommentId' => $work['CommentId'],
                     'Body' => $work['Body'],
-                    'User' => array(
+                    'CreatedBy' => array(
                         'UserId' => $work['CommentUserId'],
                         'AvatarUrl' => $work['CommentAvatarUrl'],
                         'Nickname' => $work['CommentNickname']

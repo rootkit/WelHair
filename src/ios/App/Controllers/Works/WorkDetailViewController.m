@@ -348,7 +348,6 @@
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 - (void)leftBtnClick
@@ -358,10 +357,13 @@
 
 - (void)commentsTapped
 {
-    [self.navigationController pushViewController:[CommentsViewController new] animated:YES];
+    CommentsViewController *commentVC = [CommentsViewController new];
+    commentVC.workId = self.work.id;
+    [self.navigationController pushViewController:commentVC animated:YES];
 }
 
-- (void) imagePager:(JOLImageSlider *)imagePager didSelectImageAtIndex:(NSUInteger)index {
+- (void) imagePager:(JOLImageSlider *)imagePager didSelectImageAtIndex:(NSUInteger)index
+{
     [self OpenImageGallery];
 }
 
