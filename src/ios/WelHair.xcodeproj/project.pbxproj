@@ -211,6 +211,8 @@
 		4660E69018BB73E1005B3C7D /* ProductsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4660E68F18BB73E1005B3C7D /* ProductsViewController.m */; };
 		4660E69618BB73FF005B3C7D /* UserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4660E69518BB73FF005B3C7D /* UserViewController.m */; };
 		4660E6AB18BB7666005B3C7D /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4660E6AA18BB7666005B3C7D /* CoreText.framework */; };
+		4665C83818F542440066753D /* FavoriteWorkTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4665C83718F542440066753D /* FavoriteWorkTableView.m */; };
+		4665C83B18F5455B0066753D /* FavoriteGroupTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4665C83A18F5455B0066753D /* FavoriteGroupTableView.m */; };
 		4665FD7C18BC7D4700E88C6B /* CommentsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4665FD7B18BC7D4700E88C6B /* CommentsViewController.m */; };
 		4665FD8518BC801000E88C6B /* Work.m in Sources */ = {isa = PBXBuildFile; fileRef = 4665FD8418BC801000E88C6B /* Work.m */; };
 		4673BB5B18D2E2A9000F64DE /* StaffWorksViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4673BB5A18D2E2A9000F64DE /* StaffWorksViewController.m */; };
@@ -686,6 +688,10 @@
 		4660E69418BB73FF005B3C7D /* UserViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserViewController.h; sourceTree = "<group>"; };
 		4660E69518BB73FF005B3C7D /* UserViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserViewController.m; sourceTree = "<group>"; };
 		4660E6AA18BB7666005B3C7D /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
+		4665C83618F542440066753D /* FavoriteWorkTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FavoriteWorkTableView.h; sourceTree = "<group>"; };
+		4665C83718F542440066753D /* FavoriteWorkTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FavoriteWorkTableView.m; sourceTree = "<group>"; };
+		4665C83918F5455B0066753D /* FavoriteGroupTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FavoriteGroupTableView.h; sourceTree = "<group>"; };
+		4665C83A18F5455B0066753D /* FavoriteGroupTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FavoriteGroupTableView.m; sourceTree = "<group>"; };
 		4665FD7A18BC7D4700E88C6B /* CommentsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommentsViewController.h; sourceTree = "<group>"; };
 		4665FD7B18BC7D4700E88C6B /* CommentsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommentsViewController.m; sourceTree = "<group>"; };
 		4665FD8318BC801000E88C6B /* Work.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Work.h; sourceTree = "<group>"; };
@@ -1939,6 +1945,10 @@
 				4630252D18C848EB000E0B51 /* WorkCardView.m */,
 				46B25AEB18C086D30035F425 /* WorkCell.h */,
 				46B25AEC18C086D30035F425 /* WorkCell.m */,
+				4665C83618F542440066753D /* FavoriteWorkTableView.h */,
+				4665C83718F542440066753D /* FavoriteWorkTableView.m */,
+				4665C83918F5455B0066753D /* FavoriteGroupTableView.h */,
+				4665C83A18F5455B0066753D /* FavoriteGroupTableView.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -2419,6 +2429,7 @@
 				46E84EE018C33FAC0004C146 /* SelectOpition.m in Sources */,
 				46F5866718E1C73000F9BF51 /* ProductDetailWebViewController.m in Sources */,
 				460C2F4A18CAFDB200AD16E6 /* GroupCell.m in Sources */,
+				4665C83B18F5455B0066753D /* FavoriteGroupTableView.m in Sources */,
 				46BCD25F18BC725D005C4BD6 /* GroupsViewController.m in Sources */,
 				4673BBC418D420AB000F64DE /* StaffServicesViewController.m in Sources */,
 				467F0F2C18CC95CA009FFE08 /* JOLImageSlider.m in Sources */,
@@ -2447,6 +2458,7 @@
 				465A5C8B18DB0B8D009B6D60 /* MyScoreCell.m in Sources */,
 				46EAF98A18D18D0D00D4C624 /* CityListViewController.m in Sources */,
 				467F0EF018CB4FCF009FFE08 /* UITextField+WelKit.m in Sources */,
+				4665C83818F542440066753D /* FavoriteWorkTableView.m in Sources */,
 				46F5865E18E1BB2B00F9BF51 /* GroupStaffCell.m in Sources */,
 				4673BB8318D3FA54000F64DE /* UserProfileViewController.m in Sources */,
 				467F0EBB18CB3956009FFE08 /* ChatGroupCell.m in Sources */,
