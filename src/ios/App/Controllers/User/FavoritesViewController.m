@@ -7,9 +7,10 @@
 //
 
 #import "FavoritesViewController.h"
-
+#import "PPiFlatSegmentedControl.h"
 @interface FavoritesViewController ()
-
+@property (nonatomic) int activeIndex;
+@property (nonatomic, strong) i
 @end
 
 @implementation FavoritesViewController
@@ -34,7 +35,22 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view.
+    PPiFlatSegmentedControl *segment=[[PPiFlatSegmentedControl alloc] initWithFrame:CGRectMake(10, self.topBarOffset + 10, 300, 30) items:@[               @{@"text":@"作品"},                                                          @{@"text":@"沙龙"},
+                                                                                                                                          @{@"text":@"设计师"},
+                                                                                                                                          @{@"text":@"商品"}
+                                                                                                                                          ]
+                                                                          iconPosition:IconPositionRight andSelectionBlock:^(NSUInteger segmentIndex) {
+                                                                              
+                                                                          } iconSeparation:5];
+    segment.color=[UIColor whiteColor];
+    segment.borderWidth=0.5;
+    segment.borderColor=[UIColor colorWithHexString:APP_NAVIGATIONBAR_COLOR];
+    segment.selectedColor=[UIColor colorWithHexString:APP_NAVIGATIONBAR_COLOR];
+    segment.textAttributes=@{NSFontAttributeName:[UIFont systemFontOfSize:15],
+                                NSForegroundColorAttributeName:[UIColor colorWithHexString:APP_NAVIGATIONBAR_COLOR]};
+    segment.selectedTextAttributes=@{NSFontAttributeName:[UIFont systemFontOfSize:15],
+                                        NSForegroundColorAttributeName:[UIColor whiteColor]};
+    [self.view addSubview:segment];
 }
 
 - (void)didReceiveMemoryWarning
@@ -42,5 +58,7 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+
 
 @end

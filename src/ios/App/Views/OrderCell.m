@@ -194,6 +194,7 @@
 {
     if(order.status == OrderStatusEnum_UnPaid){
         self.statusLbl.text = @"未付款";
+        self.statusLbl.hidden = NO;
         self.statusLbl.textColor = [UIColor redColor];
     }else{
         self.statusLbl.hidden = YES;

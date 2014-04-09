@@ -419,7 +419,20 @@ static const   float profileViewHeight = 80;
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if(indexPath.section == 3){
+    if(indexPath.section == 1){
+        switch (indexPath.row) {
+            case 0:
+            {
+                FavoritesViewController *fvc = [FavoritesViewController new];
+                fvc.hidesBottomBarWhenPushed = YES;
+                [self.navigationController pushViewController:fvc animated:YES];
+            }
+                break;
+                
+            default:
+                break;
+        }
+    }else if(indexPath.section == 3){
         AddressListViewController *vc = [AddressListViewController new];
         vc.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:vc animated:YES];

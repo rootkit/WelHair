@@ -28,12 +28,12 @@
 #import "CircleImageView.h"
 #import "Util.h"
 #import <Block-KVO/MTKObserving.h>
-
+#import "ToggleButton.h"
 @interface ProductDetailViewController ()<UMSocialUIDelegate,JOLImageSliderDelegate,MWPhotoBrowserDelegate>
 @property (nonatomic, strong) UIScrollView *scrollView;
 @property (nonatomic, strong) JOLImageSlider *imgSlider;
 @property (nonatomic, strong) UILabel *productNameLbl;
-@property (nonatomic, strong) UILabel *productPriceLbl;
+@property (nonatomic, strong) ToggleButton *heartBtn;
 
 @property (nonatomic, strong) UIImageView *groupImgImgView;
 @property (nonatomic, strong) UILabel *groupNameLbl;
@@ -184,13 +184,20 @@
     [self.scrollView addSubview:self.productNameLbl];
     self.productNameLbl.text = self.product.name;
     
-    self.productPriceLbl = [[UILabel alloc] initWithFrame:CGRectMake(MaxX(self.productNameLbl), Y(self.productNameLbl),80,40)];
-    self.productPriceLbl.textAlignment = NSTextAlignmentRight;
-    self.productPriceLbl.textColor = [UIColor colorWithHexString:APP_NAVIGATIONBAR_COLOR];
-    self.productPriceLbl.font = [UIFont systemFontOfSize:14];
-    self.productPriceLbl.backgroundColor = [UIColor clearColor];
-    [self.scrollView addSubview:self.productPriceLbl];
-    self.productPriceLbl.text = [NSString stringWithFormat:@"￥%.2f",self.product.price];
+    FAKIcon *heartIconOn = [FAKIonIcons ios7HeartIconWithSize:25];
+    [heartIconOn addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithHexString:@"e43a3d"]];
+    FAKIcon *heartIconOff = [FAKIonIcons ios7HeartOutlineIconWithSize:25];
+    [heartIconOff addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithHexString:@"e43a3d"]];
+    self.heartBtn = [ToggleButton buttonWithType:UIButtonTypeCustom];
+    __weak ProductDetailViewController *selfDelegate = self;
+    [self.heartBtn setToggleButtonOnImage:[heartIconOn imageWithSize:CGSizeMake(25, 25)]
+                                   offImg:[heartIconOff imageWithSize:CGSizeMake(25, 25)]
+                       toggleEventHandler:^(BOOL isOn){
+                           [selfDelegate favClick:isOn];
+                       }];
+    self.heartBtn.frame = CGRectMake(260, Y(self.productNameLbl) + 5,30,30);
+    [self.scrollView addSubview:self.heartBtn];
+    
     
 #pragma groupInfo
     UIView *groupView = [[UIView alloc] initWithFrame:CGRectMake(10, MaxY(self.productNameLbl) + 5, WIDTH(self.view) - 20, 60)];
@@ -393,6 +400,13 @@
                                        delegate:self];
 }
 
+
+- (void)favClick:(BOOL)markFav
+{
+    debugLog(@"mark as fav %c", markFav);
+}
+
+
 - (void)tabClicked:(id)sender
 {
     UIButton *btn = (UIButton *)sender;
@@ -402,6 +416,7 @@
         [self.navigationController pushViewController:[CommentsViewController new] animated:YES];
     }
 }
+
 
 - (void)groupTapped
 {
