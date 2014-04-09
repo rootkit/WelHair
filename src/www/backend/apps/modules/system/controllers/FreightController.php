@@ -23,106 +23,79 @@ class System_FreightController extends AbstractAdminController
         static $pageSize = 10;
 
         $this->view->pageTitle = '物流公司';
-		/*
-        $staff = array(
-            'UserId' => 0
-        );
+		
+        $page =  intval($this->_request->getParam('page'));
 
-        $staffId = intval($this->_request->getParam('staff_id'));
-        if ($staffId > 0) {
-            $staff = UserService::getUserById($staffId);
-            $this->view->pageTitle = $staff['Nickname'] . '的预约列表';
-        }
+        $page =  $page<=0? 1 : $page;
 
-        $this->view->staffInfo = $staff;
+        $result = FreightService::listFreight($page, $pageSize);
 
-        $page = intval($this->_request->getParam('page'));
-        $searchResult = AppointmentService::listAllAppointments($page, $pageSize, $staffId);
+        $this->view->rows = $result['freights'];
 
-        $this->view->dataList = $searchResult['appointments'];
-        $this->view->pager = $this->renderPager($this->view->baseUrl('appointment/index/search?s=' . ($staffId > 0 ? '&staff_id=' . $staffId : '')),
-                                                $page,
-                                                ceil($searchResult['total'] / $pageSize));
-												*/
+        $this->view->pagerHTML = $this->renderPager($this->view->baseUrl('/sytem/freight/search'),
+                                                    $page,
+                                                    ceil($result['total'] / $pageSize));
     }
 
     public function infoAction()
     {
         $this->view->pageTitle = '添加物流公司';
 		
-		/*
-        $appointment = array(
-            'AppointmentId' => intval($this->_request->getParam('appointment_id')),
-            'ServiceId' => 0,
-            'ServiceTitle' => '',
-            'AppointmentDate' => '',
-            'Price' => 0,
-            'Status' => AppointmentStatus::Pending
+		$freightId = $this->_request->getParam('freight_id')?  intval($this->_request->getParam('freight_id')) : 0;
+
+        $freight = array(
+            'FreightId' => $freightId,
+            'FreightType' => '',
+            'FreightName' => '',
+            'Url' => '',
+            'Sort'=>'',
+            'IsDeleted' => 0
         );
 
-        $staffId = intval($this->_request->getParam('staff_id'));
-
         if ($this->_request->isPost()) {
-            $userId = intval($this->_request->getParam('user_id'));
-            $serviceId = intval($this->_request->getParam('service_id'));
-            $appointmentDate = htmlspecialchars($this->_request->getParam('appointment_date'));
-            $status = intval($this->_request->getParam('status'));
+            $this->_helper->viewRenderer->setNoRender(true);
+            $this->_helper->layout->disableLayout();
+            $freight['FreightName']= htmlspecialchars($this->_request->getParam('freightname'));
+            $freight['FreightType']= $this->_request->getParam('freighttype');            
+            $freight['Url']= $this->_request->getParam('url');
+            $freight['Sort']= $this->_request->getParam('sort');
+            $freight['IsDeleted']= '0';
 
-            if ($appointment['AppointmentId'] > 0) {
-                $appointment = AppointmentService::getAppointmentById($appointment['AppointmentId']);
-            } else {
-                $appointment['ServiceId'] = $serviceId;
-            }
+           
 
-            $appointment['UserId'] = $userId;
-            $appointment['StaffId'] = $staffId;
-            $appointment['AppointmentDate'] = $appointmentDate;
-            $appointment['Status'] = $status;
-
-            $result = AppointmentService::save($appointment);
+            $result = FreightService::save($freight);
             if ($result['success']) {
-                $this->getResponse()->setRedirect($this->view->baseUrl('appointment/index/search' . ($staffId > 0 ? '?staff_id=' . $staffId : '')));
-            } else {
-                $this->view->errorMessage = $result['message'];
+                $result['message'] = '保存物流公司成功！';
             }
+            $this->_helper->json->sendJson($result);
         } else {
-            $staff = array(
-                'UserId' => 0,
-                'Nickname' => '',
-                'Username' => '',
-                'AvatarUrl' => '',
-                'Company' => array('Name' => ''),
-                'Services' => array(),
-                'Works' => array()
-            );
 
-            $user = array(
-                'UserId' => 0,
-                'Nickname' => '',
-                'Username' => '',
-                'AvatarUrl' => ''
-            );
-
-            if ($appointment['AppointmentId'] > 0) {
-                $appointment = AppointmentService::getAppointmentById($appointment['AppointmentId']);
-                if ($appointment) {
-                    $staffId = $appointment['StaffId'];
-                    $user = UserService::getUserById($appointment['UserId']);
-
-                    $this->view->appointmentInfo = $appointment;
+            if ($freightId > 0) {
+                $freight = FreightService::getFreightById($freightId);
+                if (!$freight) {
+                    // process not exist logic;
                 }
             }
-
-            if ($staffId > 0) {
-                $staff = StaffService::getStaffDetail($staffId);
-            }
-
-            $this->view->userInfo = $user;
-            $this->view->staffInfo = $staff;
         }
 
-        $this->view->appointmentInfo = $appointment;
-		*/
+        $this->view->freightInfo = $freight;
     }
+
+    public function deleteAction()
+    {
+        $this->_helper->viewRenderer->setNoRender(true);
+        $this->_helper->layout->disableLayout();
+
+        $freightId =  intval($this->_request->getParam('freightid')) ;
+
+        $freight = array('FreightId' => $freightId);
+
+        if ($this->_request->isPost()) {
+
+            $result = FreightService::deleteFreight($freight);
+            $this->_helper->json->sendJson($result);
+        }
+    }
+
 
 }

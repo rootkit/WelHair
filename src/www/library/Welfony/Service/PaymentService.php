@@ -14,7 +14,7 @@
 
 namespace Welfony\Service;
 
-use Welfony\Repository\ModelRepository;
+use Welfony\Repository\PaymentRepository;
 
 class PaymentService
 {
