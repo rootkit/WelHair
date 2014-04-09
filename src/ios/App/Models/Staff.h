@@ -12,10 +12,18 @@
 @interface Staff : BaseModel
 
 @property (nonatomic, strong) NSURL *avatorUrl;
-@property (nonatomic) float rate;
+@property (nonatomic, strong) NSString *bio;
+
 @property (nonatomic, strong) Group *group;
+
 @property (nonatomic, strong) NSArray *works;
 @property (nonatomic, strong) NSArray *services;
-@property (nonatomic, strong) NSString *bio;
+
+@property (nonatomic) int rating;
+@property (nonatomic) int workCount;
+@property (nonatomic) BOOL isLiked;
+
+- (Staff *)initWithDic:(NSDictionary *)dictionary;
+- (NSDictionary *)dictionaryFromStaff:(Staff *)staff;
 
 @end

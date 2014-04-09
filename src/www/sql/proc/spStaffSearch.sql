@@ -41,7 +41,7 @@ FROM (
       getDistance(C.Latitude, C.Longitude, latitude, longitude) Distance
     FROM Users U
     INNER JOIN CompanyUser CU ON CU.UserId = U.UserId
-    INNER JOIN Company C
+    INNER JOIN Company C ON CU.CompanyId = C.CompanyId
     LEFT OUTER JOIN (
       SELECT
         CMU.CommentId,
@@ -56,12 +56,12 @@ FROM (
       FROM Comment CMW
       INNER JOIN Work W ON W.WorkId = CMW.WorkId
     ) AS TBLRate ON TBLRate.UserId = U.UserId
-    WHERE (city = 0 || C.City = city) AND (district = 0 || C.District = district)
+    WHERE U.Role = 3 AND (city = 0 || C.City = city) AND (district = 0 || C.District = district)
     GROUP BY U.UserId
-    ORDER BY CASE WHEN sort = 0 THEN Distance END ASC,
-             CASE WHEN sort = 1 THEN Rate END DESC,
-             CASE WHEN sort = 2 THEN WorkCount END DESC,
-             CASE WHEN sort = 3 THEN MaxWorkId END DESC
+    ORDER BY CASE WHEN sort = 0 THEN MaxWorkId END DESC,
+             CASE WHEN sort = 1 THEN Distance END ASC,
+             CASE WHEN sort = 2 THEN Rate END DESC,
+             CASE WHEN sort = 3 THEN WorkCount END DESC
     LIMIT offset, pageSize
 ) TBLC;
 

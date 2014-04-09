@@ -27,7 +27,7 @@ class StaffRepository extends AbstractRepository
                    FROM Users U
                    INNER JOIN CompanyUser CU ON CU.UserId = U.UserId
                    INNER JOIN Company C ON CU.CompanyId = C.CompanyId
-                   WHERE (? = 0 || C.City = ?) && (? = 0 || C.District= ?)
+                   WHERE U.Role = 3 AND (? = 0 || C.City = ?) && (? = 0 || C.District= ?)
                    LIMIT 1";
 
         $row = $this->conn->fetchAssoc($strSql, array($city, $city, $district, $district));

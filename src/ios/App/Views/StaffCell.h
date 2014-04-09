@@ -6,8 +6,10 @@
 //  Copyright (c) 2014 Welfony. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
 #import "Staff.h"
+
 @interface StaffCell : UITableViewCell
+
 - (void)setup:(Staff *)staff;
+
 @end

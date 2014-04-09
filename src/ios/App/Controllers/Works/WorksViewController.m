@@ -82,18 +82,10 @@
     [[CityManager SharedInstance] setSelectedCity:city.id];
     [self setTopLeftCityName];
 
+    [self.dropDownPicker hide];
+
     self.currentPage = 1;
     [self.tableView triggerPullToRefresh];
-}
-
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-}
-
-- (void)viewDidAppear:(BOOL)animated
-{
-    [super viewDidAppear:animated];
 }
 
 - (void)viewDidLoad
@@ -189,6 +181,12 @@
     [self.view bringSubviewToFront:topTabView];
 
     [self getWorks];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [self setTopLeftCityName];
 }
 
 - (void)didReceiveMemoryWarning

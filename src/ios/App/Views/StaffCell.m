@@ -6,11 +6,14 @@
 //  Copyright (c) 2014 Welfony. All rights reserved.
 //
 
+#import <AMRatingControl.h>
+
+#import "CircleImageView.h"
 #import "StaffCell.h"
 #import "UIImageView+WebCache.h"
-#import "CircleImageView.h"
-#import <AMRatingControl.h>
+
 @interface StaffCell()
+
 @property (nonatomic, strong) Staff *staffData;
 @property (nonatomic, strong) CircleImageView *imgView;
 @property (nonatomic, strong) UILabel *nameLbl;
@@ -18,6 +21,7 @@
 @property (nonatomic, strong) UILabel *groupAddressLbl;
 @property (nonatomic, strong) UILabel *workCountLbl;
 @property (nonatomic, strong) UILabel *distanceLbl;
+
 @end
 
 @implementation StaffCell
@@ -105,11 +109,11 @@
 {
     self.staffData = staff;
     [self.imgView setImageWithURL:self.staffData.avatorUrl];
-    self.nameLbl.text = [NSString stringWithFormat:@"%@:",staff.name];
-    self.groupLbl.text = [NSString stringWithFormat:@"%@:",staff.group.name];
-    self.groupAddressLbl.text = @"历下区文化西路7号";
-    self.workCountLbl.text = @"13件";
-    self.distanceLbl.text = @"1千米";
+    self.nameLbl.text = [NSString stringWithFormat:@"%@", staff.name];
+    self.groupLbl.text = staff.group.name;
+    self.groupAddressLbl.text = staff.group.address;
+    self.workCountLbl.text = [NSString stringWithFormat:@"%d件", staff.workCount];
+    self.distanceLbl.text = [NSString stringWithFormat:@"%.2f千米", staff.distance / 1000];
 }
 
 @end

@@ -30,8 +30,8 @@
 
 @property (nonatomic, strong) DropDownView *dropDownPicker;
 
-@property (nonatomic, strong) NSArray *areaDatasource;
-@property (nonatomic, strong) NSArray *areaIdDatasource;
+@property (nonatomic, strong) NSMutableArray *areaDatasource;
+@property (nonatomic, strong) NSMutableArray *areaIdDatasource;
 @property (nonatomic, strong) NSArray *sortDatasource;
 
 @property (nonatomic) int areaSelectedIndex;
@@ -47,6 +47,9 @@
     if (self) {
         self.title =  NSLocalizedString(@"GroupsViewController.Title", nil);
         self.currentPage = 1;
+
+        self.areaDatasource = [NSMutableArray array];
+        self.areaIdDatasource = [NSMutableArray array];
     }
 
     return self;
@@ -61,8 +64,6 @@
 {
     [super viewDidLoad];
 
-    [self setTopLeftCityName];
-
     float topTabButtonWidth = WIDTH(self.view)/2;
     UIView *topTabView = [[UIView alloc] initWithFrame:CGRectMake(0, self.topBarOffset,WIDTH(self.view),TOP_TAB_BAR_HEIGHT)];
     UIView *topTabBottomShadowView = [[UIView alloc] initWithFrame:topTabView.frame];
@@ -74,7 +75,6 @@
     self.areaBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [self.areaBtn setTitleColor:[UIColor colorWithHexString:@"666666"] forState:UIControlStateNormal];
     self.areaBtn.frame = CGRectMake(0, 0, topTabButtonWidth, TOP_TAB_BAR_HEIGHT);
-    [self.areaBtn setTitle:@"地区" forState:UIControlStateNormal];
     self.areaBtn.tag = 0;
     self.areaBtn.backgroundColor = [UIColor whiteColor];
     [self.areaBtn addTarget:self action:@selector(dropDownBtnClick:) forControlEvents:UIControlEventTouchDown];
@@ -122,8 +122,7 @@
     }];
     self.tableView.showsInfiniteScrolling = NO;
 
-    
-    self.areaDatasource = @[@"全部地区"];
+    [self fillAreaDropdown:[[CityManager SharedInstance] getSelectedCity].id];
     self.sortDatasource = @[@"默认排序", @"离我最近", @"评分最高"];
     
     float dropDownHeight = [self contentHeightWithNavgationBar:YES withBottomBar:YES] + kBottomBarHeight;
@@ -136,6 +135,14 @@
     [self.view bringSubviewToFront:topTabBottomShadowView];
     [self.view addSubview:self.dropDownPicker];
     [self.view bringSubviewToFront:topTabView];
+
+    [self getGroups];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [self setTopLeftCityName];
 }
 
 - (void)didReceiveMemoryWarning
@@ -154,10 +161,32 @@
                                             animated:YES completion:nil];
 }
 
+- (void)fillAreaDropdown:(int)cityId
+{
+    [self.areaDatasource removeAllObjects];
+    [self.areaIdDatasource removeAllObjects];
+
+    [self.areaDatasource addObject:@"全部区域"];
+    [self.areaIdDatasource addObject:@"0"];
+
+    [self.areaBtn setTitle:@"全部区域" forState:UIControlStateNormal];
+    self.areaSelectedIndex = 0;
+
+    NSArray *cityArray = [[CityManager SharedInstance] getAreaListByCity:cityId];
+    for (City *c in cityArray) {
+        [self.areaDatasource addObject:c.name];
+        [self.areaIdDatasource addObject:@(c.id)];
+    }
+}
+
 - (void)didPickCity:(City *)city
 {
     [[CityManager SharedInstance] setSelectedCity:city.id];
     [self setTopLeftCityName];
+
+    [self.dropDownPicker hide];
+
+    [self fillAreaDropdown:[[CityManager SharedInstance] getSelectedCity].id];
 
     self.currentPage = 1;
     [self.tableView triggerPullToRefresh];
@@ -238,7 +267,7 @@
     [self.navigationController pushViewController:vc animated:YES];
 }
 
-#pragma mark Work Search API
+#pragma mark Group Search API
 
 - (void)getGroups
 {

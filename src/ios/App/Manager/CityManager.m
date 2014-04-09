@@ -83,7 +83,25 @@
 
 - (NSArray *)getAreaListByCity:(int)cityCode
 {
-    return nil;
+    NSMutableArray *array = [NSMutableArray array];
+
+    FMDatabase * db = [FMDatabase databaseWithPath:self.databasePath];
+    if ([db open]) {
+        FMResultSet *set = [db executeQuery:[NSString stringWithFormat:@"Select * from City WHERE ParentId = %d order by FirstChar asc", cityCode]];
+        while ([set next]) {
+            City *city = [City new];
+            city.id = [set intForColumn:@"CityId"];
+            city.name = [set stringForColumn:@"CityName"];
+            city.order = [set intForColumn:@"SortOrder"];
+            city.firstChar = [set stringForColumn:@"FirstChar"];
+
+            [array addObject:city];
+        }
+        [set close];
+        [db close];
+    }
+
+    return array;
 }
 
 - (City *)getSelectedCity

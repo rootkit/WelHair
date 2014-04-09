@@ -10,25 +10,33 @@
 //
 // ==============================================================================
 
-#import "StaffsViewController.h"
-#import "UIScrollView+UzysCircularProgressPullToRefresh.h"
-#import "StaffDetailViewController.h"
-#import "StaffCell.h"
-#import "Staff.h"
+#import "CityManager.h"
+#import "CityListViewController.h"
 #import "DropDownView.h"
+#import "Staff.h"
+#import "StaffCell.h"
+#import "StaffDetailViewController.h"
+#import "StaffsViewController.h"
 
-@interface StaffsViewController ()<UITableViewDataSource, UITableViewDelegate, DropDownDelegate>
+@interface StaffsViewController () <UITableViewDataSource, UITableViewDelegate, DropDownDelegate, CityPickViewDelegate>
+
+@property (nonatomic, assign) NSInteger currentPage;
+
 @property (nonatomic, strong) NSMutableArray *datasource;
 @property (nonatomic, strong) UITableView *tableView;
 
 @property (nonatomic, strong) UIButton *areaBtn;
-@property (nonatomic, strong) UIButton *hotBtn;
+@property (nonatomic, strong) UIButton *sortBtn;
 
 @property (nonatomic, strong) DropDownView *dropDownPicker;
-@property (nonatomic, strong) NSArray *areaDatasource;
-@property (nonatomic, strong) NSArray *hotDatasource;
+
+@property (nonatomic, strong) NSMutableArray *areaDatasource;
+@property (nonatomic, strong) NSMutableArray *areaIdDatasource;
+@property (nonatomic, strong) NSArray *sortDatasource;
+
 @property (nonatomic) int areaSelectedIndex;
-@property (nonatomic) int hotSelectedIndex;
+@property (nonatomic) int sortSelectedIndex;
+
 @end
 
 @implementation StaffsViewController
@@ -38,6 +46,10 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         self.title =  NSLocalizedString(@"GroupsViewController.Title", nil);
+        self.currentPage = 1;
+
+        self.areaDatasource = [NSMutableArray array];
+        self.areaIdDatasource = [NSMutableArray array];
     }
     return self;
 }
@@ -45,13 +57,12 @@
 - (void) loadView
 {
     [super loadView];
-    
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.leftNavItemTitle = @"济南";
+
     float topTabButtonWidth = WIDTH(self.view)/2;
     UIView *topTabView = [[UIView alloc] initWithFrame:CGRectMake(0, self.topBarOffset,WIDTH(self.view),TOP_TAB_BAR_HEIGHT)];
     UIView *topTabBottomShadowView = [[UIView alloc] initWithFrame:topTabView.frame];
@@ -63,7 +74,6 @@
     self.areaBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [self.areaBtn setTitleColor:[UIColor colorWithHexString:@"666666"] forState:UIControlStateNormal];
     self.areaBtn.frame = CGRectMake(0, 0, topTabButtonWidth, TOP_TAB_BAR_HEIGHT);
-    [self.areaBtn setTitle:@"地区" forState:UIControlStateNormal];
     self.areaBtn.tag = 0;
     self.areaBtn.backgroundColor = [UIColor whiteColor];
     [self.areaBtn addTarget:self action:@selector(dropDownBtnClick:) forControlEvents:UIControlEventTouchDown];
@@ -72,43 +82,48 @@
     UIView *separatorView = [[UIView alloc] initWithFrame:CGRectMake(MaxX(self.areaBtn), 10, 1, 20)];
     separatorView.backgroundColor = [UIColor grayColor];
     [topTabView addSubview:separatorView];
-    
-    self.hotBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [self.hotBtn setTitleColor:[UIColor colorWithHexString:@"666666"] forState:UIControlStateNormal];
-    self.hotBtn.frame = CGRectMake(MaxX(self.areaBtn)+1, 0, topTabButtonWidth, TOP_TAB_BAR_HEIGHT);
-    [self.hotBtn setTitle:@"热度" forState:UIControlStateNormal];
-    self.hotBtn.backgroundColor = [UIColor whiteColor];
-    self.hotBtn.tag = 1;
-    [self.hotBtn addTarget:self action:@selector(dropDownBtnClick:) forControlEvents:UIControlEventTouchDown];
-    [topTabView addSubview:self.hotBtn];
-    
+
+    self.sortBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [self.sortBtn setTitleColor:[UIColor colorWithHexString:@"666666"] forState:UIControlStateNormal];
+    self.sortBtn.frame = CGRectMake(MaxX(self.areaBtn)+1, 0, topTabButtonWidth, TOP_TAB_BAR_HEIGHT);
+    [self.sortBtn setTitle:@"排序" forState:UIControlStateNormal];
+    self.sortBtn.backgroundColor = [UIColor whiteColor];
+    self.sortBtn.tag = 1;
+    [self.sortBtn addTarget:self action:@selector(dropDownBtnClick:) forControlEvents:UIControlEventTouchDown];
+    [topTabView addSubview:self.sortBtn];
+
     self.tableView = [[UITableView alloc] init];
     self.tableView.frame = CGRectMake(0,
                                       self.topBarOffset + topTabView.height,
                                       WIDTH(self.view) ,
                                       [self contentHeightWithNavgationBar:YES withBottomBar:YES] - topTabView.height);
-    debugLog(@"%f",MaxY(topTabView));
     self.tableView.backgroundColor = [UIColor clearColor];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.tableView.backgroundColor = [UIColor clearColor];
+    [self.view addSubview:self.tableView];
+
     __weak typeof(self) weakSelf = self;
     [self.tableView addPullToRefreshActionHandler:^{
-        [weakSelf insertRowAtTop];
+        weakSelf.currentPage = 1;
+        [weakSelf getStaffs];
     }];
-    
+
     [self.tableView.pullToRefreshView setSize:CGSizeMake(25, 25)];
     [self.tableView.pullToRefreshView setBorderWidth:2];
     [self.tableView.pullToRefreshView setBorderColor:[UIColor whiteColor]];
     [self.tableView.pullToRefreshView setImageIcon:[UIImage imageNamed:@"centerIcon"]];
-    [self.view addSubview:self.tableView];
-    self.datasource = [NSMutableArray arrayWithArray:[FakeDataHelper getFakeStaffList]];
-    
-    
-    self.areaDatasource = @[@"高新区",@"历下区",@"历城区",@"市中区"];
-    self.hotDatasource = @[@"默认",@"好评",@"评价",@"销量"];
-    
+
+    [self.tableView addInfiniteScrollingWithActionHandler:^{
+        weakSelf.currentPage += 1;
+        [weakSelf getStaffs];
+    }];
+    self.tableView.showsInfiniteScrolling = NO;
+
+    [self fillAreaDropdown:[[CityManager SharedInstance] getSelectedCity].id];
+    self.sortDatasource = @[@"默认排序", @"离我最近", @"评分最高", @"作品数量"];
+
     float dropDownHeight = [self contentHeightWithNavgationBar:YES withBottomBar:YES] + kBottomBarHeight;
     self.dropDownPicker = [[DropDownView alloc] initWithFrame:CGRectMake(0,
                                                                          self.topBarOffset + HEIGHT(self.areaBtn),
@@ -119,23 +134,63 @@
     [self.view bringSubviewToFront:topTabBottomShadowView];
     [self.view addSubview:self.dropDownPicker];
     [self.view bringSubviewToFront:topTabView];
+
+    [self getStaffs];
+}
+
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [self setTopLeftCityName];
 }
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
-- (void)insertRowAtTop
+- (void)leftNavItemClick
 {
-    int64_t delayInSeconds = 1.2;
-    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
-    dispatch_after(popTime, dispatch_get_main_queue(), ^(void) {
-        [self.tableView stopRefreshAnimation];
-    });
+    CityListViewController *picker = [CityListViewController new];
+    picker.selectedCity = [[CityManager SharedInstance] getSelectedCity];
+    picker.enableLocation = YES;
+    picker.delegate = self;
+
+    [self.navigationController presentViewController:[[UINavigationController alloc] initWithRootViewController:picker]
+                                            animated:YES completion:nil];
 }
 
+- (void)fillAreaDropdown:(int)cityId
+{
+    [self.areaDatasource removeAllObjects];
+    [self.areaIdDatasource removeAllObjects];
+
+    [self.areaDatasource addObject:@"全部区域"];
+    [self.areaIdDatasource addObject:@"0"];
+
+    [self.areaBtn setTitle:@"全部区域" forState:UIControlStateNormal];
+    self.areaSelectedIndex = 0;
+
+    NSArray *cityArray = [[CityManager SharedInstance] getAreaListByCity:cityId];
+    for (City *c in cityArray) {
+        [self.areaDatasource addObject:c.name];
+        [self.areaIdDatasource addObject:@(c.id)];
+    }
+}
+
+- (void)didPickCity:(City *)city
+{
+    [[CityManager SharedInstance] setSelectedCity:city.id];
+    [self setTopLeftCityName];
+
+    [self.dropDownPicker hide];
+
+    [self fillAreaDropdown:[[CityManager SharedInstance] getSelectedCity].id];
+
+    self.currentPage = 1;
+    [self.tableView triggerPullToRefresh];
+}
 
 - (void)dropDownBtnClick:(id)sender
 {
@@ -148,8 +203,8 @@
                               pointToView:btn];
             break;
         case 1:
-            [self.dropDownPicker showData:self.hotDatasource
-                            selectedIndex:self.hotSelectedIndex
+            [self.dropDownPicker showData:self.sortDatasource
+                            selectedIndex:self.sortSelectedIndex
                               pointToView:btn];
             break;
         default:
@@ -159,17 +214,19 @@
 
 - (void)didPickItemAtIndex:(int)index forView:(UIView *)view
 {
-    if([view isEqual:self.areaBtn]){
+    if ([view isEqual:self.areaBtn]) {
         self.areaSelectedIndex  = index;
         NSString *title = [self.areaDatasource objectAtIndex:index];
         [self.areaBtn setTitle:title forState:UIControlStateNormal];
-    }else if([view isEqual:self.hotBtn]){
-        self.hotSelectedIndex  = index;
-        NSString *title = [self.hotDatasource objectAtIndex:index];
-        [self.hotBtn setTitle:title forState:UIControlStateNormal];
+    } else if ([view isEqual:self.sortBtn]) {
+        self.sortSelectedIndex  = index;
+        NSString *title = [self.sortDatasource objectAtIndex:index];
+        [self.sortBtn setTitle:title forState:UIControlStateNormal];
     }
-}
 
+    self.currentPage = 1;
+    [self.tableView triggerPullToRefresh];
+}
 
 #pragma mark UITableView delegate
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -207,5 +264,76 @@
 }
 
 
+#pragma mark Group Search API
+
+- (void)getStaffs
+{
+    NSMutableDictionary *reqData = [[NSMutableDictionary alloc] initWithCapacity:1];
+    [reqData setObject:[NSString stringWithFormat:@"%d", self.currentPage] forKey:@"page"];
+    [reqData setObject:[NSString stringWithFormat:@"%d", TABLEVIEW_PAGESIZE_DEFAULT] forKey:@"pageSize"];
+    [reqData setObject:[NSString stringWithFormat:@"%d", [[CityManager SharedInstance] getSelectedCity].id] forKey:@"city"];
+    [reqData setObject:[NSString stringWithFormat:@"%d", self.areaSelectedIndex] forKey:@"district"];
+    [reqData setObject:[NSString stringWithFormat:@"%d", self.sortSelectedIndex] forKey:@"sort"];
+
+    ASIHTTPRequest *request = [RequestUtil createGetRequestWithURL:[NSURL URLWithString:API_STAFFS_SEARCH] andParam:reqData];
+    [request setDelegate:self];
+    [request setDidFinishSelector:@selector(finishGetStaffs:)];
+    [request setDidFailSelector:@selector(failGetStaffs:)];
+    [request startAsynchronous];
+}
+
+- (void)finishGetStaffs:(ASIHTTPRequest *)request
+{
+    NSDictionary *rst = [Util objectFromJson:request.responseString];
+    NSInteger total = [[rst objectForKey:@"total"] integerValue];
+    NSArray *dataList = [rst objectForKey:@"staffs"];
+
+    NSMutableArray *arr = [NSMutableArray arrayWithArray:self.datasource];
+
+    if (self.currentPage == 1) {
+        [arr removeAllObjects];
+    } else {
+        if (self.currentPage % TABLEVIEW_PAGESIZE_DEFAULT > 0) {
+            int i;
+
+            for (i = 0; i < arr.count; i++) {
+                if (i >= (self.currentPage - 1) * TABLEVIEW_PAGESIZE_DEFAULT) {
+                    [arr removeObjectAtIndex:i];
+                    i--;
+                }
+            }
+        }
+    }
+
+    for (NSDictionary *dicData in dataList) {
+        [arr addObject:[[Staff alloc] initWithDic:dicData]];
+    }
+
+    self.datasource = arr;
+
+    BOOL enableInfinite = total > self.datasource.count;
+    if (self.tableView.showsInfiniteScrolling != enableInfinite) {
+        self.tableView.showsInfiniteScrolling = enableInfinite;
+    }
+
+    if (self.currentPage == 1) {
+        [self.tableView stopRefreshAnimation];
+    } else {
+        [self.tableView.infiniteScrollingView stopAnimating];
+    }
+
+    [self checkEmpty];
+
+    [self.tableView reloadData];
+}
+
+- (void)failGetStaffs:(ASIHTTPRequest *)request
+{
+}
+
+- (void)checkEmpty
+{
+    
+}
 
 @end

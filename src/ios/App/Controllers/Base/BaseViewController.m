@@ -158,7 +158,13 @@
 - (void)setTopLeftCityName
 {
 #if TARGET_IPHONE_SIMULATOR
-    self.leftNavItemTitle = @"济南";
+    City *selectedCity = [[CityManager SharedInstance] getSelectedCity];
+    if (selectedCity.id > 0) {
+        self.leftNavItemTitle = selectedCity.name;
+        [self setLeftNavButtonTitle:self.leftNavItemTitle buttonImg:nil];
+    } else {
+        self.leftNavItemTitle = @"济南";
+    }
 #else
     City *selectedCity = [[CityManager SharedInstance] getSelectedCity];
     if(selectedCity.id > 0){
