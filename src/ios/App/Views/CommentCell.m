@@ -1,13 +1,16 @@
+// ==============================================================================
 //
-//  CommentCell.m
-//  WelHair
+// This file is part of the WelHair
 //
-//  Created by lu larry on 3/9/14.
-//  Copyright (c) 2014 Welfony. All rights reserved.
+// Create by Welfony <support@welfony.com>
+// Copyright (c) 2013-2014 welfony.com
 //
+// For the full copyright and license information, please view the LICENSE
+// file that was distributed with this source code.
+//
+// ==============================================================================
 
 #import "CommentCell.h"
-#import "UIImageView+WebCache.h"
 #import "CircleImageView.h"
 
 @interface CommentCell ()
@@ -28,6 +31,7 @@
         self.backgroundColor = [UIColor whiteColor];
         self.imgView = [[CircleImageView alloc] initWithFrame:CGRectMake(15,5,50, 50)];
         [self addSubview:self.imgView];
+
         float dateLblWidth = 100;
         self.titleLbl = [[UILabel alloc] initWithFrame:CGRectMake(MaxX(self.imgView)+10,
                                                                   Y(self.imgView),
@@ -61,8 +65,6 @@
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated
 {
     [super setSelected:selected animated:animated];
-    
-    // Configure the view for the selected state
 }
 
 - (void)setup:(Comment *)comment

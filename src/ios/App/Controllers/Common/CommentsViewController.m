@@ -22,6 +22,9 @@
 @property (nonatomic, strong) NSMutableArray *datasource;
 @property (nonatomic, strong) UITableView *tableView;
 
+@property (nonatomic, assign) NSInteger currentPage;
+@property (nonatomic, strong) NSString *requestString;
+
 @end
 
 @implementation CommentsViewController
@@ -40,7 +43,9 @@
         [rightIcon addAttribute:NSForegroundColorAttributeName value:[UIColor whiteColor]];
         self.rightNavItemImg =[rightIcon imageWithSize:CGSizeMake(NAV_BAR_ICON_SIZE, NAV_BAR_ICON_SIZE)];
 
+        self.currentPage = 1;
     }
+
     return self;
 }
 
@@ -70,45 +75,56 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+
+    if (self.goodsId > 0) {
+        self.requestString = [NSString stringWithFormat:API_GOODS_COMMENT_CREATE, self.goodsId];
+    }
+    if (self.userId > 0) {
+        self.requestString = [NSString stringWithFormat:API_STAFFS_COMMENT_CREATE, self.userId];
+    }
+    if (self.companyId > 0) {
+        self.requestString = [NSString stringWithFormat:API_COMPANIES_COMMENT_CREATE, self.companyId];
+    }
+    if (self.workId > 0) {
+        self.requestString = [NSString stringWithFormat:API_WORKS_COMMENT_CREATE, self.workId];
+    }
     
     self.tableView = [[UITableView alloc] init];
     self.tableView.frame = CGRectMake(0,
                                       self.topBarOffset,
                                       WIDTH(self.view) ,
-                                      HEIGHT(self.view) - self.topBarOffset);
+                                      [self contentHeightWithNavgationBar:YES withBottomBar:NO]);
     self.tableView.backgroundColor = [UIColor clearColor];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
-    self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
-    self.tableView.backgroundColor = [UIColor whiteColor];
-        __weak typeof(self) weakSelf = self;
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    self.tableView.backgroundColor = [UIColor clearColor];
+    [self.view addSubview:self.tableView];
+
+    __weak typeof(self) weakSelf = self;
     [self.tableView addPullToRefreshActionHandler:^{
-            [weakSelf insertRowAtTop];
+        weakSelf.currentPage = 1;
+        [weakSelf getComments];
     }];
-    
+
     [self.tableView.pullToRefreshView setSize:CGSizeMake(25, 25)];
     [self.tableView.pullToRefreshView setBorderWidth:2];
     [self.tableView.pullToRefreshView setBorderColor:[UIColor whiteColor]];
     [self.tableView.pullToRefreshView setImageIcon:[UIImage imageNamed:@"centerIcon"]];
-    [self.view addSubview:self.tableView];
-    self.datasource = [NSMutableArray arrayWithArray:[FakeDataHelper getFakeCommentList]];
-    
-}
 
-- (void)insertRowAtTop
-{
-    int64_t delayInSeconds = 1.2;
-    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
-    dispatch_after(popTime, dispatch_get_main_queue(), ^(void) {
-        [self.tableView stopRefreshAnimation];
-    });
+    [self.tableView addInfiniteScrollingWithActionHandler:^{
+        weakSelf.currentPage += 1;
+        [weakSelf getComments];
+    }];
+    self.tableView.showsInfiniteScrolling = NO;
+
+    [self.tableView triggerPullToRefresh];
 }
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
 }
-
 
 #pragma mark UITableView delegate
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -130,6 +146,7 @@
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         cell.contentView.backgroundColor =  cell.backgroundColor = [UIColor clearColor];
     }
+
     Comment *data = [self.datasource objectAtIndex: indexPath.row];
     [cell setup:data];
     return cell;
@@ -140,5 +157,73 @@
     
 }
 
+#pragma mark Group Search API
+
+- (void)getComments
+{
+    NSMutableDictionary *reqData = [[NSMutableDictionary alloc] initWithCapacity:1];
+    [reqData setObject:[NSString stringWithFormat:@"%d", self.currentPage] forKey:@"page"];
+    [reqData setObject:[NSString stringWithFormat:@"%d", TABLEVIEW_PAGESIZE_DEFAULT] forKey:@"pageSize"];
+
+    ASIHTTPRequest *request = [RequestUtil createGetRequestWithURL:[NSURL URLWithString:self.requestString] andParam:reqData];
+    [request setDelegate:self];
+    [request setDidFinishSelector:@selector(finishGetComments:)];
+    [request setDidFailSelector:@selector(failGetComments:)];
+    [request startAsynchronous];
+}
+
+- (void)finishGetComments:(ASIHTTPRequest *)request
+{
+    NSDictionary *rst = [Util objectFromJson:request.responseString];
+    NSInteger total = [[rst objectForKey:@"total"] integerValue];
+    NSArray *dataList = [rst objectForKey:@"comments"];
+
+    NSMutableArray *arr = [NSMutableArray arrayWithArray:self.datasource];
+
+    if (self.currentPage == 1) {
+        [arr removeAllObjects];
+    } else {
+        if (self.currentPage % TABLEVIEW_PAGESIZE_DEFAULT > 0) {
+            int i;
+
+            for (i = 0; i < arr.count; i++) {
+                if (i >= (self.currentPage - 1) * TABLEVIEW_PAGESIZE_DEFAULT) {
+                    [arr removeObjectAtIndex:i];
+                    i--;
+                }
+            }
+        }
+    }
+
+    for (NSDictionary *dicData in dataList) {
+        [arr addObject:[[Comment alloc] initWithDic:dicData]];
+    }
+
+    self.datasource = arr;
+
+    BOOL enableInfinite = total > self.datasource.count;
+    if (self.tableView.showsInfiniteScrolling != enableInfinite) {
+        self.tableView.showsInfiniteScrolling = enableInfinite;
+    }
+
+    if (self.currentPage == 1) {
+        [self.tableView stopRefreshAnimation];
+    } else {
+        [self.tableView.infiniteScrollingView stopAnimating];
+    }
+
+    [self checkEmpty];
+
+    [self.tableView reloadData];
+}
+
+- (void)failGetComments:(ASIHTTPRequest *)request
+{
+}
+
+- (void)checkEmpty
+{
+    
+}
 
 @end
