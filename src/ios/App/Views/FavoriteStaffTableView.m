@@ -7,6 +7,7 @@
 //
 
 #import "FavoriteStaffTableView.h"
+#import "UIScrollView+UzysCircularProgressPullToRefresh.h"
 #import "StaffCell.h"
 #import "Staff.h"
 @interface FavoriteStaffTableView()<UITableViewDataSource, UITableViewDelegate>

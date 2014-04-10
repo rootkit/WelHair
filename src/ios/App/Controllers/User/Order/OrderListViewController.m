@@ -11,18 +11,19 @@
 // ==============================================================================
 
 #import "OrderListViewController.h"
-#import "OrderCell.h"
 #import "OrderPreviewViewController.h"
-#import "UIScrollView+UzysCircularProgressPullToRefresh.h"
 #import "PPiFlatSegmentedControl.h"
+#import "OrderPaidTableView.h"
+#import "OrderUnpaidTableView.h"
 
 
-@interface OrderListViewController ()<UITableViewDataSource, UITableViewDelegate>
-@property (nonatomic, strong) NSMutableArray *datasource;
-@property (nonatomic, strong) UITableView *tableView;
-@property (nonatomic, strong) UIButton *areaBtn;
-@property (nonatomic, strong) UIButton *colorBtn;
-@property (nonatomic, strong) UIButton *lengthBtn;
+@interface OrderListViewController ()
+@property (nonatomic, strong) PPiFlatSegmentedControl *segment;
+@property (nonatomic, strong) UIView *segmentContentView;
+@property (nonatomic) int activeIndex;
+
+@property (nonatomic, strong) OrderPaidTableView *paidTableView;
+@property (nonatomic, strong) OrderUnpaidTableView *unpaidTableView;
 
 @end
 
@@ -46,121 +47,69 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 
-- (void) loadView
-{
-    [super loadView];
-    
-}
-
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-}
-
-- (void)viewDidAppear:(BOOL)animated
-{
-    [super viewDidAppear:animated];
-}
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    __weak OrderListViewController *selfDelegate = self;
-    PPiFlatSegmentedControl *segment=[[PPiFlatSegmentedControl alloc] initWithFrame:CGRectMake(10, self.topBarOffset + 10, 300, 30) items:@[@{@"text":@"未付款"},@{@"text":@"已付款"}]
-                                                                       iconPosition:IconPositionRight andSelectionBlock:^(NSUInteger segmentIndex) {
-                                                                           [selfDelegate tabClicked:segmentIndex];
-                                                                       } iconSeparation:5];
-    segment.color=[UIColor whiteColor];
-    segment.borderWidth=0.5;
-    segment.borderColor=[UIColor colorWithHexString:APP_NAVIGATIONBAR_COLOR];
-    segment.selectedColor=[UIColor colorWithHexString:APP_NAVIGATIONBAR_COLOR];
-    segment.textAttributes=@{NSFontAttributeName:[UIFont systemFontOfSize:15],
-                             NSForegroundColorAttributeName:[UIColor colorWithHexString:APP_NAVIGATIONBAR_COLOR]};
-    segment.selectedTextAttributes=@{NSFontAttributeName:[UIFont systemFontOfSize:15],
-                                     NSForegroundColorAttributeName:[UIColor whiteColor]};
-    [self.view addSubview:segment];
+    UIView *segmentView = [[UIView alloc] initWithFrame:CGRectMake(0, self.topBarOffset, WIDTH(self.view), 40)];
+    segmentView.backgroundColor = [UIColor colorWithHexString:APP_CONTENT_BG_COLOR];
+    [self.view addSubview:segmentView];
+    __weak typeof(self) selfDelegate = self;
+    self.segment=[[PPiFlatSegmentedControl alloc] initWithFrame:CGRectMake(10, 5, 300, 30) items:@[@{@"text":@"未付款"},@{@"text":@"已付款"}]
+                                                   iconPosition:IconPositionRight andSelectionBlock:^(NSUInteger segmentIndex) {
+                                                       [selfDelegate segmentButtonSelected:segmentIndex];
+                                                   } iconSeparation:5];
+    self.segment.color=[UIColor whiteColor];
+    self.segment.borderWidth=0.5;
+    self.segment.borderColor=[UIColor colorWithHexString:APP_NAVIGATIONBAR_COLOR];
+    self.segment.selectedColor=[UIColor colorWithHexString:APP_NAVIGATIONBAR_COLOR];
+    self.segment.textAttributes=@{NSFontAttributeName:[UIFont systemFontOfSize:15],
+                                  NSForegroundColorAttributeName:[UIColor colorWithHexString:APP_NAVIGATIONBAR_COLOR]};
+    self.segment.selectedTextAttributes=@{NSFontAttributeName:[UIFont systemFontOfSize:15],
+                                          NSForegroundColorAttributeName:[UIColor whiteColor]};
+    [segmentView addSubview:self.segment];
     
-
-    self.tableView = [[UITableView alloc] init];
-    self.tableView.frame = CGRectMake(0,
-                                      MaxY(segment) + 10,
-                                      WIDTH(self.view) ,
-                                      [self contentHeightWithNavgationBar:YES withBottomBar:NO] - HEIGHT(segment) -20);
-    self.tableView.backgroundColor = [UIColor clearColor];
-    self.tableView.delegate = self;
-    self.tableView.dataSource = self;
-    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    self.tableView.backgroundColor = [UIColor clearColor];
-    __weak typeof(self) weakSelf = self;
-    [self.tableView addPullToRefreshActionHandler:^{
-        [weakSelf insertRowAtTop];
-    }];
+    self.segmentContentView = [[UIView alloc] initWithFrame:CGRectMake(0,
+                                                                       MaxY(segmentView),
+                                                                       WIDTH(self.view) ,
+                                                                       [self contentHeightWithNavgationBar:YES withBottomBar:NO] - HEIGHT(segmentView))];
+    self.segmentContentView.backgroundColor = [UIColor clearColor];
+    [self.view addSubview:self.segmentContentView];
     
-    [self.tableView.pullToRefreshView setSize:CGSizeMake(25, 25)];
-    [self.tableView.pullToRefreshView setBorderWidth:2];
-    [self.tableView.pullToRefreshView setBorderColor:[UIColor whiteColor]];
-    [self.tableView.pullToRefreshView setImageIcon:[UIImage imageNamed:@"centerIcon"]];
-    [self.view addSubview:self.tableView];
-    self.datasource = [NSMutableArray arrayWithArray:[FakeDataHelper getFakeOrderList:NO]];
+    self.unpaidTableView = [[OrderUnpaidTableView alloc] initWithFrame:self.segmentContentView.bounds];
+    [self.segmentContentView addSubview:self.unpaidTableView];
+    
+    [self segmentButtonSelected:0];
+    [self.view bringSubviewToFront:segmentView];
+
 }
 
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-- (void)insertRowAtTop
-{
-    int64_t delayInSeconds = 1.2;
-    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
-    dispatch_after(popTime, dispatch_get_main_queue(), ^(void) {
-        [self.tableView stopRefreshAnimation];
-    });
-}
-
-
-
-
-#pragma mark UITableView delegate
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    return 180;
-}
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
-    return  10;
-}
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    static NSString * cellIdentifier = @"OrderCellIdentifier";
-    OrderCell * cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
-    if (!cell) {
-        cell = [[OrderCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+- (void)segmentButtonSelected:(int)index{
+    if(self.activeIndex == index){
+        return;
     }
-    [cell setup:[self.datasource objectAtIndex:indexPath.row]];
-    return cell;
-}
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    OrderPreviewViewController *vc = [OrderPreviewViewController new];
-    vc.order = [self.datasource objectAtIndex:indexPath.row];
-    [self.navigationController pushViewController:vc animated:YES];
-}
-
-
-- (void)tabClicked:(NSInteger) index
-{
-    if(index == 1){
-        self.datasource = [NSMutableArray arrayWithArray:[FakeDataHelper getFakeOrderList:YES]];
-        [self.tableView reloadData];
-    }else{
-        self.datasource = [NSMutableArray arrayWithArray:[FakeDataHelper getFakeOrderList:NO]];
-        [self.tableView reloadData];
+    self.activeIndex = index;
+    self.unpaidTableView.hidden = YES;
+    self.paidTableView.hidden = YES;
+    switch (self.activeIndex) {
+        case 0:
+        {
+            self.unpaidTableView.hidden = NO;
+        }
+            break;
+        case 1:
+        {
+            if(!self.paidTableView){
+                self.paidTableView = [[OrderPaidTableView alloc] initWithFrame:self.segmentContentView.bounds];
+                [self.segmentContentView addSubview:self.paidTableView];
+            }
+            self.paidTableView.hidden = NO;
+        }
+            break;
+    
+        default:
+            break;
     }
 }
+
 
 @end

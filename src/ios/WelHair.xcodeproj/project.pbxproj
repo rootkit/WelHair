@@ -280,6 +280,8 @@
 		46AD849A18EFC901005B2C3C /* OrderPreviewViewController_Bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 46AD849718EFC901005B2C3C /* OrderPreviewViewController_Bg@2x.png */; };
 		46AD849B18EFC901005B2C3C /* OrderPreviewViewController_BgBar.png in Resources */ = {isa = PBXBuildFile; fileRef = 46AD849818EFC901005B2C3C /* OrderPreviewViewController_BgBar.png */; };
 		46AD849D18EFC907005B2C3C /* OrderPreviewViewController_BgBar@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 46AD849C18EFC907005B2C3C /* OrderPreviewViewController_BgBar@2x.png */; };
+		46AF945818F662FB00479158 /* OrderPaidTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 46AF945718F662FB00479158 /* OrderPaidTableView.m */; };
+		46AF945B18F6630A00479158 /* OrderUnpaidTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 46AF945A18F6630A00479158 /* OrderUnpaidTableView.m */; };
 		46B233B718BCDC4200CC27A3 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 46B233B618BCDC4200CC27A3 /* LoginViewController.m */; };
 		46B233B918BCE58400CC27A3 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46B233B818BCE58400CC27A3 /* Security.framework */; };
 		46B233BB18BCE58E00CC27A3 /* libiconv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 46B233BA18BCE58E00CC27A3 /* libiconv.dylib */; };
@@ -816,6 +818,10 @@
 		46AD849718EFC901005B2C3C /* OrderPreviewViewController_Bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "OrderPreviewViewController_Bg@2x.png"; sourceTree = "<group>"; };
 		46AD849818EFC901005B2C3C /* OrderPreviewViewController_BgBar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = OrderPreviewViewController_BgBar.png; sourceTree = "<group>"; };
 		46AD849C18EFC907005B2C3C /* OrderPreviewViewController_BgBar@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "OrderPreviewViewController_BgBar@2x.png"; sourceTree = "<group>"; };
+		46AF945618F662FB00479158 /* OrderPaidTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderPaidTableView.h; sourceTree = "<group>"; };
+		46AF945718F662FB00479158 /* OrderPaidTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderPaidTableView.m; sourceTree = "<group>"; };
+		46AF945918F6630A00479158 /* OrderUnpaidTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderUnpaidTableView.h; sourceTree = "<group>"; };
+		46AF945A18F6630A00479158 /* OrderUnpaidTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderUnpaidTableView.m; sourceTree = "<group>"; };
 		46B233B518BCDC4200CC27A3 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
 		46B233B618BCDC4200CC27A3 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 		46B233B818BCE58400CC27A3 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
@@ -1959,6 +1965,10 @@
 				4665C83718F542440066753D /* FavoriteWorkTableView.m */,
 				4665C83918F5455B0066753D /* FavoriteGroupTableView.h */,
 				4665C83A18F5455B0066753D /* FavoriteGroupTableView.m */,
+				46AF945618F662FB00479158 /* OrderPaidTableView.h */,
+				46AF945718F662FB00479158 /* OrderPaidTableView.m */,
+				46AF945918F6630A00479158 /* OrderUnpaidTableView.h */,
+				46AF945A18F6630A00479158 /* OrderUnpaidTableView.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -2493,6 +2503,7 @@
 				46BCD25718BC628E005C4BD6 /* ChatSessionListViewController.m in Sources */,
 				46BCD26618BC796B005C4BD6 /* WorkDetailViewController.m in Sources */,
 				4631CF1D18E3284C00F39814 /* OrderListViewController.m in Sources */,
+				46AF945818F662FB00479158 /* OrderPaidTableView.m in Sources */,
 				181776AA18F3CC4300083C1E /* JoinGroupViewController.m in Sources */,
 				4673BB6A18D2F848000F64DE /* UploadWorkFormViewController.m in Sources */,
 				184B82FC18DAC7F000177BAB /* UIImage+JSMessagesView.m in Sources */,
@@ -2504,6 +2515,7 @@
 				4651D97A18DE7294004AC95A /* UserManager.m in Sources */,
 				4673BB8918D41260000F64DE /* MyGroupAddStaffViewController.m in Sources */,
 				4630D13A18C603B000DA7CAD /* CircleImageView.m in Sources */,
+				46AF945B18F6630A00479158 /* OrderUnpaidTableView.m in Sources */,
 				4673BB6718D2F2B8000F64DE /* Appointment.m in Sources */,
 				468BD8A818F243EB00B11209 /* Order.m in Sources */,
 				46E84EC118C2C7040004C146 /* UzysRadialProgressActivityIndicator.m in Sources */,

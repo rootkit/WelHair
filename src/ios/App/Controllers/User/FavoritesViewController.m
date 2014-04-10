@@ -75,7 +75,7 @@
     segmentView.backgroundColor = [UIColor colorWithHexString:APP_CONTENT_BG_COLOR];
     [self.view addSubview:segmentView];
     __weak typeof(self) selfDelegate = self;
-    self.segment=[[PPiFlatSegmentedControl alloc] initWithFrame:CGRectMake(10, 10, 300, 30) items:@[               @{@"text":@"作品"},                                                          @{@"text":@"沙龙"},
+    self.segment=[[PPiFlatSegmentedControl alloc] initWithFrame:CGRectMake(10, 5, 300, 30) items:@[               @{@"text":@"作品"},                                                          @{@"text":@"沙龙"},
                                                                                                                                           @{@"text":@"设计师"},
                                                                                                                                           @{@"text":@"商品"}
                                                                                                                                           ]
