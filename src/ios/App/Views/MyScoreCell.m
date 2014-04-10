@@ -10,10 +10,14 @@
 #import "CircleImageView.h"
 
 @interface MyScoreCell()
+@property (nonatomic, strong) NSDictionary *data;
+@property (nonatomic) BOOL isTop;
+@property (nonatomic) BOOL isBottom;
 @property (nonatomic, strong) CircleImageView *imgView;
 @property (nonatomic, strong) UILabel *nameLbl;
 @property (nonatomic, strong) UILabel *scoreLbl;
 @property (nonatomic, strong) UILabel *dateLbl;
+@property (nonatomic, strong) UIView  *linerView;
 @end
 
 @implementation MyScoreCell
@@ -22,11 +26,15 @@
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
+        self.linerView =[[UIView alloc] init];
+        self.linerView.backgroundColor = [UIColor colorWithHexString:APP_BASE_COLOR];
+        [self addSubview:self.linerView];
+        
         float iconSize = 20;
         float cellHeight = 100;
         self.imgView = [[CircleImageView alloc] initWithFrame: CGRectMake(30, (cellHeight - iconSize)/2, iconSize, iconSize)];
         [self addSubview:self.imgView];
-
+        
         self.nameLbl = [[UILabel alloc] initWithFrame:CGRectMake(MaxX(self.imgView) + 5,
                                                                  0,
                                                                  170,
@@ -67,21 +75,44 @@
     [super setSelected:selected animated:animated];
 }
 
-- (void)setup:(NSDictionary *)data
-        isTop:(BOOL)isTop
+- (void)layoutSubviews
 {
-
-    if(isTop){
+    [super layoutSubviews];
+    if(self.isTop){
         self.imgView.layer.borderColor = [[UIColor colorWithHexString:APP_BASE_COLOR] CGColor];
         self.imgView.layer.borderWidth = 2;
         self.imgView.backgroundColor = [UIColor whiteColor];
+        self.linerView.frame =CGRectMake(37,
+                                         HEIGHT(self)/2,
+                                         6,
+                                         HEIGHT(self)/2);
+    }else if(self.isBottom){
+        self.imgView.layer.borderColor = [[UIColor colorWithHexString:APP_BASE_COLOR] CGColor];
+        self.imgView.layer.borderWidth = 10;
+        self.linerView.frame =CGRectMake(37,
+                                         0,
+                                         6,
+                                         HEIGHT(self)/2);
     }else{
         self.imgView.layer.borderColor = [[UIColor colorWithHexString:APP_BASE_COLOR] CGColor];
         self.imgView.layer.borderWidth = 10;
+        self.linerView.frame =CGRectMake(37,
+                                         0,
+                                         6,
+                                         HEIGHT(self));
     }
     self.nameLbl.text = @"开设账户";
     self.scoreLbl.text = @"100";
     self.dateLbl.text = @"2013-12-12";
+}
+
+- (void)setup:(NSDictionary *)data
+        isTop:(BOOL)isTop
+     isBottom:(BOOL)isBottom
+{
+    self.data = data;
+    self.isTop = isTop;
+    self.isBottom = isBottom;
 }
 
 

@@ -11,8 +11,6 @@
 @interface MyScoreViewController ()<UITableViewDataSource, UITableViewDelegate>
 @property (nonatomic, strong) NSArray *datasource;
 @property (nonatomic, strong) UITableView *tableView;
-@property (nonatomic, strong) UIView *linerView;
-
 @property (nonatomic, strong) UILabel *scoreLbl;
 @end
 
@@ -63,9 +61,7 @@
     self.scoreLbl.textAlignment = NSTextAlignmentLeft;;
     [topView addSubview:self.scoreLbl];
     
-    self.linerView =[[UIView alloc] init];
-    self.linerView.backgroundColor = [UIColor colorWithHexString:APP_BASE_COLOR];
-    [self.view addSubview:self.linerView];
+
     
     self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0,
                                                                    MaxY(topView),
@@ -76,6 +72,7 @@
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    self.tableView.rowHeight = 100;
     [self.view addSubview:self.tableView];
     
     [self loadData];
@@ -83,7 +80,7 @@
 - (void)loadData
 {
     self.datasource = [FakeDataHelper getFakeWorkList];
-    self.linerView.frame =CGRectMake(37,Y(self.tableView), 6, (self.datasource.count-1) * 100);
+
 }
 
 - (void)viewDidLoad
@@ -116,8 +113,8 @@
         cell = [[MyScoreCell alloc]  initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
-    cell.contentView.backgroundColor =  cell.backgroundColor =  [UIColor clearColor];
-    [cell setup:nil isTop:indexPath.row == 0];
+    cell.contentView.backgroundColor = indexPath.row % 2 == 0 ?  [UIColor colorWithHexString:APP_CONTENT_BG_COLOR] : [UIColor whiteColor];
+    [cell setup:nil isTop:indexPath.row == 0 isBottom:indexPath.row == self.datasource.count -1];
     return cell;
 }
 

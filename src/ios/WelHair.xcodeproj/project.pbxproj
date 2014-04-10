@@ -282,6 +282,7 @@
 		46AD849D18EFC907005B2C3C /* OrderPreviewViewController_BgBar@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 46AD849C18EFC907005B2C3C /* OrderPreviewViewController_BgBar@2x.png */; };
 		46AF945818F662FB00479158 /* OrderPaidTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 46AF945718F662FB00479158 /* OrderPaidTableView.m */; };
 		46AF945B18F6630A00479158 /* OrderUnpaidTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 46AF945A18F6630A00479158 /* OrderUnpaidTableView.m */; };
+		46AF945D18F6741E00479158 /* Profile_Bottom_Bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 46AF945C18F6741E00479158 /* Profile_Bottom_Bg.png */; };
 		46B233B718BCDC4200CC27A3 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 46B233B618BCDC4200CC27A3 /* LoginViewController.m */; };
 		46B233B918BCE58400CC27A3 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46B233B818BCE58400CC27A3 /* Security.framework */; };
 		46B233BB18BCE58E00CC27A3 /* libiconv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 46B233BA18BCE58E00CC27A3 /* libiconv.dylib */; };
@@ -822,6 +823,7 @@
 		46AF945718F662FB00479158 /* OrderPaidTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderPaidTableView.m; sourceTree = "<group>"; };
 		46AF945918F6630A00479158 /* OrderUnpaidTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderUnpaidTableView.h; sourceTree = "<group>"; };
 		46AF945A18F6630A00479158 /* OrderUnpaidTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderUnpaidTableView.m; sourceTree = "<group>"; };
+		46AF945C18F6741E00479158 /* Profile_Bottom_Bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Profile_Bottom_Bg.png; sourceTree = "<group>"; };
 		46B233B518BCDC4200CC27A3 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
 		46B233B618BCDC4200CC27A3 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 		46B233B818BCE58400CC27A3 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
@@ -1397,13 +1399,14 @@
 			isa = PBXGroup;
 			children = (
 				4631CF0818E321A900F39814 /* AddressListViewControl */,
-				4631CEF718E31D0F00F39814 /* OrderPreviewViewController */,
-				46F5866218E1C47100F9BF51 /* ProductDetailViewControl */,
-				46F5865F18E1BF2C00F9BF51 /* Cell */,
 				461B0C2318DC3BD700E0DAF5 /* AppointmentPreviewViewController */,
+				46F5865F18E1BF2C00F9BF51 /* Cell */,
 				461B0C2518DC3BD700E0DAF5 /* CouponDetailViewControl */,
 				461B0C2718DC3BD700E0DAF5 /* GroupDetailViewControl */,
+				4631CEF718E31D0F00F39814 /* OrderPreviewViewController */,
+				46F5866218E1C47100F9BF51 /* ProductDetailViewControl */,
 				461B0C2818DC3BD700E0DAF5 /* Profile_Banner_Bg@2x.png */,
+				46AF945C18F6741E00479158 /* Profile_Bottom_Bg.png */,
 				461B0C2918DC3BD700E0DAF5 /* Profile_Bottom_Bg@2x.png */,
 				461B0C2A18DC3BD700E0DAF5 /* StaffDetailViewControl */,
 				461B0C2D18DC3BD700E0DAF5 /* UserViewControl */,
@@ -2332,6 +2335,7 @@
 				469B9FF118D1A7EB00948740 /* UMSCommentDetailController.xib in Resources */,
 				46BCD25218BC3B4F005C4BD6 /* SVProgressHUD.bundle in Resources */,
 				469B9FEF18D1A7EB00948740 /* UMSocialLocalizable.strings in Resources */,
+				46AF945D18F6741E00479158 /* Profile_Bottom_Bg.png in Resources */,
 				184B82DD18DAC7F000177BAB /* bubble-flat-outgoing-old@2x.png in Resources */,
 				184B82E718DAC7F000177BAB /* bubble-square-outgoing-selected@2x.png in Resources */,
 				461B0C5E18DC3BD700E0DAF5 /* AppointmentPreviewViewController_Bg@2x.png in Resources */,
