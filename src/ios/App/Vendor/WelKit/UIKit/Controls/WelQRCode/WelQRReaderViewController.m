@@ -13,6 +13,8 @@
 
 @interface WelQRReaderViewController ()
 {
+    BOOL isCameraInited;
+    NSTimer *cameraInitedTimer;
     int num;
     BOOL upOrdown;
     NSTimer * timer;
@@ -30,6 +32,22 @@
 
 #pragma mark - View Controller Methods
 
+- (id)init{
+    self = [super init];
+    if(self){
+        cameraInitedTimer = [NSTimer scheduledTimerWithTimeInterval:.02 target:self selector:@selector(checkCameraInited) userInfo:nil repeats:YES];
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            capture = [[ZXCapture alloc] init];
+            capture.delegate = self;
+            capture.rotation = 90.0f;
+            // Use the back camera
+            capture.camera = capture.back;
+            isCameraInited = YES;
+        });
+    }
+    return self;
+}
+
 - (void) loadView
 {
     [super loadView];
@@ -37,15 +55,7 @@
     scannerView = [[UIView alloc] initWithFrame:self.view.bounds];
     scannerView.backgroundColor = [UIColor blackColor];
     [self.view addSubview:scannerView];
-    [SVProgressHUD show];
     
-//    UILabel * labIntroudction= [[UILabel alloc] initWithFrame:CGRectMake(40, 40, 240, 50)];
-//    labIntroudction.backgroundColor = [UIColor clearColor];
-//    labIntroudction.numberOfLines=3;
-//    labIntroudction.textColor=[UIColor whiteColor];
-//    labIntroudction.text=@"将二维码图像置于矩形方框内，离手机摄像头10CM左右。";
-//    [self.view addSubview:labIntroudction];
-//    
     UIImageView * imageView = [[UIImageView alloc]initWithFrame:CGRectMake(60, 100, 200, 200)];
     imageView.image = [UIImage imageNamed:@"pick_bg"];
     [self.view addSubview:imageView];
@@ -74,7 +84,9 @@
 {
     [super viewDidAppear:animated];
     self.navigationController.navigationBarHidden = YES;
-    [self performSelector:@selector(startScan) withObject:nil afterDelay:1];
+    if(!isCameraInited){
+        [SVProgressHUD show];
+    }
 }
 
 - (void)showRoundOverlayView
@@ -102,11 +114,6 @@
 
 - (void)startScan
 {
-    capture = [[ZXCapture alloc] init];
-    capture.delegate = self;
-    capture.rotation = 90.0f;
-    // Use the back camera
-    capture.camera = capture.back;
     capture.layer.frame = self.view.bounds;
     [scannerView.layer addSublayer:capture.layer];
     scannerView.backgroundColor = [UIColor clearColor];
@@ -115,6 +122,15 @@
     [SVProgressHUD dismiss];
     timer = [NSTimer scheduledTimerWithTimeInterval:.02 target:self selector:@selector(lineAnimation) userInfo:nil repeats:YES];
 
+}
+
+- (void)checkCameraInited
+{
+    if (isCameraInited) {
+        [cameraInitedTimer invalidate];
+        [SVProgressHUD dismiss];
+        [self startScan];
+    }
 }
 
 //- (BOOL)shouldAutorotate
