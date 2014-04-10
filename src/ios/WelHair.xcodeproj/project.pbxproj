@@ -283,6 +283,7 @@
 		46AF945818F662FB00479158 /* OrderPaidTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 46AF945718F662FB00479158 /* OrderPaidTableView.m */; };
 		46AF945B18F6630A00479158 /* OrderUnpaidTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 46AF945A18F6630A00479158 /* OrderUnpaidTableView.m */; };
 		46AF945D18F6741E00479158 /* Profile_Bottom_Bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 46AF945C18F6741E00479158 /* Profile_Bottom_Bg.png */; };
+		46AF945F18F683BB00479158 /* pick_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 46AF945E18F683BB00479158 /* pick_bg.png */; };
 		46B233B718BCDC4200CC27A3 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 46B233B618BCDC4200CC27A3 /* LoginViewController.m */; };
 		46B233B918BCE58400CC27A3 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46B233B818BCE58400CC27A3 /* Security.framework */; };
 		46B233BB18BCE58E00CC27A3 /* libiconv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 46B233BA18BCE58E00CC27A3 /* libiconv.dylib */; };
@@ -824,6 +825,7 @@
 		46AF945918F6630A00479158 /* OrderUnpaidTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderUnpaidTableView.h; sourceTree = "<group>"; };
 		46AF945A18F6630A00479158 /* OrderUnpaidTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderUnpaidTableView.m; sourceTree = "<group>"; };
 		46AF945C18F6741E00479158 /* Profile_Bottom_Bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Profile_Bottom_Bg.png; sourceTree = "<group>"; };
+		46AF945E18F683BB00479158 /* pick_bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pick_bg.png; sourceTree = "<group>"; };
 		46B233B518BCDC4200CC27A3 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
 		46B233B618BCDC4200CC27A3 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 		46B233B818BCE58400CC27A3 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
@@ -1839,6 +1841,7 @@
 		467F0ED518CB4FCF009FFE08 /* WelQRCode */ = {
 			isa = PBXGroup;
 			children = (
+				46AF945E18F683BB00479158 /* pick_bg.png */,
 				467F0ED618CB4FCF009FFE08 /* flush.caf */,
 				467F0ED718CB4FCF009FFE08 /* line@2x.png */,
 				467F0ED818CB4FCF009FFE08 /* pick_bg@2x.png */,
@@ -2377,6 +2380,7 @@
 				467F0EEA18CB4FCF009FFE08 /* pick_bg@2x.png in Resources */,
 				184B82D118DAC7F000177BAB /* bubble-default-incoming@2x.png in Resources */,
 				184B82EB18DAC7F000177BAB /* bubble-typing@2x.png in Resources */,
+				46AF945F18F683BB00479158 /* pick_bg.png in Resources */,
 				461B0C4D18DC3BD700E0DAF5 /* ShareIcon@2x.png in Resources */,
 				4631CEFD18E31F4C00F39814 /* OrderPreviewViewController_AddressTempBtn@2x.png in Resources */,
 				461B0C6618DC3BD700E0DAF5 /* StaffManageViewControl_Bg@2x.png in Resources */,

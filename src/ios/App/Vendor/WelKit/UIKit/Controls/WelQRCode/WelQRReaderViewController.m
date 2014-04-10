@@ -39,13 +39,13 @@
     [self.view addSubview:scannerView];
     [SVProgressHUD show];
     
-    UILabel * labIntroudction= [[UILabel alloc] initWithFrame:CGRectMake(40, 40, 240, 50)];
-    labIntroudction.backgroundColor = [UIColor clearColor];
-    labIntroudction.numberOfLines=3;
-    labIntroudction.textColor=[UIColor whiteColor];
-    labIntroudction.text=@"将二维码图像置于矩形方框内，离手机摄像头10CM左右。";
-    [self.view addSubview:labIntroudction];
-    
+//    UILabel * labIntroudction= [[UILabel alloc] initWithFrame:CGRectMake(40, 40, 240, 50)];
+//    labIntroudction.backgroundColor = [UIColor clearColor];
+//    labIntroudction.numberOfLines=3;
+//    labIntroudction.textColor=[UIColor whiteColor];
+//    labIntroudction.text=@"将二维码图像置于矩形方框内，离手机摄像头10CM左右。";
+//    [self.view addSubview:labIntroudction];
+//    
     UIImageView * imageView = [[UIImageView alloc]initWithFrame:CGRectMake(60, 100, 200, 200)];
     imageView.image = [UIImage imageNamed:@"pick_bg"];
     [self.view addSubview:imageView];
@@ -77,6 +77,29 @@
     [self performSelector:@selector(startScan) withObject:nil afterDelay:1];
 }
 
+- (void)showRoundOverlayView
+{
+    UIView *topOverlayView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, WIDTH(self.view), 100)];
+    topOverlayView.backgroundColor = [UIColor blackColor];
+    topOverlayView.alpha = 0.5;
+    [self.view addSubview:topOverlayView];
+    
+    UIView *leftOverlayView = [[UIView alloc] initWithFrame:CGRectMake(0, MaxY(topOverlayView), 60, 200)];
+    leftOverlayView.backgroundColor = [UIColor blackColor];
+    leftOverlayView.alpha = 0.5;
+    [self.view addSubview:leftOverlayView];
+    
+    UIView *bottomOverlayView = [[UIView alloc] initWithFrame:CGRectMake(0, MaxY(leftOverlayView), WIDTH(self.view), HEIGHT(self.view) - MaxY(leftOverlayView) - kToolBarHeight)];
+    bottomOverlayView.backgroundColor = [UIColor blackColor];
+    bottomOverlayView.alpha = 0.5;
+    [self.view addSubview:bottomOverlayView];
+    
+    UIView *rightOverlayView = [[UIView alloc] initWithFrame:CGRectMake(260, MaxY(topOverlayView), 60, 200)];
+    rightOverlayView.backgroundColor = [UIColor blackColor];
+    rightOverlayView.alpha = 0.5;
+    [self.view addSubview:rightOverlayView];
+}
+
 - (void)startScan
 {
     capture = [[ZXCapture alloc] init];
@@ -88,6 +111,7 @@
     [scannerView.layer addSublayer:capture.layer];
     scannerView.backgroundColor = [UIColor clearColor];
     line.hidden = NO;
+    [self showRoundOverlayView];
     [SVProgressHUD dismiss];
     timer = [NSTimer scheduledTimerWithTimeInterval:.02 target:self selector:@selector(lineAnimation) userInfo:nil repeats:YES];
 

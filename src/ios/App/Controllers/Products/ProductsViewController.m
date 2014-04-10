@@ -183,13 +183,10 @@
 - (void)didCaptureText:(NSString *)result
            welQRReaderViewController:(WelQRReaderViewController *)readerVc
 {
-    [readerVc dismissViewControllerAnimated:YES completion:nil];
-    [[[UIAlertView alloc] initWithTitle:@"qrcode content"
-                                message:result
-                               delegate:self
-                      cancelButtonTitle:@"I see"
-                      otherButtonTitles:nil] show];
-    
+    ProductDetailViewController *vc = [ProductDetailViewController new];
+    vc.product = [self.datasource objectAtIndex:0];
+    vc.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 - (void)didCancelWelQRReaderViewController:(WelQRReaderViewController *)readerVc
