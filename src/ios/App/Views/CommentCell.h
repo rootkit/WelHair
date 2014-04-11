@@ -14,6 +14,6 @@
 
 @interface CommentCell : UITableViewCell
 
-- (void)setup:(Comment *)comment;
+- (void)setup:(Comment *)comment tapHandler:(ImageTapHandler)tapHandler;
 
 @end

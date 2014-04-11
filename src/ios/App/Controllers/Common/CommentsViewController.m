@@ -15,15 +15,18 @@
 #import "CommentComposorViewController.h"
 #import "CommentsViewController.h"
 #import "LoginViewController.h"
+#import "MWPhotoBrowser.h"
 #import "UserManager.h"
 
-@interface CommentsViewController ()<UITableViewDataSource, UITableViewDelegate>
+@interface CommentsViewController ()<UITableViewDataSource, UITableViewDelegate, MWPhotoBrowserDelegate>
 
 @property (nonatomic, strong) NSMutableArray *datasource;
 @property (nonatomic, strong) UITableView *tableView;
 
 @property (nonatomic, assign) NSInteger currentPage;
 @property (nonatomic, strong) NSString *requestString;
+
+@property (nonatomic, strong) NSMutableArray *workImgs;
 
 @end
 
@@ -129,7 +132,19 @@
 #pragma mark UITableView delegate
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 60;
+    Comment *comm = [self.datasource objectAtIndex:indexPath.row];
+    CGSize textSize = [Util textSizeForText:comm.description withFont:[UIFont systemFontOfSize:12] andLineHeight:20];
+
+    CGFloat containerHeight = textSize.height + 44;
+    if (containerHeight < 60) {
+        containerHeight = 60;
+    }
+
+    if (comm.imgUrlList.count > 0) {
+        containerHeight += 46;
+    }
+
+    return containerHeight;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -144,11 +159,34 @@
     if (!cell) {
         cell = [[CommentCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        cell.contentView.backgroundColor =  cell.backgroundColor = [UIColor clearColor];
     }
 
     Comment *data = [self.datasource objectAtIndex: indexPath.row];
-    [cell setup:data];
+    [cell setup:data tapHandler:^(NSArray *imgArr, int currentIndex) {
+        self.workImgs = [NSMutableArray array];
+        for (UIImageView *item in imgArr) {
+            if (!item.image) {
+                continue;
+            }
+            [self.workImgs addObject:[MWPhoto photoWithImage:item.image]];
+        }
+
+        MWPhotoBrowser *browser = [[MWPhotoBrowser alloc] initWithDelegate:self];
+        browser.displayActionButton = NO;
+        browser.displayNavArrows = YES;
+        browser.displaySelectionButtons = NO;
+        browser.alwaysShowControls = NO;
+        browser.wantsFullScreenLayout = YES;
+        browser.zoomPhotosToFill = YES;
+        browser.enableGrid = NO;
+        browser.startOnGrid = NO;
+        [browser setCurrentPhotoIndex:currentIndex];
+
+        UINavigationController *nc = [[UINavigationController alloc] initWithRootViewController:browser];
+        nc.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+        [self.navigationController presentViewController:nc animated:YES completion:Nil];
+    }];
+
     return cell;
 }
 
@@ -224,6 +262,31 @@
 - (void)checkEmpty
 {
     
+}
+#pragma mark - MWPhotoBrowserDelegate
+
+- (NSUInteger)numberOfPhotosInPhotoBrowser:(MWPhotoBrowser *)photoBrowser {
+    return self.workImgs.count;
+}
+
+- (id <MWPhoto>)photoBrowser:(MWPhotoBrowser *)photoBrowser photoAtIndex:(NSUInteger)index {
+    if (index < self.workImgs.count)
+        return [self.workImgs objectAtIndex:index];
+    return nil;
+}
+
+- (MWCaptionView *)photoBrowser:(MWPhotoBrowser *)photoBrowser captionViewForPhotoAtIndex:(NSUInteger)index {
+    MWPhoto *photo = [self.workImgs objectAtIndex:index];
+    MWCaptionView *captionView = [[MWCaptionView alloc] initWithPhoto:photo];
+    return captionView ;
+}
+
+- (void)photoBrowser:(MWPhotoBrowser *)photoBrowser actionButtonPressedForPhotoAtIndex:(NSUInteger)index {
+    NSLog(@"ACTION!");
+}
+
+- (void)photoBrowser:(MWPhotoBrowser *)photoBrowser didDisplayPhotoAtIndex:(NSUInteger)index {
+    NSLog(@"Did start viewing photo at index %lu", (unsigned long)index);
 }
 
 @end

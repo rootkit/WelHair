@@ -30,6 +30,7 @@
 #define API_WORKS_COMMENT_CREATE API_PATH(@"/works/%d/comments")
 #define API_STAFFS_SEARCH API_PATH(@"/staffs")
 #define API_STAFFS_DETAIL API_PATH(@"/staffs/%d")
+#define API_STAFFS_WORKS API_PATH(@"/staffs/%d/works")
 #define API_STAFFS_COMMENT_CREATE API_PATH(@"/staffs/%d/comments")
 #define API_COMPANIES_SEARCH API_PATH(@"/companies")
 #define API_COMPANIES_CREATE API_PATH(@"/companies")

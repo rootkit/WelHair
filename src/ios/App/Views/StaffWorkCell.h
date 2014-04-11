@@ -10,8 +10,11 @@
 //
 // ==============================================================================
 
-#import "BaseViewController.h"
+#import "BrickView.h"
+#import "Work.h"
 
-@interface StaffManageViewController : BaseViewController
+@interface StaffWorkCell : BrickViewCell
+
+- (void)setupWithData:(Work *)data;
 
 @end

@@ -37,13 +37,13 @@
     self.cardTapHandler = tapHandler;
 
     if(!self.cardView){
-        self.cardView = [[WorkCardView alloc] initWithFrame:CGRectMake(10, 5, 140, data.commentCount > 0 ? 250 : 174)];
+        self.cardView = [[WorkCardView alloc] initWithFrame:CGRectMake(0, 0, 145, data.commentCount > 0 ? 250 : 178)];
         self.cardView.tag = 0;
         [self.cardView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(cardTapped:)]];
         [self addSubview:self.cardView];
     }
 
-    self.cardView.frame = CGRectMake(10, 5, 140, data.commentCount > 0 ? 250 : 174);
+    self.cardView.frame = CGRectMake(0, 0, 145, data.commentCount > 0 ? 250 : 178);
 
     [self.cardView setupWithData:data];
 }

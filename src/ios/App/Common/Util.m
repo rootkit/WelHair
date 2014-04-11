@@ -33,7 +33,7 @@
 + (CGSize)textSizeForText:(NSString *)txt withFont:(UIFont *)font andLineHeight:(CGFloat)lineHeight
 {
     CGFloat maxWidth = [UIScreen mainScreen].applicationFrame.size.width * 0.70f;
-    CGFloat maxHeight = ([[txt componentsSeparatedByString:@"\n"] count] + 1) * lineHeight;
+    CGFloat maxHeight = 9999;
 
     CGSize stringSize;
 

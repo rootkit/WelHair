@@ -18,6 +18,7 @@
         self.id = [[dictionary objectForKey:@"CommentId"] intValue];
         self.description = [dictionary objectForKey:@"Body"];
 
+        self.createdDate = [[NSDate dateFormatter] dateFromString:[dictionary objectForKey:@"CreatedDate"]];
 
         if ([dictionary objectForKey:@"CreatedBy"] && [dictionary objectForKey:@"CreatedBy"] != [NSNull null]) {
             self.commentor = [User new];

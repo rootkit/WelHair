@@ -146,6 +146,7 @@
                                       WIDTH(self.view) ,
                                       [self contentHeightWithNavgationBar:YES withBottomBar:YES] - topTabView.height);
     self.tableView.backgroundColor = [UIColor clearColor];
+    self.tableView.padding = 10;
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     self.tableView.backgroundColor = [UIColor colorWithHexString:@"f2f2f2"];
@@ -180,7 +181,7 @@
     [self.view addSubview:self.dropDownPicker];
     [self.view bringSubviewToFront:topTabView];
 
-    [self getWorks];
+    [self.tableView triggerPullToRefresh];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -244,7 +245,7 @@
 - (CGFloat)brickView:(BrickView *)brickView heightForCellAtIndex:(NSInteger)index
 {
     Work *work = [self.datasource objectAtIndex:index];
-    return work.commentCount > 0 ? 260 : 184;
+    return work.commentCount > 0 ? 260 : 180;
 }
 
 - (NSInteger)numberOfColumnsInBrickView:(BrickView *)brickView
