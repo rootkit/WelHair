@@ -23,28 +23,18 @@ class System_DeliveryController extends AbstractAdminController
         static $pageSize = 10;
 
         $this->view->pageTitle = '配送方式';
-		/*
+		
+        $page =  intval($this->_request->getParam('page'));
 
-        $staff = array(
-            'UserId' => 0
-        );
+        $page =  $page<=0? 1 : $page;
 
-        $staffId = intval($this->_request->getParam('staff_id'));
-        if ($staffId > 0) {
-            $staff = UserService::getUserById($staffId);
-            $this->view->pageTitle = $staff['Nickname'] . '的预约列表';
-        }
+        $result = DeliveryService::listDelivery($page, $pageSize);
 
-        $this->view->staffInfo = $staff;
+        $this->view->rows = $result['deliveries'];
 
-        $page = intval($this->_request->getParam('page'));
-        $searchResult = AppointmentService::listAllAppointments($page, $pageSize, $staffId);
-
-        $this->view->dataList = $searchResult['appointments'];
-        $this->view->pager = $this->renderPager($this->view->baseUrl('appointment/index/search?s=' . ($staffId > 0 ? '&staff_id=' . $staffId : '')),
-                                                $page,
-                                                ceil($searchResult['total'] / $pageSize));
-												*/
+        $this->view->pagerHTML = $this->renderPager($this->view->baseUrl('/sytem/delivery/search'),
+                                                    $page,
+                                                    ceil($result['total'] / $pageSize));
     }
 
     public function infoAction()

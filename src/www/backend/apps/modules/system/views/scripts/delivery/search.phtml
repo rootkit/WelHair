@@ -1,58 +1,56 @@
 <?php
-use Welfony\Utility\Converter;
+use \Welfony\Utility\Util;
 ?>
 <div class="toolbar">
     <ul class="clearfix">
         <li>
-            <a href="<?php echo $this->baseUrl('appointment/index/info' . ($this->staffInfo['UserId'] > 0 ? '?staff_id=' . $this->staffInfo['UserId'] : '')); ?>">
+            <a href="<?php echo $this->baseUrl('system/delivery/info'); ?>">
                 <i class="iconfont">&#xf0175;</i>
                 添加
             </a>
         </li>
     </ul>
 </div>
-<!--table class="m-table">
+<table class="m-table">
     <thead>
         <tr>
-            <th class="col-chk"><input id="chk_all" type="checkbox" /></th>
-            <th>服务</th>
-            <th class="cola">预约人</th>
-            <th>发型师</th>
-            <th class="cola">服务费</th>
-            <th class="cola">状态</th>
-            <th>预约时间</th>
-            <th>创建时间</th>
+            <th class="col-chk"><input type="checkbox" /></th>
+            <th>配送方式</th>
+            <th>状态</th>
+            <th>物流保价</th>
+            <th>货到付款</th>
+            <th>排序</th>
+            <th class="cola">操作</th>
         </tr>
     </thead>
     <tbody>
-        <?php if (count($this->dataList) > 0): ?>
-        <?php foreach ($this->dataList as $data): ?>
+        <?php foreach( $this->rows as $delivery) : ?>
         <tr>
-            <td class="col-center"><input name="chk_ids[]" type="checkbox" /></td>
-            <td>
-                <a href="<?php echo $this->baseUrl('appointment/index/info?appointment_id=' . $data['AppointmentId']); ?>">
-                    <?php echo $data['ServiceTitle']; ?>
+            <td class="col-center"><input type="checkbox" /></td>
+            <td><a href="<?php echo $this->baseUrl('system/delivery/info?delivery_id=' .  $delivery['DeliveryId']); ?>">
+                <?php echo $delivery['Name']; ?>
                 </a>
             </td>
             <td>
-                <?php echo $data['Nickname'] . '（' . $data['Username'] . '）'; ?>
+                <?php echo $delivery['Status']; ?>
             </td>
             <td>
-                <?php echo $data['StaffName'] . '（' . $data['CompanyName'] . '）'; ?>
+                <?php echo $delivery['IsSavePrice']; ?>
             </td>
-            <td class="col-center"><?php echo number_format($data['Price'], 2); ?></td>
-            <td class="col-center">
-                <?php echo Converter::appointmentStatusFromEnumToString($data['Status']); ?>
+            <td>
+                <?php echo $delivery['PriceType']; ?>
             </td>
-            <td><?php echo date('Y-m-d H:i', strtotime($data['AppointmentDate'])); ?></td>
-            <td><?php echo date('Y-m-d', strtotime($data['CreatedDate'])); ?></td>
+            <td>
+                <a href="#" href="#" class="btnDelete" data-id="<?php echo $delivery['DeliveryId']; ?>" >
+                    <i class="iconfont">&#xf013f;</i>&nbsp;&nbsp;删除
+                </a>
+            </td>
         </tr>
         <?php endforeach; ?>
-        <?php else: ?>
-        <tr>
-            <td class="col-center" colspan="8">您还没有添加任何记录</td>
-        </tr>
-        <?php endif; ?>
     </tbody>
-</table-->
-<?php echo $this->pager; ?>
+</table>
+
+<div class="m-page m-page-rt">
+    <?php echo $this->pagerHTML; ?>
+</div>
+<script src="<?php echo Util::baseAssetUrl('js/backend/delivery-list.js'); ?>"></script>
