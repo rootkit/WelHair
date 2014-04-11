@@ -16,4 +16,6 @@
 
 + (NSDateFormatter *)dateWithHMFormatter;
 
++ (NSDateFormatter *)dateWithYMDFormatter;
+
 @end

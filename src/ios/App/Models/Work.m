@@ -39,6 +39,10 @@
             NSDictionary *commentDic = [dictionary objectForKey:@"Comment"];
             self.lastComment = [[Comment alloc] initWithDic:commentDic];
         }
+
+        if ([dictionary objectForKey:@"CreatedDate"]) {
+            self.createdDate = [[NSDate dateFormatter] dateFromString:[dictionary objectForKey:@"CreatedDate"]];
+        }
     }
 
     return self;

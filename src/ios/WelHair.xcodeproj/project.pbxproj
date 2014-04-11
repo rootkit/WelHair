@@ -108,6 +108,8 @@
 		18A912E418BB26B6006B9A04 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A912E118BB26B6006B9A04 /* User.m */; };
 		18AC388818CD685C00328A78 /* WebSocketUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 18AC388718CD685C00328A78 /* WebSocketUtil.m */; };
 		18AC388B18CD762600328A78 /* ChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18AC388A18CD762600328A78 /* ChatViewController.m */; };
+		18C20BE018F7DADA00870F38 /* StaffWorkCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C20BDF18F7DADA00870F38 /* StaffWorkCell.m */; };
+		18C20BE218F7E22100870F38 /* DateFlagBackground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18C20BE118F7E22100870F38 /* DateFlagBackground@2x.png */; };
 		18C86E0D18EE4E1F00800A55 /* AddImage@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18C86E0C18EE4E1F00800A55 /* AddImage@2x.png */; };
 		18F50A1518ED55DB00DC3167 /* CommentComposorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F50A1418ED55DB00DC3167 /* CommentComposorViewController.m */; };
 		18FAFAB518EAA6C200EF6960 /* BrickView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18FAFAB418EAA6C200EF6960 /* BrickView.m */; };
@@ -473,6 +475,9 @@
 		18AC388718CD685C00328A78 /* WebSocketUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebSocketUtil.m; sourceTree = "<group>"; };
 		18AC388918CD762600328A78 /* ChatViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatViewController.h; sourceTree = "<group>"; };
 		18AC388A18CD762600328A78 /* ChatViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatViewController.m; sourceTree = "<group>"; };
+		18C20BDE18F7DADA00870F38 /* StaffWorkCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StaffWorkCell.h; sourceTree = "<group>"; };
+		18C20BDF18F7DADA00870F38 /* StaffWorkCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StaffWorkCell.m; sourceTree = "<group>"; };
+		18C20BE118F7E22100870F38 /* DateFlagBackground@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "DateFlagBackground@2x.png"; sourceTree = "<group>"; };
 		18C86E0C18EE4E1F00800A55 /* AddImage@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "AddImage@2x.png"; sourceTree = "<group>"; };
 		18F50A1318ED55DB00DC3167 /* CommentComposorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommentComposorViewController.h; sourceTree = "<group>"; };
 		18F50A1418ED55DB00DC3167 /* CommentComposorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommentComposorViewController.m; sourceTree = "<group>"; };
@@ -1937,6 +1942,14 @@
 				467F0F1318CC1EAE009FFE08 /* DoubleCoverCell.m */,
 				467F0F2018CC7938009FFE08 /* DropDownView.h */,
 				467F0F2118CC7938009FFE08 /* DropDownView.m */,
+				4665C83918F5455B0066753D /* FavoriteGroupTableView.h */,
+				4665C83A18F5455B0066753D /* FavoriteGroupTableView.m */,
+				4665C83F18F568410066753D /* FavoriteProductTableView.h */,
+				4665C84018F568410066753D /* FavoriteProductTableView.m */,
+				4665C83C18F568290066753D /* FavoriteStaffTableView.h */,
+				4665C83D18F568290066753D /* FavoriteStaffTableView.m */,
+				4665C83618F542440066753D /* FavoriteWorkTableView.h */,
+				4665C83718F542440066753D /* FavoriteWorkTableView.m */,
 				460C2F4818CAFDB200AD16E6 /* GroupCell.h */,
 				460C2F4918CAFDB200AD16E6 /* GroupCell.m */,
 				46F5865C18E1BB2B00F9BF51 /* GroupStaffCell.h */,
@@ -1949,6 +1962,10 @@
 				46E84ED618C2F0380004C146 /* OpitionSelectPanel.m */,
 				4631CF0B18E325C300F39814 /* OrderCell.h */,
 				4631CF0C18E325C300F39814 /* OrderCell.m */,
+				46AF945618F662FB00479158 /* OrderPaidTableView.h */,
+				46AF945718F662FB00479158 /* OrderPaidTableView.m */,
+				46AF945918F6630A00479158 /* OrderUnpaidTableView.h */,
+				46AF945A18F6630A00479158 /* OrderUnpaidTableView.m */,
 				467F0EB018CB16EB009FFE08 /* ProductCardView.h */,
 				467F0EB118CB16EB009FFE08 /* ProductCardView.m */,
 				467F0EB618CB2164009FFE08 /* ProductCell.h */,
@@ -1957,24 +1974,14 @@
 				4631CEF118E315A800F39814 /* ProductOpitionPanel.m */,
 				46BDF11318D08B9D00999F50 /* StaffCell.h */,
 				46BDF11418D08B9D00999F50 /* StaffCell.m */,
+				18C20BDE18F7DADA00870F38 /* StaffWorkCell.h */,
+				18C20BDF18F7DADA00870F38 /* StaffWorkCell.m */,
 				467F0F1B18CC219B009FFE08 /* TripleCoverCell.h */,
 				467F0F1C18CC219B009FFE08 /* TripleCoverCell.m */,
 				4630252C18C848EB000E0B51 /* WorkCardView.h */,
 				4630252D18C848EB000E0B51 /* WorkCardView.m */,
 				46B25AEB18C086D30035F425 /* WorkCell.h */,
 				46B25AEC18C086D30035F425 /* WorkCell.m */,
-				4665C83C18F568290066753D /* FavoriteStaffTableView.h */,
-				4665C83D18F568290066753D /* FavoriteStaffTableView.m */,
-				4665C83F18F568410066753D /* FavoriteProductTableView.h */,
-				4665C84018F568410066753D /* FavoriteProductTableView.m */,
-				4665C83618F542440066753D /* FavoriteWorkTableView.h */,
-				4665C83718F542440066753D /* FavoriteWorkTableView.m */,
-				4665C83918F5455B0066753D /* FavoriteGroupTableView.h */,
-				4665C83A18F5455B0066753D /* FavoriteGroupTableView.m */,
-				46AF945618F662FB00479158 /* OrderPaidTableView.h */,
-				46AF945718F662FB00479158 /* OrderPaidTableView.m */,
-				46AF945918F6630A00479158 /* OrderUnpaidTableView.h */,
-				46AF945A18F6630A00479158 /* OrderUnpaidTableView.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -2166,6 +2173,7 @@
 		46F5865F18E1BF2C00F9BF51 /* Cell */ = {
 			isa = PBXGroup;
 			children = (
+				18C20BE118F7E22100870F38 /* DateFlagBackground@2x.png */,
 				4631CF0E18E3264600F39814 /* OrderListViewControl_CellBg@2x.png */,
 				46F5866018E1BF2C00F9BF51 /* StaffCellI_WorkIcon@2x.png */,
 			);
@@ -2303,6 +2311,7 @@
 				184B82E818DAC7F000177BAB /* bubble-square-outgoing.png in Resources */,
 				461B0C4118DC3BD700E0DAF5 /* Logo@2x.png in Resources */,
 				184B82F018DAC7F000177BAB /* input-field.png in Resources */,
+				18C20BE218F7E22100870F38 /* DateFlagBackground@2x.png in Resources */,
 				1825E1D218E183B70052AA9A /* MeTab3@2x.png in Resources */,
 				461B0C4E18DC3BD700E0DAF5 /* SinaWeibo.png in Resources */,
 				1825E1D018E183B70052AA9A /* MeTab2@2x.png in Resources */,
@@ -2508,6 +2517,7 @@
 				184B82FB18DAC7F000177BAB /* UIColor+JSMessagesView.m in Sources */,
 				46E84EDA18C337D70004C146 /* OpitionItem.m in Sources */,
 				467F0F2218CC7939009FFE08 /* DropDownView.m in Sources */,
+				18C20BE018F7DADA00870F38 /* StaffWorkCell.m in Sources */,
 				46BCD25718BC628E005C4BD6 /* ChatSessionListViewController.m in Sources */,
 				46BCD26618BC796B005C4BD6 /* WorkDetailViewController.m in Sources */,
 				4631CF1D18E3284C00F39814 /* OrderListViewController.m in Sources */,

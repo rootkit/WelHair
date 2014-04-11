@@ -29,4 +29,12 @@
     return dateFormatter;
 }
 
++ (NSDateFormatter *)dateWithYMDFormatter
+{
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    dateFormatter.dateFormat = @"yyyy/MM/dd";
+
+    return dateFormatter;
+}
+
 @end

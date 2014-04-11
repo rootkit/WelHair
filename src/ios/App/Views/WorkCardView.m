@@ -39,7 +39,7 @@
 
         float width = frame.size.width;
 
-        self.hairImgView = [[UIImageView alloc] initWithFrame:CGRectMake(1, 1, width -2, width-2)];
+        self.hairImgView = [[UIImageView alloc] initWithFrame:CGRectMake(2, 2, width -4, width-4)];
         [self addSubview:self.hairImgView];
         
         self.commentCountLbl = [[UILabel alloc] initWithFrame:CGRectMake(10, MaxY(self.hairImgView) + 5, width/2 ,20)];

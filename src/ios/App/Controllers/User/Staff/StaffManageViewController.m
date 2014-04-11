@@ -1,20 +1,25 @@
+// ==============================================================================
 //
-//  StaffManageViewController.m
-//  WelHair
+// This file is part of the WelHair
 //
-//  Created by lu larry on 3/15/14.
-//  Copyright (c) 2014 Welfony. All rights reserved.
+// Create by Welfony <support@welfony.com>
+// Copyright (c) 2013-2014 welfony.com
 //
+// For the full copyright and license information, please view the LICENSE
+// file that was distributed with this source code.
+//
+// ==============================================================================
 
 #import "StaffManageViewController.h"
 
-#import "UploadWorkFormViewController.h"
+#import "AppointmentsViewController.h"
 #import "CreateGroupViewController.h"
 #import "GroupManageViewController.h"
 #import "MyGroupStaffListViewController.h"
 #import "StaffWorksViewController.h"
 #import "StaffServicesViewController.h"
-#import "AppointmentsViewController.h"
+#import "UploadWorkFormViewController.h"
+#import "UserManager.h"
 
 @interface StaffManageViewController ()
 
@@ -27,6 +32,7 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         self.title = @"设计师";
+
         FAKIcon *leftIcon = [FAKIonIcons ios7ArrowBackIconWithSize:NAV_BAR_ICON_SIZE];
         [leftIcon addAttribute:NSForegroundColorAttributeName value:[UIColor whiteColor]];
         self.leftNavItemImg =[leftIcon imageWithSize:CGSizeMake(NAV_BAR_ICON_SIZE, NAV_BAR_ICON_SIZE)];
@@ -72,13 +78,12 @@
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 - (void)myWorkClick
 {
     StaffWorksViewController *vc =  [StaffWorksViewController new];
-    vc.editable = YES;
+    vc.staffId = [[UserManager SharedInstance] userLogined].id;
     [self.navigationController pushViewController:vc animated:YES];
 }
 

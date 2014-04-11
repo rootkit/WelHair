@@ -57,6 +57,8 @@ typedef NS_ENUM(int, GenderEnum) {
 // gender
 @property (nonatomic) GenderEnum gender;
 
+@property (nonatomic, strong) NSDate *createdDate;
+
 
 - (Work *)initWithDic:(NSDictionary *)dictionary;
 - (NSDictionary *)dictionaryFromWork:(Work *)work;

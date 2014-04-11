@@ -10,14 +10,22 @@
 //
 // ==============================================================================
 
-#import "StaffWorksViewController.h"
+#import "BrickView.h"
 #import "DoubleCoverCell.h"
-#import "WorkDetailViewController.h"
+#import "StaffWorkCell.h"
+#import "StaffWorksViewController.h"
 #import "UploadWorkFormViewController.h"
+#import "UserManager.h"
+#import "Work.h"
+#import "WorkDetailViewController.h"
 
-@interface StaffWorksViewController ()<UITableViewDataSource, UITableViewDelegate>
-@property (nonatomic, strong) NSArray *datasource;
-@property (nonatomic, strong) UITableView *tableView;
+@interface StaffWorksViewController ()<BrickViewDelegate, BrickViewDataSource>
+
+@property (nonatomic, assign) NSInteger currentPage;
+
+@property (nonatomic, strong) NSMutableArray *datasource;
+@property (nonatomic, strong) BrickView *tableView;
+
 @end
 
 @implementation StaffWorksViewController
@@ -27,6 +35,8 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         self.title = @"作品集";
+        self.currentPage = 1;
+
         FAKIcon *leftIcon = [FAKIonIcons ios7ArrowBackIconWithSize:NAV_BAR_ICON_SIZE];
         [leftIcon addAttribute:NSForegroundColorAttributeName value:[UIColor whiteColor]];
         self.leftNavItemImg =[leftIcon imageWithSize:CGSizeMake(NAV_BAR_ICON_SIZE, NAV_BAR_ICON_SIZE)];
@@ -43,17 +53,15 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 
-
 - (void)rightNavItemClick
 {
     [self.navigationController pushViewController:[UploadWorkFormViewController new] animated:YES];
 }
 
-
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    if(!self.editable){
+    if (self.staffId <= 0 || self.staffId != [[UserManager SharedInstance] userLogined].id) {
         self.navigationController.navigationItem.rightBarButtonItem = nil;
     }
 
@@ -61,62 +69,145 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0,
-                                                                   self.topBarOffset,
-                                                                   WIDTH(self.view),
-                                                                   [self contentHeightWithNavgationBar:YES withBottomBar:NO])];
+
+    self.tableView = [[BrickView alloc] init];
+    self.tableView.frame = CGRectMake(0,
+                                      self.topBarOffset,
+                                      WIDTH(self.view) ,
+                                      [self contentHeightWithNavgationBar:YES withBottomBar:NO]);
     self.tableView.backgroundColor = [UIColor clearColor];
+    self.tableView.padding = 10;
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
-    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    self.tableView.backgroundColor = [UIColor colorWithHexString:@"f2f2f2"];
     [self.view addSubview:self.tableView];
-    self.datasource = [FakeDataHelper getFakeWorkList];
-    // Do any additional setup after loading the view.
+
+    __weak typeof(self) weakSelf = self;
+    [self.tableView addPullToRefreshActionHandler:^{
+        weakSelf.currentPage = 1;
+        [weakSelf getWorks];
+    }];
+
+    [self.tableView.pullToRefreshView setSize:CGSizeMake(25, 25)];
+    [self.tableView.pullToRefreshView setBorderWidth:2];
+    [self.tableView.pullToRefreshView setBorderColor:[UIColor whiteColor]];
+    [self.tableView.pullToRefreshView setImageIcon:[UIImage imageNamed:@"centerIcon"]];
+
+    [self.tableView addInfiniteScrollingWithActionHandler:^{
+        weakSelf.currentPage += 1;
+        [weakSelf getWorks];
+    }];
+    self.tableView.showsInfiniteScrolling = NO;
+
+    [self.tableView triggerPullToRefresh];
 }
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+- (CGFloat)brickView:(BrickView *)brickView heightForCellAtIndex:(NSInteger)index
 {
-    return 150;
+    return 145 + 28;
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+- (NSInteger)numberOfColumnsInBrickView:(BrickView *)brickView
 {
-    return ceil(self.datasource.count/2.0);
+    return 2;
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+- (NSInteger)numberOfCellsInBrickView:(BrickView *)brickView
 {
-    static NSString * cellIdentifier = @"StaffTripleCellIdentifier";
-    DoubleCoverCell * cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+    return  self.datasource.count;
+}
+
+- (BrickViewCell *)brickView:(BrickView *)brickView cellAtIndex:(NSInteger)index
+{
+    static NSString * cellIdentifier = @"StaffWorkCellIdentifier";
+    StaffWorkCell * cell = [self.tableView dequeueReusableCellWithIdentifier:cellIdentifier];
     if (!cell) {
-        cell = [[DoubleCoverCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        cell = [[StaffWorkCell alloc] initWithReuseIdentifier:cellIdentifier];
     }
-    Work *leftdata = [self.datasource objectAtIndex: (2 * indexPath.row)];
-    Work *rightData;
-    if(self.datasource.count > indexPath.row * 2 + 1){
-        rightData = [self.datasource objectAtIndex:indexPath.row * 2 + 1];
-    }
-    __weak StaffWorksViewController *selfDelegate = self;
-    [cell setupWithLeftData:leftdata rightData:rightData tapHandler:^(id model){
-        Work *work = (Work *)model;
-        [selfDelegate pushToDetial:work];}
-     ];
+
+    [cell setupWithData:[self.datasource objectAtIndex:index]];
+
     return cell;
 }
 
-- (void)pushToDetial:(Work *)work
+- (void)brickView:(BrickView *)brickView didSelectCell:(BrickViewCell *)cell AtIndex:(NSInteger)index
 {
+    Work *work = [self.datasource objectAtIndex:index];
+
     WorkDetailViewController *workVc = [[WorkDetailViewController alloc] init];;
     workVc.work = work;
     workVc.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:workVc animated:YES];
+}
+
+- (void)getWorks
+{
+    ASIHTTPRequest *request = [RequestUtil createGetRequestWithURL:[NSURL URLWithString:[NSString stringWithFormat:API_STAFFS_WORKS, self.staffId]] andParam:nil];
+    [self.requests addObject:request];
+
+    [request setDelegate:self];
+    [request setDidFinishSelector:@selector(finishGetWorks:)];
+    [request setDidFailSelector:@selector(failGetWorks:)];
+    [request startAsynchronous];
+}
+
+- (void)finishGetWorks:(ASIHTTPRequest *)request
+{
+    NSDictionary *rst = [Util objectFromJson:request.responseString];
+    NSInteger total = [[rst objectForKey:@"total"] integerValue];
+    NSArray *dataList = [rst objectForKey:@"works"];
+
+    NSMutableArray *arr = [NSMutableArray arrayWithArray:self.datasource];
+
+    if (self.currentPage == 1) {
+        [arr removeAllObjects];
+    } else {
+        if (self.currentPage % TABLEVIEW_PAGESIZE_DEFAULT > 0) {
+            int i;
+
+            for (i = 0; i < arr.count; i++) {
+                if (i >= (self.currentPage - 1) * TABLEVIEW_PAGESIZE_DEFAULT) {
+                    [arr removeObjectAtIndex:i];
+                    i--;
+                }
+            }
+        }
+    }
+
+    for (NSDictionary *dicData in dataList) {
+        [arr addObject:[[Work alloc] initWithDic:dicData]];
+    }
+
+    self.datasource = arr;
+
+    BOOL enableInfinite = total > self.datasource.count;
+    if (self.tableView.showsInfiniteScrolling != enableInfinite) {
+        self.tableView.showsInfiniteScrolling = enableInfinite;
+    }
+
+    if (self.currentPage == 1) {
+        [self.tableView stopRefreshAnimation];
+    } else {
+        [self.tableView.infiniteScrollingView stopAnimating];
+    }
+
+    [self checkEmpty];
+
+    [self.tableView reloadData];
+}
+
+- (void)failGetWorks:(ASIHTTPRequest *)request
+{
+}
+
+- (void)checkEmpty
+{
+    
 }
 
 @end
