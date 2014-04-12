@@ -1734,12 +1734,12 @@
 		4660E68518BB73A8005B3C7D /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				4660E68E18BB73E1005B3C7D /* ProductsViewController.h */,
-				4660E68F18BB73E1005B3C7D /* ProductsViewController.m */,
 				46E84EC818C2D9050004C146 /* ProductDetailViewController.h */,
 				46E84EC918C2D9050004C146 /* ProductDetailViewController.m */,
 				46F5866518E1C73000F9BF51 /* ProductDetailWebViewController.h */,
 				46F5866618E1C73000F9BF51 /* ProductDetailWebViewController.m */,
+				4660E68E18BB73E1005B3C7D /* ProductsViewController.h */,
+				4660E68F18BB73E1005B3C7D /* ProductsViewController.m */,
 			);
 			path = Products;
 			sourceTree = "<group>";

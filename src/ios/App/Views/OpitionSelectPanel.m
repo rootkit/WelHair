@@ -1,16 +1,19 @@
+// ==============================================================================
 //
-//  OpitionSelectPanel.m
-//  WelHair
+// This file is part of the WelHair
 //
-//  Created by lu larry on 3/2/14.
-//  Copyright (c) 2014 Welfony. All rights reserved.
+// Create by Welfony <support@welfony.com>
+// Copyright (c) 2013-2014 welfony.com
 //
-
-#import "OpitionSelectPanel.h"
-#import "OpitionButton.h"
+// For the full copyright and license information, please view the LICENSE
+// file that was distributed with this source code.
+//
+// ==============================================================================
 
 #import "CircleImageView.h"
-#import "UIImageView+WebCache.h"
+#import "OpitionButton.h"
+#import "OpitionSelectPanel.h"
+
 @interface OpitionSelectPanel ()
 {
     SelectOpition *opition;
@@ -26,6 +29,7 @@
     UILabel *priceLbl;
 }
 @end
+
 @implementation OpitionSelectPanel
 
 - (id)initWithFrame:(CGRect)frame
@@ -33,37 +37,34 @@
     self = [super initWithFrame:frame];
     if (self) {
         self.backgroundColor = [UIColor whiteColor];
+
         float topHeight = 100;
         
-        UIView *topView = [[UIView alloc] initWithFrame:CGRectMake(0,
-                                                                    0,
-                                                                    WIDTH(self),
-                                                                    topHeight)];
+        UIView *topView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, WIDTH(self), topHeight)];
         topView.backgroundColor = [UIColor whiteColor];
         [self addSubview:topView];
-        UIView *linerView = [[ UIView alloc] initWithFrame:CGRectMake(0, HEIGHT(topView) -1, WIDTH(topView), 1)];
-        linerView.backgroundColor = [UIColor lightGrayColor];
+
+        UIView *linerView = [[ UIView alloc] initWithFrame:CGRectMake(0, HEIGHT(topView) -1, WIDTH(topView), .5)];
+        linerView.backgroundColor = [UIColor colorWithHexString:@"dddddd"];
         [topView addSubview:linerView];
-        
         
         avatorImgView = [[CircleImageView alloc] initWithFrame:CGRectMake(20, 20, 60, 60)];
         avatorImgView.layer.borderColor = [[UIColor lightGrayColor] CGColor];
         avatorImgView.layer.borderWidth = 1;
-        [avatorImgView setImageWithURL:[NSURL URLWithString:@"http://images-fast.digu365.com/sp/width/736/2fed77ea4898439f94729cd9df5ee5ca0001.jpg"]];
         [topView addSubview:avatorImgView];
         
-        nameLbl= [[UILabel alloc] initWithFrame:CGRectMake(MaxX(avatorImgView) + 5, Y(avatorImgView), 100, 30)];
+        nameLbl= [[UILabel alloc] initWithFrame:CGRectMake(MaxX(avatorImgView) + 5, Y(avatorImgView), 180, 30)];
         nameLbl.backgroundColor = [UIColor clearColor];
         nameLbl.textColor = [UIColor blackColor];
         nameLbl.font = [UIFont boldSystemFontOfSize:14];
-        nameLbl.text = @"高级总监";
-        nameLbl.textAlignment = NSTextAlignmentLeft;;
+        nameLbl.textAlignment = TextAlignmentLeft;
         [topView addSubview:nameLbl];
+
         priceLbl = [[UILabel alloc] initWithFrame:CGRectMake(MaxX(avatorImgView) + 5, MaxY(nameLbl), 100, 30)];
         priceLbl.backgroundColor = [UIColor clearColor];
         priceLbl.textColor = [UIColor redColor];
         priceLbl.font = [UIFont systemFontOfSize:12];
-        priceLbl.textAlignment = NSTextAlignmentLeft;;
+        priceLbl.textAlignment = TextAlignmentLeft;
         [topView addSubview:priceLbl];
 
         UIButton *cancelBtn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -73,7 +74,7 @@
                                     40);
         [cancelBtn setTitle:@"取消" forState:UIControlStateNormal];
         [cancelBtn setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
-        [cancelBtn addTarget:self action:@selector(cancelClick) forControlEvents:UIControlEventTouchDown];
+        [cancelBtn addTarget:self action:@selector(cancelClick) forControlEvents:UIControlEventTouchUpInside];
         [topView addSubview:cancelBtn];
         
         float bottomHeight = 40;
@@ -87,7 +88,7 @@
         orderBtn.frame = CGRectMake(0, 0, WIDTH(bottomView), HEIGHT(bottomView));
         [orderBtn setTitle:@"确认预约" forState:UIControlStateNormal];
         [orderBtn setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
-        [orderBtn addTarget:self action:@selector(orderClick) forControlEvents:UIControlEventTouchDown];
+        [orderBtn addTarget:self action:@selector(orderClick) forControlEvents:UIControlEventTouchUpInside];
         [bottomView addSubview:orderBtn];
         
         
@@ -96,15 +97,16 @@
         scrollView.backgroundColor = [UIColor colorWithHexString:@"EEE"];
         [self addSubview:scrollView];
     }
+
     return self;
 }
 
 - (void)orderClick
 {
     NSArray *unselectedCategory = [opition unselectedCategory];
-    if(unselectedCategory.count == 0){
+    if (unselectedCategory.count == 0) {
         _submitHandler(opition);
-    }else{
+    } else {
         NSMutableString *str = [NSMutableString string];
         [str appendString:@"请选择"];
         for (NSString *item in unselectedCategory) {
@@ -119,22 +121,26 @@
     _cancelHandler();
 }
 
-- (void)setupTitle:(NSString *)title
-          opitions:(SelectOpition *)selectOptioin
-            cancel:(cancelSelection)cancelHandler
-            submit:(submitSelection)submitHandler
+- (void)setupData:(Staff *)staff
+         opitions:(SelectOpition *)selectOptioin
+           cancel:(cancelSelection)cancelHandler
+           submit:(submitSelection)submitHandler
 {
-    titleLbl.text = title;
+    titleLbl.text = @"预约";
+    nameLbl.text = staff.name;
+    [avatorImgView setImageWithURL:staff.avatorUrl];
+
     _cancelHandler = cancelHandler;
     _submitHandler = submitHandler;
     
     opition = selectOptioin;
+
     [self fillControls];
 }
 
 - (void)fillControls
 {
-    float offsetY =0 ; // 上一个cate的offsetY];
+    float offsetY =0 ; // 上一个cate的offsetY;
     for (OpitionCategory *category in opition.opitionCateogries) {
         offsetY = [self fillCategory:category withOffsetY:offsetY];
     }
@@ -146,22 +152,28 @@
     timeLbl.textColor = [UIColor blackColor];
     timeLbl.text = @"预约时间";
     [scrollView addSubview:timeLbl];
+
+    float categoryMargin = 10;
+    float contentMaxWidth = WIDTH(self) - 2 * categoryMargin;
+
+    UIView *liner = [[UIView alloc] initWithFrame:CGRectMake(categoryMargin, MaxY(timeLbl), contentMaxWidth, .5)];
+    liner.backgroundColor = [UIColor colorWithHexString:@"cccccc"];
+    [scrollView addSubview:liner];
     
-    
-    UIDatePicker *pick = [[UIDatePicker alloc] initWithFrame:CGRectMake(0, MaxY(timeLbl) + 10, 320, 100)];
+    UIDatePicker *pick = [[UIDatePicker alloc] initWithFrame:CGRectMake(0, MaxY(liner) + 10, 320, 100)];
     [scrollView addSubview:pick];
     offsetY = MaxY(pick);
     pick.locale = [[NSLocale alloc] initWithLocaleIdentifier:@"zh_CN"];
     scrollView.contentSize = CGSizeMake(WIDTH(self), offsetY);
 }
 
-- (float)fillCategory:(OpitionCategory *)category
-          withOffsetY:(float)offsetY
+- (float)fillCategory:(OpitionCategory *)category withOffsetY:(float)offsetY
 {
     int fontSize = 14;
     UIFont *font = [UIFont systemFontOfSize:fontSize];
+
     float categoryMargin = 10;
-    float contentMaxWidth = WIDTH(self) - 2*categoryMargin ;
+    float contentMaxWidth = WIDTH(self) - 2 * categoryMargin;
     
     
     CGSize cateTitleSsize = [category.title sizeWithFont:font
@@ -172,12 +184,15 @@
                                                                       contentMaxWidth  ,
                                                                       cateTitleSsize.height + categoryMargin)];
     cateTitleLbl.text = category.title;
+    cateTitleLbl.backgroundColor = [UIColor clearColor];
     cateTitleLbl.font = [UIFont systemFontOfSize:14];
     cateTitleLbl.textAlignment = TextAlignmentLeft;
     [scrollView addSubview:cateTitleLbl];
-    UIView *liner = [[UIView alloc] initWithFrame:CGRectMake(categoryMargin, MaxY(cateTitleLbl), contentMaxWidth, 1)];
-    liner.backgroundColor = [UIColor grayColor];
+
+    UIView *liner = [[UIView alloc] initWithFrame:CGRectMake(categoryMargin, MaxY(cateTitleLbl), contentMaxWidth, .5)];
+    liner.backgroundColor = [UIColor colorWithHexString:@"cccccc"];
     [scrollView addSubview:liner];
+
     offsetY = MaxY(liner);
     for (OpitionItem *item in category.opitionItems) {
             CGSize itemTitleSsize = [item.title sizeWithFont:font
@@ -195,6 +210,7 @@
             [scrollView addSubview:opitionBtn];
             offsetY = MaxY(opitionBtn);
     }
+
     return offsetY;
 }
 
@@ -202,21 +218,25 @@
 {
     OpitionButton *btn = (OpitionButton *)sender;
     btn.choosen = YES;
-    float money = btn.tag == 0 ? 100 : 200;
-    priceLbl.text = [NSString stringWithFormat:@"￥%.2f", money];
+
+    priceLbl.text = [NSString stringWithFormat:@"￥%.2f", btn.opitionItem.price];
 
     OpitionItem *item = btn.opitionItem;
-        OpitionItem *itemUnderSameCategory = nil;
-        NSMutableArray *selectedValues = [NSMutableArray arrayWithArray:opition.selectedValues];
-        for (OpitionItem *opitionItem in selectedValues) {
-            if(opitionItem.categoryId == item.categoryId){
-                itemUnderSameCategory = opitionItem;
-                break;
-            }
+    OpitionItem *itemUnderSameCategory = nil;
+    NSMutableArray *selectedValues = [NSMutableArray arrayWithArray:opition.selectedValues];
+    for (OpitionItem *opitionItem in selectedValues) {
+        if(opitionItem.categoryId == item.categoryId){
+            itemUnderSameCategory = opitionItem;
+            break;
         }
-    if(itemUnderSameCategory)
+    }
+
+    if(itemUnderSameCategory) {
         [selectedValues removeObject:itemUnderSameCategory];
+    }
+
     [selectedValues addObject:item];
+
     opition.selectedValues = selectedValues;
 }
 
@@ -230,6 +250,7 @@
             break;
         }
     }
+
     return isChecked;
 }
 

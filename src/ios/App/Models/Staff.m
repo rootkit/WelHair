@@ -1,12 +1,18 @@
+// ==============================================================================
 //
-//  Staff.m
-//  WelHair
+// This file is part of the WelSpeak.
 //
-//  Created by lu larry on 3/6/14.
-//  Copyright (c) 2014 Welfony. All rights reserved.
+// Create by Welfony <support@welfony.com>
+// Copyright (c) 2013-2014 welfony.com
 //
+// For the full copyright and license information, please view the LICENSE
+// file that was distributed with this source code.
+//
+// ==============================================================================
 
+#import "Service.h"
 #import "Staff.h"
+#import "Work.h"
 
 @implementation Staff
 
@@ -32,6 +38,33 @@
         }
         if ([dictionary objectForKey:@"IsLiked"]) {
             self.isLiked = [[dictionary objectForKey:@"IsLiked"] intValue] > 0;
+        }
+        if ([dictionary objectForKey:@"Services"]) {
+            NSMutableArray *serviceArr = [NSMutableArray array];
+
+            NSArray *services = [dictionary objectForKey:@"Services"];
+            for (NSDictionary *serviceDic in services) {
+                Service *sv = [Service new];
+                sv.id = [[serviceDic objectForKey:@"ServiceId"] intValue];
+                sv.name = [serviceDic objectForKey:@"Title"];
+                sv.originalPrice = [[serviceDic objectForKey:@"OldPrice"] floatValue];
+                sv.salePrice = [[serviceDic objectForKey:@"Price"] floatValue];
+
+                [serviceArr addObject:sv];
+            }
+
+            self.services = serviceArr;
+        }
+        if ([dictionary objectForKey:@"Works"]) {
+            NSMutableArray *workArr = [NSMutableArray array];
+
+            NSArray *works = [dictionary objectForKey:@"Works"];
+            for (NSDictionary *workDic in works) {
+                Work *w = [[Work alloc] initWithDic:workDic];
+                [workArr addObject:w];
+            }
+
+            self.works = workArr;
         }
     }
 

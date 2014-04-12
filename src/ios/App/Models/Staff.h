@@ -1,10 +1,14 @@
+// ==============================================================================
 //
-//  Staff.h
-//  WelHair
+// This file is part of the WelSpeak.
 //
-//  Created by lu larry on 3/6/14.
-//  Copyright (c) 2014 Welfony. All rights reserved.
+// Create by Welfony <support@welfony.com>
+// Copyright (c) 2013-2014 welfony.com
 //
+// For the full copyright and license information, please view the LICENSE
+// file that was distributed with this source code.
+//
+// ==============================================================================
 
 #import "BaseModel.h"
 #import "Group.h"

@@ -1,17 +1,20 @@
+// ==============================================================================
 //
-//  OpitionItem.h
-//  WelHair
+// This file is part of the WelHair
 //
-//  Created by lu larry on 3/2/14.
-//  Copyright (c) 2014 Welfony. All rights reserved.
+// Create by Welfony <support@welfony.com>
+// Copyright (c) 2013-2014 welfony.com
 //
-
-#import <Foundation/Foundation.h>
+// For the full copyright and license information, please view the LICENSE
+// file that was distributed with this source code.
+//
+// ==============================================================================
 
 @interface OpitionItem : NSObject
 
-@property (nonatomic, strong) NSString *title;
 @property (nonatomic) int id;
 @property (nonatomic) int categoryId;
+@property (nonatomic, strong) NSString *title;
+@property (nonatomic) float price;
 
 @end

@@ -201,7 +201,7 @@ class StaffService
                 $staffDetail['Works'][] = array(
                     'WorkId' => $row['WorkId'],
                     'Title' => $row['WorkTitle'],
-                    'PictureUrl' => $row['WorkPictureUrl']
+                    'PictureUrl' => json_decode($row['WorkPictureUrl'], true)
                 );
             }
 
