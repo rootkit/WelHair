@@ -22,7 +22,7 @@ use \Welfony\Utility\Util;
                 <?php echo $payment['Description']; ?>
             </td>
             <td>
-                <?php echo $payment['Status'] ?'使用中':'已关闭'; ?>
+                <?php echo $payment['Status'] ?'已关闭':'使用中'; ?>
             </td>
             <td>
                 <a href="<?php echo $this->baseUrl('system/payment/info?payment_id=' .  $payment['PaymentId']); ?>" >
