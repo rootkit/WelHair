@@ -30,8 +30,25 @@ $(function() {
 
     $('.btnAddProvince').bind('click', function(){
        var province = $(this).parent().find('select[name="province"]');
-       $(this).parent().find('input[name="areagroupid[]"]').val(province.val());
-       $(this).parent().find('input[name="areaName"]').val(province.find('option:selected').text());
+       if( $(this).parent().find('input[name="areagroupid[]"]').val().replace(/\s+/g, '').length > 0)
+       {  
+          var selectedArray = $(this).parent().find('input[name="areagroupid[]"]').val();
+          var areaArray = selectedArray.split(',');
+          if( $.inArray( province.val(), areaArray) != -1)
+          {
+             $('<div><p>已经存在！</p></div>').dialog({'title':'提示','modal':true});
+          }
+          else
+          {
+            $(this).parent().find('input[name="areagroupid[]"]').val(selectedArray + ',' + province.val() );
+            $(this).parent().find('input[name="areaName"]').val($(this).parent().find('input[name="areaName"]').val() +','+ province.find('option:selected').text());
+          }
+       }
+       else
+       {
+          $(this).parent().find('input[name="areagroupid[]"]').val(province.val());
+          $(this).parent().find('input[name="areaName"]').val(province.find('option:selected').text());
+       }
     });
 
     $('#btnAddArea').click(function(){
@@ -46,8 +63,26 @@ $(function() {
        });
 
        $('.btnAddProvince').bind('click', function(){
-          $(this).parent().find('input[name="areagroupid[]"]').val(province.val());
-          $(this).parent().find('input[name="areaName"]').val(province.find('option:selected').text());
+           var province = $(this).parent().find('select[name="province"]');
+           if( $(this).parent().find('input[name="areagroupid[]"]').val().replace(/\s+/g, '').length > 0)
+           {  
+              var selectedArray = $(this).parent().find('input[name="areagroupid[]"]').val();
+              var areaArray = selectedArray.split(',');
+              if( $.inArray( province.val(), areaArray) != -1)
+              {
+                 $('<div><p>已经存在！</p></div>').dialog({'title':'提示','modal':true});
+              }
+              else
+              {
+                $(this).parent().find('input[name="areagroupid[]"]').val(selectedArray + ',' + province.val() );
+                $(this).parent().find('input[name="areaName"]').val($(this).parent().find('input[name="areaName"]').val() +','+ province.find('option:selected').text());
+              }
+           }
+           else
+           {
+              $(this).parent().find('input[name="areagroupid[]"]').val(province.val());
+              $(this).parent().find('input[name="areaName"]').val(province.find('option:selected').text());
+           }
        });
 
     });
@@ -93,6 +128,21 @@ $(function() {
           var areagroupid=null;
           var areafirstprice=null;
           var areasecondprice=null;
+
+          var areagroupids=  $('#areaList').find('input[name="areagroupid[]"]').map(function(i,n){
+                  return $(n).val()? $(n).val(): '';
+              }).get();
+          areagroupid = JSON.stringify(areagroupids);
+
+          var areafirstprices=  $('#areaList').find('input[name="areafirstprice[]"]').map(function(i,n){
+                  return $(n).val()? $(n).val(): '';
+              }).get();
+          areafirstprice = JSON.stringify(areafirstprices);
+
+          var areasecondprices=  $('#areaList').find('input[name="areasecondprice[]"]').map(function(i,n){
+                  return $(n).val()? $(n).val(): '';
+              }).get();
+          areasecondprice = JSON.stringify(areasecondprices);
 
           url = form.attr( "action" );
 
