@@ -26,7 +26,7 @@
         [leftIcon addAttribute:NSForegroundColorAttributeName value:[UIColor whiteColor]];
             self.leftNavItemImg =[leftIcon imageWithSize:CGSizeMake(NAV_BAR_ICON_SIZE, NAV_BAR_ICON_SIZE)];
         
-//        FAKIcon *rightIcon = [FAKIonIcons ios7PlusIconWithSize:NAV_BAR_ICON_SIZE];
+//        FAKIcon *rightIcon = [FAKIonIcons ios7PlusOutlineIconWithSize:NAV_BAR_ICON_SIZE];
 //        [rightIcon addAttribute:NSForegroundColorAttributeName value:[UIColor whiteColor]];
 //        self.rightNavItemImg =[rightIcon imageWithSize:CGSizeMake(NAV_BAR_ICON_SIZE, NAV_BAR_ICON_SIZE)];
 

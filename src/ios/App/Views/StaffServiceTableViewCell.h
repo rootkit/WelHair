@@ -10,11 +10,10 @@
 //
 // ==============================================================================
 
-#import "BrickView.h"
-#import "Work.h"
+#import "Service.h"
 
-@interface StaffWorkCell : BrickViewCell
+@interface StaffServiceTableViewCell : UITableViewCell
 
-- (void)setupWithData:(Work *)data tapHandler:(CardTapHandler)tapHandler;
+- (void)setup:(Service *)service;
 
 @end

@@ -198,6 +198,8 @@
     [reqData setObject:[NSString stringWithFormat:@"%d", 0] forKey:@"sort"];
 
     ASIHTTPRequest *request = [RequestUtil createGetRequestWithURL:[NSURL URLWithString:API_COMPANIES_SEARCH] andParam:reqData];
+    [self.requests addObject:request];
+
     [request setDelegate:self];
     [request setDidFinishSelector:@selector(finishSearchGroups:)];
     [request setDidFailSelector:@selector(failSearchGroups:)];
@@ -259,6 +261,7 @@
 
         ASIFormDataRequest *request = [RequestUtil createPOSTRequestWithURL:[NSURL URLWithString:[NSString stringWithFormat:API_COMPANIES_JOIN, self.selectedGroupId]]
                                                                     andData:nil];
+        [self.requests addObject:request];
 
         [request setDelegate:self];
         [request setDidFinishSelector:@selector(joinGroupFinish:)];

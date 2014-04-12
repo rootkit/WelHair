@@ -269,8 +269,8 @@
     __weak WorksViewController *selfDelegate = self;
     [cell setupWithData:[self.datasource objectAtIndex:index] tapHandler:^(id model){
         Work *work = (Work *)model;
-        [selfDelegate pushToDetial:work];}
-     ];
+        [selfDelegate pushToDetial:work];
+    }];
 
     return cell;
 }

@@ -89,6 +89,7 @@
 		184B82FB18DAC7F000177BAB /* UIColor+JSMessagesView.m in Sources */ = {isa = PBXBuildFile; fileRef = 184B82BF18DAC7F000177BAB /* UIColor+JSMessagesView.m */; };
 		184B82FC18DAC7F000177BAB /* UIImage+JSMessagesView.m in Sources */ = {isa = PBXBuildFile; fileRef = 184B82C118DAC7F000177BAB /* UIImage+JSMessagesView.m */; };
 		184B82FD18DAC7F000177BAB /* UIView+AnimationOptionsForCurve.m in Sources */ = {isa = PBXBuildFile; fileRef = 184B82C318DAC7F000177BAB /* UIView+AnimationOptionsForCurve.m */; };
+		18502DA918F8E2B800CD4A0A /* StaffServiceTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18502DA818F8E2B800CD4A0A /* StaffServiceTableViewCell.m */; };
 		18A3E61318DC0C280080DC0B /* RegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A3E61218DC0C280080DC0B /* RegisterViewController.m */; };
 		18A3E61618DC10050080DC0B /* NSString+WelKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A3E61518DC10050080DC0B /* NSString+WelKit.m */; };
 		18A3E61918DC11240080DC0B /* RequestUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A3E61818DC11240080DC0B /* RequestUtil.m */; };
@@ -436,6 +437,8 @@
 		184B82C118DAC7F000177BAB /* UIImage+JSMessagesView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+JSMessagesView.m"; sourceTree = "<group>"; };
 		184B82C218DAC7F000177BAB /* UIView+AnimationOptionsForCurve.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+AnimationOptionsForCurve.h"; sourceTree = "<group>"; };
 		184B82C318DAC7F000177BAB /* UIView+AnimationOptionsForCurve.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+AnimationOptionsForCurve.m"; sourceTree = "<group>"; };
+		18502DA718F8E2B800CD4A0A /* StaffServiceTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StaffServiceTableViewCell.h; sourceTree = "<group>"; };
+		18502DA818F8E2B800CD4A0A /* StaffServiceTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StaffServiceTableViewCell.m; sourceTree = "<group>"; };
 		18A3E61118DC0C280080DC0B /* RegisterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegisterViewController.h; sourceTree = "<group>"; };
 		18A3E61218DC0C280080DC0B /* RegisterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegisterViewController.m; sourceTree = "<group>"; };
 		18A3E61418DC10050080DC0B /* NSString+WelKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+WelKit.h"; sourceTree = "<group>"; };
@@ -1974,6 +1977,8 @@
 				4631CEF118E315A800F39814 /* ProductOpitionPanel.m */,
 				46BDF11318D08B9D00999F50 /* StaffCell.h */,
 				46BDF11418D08B9D00999F50 /* StaffCell.m */,
+				18502DA718F8E2B800CD4A0A /* StaffServiceTableViewCell.h */,
+				18502DA818F8E2B800CD4A0A /* StaffServiceTableViewCell.m */,
 				18C20BDE18F7DADA00870F38 /* StaffWorkCell.h */,
 				18C20BDF18F7DADA00870F38 /* StaffWorkCell.m */,
 				467F0F1B18CC219B009FFE08 /* TripleCoverCell.h */,
@@ -2525,6 +2530,7 @@
 				181776AA18F3CC4300083C1E /* JoinGroupViewController.m in Sources */,
 				4673BB6A18D2F848000F64DE /* UploadWorkFormViewController.m in Sources */,
 				184B82FC18DAC7F000177BAB /* UIImage+JSMessagesView.m in Sources */,
+				18502DA918F8E2B800CD4A0A /* StaffServiceTableViewCell.m in Sources */,
 				18A3E61318DC0C280080DC0B /* RegisterViewController.m in Sources */,
 				46E84ED718C2F0380004C146 /* OpitionSelectPanel.m in Sources */,
 				4665FD8518BC801000E88C6B /* Work.m in Sources */,
