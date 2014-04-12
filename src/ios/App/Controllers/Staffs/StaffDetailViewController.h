@@ -10,10 +10,10 @@
 //
 // ==============================================================================
 
-#import <UIKit/UIKit.h>
 #import "Staff.h"
 
 @interface StaffDetailViewController : BaseViewController
 
 @property (nonatomic, strong) Staff *staff;
+
 @end

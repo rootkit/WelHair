@@ -24,13 +24,13 @@ use Welfony\Utility\Util;
 class StaffService
 {
 
-    public static function search($currentUserId, $city, $district, $sort, $location, $page, $pageSize)
+    public static function search($currentUserId, $companyId, $city, $district, $sort, $location, $page, $pageSize)
     {
         $page = $page <= 0 ? 1 : $page;
         $pageSize = $pageSize <= 0 ? 20 : $pageSize;
 
-        $total = StaffRepository::getInstance()->searchCount($city, $district);
-        $staffList = StaffRepository::getInstance()->search($currentUserId, $city, $district, $sort, $location, $page, $pageSize);
+        $total = StaffRepository::getInstance()->searchCount($companyId, $city, $district);
+        $staffList = StaffRepository::getInstance()->search($currentUserId, $companyId, $city, $district, $sort, $location, $page, $pageSize);
 
         $staffs = array();
         foreach ($staffList as $staff) {

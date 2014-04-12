@@ -23,7 +23,7 @@ SET offset = (page - 1) * pageSize;
 SELECT
   TBLC.*,
   (SELECT COUNT(1) FROM UserLike UL WHERE currentUserId > 0 AND currentUserId = UL.CreatedBy AND UL.CompanyId = TBLC.CompanyId) IsLiked,
-  (SELECT COUNT(1) FROM CompanyUser CU WHERE CU.CompanyId = TBLC.CompanyId) StaffCount,
+  (SELECT COUNT(1) FROM CompanyUser CU INNER JOIN Users U ON U.UserId = CU.UserId WHERE U.Role = 3 AND CU.IsApproved = 1 AND CU.CompanyId = TBLC.CompanyId) StaffCount,
   (SELECT COUNT(1) FROM Comment C WHERE C.CompanyId = TBLC.CompanyId) CommentCount
 FROM (
     SELECT

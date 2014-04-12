@@ -55,22 +55,22 @@
     [contentView addSubview:btnBg];
     
     UIButton *myWorkBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [myWorkBtn addTarget:self action:@selector(myWorkClick) forControlEvents:UIControlEventTouchDown];
+    [myWorkBtn addTarget:self action:@selector(myWorkClick) forControlEvents:UIControlEventTouchUpInside];
     myWorkBtn.frame = CGRectMake(0, 0, WIDTH(contentView)/2, WIDTH(contentView)/2);
     [contentView addSubview:myWorkBtn];
     
     UIButton *serviceBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [serviceBtn addTarget:self action:@selector(serviceClick) forControlEvents:UIControlEventTouchDown];
+    [serviceBtn addTarget:self action:@selector(serviceClick) forControlEvents:UIControlEventTouchUpInside];
     serviceBtn.frame = CGRectMake(WIDTH(contentView)/2, 0, WIDTH(contentView)/2, WIDTH(contentView)/2);
     [contentView addSubview:serviceBtn];
     
     UIButton *infoBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [infoBtn addTarget:self action:@selector(infoClick) forControlEvents:UIControlEventTouchDown];
+    [infoBtn addTarget:self action:@selector(infoClick) forControlEvents:UIControlEventTouchUpInside];
     infoBtn.frame = CGRectMake(0, MaxY(serviceBtn), WIDTH(contentView)/2, WIDTH(contentView)/2);
     [contentView addSubview:infoBtn];
     
     UIButton *appointmentBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [appointmentBtn addTarget:self action:@selector(appointmentClick) forControlEvents:UIControlEventTouchDown];
+    [appointmentBtn addTarget:self action:@selector(appointmentClick) forControlEvents:UIControlEventTouchUpInside];
     appointmentBtn.frame = CGRectMake(WIDTH(contentView)/2, MaxY(serviceBtn), WIDTH(contentView)/2, WIDTH(contentView)/2);
     [contentView addSubview:appointmentBtn];
 }

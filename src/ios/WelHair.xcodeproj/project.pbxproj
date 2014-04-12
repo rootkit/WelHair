@@ -1799,10 +1799,10 @@
 		4673BB9F18D41EDB000F64DE /* Service */ = {
 			isa = PBXGroup;
 			children = (
-				4673BBC218D420AB000F64DE /* StaffServicesViewController.h */,
-				4673BBC318D420AB000F64DE /* StaffServicesViewController.m */,
 				464BF44A18D56F0F006EBCD9 /* StaffAddServiceViewController.h */,
 				464BF44B18D56F0F006EBCD9 /* StaffAddServiceViewController.m */,
+				4673BBC218D420AB000F64DE /* StaffServicesViewController.h */,
+				4673BBC318D420AB000F64DE /* StaffServicesViewController.m */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -2026,14 +2026,14 @@
 		46BCD25C18BC724E005C4BD6 /* Groups */ = {
 			isa = PBXGroup;
 			children = (
-				46BCD25D18BC725D005C4BD6 /* GroupsViewController.h */,
-				46BCD25E18BC725D005C4BD6 /* GroupsViewController.m */,
 				46BCD26718BC797B005C4BD6 /* GroupDetailViewController.h */,
 				46BCD26818BC797B005C4BD6 /* GroupDetailViewController.m */,
 				465D2E3618EAA5FE009E4CD8 /* GroupProductListViewController.h */,
 				465D2E3718EAA5FE009E4CD8 /* GroupProductListViewController.m */,
 				465D2E3918EAA60B009E4CD8 /* GroupStaffListViewController.h */,
 				465D2E3A18EAA60B009E4CD8 /* GroupStaffListViewController.m */,
+				46BCD25D18BC725D005C4BD6 /* GroupsViewController.h */,
+				46BCD25E18BC725D005C4BD6 /* GroupsViewController.m */,
 			);
 			path = Groups;
 			sourceTree = "<group>";
@@ -2059,10 +2059,10 @@
 		46BCD27018BC79D3005C4BD6 /* Staffs */ = {
 			isa = PBXGroup;
 			children = (
-				46BCD27118BC79E0005C4BD6 /* StaffsViewController.h */,
-				46BCD27218BC79E0005C4BD6 /* StaffsViewController.m */,
 				46BCD27418BC79EB005C4BD6 /* StaffDetailViewController.h */,
 				46BCD27518BC79EB005C4BD6 /* StaffDetailViewController.m */,
+				46BCD27118BC79E0005C4BD6 /* StaffsViewController.h */,
+				46BCD27218BC79E0005C4BD6 /* StaffsViewController.m */,
 				4673BB5918D2E2A9000F64DE /* StaffWorksViewController.h */,
 				4673BB5A18D2E2A9000F64DE /* StaffWorksViewController.m */,
 			);
@@ -2102,10 +2102,10 @@
 				4673BB9D18D41EDB000F64DE /* MyAppointment */,
 				4673BB9E18D41EDB000F64DE /* MyWork */,
 				4673BB9F18D41EDB000F64DE /* Service */,
-				4673BB6818D2F848000F64DE /* UploadWorkFormViewController.h */,
-				4673BB6918D2F848000F64DE /* UploadWorkFormViewController.m */,
 				4673BBA018D41EE9000F64DE /* StaffManageViewController.h */,
 				4673BBA118D41EE9000F64DE /* StaffManageViewController.m */,
+				4673BB6818D2F848000F64DE /* UploadWorkFormViewController.h */,
+				4673BB6918D2F848000F64DE /* UploadWorkFormViewController.m */,
 			);
 			path = Staff;
 			sourceTree = "<group>";
@@ -2167,10 +2167,10 @@
 		46EAF99318D19E2100D4C624 /* Staff */ = {
 			isa = PBXGroup;
 			children = (
-				4673BB8418D41253000F64DE /* MyGroupStaffListViewController.m */,
-				4673BB8518D41253000F64DE /* MyGroupStaffListViewController.h */,
 				4673BB8718D41260000F64DE /* MyGroupAddStaffViewController.h */,
 				4673BB8818D41260000F64DE /* MyGroupAddStaffViewController.m */,
+				4673BB8518D41253000F64DE /* MyGroupStaffListViewController.h */,
+				4673BB8418D41253000F64DE /* MyGroupStaffListViewController.m */,
 			);
 			path = Staff;
 			sourceTree = "<group>";

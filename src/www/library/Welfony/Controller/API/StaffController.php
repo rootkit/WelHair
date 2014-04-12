@@ -29,12 +29,14 @@ class StaffController extends AbstractAPIController
         $page = intval($this->app->request->get('page'));
         $pageSize = intval($this->app->request->get('pageSize'));
 
+        $companyId = intval($this->app->request->get('companyId'));
+
         $city = intval($this->app->request->get('city'));
         $district = intval($this->app->request->get('district'));
 
         $sort = intval($this->app->request->get('sort'));
 
-        $staffList = StaffService::search($this->currentContext['UserId'], $city, $district, $sort, $this->currentContext['Location'], $page, $pageSize);
+        $staffList = StaffService::search($this->currentContext['UserId'], $companyId, $city, $district, $sort, $this->currentContext['Location'], $page, $pageSize);
         $this->sendResponse($staffList);
     }
 

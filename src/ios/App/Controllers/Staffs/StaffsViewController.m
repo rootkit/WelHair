@@ -135,7 +135,7 @@
     [self.view addSubview:self.dropDownPicker];
     [self.view bringSubviewToFront:topTabView];
 
-    [self getStaffs];
+    [self.tableView triggerPullToRefresh];
 }
 
 
@@ -229,6 +229,7 @@
 }
 
 #pragma mark UITableView delegate
+
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     return 80;
@@ -262,7 +263,6 @@
     vc.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:vc animated:YES];
 }
-
 
 #pragma mark Group Search API
 

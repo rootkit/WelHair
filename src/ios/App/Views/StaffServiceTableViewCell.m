@@ -31,13 +31,13 @@
 
         self.originalPriceLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 10, 300, 30)];
         self.originalPriceLabel.backgroundColor = [UIColor clearColor];
-        self.originalPriceLabel.textColor = [UIColor redColor];
+        self.originalPriceLabel.textColor = [UIColor colorWithHexString:@"dddddd"];
         self.originalPriceLabel.textAlignment = TextAlignmentRight;
         [self.contentView addSubview:self.originalPriceLabel];
 
         self.saledPriceLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 40, 300, 30)];
         self.saledPriceLabel.backgroundColor = [UIColor clearColor];
-        self.saledPriceLabel.textColor = [UIColor greenColor];
+        self.saledPriceLabel.textColor = [UIColor colorWithHexString:@"4CD964"];
         self.saledPriceLabel.textAlignment = TextAlignmentRight;
         [self.contentView addSubview:self.saledPriceLabel];
 

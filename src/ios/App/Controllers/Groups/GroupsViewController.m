@@ -263,6 +263,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     GroupDetailViewController *vc = [GroupDetailViewController new];
+    vc.group = [self.datasource objectAtIndex:indexPath.row];
     vc.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:vc animated:YES];
 }

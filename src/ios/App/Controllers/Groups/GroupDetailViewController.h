@@ -10,8 +10,10 @@
 //
 // ==============================================================================
 
-#import <UIKit/UIKit.h>
 #import "Group.h"
+
 @interface GroupDetailViewController : BaseViewController
+
 @property (nonatomic, strong) Group *group;
+
 @end
