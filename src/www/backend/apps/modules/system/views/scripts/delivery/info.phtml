@@ -2,104 +2,208 @@
 use \Welfony\Utility\Util;
 ?>
 <div class="m-form">
-    <form id="frm-appointment-info" method="post">
+    <form id="frm-freight-info" method="post">
         <fieldset>
-            <!--div class="formitm">
-                <label class="lab">预约人：</label>
+            <div class="formitm">
+                <label class="lab">配送方式名称：</label>
                 <div class="ipt">
-                    <input id="user-search" type="text" class="u-ipt"<?php echo $this->userInfo['UserId'] > 0 ? ' style="display: none;"' : '"'; ?>/>
-                    <div id="user-search-result" class="autocomplete-search-result"<?php echo $this->userInfo['UserId'] > 0 ? '' : ' style="display: none;"'; ?>>
-                        <?php if ($this->userInfo['UserId'] <= 0): ?>
-                        <a class="close"><i class="iconfont">&#xf00b3;</i></a>
-                        <?php endif; ?>
-                        <a class="autocomplete-item">
-                            <img class="autocomplete-item-icon" src="<?php echo $this->userInfo['AvatarUrl']; ?>" />
-                            <strong class="autocomplete-item-label"><?php echo $this->userInfo['Nickname']; ?></strong>
-                            <span class="autocomplete-item-detail"><?php echo $this->userInfo['Username']; ?></span>
-                        </a>
+                    <input id="freightname" type="text"  datatype="*" value="<?php echo $this->freightInfo['FreightName']; ?>"  errormsg="名称不能为空！" class="u-ipt"/> *
+                </div>
+            </div>
+            <div class="formitm">
+                <label class="lab">物流公司：</label>
+                <div class="ipt">
+                     <select id="freight" name="freight" class="u-sel">
+                            <?php foreach( $this->freights as $freight ): ?>
+                            <option value="<?php echo $freight['FreightId'] ?>" <?php echo $this->delvieryInfo['FreightId'] == $freight['FreightId'] ? 'selected':''; ?>><?php echo  $freight['Name'] ;?> </option>
+                            <?php endforeach; ?>
+                        </select>
+                     <p>选择此配送方式所使用的物流公司</p>
+                </div>
+            </div>
+         
+            <div class="formitm">
+                <label class="lab">类型：</label>
+                <div class="ipt">
+                   
+                        <label class="attr"><input type="radio" checked="checked" name="type" value="0">先收款后发货</label>
+                        <label class="attr"><input type="radio" name="type" value="1">货到付款</label>
+                        <p>货到付款选择货到付款后顾客无需再选择支付方式</p>
+                    
+                </div>
+            </div>
+            <div class="formitm">
+                <label class="lab">重量设置：</label>
+                <div class="ipt">
+                    <label class="attr">
+                            首重重量
+                            <select pattern="int" name="first_weight">
+                                <option value="500" label="500克">500克</option>
+                                <option selected="selected" value="1000" label="1公斤">1公斤</option>
+                                <option value="1200" label="1.2公斤">1.2公斤</option>
+                                <option value="2000" label="2公斤">2公斤</option>
+                                <option value="5000" label="5公斤">5公斤</option>
+                                <option value="10000" label="10公斤">10公斤</option>
+                                <option value="20000" label="20公斤">20公斤</option>
+                                <option value="50000" label="50公斤">50公斤</option>
+                            </select>
+                        </label>
+
+                        <label class="attr">首重费用<input type="text" alt="该项必填且只允许填写数字金额" pattern="float" value="" name="first_price" class="tiny">元</label>
+
+                        <label class="attr">
+                            续重重量
+                            <select pattern="int" name="second_weight">
+                                <option value="500" label="500克">500克</option>
+                                <option selected="selected" value="1000" label="1公斤">1公斤</option>
+                                <option value="1200" label="1.2公斤">1.2公斤</option>
+                                <option value="2000" label="2公斤">2公斤</option>
+                                <option value="5000" label="5公斤">5公斤</option>
+                                <option value="10000" label="10公斤">10公斤</option>
+                                <option value="20000" label="20公斤">20公斤</option>
+                                <option value="50000" label="50公斤">50公斤</option>
+                            </select>
+                        </label>
+
+                        <label class="attr">续重费用<input type="text" alt="该项必填且只允许填写数字金额" pattern="float" value="" name="second_price" class="tiny">元</label>
+
+                        <p><label>根据重量来计算运费，当物品不足《首重重量》时，按照《首重费用》计算，超过部分按照《续重重量》和《续重费用》乘积来计算</label></p>
+                </div>
+            </div>
+
+           <div class="formitm">
+                <label class="lab">支持保价:</label>
+                <div class="ipt">
+                   
+                        <label class="attr"><input type="checkbox" onclick="$('#protectBox').toggle();" value="1" name="is_save_price">支持物流保价</label>
+
+                        <!--支持保价隐藏域-->
+                        <span style="display: none;" id="protectBox">
+                            <label class="attr">费率<input type="text" alt="该项必填且只允许填写数字金额" pattern="float" class="tiny" value="" name="save_rate">%</label>
+                            <label class="attr">最低保价费<input type="text" alt="该项必填且只允许填写数字金额" pattern="float" class="tiny" value="" name="low_price">元</label>
+                            <label>当用户需要保价后，一般是按照货物总金额的《费率》计算，但是保价金额最低不低于《最低保价费》</label>
+                        </span>
+                    
+                </div>
+            </div>
+
+             <div class="formitm">
+                <label class="lab">设置地区运费:</label>
+                <div class="ipt">
+                   
+                        <label class="attr"><input type="radio" checked="checked" onclick="$('#areaBox').hide();" value="0" name="price_type">统一地区运费</label>
+                        <label class="attr"><input type="radio" onclick="$('#areaBox').show();" value="1" name="price_type">指定地区运费</label>
+                        <p>《统一地区运费》：全部的地区都使用默认的《重量设置》中的计费方式。《指定地区运费》：单独指定部分地区的运费</p>
+                    
+                </div>
+            </div>
+            <div id="areaBox" style="display:none;">
+                <div class="formitm">
+                    <label class="lab"></label>
+                    <div class="ipt">                   
+                              
+                            <label class="attr"><input type="checkbox" value="1" name="open_default">地区默认运费</label>
+                            <p>注意：如果不开启此项，那么未设置的地区将无法送达！</p>
+                        
                     </div>
-                    <input id="user-search-value" type="hidden" name="user_id" value="<?php echo $this->userInfo['UserId']; ?>" />
                 </div>
-            </div>
-            <div class="formitm">
-                <label class="lab">发型师：</label>
-                <div class="ipt">
-                    <input id="staff-search" type="text" class="u-ipt"<?php echo $this->staffInfo['UserId'] > 0 ? ' style="display: none;"' : '"'; ?>/>
-                    <div id="staff-search-result" class="autocomplete-search-result"<?php echo $this->staffInfo['UserId'] > 0 ? '' : ' style="display: none;"'; ?>>
-                        <?php if ($this->staffInfo['UserId'] <= 0): ?>
-                        <a class="close"><i class="iconfont">&#xf00b3;</i></a>
-                        <?php endif; ?>
-                        <a class="autocomplete-item">
-                            <img class="autocomplete-item-icon" src="<?php echo $this->staffInfo['AvatarUrl']; ?>" />
-                            <strong class="autocomplete-item-label"><?php echo $this->staffInfo['Nickname']; ?></strong>
-                            <span class="autocomplete-item-detail"><?php echo $this->staffInfo['Company']['Name']; ?></span>
-                        </a>
+
+                 <div class="formitm">
+                    <label class="lab"></label>
+                    <div class="ipt">                       
+                        <div style="padding:6px" class="content_box">
+                          <label class='attr'>
+                                选择地区：
+                                <select>
+                                        <option value="110000">北京市</option>
+                                        <option value="120000">天津市</option>
+                                        <option value="130000">河北省</option>
+                                        <option value="140000">山西省</option>
+                                        <option value="150000">内蒙古自治区</option>
+                                        <option value="210000">辽宁省</option>
+                                        <option value="220000">吉林省</option>
+                                        <option value="230000">黑龙江省</option>
+                                        <option value="310000">上海市</option>
+                                        <option value="320000">江苏省</option>
+                                        <option value="330000">浙江省</option>
+                                        <option value="340000">安徽省</option>
+                                        <option value="350000">福建省</option>
+                                        <option value="360000">江西省</option>
+                                        <option value="370000">山东省</option>
+                                        <option value="410000">河南省</option>
+                                        <option value="420000">湖北省</option>
+                                        <option value="430000">湖南省</option>
+                                        <option value="440000">广东省</option>
+                                        <option value="450000">广西壮族自治区</option>
+                                        <option value="460000">海南省</option>
+                                        <option value="500000">重庆市</option>
+                                        <option value="510000">四川省</option>
+                                        <option value="520000">贵州省</option>
+                                        <option value="530000">云南省</option>
+                                        <option value="540000">西藏自治区</option>
+                                        <option value="610000">陕西省</option>
+                                        <option value="620000">甘肃省</option>
+                                        <option value="630000">青海省</option>
+                                        <option value="640000">宁夏回族自治区</option>
+                                        <option value="650000">新疆维吾尔自治区</option>
+                                </select>
+                            </label>                 
+
+                            <a class="t-action" id="btnAddSpec" onclick='addProvince(this);'><i class="iconfont">&#xf0175;</i>添加</a>
+                            <label class='attr'>已选择地区：<input class="middle" name="areaName" value="" readonly="readonly" disabled='disabled' /></label>
+                            <label class='attr'>首重费用：<input class="tiny" name="firstprice[]" value="" pattern="float" alt="该项必填且只允许填写数字金额" type="text" /></label>
+                            <label class='attr'>续重费用：<input class="tiny" name="secondprice[]" value="" pattern="float" alt="该项必填且只允许填写数字金额" type="text" /></label>
+                           
+
+                            <a  href="javascript:void(0)" onclick="$(this).parent().remove();" class="f_r btnDelete" ><i class="iconfont">&#xf013f;</i></a>
+                        </div>
                     </div>
-                    <input id="staff-search-value" type="hidden" name="staff_id" value="<?php echo $this->staffInfo['UserId']; ?>" />
+                </div>
+                <div class="formitm">
+                    <label class="lab"></a></label>
+                    <div class="ipt">
+                        <a class="t-action" id="btnAddArea"><i class="iconfont">&#xf0175;</i>添加地区</a>
+                    </div>
                 </div>
             </div>
+
             <div class="formitm">
-                <label class="lab">发型师服务：</label>
+                <label class="lab">排序</label>
                 <div class="ipt">
-                    <table id="service-list" class="m-table" style="width: 400px;">
-                        <thead>
-                            <tr>
-                                <th class="col-chk"></th>
-                                <th class="colb">服务名称</th>
-                                <th class="cola">原价</th>
-                                <th class="cola">现价</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php if ($this->appointmentInfo['AppointmentId'] > 0): ?>
-                                <tr>
-                                    <td class="col-center">
-                                        -
-                                    </td>
-                                    <td><?php echo $this->appointmentInfo['ServiceTitle']; ?></td>
-                                    <td class="col-center">-</td>
-                                    <td class="col-center"><?php echo number_format($this->appointmentInfo['Price'], 2); ?></td>
-                                </tr>
-                            <?php else: ?>
-                                <?php if ($this->staffInfo['UserId'] > 0): ?>
-                                <?php foreach ($this->staffInfo['Services'] as $service): ?>
-                                <tr>
-                                    <td class="col-center">
-                                        <input type="radio" name="service_id" value="<?php echo $service['ServiceId']; ?>" />
-                                    </td>
-                                    <td><?php echo $service['Title']; ?></td>
-                                    <td class="col-center"><?php echo number_format($service['OldPrice'], 2); ?></td>
-                                    <td class="col-center"><?php echo number_format($service['Price'], 2); ?></td>
-                                </tr>
-                                <?php endforeach; ?>
-                                <?php endif; ?>
-                            <?php endif; ?>
-                        </tbody>
-                    </table>
+                   
+                          
+                        <input id="freightname" type="text"  datatype="*" value="<?php echo $this->freightInfo['FreightName']; ?>"  errormsg="名称不能为空！" class="u-ipt"/> *
+                    
                 </div>
             </div>
+
             <div class="formitm">
-                <label class="lab">预约时间：</label>
+                <label class="lab">状态</label>
                 <div class="ipt">
-                    <input name="appointment_date" type="text" value="<?php echo $this->appointmentInfo['AppointmentDate'] ? date('Y-m-d H:i', strtotime($this->appointmentInfo['AppointmentDate'])) : ''; ?>" datatype="*" class="u-ipt<?php echo $this->appointmentInfo['Status'] > 0 ? '" readonly' : ' datetime"'; ?>/>
+                   
+                          
+                        <label class='attr'><input name="status" type="radio" value="1" checked="checked" />启用</label>
+                        <label class='attr'><input name="status" type="radio" value="0" />关闭</label>
+                    
                 </div>
             </div>
-            <div class="formitm">
-                <label class="lab">预约状态：</label>
+
+
+             <div class="formitm">
+                <label class="lab">详细介绍：</label>
                 <div class="ipt">
-                    <span class="u-btns" data-type="radio">
-                        <span class="u-btn u-btn-c<?php echo $this->appointmentInfo['Status'] == 0 ? '3' : '4'; ?>" data-value="0">未付款</span>
-                        <span class="u-btn u-btn-c<?php echo $this->appointmentInfo['Status'] == 1 ? '3' : '4'; ?>" data-value="1">已付款</span>
-                        <span class="u-btn u-btn-c<?php echo $this->appointmentInfo['Status'] == 2 ? '3' : '4'; ?>" data-value="2">完成</span>
-                       <!-- <span class="u-btn u-btn-c<?php echo $this->appointmentInfo['Status'] == 3 ? '3' : '4'; ?>" data-value="3">已退款</span> -->
-                        <span class="u-btn u-btn-c<?php echo $this->appointmentInfo['Status'] == 4 ? '3' : '4'; ?>" data-value="4">已取消</span>
-                        <input type="hidden" name="status" value="<?php echo $this->appointmentInfo['Status']; ?>" />
-                    </span>
+                    <textarea  id='couponusage' type="text"  datatype="s" class="u-ipt"><?php echo $this->couponInfo['CouponUsage']; ?></textarea>
+                    <p></p>
                 </div>
-            </div-->
+            </div>
+            
+            
+            
+            
             <div class="formitm formitm-1">
-                <input type="hidden" name="company_id" value="<?php echo intval($this->appointmentInfo['CompanyId']); ?>" />
+                <input type="hidden" name="freight_id" value="<?php echo intval($this->freightInfo['FreightId']); ?>" />
                 <button class="u-btn u-btn-submit" type="button">确定</button>
+                <button class="u-btn" id="btnCancel" type="button">取消</button>
             </div>
         </fieldset>
     </form>

@@ -14,6 +14,7 @@
 
 use Welfony\Controller\Base\AbstractAdminController;
 use Welfony\Service\DeliveryService;
+use Welfony\Service\FreightService;
 
 class System_DeliveryController extends AbstractAdminController
 {
@@ -40,6 +41,8 @@ class System_DeliveryController extends AbstractAdminController
     public function infoAction()
     {
         $this->view->pageTitle = '添加配送方式';
+
+        $this->view->freights = FreightService::listAllFreight();
 		/*
 
         $appointment = array(
@@ -114,6 +117,23 @@ class System_DeliveryController extends AbstractAdminController
 
         $this->view->appointmentInfo = $appointment;
 		*/
+    }
+
+
+    public function deleteAction()
+    {
+        $this->_helper->viewRenderer->setNoRender(true);
+        $this->_helper->layout->disableLayout();
+
+        $deliveryId =  intval($this->_request->getParam('deliveryid')) ;
+
+        $delivery = array('DeliveryId' => $deliveryId);
+
+        if ($this->_request->isPost()) {
+
+            $result = DeliveryService::deleteDelivery($deliveryId);
+            $this->_helper->json->sendJson($result);
+        }
     }
 
 }
