@@ -1,58 +1,39 @@
 <?php
-use Welfony\Utility\Converter;
+use \Welfony\Utility\Util;
 ?>
-<div class="toolbar">
-    <ul class="clearfix">
-        <li>
-            <a href="<?php echo $this->baseUrl('appointment/index/info' . ($this->staffInfo['UserId'] > 0 ? '?staff_id=' . $this->staffInfo['UserId'] : '')); ?>">
-                <i class="iconfont">&#xf0175;</i>
-                添加
-            </a>
-        </li>
-    </ul>
-</div>
-<!--table class="m-table">
+<table class="m-table">
     <thead>
         <tr>
-            <th class="col-chk"><input id="chk_all" type="checkbox" /></th>
-            <th>服务</th>
-            <th class="cola">预约人</th>
-            <th>发型师</th>
-            <th class="cola">服务费</th>
-            <th class="cola">状态</th>
-            <th>预约时间</th>
-            <th>创建时间</th>
+            <th>图标</th>
+            <th>名称</th>
+            <th>描述</th>
+            <th>开启状态</th>
+            <th class="cola">操作</th>
         </tr>
     </thead>
     <tbody>
-        <?php if (count($this->dataList) > 0): ?>
-        <?php foreach ($this->dataList as $data): ?>
+        <?php foreach( $this->rows as $payment) : ?>
         <tr>
-            <td class="col-center"><input name="chk_ids[]" type="checkbox" /></td>
+            <td><img src="<?php echo Util::baseAssetUrl($payment['Logo']); ?>"></td>
             <td>
-                <a href="<?php echo $this->baseUrl('appointment/index/info?appointment_id=' . $data['AppointmentId']); ?>">
-                    <?php echo $data['ServiceTitle']; ?>
+                <?php echo $payment['Name']; ?>
+            </td>
+            <td>
+                <?php echo $payment['Description']; ?>
+            </td>
+            <td>
+                <?php echo $payment['Status'] ?'使用中':'已关闭'; ?>
+            </td>
+            <td>
+                <a href="<?php echo $this->baseUrl('system/payment/info?payment_id=' .  $payment['PaymentId']); ?>" >
+                    <i class="iconfont">&#xf0022;</i>&nbsp;&nbsp;
                 </a>
             </td>
-            <td>
-                <?php echo $data['Nickname'] . '（' . $data['Username'] . '）'; ?>
-            </td>
-            <td>
-                <?php echo $data['StaffName'] . '（' . $data['CompanyName'] . '）'; ?>
-            </td>
-            <td class="col-center"><?php echo number_format($data['Price'], 2); ?></td>
-            <td class="col-center">
-                <?php echo Converter::appointmentStatusFromEnumToString($data['Status']); ?>
-            </td>
-            <td><?php echo date('Y-m-d H:i', strtotime($data['AppointmentDate'])); ?></td>
-            <td><?php echo date('Y-m-d', strtotime($data['CreatedDate'])); ?></td>
         </tr>
         <?php endforeach; ?>
-        <?php else: ?>
-        <tr>
-            <td class="col-center" colspan="8">您还没有添加任何记录</td>
-        </tr>
-        <?php endif; ?>
     </tbody>
-</table-->
-<?php echo $this->pager; ?>
+</table>
+
+<div class="m-page m-page-rt">
+    <?php echo $this->pagerHTML; ?>
+</div>

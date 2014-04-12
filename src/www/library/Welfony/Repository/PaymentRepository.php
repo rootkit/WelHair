@@ -24,7 +24,6 @@ class PaymentRepository extends AbstractRepository
         $strSql = "SELECT
                        COUNT(1) `Total`
                    FROM Payment
-                   WHERE IsDeleted = 0
                    LIMIT 1";
 
         $row = $this->conn->fetchAssoc($strSql);
@@ -37,7 +36,6 @@ class PaymentRepository extends AbstractRepository
         $strSql = 'SELECT
                        *
                    FROM Payment
-                   WHERE IsDeleted = 0
                   ';
 
         return $this->conn->fetchAll($strSql);
@@ -49,7 +47,6 @@ class PaymentRepository extends AbstractRepository
         $offset = ($pageNumber - 1) * $pageSize;
         $strSql = "SELECT *
                    FROM Payment
-                   WHERE IsDeleted = 0
                    ORDER BY PaymentId
                    LIMIT $offset, $pageSize ";
 
@@ -98,10 +95,10 @@ class PaymentRepository extends AbstractRepository
     
 
     /*
-    public function delete($freightId)
+    public function delete($paymentId)
     {
         try {
-            return $this->conn->executeUpdate(" UPDATE Freight SET IsDeleted = 1 WHERE FreightId  = $freightId; ");
+            return $this->conn->delete('Payment', array('PaymentId' => $paymentId));
         } catch (\Exception $e) {
             $this->logger->log($e, \Zend_Log::ERR);
 

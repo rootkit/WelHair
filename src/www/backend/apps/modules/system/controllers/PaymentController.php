@@ -20,31 +20,22 @@ class System_PaymentController extends AbstractAdminController
 
     public function searchAction()
     {
-        static $pageSize = 10;
+        static $pageSize = 20;
 
-        $this->view->pageTitle = '预约列表';
-		/*
+        $this->view->pageTitle = '支付方式列表';
+		
+        $page =  intval($this->_request->getParam('page'));
 
-        $staff = array(
-            'UserId' => 0
-        );
+        $page =  $page<=0? 1 : $page;
 
-        $staffId = intval($this->_request->getParam('staff_id'));
-        if ($staffId > 0) {
-            $staff = UserService::getUserById($staffId);
-            $this->view->pageTitle = $staff['Nickname'] . '的预约列表';
-        }
+        $result = PaymentService::listPayment($page, $pageSize);
 
-        $this->view->staffInfo = $staff;
+        $this->view->rows = $result['payments'];
 
-        $page = intval($this->_request->getParam('page'));
-        $searchResult = AppointmentService::listAllAppointments($page, $pageSize, $staffId);
-
-        $this->view->dataList = $searchResult['appointments'];
-        $this->view->pager = $this->renderPager($this->view->baseUrl('appointment/index/search?s=' . ($staffId > 0 ? '&staff_id=' . $staffId : '')),
-                                                $page,
-                                                ceil($searchResult['total'] / $pageSize));
-												*/
+        $this->view->pagerHTML = $this->renderPager($this->view->baseUrl('/sytem/payment/search'),
+                                                    $page,
+                                                    ceil($result['total'] / $pageSize));
+												
     }
 
     public function infoAction()
