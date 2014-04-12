@@ -19,9 +19,10 @@
 #import "Work.h"
 #import "WorkDetailViewController.h"
 
-@interface StaffWorksViewController ()<BrickViewDelegate, BrickViewDataSource>
+@interface StaffWorksViewController ()<BrickViewDelegate, BrickViewDataSource, UIAlertViewDelegate>
 
 @property (nonatomic, assign) NSInteger currentPage;
+@property (nonatomic, assign) int currentRemovedWorkId;
 
 @property (nonatomic, strong) NSMutableArray *datasource;
 @property (nonatomic, strong) BrickView *tableView;
@@ -41,7 +42,7 @@
         [leftIcon addAttribute:NSForegroundColorAttributeName value:[UIColor whiteColor]];
         self.leftNavItemImg =[leftIcon imageWithSize:CGSizeMake(NAV_BAR_ICON_SIZE, NAV_BAR_ICON_SIZE)];
         
-        FAKIcon *rightIcon = [FAKIonIcons ios7PlusIconWithSize:NAV_BAR_ICON_SIZE];
+        FAKIcon *rightIcon = [FAKIonIcons ios7PlusOutlineIconWithSize:NAV_BAR_ICON_SIZE];
         [rightIcon addAttribute:NSForegroundColorAttributeName value:[UIColor whiteColor]];
         self.rightNavItemImg =[rightIcon imageWithSize:CGSizeMake(NAV_BAR_ICON_SIZE, NAV_BAR_ICON_SIZE)];
     }
@@ -130,7 +131,17 @@
         cell = [[StaffWorkCell alloc] initWithReuseIdentifier:cellIdentifier];
     }
 
-    [cell setupWithData:[self.datasource objectAtIndex:index]];
+    [cell setupWithData:[self.datasource objectAtIndex:index] tapHandler:^(id model){
+        Work *work = (Work *)model;
+        self.currentRemovedWorkId = work.id;
+
+        UIAlertView*alert = [[UIAlertView alloc]initWithTitle:@"提示"
+                                                      message:@"确认要删除该作品么？"
+                                                     delegate:self
+                                            cancelButtonTitle:@"取消"
+                                            otherButtonTitles:@"确定",nil];
+        [alert show];
+    }];
 
     return cell;
 }
@@ -208,6 +219,51 @@
 - (void)checkEmpty
 {
     
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex == 1) {
+        [SVProgressHUD showWithMaskType:SVProgressHUDMaskTypeClear];
+
+
+        ASIFormDataRequest *request = [RequestUtil createPOSTRequestWithURL:[NSURL URLWithString:[NSString stringWithFormat:API_WORKS_REMOVE, self.currentRemovedWorkId]]
+                                                                    andData:nil];
+        [self.requests addObject:request];
+
+        [request setDelegate:self];
+        [request setDidFinishSelector:@selector(removeWorkFinish:)];
+        [request setDidFailSelector:@selector(removeWorkFail:)];
+        [request startAsynchronous];
+    }
+}
+
+- (void)removeWorkFinish:(ASIHTTPRequest *)request
+{
+    [SVProgressHUD dismiss];
+
+    if (request.responseStatusCode == 200) {
+        NSDictionary *responseMessage = [Util objectFromJson:request.responseString];
+        if (responseMessage) {
+            if (![responseMessage objectForKey:@"success"]) {
+                [SVProgressHUD showErrorWithStatus:[responseMessage objectForKey:@"message"]];
+                return;
+            }
+
+            [SVProgressHUD dismiss];
+
+            [self.tableView triggerPullToRefresh];
+
+            return;
+        }
+    }
+
+    [SVProgressHUD showErrorWithStatus:@"删除作品失败，请重试！"];
+}
+
+- (void)removeWorkFail:(ASIHTTPRequest *)request
+{
+    [SVProgressHUD showErrorWithStatus:@"删除作品失败，请重试！"];
 }
 
 @end

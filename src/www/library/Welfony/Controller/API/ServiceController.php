@@ -23,7 +23,6 @@ class ServiceController extends AbstractAPIController
     public function create()
     {
         $reqData = $this->getDataFromRequestWithJsonFormat();
-        $reqData['ServiceId'] = 0;
         $reqData['UserId'] = $this->currentContext['UserId'];
 
         $result = ServiceService::save($reqData);

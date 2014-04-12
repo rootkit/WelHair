@@ -30,7 +30,7 @@
         self.creator = [Staff new];
 
         NSDictionary *staffDic = [dictionary objectForKey:@"Staff"];
-        self.creator.id = [[staffDic objectForKey:@"UserId"] intValue];
+        self.creator.id = !staffDic ? [[dictionary objectForKey:@"UserId"] intValue] : [[staffDic objectForKey:@"UserId"] intValue];
         self.creator.avatorUrl = [NSURL URLWithString:[staffDic objectForKey:@"AvatarUrl"]];
         self.creator.group.name = [staffDic objectForKey:@"Nickname"];
 

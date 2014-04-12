@@ -1,18 +1,26 @@
+// ==============================================================================
 //
-//  StaffAddServiceViewController.m
-//  WelHair
+// This file is part of the WelHair
 //
-//  Created by lu larry on 3/16/14.
-//  Copyright (c) 2014 Welfony. All rights reserved.
+// Create by Welfony <support@welfony.com>
+// Copyright (c) 2013-2014 welfony.com
 //
+// For the full copyright and license information, please view the LICENSE
+// file that was distributed with this source code.
+//
+// ==============================================================================
 
 #import "StaffAddServiceViewController.h"
+#import "UserManager.h"
+
+static const float kMargin = 10;
 
 @interface StaffAddServiceViewController ()
+
 @property (nonatomic, strong) UITextField *nameTxt;
 @property (nonatomic, strong) UITextField *originalPriceTxt;
 @property (nonatomic, strong) UITextField *saleOffTxt;
-@property (nonatomic, strong) UILabel *priceLbl;
+
 @end
 
 @implementation StaffAddServiceViewController
@@ -21,11 +29,9 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        self.title = @"添加服务";
         FAKIcon *leftIcon = [FAKIonIcons ios7ArrowBackIconWithSize:NAV_BAR_ICON_SIZE];
         [leftIcon addAttribute:NSForegroundColorAttributeName value:[UIColor whiteColor]];
         self.leftNavItemImg =[leftIcon imageWithSize:CGSizeMake(NAV_BAR_ICON_SIZE, NAV_BAR_ICON_SIZE)];
-        
         
         self.rightNavItemTitle = @"保存";
         
@@ -40,73 +46,111 @@
 
 - (void)rightNavItemClick
 {
-    [SVProgressHUD showSuccessWithStatus:@"保存成功" duration:1];
-    [self.navigationController popViewControllerAnimated:YES];
+    [self.nameTxt resignFirstResponder];
+    [self.originalPriceTxt resignFirstResponder];
+    [self.saleOffTxt resignFirstResponder];
+
+    [SVProgressHUD showWithMaskType:SVProgressHUDMaskTypeClear];
+
+    NSMutableDictionary *reqData = [[NSMutableDictionary alloc] initWithCapacity:1];
+    [reqData setObject:@([[UserManager SharedInstance] userLogined].id) forKey:@"UserId"];
+    [reqData setObject:@(self.service.id) forKey:@"ServiceId"];
+    [reqData setObject:self.nameTxt.text forKey:@"Title"];
+    [reqData setObject:self.originalPriceTxt.text forKey:@"OldPrice"];
+    [reqData setObject:self.saleOffTxt.text forKey:@"Price"];
+
+    ASIFormDataRequest *request = [RequestUtil createPOSTRequestWithURL:[NSURL URLWithString:API_SERVICES_CREATE]
+                                                                andData:reqData];
+    [self.requests addObject:request];
+
+    [request setDelegate:self];
+    [request setDidFinishSelector:@selector(createServiceFinish:)];
+    [request setDidFailSelector:@selector(createServiceFail:)];
+    [request startAsynchronous];
+}
+
+- (void)createServiceFinish:(ASIHTTPRequest *)request
+{
+    [SVProgressHUD dismiss];
+
+    if (request.responseStatusCode == 200) {
+        NSDictionary *responseMessage = [Util objectFromJson:request.responseString];
+        if (responseMessage) {
+            if (![responseMessage objectForKey:@"service"]) {
+                [SVProgressHUD showErrorWithStatus:[responseMessage objectForKey:@"message"]];
+                return;
+            }
+
+            [SVProgressHUD dismiss];
+
+            [self.navigationController popViewControllerAnimated:YES];
+
+            return;
+        }
+    }
+
+    [SVProgressHUD showErrorWithStatus:@"添加服务失败，请重试！"];
+}
+
+- (void)createServiceFail:(ASIHTTPRequest *)request
+{
+    [SVProgressHUD showErrorWithStatus:@"添加服务失败，请重试！"];
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    float margin = 10;
-    self.nameTxt =  [UITextField plainTextField:CGRectMake(margin ,
-                                                               self.topBarOffset +  margin,
-                                                                WIDTH(self.view) - 2 * margin,
-                                                                40)
-                                         leftPadding:margin];
+
+    self.nameTxt =  [UITextField plainTextField:CGRectMake(kMargin,
+                                                           self.topBarOffset + kMargin,
+                                                           WIDTH(self.view) - 2 * kMargin,
+                                                           40)
+                                    leftPadding:kMargin];
     self.nameTxt.font = [UIFont systemFontOfSize:14];
     self.nameTxt.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
     self.nameTxt.backgroundColor = [UIColor whiteColor];
     self.nameTxt.placeholder = @"服务名称";
     [self.view addSubview:self.nameTxt];
     
-    self.originalPriceTxt =  [UITextField plainTextField:CGRectMake(margin ,
-                                                           MaxY(self.nameTxt)+ margin,
+    self.originalPriceTxt =  [UITextField plainTextField:CGRectMake(kMargin ,
+                                                           MaxY(self.nameTxt)+ kMargin,
                                                            WIDTH(self.nameTxt),
                                                            40)
-                                    leftPadding:margin];
+                                    leftPadding:kMargin];
     self.originalPriceTxt.font = [UIFont systemFontOfSize:14];
     self.originalPriceTxt.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
     self.originalPriceTxt.backgroundColor = [UIColor whiteColor];
+    self.originalPriceTxt.keyboardType = UIKeyboardTypeDecimalPad;
     self.originalPriceTxt.placeholder = @"原价";
     [self.view addSubview:self.originalPriceTxt];
     
-    self.saleOffTxt =  [UITextField plainTextField:CGRectMake(margin ,
-                                                              MaxY(self.originalPriceTxt)+ margin,
+    self.saleOffTxt =  [UITextField plainTextField:CGRectMake(kMargin ,
+                                                              MaxY(self.originalPriceTxt)+ kMargin,
                                                               WIDTH(self.nameTxt),
                                                               40)
-                                    leftPadding:margin];
+                                    leftPadding:kMargin];
     self.saleOffTxt.font = [UIFont systemFontOfSize:14];
     self.saleOffTxt.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
     self.saleOffTxt.backgroundColor = [UIColor whiteColor];
+    self.saleOffTxt.keyboardType = UIKeyboardTypeDecimalPad;
     self.saleOffTxt.placeholder = @"折扣";
     [self.view addSubview:self.saleOffTxt];
-    
-    self.priceLbl = [[UILabel alloc] initWithFrame:CGRectMake(margin ,
-                                                              MaxY(self.saleOffTxt)+ margin,
-                                                              WIDTH(self.nameTxt),
-                                                              40)];
-    self.priceLbl.backgroundColor = [UIColor clearColor];
-    self.priceLbl.textColor = [UIColor grayColor];
-    self.priceLbl.font = [UIFont systemFontOfSize:14];
-    self.priceLbl.textAlignment = NSTextAlignmentLeft;;
-    [self.view addSubview:self.priceLbl];
+
+    if (!self.service) {
+        self.service = [Service new];
+        self.service.id = 0;
+        self.title = @"添加服务";
+    } else {
+        self.nameTxt.text = self.service.name;
+        self.originalPriceTxt.text = [NSString stringWithFormat:@"%.1f", self.service.originalPrice];
+        self.saleOffTxt.text = [NSString stringWithFormat:@"%.1f", self.service.salePrice];
+        self.title = @"编辑服务";
+    }
 }
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end
