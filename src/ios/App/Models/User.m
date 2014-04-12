@@ -31,6 +31,10 @@
         if ([dictionary objectForKey:@"Followed"] && [dictionary objectForKey:@"Followed"] != [NSNull null]) {
             self.followed = [[dictionary objectForKey:@"Followed"] intValue] == 1;
         }
+
+        if ([dictionary objectForKey:@"Mobile"] && [dictionary objectForKey:@"Mobile"] != [NSNull null]) {
+            self.mobile = [dictionary objectForKey:@"Mobile"];
+        }
     }
 
     return self;

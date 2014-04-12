@@ -177,6 +177,10 @@ class StaffService
             $staffDetail['Username'] = $row['Username'];
             $staffDetail['Nickname'] = $row['Nickname'];
             $staffDetail['AvatarUrl'] = $row['AvatarUrl'];
+            $staffDetail['Email'] = $row['Email'];
+            $staffDetail['Mobile'] = $row['Mobile'];
+            $staffDetail['EmailVerified'] = $row['EmailVerified'];
+            $staffDetail['MobileVerified'] = $row['MobileVerified'];
             $staffDetail['Role'] = $row['Role'];
             $staffDetail['IsApproved'] = $row['IsApproved'];
 

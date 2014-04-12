@@ -27,6 +27,8 @@ typedef enum {
 @property (nonatomic, strong) NSString *username;
 @property (nonatomic, strong) NSString *nickname;
 @property (nonatomic, strong) NSString *email;
+@property (nonatomic, strong) NSString *mobile;
+@property (nonatomic, strong) NSString *invitor;
 @property (nonatomic, strong) NSURL *avatarUrl;
 @property (nonatomic, strong) NSDate *createdDate;
 @property (nonatomic, assign) BOOL followed;

@@ -36,6 +36,19 @@ class UserController extends AbstractAPIController
         $this->sendResponse($result);
     }
 
+    public function getDetail($userId)
+    {
+        $response = array('success' => false);
+        $user = UserService::getUserById($userId);
+        if ($user) {
+            unset($user['Password']);
+            $response['user'] = $user;
+        }
+
+
+        $this->sendResponse($response);
+    }
+
     public function update($userId)
     {
         $reqData = $this->getDataFromRequestWithJsonFormat();

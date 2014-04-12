@@ -25,6 +25,8 @@
 #define API_SOCIAL_LOGIN API_PATH(@"/socials/login")
 #define API_USERS_SIGNIN_EMAIL API_PATH(@"/users/signin/email")
 #define API_USERS_SIGNUP_EMAIL API_PATH(@"/users/signup/email")
+#define API_USERS_DETAIL API_PATH(@"/users/%d")
+#define API_USERS_UPDATE API_PATH(@"/users/%d")
 #define API_SERVICES_SEARCH API_PATH(@"/services")
 #define API_SERVICES_CREATE API_PATH(@"/services")
 #define API_SERVICES_Remove API_PATH(@"/services/%d/remove")
@@ -55,6 +57,7 @@
 #define CUSTOME_BOTTOMBAR_HEIGHT  55
 
 #define NOTIFICATION_USER_CREATE_GROUP_SUCCESS  @"CreateGroupSuccessfully"
+#define NOTIFICATION_USER_LOGIN_SUCCESS  @"LoginSuccessfully"
 
 #define HAIR_STYLE_FACE_CICLE   0
 #define HAIR_STYLE_FACE_OVAL    1

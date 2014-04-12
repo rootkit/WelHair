@@ -12,6 +12,7 @@
 
 #import "ABMGroupedTableView.h"
 #import "ABMGroupedTableViewCell.h"
+#import "AddressListViewController.h"
 #import "AppointmentsViewController.h"
 #import "CircleImageView.h"
 #import "DoubleCoverCell.h"
@@ -29,14 +30,15 @@
 #import "UserManager.h"
 #import "UserViewController.h"
 #import "OrderListViewController.h"
-#import "AddressListViewController.h"
-static const   float profileViewHeight = 80;
+
+static const float profileViewHeight = 90;
 
 @interface UserViewController ()<UITableViewDataSource, UITableViewDelegate, UIActionSheetDelegate, UIImagePickerControllerDelegate,UINavigationControllerDelegate>
 
 
 @property (nonatomic, strong) UIImageView *headerBackgroundView;
 @property (nonatomic, strong) CircleImageView *avatorImgView;
+@property (nonatomic, strong) UIButton *loginButton;
 @property (nonatomic, strong) UILabel *nameLbl;
 @property (nonatomic, strong) UILabel *addressLbl;
 @property (nonatomic, strong) NSArray *datasource;
@@ -61,17 +63,13 @@ static const   float profileViewHeight = 80;
         self.tabTextDatasource = @[@"预约", @"订单", @"积分", @"沙龙"];
 
         NSMutableArray *menuList = [[NSMutableArray alloc] initWithCapacity:5];
-        [menuList addObject:@[@"个人信息"]];
-        [menuList addObject:@[@"我的收藏", @"浏览历史"]];
-        [menuList addObject:@[@"积分兑换"]];
-        [menuList addObject:@[@"收货地址"]];
+        [menuList addObject:@[@"个人信息", @"收货地址"]];
+        [menuList addObject:@[@"我的收藏", @"积分兑换"]];
         self.datasource = menuList;
 
         NSMutableArray *menuIconList = [[NSMutableArray alloc] initWithCapacity:5];
-        [menuIconList addObject:@[[FAKIonIcons ios7InformationOutlineIconWithSize:NAV_BAR_ICON_SIZE]]];
+        [menuIconList addObject:@[[FAKIonIcons ios7InformationOutlineIconWithSize:NAV_BAR_ICON_SIZE], [FAKIonIcons ios7FilingOutlineIconWithSize:NAV_BAR_ICON_SIZE]]];
         [menuIconList addObject:@[[FAKIonIcons ios7HeartOutlineIconWithSize:NAV_BAR_ICON_SIZE], [FAKIonIcons ios7BookmarksOutlineIconWithSize:NAV_BAR_ICON_SIZE]]];
-        [menuIconList addObject:@[[FAKIonIcons ios7BellOutlineIconWithSize:NAV_BAR_ICON_SIZE]]];
-        [menuIconList addObject:@[[FAKIonIcons ios7BellOutlineIconWithSize:NAV_BAR_ICON_SIZE]]];
         self.iconDatasource = menuIconList;
     }
     return self;
@@ -114,10 +112,10 @@ static const   float profileViewHeight = 80;
     profileIconView_.backgroundColor = [UIColor clearColor];
     [headerView_ addSubview:profileIconView_];
     
-    self.avatorImgView = [[CircleImageView alloc] initWithFrame:CGRectMake(20, 15, avatorSize, avatorSize)];
+    self.avatorImgView = [[CircleImageView alloc] initWithFrame:CGRectMake(20, 20, avatorSize, avatorSize)];
+    self.avatorImgView.image = [UIImage imageNamed:@"AvatarDefault.jpg"];
     self.avatorImgView.borderColor = [UIColor whiteColor];
     self.avatorImgView.borderWidth = 1;
-    [self.avatorImgView setImageWithURL:[NSURL URLWithString:@"http://images-fast.digu365.com/sp/width/736/2fed77ea4898439f94729cd9df5ee5ca0001.jpg"]];
     [profileIconView_ addSubview:self.avatorImgView];
     
     UIButton *overlayBtn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -125,21 +123,27 @@ static const   float profileViewHeight = 80;
     [overlayBtn addTarget:self action:@selector(avatorClicked) forControlEvents:UIControlEventTouchUpInside];
     [profileIconView_ addSubview:overlayBtn];
     
-    self.nameLbl = [[UILabel alloc] initWithFrame:CGRectMake(MaxX(self.avatorImgView) + 5, 20, WIDTH(self.view) - 10 - MaxX(self.avatorImgView), 20)];
+    self.nameLbl = [[UILabel alloc] initWithFrame:CGRectMake(MaxX(self.avatorImgView) + 5, 25, WIDTH(self.view) - 10 - MaxX(self.avatorImgView), 20)];
     self.nameLbl.backgroundColor = [UIColor clearColor];
     self.nameLbl.textColor = [UIColor whiteColor];
     self.nameLbl.font = [UIFont systemFontOfSize:16];
-    self.nameLbl.text = @"美女";
     self.nameLbl.textAlignment = NSTextAlignmentLeft;;
     [profileIconView_ addSubview:self.nameLbl];
     
-    self.addressLbl = [[UILabel alloc] initWithFrame:CGRectMake(MaxX(self.avatorImgView) + 5, 40, WIDTH(self.view) - 10 - MaxX(self.avatorImgView), 20)];
+    self.addressLbl = [[UILabel alloc] initWithFrame:CGRectMake(MaxX(self.avatorImgView) + 5, 45, WIDTH(self.view) - 10 - MaxX(self.avatorImgView), 20)];
     self.addressLbl.backgroundColor = [UIColor clearColor];
     self.addressLbl.textColor = [UIColor whiteColor];
     self.addressLbl.font = [UIFont systemFontOfSize:12];
-    self.addressLbl.text = @"济南高新区";
     self.addressLbl.textAlignment = NSTextAlignmentLeft;;
     [profileIconView_ addSubview:self.addressLbl];
+
+    self.loginButton = [[UIButton alloc] initWithFrame:CGRectMake(MaxX(self.avatorImgView) + 10, 35, 80, 24)];
+    self.loginButton.titleLabel.font = [UIFont systemFontOfSize:13];
+    [self.loginButton setTitle:@"登录" forState:UIControlStateNormal];
+    [self.loginButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [self.loginButton setBackgroundColor:[UIColor colorWithHexString:@"e43a3d"]];
+    [self.loginButton addTarget:self action:@selector(loginClick) forControlEvents:UIControlEventTouchUpInside];
+    [profileIconView_ addSubview:self.loginButton];
     
     UIView *tabView_ = [[UIView alloc] initWithFrame:CGRectMake(0, MaxY(profileIconView_), WIDTH(profileIconView_), tabButtonViewHeight)];
     UIView *tabContentView_ = [[UIView alloc] initWithFrame:CGRectMake(0, 0, WIDTH(profileIconView_), tabButtonViewHeight - 7)];
@@ -173,7 +177,15 @@ static const   float profileViewHeight = 80;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(navigateToGroupPanel) name:NOTIFICATION_USER_CREATE_GROUP_SUCCESS object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(navigateToGroupPanel)
+                                                 name:NOTIFICATION_USER_CREATE_GROUP_SUCCESS
+                                               object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(refreshUserInfo)
+                                                 name:NOTIFICATION_USER_LOGIN_SUCCESS
+                                               object:nil];
+    [self refreshUserInfo];
 }
 
 - (void)didReceiveMemoryWarning
@@ -181,7 +193,7 @@ static const   float profileViewHeight = 80;
     [super didReceiveMemoryWarning];
 }
 
-- (void) navigateToGroupPanel
+- (void)navigateToGroupPanel
 {
     [self.navigationController popToViewController:self animated:NO];
     [self getStaffDetail];
@@ -201,25 +213,42 @@ static const   float profileViewHeight = 80;
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
-    CGFloat yOffset   = self.tableView.contentOffset.y;
-    
-    if (yOffset < 0) {
-        CGFloat factor = ((ABS(yOffset) + 320) * 320) / profileViewHeight;
-        CGRect f = CGRectMake(-(factor - 320) / 2, self.topBarOffset, factor, profileViewHeight + ABS(yOffset));
-        self.headerBackgroundView.frame = f;
-    } else {
+    CGFloat yOffset = self.tableView.contentOffset.y;
+    if (yOffset > 0) {
         CGRect f = self.headerBackgroundView.frame;
         f.origin.y = -yOffset + self.topBarOffset;
+        self.headerBackgroundView.frame = f;
+        return;
+    }
+
+    float viewWidth = 320;
+    float rate = ABS(yOffset) / profileViewHeight;
+
+    if (yOffset < 0) {
+        CGRect f = CGRectMake(-rate * viewWidth / 2, self.topBarOffset, (1 + rate) * viewWidth, (1 + rate) *profileViewHeight);
+        self.headerBackgroundView.frame = f;
+    } else {
+        CGRect f = CGRectMake(rate * viewWidth / 2, self.topBarOffset, (1 + rate) * viewWidth, (1 + rate) *profileViewHeight);
         self.headerBackgroundView.frame = f;
     }
 }
 
 - (void)avatorClicked
 {
+    if(![UserManager SharedInstance].userLogined)
+    {
+        [self.navigationController presentViewController:[[UINavigationController alloc] initWithRootViewController:[LoginViewController new]]
+                                                animated:YES
+                                              completion:nil];
+        return;
+    }
+
     UserProfileViewController *vc = [UserProfileViewController new];
     vc.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:vc animated:YES];
+
     return;
+
     UIActionSheet *actionSheet = [[UIActionSheet alloc]
                                   initWithTitle:nil
                                   delegate:self
@@ -263,33 +292,38 @@ static const   float profileViewHeight = 80;
 
 - (void) tabClick:(id)sender
 {
+    if(![UserManager SharedInstance].userLogined)
+    {
+        [self.navigationController presentViewController:[[UINavigationController alloc] initWithRootViewController:[LoginViewController new]]
+                                                animated:YES
+                                              completion:nil];
+        return;
+    }
+
     UIButton *btn = (UIButton *)sender;
     switch (btn.tag) {
-        case 0:{
+        case 0: {
             AppointmentsViewController *vc = [AppointmentsViewController new];
             vc.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:vc animated:YES];
+
             break;
         }
-        case 1:{
+        case 1: {
             OrderListViewController *vc = [OrderListViewController new];
             vc.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:vc animated:YES];
+
             break;
         }
-        case 2:{
+        case 2: {
             MyScoreViewController *vc = [MyScoreViewController new];
             vc.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:vc animated:YES];
+
             break;
         }
-        case 3:{
-            if(![UserManager SharedInstance].userLogined)
-            {
-                [self.navigationController presentViewController:[[UINavigationController alloc] initWithRootViewController:[LoginViewController new]] animated:YES completion:nil];
-                return;
-            }
-
+        case 3: {
             [self getStaffDetail];
 
             if ([UserManager SharedInstance].userLogined.isApproving) {
@@ -310,8 +344,9 @@ static const   float profileViewHeight = 80;
                 vc.hidesBottomBarWhenPushed = YES;
                 [self.navigationController pushViewController:vc animated:YES];
             }
-        }
+
             break;
+        }
         default:
             break;
     }
@@ -336,8 +371,10 @@ static const   float profileViewHeight = 80;
         return;
     }
 
+    self.addressLbl.text = [(NSDictionary *)companyDic objectForKey:@"Address"];
+
     if ([[rst objectForKey:@"IsApproved"] isEqualToString:@"0"] || [[(NSDictionary *)companyDic objectForKey:@"Status"] intValue] == Requested) {
-        User *usr = [UserManager SharedInstance].userLogined;
+        User *usr = [[User alloc] initWithDic:rst];
         usr.isApproving = true;
         [UserManager SharedInstance].userLogined = usr;
         
@@ -345,17 +382,44 @@ static const   float profileViewHeight = 80;
     }
 
     if ([[rst objectForKey:@"IsApproved"] isEqualToString:@"1"] && [[(NSDictionary *)companyDic objectForKey:@"Status"] intValue] == Valid) {
-        User *usr = [UserManager SharedInstance].userLogined;
+        User *usr = [[User alloc] initWithDic:rst];
         usr.isApproving = false;
         usr.role = [[rst objectForKey:@"Role"] intValue];
         [UserManager SharedInstance].userLogined = usr;
 
-        return;
+        [self.avatorImgView setImageWithURL:[UserManager SharedInstance].userLogined.avatarUrl];
+        self.nameLbl.text = [UserManager SharedInstance].userLogined.nickname;
     }
 
 }
 
 - (void)failGetStaffDetail:(ASIHTTPRequest *)request
+{
+}
+
+- (void)getUserDetail
+{
+    ASIHTTPRequest *request = [RequestUtil createGetRequestWithURL:[NSURL URLWithString:[NSString stringWithFormat:API_USERS_DETAIL, [UserManager SharedInstance].userLogined.id]]
+                                                          andParam:nil];
+
+    [request setDelegate:self];
+    [request setDidFinishSelector:@selector(finishGetUserDetail:)];
+    [request setDidFailSelector:@selector(failGetUserDetail:)];
+    [request startAsynchronous];
+}
+
+- (void)finishGetUserDetail:(ASIHTTPRequest *)request
+{
+    NSDictionary *rst = [Util objectFromJson:request.responseString];
+    if ([rst objectForKey:@"user"]) {
+        [UserManager SharedInstance].userLogined = [[User alloc] initWithDic:[rst objectForKey:@"user"]];
+    }
+
+    [self.avatorImgView setImageWithURL:[UserManager SharedInstance].userLogined.avatarUrl];
+    self.nameLbl.text = [UserManager SharedInstance].userLogined.nickname;
+}
+
+- (void)failGetUserDetail:(ASIHTTPRequest *)request
 {
 }
 
@@ -419,23 +483,82 @@ static const   float profileViewHeight = 80;
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if(indexPath.section == 1){
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+
+    if(![UserManager SharedInstance].userLogined)
+    {
+        [self.navigationController presentViewController:[[UINavigationController alloc] initWithRootViewController:[LoginViewController new]]
+                                                animated:YES
+                                              completion:nil];
+        return;
+    }
+
+    if(indexPath.section == 0) {
+        switch (indexPath.row) {
+            case 0:
+            {
+                UserProfileViewController *vc = [UserProfileViewController new];
+                vc.hidesBottomBarWhenPushed = YES;
+                [self.navigationController pushViewController:vc animated:YES];
+
+                break;
+            }
+            case 1: {
+                AddressListViewController *vc = [AddressListViewController new];
+                vc.hidesBottomBarWhenPushed = YES;
+                [self.navigationController pushViewController:vc animated:YES];
+
+                break;
+            }
+            default: {
+                break;
+            }
+        }
+
+
+    }
+
+    if (indexPath.section == 1) {
         switch (indexPath.row) {
             case 0:
             {
                 FavoritesViewController *fvc = [FavoritesViewController new];
                 fvc.hidesBottomBarWhenPushed = YES;
                 [self.navigationController pushViewController:fvc animated:YES];
+
+                break;
             }
+            case 1: {
+                [SVProgressHUD showSuccessWithStatus:@"敬请期待"];
                 break;
-                
-            default:
+            }
+            default: {
                 break;
+            }
         }
-    }else if(indexPath.section == 3){
-        AddressListViewController *vc = [AddressListViewController new];
-        vc.hidesBottomBarWhenPushed = YES;
-        [self.navigationController pushViewController:vc animated:YES];
+    }
+}
+
+- (void)loginClick
+{
+    [self.navigationController presentViewController:[[UINavigationController alloc] initWithRootViewController:[LoginViewController new]]
+                                            animated:YES
+                                          completion:nil];
+}
+
+- (void)refreshUserInfo
+{
+    User *userLogined = [[UserManager SharedInstance] userLogined];
+    self.loginButton.hidden = userLogined != nil;
+    self.nameLbl.hidden = userLogined == nil;
+    self.addressLbl.hidden = userLogined == nil || userLogined.role == WHClient;
+
+    if (userLogined) {
+        if (userLogined.role == WHStaff || userLogined.role == WHManager) {
+            [self getStaffDetail];
+        } else {
+            [self getUserDetail];
+        }
     }
 }
 

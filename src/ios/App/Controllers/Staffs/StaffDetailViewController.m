@@ -24,7 +24,7 @@
 #import "UIViewController+KNSemiModal.h"
 #import "WorkDetailViewController.h"
 
-static const float profileViewHeight = 80;
+static const float profileViewHeight = 90;
 
 @interface StaffDetailViewController () <UIScrollViewDelegate>
 
@@ -173,15 +173,22 @@ static const float profileViewHeight = 80;
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
-    CGFloat yOffset   = self.scrollView.contentOffset.y;
-    
-    if (yOffset < 0) {
-        CGFloat factor = ((ABS(yOffset) + 320) * 320) / profileViewHeight;
-        CGRect f = CGRectMake(-(factor - 320) / 2, self.topBarOffset, factor, profileViewHeight + ABS(yOffset));
-        self.headerBackgroundView.frame = f;
-    } else {
+    CGFloat yOffset = self.scrollView.contentOffset.y;
+    if (yOffset > 0) {
         CGRect f = self.headerBackgroundView.frame;
         f.origin.y = -yOffset + self.topBarOffset;
+        self.headerBackgroundView.frame = f;
+        return;
+    }
+
+    float viewWidth = 320;
+    float rate = ABS(yOffset) / profileViewHeight;
+
+    if (yOffset < 0) {
+        CGRect f = CGRectMake(-rate * viewWidth / 2, self.topBarOffset, (1 + rate) * viewWidth, (1 + rate) *profileViewHeight);
+        self.headerBackgroundView.frame = f;
+    } else {
+        CGRect f = CGRectMake(rate * viewWidth / 2, self.topBarOffset, (1 + rate) * viewWidth, (1 + rate) *profileViewHeight);
         self.headerBackgroundView.frame = f;
     }
 }
@@ -512,7 +519,7 @@ static const float profileViewHeight = 80;
 
     scrollViewOffsetY = MaxY(bioView);
 
-    UIView *commentCellView = [[UIView alloc] initWithFrame:CGRectMake(10, scrollViewOffsetY + 20, 300, 40)];
+    UIView *commentCellView = [[UIView alloc] initWithFrame:CGRectMake(10, scrollViewOffsetY + 20, 300, 44)];
     commentCellView.backgroundColor = [UIColor whiteColor];
     commentCellView.layer.borderColor = [[UIColor colorWithHexString:@"e1e1e1"] CGColor];
     commentCellView.layer.borderWidth = 1.0;
@@ -520,7 +527,7 @@ static const float profileViewHeight = 80;
     [commentCellView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(commentsTapped)]];
     [self.scrollView addSubview:commentCellView];
 
-    UILabel *commentLbl =[[UILabel alloc] initWithFrame:CGRectMake(20, 10, 100,20)];
+    UILabel *commentLbl =[[UILabel alloc] initWithFrame:CGRectMake(20, 12, 100, 20)];
     commentLbl.font = [UIFont systemFontOfSize:14];
     commentLbl.textAlignment = NSTextAlignmentLeft;
     commentLbl.backgroundColor = [UIColor clearColor];
@@ -530,7 +537,7 @@ static const float profileViewHeight = 80;
 
     FAKIcon *commentIcon = [FAKIonIcons ios7ArrowForwardIconWithSize:20];
     [commentIcon addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithHexString:@"cccccc"]];
-    UIImageView *commentImgView = [[UIImageView alloc] initWithFrame:CGRectMake(WIDTH(commentCellView) - 40, 10, 20, 20)];
+    UIImageView *commentImgView = [[UIImageView alloc] initWithFrame:CGRectMake(WIDTH(commentCellView) - 40, 12, 20, 20)];
     commentImgView.image = [commentIcon imageWithSize:CGSizeMake(20, 20)];
     [commentCellView addSubview:commentImgView];
 

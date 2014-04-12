@@ -221,14 +221,14 @@ static const float profileViewHeight = 320;
     [self.commentTabBtn addTarget:self action:@selector(tabClicked:) forControlEvents:UIControlEventTouchUpInside];
     [tabView addSubview:self.commentTabBtn];
 
-    UIView *detainInfoView = [[UIView alloc] initWithFrame:CGRectMake(10, MaxY(tabView) + 10, 300, 100)];
+    UIView *detainInfoView = [[UIView alloc] initWithFrame:CGRectMake(10, MaxY(tabView) + 10, 300, 88)];
     detainInfoView.backgroundColor = [UIColor whiteColor];
     detainInfoView.layer.borderWidth = 0.5;
     detainInfoView.layer.borderColor = [[UIColor colorWithHexString:@"cccccc"] CGColor];
     detainInfoView.layer.cornerRadius = 5;
     [self.scrollView addSubview:detainInfoView];
     
-    UILabel *addressTitleLbl = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, 50, 50)];
+    UILabel *addressTitleLbl = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, 44, 44)];
     addressTitleLbl.textAlignment = TextAlignmentLeft;
     addressTitleLbl.textColor = [UIColor grayColor];
     addressTitleLbl.font = [UIFont systemFontOfSize:12];
@@ -236,14 +236,14 @@ static const float profileViewHeight = 320;
     addressTitleLbl.text = @"地址:";
     [detainInfoView addSubview:addressTitleLbl];
 
-    self.addressLbl = [[UILabel alloc] initWithFrame:CGRectMake(MaxX(addressTitleLbl),Y(addressTitleLbl), 180, 50)];
+    self.addressLbl = [[UILabel alloc] initWithFrame:CGRectMake(MaxX(addressTitleLbl),Y(addressTitleLbl), 190, 44)];
     self.addressLbl.backgroundColor = [UIColor clearColor];
     self.addressLbl.textColor = [UIColor grayColor];
     self.addressLbl.font = [UIFont systemFontOfSize:12];
     self.addressLbl.textAlignment = TextAlignmentLeft;
     [detainInfoView addSubview:self.addressLbl];
     
-    UIImageView *locationImg = [[UIImageView alloc] initWithFrame:CGRectMake(MaxX(self.addressLbl) + 10, 15,20,20)];
+    UIImageView *locationImg = [[UIImageView alloc] initWithFrame:CGRectMake(MaxX(self.addressLbl) + 20, 12, 20, 20)];
     FAKIcon *locationIcon = [FAKIonIcons locationIconWithSize:30];
     [locationIcon addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithHexString:APP_NAVIGATIONBAR_COLOR]];
     locationImg.image = [locationIcon imageWithSize:CGSizeMake(30, 30)];
@@ -255,7 +255,7 @@ static const float profileViewHeight = 320;
     tabContentLiner.backgroundColor = [UIColor colorWithHexString:@"dddddd"];
     [detainInfoView addSubview:tabContentLiner];
     
-    UILabel *photoTitle = [[UILabel alloc] initWithFrame:CGRectMake(10, MaxY(tabContentLiner), 50, 50)];
+    UILabel *photoTitle = [[UILabel alloc] initWithFrame:CGRectMake(10, MaxY(tabContentLiner), 44, 44)];
     photoTitle.textAlignment = TextAlignmentLeft;
     photoTitle.textColor = [UIColor grayColor];
     photoTitle.font = [UIFont systemFontOfSize:12];
@@ -263,14 +263,14 @@ static const float profileViewHeight = 320;
     photoTitle.text = @"电话:";
     [detainInfoView addSubview:photoTitle];
     
-    self.phoneLbl = [[UILabel alloc] initWithFrame:CGRectMake(MaxX(photoTitle),Y(photoTitle), 180, 50)];
+    self.phoneLbl = [[UILabel alloc] initWithFrame:CGRectMake(MaxX(photoTitle), Y(photoTitle), 190, 44)];
     self.phoneLbl.backgroundColor = [UIColor clearColor];
     self.phoneLbl.textColor = [UIColor grayColor];
     self.phoneLbl.font = [UIFont systemFontOfSize:12];
     self.phoneLbl.textAlignment = TextAlignmentLeft;
     [detainInfoView addSubview:self.phoneLbl];
     
-    UIImageView *phoneImg = [[UIImageView alloc] initWithFrame:CGRectMake(MaxX(self.phoneLbl) + 10, MaxY(tabContentLiner) + 15,20,20)];
+    UIImageView *phoneImg = [[UIImageView alloc] initWithFrame:CGRectMake(MaxX(self.phoneLbl) + 20, MaxY(tabContentLiner) + 12, 20, 20)];
     FAKIcon *phoneIcon = [FAKIonIcons ios7TelephoneIconWithSize:30];
     [phoneIcon addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithHexString:APP_NAVIGATIONBAR_COLOR]];
     phoneImg.image = [phoneIcon imageWithSize:CGSizeMake(30, 30)];

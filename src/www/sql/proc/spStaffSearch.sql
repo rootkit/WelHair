@@ -34,6 +34,10 @@ FROM (
       U.UserId,
       U.Nickname,
       U.AvatarUrl,
+      U.Email,
+      U.EmailVerified,
+      U.Mobile,
+      U.MobileVerified,
 
       (SELECT MAX(W.WorkId) FROM Work W WHERE W.UserId = U.UserId) MaxWorkId,
       (SELECT COUNT(1) FROM Work W WHERE W.UserId = U.UserId) WorkCount,

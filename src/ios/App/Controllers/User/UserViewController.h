@@ -10,7 +10,6 @@
 //
 // ==============================================================================
 
-#import <UIKit/UIKit.h>
 @interface UserViewController : BaseViewController
 
 @end

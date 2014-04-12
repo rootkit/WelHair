@@ -19,6 +19,11 @@ $app->get('/users', function () use ($app) {
     $ctrl->index();
 });
 
+$app->get('/users/:userId', function ($userId) use ($app) {
+    $ctrl = new UserController();
+    $ctrl->getDetail($userId);
+})->conditions(array('userId' => '\d{1,10}'));
+
 $app->get('/users/:userId/points', function ($userId) use ($app) {
     $ctrl = new UserController();
     $ctrl->listPointsByUser($userId);

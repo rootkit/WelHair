@@ -56,6 +56,10 @@ class StaffRepository extends AbstractRepository
                        U.Username,
                        U.Nickname,
                        U.AvatarUrl,
+                       U.Email,
+                       U.EmailVerified,
+                       U.Mobile,
+                       U.MobileVerified,
 
                        C.CompanyId,
                        C.Name CompanyName,
@@ -91,6 +95,10 @@ class StaffRepository extends AbstractRepository
                        U.Username,
                        U.Nickname,
                        U.AvatarUrl,
+                       U.Email,
+                       U.EmailVerified,
+                       U.Mobile,
+                       U.MobileVerified,
                        U.Role,
 
                        C.CompanyId,

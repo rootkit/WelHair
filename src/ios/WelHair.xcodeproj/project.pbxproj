@@ -90,6 +90,7 @@
 		184B82FC18DAC7F000177BAB /* UIImage+JSMessagesView.m in Sources */ = {isa = PBXBuildFile; fileRef = 184B82C118DAC7F000177BAB /* UIImage+JSMessagesView.m */; };
 		184B82FD18DAC7F000177BAB /* UIView+AnimationOptionsForCurve.m in Sources */ = {isa = PBXBuildFile; fileRef = 184B82C318DAC7F000177BAB /* UIView+AnimationOptionsForCurve.m */; };
 		18502DA918F8E2B800CD4A0A /* StaffServiceTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18502DA818F8E2B800CD4A0A /* StaffServiceTableViewCell.m */; };
+		18502DAB18F93ED600CD4A0A /* AvatarDefault@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 18502DAA18F93ED600CD4A0A /* AvatarDefault@2x.jpg */; };
 		18A3E61318DC0C280080DC0B /* RegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A3E61218DC0C280080DC0B /* RegisterViewController.m */; };
 		18A3E61618DC10050080DC0B /* NSString+WelKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A3E61518DC10050080DC0B /* NSString+WelKit.m */; };
 		18A3E61918DC11240080DC0B /* RequestUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A3E61818DC11240080DC0B /* RequestUtil.m */; };
@@ -145,7 +146,6 @@
 		461B0C5A18DC3BD700E0DAF5 /* RootBottomTab4Selected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 461B0C1E18DC3BD700E0DAF5 /* RootBottomTab4Selected@2x.png */; };
 		461B0C5B18DC3BD700E0DAF5 /* RootBottomTab5@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 461B0C1F18DC3BD700E0DAF5 /* RootBottomTab5@2x.png */; };
 		461B0C5C18DC3BD700E0DAF5 /* RootBottomTab5Selected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 461B0C2018DC3BD700E0DAF5 /* RootBottomTab5Selected@2x.png */; };
-		461B0C5D18DC3BD700E0DAF5 /* TempBg1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 461B0C2118DC3BD700E0DAF5 /* TempBg1@2x.png */; };
 		461B0C5E18DC3BD700E0DAF5 /* AppointmentPreviewViewController_Bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 461B0C2418DC3BD700E0DAF5 /* AppointmentPreviewViewController_Bg@2x.png */; };
 		461B0C5F18DC3BD700E0DAF5 /* CouponDetailViewControl_Coupon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 461B0C2618DC3BD700E0DAF5 /* CouponDetailViewControl_Coupon@2x.png */; };
 		461B0C6018DC3BD700E0DAF5 /* Profile_Banner_Bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 461B0C2818DC3BD700E0DAF5 /* Profile_Banner_Bg@2x.png */; };
@@ -439,6 +439,7 @@
 		184B82C318DAC7F000177BAB /* UIView+AnimationOptionsForCurve.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+AnimationOptionsForCurve.m"; sourceTree = "<group>"; };
 		18502DA718F8E2B800CD4A0A /* StaffServiceTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StaffServiceTableViewCell.h; sourceTree = "<group>"; };
 		18502DA818F8E2B800CD4A0A /* StaffServiceTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StaffServiceTableViewCell.m; sourceTree = "<group>"; };
+		18502DAA18F93ED600CD4A0A /* AvatarDefault@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "AvatarDefault@2x.jpg"; sourceTree = "<group>"; };
 		18A3E61118DC0C280080DC0B /* RegisterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegisterViewController.h; sourceTree = "<group>"; };
 		18A3E61218DC0C280080DC0B /* RegisterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegisterViewController.m; sourceTree = "<group>"; };
 		18A3E61418DC10050080DC0B /* NSString+WelKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+WelKit.h"; sourceTree = "<group>"; };
@@ -520,7 +521,6 @@
 		461B0C1E18DC3BD700E0DAF5 /* RootBottomTab4Selected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "RootBottomTab4Selected@2x.png"; sourceTree = "<group>"; };
 		461B0C1F18DC3BD700E0DAF5 /* RootBottomTab5@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "RootBottomTab5@2x.png"; sourceTree = "<group>"; };
 		461B0C2018DC3BD700E0DAF5 /* RootBottomTab5Selected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "RootBottomTab5Selected@2x.png"; sourceTree = "<group>"; };
-		461B0C2118DC3BD700E0DAF5 /* TempBg1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TempBg1@2x.png"; sourceTree = "<group>"; };
 		461B0C2418DC3BD700E0DAF5 /* AppointmentPreviewViewController_Bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "AppointmentPreviewViewController_Bg@2x.png"; sourceTree = "<group>"; };
 		461B0C2618DC3BD700E0DAF5 /* CouponDetailViewControl_Coupon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "CouponDetailViewControl_Coupon@2x.png"; sourceTree = "<group>"; };
 		461B0C2818DC3BD700E0DAF5 /* Profile_Banner_Bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Profile_Banner_Bg@2x.png"; sourceTree = "<group>"; };
@@ -1342,7 +1342,6 @@
 				461B0C1518DC3BD700E0DAF5 /* TabBar */,
 				183B03CF18E1110500765116 /* TableView */,
 				461B0C2218DC3BD700E0DAF5 /* Views */,
-				461B0C2118DC3BD700E0DAF5 /* TempBg1@2x.png */,
 			);
 			path = Images;
 			sourceTree = "<group>";
@@ -1350,6 +1349,7 @@
 		461B0C0218DC3BD700E0DAF5 /* Application */ = {
 			isa = PBXGroup;
 			children = (
+				18502DAA18F93ED600CD4A0A /* AvatarDefault@2x.jpg */,
 				461B0C0318DC3BD700E0DAF5 /* Logo@2x.png */,
 			);
 			path = Application;
@@ -1415,12 +1415,12 @@
 				461B0C2718DC3BD700E0DAF5 /* GroupDetailViewControl */,
 				4631CEF718E31D0F00F39814 /* OrderPreviewViewController */,
 				46F5866218E1C47100F9BF51 /* ProductDetailViewControl */,
-				461B0C2818DC3BD700E0DAF5 /* Profile_Banner_Bg@2x.png */,
-				46AF945C18F6741E00479158 /* Profile_Bottom_Bg.png */,
-				461B0C2918DC3BD700E0DAF5 /* Profile_Bottom_Bg@2x.png */,
 				461B0C2A18DC3BD700E0DAF5 /* StaffDetailViewControl */,
 				461B0C2D18DC3BD700E0DAF5 /* UserViewControl */,
 				461B0C3F18DC3BD700E0DAF5 /* WorkDetail */,
+				461B0C2818DC3BD700E0DAF5 /* Profile_Banner_Bg@2x.png */,
+				46AF945C18F6741E00479158 /* Profile_Bottom_Bg.png */,
+				461B0C2918DC3BD700E0DAF5 /* Profile_Bottom_Bg@2x.png */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -2312,7 +2312,6 @@
 				461B0C6B18DC3BD700E0DAF5 /* UploadWorkViewControl_FaceStyleLongNormal@2x.png in Resources */,
 				1825E1D118E183B70052AA9A /* MeTab3.png in Resources */,
 				461B0C6818DC3BD700E0DAF5 /* UploadWorkViewControl_FaceStyleCircleSelected@2x.png in Resources */,
-				461B0C5D18DC3BD700E0DAF5 /* TempBg1@2x.png in Resources */,
 				184B82E818DAC7F000177BAB /* bubble-square-outgoing.png in Resources */,
 				461B0C4118DC3BD700E0DAF5 /* Logo@2x.png in Resources */,
 				184B82F018DAC7F000177BAB /* input-field.png in Resources */,
@@ -2351,6 +2350,7 @@
 				461B0C5818DC3BD700E0DAF5 /* RootBottomTab3Selected@2x.png in Resources */,
 				469B9FF118D1A7EB00948740 /* UMSCommentDetailController.xib in Resources */,
 				46BCD25218BC3B4F005C4BD6 /* SVProgressHUD.bundle in Resources */,
+				18502DAB18F93ED600CD4A0A /* AvatarDefault@2x.jpg in Resources */,
 				469B9FEF18D1A7EB00948740 /* UMSocialLocalizable.strings in Resources */,
 				46AF945D18F6741E00479158 /* Profile_Bottom_Bg.png in Resources */,
 				184B82DD18DAC7F000177BAB /* bubble-flat-outgoing-old@2x.png in Resources */,

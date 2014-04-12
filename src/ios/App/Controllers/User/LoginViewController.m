@@ -255,7 +255,7 @@ static const float kOffsetY = 50;
             [SVProgressHUD dismiss];
 
             [UserManager SharedInstance].userLogined = [[User alloc] initWithDic:[responseMessage objectForKey:@"user"]];
-
+            [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_USER_LOGIN_SUCCESS object:nil];
 
             [self dismissViewControllerAnimated:YES completion:nil];
 
