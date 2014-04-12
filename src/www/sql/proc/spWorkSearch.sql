@@ -36,6 +36,10 @@ FROM (
       W.WorkId,
       W.Title,
       W.PictureUrl,
+      W.Face,
+      W.HairStyle,
+      W.Gender,
+      W.HairAmount,
 
       U.UserId StaffUserId,
       U.AvatarUrl StaffAvatarUrl,

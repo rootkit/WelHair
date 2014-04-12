@@ -2072,10 +2072,10 @@
 		46BDF11E18D0B3AC00999F50 /* Coupon */ = {
 			isa = PBXGroup;
 			children = (
-				46BDF11F18D0B3C300999F50 /* CouponsViewController.h */,
-				46BDF12018D0B3C300999F50 /* CouponsViewController.m */,
 				46BDF12518D0B51C00999F50 /* CouponDetailViewController.h */,
 				46BDF12618D0B51C00999F50 /* CouponDetailViewController.m */,
+				46BDF11F18D0B3C300999F50 /* CouponsViewController.h */,
+				46BDF12018D0B3C300999F50 /* CouponsViewController.m */,
 			);
 			path = Coupon;
 			sourceTree = "<group>";

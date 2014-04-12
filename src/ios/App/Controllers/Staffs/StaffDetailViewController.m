@@ -132,7 +132,8 @@ static const float profileViewHeight = 80;
     
     self.avatorImgView = [[CircleImageView alloc] initWithFrame:CGRectMake(20, profileViewHeight - avatorSize / 2, avatorSize, avatorSize)];
     self.avatorImgView.layer.borderColor = [[UIColor whiteColor] CGColor];
-    self.avatorImgView.layer.borderWidth = 1;
+    self.avatorImgView.layer.borderWidth = 3;
+    self.avatorImgView.backgroundColor = [UIColor colorWithHexString:@"eeeeee"];
     [headerView_ addSubview:self.avatorImgView];
     
     self.nameLbl = [[UILabel alloc] initWithFrame:CGRectMake(70 + 5, 0, WIDTH(self.addressView) - 10 - MaxX(self.avatorImgView), 20)];
@@ -294,10 +295,11 @@ static const float profileViewHeight = 80;
 
     self.staff = [[Staff alloc] initWithDic:rst];
 
-    [self.avatorImgView setImageWithURL:self.staff.avatorUrl];
+    self.title = self.staff.name;
     self.nameLbl.text = self.staff.name;
     self.groupNameLbl.text = self.staff.group.name;
     self.distanceLbl.text = [NSString stringWithFormat:@"%.2f 千米", distance / 1000];
+    [self.avatorImgView setImageWithURL:self.staff.avatorUrl];
 
     [self setupUIPerData];
 }

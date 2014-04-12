@@ -43,6 +43,36 @@
         if ([dictionary objectForKey:@"CreatedDate"]) {
             self.createdDate = [[NSDate dateFormatter] dateFromString:[dictionary objectForKey:@"CreatedDate"]];
         }
+
+        if ([dictionary objectForKey:@"HairStyle"]) {
+            self.hairStyle = (HairStyleEnum)[[dictionary objectForKey:@"HairStyle"] intValue];
+        }
+
+        if ([dictionary objectForKey:@"HairAmount"]) {
+            self.hairQuality = (HairQualityEnum)[[dictionary objectForKey:@"HairAmount"] intValue];
+        }
+
+        if ([dictionary objectForKey:@"Gender"]) {
+            self.gender = [[dictionary objectForKey:@"Gender"] intValue] == 1 ? GenderEnumFemale : GenderEnumMale;
+        }
+
+        if ([dictionary objectForKey:@"Face"]) {
+            NSArray *faceArr = [[dictionary objectForKey:@"Face"] componentsSeparatedByString:@","];
+            for (NSString *f in faceArr) {
+                if ([f intValue] == 1) {
+                    self.faceStyleCircle = true;
+                }
+                if ([f intValue] == 2) {
+                    self.faceStyleGuaZi = true;
+                }
+                if ([f intValue] == 3) {
+                    self.faceStyleSquare = true;
+                }
+                if ([f intValue] == 4) {
+                    self.faceStyleLong = true;
+                }
+            }
+        }
     }
 
     return self;
