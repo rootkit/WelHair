@@ -26,12 +26,21 @@ $(function() {
           var form = $( this );
 
           var name = $('#paymentname').val();
+          var poundagetype = $('input[name="poundage_type"]:checked').val();
+          var poundage = $('#poundage').val();
 
 
           url = form.attr( "action" );
 
           var posting = $.post( url, {
                 'name': name,
+                'poundagetype': poundagetype,
+                'poundage': poundage,
+                'partnerid': $('#partnerid').val(),
+                'partnerkey': $('#partnerkey').val(),
+                'status':$('input[name="status"]:checked:first').val(),
+                'note': $('#note').val(),
+                'sort': $('#sort').val()
 
             } );
 

@@ -856,7 +856,7 @@ CREATE TABLE IF NOT EXISTS `Payment` (
   `Description` text COMMENT '描述',
   `Logo` varchar(255) NULL COMMENT '支付方式logo图片路径',
   `Status` tinyint(1) NOT NULL DEFAULT '1' COMMENT '安装状态 0启用 1禁用',
-  `Order` smallint(5) NOT NULL DEFAULT '99' COMMENT '排序',
+  `Sort` smallint(5) NOT NULL DEFAULT '99' COMMENT '排序',
   `Note` text COMMENT '支付说明',
   `Poundage` decimal(15,2) NOT NULL DEFAULT '0.00' COMMENT '手续费',
   `PoundageType` tinyint(1) NOT NULL DEFAULT '1' COMMENT '手续费方式 1百分比 2固定值',
@@ -1031,6 +1031,28 @@ BEGIN
         AND lower(COLUMN_NAME) ='createdate'
   ) THEN
     ALTER TABLE PaymentTransaction CHANGE COLUMN `CreateDate` `CreatedDate` DATETIME NOT NULL;
+  END IF;
+END;;
+
+DELIMITER ;
+CALL sp_update_table_field();
+DROP PROCEDURE IF EXISTS `sp_update_table_field`;
+
+-- ==============================================================================
+-- Change Payment  table from Order to sort
+-- ==============================================================================
+DELIMITER ;;
+
+CREATE PROCEDURE `sp_update_table_field`()
+BEGIN
+  IF  EXISTS (
+      SELECT 1
+      FROM information_schema.COLUMNS
+      WHERE lower(TABLE_SCHEMA) = 'welhair'
+        AND lower(TABLE_NAME) ='payment'
+        AND lower(COLUMN_NAME) ='order'
+  ) THEN
+    ALTER TABLE `Payment` CHANGE COLUMN `Order` `Sort` smallint(5) NOT NULL DEFAULT '99' COMMENT '排序';
   END IF;
 END;;
 

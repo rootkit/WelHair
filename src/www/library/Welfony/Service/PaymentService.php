@@ -71,8 +71,8 @@ class PaymentService
                 return $result;
             }
         } else {
-
-            $r = PaymentRepository::getInstance()->update($data['PaymentId'],$data);
+            $id = $data['PaymentId'];
+            $r = PaymentRepository::getInstance()->update($id,$data);
             if ($r) {
 
                 $result['success'] = true;

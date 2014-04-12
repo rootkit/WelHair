@@ -54,10 +54,15 @@ class System_PaymentController extends AbstractAdminController
         if ($this->_request->isPost()) {
             $this->_helper->viewRenderer->setNoRender(true);
             $this->_helper->layout->disableLayout();
-            $payment['Name']= htmlspecialchars($this->_request->getParam('freightname'));
-            //$payment['FreightType']= $this->_request->getParam('freighttype');            
-            //$payment['Url']= $this->_request->getParam('url');
-            //$payment['Sort']= $this->_request->getParam('sort');
+            $payment['Name']= htmlspecialchars($this->_request->getParam('name'));
+            $payment['PoundageType']= $this->_request->getParam('poundagetype');     
+            $payment['Poundage']= $this->_request->getParam('poundage');           
+            $payment['Sort']= $this->_request->getParam('sort');
+            $payment['Status']= $this->_request->getParam('status');
+            $payment['Note']= htmlspecialchars($this->_request->getParam('note'));
+            $payment['PartnerId']= $this->_request->getParam('partnerid');
+            $payment['PartnerKey']= $this->_request->getParam('partnerkey');
+
 
            
 

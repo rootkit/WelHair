@@ -34,15 +34,15 @@ use \Welfony\Utility\Util;
              <div class="formitm">
                 <label class="lab">手续费设置：</label>
                 <div class="ipt">
-                    <label class="attr"><input type="radio" checked="checked" onclick="$('#paymentFeeText').text('商品总额的百分比：');" value="1" name="poundage_type">按商品总额的百分比</label>
-                        <label class="attr"><input type="radio" onclick="$('#paymentFeeText').text('固定收取的手续费：');" value="2" name="poundage_type">按固定金额</label>
-                        <label><span id="paymentFeeText">商品总额的百分比：</span><input type="text" alt="费用不能为空！" pattern="required" value="" name="poundage" class="small"></label>
+                    <label class="attr"><input type="radio" <?php echo $this->paymentInfo['PoundageType'] == '1'? 'checked': ''; ?> onclick="$('#paymentFeeText').text('商品总额的百分比：');" value="1" name="poundage_type">按商品总额的百分比</label>
+                        <label class="attr"><input type="radio" onclick="$('#paymentFeeText').text('固定收取的手续费：');"  <?php echo $this->paymentInfo['PoundageType'] == '2'? 'checked': ''; ?> value="2" name="poundage_type">按固定金额</label>
+                        <label><span id="paymentFeeText">商品总额的百分比：</span><input type="text" alt="费用不能为空！" pattern="required" value="<?php echo $this->paymentInfo['Poundage']; ?>" id="poundage" class="small"></label>
                 </div>
             </div>
             <div class="formitm">
                 <label class="lab">排序：</label>
                 <div class="ipt">
-                    <input id="sort" type="text" value="<?php echo $this->paymentInfo['Order']; ?>"   class="u-ipt"/> 
+                    <input id="sort" type="text" value="<?php echo $this->paymentInfo['Sort']; ?>"   class="u-ipt"/> 
                 </div>
             </div>
 
@@ -57,8 +57,8 @@ use \Welfony\Utility\Util;
              <div class="formitm">
                 <label class="lab">开启：</label>
                 <div class="ipt">
-                    <label class="attr"><input type="radio" checked="checked" value="0" name="status">开启</label>
-                    <label class="attr"><input type="radio" value="1" name="status">关闭</label>
+                    <label class="attr"><input type="radio" <?php echo $this->paymentInfo['Status']? '': 'checked'; ?> value="0" name="status">开启</label>
+                    <label class="attr"><input type="radio" value="1" <?php echo $this->paymentInfo['Status']? 'checked': ''; ?> name="status">关闭</label>
                     <p>只有开启后，用户才能从前台进行支付选择</p>
                 </div>
             </div>     
