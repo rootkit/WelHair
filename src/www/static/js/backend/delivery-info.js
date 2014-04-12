@@ -30,7 +30,8 @@ $(function() {
 
     $('.btnAddProvince').bind('click', function(){
        var province = $(this).parent().find('select[name="province"]');
-       $(this).parent().find('input[name="areaName"]').val(province.val());
+       $(this).parent().find('input[name="areagroupid[]"]').val(province.val());
+       $(this).parent().find('input[name="areaName"]').val(province.find('option:selected').text());
     });
 
     $('#btnAddArea').click(function(){
@@ -45,8 +46,8 @@ $(function() {
        });
 
        $('.btnAddProvince').bind('click', function(){
-           var province = $(this).parent().find('select[name="province"]');
-           $(this).parent().find('input[name="areaName"]').val(province.val());
+          $(this).parent().find('input[name="areagroupid[]"]').val(province.val());
+          $(this).parent().find('input[name="areaName"]').val(province.find('option:selected').text());
        });
 
     });
@@ -80,7 +81,7 @@ $(function() {
         
           var firstprice = $('#first_price').val().replace(/\s+/g, '').length > 0 ? $('#first_price').val().replace(/\s+/g, ''): 0;
           var secondprice = $('#second_price').val().replace(/\s+/g, '').length > 0 ? $('#second_price').val().replace(/\s+/g, ''): 0;
-          var isSavePrice =  $('#is_save_price').attr('checked') != null ? 1: 0;
+          var isSavePrice =  $('#is_save_price').is(':checked') ? 1: 0;
           var saveRate = 0;
           var lowPrice = 0;
           if( isSavePrice > 0 )
@@ -111,6 +112,7 @@ $(function() {
                 'areafirstprice':areafirstprice,
                 'areasecondprice':areasecondprice,
                 'status': $('input[name="status"]:checked:first').val(),
+                'pricetype': $('input[name="price_type"]:checked:first').val(),
                 'sort': $('#sort').val()
             } );
 

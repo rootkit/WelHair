@@ -88,12 +88,14 @@ class System_DeliveryController extends AbstractAdminController
             $delivery['FirstPrice']= $this->_request->getParam('firstprice');
             $delivery['SecondPrice']= $this->_request->getParam('secondprice');
 
+            $delivery['IsSavePrice']= $this->_request->getParam('issaveprice');
+            $delivery['LowPrice']= $this->_request->getParam('lowprice');
+            $delivery['SaveRate']= $this->_request->getParam('saverate');
 
+            $delivery['PriceType']= $this->_request->getParam('pricetype');
             $delivery['Status']= $this->_request->getParam('status');
             $delivery['Sort']= $this->_request->getParam('sort');
             $delivery['IsDeleted']= '0';
-
-           
 
             $result = DeliveryService::save($delivery);
             if ($result['success']) {

@@ -88,8 +88,10 @@ class DeliveryRepository extends AbstractRepository
     public function update($deliveryId, $data)
     {
         try {
-            return $this->conn->update('Delivery', $data, array('DeliveryId' => $deliveryId));
+            $r= $this->conn->update('Delivery', $data, array('DeliveryId' => $deliveryId));
+            return $r;
         } catch (\Exception $e) {
+
             $this->logger->log($e, \Zend_Log::ERR);
 
             return false;

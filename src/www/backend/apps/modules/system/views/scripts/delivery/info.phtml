@@ -38,34 +38,34 @@ use \Welfony\Utility\Util;
                     <label class="attr">
                             首重重量
                             <select pattern="int" id="first_weight">
-                                <option  <?php echo $this->deliveryInfo['Type']? 'checked':'' ?> value="500" label="500克">500克</option>
-                                <option value="1000" label="1公斤">1公斤</option>
-                                <option value="1200" label="1.2公斤">1.2公斤</option>
-                                <option value="2000" label="2公斤">2公斤</option>
-                                <option value="5000" label="5公斤">5公斤</option>
-                                <option value="10000" label="10公斤">10公斤</option>
-                                <option value="20000" label="20公斤">20公斤</option>
-                                <option value="50000" label="50公斤">50公斤</option>
+                                <option  <?php echo $this->deliveryInfo['FirstWeight'] =='500'? 'selected':''; ?> value="500" label="500克">500克</option>
+                                <option   <?php echo $this->deliveryInfo['FirstWeight'] =='1000'? 'selected':''; ?> value="1000" label="1公斤">1公斤</option>
+                                <option   <?php echo $this->deliveryInfo['FirstWeight'] =='1200'? 'selected':''; ?> value="1200" label="1.2公斤">1.2公斤</option>
+                                <option  <?php echo $this->deliveryInfo['FirstWeight'] =='2000'? 'selected':''; ?>  value="2000" label="2公斤">2公斤</option>
+                                <option   <?php echo $this->deliveryInfo['FirstWeight'] =='5000'? 'selected':''; ?> value="5000" label="5公斤">5公斤</option>
+                                <option   <?php echo $this->deliveryInfo['FirstWeight'] =='10000'? 'selected':''; ?> value="10000" label="10公斤">10公斤</option>
+                                <option   <?php echo $this->deliveryInfo['FirstWeight'] =='20000'? 'selected':''; ?> value="20000" label="20公斤">20公斤</option>
+                                <option   <?php echo $this->deliveryInfo['FirstWeight'] =='50000'? 'selected':''; ?> value="50000" label="50公斤">50公斤</option>
                             </select>
                         </label>
 
-                        <label class="attr">首重费用<input type="text" alt="该项必填且只允许填写数字金额" pattern="float" value="" id="first_price" class="tiny">元</label>
+                        <label class="attr">首重费用<input type="text" alt="该项必填且只允许填写数字金额" pattern="float" value="<?php echo $this->deliveryInfo['FirstPrice']; ?>" id="first_price" class="tiny">元</label>
 
                         <label class="attr">
                             续重重量
                             <select pattern="int" id="second_weight">
-                                <option value="500" label="500克">500克</option>
-                                <option selected="selected" value="1000" label="1公斤">1公斤</option>
-                                <option value="1200" label="1.2公斤">1.2公斤</option>
-                                <option value="2000" label="2公斤">2公斤</option>
-                                <option value="5000" label="5公斤">5公斤</option>
-                                <option value="10000" label="10公斤">10公斤</option>
-                                <option value="20000" label="20公斤">20公斤</option>
-                                <option value="50000" label="50公斤">50公斤</option>
+                                <option  <?php echo $this->deliveryInfo['SecondWeight'] =='500'? 'selected':''; ?> value="500" label="500克">500克</option>
+                                <option  <?php echo $this->deliveryInfo['SecondWeight'] =='1000'? 'selected':''; ?> value="1000" label="1公斤">1公斤</option>
+                                <option  <?php echo $this->deliveryInfo['SecondWeight'] =='1200'? 'selected':''; ?>  value="1200" label="1.2公斤">1.2公斤</option>
+                                <option <?php echo $this->deliveryInfo['SecondWeight'] =='2000'? 'selected':''; ?>  value="2000" label="2公斤">2公斤</option>
+                                <option <?php echo $this->deliveryInfo['SecondWeight'] =='5000'? 'selected':''; ?>   value="5000" label="5公斤">5公斤</option>
+                                <option  <?php echo $this->deliveryInfo['SecondWeight'] =='10000'? 'selected':''; ?> value="10000" label="10公斤">10公斤</option>
+                                <option  <?php echo $this->deliveryInfo['SecondWeight'] =='20000'? 'selected':''; ?> value="20000" label="20公斤">20公斤</option>
+                                <option  <?php echo $this->deliveryInfo['SecondWeight'] =='50000'? 'selected':''; ?> value="50000" label="50公斤">50公斤</option>
                             </select>
                         </label>
 
-                        <label class="attr">续重费用<input type="text" alt="该项必填且只允许填写数字金额" pattern="float" value="" id="second_price" class="tiny">元</label>
+                        <label class="attr">续重费用<input type="text" alt="该项必填且只允许填写数字金额" pattern="float" value="<?php echo $this->deliveryInfo['SecondPrice']; ?>" id="second_price" class="tiny">元</label>
 
                         <p><label>根据重量来计算运费，当物品不足《首重重量》时，按照《首重费用》计算，超过部分按照《续重重量》和《续重费用》乘积来计算</label></p>
                 </div>
@@ -75,12 +75,12 @@ use \Welfony\Utility\Util;
                 <label class="lab">支持保价:</label>
                 <div class="ipt">
                    
-                        <label class="attr"><input type="checkbox" onclick="$('#protectBox').toggle();" value="1" id="is_save_price">支持物流保价</label>
+                        <label class="attr"><input type="checkbox" onclick="$('#protectBox').toggle();" value="1" id="is_save_price" <?php echo $this->deliveryInfo['IsSavePrice']? 'checked':'' ?> >支持物流保价</label>
 
                         <!--支持保价隐藏域-->
-                        <span style="display: none;" id="protectBox">
-                            <label class="attr">费率<input type="text" alt="该项必填且只允许填写数字金额" pattern="float" class="tiny" value="" data-type="n" id="save_rate">%</label>
-                            <label class="attr">最低保价费<input type="text" alt="该项必填且只允许填写数字金额" pattern="float" class="tiny" value="" data-type="n" id="low_price">元</label>
+                        <span style="<?php echo $this->deliveryInfo['IsSavePrice']? '':'display: none;' ?>" id="protectBox">
+                            <label class="attr">费率<input type="text" alt="该项必填且只允许填写数字金额" pattern="float" class="tiny" value="<?php echo $this->deliveryInfo['SaveRate']; ?>" data-type="n" id="save_rate">%</label>
+                            <label class="attr">最低保价费<input type="text" alt="该项必填且只允许填写数字金额" pattern="float" class="tiny" value="<?php echo $this->deliveryInfo['LowPrice']; ?>" data-type="n" id="low_price">元</label>
                             <label>当用户需要保价后，一般是按照货物总金额的《费率》计算，但是保价金额最低不低于《最低保价费》</label>
                         </span>
                     
@@ -91,18 +91,18 @@ use \Welfony\Utility\Util;
                 <label class="lab">设置地区运费:</label>
                 <div class="ipt">
                    
-                        <label class="attr"><input type="radio" checked="checked"  value="0" name="price_type">统一地区运费</label>
-                        <label class="attr"><input type="radio"  value="1" name="price_type">指定地区运费</label>
+                        <label class="attr"><input type="radio" <?php echo $this->deliveryInfo['PriceType']? '':'checked' ?>  value="0" name="price_type">统一地区运费</label>
+                        <label class="attr"><input type="radio" <?php echo $this->deliveryInfo['PriceType']? 'checked':'' ?> value="1" name="price_type">指定地区运费</label>
                         <p>《统一地区运费》：全部的地区都使用默认的《重量设置》中的计费方式。《指定地区运费》：单独指定部分地区的运费</p>
                     
                 </div>
             </div>
-            <div id="areaBox" style="display:none;">
+            <div id="areaBox" style="<?php echo $this->deliveryInfo['PriceType']? '':'display:none;' ?>">
                 <div class="formitm">
                     <label class="lab"></label>
                     <div class="ipt">                   
                               
-                            <label class="attr"><input type="checkbox" value="1" name="open_default">地区默认运费</label>
+                            <label class="attr"><input type="checkbox"  <?php echo $this->deliveryInfo['OpenDefault']? 'checked':'' ?> value="1" name="open_default">地区默认运费</label>
                             <p>注意：如果不开启此项，那么未设置的地区将无法送达！</p>
                         
                     </div>
@@ -151,8 +151,9 @@ use \Welfony\Utility\Util;
 
                             <a class="t-action btnAddProvince"><i class="iconfont">&#xf0175;</i>添加</a>
                             <label class='attr'>已选择地区：<input class="middle" name="areaName" value="" readonly="readonly" disabled='disabled' /></label>
-                            <label class='attr'>首重费用：<input class="tiny" name="firstprice[]" value="" pattern="float" alt="该项必填且只允许填写数字金额" type="text" /></label>
-                            <label class='attr'>续重费用：<input class="tiny" name="secondprice[]" value="" pattern="float" alt="该项必填且只允许填写数字金额" type="text" /></label>
+                            <input type="hidden" name="areagroupid[]" />
+                            <label class='attr'>首重费用：<input class="tiny" name="areafirstprice[]" value="" pattern="float" alt="该项必填且只允许填写数字金额" type="text" /></label>
+                            <label class='attr'>续重费用：<input class="tiny" name="areasecondprice[]" value="" pattern="float" alt="该项必填且只允许填写数字金额" type="text" /></label>
                            
 
                             <a  href="javascript:void(0)" class="f_r btnDelete" ><i class="iconfont">&#xf013f;</i></a>
@@ -243,8 +244,9 @@ use \Welfony\Utility\Util;
 
         <a class="t-action btnAddProvince"><i class="iconfont">&#xf0175;</i>添加</a>
         <label class='attr'>已选择地区：<input class="middle" name="areaName" value="" readonly="readonly" disabled='disabled' /></label>
-        <label class='attr'>首重费用：<input class="tiny" name="firstprice[]" value="" pattern="float" alt="该项必填且只允许填写数字金额" type="text" /></label>
-        <label class='attr'>续重费用：<input class="tiny" name="secondprice[]" value="" pattern="float" alt="该项必填且只允许填写数字金额" type="text" /></label>
+        <input type="hidden" name="areagroupid[]" />
+        <label class='attr'>首重费用：<input class="tiny" name="areafirstprice[]" value="" pattern="float" alt="该项必填且只允许填写数字金额" type="text" /></label>
+        <label class='attr'>续重费用：<input class="tiny" name="areasecondprice[]" value="" pattern="float" alt="该项必填且只允许填写数字金额" type="text" /></label>
        
 
         <a  href="javascript:void(0)" class="f_r btnDelete" ><i class="iconfont">&#xf013f;</i></a>

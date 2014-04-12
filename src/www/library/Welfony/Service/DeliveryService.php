@@ -73,6 +73,7 @@ class DeliveryService
         } else {
 
             $r = DeliveryRepository::getInstance()->update($data['DeliveryId'],$data);
+
             if ($r) {
 
                 $result['success'] = true;
