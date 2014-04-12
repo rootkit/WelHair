@@ -19,7 +19,7 @@ use Welfony\Repository\PaymentRepository;
 class PaymentService
 {
 
-    public static function getModelById($id)
+    public static function getPaymentById($id)
     {
         return  PaymentRepository::getInstance()->findPaymentById( $id);
 

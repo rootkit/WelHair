@@ -13,35 +13,26 @@
 
 
 $(function() {
-    $('#frm-freight-info').Validform({
+    $('#frm-payment-info').Validform({
         tiptype: 3
     });
 
-    $('#freighttype').change(function(){
 
-      $('#freightname').val($(this).find('option:selected').text());
-    });
-
-    $( "#frm-freight-info" ).submit(function( event ) {
+    $( "#frm-payment-info" ).submit(function( event ) {
 
 
           event.preventDefault();
 
           var form = $( this );
 
-          var name = $('#freightname').val();
-
-        
-
+          var name = $('#paymentname').val();
 
 
           url = form.attr( "action" );
 
           var posting = $.post( url, {
-                'freightname': name,
-                'freighttype':$('#freighttype').val(),
-                'url': $('#url').val(),
-                'sort': $('#sort').val(),
+                'name': name,
+
             } );
 
 
@@ -50,7 +41,7 @@ $(function() {
               if( data.success)
               {
 
-                window.location = globalSetting.baseUrl + '/system/freight/search';
+                window.location = globalSetting.baseUrl + '/system/payment/search';
                 return;
               }
 
@@ -59,7 +50,7 @@ $(function() {
       });
 
     $('#btnCancel').click(function(){
-        window.location = globalSetting.baseUrl + '/system/freight/search';
+        window.location = globalSetting.baseUrl + '/system/payment/search';
         return;
     });
 });

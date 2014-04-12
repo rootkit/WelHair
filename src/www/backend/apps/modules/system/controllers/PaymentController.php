@@ -40,81 +40,34 @@ class System_PaymentController extends AbstractAdminController
 
     public function infoAction()
     {
-        $this->view->pageTitle = '添加支付方式';
+        $this->view->pageTitle = '支付方式详情';
 
-		/*
-        $appointment = array(
-            'AppointmentId' => intval($this->_request->getParam('appointment_id')),
-            'ServiceId' => 0,
-            'ServiceTitle' => '',
-            'AppointmentDate' => '',
-            'Price' => 0,
-            'Status' => AppointmentStatus::Pending
-        );
-
-        $staffId = intval($this->_request->getParam('staff_id'));
-
-        if ($this->_request->isPost()) {
-            $userId = intval($this->_request->getParam('user_id'));
-            $serviceId = intval($this->_request->getParam('service_id'));
-            $appointmentDate = htmlspecialchars($this->_request->getParam('appointment_date'));
-            $status = intval($this->_request->getParam('status'));
-
-            if ($appointment['AppointmentId'] > 0) {
-                $appointment = AppointmentService::getAppointmentById($appointment['AppointmentId']);
-            } else {
-                $appointment['ServiceId'] = $serviceId;
-            }
-
-            $appointment['UserId'] = $userId;
-            $appointment['StaffId'] = $staffId;
-            $appointment['AppointmentDate'] = $appointmentDate;
-            $appointment['Status'] = $status;
-
-            $result = AppointmentService::save($appointment);
-            if ($result['success']) {
-                $this->getResponse()->setRedirect($this->view->baseUrl('appointment/index/search' . ($staffId > 0 ? '?staff_id=' . $staffId : '')));
-            } else {
-                $this->view->errorMessage = $result['message'];
-            }
-        } else {
-            $staff = array(
-                'UserId' => 0,
-                'Nickname' => '',
-                'Username' => '',
-                'AvatarUrl' => '',
-                'Company' => array('Name' => ''),
-                'Services' => array(),
-                'Works' => array()
-            );
-
-            $user = array(
-                'UserId' => 0,
-                'Nickname' => '',
-                'Username' => '',
-                'AvatarUrl' => ''
-            );
-
-            if ($appointment['AppointmentId'] > 0) {
-                $appointment = AppointmentService::getAppointmentById($appointment['AppointmentId']);
-                if ($appointment) {
-                    $staffId = $appointment['StaffId'];
-                    $user = UserService::getUserById($appointment['UserId']);
-
-                    $this->view->appointmentInfo = $appointment;
-                }
-            }
-
-            if ($staffId > 0) {
-                $staff = StaffService::getStaffDetail($staffId);
-            }
-
-            $this->view->userInfo = $user;
-            $this->view->staffInfo = $staff;
+		$paymentId = $this->_request->getParam('payment_id')?  intval($this->_request->getParam('payment_id')) : 0;
+        if( ! $paymentId)
+        {
+            $this->_redirect('/system/payment/search');
+            return;
         }
 
-        $this->view->appointmentInfo = $appointment;
-		*/
+        $payment = PaymentService::getPaymentById($paymentId);
+
+        if ($this->_request->isPost()) {
+            $this->_helper->viewRenderer->setNoRender(true);
+            $this->_helper->layout->disableLayout();
+            $payment['Name']= htmlspecialchars($this->_request->getParam('freightname'));
+            //$payment['FreightType']= $this->_request->getParam('freighttype');            
+            //$payment['Url']= $this->_request->getParam('url');
+            //$payment['Sort']= $this->_request->getParam('sort');
+
+           
+
+            $result = PaymentService::save($payment);
+            if ($result['success']) {
+                $result['message'] = '保存支付方式成功！';
+            }
+            $this->_helper->json->sendJson($result);
+        } 
+        $this->view->paymentInfo = $payment;
     }
 
 }
