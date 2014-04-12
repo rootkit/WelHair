@@ -43,80 +43,74 @@ class System_DeliveryController extends AbstractAdminController
         $this->view->pageTitle = '添加配送方式';
 
         $this->view->freights = FreightService::listAllFreight();
-		/*
 
-        $appointment = array(
-            'AppointmentId' => intval($this->_request->getParam('appointment_id')),
-            'ServiceId' => 0,
-            'ServiceTitle' => '',
-            'AppointmentDate' => '',
-            'Price' => 0,
-            'Status' => AppointmentStatus::Pending
+
+		$deliveryId = $this->_request->getParam('delivery_id')?  intval($this->_request->getParam('delivery_id')) : 0;
+
+        $delivery = array(
+            'DeliveryId' => $deliveryId,
+            'Name' => '',
+            'Description' => '',
+            'AreaGroupId' => '',
+            'AreaFirstPrice'=>'',
+            'AreaSecondPrice'=>'',
+            'Type'=>0,
+            'FirstWeight'=>1000,
+            'SecondWeight'=>1000,
+            'FirstPrice'=>0,
+            'SecondPrice'=>0,
+            'Status' =>1,
+            'Sort'=>'99',
+            'IsSavePrice'=>0,
+            'SaveRate'=>0,
+            'LowPrice'=>0,
+            'PriceType'=>0,
+            'OpenDefault'=>'1',
+            'FreightId'=>'0',
+            'IsDeleted' => 0
         );
 
-        $staffId = intval($this->_request->getParam('staff_id'));
-
         if ($this->_request->isPost()) {
-            $userId = intval($this->_request->getParam('user_id'));
-            $serviceId = intval($this->_request->getParam('service_id'));
-            $appointmentDate = htmlspecialchars($this->_request->getParam('appointment_date'));
-            $status = intval($this->_request->getParam('status'));
+            $this->_helper->viewRenderer->setNoRender(true);
+            $this->_helper->layout->disableLayout();
+            $delivery['Name']= htmlspecialchars($this->_request->getParam('name'));
+            $delivery['FreightId']= $this->_request->getParam('freightid');            
+            $delivery['Description']= htmlspecialchars($this->_request->getParam('description'));
+            
+            $delivery['AreaGroupId']= $this->_request->getParam('areagroupid');
+            $delivery['AreaFirstPrice']= $this->_request->getParam('areafirstprice');
+            $delivery['AreaSecondPrice']= $this->_request->getParam('areasecondprice');
 
-            if ($appointment['AppointmentId'] > 0) {
-                $appointment = AppointmentService::getAppointmentById($appointment['AppointmentId']);
-            } else {
-                $appointment['ServiceId'] = $serviceId;
-            }
+            $delivery['Type']= $this->_request->getParam('type');
+            $delivery['FirstWeight']= $this->_request->getParam('firstweight');
+            $delivery['SecondWeight']= $this->_request->getParam('secondweight');
 
-            $appointment['UserId'] = $userId;
-            $appointment['StaffId'] = $staffId;
-            $appointment['AppointmentDate'] = $appointmentDate;
-            $appointment['Status'] = $status;
+            $delivery['FirstPrice']= $this->_request->getParam('firstprice');
+            $delivery['SecondPrice']= $this->_request->getParam('secondprice');
 
-            $result = AppointmentService::save($appointment);
+
+            $delivery['Status']= $this->_request->getParam('status');
+            $delivery['Sort']= $this->_request->getParam('sort');
+            $delivery['IsDeleted']= '0';
+
+           
+
+            $result = DeliveryService::save($delivery);
             if ($result['success']) {
-                $this->getResponse()->setRedirect($this->view->baseUrl('appointment/index/search' . ($staffId > 0 ? '?staff_id=' . $staffId : '')));
-            } else {
-                $this->view->errorMessage = $result['message'];
+                $result['message'] = '保存配送方式成功！';
             }
+            $this->_helper->json->sendJson($result);
         } else {
-            $staff = array(
-                'UserId' => 0,
-                'Nickname' => '',
-                'Username' => '',
-                'AvatarUrl' => '',
-                'Company' => array('Name' => ''),
-                'Services' => array(),
-                'Works' => array()
-            );
 
-            $user = array(
-                'UserId' => 0,
-                'Nickname' => '',
-                'Username' => '',
-                'AvatarUrl' => ''
-            );
-
-            if ($appointment['AppointmentId'] > 0) {
-                $appointment = AppointmentService::getAppointmentById($appointment['AppointmentId']);
-                if ($appointment) {
-                    $staffId = $appointment['StaffId'];
-                    $user = UserService::getUserById($appointment['UserId']);
-
-                    $this->view->appointmentInfo = $appointment;
+            if ($deliveryId > 0) {
+                $delivery = DeliveryService::getDeliveryById($deliveryId);
+                if (!$delivery) {
+                    // process not exist logic;
                 }
             }
-
-            if ($staffId > 0) {
-                $staff = StaffService::getStaffDetail($staffId);
-            }
-
-            $this->view->userInfo = $user;
-            $this->view->staffInfo = $staff;
         }
 
-        $this->view->appointmentInfo = $appointment;
-		*/
+        $this->view->deliveryInfo = $delivery;
     }
 
 

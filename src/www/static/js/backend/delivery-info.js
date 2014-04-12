@@ -29,19 +29,43 @@ $(function() {
 
           var form = $( this );
 
-          var name = $('#freightname').val();
+          var name = $('#deliveryname').val();
 
         
+          var firstprice = $('#first_price').val().replace(/\s+/g, '').length > 0 ? $('#first_price').val().replace(/\s+/g, ''): 0;
+          var secondprice = $('#second_price').val().replace(/\s+/g, '').length > 0 ? $('#second_price').val().replace(/\s+/g, ''): 0;
+          var isSavePrice =  $('#is_save_price').attr('checked') != null ? 1: 0;
+          var saveRate = 0;
+          var lowPrice = 0;
+          if( isSavePrice > 0 )
+          {
+             saveRate = $('#save_rate').val();
+             lowPrice = $('#low_price').val();
+          }
 
-
+          var areagroupid=null;
+          var areafirstprice=null;
+          var areasecondprice=null;
 
           url = form.attr( "action" );
 
           var posting = $.post( url, {
-                'freightname': name,
-                'freighttype':$('#freighttype').val(),
-                'url': $('#url').val(),
-                'sort': $('#sort').val(),
+                'name': name,
+                'freightid':$('#freight').val(),
+                'type': $('input[name="deliverytype"]:checked:first').val(),
+                'firstweight': $('#first_weight').val(),
+                'secondweight': $('#second_weight').val(),
+                'firstprice':firstprice,
+                'secondprice':secondprice,
+                'issaveprice':isSavePrice,
+                'saverate':saveRate,
+                'lowprice':lowPrice,
+                'description': $('#description').val(),
+                'areagroupid':areagroupid,
+                'areafirstprice':areafirstprice,
+                'areasecondprice':areasecondprice,
+                'status': $('input[name="status"]:checked:first').val(),
+                'sort': $('#sort').val()
             } );
 
 

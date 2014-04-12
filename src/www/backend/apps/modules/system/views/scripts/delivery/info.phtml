@@ -2,12 +2,12 @@
 use \Welfony\Utility\Util;
 ?>
 <div class="m-form">
-    <form id="frm-freight-info" method="post">
+    <form id="frm-delivery-info" method="post">
         <fieldset>
             <div class="formitm">
                 <label class="lab">配送方式名称：</label>
                 <div class="ipt">
-                    <input id="freightname" type="text"  datatype="*" value="<?php echo $this->freightInfo['FreightName']; ?>"  errormsg="名称不能为空！" class="u-ipt"/> *
+                    <input id="deliveryname" type="text"  datatype="*" value="<?php echo $this->deliveryInfo['Name']; ?>"  errormsg="名称不能为空！" class="u-ipt"/> *
                 </div>
             </div>
             <div class="formitm">
@@ -15,7 +15,7 @@ use \Welfony\Utility\Util;
                 <div class="ipt">
                      <select id="freight" name="freight" class="u-sel">
                             <?php foreach( $this->freights as $freight ): ?>
-                            <option value="<?php echo $freight['FreightId'] ?>" <?php echo $this->delvieryInfo['FreightId'] == $freight['FreightId'] ? 'selected':''; ?>><?php echo  $freight['Name'] ;?> </option>
+                            <option value="<?php echo $freight['FreightId'] ?>" <?php echo $this->delvieryInfo['FreightId'] == $freight['FreightId'] ? 'selected':''; ?>><?php echo  $freight['FreightName'] ;?> </option>
                             <?php endforeach; ?>
                         </select>
                      <p>选择此配送方式所使用的物流公司</p>
@@ -26,8 +26,8 @@ use \Welfony\Utility\Util;
                 <label class="lab">类型：</label>
                 <div class="ipt">
                    
-                        <label class="attr"><input type="radio" checked="checked" name="type" value="0">先收款后发货</label>
-                        <label class="attr"><input type="radio" name="type" value="1">货到付款</label>
+                        <label class="attr"><input type="radio" <?php echo $this->deliveryInfo['Type']? '':'checked' ?> name="deliverytype" value="0">先收款后发货</label>
+                        <label class="attr"><input type="radio" <?php echo $this->deliveryInfo['Type']? 'checked':'' ?> name="deliverytype" value="1">货到付款</label>
                         <p>货到付款选择货到付款后顾客无需再选择支付方式</p>
                     
                 </div>
@@ -37,9 +37,9 @@ use \Welfony\Utility\Util;
                 <div class="ipt">
                     <label class="attr">
                             首重重量
-                            <select pattern="int" name="first_weight">
-                                <option value="500" label="500克">500克</option>
-                                <option selected="selected" value="1000" label="1公斤">1公斤</option>
+                            <select pattern="int" id="first_weight">
+                                <option  <?php echo $this->deliveryInfo['Type']? 'checked':'' ?> value="500" label="500克">500克</option>
+                                <option value="1000" label="1公斤">1公斤</option>
                                 <option value="1200" label="1.2公斤">1.2公斤</option>
                                 <option value="2000" label="2公斤">2公斤</option>
                                 <option value="5000" label="5公斤">5公斤</option>
@@ -49,11 +49,11 @@ use \Welfony\Utility\Util;
                             </select>
                         </label>
 
-                        <label class="attr">首重费用<input type="text" alt="该项必填且只允许填写数字金额" pattern="float" value="" name="first_price" class="tiny">元</label>
+                        <label class="attr">首重费用<input type="text" alt="该项必填且只允许填写数字金额" pattern="float" value="" id="first_price" class="tiny">元</label>
 
                         <label class="attr">
                             续重重量
-                            <select pattern="int" name="second_weight">
+                            <select pattern="int" id="second_weight">
                                 <option value="500" label="500克">500克</option>
                                 <option selected="selected" value="1000" label="1公斤">1公斤</option>
                                 <option value="1200" label="1.2公斤">1.2公斤</option>
@@ -65,7 +65,7 @@ use \Welfony\Utility\Util;
                             </select>
                         </label>
 
-                        <label class="attr">续重费用<input type="text" alt="该项必填且只允许填写数字金额" pattern="float" value="" name="second_price" class="tiny">元</label>
+                        <label class="attr">续重费用<input type="text" alt="该项必填且只允许填写数字金额" pattern="float" value="" id="second_price" class="tiny">元</label>
 
                         <p><label>根据重量来计算运费，当物品不足《首重重量》时，按照《首重费用》计算，超过部分按照《续重重量》和《续重费用》乘积来计算</label></p>
                 </div>
@@ -75,12 +75,12 @@ use \Welfony\Utility\Util;
                 <label class="lab">支持保价:</label>
                 <div class="ipt">
                    
-                        <label class="attr"><input type="checkbox" onclick="$('#protectBox').toggle();" value="1" name="is_save_price">支持物流保价</label>
+                        <label class="attr"><input type="checkbox" onclick="$('#protectBox').toggle();" value="1" id="is_save_price">支持物流保价</label>
 
                         <!--支持保价隐藏域-->
                         <span style="display: none;" id="protectBox">
-                            <label class="attr">费率<input type="text" alt="该项必填且只允许填写数字金额" pattern="float" class="tiny" value="" name="save_rate">%</label>
-                            <label class="attr">最低保价费<input type="text" alt="该项必填且只允许填写数字金额" pattern="float" class="tiny" value="" name="low_price">元</label>
+                            <label class="attr">费率<input type="text" alt="该项必填且只允许填写数字金额" pattern="float" class="tiny" value="" data-type="n" id="save_rate">%</label>
+                            <label class="attr">最低保价费<input type="text" alt="该项必填且只允许填写数字金额" pattern="float" class="tiny" value="" data-type="n" id="low_price">元</label>
                             <label>当用户需要保价后，一般是按照货物总金额的《费率》计算，但是保价金额最低不低于《最低保价费》</label>
                         </span>
                     
@@ -170,7 +170,7 @@ use \Welfony\Utility\Util;
             <div class="formitm">
                 <label class="lab">排序</label>
                 <div class="ipt">                          
-                        <input id="freightname" type="text"  datatype="*" value="<?php echo $this->freightInfo['FreightName']; ?>"  errormsg="名称不能为空！" class="u-ipt"/> *
+                        <input id="sort" type="text"  datatype="n" value="<?php echo $this->deliveryInfo['Sort']; ?>"   class="u-ipt"/> *
                     
                 </div>
             </div>
@@ -179,8 +179,8 @@ use \Welfony\Utility\Util;
                 <label class="lab">状态</label>
                 <div class="ipt">             
                           
-                        <label class='attr'><input name="status" type="radio" value="1" checked="checked" />启用</label>
-                        <label class='attr'><input name="status" type="radio" value="0" />关闭</label>
+                        <label class='attr'><input name="status" type="radio" value="1" <?php echo $this->deliveryInfo['Status']? 'checked':'' ?> />启用</label>
+                        <label class='attr'><input name="status" type="radio" value="0" <?php echo $this->deliveryInfo['Status']? 'checked':'' ?>/>关闭</label>
                     
                 </div>
             </div>
@@ -189,7 +189,7 @@ use \Welfony\Utility\Util;
              <div class="formitm">
                 <label class="lab">详细介绍：</label>
                 <div class="ipt">
-                    <textarea  id='couponusage' type="text"  datatype="s" class="u-ipt"><?php echo $this->couponInfo['CouponUsage']; ?></textarea>
+                    <textarea  id='description' type="text"  datatype="s" class="u-ipt"><?php echo $this->deliveryInfo['Description']; ?></textarea>
                     <p></p>
                 </div>
             </div>    

@@ -36,7 +36,7 @@ class FreightRepository extends AbstractRepository
     {
         $strSql = 'SELECT
                        *
-                   FROM Delivery
+                   FROM Freight
                    WHERE IsDeleted = 0
                   ';
 
