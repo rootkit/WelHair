@@ -13,6 +13,8 @@
 
 
 $(function() {
+
+    window.addedHeight = 0;
     $('#frm-delivery-info').Validform({
         tiptype: 3
     });
@@ -20,6 +22,50 @@ $(function() {
     $('#freighttype').change(function(){
 
       $('#freightname').val($(this).find('option:selected').text());
+    });
+
+    $('.btnDelete').bind('click', function(){
+        $(this).parent().remove();
+    });
+
+    $('.btnAddProvince').bind('click', function(){
+       var province = $(this).parent().find('select[name="province"]');
+       $(this).parent().find('input[name="areaName"]').val(province.val());
+    });
+
+    $('#btnAddArea').click(function(){
+       var area =  $('#area_template').clone();
+       area.removeAttr('id');
+       area.show();
+       $('#areaList').append(area);
+       $('.content').height($('.content').height() + 50);
+
+       $('.btnDelete').bind('click', function(){
+          $(this).parent().remove();
+       });
+
+       $('.btnAddProvince').bind('click', function(){
+           var province = $(this).parent().find('select[name="province"]');
+           $(this).parent().find('input[name="areaName"]').val(province.val());
+       });
+
+    });
+
+    $('input[name="price_type"]').click(function(){
+        if($(this).val() == '0')
+        {
+          $('#areaBox').hide();
+        }
+        else
+        {
+          if( window.addedHeight ==0)
+          {
+            $('.content').height($('.content').height() + 170);
+            window.addedHeight = 1;
+          }
+          
+          $('#areaBox').show();
+        }
     });
 
     $( "#frm-delivery-info" ).submit(function( event ) {

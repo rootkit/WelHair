@@ -125,7 +125,7 @@ class System_DeliveryController extends AbstractAdminController
 
         if ($this->_request->isPost()) {
 
-            $result = DeliveryService::deleteDelivery($deliveryId);
+            $result = DeliveryService::deleteDelivery($delivery);
             $this->_helper->json->sendJson($result);
         }
     }

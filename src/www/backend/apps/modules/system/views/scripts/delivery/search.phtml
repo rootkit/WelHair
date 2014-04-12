@@ -32,13 +32,13 @@ use \Welfony\Utility\Util;
                 </a>
             </td>
             <td>
-                <?php echo $delivery['Status']; ?>
+                <?php echo $delivery['Status'] ? '启用':'关闭'; ?>
             </td>
             <td>
-                <?php echo $delivery['IsSavePrice']; ?>
+                <?php echo $delivery['IsSavePrice']?'是':'否'; ?>
             </td>
             <td>
-                <?php echo $delivery['PriceType']; ?>
+                <?php echo $delivery['PriceType']?'货到付款':'先收款后发货'; ?>
             </td>
             <td>
                 <?php echo $delivery['Sort']; ?>

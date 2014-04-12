@@ -91,8 +91,8 @@ use \Welfony\Utility\Util;
                 <label class="lab">设置地区运费:</label>
                 <div class="ipt">
                    
-                        <label class="attr"><input type="radio" checked="checked" onclick="$('#areaBox').hide();" value="0" name="price_type">统一地区运费</label>
-                        <label class="attr"><input type="radio" onclick="$('#areaBox').show();" value="1" name="price_type">指定地区运费</label>
+                        <label class="attr"><input type="radio" checked="checked"  value="0" name="price_type">统一地区运费</label>
+                        <label class="attr"><input type="radio"  value="1" name="price_type">指定地区运费</label>
                         <p>《统一地区运费》：全部的地区都使用默认的《重量设置》中的计费方式。《指定地区运费》：单独指定部分地区的运费</p>
                     
                 </div>
@@ -110,11 +110,11 @@ use \Welfony\Utility\Util;
 
                  <div class="formitm">
                     <label class="lab"></label>
-                    <div class="ipt">                       
+                    <div class="ipt" id="areaList">                       
                         <div style="padding:6px" class="content_box">
                           <label class='attr'>
                                 选择地区：
-                                <select>
+                                <select name="province">
                                         <option value="110000">北京市</option>
                                         <option value="120000">天津市</option>
                                         <option value="130000">河北省</option>
@@ -149,13 +149,13 @@ use \Welfony\Utility\Util;
                                 </select>
                             </label>                 
 
-                            <a class="t-action" id="btnAddSpec" onclick='addProvince(this);'><i class="iconfont">&#xf0175;</i>添加</a>
+                            <a class="t-action btnAddProvince"><i class="iconfont">&#xf0175;</i>添加</a>
                             <label class='attr'>已选择地区：<input class="middle" name="areaName" value="" readonly="readonly" disabled='disabled' /></label>
                             <label class='attr'>首重费用：<input class="tiny" name="firstprice[]" value="" pattern="float" alt="该项必填且只允许填写数字金额" type="text" /></label>
                             <label class='attr'>续重费用：<input class="tiny" name="secondprice[]" value="" pattern="float" alt="该项必填且只允许填写数字金额" type="text" /></label>
                            
 
-                            <a  href="javascript:void(0)" onclick="$(this).parent().remove();" class="f_r btnDelete" ><i class="iconfont">&#xf013f;</i></a>
+                            <a  href="javascript:void(0)" class="f_r btnDelete" ><i class="iconfont">&#xf013f;</i></a>
                         </div>
                     </div>
                 </div>
@@ -180,7 +180,7 @@ use \Welfony\Utility\Util;
                 <div class="ipt">             
                           
                         <label class='attr'><input name="status" type="radio" value="1" <?php echo $this->deliveryInfo['Status']? 'checked':'' ?> />启用</label>
-                        <label class='attr'><input name="status" type="radio" value="0" <?php echo $this->deliveryInfo['Status']? 'checked':'' ?>/>关闭</label>
+                        <label class='attr'><input name="status" type="radio" value="0" <?php echo $this->deliveryInfo['Status']? '':'checked' ?>/>关闭</label>
                     
                 </div>
             </div>
@@ -202,5 +202,52 @@ use \Welfony\Utility\Util;
             </div>
         </fieldset>
     </form>
+</div>
+<div style="padding:6px;display:none;" class="content_box" id="area_template">
+      <label class='attr'>
+            选择地区：
+            <select name="province">
+                    <option value="110000">北京市</option>
+                    <option value="120000">天津市</option>
+                    <option value="130000">河北省</option>
+                    <option value="140000">山西省</option>
+                    <option value="150000">内蒙古自治区</option>
+                    <option value="210000">辽宁省</option>
+                    <option value="220000">吉林省</option>
+                    <option value="230000">黑龙江省</option>
+                    <option value="310000">上海市</option>
+                    <option value="320000">江苏省</option>
+                    <option value="330000">浙江省</option>
+                    <option value="340000">安徽省</option>
+                    <option value="350000">福建省</option>
+                    <option value="360000">江西省</option>
+                    <option value="370000">山东省</option>
+                    <option value="410000">河南省</option>
+                    <option value="420000">湖北省</option>
+                    <option value="430000">湖南省</option>
+                    <option value="440000">广东省</option>
+                    <option value="450000">广西壮族自治区</option>
+                    <option value="460000">海南省</option>
+                    <option value="500000">重庆市</option>
+                    <option value="510000">四川省</option>
+                    <option value="520000">贵州省</option>
+                    <option value="530000">云南省</option>
+                    <option value="540000">西藏自治区</option>
+                    <option value="610000">陕西省</option>
+                    <option value="620000">甘肃省</option>
+                    <option value="630000">青海省</option>
+                    <option value="640000">宁夏回族自治区</option>
+                    <option value="650000">新疆维吾尔自治区</option>
+            </select>
+        </label>                 
+
+        <a class="t-action btnAddProvince"><i class="iconfont">&#xf0175;</i>添加</a>
+        <label class='attr'>已选择地区：<input class="middle" name="areaName" value="" readonly="readonly" disabled='disabled' /></label>
+        <label class='attr'>首重费用：<input class="tiny" name="firstprice[]" value="" pattern="float" alt="该项必填且只允许填写数字金额" type="text" /></label>
+        <label class='attr'>续重费用：<input class="tiny" name="secondprice[]" value="" pattern="float" alt="该项必填且只允许填写数字金额" type="text" /></label>
+       
+
+        <a  href="javascript:void(0)" class="f_r btnDelete" ><i class="iconfont">&#xf013f;</i></a>
+    </div>
 </div>
 <script src="<?php echo Util::baseAssetUrl('js/backend/delivery-info.js'); ?>"></script>
