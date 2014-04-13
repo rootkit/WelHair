@@ -109,7 +109,7 @@
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     // Return the number of sections.
-    return self.enableLocation ? self.cityKeys.count + 1 : 1;
+    return self.enableLocation ? self.cityKeys.count + 1 : self.cityKeys.count;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section

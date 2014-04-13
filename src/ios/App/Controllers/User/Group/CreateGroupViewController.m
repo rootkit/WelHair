@@ -15,13 +15,13 @@
 #import "CreateGroupViewController.h"
 #import "MapPickerViewController.h"
 
-static const float kOffsetY = 40;
+static const float kOffsetY = 140;
 static const float kMargin = 10;
 
-@interface CreateGroupViewController ()<UITextFieldDelegate, MapPickViewDelegate, CityPickViewDelegate, UIActionSheetDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
+@interface CreateGroupViewController ()<UITextFieldDelegate, MapPickViewDelegate, CityPickViewDelegate, UIActionSheetDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIScrollViewDelegate>
 
 @property (nonatomic, strong) UIScrollView *scrollView;
-
+@property (nonatomic) float scrollViewLastContentOffsetY;
 @property (nonatomic, strong) UILabel * cityLbl;
 @property (nonatomic, strong) UITextField * groupNameTxt;
 @property (nonatomic, strong) UITextField * phoneNumTxt;
@@ -184,6 +184,7 @@ static const float kMargin = 10;
 
     self.scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, self.topBarOffset, WIDTH(self.view), [self contentHeightWithNavgationBar:YES withBottomBar:NO])];
     self.scrollView.contentSize = CGSizeMake(WIDTH(self.view), 600);
+    self.scrollView.delegate = self;
     [self.view addSubview:self.scrollView];
     [self.scrollView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self
                                                                                   action:@selector(resignInputResponder)]];
@@ -378,6 +379,17 @@ static const float kMargin = 10;
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
+}
+
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
+{
+    if (self.scrollViewLastContentOffsetY > scrollView.contentOffset.y){
+        [self.groupNameTxt resignFirstResponder];
+        [self.phoneNumTxt resignFirstResponder];
+        [self.mobileTxt resignFirstResponder];
+        [self.groupAddressTxt resignFirstResponder];
+    }
+    self.scrollViewLastContentOffsetY= scrollView.contentOffset.y;
 }
 
 - (void)keyboardWillShow:(NSNotification *)aNotification
