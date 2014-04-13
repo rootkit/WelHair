@@ -237,7 +237,9 @@ static const float profileViewHeight = 90;
         detail.work = work;
         [self.navigationController pushViewController:detail animated:YES];
     }else if(view.tag == 4){
-        [self.navigationController pushViewController:[StaffWorksViewController new] animated:YES];
+        StaffWorksViewController *workVC = [StaffWorksViewController new];
+        workVC.staffId = self.staff.id;
+        [self.navigationController pushViewController:workVC animated:YES];
     }
 }
 

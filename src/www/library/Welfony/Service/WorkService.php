@@ -148,6 +148,20 @@ class WorkService
         $work = WorkRepository::getInstance()->getWorkDetail($currentUserId, $location, $workId);
         $work['PictureUrl'] = json_decode($work['PictureUrl'], true);
 
+        if (intval($work['StaffUserId']) > 0) {
+            $work['Staff'] = array(
+                'UserId' => $work['StaffUserId'],
+                'AvatarUrl' => $work['StaffAvatarUrl'],
+                'Nickname' => $work['StaffNickname']
+            );
+        } else {
+            $work['Staff'] = array();
+        }
+
+        unset($work['StaffUserId']);
+        unset($work['StaffAvatarUrl']);
+        unset($work['StaffNickname']);
+
         return $work;
     }
 

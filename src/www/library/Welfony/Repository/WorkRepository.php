@@ -23,11 +23,17 @@ class WorkRepository extends AbstractRepository
     {
         $strSql = 'SELECT
                        W.*,
+
+                       U.UserId StaffUserId,
+                       U.AvatarUrl StaffAvatarUrl,
+                       U.Nickname StaffNickname,
+
                        (SELECT COUNT(1) FROM UserLike UL WHERE ? > 0 AND ? = UL.CreatedBy AND UL.WorkId = W.WorkId) IsLiked,
                        getDistance(C.Latitude, C.Longitude, ?, ?) Distance
                    FROM Work W
                    INNER JOIN CompanyUser CU ON CU.UserId = W.UserId
                    INNER JOIN Company C ON C.CompanyId = CU.CompanyId
+                   INNER JOIN Users U ON U.UserId = CU.UserId
                    WHERE W.WorkId = ?
                    LIMIT 1';
 

@@ -61,11 +61,10 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    [super viewWillAppear:animated];
     if (self.staffId <= 0 || self.staffId != [[UserManager SharedInstance] userLogined].id) {
-        self.navigationController.navigationItem.rightBarButtonItem = nil;
+        self.rightNavItemImg = nil;
     }
-
+    [super viewWillAppear:animated];
 }
 - (void)viewDidLoad
 {
