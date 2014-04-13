@@ -52,13 +52,13 @@ class OrderService
     }
 
 
-    public static function save($data)
+    public static function save($data, $goods=null)
     {
         $result = array('success' => false, 'message' => '');
 
         if ($data['OrderId'] == 0) {
 
-            $newId = OrderRepository::getInstance()->save($data);
+            $newId = OrderRepository::getInstance()->save($data, $goods);
             if ($newId) {
                 $data['OrderId'] = $newId;
 
@@ -74,7 +74,7 @@ class OrderService
             }
         } else {
 
-            $r = OrderRepository::getInstance()->update($data['OrderId'],$data);
+            $r = OrderRepository::getInstance()->update($data['OrderId'],$data, $goods);
             if ($r) {
 
                 $result['success'] = true;

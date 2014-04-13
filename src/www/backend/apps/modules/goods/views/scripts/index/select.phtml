@@ -27,13 +27,13 @@ use \Welfony\Utility\Util;
         <tr>
             <td class="col-center"><input type="radio" data-name="<?php echo $goods['Name'];?>"
                 data-goodsid= "<?php echo $goods['GoodsId']; ?>"
-                data-produtsid = "<?php echo $goods['ProductsId']; ?>"
+                data-productsid = "<?php echo $goods['ProductsId'] ; ?>"
                 data-sellprice = "<?php echo $goods['SellPrice']; ?>"
                 data-costprice = "<?php echo $goods['CostPrice']; ?>"
                 data-weight = "<?php echo $goods['Weight']; ?>"
                 data-img= "<?php echo $goods['Img']; ?>"
                 data-spec="<?php echo $spc; ?>"
-                data-id="<?php echo $goods['ProductsNo']? $goods['ProductsNo']: $goods['GoodsNo'];  ?>"
+                data-id="<?php echo $goods['GoodsId'].'_'.$goods['ProductsId'];  ?>"
              /></td>
             <td>
                     <?php echo isset($goods['ProductsNo'])? $goods['ProductsNo']: $goods['GoodsNo']; ?>

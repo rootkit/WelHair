@@ -30,6 +30,27 @@ use \Welfony\Utility\Util;
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    <?php foreach( $this->ordergoods as $goods) :?>
+                                    <?php 
+                                        $goodsarray = json_decode($goods['GoodsArray'],true);
+                                        $goodsname= $goodsarray['Name'];
+                                    ?>
+                              <tr class="goodsid" data-id="<?php echo $goods['GoodsId'].'_'.$goods['ProductsId']; ?>">
+
+                                    <td><?php echo $goodsname; ?></td>
+                                    <td><?php echo $goods['GoodsPrice']; ?></td>
+                                    <td><input type="text" name="goodscount" value="<?php echo $goods['GoodsNums']; ?>"/>
+                                    <input type="hidden" name="goodsid" value="<?php echo $goods['GoodsId']; ?>" />
+                                        <input type="hidden" name="productsid" value="<?php echo $goods['ProductsId']; ?>"/>
+                                        <input type="hidden" name="goodsname" value="<?php echo $goodsname; ?>"/>
+                                        <input type="hidden" name="goodsspec" value="<?php echo $goodsarray['Value']; ?>"/>
+                                        <input type="hidden" name="weight" value="<?php echo $goods['GoodsWeight']; ?>" />
+                                        <input type="hidden" name="sellprice" value="<?php echo $goods['GoodsPrice']; ?>"/>
+                                        <input type="hidden" name="goodsimg" value="<?php echo $goods['Img']; ?>"/>
+                                    </td>
+                                    <td><a href="#" class="btnDelete"><i class="iconfont">&#xf013f;</i></a></td>
+                                    </tr>
+                                    <?php endforeach; ?>
                                 </tbody>
                             </table>
                         </div>

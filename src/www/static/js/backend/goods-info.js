@@ -357,7 +357,7 @@ $(function() {
 
          goodsdata['img'] =$('#goods-url').val();
       
-         console.log(goodsdata);
+         //console.log(goodsdata);
          
 
           url = form.attr( "action" );

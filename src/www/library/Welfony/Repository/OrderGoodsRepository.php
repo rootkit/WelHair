@@ -41,11 +41,11 @@ class OrderGoodsRepository extends AbstractRepository
         return $this->conn->fetchAll($strSql);
     }
 
-    public function getAllOrderGoodssByOrder($orderId)
+    public function getAllOrderGoodsByOrder($orderId)
     {
         $strSql = "SELECT
                        *
-                   FROM OrderGoodss
+                   FROM OrderGoods
                    WHERE OrderId = $orderId
                   ";
 

@@ -15,6 +15,7 @@
 use Welfony\Controller\Base\AbstractAdminController;
 use Welfony\Service\OrderService;
 use Welfony\Service\AreaService;
+use Welfony\Service\OrderGoodsService;
 
 class Order_IndexController extends AbstractAdminController
 {
@@ -47,24 +48,29 @@ class Order_IndexController extends AbstractAdminController
         $order = array(
             'OrderId' => $orderId,
             'OrderNo' => '',
-            'Province' => '',
-            'City' => '',
+            'UserId' => 0,
+            'PayType'=> 0,
+            'AcceptName'=>'',
+            'Province' => 0,
+            'City' => 0,
             'IsDeleted' => 0
         );
 
         $this->view->provinceList = AreaService::listAreaByParent(0);
         $this->view->cityList = [];
         $this->view->districtList = [];
+        $this->view->ordergoods = [];
       
         if ($this->_request->isPost()) {
             $this->_helper->viewRenderer->setNoRender(true);
             $this->_helper->layout->disableLayout();
             $order['OrderNo']= htmlspecialchars($this->_request->getParam('orderno'));
+            $goods = $this->_request->getParam('goods');
             $order['IsDeleted']= '0';
 
            
 
-            $result = OrderService::save($order);
+            $result = OrderService::save($order, $goods);
             if ($result['success']) {
                 $result['message'] = '保存订单成功！';
             }
@@ -72,11 +78,12 @@ class Order_IndexController extends AbstractAdminController
         } else {
 
             if ($orderId > 0) {
-                $this->view->cityList = intval($company['Province']) > 0 ? AreaService::listAreaByParent($company['Province']) : array();
-                $this->view->districtList = intval($company['City']) > 0 ? AreaService::listAreaByParent($company['City']) : array();
+                $this->view->cityList = intval($order['Province']) > 0 ? AreaService::listAreaByParent($order['Province']) : array();
+                $this->view->districtList = intval($order['City']) > 0 ? AreaService::listAreaByParent($order['City']) : array();
 
+                $this->view->ordergoods = OrderGoodsService::listAllOrderGoodsByOrder($orderId);
                 $order = OrderService::getOrderById($orderId);
-                if (!$model) {
+                if (!$order) {
                     // process not exist logic;
                 }
             }

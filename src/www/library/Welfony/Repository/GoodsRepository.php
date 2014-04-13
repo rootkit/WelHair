@@ -115,7 +115,6 @@ class GoodsRepository extends AbstractRepository
                      LEFT JOIN Products P ON G.GoodsId = P.GoodsId
                      WHERE G.IsDeleted = 0
                      LIMIT $offset, $pageSize ";
-        error_log($strSql);
         return $this->conn->fetchAll($strSql);
 
     }

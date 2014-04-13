@@ -44,7 +44,7 @@ class OrderGoodsService
         return $result;
     }
 
-    public static function listAllProducts()
+    public static function listAllOrderGoods()
     {
         return $searchResult = OrderGoodsRepository::getInstance()->getAllOrderGoods();
     }
@@ -65,7 +65,7 @@ class OrderGoodsService
                 $data['Id'] = $newId;
 
                 $result['success'] = true;
-                $result['message'] = '添加商品品成功！';
+                $result['message'] = '添加商品成功！';
                 $result['ordergoods'] = $data;
 
                 return $result;

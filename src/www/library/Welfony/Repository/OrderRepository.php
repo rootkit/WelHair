@@ -35,7 +35,7 @@ class OrderRepository extends AbstractRepository
     {
         $strSql = 'SELECT
                        *
-                   FROM Order
+                   FROM `Order`
                   ';
 
         return $this->conn->fetchAll($strSql);
@@ -58,15 +58,16 @@ class OrderRepository extends AbstractRepository
     {
         $strSql = 'SELECT
                        *
-                   FROM Order
+                   FROM `Order`
                    WHERE OrderId = ?
                    LIMIT 1';
 
         return $this->conn->fetchAssoc($strSql, array($id));
     }
 
-    public function save($data)
+    public function save($data, $goods = null)
     {
+        /*
         try {
             if ($this->conn->insert('Order', $data)) {
                 return $this->conn->lastInsertId();
@@ -78,10 +79,42 @@ class OrderRepository extends AbstractRepository
         }
 
         return false;
+        */
+
+        $conn = $this->conn;
+        $conn->beginTransaction();
+        try {
+
+            if ($this->conn->insert('`Order`', $data)) {
+                $orderId= $this->conn->lastInsertId();
+            } else {
+              return false;
+            }
+
+            if ($goods) {
+               $this->conn->delete('OrderGoods', array('OrderId'=> $orderId));
+              foreach ($goods as $row) {
+                $row['OrderId'] = $orderId;
+                $this->conn->insert('OrderGoods', $row);
+              }
+            }
+
+            $conn->commit();
+
+            return $orderId;
+        } catch (\Exception $e) {
+            $conn->rollback();
+            $this->logger->log($e, \Zend_Log::ERR);
+
+            return false;
+        }
+
+        return true;
     }
 
-    public function update($orderId, $data)
+    public function update($orderId, $data, $goods=null)
     {
+        /*
         try {
             return $this->conn->update('Order', $data, array('OrderId' => $orderId));
         } catch (\Exception $e) {
@@ -89,12 +122,42 @@ class OrderRepository extends AbstractRepository
 
             return false;
         }
+        */
+        $conn = $this->conn;
+        $conn->beginTransaction();
+        try {
+
+            $this->conn->update('Order', $data, array('Order' => $orderId));
+
+            if ($goods) {
+               $this->conn->delete('OrderGoods', array('OrderId'=> $orderId));
+               foreach ($goods as $row) {
+                 $row['OrderId'] = $orderId;
+                 $this->conn->insert('OrderGoods', $row);
+               }
+            }
+            else
+            {
+                $this->conn->delete('OrderGoods', array('OrderId'=> $orderId));
+            }
+
+            $conn->commit();
+
+            return $orderId;
+        } catch (\Exception $e) {
+            $conn->rollback();
+            $this->logger->log($e, \Zend_Log::ERR);
+
+            return false;
+        }
+
+        return true;
     }
 
     public function delete($orderId)
     {
         try {
-            return $this->conn->executeUpdate(" UPDATE Order SET IsDeleted = 1 WHERE OrderId  = $orderId; ");
+            return $this->conn->executeUpdate(" UPDATE `Order` SET IsDeleted = 1 WHERE OrderId  = $orderId; ");
         } catch (\Exception $e) {
             $this->logger->log($e, \Zend_Log::ERR);
 
