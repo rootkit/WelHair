@@ -41,6 +41,18 @@ class PaymentRepository extends AbstractRepository
         return $this->conn->fetchAll($strSql);
     }
 
+    public function getActivePayment()
+    {
+         $strSql = 'SELECT
+                       *
+                   FROM Payment
+                   WHERE Status = 0
+                  ';
+
+        return $this->conn->fetchAll($strSql);
+
+    }
+
     public function listPayment($pageNumber, $pageSize)
     {
 

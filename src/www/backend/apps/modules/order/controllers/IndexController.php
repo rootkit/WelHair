@@ -16,6 +16,8 @@ use Welfony\Controller\Base\AbstractAdminController;
 use Welfony\Service\OrderService;
 use Welfony\Service\AreaService;
 use Welfony\Service\OrderGoodsService;
+use Welfony\Service\DeliveryService;
+use Welfony\Service\PaymentService;
 
 class Order_IndexController extends AbstractAdminController
 {
@@ -60,6 +62,8 @@ class Order_IndexController extends AbstractAdminController
         $this->view->cityList = [];
         $this->view->districtList = [];
         $this->view->ordergoods = [];
+        $this->view->deliveries = DeliveryService::listAllDelivery();
+        $this->view->payments = PaymentService::listActivePayment();
       
         if ($this->_request->isPost()) {
             $this->_helper->viewRenderer->setNoRender(true);

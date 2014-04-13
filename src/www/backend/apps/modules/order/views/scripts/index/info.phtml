@@ -35,20 +35,20 @@ use \Welfony\Utility\Util;
                                         $goodsarray = json_decode($goods['GoodsArray'],true);
                                         $goodsname= $goodsarray['Name'];
                                     ?>
-                              <tr class="goodsid" data-id="<?php echo $goods['GoodsId'].'_'.$goods['ProductsId']; ?>">
+                                    <tr class="goodsid" data-id="<?php echo $goods['GoodsId'].'_'.$goods['ProductsId']; ?>">
 
-                                    <td><?php echo $goodsname; ?></td>
-                                    <td><?php echo $goods['GoodsPrice']; ?></td>
-                                    <td><input type="text" name="goodscount" value="<?php echo $goods['GoodsNums']; ?>"/>
-                                    <input type="hidden" name="goodsid" value="<?php echo $goods['GoodsId']; ?>" />
-                                        <input type="hidden" name="productsid" value="<?php echo $goods['ProductsId']; ?>"/>
-                                        <input type="hidden" name="goodsname" value="<?php echo $goodsname; ?>"/>
-                                        <input type="hidden" name="goodsspec" value="<?php echo $goodsarray['Value']; ?>"/>
-                                        <input type="hidden" name="weight" value="<?php echo $goods['GoodsWeight']; ?>" />
-                                        <input type="hidden" name="sellprice" value="<?php echo $goods['GoodsPrice']; ?>"/>
-                                        <input type="hidden" name="goodsimg" value="<?php echo $goods['Img']; ?>"/>
-                                    </td>
-                                    <td><a href="#" class="btnDelete"><i class="iconfont">&#xf013f;</i></a></td>
+                                            <td><?php echo $goodsname; ?></td>
+                                            <td><?php echo $goods['GoodsPrice']; ?></td>
+                                            <td><input type="text" name="goodscount" value="<?php echo $goods['GoodsNums']; ?>"/>
+                                            <input type="hidden" name="goodsid" value="<?php echo $goods['GoodsId']; ?>" />
+                                                <input type="hidden" name="productsid" value="<?php echo $goods['ProductsId']; ?>"/>
+                                                <input type="hidden" name="goodsname" value="<?php echo $goodsname; ?>"/>
+                                                <input type="hidden" name="goodsspec" value="<?php echo $goodsarray['Value']; ?>"/>
+                                                <input type="hidden" name="weight" value="<?php echo $goods['GoodsWeight']; ?>" />
+                                                <input type="hidden" name="sellprice" value="<?php echo $goods['GoodsPrice']; ?>"/>
+                                                <input type="hidden" name="goodsimg" value="<?php echo $goods['Img']; ?>"/>
+                                            </td>
+                                            <td><a href="#" class="btnDelete"><i class="iconfont">&#xf013f;</i></a></td>
                                     </tr>
                                     <?php endforeach; ?>
                                 </tbody>
@@ -69,7 +69,9 @@ use \Welfony\Utility\Util;
                         <label class="lab">配送方式：</label>
                         <div class="ipt">
                             <select class="u-sel">
-                                <option value="1">快递</option>
+                                <?php foreach($this->deliveries as $delivery): ?>
+                                <option value="<?php echo $delivery['DeliveryId']; ?>"><?php echo $delivery['Name']; ?></option>
+                                <?php endforeach; ?>
                             </select>
                         </div>
                     </div>
@@ -77,8 +79,9 @@ use \Welfony\Utility\Util;
                         <label class="lab">支付方式：</label>
                         <div class="ipt">
                             <select class="u-sel">
-                                <option value="1">预存款支付</option>
-                                <option value="2">支付宝</option>
+                                <?php foreach($this->payments as $payment): ?>
+                                <option value="<?php echo $payment['PaymentId']; ?>"><?php echo $payment['Name']; ?></option>
+                                <?php endforeach; ?>
                             </select>
                         </div>
                     </div>
