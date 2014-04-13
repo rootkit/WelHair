@@ -39,8 +39,7 @@
 #define API_WORKS_COMMENT_CREATE API_PATH(@"/works/%d/comments")
 #define API_WORKS_LIKE API_PATH(@"/works/%d/likes")
 #define API_WORKS_REMOVE API_PATH(@"/works/%d/remove")
-#define API_WORKS_LIKES API_PATH(@"/works/:%d/likes") //Need API --- add userId
-#define API_WORKS_UNLIKES API_PATH(@"/works/:%d/unlikes") //Need API --- add userId
+
 #define API_STAFFS_SEARCH API_PATH(@"/staffs")
 #define API_STAFFS_LIKE API_PATH(@"/staffs/%d/likes")
 #define API_STAFFS_DETAIL API_PATH(@"/staffs/%d")
@@ -68,9 +67,6 @@
 
 #define NOTIFICATION_USER_CREATE_GROUP_SUCCESS  @"CreateGroupSuccessfully"
 #define NOTIFICATION_USER_LOGIN_SUCCESS  @"LoginSuccessfully"
-
-#define NOTIFICATION_MARK_WORK_AS_FAVORITE @"NotificationMarkWorkAsFavorite"
-#define NOTIFICATION_MARK_WORK_AS_UNFAVORITE @"NotificationMarkWorkAsUnfavorite"
 
 #define HAIR_STYLE_FACE_CICLE   0
 #define HAIR_STYLE_FACE_OVAL    1

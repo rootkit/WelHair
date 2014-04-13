@@ -91,8 +91,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(markWorkAsFav:) name:NOTIFICATION_MARK_WORK_AS_FAVORITE object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(markWorkAsUnFav:) name:NOTIFICATION_MARK_WORK_AS_UNFAVORITE object:nil];
 
     [self setTopLeftCityName];
 
@@ -298,7 +296,6 @@
     [reqData setObject:[NSString stringWithFormat:@"%d", [[CityManager SharedInstance] getSelectedCity].id] forKey:@"city"];
 
     ASIHTTPRequest *request = [RequestUtil createGetRequestWithURL:[NSURL URLWithString:API_WORKS_SEARCH] andParam:reqData];
-    [self.requests addObject:request];
     [request setDelegate:self];
     [request setDidFinishSelector:@selector(finishGetWorks:)];
     [request setDidFailSelector:@selector(failGetWorks:)];
@@ -358,115 +355,5 @@
 {
 
 }
-
-- (void)markWorkAsFav:(NSNotification *)noti
-{
-    Work *w = (Work *)noti.object;
-    ASIHTTPRequest *request = [RequestUtil createGetRequestWithURL:[NSURL URLWithString:[NSString stringWithFormat:API_WORKS_LIKES, w.id]] andParam:nil];
-    [request setUserInfo:@{@"workId": @(w.id)}];
-    [self.requests addObject:request];
-    [request setDelegate:self];
-    [request setDidFinishSelector:@selector(finishMarkWorkFav:)];
-    [request setDidFailSelector:@selector(failMarkWorkFav:)];
-    [request startAsynchronous];
-    [SVProgressHUD showWithMaskType:SVProgressHUDMaskTypeClear];
-}
-
-- (void)finishMarkWorkFav:(ASIHTTPRequest *)request
-{
-    @try {
-        if (request.responseStatusCode == 200) {
-            NSDictionary *responseMessage = [Util objectFromJson:request.responseString];
-            if (responseMessage) {
-                if (![responseMessage objectForKey:@"success"]) {
-                    [SVProgressHUD showErrorWithStatus:[responseMessage objectForKey:@"message"]];
-                    return;
-                }
-                
-                NSDictionary *favWork = request.userInfo;
-                for (Work *w in self.datasource) {
-                    if(w.id == [[favWork objectForKey:@"workId"] intValue]){
-                        w.isfav = YES;
-                        break;
-                    }
-                }
-                [self.tableView reloadData];
-                [SVProgressHUD showSuccessWithStatus:@"收藏成功!" duration:1];
-                return;
-            }
-        }
-        [SVProgressHUD showSuccessWithStatus:@"收藏失败!" duration:1];
-
-    }
-    @catch (NSException *exception) {
-        debugLog(@"mark work as fav exception %@",exception );
-    }
-    @finally {
-        [self.tableView reloadData];
-    }
-}
-
-
-- (void)failMarkWorkFav:(ASIHTTPRequest *)request
-{
-    [SVProgressHUD showSuccessWithStatus:@"收藏失败!" duration:1];
-    [self.tableView reloadData];
-}
-
-
-
-- (void)markWorkAsUnFav:(NSNotification *)noti
-{
-    Work *w = (Work *)noti.object;
-    ASIHTTPRequest *request = [RequestUtil createGetRequestWithURL:[NSURL URLWithString:[NSString stringWithFormat:API_WORKS_UNLIKES, w.id]] andParam:nil];
-    [request setUserInfo:@{@"workId": @(w.id)}];
-    [self.requests addObject:request];
-    [request setDelegate:self];
-    [request setDidFinishSelector:@selector(finishMarkWorkUnFav:)];
-    [request setDidFailSelector:@selector(failMarkWorkUnFav:)];
-    [request startAsynchronous];
-    [SVProgressHUD showWithMaskType:SVProgressHUDMaskTypeClear];
-}
-
-- (void)finishMarkWorkUnFav:(ASIHTTPRequest *)request
-{
-    @try {
-        if (request.responseStatusCode == 200) {
-            NSDictionary *responseMessage = [Util objectFromJson:request.responseString];
-            if (responseMessage) {
-                if (![responseMessage objectForKey:@"success"]) {
-                    [SVProgressHUD showErrorWithStatus:[responseMessage objectForKey:@"message"]];
-                    return;
-                }
-                
-                NSDictionary *favWork = request.userInfo;
-                for (Work *w in self.datasource) {
-                    if(w.id == [[favWork objectForKey:@"workId"] intValue]){
-                        w.isfav = NO;
-                        break;
-                    }
-                }
-                [self.tableView reloadData];
-                [SVProgressHUD showSuccessWithStatus:@"取消收藏!" duration:1];
-                return;
-            }
-        }
-        [SVProgressHUD showSuccessWithStatus:@"操作失败!" duration:1];
-    }
-    @catch (NSException *exception) {
-        debugLog(@"mark work as unfav exception %@",exception );
-    }
-    @finally {
-        [self.tableView reloadData];
-    }
-}
-
-
-- (void)failMarkWorkUnFav:(ASIHTTPRequest *)request
-{
-    [SVProgressHUD showSuccessWithStatus:@"操作失败!" duration:1];
-    [self.tableView reloadData];
-}
-
 
 @end
