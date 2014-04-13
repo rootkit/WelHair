@@ -19,6 +19,11 @@ $app->get('/works', function () use ($app) {
     $ctrl->search();
 });
 
+$app->get('/works/:workId', function ($workId) use ($app) {
+    $ctrl = new WorkController();
+    $ctrl->getDetail($workId);
+})->conditions(array('workId' => '\d{1,10}'));
+
 $app->get('/works/:workId/comments', function ($workId) use ($app) {
     $ctrl = new WorkController();
     $ctrl->listComments($workId);

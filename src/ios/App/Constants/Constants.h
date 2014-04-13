@@ -23,26 +23,35 @@
 
 //#define API_PATH(path) [NSString stringWithFormat:@"http://115.28.208.165/api%@", path]
 #define API_SOCIAL_LOGIN API_PATH(@"/socials/login")
+
 #define API_USERS_SIGNIN_EMAIL API_PATH(@"/users/signin/email")
 #define API_USERS_SIGNUP_EMAIL API_PATH(@"/users/signup/email")
 #define API_USERS_DETAIL API_PATH(@"/users/%d")
 #define API_USERS_UPDATE API_PATH(@"/users/%d")
+
 #define API_SERVICES_SEARCH API_PATH(@"/services")
 #define API_SERVICES_CREATE API_PATH(@"/services")
 #define API_SERVICES_Remove API_PATH(@"/services/%d/remove")
+
 #define API_WORKS_SEARCH API_PATH(@"/works")
 #define API_WORKS_CREATE API_PATH(@"/works")
+#define API_WORKS_DETAIL API_PATH(@"/works/%d")
 #define API_WORKS_COMMENT_CREATE API_PATH(@"/works/%d/comments")
+#define API_WORKS_LIKE API_PATH(@"/works/%d/likes")
 #define API_WORKS_REMOVE API_PATH(@"/works/%d/remove")
+
 #define API_STAFFS_SEARCH API_PATH(@"/staffs")
+#define API_STAFFS_LIKE API_PATH(@"/staffs/%d/likes")
 #define API_STAFFS_DETAIL API_PATH(@"/staffs/%d")
 #define API_STAFFS_WORKS API_PATH(@"/staffs/%d/works")
 #define API_STAFFS_SERVICE API_PATH(@"/staffs/%d/services")
 #define API_STAFFS_COMMENT_CREATE API_PATH(@"/staffs/%d/comments")
+
 #define API_COMPANIES_SEARCH API_PATH(@"/companies")
 #define API_COMPANIES_CREATE API_PATH(@"/companies")
 #define API_COMPANIES_JOIN API_PATH(@"/companies/%d/join")
 #define API_COMPANIES_COMMENT_CREATE API_PATH(@"/companies/%d/comments")
+
 #define API_UPLOAD_PICTURE API_PATH(@"/upload/image")
 #define API_GOODS_COMMENT_CREATE API_PATH(@"/goods/%d/comments")
 

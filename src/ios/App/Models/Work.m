@@ -56,6 +56,10 @@
             self.gender = [[dictionary objectForKey:@"Gender"] intValue] == 1 ? GenderEnumFemale : GenderEnumMale;
         }
 
+        if ([dictionary objectForKey:@"IsLiked"]) {
+            self.isfav = [[dictionary objectForKey:@"IsLiked"] intValue] == 1;
+        }
+
         if ([dictionary objectForKey:@"Face"]) {
             NSArray *faceArr = [[dictionary objectForKey:@"Face"] componentsSeparatedByString:@","];
             for (NSString *f in faceArr) {

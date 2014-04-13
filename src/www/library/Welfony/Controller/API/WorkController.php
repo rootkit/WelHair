@@ -32,6 +32,12 @@ class WorkController extends AbstractAPIController
         $this->sendResponse($result);
     }
 
+    public function getDetail($workId)
+    {
+        $workDetail = WorkService::getWorkDetail($this->currentContext['UserId'], $this->currentContext['Location'], $workId);
+        $this->sendResponse($workDetail);
+    }
+
     public function search()
     {
         $page = intval($this->app->request->get('page'));

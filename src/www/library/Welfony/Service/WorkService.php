@@ -143,6 +143,14 @@ class WorkService
         return $work;
     }
 
+    public static function getWorkDetail($currentUserId, $location, $workId)
+    {
+        $work = WorkRepository::getInstance()->getWorkDetail($currentUserId, $location, $workId);
+        $work['PictureUrl'] = json_decode($work['PictureUrl'], true);
+
+        return $work;
+    }
+
     public static function removeById($id)
     {
         return WorkRepository::getInstance()->remove($id);

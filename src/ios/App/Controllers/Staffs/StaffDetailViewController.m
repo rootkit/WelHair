@@ -22,6 +22,7 @@
 #import "SelectOpition.h"
 #import "TripleCoverCell.h"
 #import "UIViewController+KNSemiModal.h"
+#import "UserManager.h"
 #import "WorkDetailViewController.h"
 
 static const float profileViewHeight = 90;
@@ -195,11 +196,36 @@ static const float profileViewHeight = 90;
 
 - (void)foClick:(BOOL)isFo
 {
-    if(isFo){
-       [SVProgressHUD showSuccessWithStatus:@"关注成功" duration:1];
-    }else{
-        [SVProgressHUD showSuccessWithStatus:@"取消关注" duration:1];
+    NSMutableDictionary *reqData = [[NSMutableDictionary alloc] initWithCapacity:1];
+    [reqData setObject:[NSString stringWithFormat:@"%d", [[UserManager SharedInstance] userLogined].id] forKey:@"CreatedBy"];
+    [reqData setObject:[NSString stringWithFormat:@"%d", isFo ? 1 : 0] forKey:@"IsLike"];
+
+    ASIFormDataRequest *request = [RequestUtil createPOSTRequestWithURL:[NSURL URLWithString:[NSString stringWithFormat:API_STAFFS_LIKE, self.staff.id]]
+                                                                andData:reqData];
+
+    [request setDelegate:self];
+    [request setDidFinishSelector:@selector(addLikeFinish:)];
+    [request setDidFailSelector:@selector(addLikeFail:)];
+    [request startAsynchronous];
+}
+
+- (void)addLikeFinish:(ASIHTTPRequest *)request
+{
+    [SVProgressHUD dismiss];
+
+    if (request.responseStatusCode == 200) {
+        NSDictionary *responseMessage = [Util objectFromJson:request.responseString];
+        if (responseMessage) {
+            if ([[responseMessage objectForKey:@"success"] intValue] == 1) {
+                [SVProgressHUD showSuccessWithStatus:@"操作成功" duration:1];
+                return;
+            }
+        }
     }
+}
+
+- (void)addLikeFail:(ASIHTTPRequest *)request
+{
 }
 
 - (void)workImgTapped:(UITapGestureRecognizer *)tap
@@ -298,14 +324,13 @@ static const float profileViewHeight = 90;
         return;
     }
 
-    float distance = self.staff.distance;
-
     self.staff = [[Staff alloc] initWithDic:rst];
 
     self.title = self.staff.name;
     self.nameLbl.text = self.staff.name;
     self.groupNameLbl.text = self.staff.group.name;
-    self.distanceLbl.text = [NSString stringWithFormat:@"%.2f 千米", distance / 1000];
+    self.distanceLbl.text = [NSString stringWithFormat:@"%.2f 千米", self.staff.distance / 1000];
+    self.foBtn.on = self.staff.isLiked;
     [self.avatorImgView setImageWithURL:self.staff.avatorUrl];
 
     [self setupUIPerData];

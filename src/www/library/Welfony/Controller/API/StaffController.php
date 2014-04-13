@@ -42,7 +42,7 @@ class StaffController extends AbstractAPIController
 
     public function detail($staffId)
     {
-        $this->sendResponse(StaffService::getStaffDetail($staffId));
+        $this->sendResponse(StaffService::getStaffDetail($staffId, $this->currentContext['UserId'], $this->currentContext['Location']));
     }
 
     public function listWorks($userId)

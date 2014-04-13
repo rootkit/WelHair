@@ -17,6 +17,7 @@
 #import "MWPhotoBrowser.h"
 #import "StaffDetailViewController.h"
 #import "UMSocial.h"
+#import "UserManager.h"
 #import "WorkDetailViewController.h"
 
 @interface WorkDetailViewController () <UMSocialUIDelegate, JOLImageSliderDelegate, MWPhotoBrowserDelegate>
@@ -327,7 +328,6 @@
 
     [self.staffImgView setImageWithURL:self.work.creator.avatorUrl];
     self.staffNameLbl.text = self.work.creator.name;
-    self.distanceLbl.text = [NSString stringWithFormat:@"%d千米", 100];
 
     NSMutableArray *sliderArray = [NSMutableArray array];
     for (NSString *item in self.work.imgUrlList) {
@@ -341,6 +341,8 @@
     for (NSString *item in self.work.imgUrlList) {
         [self.workImgs addObject:[MWPhoto photoWithURL:[NSURL URLWithString:item]]];
     }
+
+    [self getWorkDetail];
 }
 
 - (void)didReceiveMemoryWarning
@@ -392,9 +394,38 @@
 
 - (void)favClick:(BOOL)markFav
 {
+    NSMutableDictionary *reqData = [[NSMutableDictionary alloc] initWithCapacity:1];
+    [reqData setObject:[NSString stringWithFormat:@"%d", [[UserManager SharedInstance] userLogined].id] forKey:@"CreatedBy"];
+    [reqData setObject:[NSString stringWithFormat:@"%d", markFav ? 1 : 0] forKey:@"IsLike"];
+
+    ASIFormDataRequest *request = [RequestUtil createPOSTRequestWithURL:[NSURL URLWithString:[NSString stringWithFormat:API_WORKS_LIKE, self.work.id]]
+                                                                andData:reqData];
+
+    [request setDelegate:self];
+    [request setDidFinishSelector:@selector(addLikeFinish:)];
+    [request setDidFailSelector:@selector(addLikeFail:)];
+    [request startAsynchronous];
 }
 
-- (void) OpenImageGallery
+- (void)addLikeFinish:(ASIHTTPRequest *)request
+{
+    [SVProgressHUD dismiss];
+
+    if (request.responseStatusCode == 200) {
+        NSDictionary *responseMessage = [Util objectFromJson:request.responseString];
+        if (responseMessage) {
+            if ([[responseMessage objectForKey:@"success"] intValue] == 1) {
+                return;
+            }
+        }
+    }
+}
+
+- (void)addLikeFail:(ASIHTTPRequest *)request
+{
+}
+
+- (void)OpenImageGallery
 {
     MWPhotoBrowser *browser = [[MWPhotoBrowser alloc] initWithDelegate:self];
     browser.displayActionButton = NO;
@@ -440,6 +471,34 @@
 }
 
 - (void)photoBrowser:(MWPhotoBrowser *)photoBrowser didDisplayPhotoAtIndex:(NSUInteger)index
+{
+}
+
+- (void)getWorkDetail
+{
+    ASIHTTPRequest *request = [RequestUtil createGetRequestWithURL:[NSURL URLWithString:[NSString stringWithFormat:API_WORKS_DETAIL, self.work.id]]
+                                                          andParam:nil];
+    [self.requests addObject:request];
+
+    [request setDelegate:self];
+    [request setDidFinishSelector:@selector(finishGetWorkDetail:)];
+    [request setDidFailSelector:@selector(failGetWorkDetail:)];
+    [request startAsynchronous];
+}
+
+- (void)finishGetWorkDetail:(ASIHTTPRequest *)request
+{
+    NSDictionary *rst = [Util objectFromJson:request.responseString];
+    if (![rst objectForKey:@"WorkId"]) {
+        return;
+    }
+
+    float distance = [[rst objectForKey:@"Distance"] floatValue];
+    self.distanceLbl.text = [NSString stringWithFormat:@"%.2f 千米", distance / 1000];
+    self.heartBtn.on = [[rst objectForKey:@"IsLiked"] intValue] == 1;
+}
+
+- (void)failGetWorkDetail:(ASIHTTPRequest *)request
 {
 }
 

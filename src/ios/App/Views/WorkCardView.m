@@ -12,6 +12,7 @@
 
 #import "CircleImageView.h"
 #import "Comment.h"
+#import "UserManager.h"
 #import "Work.h"
 #import "WorkCardView.h"
 
@@ -102,8 +103,7 @@
     return self;
 }
 
-//get calculated height
-- (float) setupWithData:(Work *)workData
+- (float)setupWithData:(Work *)workData
 {
     self.workData = workData;
 
@@ -131,7 +131,35 @@
 
 - (void)favClick:(BOOL)markFav
 {
-    debugLog(@"mark as fav %c", markFav);
+    NSMutableDictionary *reqData = [[NSMutableDictionary alloc] initWithCapacity:1];
+    [reqData setObject:[NSString stringWithFormat:@"%d", [[UserManager SharedInstance] userLogined].id] forKey:@"CreatedBy"];
+    [reqData setObject:[NSString stringWithFormat:@"%d", markFav ? 1 : 0] forKey:@"IsLike"];
+
+    ASIFormDataRequest *request = [RequestUtil createPOSTRequestWithURL:[NSURL URLWithString:[NSString stringWithFormat:API_WORKS_LIKE, self.workData.id]]
+                                                                andData:reqData];
+
+    [request setDelegate:self];
+    [request setDidFinishSelector:@selector(addLikeFinish:)];
+    [request setDidFailSelector:@selector(addLikeFail:)];
+    [request startAsynchronous];
+}
+
+- (void)addLikeFinish:(ASIHTTPRequest *)request
+{
+    [SVProgressHUD dismiss];
+
+    if (request.responseStatusCode == 200) {
+        NSDictionary *responseMessage = [Util objectFromJson:request.responseString];
+        if (responseMessage) {
+            if ([[responseMessage objectForKey:@"success"] intValue] == 1) {
+                return;
+            }
+        }
+    }
+}
+
+- (void)addLikeFail:(ASIHTTPRequest *)request
+{
 }
 
 

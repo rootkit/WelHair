@@ -19,6 +19,21 @@ use Welfony\Repository\Base\AbstractRepository;
 class WorkRepository extends AbstractRepository
 {
 
+    public function getWorkDetail($currentUserId, $location, $workId)
+    {
+        $strSql = 'SELECT
+                       W.*,
+                       (SELECT COUNT(1) FROM UserLike UL WHERE ? > 0 AND ? = UL.CreatedBy AND UL.WorkId = W.WorkId) IsLiked,
+                       getDistance(C.Latitude, C.Longitude, ?, ?) Distance
+                   FROM Work W
+                   INNER JOIN CompanyUser CU ON CU.UserId = W.UserId
+                   INNER JOIN Company C ON C.CompanyId = CU.CompanyId
+                   WHERE W.WorkId = ?
+                   LIMIT 1';
+
+        return $this->conn->fetchAssoc($strSql, array($currentUserId, $currentUserId, $location['Latitude'], $location['Longitude'], $workId));
+    }
+
     public function searchCount($city, $gender, $hairStyle)
     {
         $strSql = "SELECT

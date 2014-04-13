@@ -56,9 +56,9 @@ class StaffService
         return array('total' => $total, 'staffs' => $staffs);
     }
 
-    public static function getStaffDetail($staffId)
+    public static function getStaffDetail($staffId, $currentUserId = 0, $location = null)
     {
-        $resultSet = StaffRepository::getInstance()->findStaffDetailById($staffId);
+        $resultSet = StaffRepository::getInstance()->findStaffDetailById($staffId, $currentUserId, $location);
         $staffDataset = self::composeStaffDetail($resultSet);
 
         return count($staffDataset) > 0 ? $staffDataset[0] : null;
@@ -183,6 +183,7 @@ class StaffService
             $staffDetail['MobileVerified'] = $row['MobileVerified'];
             $staffDetail['Role'] = $row['Role'];
             $staffDetail['IsApproved'] = $row['IsApproved'];
+            $staffDetail['IsLiked'] = $row['IsLiked'];
 
             if ($row['CompanyId'] > 0) {
                 $staffDetail['Company']['CompanyId'] =  $row['CompanyId'];
@@ -190,6 +191,9 @@ class StaffService
                 $staffDetail['Company']['Address'] = $row['CompanyAddress'];
                 $staffDetail['Company']['Status'] = $row['CompanyStatus'];
                 $staffDetail['Company']['LogoUrl'] = $row['CompanyLogoUrl'];
+                if (isset($row['Distance'])) {
+                    $staffDetail['Company']['Distance'] = $row['Distance'];
+                }
             }
 
             if ($row['ServiceId'] > 0 && Util::keyValueExistedInArray($staffDetail['Services'], 'ServiceId', $row['ServiceId']) === false) {

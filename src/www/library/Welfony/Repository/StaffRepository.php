@@ -88,7 +88,7 @@ class StaffRepository extends AbstractRepository
         return $this->conn->fetchAll($strSql);
     }
 
-    public function findStaffDetailById($staffId)
+    public function findStaffDetailById($staffId, $currentUserId, $location)
     {
         $strSql = 'SELECT
                        U.UserId,
@@ -116,7 +116,10 @@ class StaffRepository extends AbstractRepository
                        W.Title WorkTitle,
                        W.PictureUrl WorkPictureUrl,
 
-                       IFNULL(CU.IsApproved, 0) IsApproved
+                       IFNULL(CU.IsApproved, 0) IsApproved,
+
+                       (SELECT COUNT(1) FROM UserLike UL WHERE ? > 0 AND ? = UL.CreatedBy AND UL.WorkId = W.WorkId) IsLiked,
+                       getDistance(C.Latitude, C.Longitude, ?, ?) Distance
 
                    FROM Users U
                    LEFT OUTER JOIN CompanyUser CU ON CU.UserId = U.UserId
@@ -125,7 +128,7 @@ class StaffRepository extends AbstractRepository
                    LEFT OUTER JOIN Work W ON W.UserId = U.UserId
                    WHERE U.UserId = ?';
 
-        return $this->conn->fetchAll($strSql, array($staffId));
+        return $this->conn->fetchAll($strSql, array($currentUserId, $currentUserId, $location ? $location['Latitude'] : 0, $location ? $location['Longitude'] : 0, $staffId));
     }
 
 }
