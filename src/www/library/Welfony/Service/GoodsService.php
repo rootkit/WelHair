@@ -46,6 +46,27 @@ class GoodsService
         return $result;
     }
 
+    public static function listGoodsAndProducts($pageNumber, $pageSize)
+    {
+        $result = array(
+            'goods' => array(),
+            'total' => 0
+        );
+
+        $totalCount = GoodsRepository::getInstance()->getAllGoodsAndProductsCount();
+
+        if ($totalCount > 0 && $pageNumber <= ceil($totalCount / $pageSize)) {
+
+            $searchResult = GoodsRepository::getInstance()->listGoodsAndProducts( $pageNumber, $pageSize);
+
+            $result['goods']= $searchResult;
+        }
+
+        $result['total'] = $totalCount;
+
+        return $result;
+    }
+
     public static function listAllGoods()
     {
         return $searchResult = GoodsRepository::getInstance()->getAllGoods();

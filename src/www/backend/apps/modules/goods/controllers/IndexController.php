@@ -209,4 +209,21 @@ class Goods_IndexController extends AbstractAdminController
         }
     }
 
+    public function selectAction()
+    {
+        //$this->_helper->viewRenderer->setNoRender(true);
+        $this->_helper->layout->disableLayout();
+
+        static $pageSize = 10;
+
+        $page = intval($this->_request->getParam('page'));
+        $func = intval($this->_request->getParam('func'));
+     
+        $searchResult = GoodsService::listGoodsAndProducts($page, $pageSize);
+        $this->view->rows = $searchResult['goods'];
+        $this->view->pagerHTML = $this->renderPager('',
+                                                $page,
+                                                ceil($searchResult['total'] / $pageSize), $func);
+    }
+
 }

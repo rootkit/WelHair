@@ -74,6 +74,44 @@ class GoodsRepository extends AbstractRepository
 
     }
 
+    public function getAllGoodsAndProductsCount()
+    {
+        $strSql = "SELECT
+                       COUNT(1) `Total`
+                   FROM Goods G
+                   LEFT JOIN Products P ON G.GoodsId = P.GoodsId
+                   WHERE IsDeleted = 0
+                   LIMIT 1";
+
+        $row = $this->conn->fetchAssoc($strSql);
+
+        return $row['Total'];
+    }
+
+    public function listGoodsAndProducts($pageNumber, $pageSize)
+    {
+
+        $offset = ($pageNumber - 1) * $pageSize;
+        $strSql = "  SELECT G.GoodsId, G.Name, G.GoodsNo,
+                     CASE P.SellPrice 
+                        WHEN NULL THEN G.SellPrice
+                        ELSE P.SellPrice
+                     END AS SellPrice,
+                     P.ProductsNo,
+                     G.Weight,
+                     G.Unit,
+                     P.SpecArray,
+                     G.Img,
+                     P.ProductsId
+                     FROM Goods G
+                     LEFT JOIN Products P ON G.GoodsId = P.GoodsId
+                     WHERE G.IsDeleted = 0
+                     LIMIT $offset, $pageSize ";
+        error_log($strSql);
+        return $this->conn->fetchAll($strSql);
+
+    }
+
     public function findGoodsById($id)
     {
         $strSql = 'SELECT

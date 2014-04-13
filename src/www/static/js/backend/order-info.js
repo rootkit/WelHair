@@ -10,11 +10,51 @@
 //
 // ==============================================================================
 
+WF.Goods = {
+  updateGoodsList :function(page)
+  {
+     var url =globalSetting.baseUrl + '/goods/index/select?page=' + page + '&func= WF.Goods.updateGoodsList';
+     $.get( url, function(data) {
+        $('#goodsList').empty();
+        $('#goodsList').html(data);
+
+        $('#goodsList input[type=radio]').click(function(){
+
+          if( $('#goodstable tbody').find( 'tr[data-id="' + $(this).attr('data-id') + '"]').get(0) == null )
+          {
+
+             var row = '   <tr class="specid" data-id="' +  $(this).attr('data-id')  + '"> ' +
+                    '               <td>' + $(this).attr('data-name') +'</td> ' +
+                    '               <td>' + $(this).attr('data-sellprice') + '</td> ' +
+                    '               <td><input type="text" /></td> ' +
+                    '                <td><a href="#" class="btnDelete"><i class="iconfont">&#xf013f;</i></a></td>' +
+                    '            </tr>';
+
+            $('#goodstable tbody').append( $(row));
+            $('.content').height($('.content').height() + 50);
+            $('#goodstable').find('.btnDelete').click(function(){$(this).parents('tr:first').remove();});
+          }
+          $('#goodsList').dialog("close");
+        });
+     });
+
+  }
+};
+
+
 $(function() {
     $('#frm-order-info').Validform({
         tiptype: 3
     });
     $( "#tabs" ).tabs();
+
+
+    $('#btnAddGoods').click(function(){
+      $('#goodsList').dialog({"modal": true, "width":800, "height":640});
+      WF.Goods.updateGoodsList(1);
+    });
+
+
 
     $( "#frm-order-info" ).submit(function( event ) {
 
