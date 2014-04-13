@@ -23,12 +23,12 @@ WF.Goods = {
           if( $('#goodstable tbody').find( 'tr[data-id="' + $(this).attr('data-id') + '"]').get(0) == null )
           {
 
-             var row = '   <tr class="specid" data-id="' +  $(this).attr('data-id')  + '"> ' +
-                    '               <td>' + $(this).attr('data-name') +'</td> ' +
+             var row = '   <tr class="goodsid" data-id="' +  $(this).attr('data-id')  + '"> ' +
+                    '               <td>' + $(this).attr('data-name') + ' ' + $(this).attr('data-spec') +'</td> ' +
                     '               <td>' + $(this).attr('data-sellprice') + '</td> ' +
-                    '               <td><input type="text" /></td> ' +
-                    '                <td><a href="#" class="btnDelete"><i class="iconfont">&#xf013f;</i></a></td>' +
-                    '            </tr>';
+                    '               <td><input type="text" name="goodscount"/></td> ' +
+                    '               <td><a href="#" class="btnDelete"><i class="iconfont">&#xf013f;</i></a></td>' +
+                    '     </tr>';
 
             $('#goodstable tbody').append( $(row));
             $('.content').height($('.content').height() + 50);

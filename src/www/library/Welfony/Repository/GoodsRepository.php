@@ -97,8 +97,16 @@ class GoodsRepository extends AbstractRepository
                         WHEN NULL THEN G.SellPrice
                         ELSE P.SellPrice
                      END AS SellPrice,
+
+                     CASE P.CostPrice 
+                        WHEN NULL THEN G.CostPrice
+                        ELSE P.CostPrice
+                     END AS CostPrice,
+                     CASE P.Weight 
+                        WHEN NULL THEN G.Weight
+                        ELSE P.Weight
+                     END AS Weight,
                      P.ProductsNo,
-                     G.Weight,
                      G.Unit,
                      P.SpecArray,
                      G.Img,
