@@ -41,6 +41,17 @@ class UserLikeRepository extends AbstractRepository
         return $this->conn->fetchAssoc($strSql, array($createdBy, $userId));
     }
 
+    public function findByUserAndCompanyId($createdBy, $companyId)
+    {
+        $strSql = 'SELECT
+                       *
+                   FROM UserLike UL
+                   WHERE UL.CreatedBy = ? AND UL.CompanyId = ?
+                   LIMIT 1';
+
+        return $this->conn->fetchAssoc($strSql, array($createdBy, $companyId));
+    }
+
     public function findByUserAndGoodsId($createdBy, $goodsId)
     {
         $strSql = 'SELECT
@@ -69,6 +80,19 @@ class UserLikeRepository extends AbstractRepository
     {
         try {
             $this->conn->delete('UserLike', array('CreatedBy' => $createdBy, 'UserId' => $userId));
+
+            return true;
+        } catch (\Exception $e) {
+            $this->logger->log($e, \Zend_Log::ERR);
+
+            return false;
+        }
+    }
+
+    public function removeByUserAndCompanyId($createdBy, $companyId)
+    {
+        try {
+            $this->conn->delete('UserLike', array('CreatedBy' => $createdBy, 'CompanyId' => $companyId));
 
             return true;
         } catch (\Exception $e) {

@@ -134,6 +134,24 @@ class CompanyRepository extends AbstractRepository
         return $this->conn->fetchAssoc($strSql, array($companyId));
     }
 
+    public function findCompanyDetailById($companyId, $currentUserId, $location)
+    {
+        $strSql = 'SELECT
+                       C.CompanyId,
+                       C.Name CompanyName,
+                       C.Address CompanyAddress,
+                       C.Status CompanyStatus,
+                       C.LogoUrl CompanyLogoUrl,
+
+                       (SELECT COUNT(1) FROM UserLike UL WHERE ? > 0 AND ? = UL.CreatedBy AND UL.CompanyId = C.CompanyId) IsLiked,
+                       getDistance(C.Latitude, C.Longitude, ?, ?) Distance
+
+                   FROM Company C
+                   WHERE C.CompanyId = ?';
+
+        return $this->conn->fetchAll($strSql, array($currentUserId, $currentUserId, $location ? $location['Latitude'] : 0, $location ? $location['Longitude'] : 0, $companyId));
+    }
+
     public function save($data)
     {
         try {

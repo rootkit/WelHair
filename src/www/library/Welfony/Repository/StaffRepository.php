@@ -118,7 +118,7 @@ class StaffRepository extends AbstractRepository
 
                        IFNULL(CU.IsApproved, 0) IsApproved,
 
-                       (SELECT COUNT(1) FROM UserLike UL WHERE ? > 0 AND ? = UL.CreatedBy AND UL.WorkId = W.WorkId) IsLiked,
+                       (SELECT COUNT(1) FROM UserLike UL WHERE ? > 0 AND ? = UL.CreatedBy AND UL.UserId = U.UserId) IsLiked,
                        getDistance(C.Latitude, C.Longitude, ?, ?) Distance
 
                    FROM Users U

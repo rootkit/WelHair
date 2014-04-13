@@ -49,7 +49,9 @@
 
 #define API_COMPANIES_SEARCH API_PATH(@"/companies")
 #define API_COMPANIES_CREATE API_PATH(@"/companies")
+#define API_COMPANIES_DETAIL API_PATH(@"/companies/%d")
 #define API_COMPANIES_JOIN API_PATH(@"/companies/%d/join")
+#define API_COMPANIES_LIKE API_PATH(@"/companies/%d/likes")
 #define API_COMPANIES_COMMENT_CREATE API_PATH(@"/companies/%d/comments")
 
 #define API_UPLOAD_PICTURE API_PATH(@"/upload/image")

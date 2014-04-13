@@ -118,4 +118,9 @@ class CompanyController extends AbstractAPIController
         $this->sendResponse($result);
     }
 
+    public function getDetail($companyId)
+    {
+        $this->sendResponse(CompanyService::getCompanyDetail($companyId, $this->currentContext['UserId'], $this->currentContext['Location']));
+    }
+
 }

@@ -23,6 +23,12 @@ use Welfony\Service\StaffService;
 class CompanyService
 {
 
+    public static function getCompanyDetail($companyId, $currentUserId, $location)
+    {
+        $resultSet = CompanyRepository::getInstance()->findCompanyDetailById($companyId, $currentUserId, $location);
+        return count($resultSet) > 0 ? $resultSet[0] : null;
+    }
+
     public static function search($currentUserId, $searchText, $city, $district, $sort, $location, $page, $pageSize)
     {
         $page = $page <= 0 ? 1 : $page;

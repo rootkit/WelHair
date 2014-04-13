@@ -25,6 +25,7 @@ class UserLikeService
 
         if ((!isset($data['WorkId']) || intval($data['WorkId']) <= 0) &&
             (!isset($data['UserId']) || intval($data['UserId']) <= 0) &&
+            (!isset($data['CompanyId']) || intval($data['CompanyId']) <= 0) &&
             (!isset($data['GoodsId']) || intval($data['GoodsId']) <= 0)) {
             $result['message'] = '请选择喜欢的对象！';
 
@@ -72,6 +73,21 @@ class UserLikeService
                 }
             } else {
                 $result['success'] = UserLikeRepository::getInstance()->removeByUserAndUserId($userLike['CreatedBy'], $userLike['UserId']);
+            }
+        }
+
+        if (isset($data['CompanyId']) && intval($data['CompanyId']) > 0) {
+            $userLike['CompanyId'] = intval($data['CompanyId']);
+            if ($isLike > 0) {
+                $existedItem = UserLikeRepository::getInstance()->findByUserAndCompanyId($userLike['CreatedBy'], $userLike['CompanyId']);
+                if ($existedItem) {
+                    $result['success'] = true;
+                } else {
+                    $newId = UserLikeRepository::getInstance()->save($userLike);
+                    $result['success'] = $newId > 0;
+                }
+            } else {
+                $result['success'] = UserLikeRepository::getInstance()->removeByUserAndCompanyId($userLike['CreatedBy'], $userLike['CompanyId']);
             }
         }
 

@@ -24,6 +24,7 @@
 #import "ToggleButton.h"
 #import "UIImageView+WebCache.h"
 #import "UMSocial.h"
+#import "UserManager.h"
 
 static const float profileViewHeight = 320;
 
@@ -309,6 +310,8 @@ static const float profileViewHeight = 320;
                       forState:UIControlStateNormal];
     [self.productTabBtn setTitle:@"商品" forState:UIControlStateNormal];
     [self.commentTabBtn setTitle:@"评论" forState:UIControlStateNormal];
+
+    [self getGroupDetail];
     
 }
 
@@ -337,7 +340,36 @@ static const float profileViewHeight = 320;
 
 - (void)favClick:(BOOL)isOn
 {
-    
+    NSMutableDictionary *reqData = [[NSMutableDictionary alloc] initWithCapacity:1];
+    [reqData setObject:[NSString stringWithFormat:@"%d", [[UserManager SharedInstance] userLogined].id] forKey:@"CreatedBy"];
+    [reqData setObject:[NSString stringWithFormat:@"%d", isOn ? 1 : 0] forKey:@"IsLike"];
+
+    ASIFormDataRequest *request = [RequestUtil createPOSTRequestWithURL:[NSURL URLWithString:[NSString stringWithFormat:API_COMPANIES_LIKE, self.group.id]]
+                                                                andData:reqData];
+
+    [request setDelegate:self];
+    [request setDidFinishSelector:@selector(addLikeFinish:)];
+    [request setDidFailSelector:@selector(addLikeFail:)];
+    [request startAsynchronous];
+}
+
+- (void)addLikeFinish:(ASIHTTPRequest *)request
+{
+    [SVProgressHUD dismiss];
+
+    if (request.responseStatusCode == 200) {
+        NSDictionary *responseMessage = [Util objectFromJson:request.responseString];
+        if (responseMessage) {
+            if ([[responseMessage objectForKey:@"success"] intValue] == 1) {
+                [SVProgressHUD showSuccessWithStatus:@"操作成功" duration:1];
+                return;
+            }
+        }
+    }
+}
+
+- (void)addLikeFail:(ASIHTTPRequest *)request
+{
 }
 
 - (void)mapClick
@@ -409,6 +441,32 @@ static const float profileViewHeight = 320;
 }
 
 - (void)photoBrowser:(MWPhotoBrowser *)photoBrowser didDisplayPhotoAtIndex:(NSUInteger)index
+{
+}
+
+- (void)getGroupDetail
+{
+    ASIHTTPRequest *request = [RequestUtil createGetRequestWithURL:[NSURL URLWithString:[NSString stringWithFormat:API_COMPANIES_DETAIL, self.group.id]]
+                                                          andParam:nil];
+    [self.requests addObject:request];
+
+    [request setDelegate:self];
+    [request setDidFinishSelector:@selector(finishGetGroupDetail:)];
+    [request setDidFailSelector:@selector(failGetGroupDetail:)];
+    [request startAsynchronous];
+}
+
+- (void)finishGetGroupDetail:(ASIHTTPRequest *)request
+{
+    NSDictionary *rst = [Util objectFromJson:request.responseString];
+    if (![rst objectForKey:@"CompanyId"]) {
+        return;
+    }
+
+    self.heartBtn.on = [[rst objectForKey:@"IsLiked"] intValue] == 1;
+}
+
+- (void)failGetGroupDetail:(ASIHTTPRequest *)request
 {
 }
 @end
