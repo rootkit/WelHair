@@ -18,11 +18,44 @@ use Welfony\Core\Enum\UserRole;
 use Welfony\Repository\CompanyRepository;
 use Welfony\Repository\CompanyUserRepository;
 use Welfony\Repository\StaffRepository;
+use Welfony\Repository\UserLikeRepository;
 use Welfony\Repository\UserRepository;
 use Welfony\Utility\Util;
 
 class StaffService
 {
+
+    public static function listLikedStaff($currentUserId, $location, $page, $pageSize)
+    {
+        $page = $page <= 0 ? 1 : $page;
+        $pageSize = $pageSize <= 0 ? 20 : $pageSize;
+
+        $total = UserLikeRepository::getInstance()->listLikedUserCount($currentUserId);
+        $staffList = UserLikeRepository::getInstance()->listLikedUser($currentUserId, $location, $page, $pageSize);
+
+        $staffs = array();
+        foreach ($staffList as $staff) {
+            $staff['Company'] = array(
+                'CompanyId' => $staff['CompanyId'],
+                'Name' => $staff['Name'],
+                'Address' => $staff['Address'],
+                'Latitude' => $staff['Latitude'],
+                'Longitude' => $staff['Longitude'],
+                'Distance' => $staff['Distance']
+            );
+
+            unset($staff['CompanyId']);
+            unset($staff['Name']);
+            unset($staff['Address']);
+            unset($staff['Latitude']);
+            unset($staff['Longitude']);
+            unset($staff['Distance']);
+
+            $staffs[] = $staff;
+        }
+
+        return array('total' => $total, 'staffs' => $staffs);
+    }
 
     public static function search($currentUserId, $companyId, $city, $district, $sort, $location, $page, $pageSize)
     {

@@ -14,10 +14,63 @@
 
 namespace Welfony\Service;
 
+use Welfony\Repository\UserLikeRepository;
 use Welfony\Repository\WorkRepository;
 
 class WorkService
 {
+
+    public static function listLikedWork($currentUserId, $page, $pageSize)
+    {
+        $page = $page <= 0 ? 1 : $page;
+        $pageSize = $pageSize <= 0 ? 20 : $pageSize;
+
+        $total = UserLikeRepository::getInstance()->listLikedWorkCount($currentUserId);
+        $workList = UserLikeRepository::getInstance()->listLikedWork($currentUserId, $page, $pageSize);
+
+        $works = array();
+        foreach ($workList as $work) {
+            $work['PictureUrl'] = json_decode($work['PictureUrl'], true);
+            if (intval($work['CommentId']) > 0) {
+                $work['Comment'] = array(
+                    'CommentId' => $work['CommentId'],
+                    'Body' => $work['Body'],
+                    'CreatedBy' => array(
+                        'UserId' => $work['CommentUserId'],
+                        'AvatarUrl' => $work['CommentAvatarUrl'],
+                        'Nickname' => $work['CommentNickname']
+                    )
+                );
+            } else {
+                $work['Comment'] = array();
+            }
+
+            unset($work['CommentId']);
+            unset($work['Body']);
+            unset($work['CommentUserId']);
+            unset($work['CommentAvatarUrl']);
+            unset($work['CommentNickname']);
+
+            if (intval($work['StaffUserId']) > 0) {
+                $work['Staff'] = array(
+                    'UserId' => $work['StaffUserId'],
+                    'AvatarUrl' => $work['StaffAvatarUrl'],
+                    'Nickname' => $work['StaffNickname']
+                );
+            } else {
+                $work['Staff'] = array();
+            }
+
+            unset($work['StaffUserId']);
+            unset($work['StaffAvatarUrl']);
+            unset($work['StaffNickname']);
+
+            $works[] = $work;
+        }
+
+        return array('total' => $total, 'works' => $works);
+    }
+
     public static function search($currentUserId, $city, $gender, $hairStyle, $sort, $page, $pageSize)
     {
         $page = $page <= 0 ? 1 : $page;

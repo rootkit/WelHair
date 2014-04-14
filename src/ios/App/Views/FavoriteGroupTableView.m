@@ -1,21 +1,27 @@
+// ==============================================================================
 //
-//  FavoriteGroupTableView.m
-//  WelHair
+// This file is part of the WelHair
 //
-//  Created by lu larry on 4/9/14.
-//  Copyright (c) 2014 Welfony. All rights reserved.
+// Create by Welfony <support@welfony.com>
+// Copyright (c) 2013-2014 welfony.com
 //
+// For the full copyright and license information, please view the LICENSE
+// file that was distributed with this source code.
+//
+// ==============================================================================
 
 #import "FavoriteGroupTableView.h"
-#import "UIScrollView+UzysCircularProgressPullToRefresh.h"
 #import "Group.h"
 #import "GroupCell.h"
+
 @interface FavoriteGroupTableView()<UITableViewDataSource, UITableViewDelegate>
+
 @property (nonatomic, strong) NSArray *datasource;
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic) NSInteger currentPage;
 
 - (void)getGroups;
+
 @end
 
 
@@ -25,36 +31,42 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
-        __weak typeof(self) weakSelf = self;
         self.tableView = [[UITableView alloc] init];
         self.tableView.frame = self.bounds;
-        [self addSubview:self.tableView];
         self.tableView.backgroundColor = [UIColor clearColor];
         self.tableView.delegate = self;
         self.tableView.dataSource = self;
         self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         self.tableView.backgroundColor = [UIColor clearColor];
+        [self addSubview:self.tableView];
+
+        __weak typeof(self) weakSelf = self;
         [self.tableView addPullToRefreshActionHandler:^{
-            [weakSelf insertRowAtTop];
+            weakSelf.currentPage = 1;
+            [weakSelf getGroups];
         }];
+
+        [self.tableView.pullToRefreshView setSize:CGSizeMake(25, 25)];
+        [self.tableView.pullToRefreshView setBorderWidth:2];
+        [self.tableView.pullToRefreshView setBorderColor:[UIColor whiteColor]];
+        [self.tableView.pullToRefreshView setImageIcon:[UIImage imageNamed:@"centerIcon"]];
+
+        [self.tableView addInfiniteScrollingWithActionHandler:^{
+            weakSelf.currentPage += 1;
+            [weakSelf getGroups];
+        }];
+        self.tableView.showsInfiniteScrolling = NO;
         
         [self.tableView.pullToRefreshView setSize:CGSizeMake(25, 25)];
         [self.tableView.pullToRefreshView setBorderWidth:2];
         [self.tableView.pullToRefreshView setBorderColor:[UIColor whiteColor]];
         [self.tableView.pullToRefreshView setImageIcon:[UIImage imageNamed:@"centerIcon"]];
-        self.datasource = [NSMutableArray arrayWithArray:[FakeDataHelper getFakeGroupList]];
     }
+
+    [self.tableView triggerPullToRefresh];
+
     return self;
 }
-- (void)insertRowAtTop
-{
-    int64_t delayInSeconds = 1.2;
-    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
-    dispatch_after(popTime, dispatch_get_main_queue(), ^(void) {
-        [self.tableView stopRefreshAnimation];
-    });
-}
-
 
 #pragma tableview delegate
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -91,9 +103,71 @@
     [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_PUSH_TO_GROUP_DETAIL_VIEW  object:[self.datasource objectAtIndex:indexPath.row]];
 }
 
-
+#pragma mark Group Search API
 
 - (void)getGroups
+{
+    NSMutableDictionary *reqData = [[NSMutableDictionary alloc] initWithCapacity:1];
+    [reqData setObject:[NSString stringWithFormat:@"%d", self.currentPage] forKey:@"page"];
+    [reqData setObject:[NSString stringWithFormat:@"%d", TABLEVIEW_PAGESIZE_DEFAULT] forKey:@"pageSize"];
+
+    ASIHTTPRequest *request = [RequestUtil createGetRequestWithURL:[NSURL URLWithString:API_COMPANIES_LIKED] andParam:reqData];
+    [request setDelegate:self];
+    [request setDidFinishSelector:@selector(finishGetGroups:)];
+    [request setDidFailSelector:@selector(failGetGroups:)];
+    [request startAsynchronous];
+}
+
+- (void)finishGetGroups:(ASIHTTPRequest *)request
+{
+    NSDictionary *rst = [Util objectFromJson:request.responseString];
+    NSInteger total = [[rst objectForKey:@"total"] integerValue];
+    NSArray *dataList = [rst objectForKey:@"companies"];
+
+    NSMutableArray *arr = [NSMutableArray arrayWithArray:self.datasource];
+
+    if (self.currentPage == 1) {
+        [arr removeAllObjects];
+    } else {
+        if (self.currentPage % TABLEVIEW_PAGESIZE_DEFAULT > 0) {
+            int i;
+
+            for (i = 0; i < arr.count; i++) {
+                if (i >= (self.currentPage - 1) * TABLEVIEW_PAGESIZE_DEFAULT) {
+                    [arr removeObjectAtIndex:i];
+                    i--;
+                }
+            }
+        }
+    }
+
+    for (NSDictionary *dicData in dataList) {
+        [arr addObject:[[Group alloc] initWithDic:dicData]];
+    }
+
+    self.datasource = arr;
+
+    BOOL enableInfinite = total > self.datasource.count;
+    if (self.tableView.showsInfiniteScrolling != enableInfinite) {
+        self.tableView.showsInfiniteScrolling = enableInfinite;
+    }
+
+    if (self.currentPage == 1) {
+        [self.tableView stopRefreshAnimation];
+    } else {
+        [self.tableView.infiniteScrollingView stopAnimating];
+    }
+
+    [self checkEmpty];
+
+    [self.tableView reloadData];
+}
+
+- (void)failGetGroups:(ASIHTTPRequest *)request
+{
+}
+
+- (void)checkEmpty
 {
     
 }

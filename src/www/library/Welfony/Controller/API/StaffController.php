@@ -24,6 +24,15 @@ use Welfony\Service\WorkService;
 class StaffController extends AbstractAPIController
 {
 
+    public function liked()
+    {
+        $page = intval($this->app->request->get('page'));
+        $pageSize = intval($this->app->request->get('pageSize'));
+
+        $staffList = StaffService::listLikedStaff($this->currentContext['UserId'], $this->currentContext['Location'], $page, $pageSize);
+        $this->sendResponse($staffList);
+    }
+
     public function search()
     {
         $page = intval($this->app->request->get('page'));

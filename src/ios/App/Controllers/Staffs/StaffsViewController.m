@@ -264,7 +264,7 @@
     [self.navigationController pushViewController:vc animated:YES];
 }
 
-#pragma mark Group Search API
+#pragma mark Staff Search API
 
 - (void)getStaffs
 {

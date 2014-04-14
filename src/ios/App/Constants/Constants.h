@@ -34,6 +34,7 @@
 #define API_SERVICES_Remove API_PATH(@"/services/%d/remove")
 
 #define API_WORKS_SEARCH API_PATH(@"/works")
+#define API_WORKS_LIKED API_PATH(@"/works/liked")
 #define API_WORKS_CREATE API_PATH(@"/works")
 #define API_WORKS_DETAIL API_PATH(@"/works/%d")
 #define API_WORKS_COMMENT_CREATE API_PATH(@"/works/%d/comments")
@@ -41,6 +42,7 @@
 #define API_WORKS_REMOVE API_PATH(@"/works/%d/remove")
 
 #define API_STAFFS_SEARCH API_PATH(@"/staffs")
+#define API_STAFFS_LIKED API_PATH(@"/staffs/liked")
 #define API_STAFFS_LIKE API_PATH(@"/staffs/%d/likes")
 #define API_STAFFS_DETAIL API_PATH(@"/staffs/%d")
 #define API_STAFFS_WORKS API_PATH(@"/staffs/%d/works")
@@ -48,6 +50,7 @@
 #define API_STAFFS_COMMENT_CREATE API_PATH(@"/staffs/%d/comments")
 
 #define API_COMPANIES_SEARCH API_PATH(@"/companies")
+#define API_COMPANIES_LIKED API_PATH(@"/companies/liked")
 #define API_COMPANIES_CREATE API_PATH(@"/companies")
 #define API_COMPANIES_DETAIL API_PATH(@"/companies/%d")
 #define API_COMPANIES_JOIN API_PATH(@"/companies/%d/join")

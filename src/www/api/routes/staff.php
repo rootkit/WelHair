@@ -19,6 +19,11 @@ $app->get('/staffs', function () use ($app) {
     $ctrl->search();
 });
 
+$app->get('/staffs/liked', function () use ($app) {
+    $ctrl = new StaffController();
+    $ctrl->liked();
+});
+
 $app->get('/staffs/:staffId', function ($staffId) use ($app) {
     $ctrl = new StaffController();
     $ctrl->detail($staffId);

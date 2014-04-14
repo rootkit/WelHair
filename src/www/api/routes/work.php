@@ -19,6 +19,11 @@ $app->get('/works', function () use ($app) {
     $ctrl->search();
 });
 
+$app->get('/works/liked', function () use ($app) {
+    $ctrl = new WorkController();
+    $ctrl->liked();
+});
+
 $app->get('/works/:workId', function ($workId) use ($app) {
     $ctrl = new WorkController();
     $ctrl->getDetail($workId);

@@ -75,6 +75,15 @@ class CompanyController extends AbstractAPIController
         $this->sendResponse($result);
     }
 
+    public function liked()
+    {
+        $page = intval($this->app->request->get('page'));
+        $pageSize = intval($this->app->request->get('pageSize'));
+
+        $companyList = CompanyService::listLikedCompany($this->currentContext['UserId'], $this->currentContext['Location'], $page, $pageSize);
+        $this->sendResponse($companyList);
+    }
+
     public function search()
     {
         $page = intval($this->app->request->get('page'));

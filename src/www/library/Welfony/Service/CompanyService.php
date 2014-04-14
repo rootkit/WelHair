@@ -17,6 +17,7 @@ namespace Welfony\Service;
 use Welfony\Core\Enum\CompanyStatus;
 use Welfony\Core\Enum\UserRole;
 use Welfony\Repository\CompanyRepository;
+use Welfony\Repository\UserLikeRepository;
 use Welfony\Repository\UserRepository;
 use Welfony\Service\StaffService;
 
@@ -27,6 +28,24 @@ class CompanyService
     {
         $resultSet = CompanyRepository::getInstance()->findCompanyDetailById($companyId, $currentUserId, $location);
         return count($resultSet) > 0 ? $resultSet[0] : null;
+    }
+
+    public static function listLikedCompany($currentUserId, $location, $page, $pageSize)
+    {
+        $page = $page <= 0 ? 1 : $page;
+        $pageSize = $pageSize <= 0 ? 20 : $pageSize;
+
+        $total = UserLikeRepository::getInstance()->listLikedCompanyCount($currentUserId);
+        $companyList = UserLikeRepository::getInstance()->listLikedCompany($currentUserId, $location, $page, $pageSize);
+
+        $companies = array();
+        foreach ($companyList as $company) {
+            $company['PictureUrl'] = json_decode($company['PictureUrl'], true);
+
+            $companies[] = $company;
+        }
+
+        return array('total' => $total, 'companies' => $companies);
     }
 
     public static function search($currentUserId, $searchText, $city, $district, $sort, $location, $page, $pageSize)

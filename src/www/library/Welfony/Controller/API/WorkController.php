@@ -38,6 +38,15 @@ class WorkController extends AbstractAPIController
         $this->sendResponse($workDetail);
     }
 
+    public function liked()
+    {
+        $page = intval($this->app->request->get('page'));
+        $pageSize = intval($this->app->request->get('pageSize'));
+
+        $workList = WorkService::listLikedWork($this->currentContext['UserId'], $page, $pageSize);
+        $this->sendResponse($workList);
+    }
+
     public function search()
     {
         $page = intval($this->app->request->get('page'));

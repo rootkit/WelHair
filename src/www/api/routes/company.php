@@ -19,6 +19,11 @@ $app->get('/companies', function () use ($app) {
     $ctrl->search();
 });
 
+$app->get('/companies/liked', function () use ($app) {
+    $ctrl = new CompanyController();
+    $ctrl->liked();
+});
+
 $app->get('/companies/:companyId', function ($companyId) use ($app) {
     $ctrl = new CompanyController();
     $ctrl->getDetail($companyId);

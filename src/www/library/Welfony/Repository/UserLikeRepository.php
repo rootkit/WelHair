@@ -19,6 +19,69 @@ use Welfony\Repository\Base\AbstractRepository;
 class UserLikeRepository extends AbstractRepository
 {
 
+    public function listLikedUserCount($currentUserId)
+    {
+        $strSql = "SELECT
+                     COUNT(1) `Total`
+                   FROM Users U
+                   INNER JOIN UserLike UL ON UL.UserId = U.UserId
+                   WHERE UL.CreatedBy = ?
+                   LIMIT 1";
+
+        $row = $this->conn->fetchAssoc($strSql, array($currentUserId));
+
+        return $row['Total'];
+    }
+
+    public function listLikedUser($currentUserId, $location, $page, $pageSize)
+    {
+        $strSql = "CALL spListLikedStaff(?, ?, ?, ?, ?);";
+
+        return $this->conn->fetchAll($strSql, array($currentUserId, $location['Latitude'], $location['Longitude'], $page, $pageSize));
+    }
+
+    public function listLikedCompanyCount($currentUserId)
+    {
+        $strSql = "SELECT
+                     COUNT(1) `Total`
+                   FROM Company C
+                   INNER JOIN UserLike UL ON UL.CompanyId = C.CompanyId
+                   WHERE C.Status = 1 AND UL.CreatedBy = ?
+                   LIMIT 1";
+
+        $row = $this->conn->fetchAssoc($strSql, array($currentUserId));
+
+        return $row['Total'];
+    }
+
+    public function listLikedCompany($currentUserId, $location, $page, $pageSize)
+    {
+        $strSql = "CALL spListLikedCompany(?, ?, ?, ?, ?);";
+
+        return $this->conn->fetchAll($strSql, array($currentUserId, $location['Latitude'], $location['Longitude'], $page, $pageSize));
+    }
+
+    public function listLikedWorkCount($currentUserId)
+    {
+        $strSql = "SELECT
+                     COUNT(1) `Total`
+                   FROM Work W
+                   INNER JOIN UserLike UL ON UL.WorkId = W.WorkId
+                   WHERE UL.CreatedBy = ?
+                   LIMIT 1";
+
+        $row = $this->conn->fetchAssoc($strSql, array($currentUserId));
+
+        return $row['Total'];
+    }
+
+    public function listLikedWork($currentUserId, $page, $pageSize)
+    {
+        $strSql = "CALL spListLikedWork(?, ?, ?);";
+
+        return $this->conn->fetchAll($strSql, array($currentUserId, $page, $pageSize));
+    }
+
     public function findByUserAndWorkId($createdBy, $workId)
     {
         $strSql = 'SELECT

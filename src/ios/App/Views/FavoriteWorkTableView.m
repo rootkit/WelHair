@@ -1,22 +1,28 @@
+// ==============================================================================
 //
-//  FavoritetableView.m
-//  WelHair
+// This file is part of the WelHair
 //
-//  Created by lu larry on 4/9/14.
-//  Copyright (c) 2014 Welfony. All rights reserved.
+// Create by Welfony <support@welfony.com>
+// Copyright (c) 2013-2014 welfony.com
 //
+// For the full copyright and license information, please view the LICENSE
+// file that was distributed with this source code.
+//
+// ==============================================================================
 
-#import "FavoriteWorkTableView.h"
-#import "UIScrollView+UzysCircularProgressPullToRefresh.h"
 #import "BrickView.h"
+#import "FavoriteWorkTableView.h"
 #import "Work.h"
 #import "WorkCell.h"
-@interface FavoriteWorkTableView()<BrickViewDataSource, BrickViewDelegate>
+
+@interface FavoriteWorkTableView() <BrickViewDataSource, BrickViewDelegate>
+
 @property (nonatomic, strong) NSArray *datasource;
 @property (nonatomic, strong) BrickView *tableView;
 @property (nonatomic) NSInteger currentPage;
 
 - (void)getWorks;
+
 @end
 
 @implementation FavoriteWorkTableView
@@ -25,14 +31,17 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
+        self.currentPage = 1;
+
         self.tableView = [[BrickView alloc] init];
+        self.tableView.padding = 10;
         self.tableView.frame = self.bounds;
         self.tableView.backgroundColor = [UIColor clearColor];
         self.tableView.delegate = self;
         self.tableView.dataSource = self;
         self.tableView.backgroundColor = [UIColor colorWithHexString:@"f2f2f2"];
         [self addSubview:self.tableView];
-        
+
         __weak typeof(self) weakSelf = self;
         [self.tableView addPullToRefreshActionHandler:^{
             weakSelf.currentPage = 1;
@@ -49,9 +58,10 @@
             [weakSelf getWorks];
         }];
         self.tableView.showsInfiniteScrolling = NO;
-        self.datasource = [FakeDataHelper getFakeWorkList];
-        [self.tableView reloadData];
     }
+
+    [self.tableView triggerPullToRefresh];
+
     return self;
 }
 
@@ -91,12 +101,13 @@
 
 
 #pragma get data
+
 - (void)getWorks
 {
     NSMutableDictionary *reqData = [[NSMutableDictionary alloc] initWithCapacity:1];
     [reqData setObject:[NSString stringWithFormat:@"%d", self.currentPage] forKey:@"page"];
     [reqData setObject:[NSString stringWithFormat:@"%d", TABLEVIEW_PAGESIZE_DEFAULT] forKey:@"pageSize"];
-    ASIHTTPRequest *request = [RequestUtil createGetRequestWithURL:[NSURL URLWithString:API_WORKS_SEARCH] andParam:reqData];
+    ASIHTTPRequest *request = [RequestUtil createGetRequestWithURL:[NSURL URLWithString:API_WORKS_LIKED] andParam:reqData];
     [request setDelegate:self];
     [request setDidFinishSelector:@selector(finishGetWorks:)];
     [request setDidFailSelector:@selector(failGetWorks:)];
