@@ -84,7 +84,7 @@ class Order_IndexController extends AbstractAdminController
                 $order['Area'] = $this->_request->getParam('area');
             }
             $goods = $this->_request->getParam('goods');
-            $order['CreateTime']= date('Y-m-d H:i:s'),
+            $order['CreateTime']= date('Y-m-d H:i:s');
             $order['IsDeleted']= '0';
 
            
