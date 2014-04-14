@@ -52,7 +52,6 @@ class AppointmentController extends AbstractAPIController
     public function update($appointmentId)
     {
         $reqData = $this->getDataFromRequestWithJsonFormat();
-        $reqData['UserId'] = $this->currentContext['UserId'];
 
         $result = AppointmentService::update($appointmentId, $reqData);
         $this->sendResponse($result);

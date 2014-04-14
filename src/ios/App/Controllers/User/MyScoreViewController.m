@@ -12,6 +12,7 @@
 
 #import "MyScoreCell.h"
 #import "MyScoreViewController.h"
+#import "UserManager.h"
 
 @interface MyScoreViewController ()<UITableViewDataSource, UITableViewDelegate>
 
@@ -83,18 +84,56 @@
     self.tableView.rowHeight = 100;
     [self.view addSubview:self.tableView];
     
-    [self loadData];
+    __weak typeof(self) weakSelf = self;
+    [self.tableView addPullToRefreshActionHandler:^{
+        [weakSelf getPoints];
+    }];
+
+    [self.tableView.pullToRefreshView setSize:CGSizeMake(25, 25)];
+    [self.tableView.pullToRefreshView setBorderWidth:2];
+    [self.tableView.pullToRefreshView setBorderColor:[UIColor whiteColor]];
+    [self.tableView.pullToRefreshView setImageIcon:[UIImage imageNamed:@"centerIcon"]];
 }
-- (void)loadData
+- (void)getPoints
 {
-    self.datasource = [FakeDataHelper getFakeWorkList];
+    NSMutableDictionary *reqData = [[NSMutableDictionary alloc] initWithCapacity:1];
+
+    ASIHTTPRequest *request = [RequestUtil createGetRequestWithURL:[NSURL URLWithString:[NSString stringWithFormat:API_USERS_POINTS, [UserManager SharedInstance].userLogined.id]] andParam:reqData];
+    [request setDelegate:self];
+    [request setDidFinishSelector:@selector(finishGetPoints:)];
+    [request setDidFailSelector:@selector(failGetPoints:)];
+    [request startAsynchronous];
+}
+
+- (void)finishGetPoints:(ASIHTTPRequest *)request
+{
+    self.datasource = [Util objectFromJson:request.responseString];
+
+    [self.tableView stopRefreshAnimation];
+    [self checkEmpty];
+
+    [self.tableView reloadData];
+
+    int totalPoints = 0;
+    for (NSDictionary *dic in self.datasource) {
+        totalPoints += [[dic objectForKey:@"Value"] intValue];
+    }
+
+    self.scoreLbl.text = [NSString stringWithFormat:@"%d", totalPoints];
+}
+
+- (void)failGetPoints:(ASIHTTPRequest *)request
+{
+}
+
+- (void)checkEmpty
+{
 
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.scoreLbl.text = @"1234";
 }
 
 - (void)didReceiveMemoryWarning
@@ -120,8 +159,10 @@
         cell = [[MyScoreCell alloc]  initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
+
     cell.contentView.backgroundColor = indexPath.row % 2 == 0 ?  [UIColor colorWithHexString:APP_CONTENT_BG_COLOR] : [UIColor whiteColor];
-    [cell setup:nil isTop:indexPath.row == 0 isBottom:indexPath.row == self.datasource.count -1];
+    [cell setup:[self.datasource objectAtIndex:indexPath.row] isTop:indexPath.row == 0 isBottom:indexPath.row == self.datasource.count -1];
+
     return cell;
 }
 

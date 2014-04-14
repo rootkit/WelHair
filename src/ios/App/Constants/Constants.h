@@ -35,6 +35,7 @@
 #define API_USERS_DETAIL API_PATH(@"/users/%d")
 #define API_USERS_UPDATE API_PATH(@"/users/%d")
 #define API_USERS_APPOINTMENT API_PATH(@"/users/%d/appointments")
+#define API_USERS_POINTS API_PATH(@"/users/%d/points")
 
 #define API_SERVICES_SEARCH API_PATH(@"/services")
 #define API_SERVICES_CREATE API_PATH(@"/services")
