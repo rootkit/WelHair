@@ -127,7 +127,7 @@ class OrderRepository extends AbstractRepository
         $conn->beginTransaction();
         try {
 
-            $this->conn->update('Order', $data, array('Order' => $orderId));
+            $this->conn->update('`Order`', $data, array('OrderId' => $orderId));
 
             if ($goods) {
                $this->conn->delete('OrderGoods', array('OrderId'=> $orderId));

@@ -80,7 +80,10 @@ $(function() {
           url = form.attr( "action" );
 
           var orderdata = { 
-                'orderno': orderno
+                'orderno': orderno,
+                'distribution' : $('#distribution').val(),
+                'paytype':$('#paytype').val(),
+                'acceptname':$('#acceptname').val()
             };
 
           var goods = $('tr.goodsid').map(function(i,n){
@@ -103,6 +106,21 @@ $(function() {
 
           orderdata['goods'] = goods;
 
+          if( $('#sel-province').val() != '')
+          {
+            orderdata['province'] = $('#sel-province').val();
+          }
+
+          if( $('#sel-city').val() != '')
+          {
+            orderdata['city'] = $('#sel-city').val();
+          }
+
+          if( $('#sel-district').val() != '')
+          {
+            orderdata['area'] = $('#sel-district').val();
+          }
+
 
           var posting = $.post( url, orderdata );
 
@@ -124,4 +142,6 @@ $(function() {
         window.location = globalSetting.baseUrl + '/order/index/search';
         return;
     });
+
+    WF.initAreaSelector();
 });
