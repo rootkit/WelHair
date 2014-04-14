@@ -16,6 +16,7 @@ namespace Welfony\Controller\API;
 
 use Welfony\Controller\Base\AbstractAPIController;
 use Welfony\Service\UserLikeService;
+use Welfony\Service\UserPointService;
 use Welfony\Service\UserService;
 
 class UserController extends AbstractAPIController
@@ -127,7 +128,7 @@ class UserController extends AbstractAPIController
 
     public function listPointsByUser($userId)
     {
-
+        $this->sendResponse(UserPointService::listAllPointsByUserAndType($userId));
     }
 
 }

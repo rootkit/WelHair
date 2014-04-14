@@ -20,6 +20,11 @@ use Welfony\Repository\UserPointRepository;
 class UserPointService
 {
 
+    public static function listAllPointsByUserAndType($userId, $type = 0)
+    {
+        return UserPointRepository::getInstance()->getAllPointsByUserAndType($userId, $type);
+    }
+
     public static function addPoint($data)
     {
         switch ($data['Type']) {

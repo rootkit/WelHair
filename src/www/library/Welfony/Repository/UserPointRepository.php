@@ -24,9 +24,9 @@ class UserPointRepository extends AbstractRepository
         $strSql = 'SELECT
                        *
                    FROM UserPoint UP
-                   WHERE UP.UserId = ? AND UP.Type = ?';
+                   WHERE UP.UserId = ? AND (? = 0 OR UP.Type = ?)';
 
-        return $this->conn->fetchAll($strSql, array($userId, $type));
+        return $this->conn->fetchAll($strSql, array($userId, $type, $type));
     }
 
     public function save($data)

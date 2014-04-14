@@ -224,15 +224,15 @@ textarea.u-ipt
 
 .m-form .lab {
     float: left;
-    margin-right: -90px;
-    width: 90px;
+    margin-right: -100px;
+    width: 100px;
     text-align: right;
     font-weight: bold;
 }
 
 .m-form .ipt {
     position: relative;
-    margin-left: 100px;
+    margin-left: 110px;
 }
 
 .m-form .ipt * {
