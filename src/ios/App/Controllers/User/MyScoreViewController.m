@@ -94,6 +94,7 @@
     [self.tableView.pullToRefreshView setBorderColor:[UIColor whiteColor]];
     [self.tableView.pullToRefreshView setImageIcon:[UIImage imageNamed:@"centerIcon"]];
 }
+
 - (void)getPoints
 {
     NSMutableDictionary *reqData = [[NSMutableDictionary alloc] initWithCapacity:1];
@@ -134,6 +135,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [self getPoints];
 }
 
 - (void)didReceiveMemoryWarning
