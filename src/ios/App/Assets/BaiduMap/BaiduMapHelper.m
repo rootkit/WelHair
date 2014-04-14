@@ -24,9 +24,9 @@
     self = [super init];
     if(self){
         _mapView = [[BMKMapView alloc] init];
+        _mapView.delegate = self;
         _search = [[BMKSearch alloc]init];
         _search.delegate = self;
-        _mapView.delegate = self;
     }
     return self;
 }
@@ -51,13 +51,13 @@
 - (void)mapView:(BMKMapView *)mapView didUpdateUserLocation:(BMKUserLocation *)userLocation
 {
 	if (userLocation != nil) {
-        _mapView.showsUserLocation = NO;
         NSLog(@"%f %f", userLocation.location.coordinate.latitude, userLocation.location.coordinate.longitude);
         if([_search reverseGeocode:userLocation.coordinate]){
             debugLog(@"reverse geo code success");
         }else{
             debugLog(@"reverse geo code fail");
         }
+        _mapView.showsUserLocation = NO;
 	}
 }
 

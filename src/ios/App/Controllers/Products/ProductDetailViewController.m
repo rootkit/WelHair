@@ -77,9 +77,15 @@
     [self.navigationController setNavigationBarHidden:YES animated:YES];
 }
 
-- (void)viewWillDisappear:(BOOL)animated{
-    [super viewWillDisappear:animated];
-    [self.navigationController setNavigationBarHidden:NO animated:YES];
+- (void)viewWillDisappear:(BOOL)animated
+{
+    NSArray *viewControllers = self.navigationController.viewControllers;
+    if([viewControllers objectAtIndex:viewControllers.count - 1] == self){
+        // navigationController is presenting viewcontrolls
+    }else{
+        // navigationController is pushing or poping viewcontrolls
+        [self.navigationController setNavigationBarHidden:NO animated:YES];
+    }
 }
 
 - (void)viewDidLoad
@@ -383,20 +389,19 @@
 
 - (void)rightBtnClick
 {
-    NSString *shareText = @"我的分享";             //分享内嵌文字
-    UIImage *shareImage = [UIImage imageNamed:@"UMS_social_demo"];          //分享内嵌图片
-    
-    //如果得到分享完成回调，需要设置delegate为self
+    NSString *shareText = self.product.name;
+    UIImageView *v = [[UIImageView alloc] init];
+    [v setImageWithURL:self.product.imgUrlList[0]];
+    UIImage *img = v.image;
     [UMSocialSnsService presentSnsIconSheetView:self
                                          appKey:CONFIG_UMSOCIAL_APPKEY
                                       shareText:shareText
-                                     shareImage:shareImage
+                                     shareImage:img
                                 shareToSnsNames:[NSArray arrayWithObjects:
+                                                 UMShareToSina,
                                                  UMShareToTencent,
                                                  UMShareToQQ,
-                                                 UMShareToSina,
-                                                 UMShareToRenren,
-                                                 UMShareToSms,nil]
+                                                 UMShareToWechatSession,nil]
                                        delegate:self];
 }
 
@@ -475,15 +480,15 @@
                                                           WIDTH(self.view),
                                                           HEIGHT(self.view) - self.topBarOffset - 80)];
     
-    
+    __weak typeof(self) selfDelegate = self;
     [panel setupTitle:@"产品"
              opitions:[self buildSelectionOpition]
               product:self.product
                cancel:^(){[self.tabBarController dismissSemiModalView];}
                submit:^(SelectOpition *opitions){
-                   self.selectOpition =opitions;
-                   [self.tabBarController dismissSemiModalView];
-                   [self.navigationController pushViewController:[OrderPreviewViewController new] animated:YES];
+                   selfDelegate.selectOpition =opitions;
+                   [selfDelegate.tabBarController dismissSemiModalView];
+                   [selfDelegate.navigationController pushViewController:[OrderPreviewViewController new] animated:YES];
                }];
     [self.tabBarController presentSemiView:panel withOptions:nil];
 }

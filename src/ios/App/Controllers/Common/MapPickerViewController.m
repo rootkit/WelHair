@@ -62,6 +62,7 @@
     [super viewDidLoad];
     _mapView = [[BMKMapView alloc]initWithFrame:CGRectMake(0, self.topBarOffset, WIDTH(self.view), HEIGHT(self.view) - self.topBarOffset)];
     [self.view addSubview:_mapView];
+    _mapView.centerCoordinate = JINAN_CENTER_COORDINATE;
 }
 
 - (void)didReceiveMemoryWarning

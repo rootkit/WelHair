@@ -68,6 +68,10 @@
     BMKMapView *_mapView;
     BMKSearch* _search;
 }
+@property (nonatomic, strong) UIButton *locateBtn;
+@property (nonatomic, strong) UIButton *aroundBtn;
+
+@property (nonatomic) CLLocationCoordinate2D currentLocation;
 @end
 
 @implementation MapViewController
@@ -115,7 +119,7 @@
     [super viewDidLoad];
     float bottomHeight = 49;
     _mapView = [[BMKMapView alloc]initWithFrame:CGRectMake(0, 0, WIDTH(self.view), HEIGHT(self.view) - bottomHeight)];
-    [self locateClick];
+    _mapView.centerCoordinate = JINAN_CENTER_COORDINATE;
     [self.view addSubview:_mapView];
     
     float topViewHeight = isIOS7 ? kStatusBarHeight + kTopBarHeight : kTopBarHeight;
@@ -142,51 +146,27 @@
     bottomView.backgroundColor = [UIColor whiteColor];
     
     // bottom left button
-    UIButton *locationAddress = [UIButton buttonWithType:UIButtonTypeCustom];
-    locationAddress.frame = CGRectMake(0, 0, WIDTH(bottomView)/2, bottomHeight);
-    locationAddress.tag = 0;
-    [locationAddress addTarget:self action:@selector(bottomButtonClick:) forControlEvents:UIControlEventTouchUpInside];
-    [locationAddress setTitle:@"本店地址" forState:UIControlStateNormal];
-    [locationAddress setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    [bottomView addSubview:locationAddress];
+    self.locateBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    self.locateBtn.frame = CGRectMake(0, 0, WIDTH(bottomView)/2, bottomHeight);
+    [self.locateBtn addTarget:self action:@selector(bottomButtonClick:) forControlEvents:UIControlEventTouchUpInside];
+    [self.locateBtn setTitle:@"本店地址" forState:UIControlStateNormal];
+    [bottomView addSubview:self.locateBtn];
     
-    UIView *bottomLinerView = [[UIView alloc] initWithFrame:CGRectMake(MaxX(locationAddress),10, 1,29)];
+    UIView *bottomLinerView = [[UIView alloc] initWithFrame:CGRectMake(MaxX(self.locateBtn),10, 1,29)];
     bottomLinerView.backgroundColor = [UIColor lightGrayColor];
     [bottomView addSubview:bottomLinerView];
     
     // bottom right button
-    UIButton *aroundBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    aroundBtn.frame = CGRectMake(MaxX(locationAddress), 0, WIDTH(bottomView)/2, bottomHeight);
-    aroundBtn.tag = 1;
-    [aroundBtn addTarget:self action:@selector(bottomButtonClick:) forControlEvents:UIControlEventTouchUpInside];
-    [aroundBtn setTitle:@"周边店铺" forState:UIControlStateNormal];
-    [aroundBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    [bottomView addSubview:aroundBtn];
-
-    
-
-    
-//    UIButton *locateBtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-//    locateBtn.frame = CGRectMake(60,60, 60, 30);
-//    [locateBtn setTitle:@"定位" forState:UIControlStateNormal];
-//    [locateBtn addTarget:self action:@selector(locateClick) forControlEvents:UIControlEventTouchDown];
-//    [self.view addSubview:locateBtn];
-//    
-//    UIButton *commentBtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-//    commentBtn.frame = CGRectMake(120,60, 60, 30);
-//    [commentBtn setTitle:@"附近餐厅" forState:UIControlStateNormal];
-//    [commentBtn addTarget:self action:@selector(foodsClick) forControlEvents:UIControlEventTouchDown];
-//    [self.view addSubview:commentBtn];
-//    
-//    UIButton *mapBtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-//    mapBtn.frame = CGRectMake(180,60, 60, 30);
-//    [mapBtn setTitle:@"划线" forState:UIControlStateNormal];
-//    [mapBtn addTarget:self action:@selector(lineClick) forControlEvents:UIControlEventTouchDown];
-//    [self.view addSubview:mapBtn];
+    self.aroundBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    self.aroundBtn.frame = CGRectMake(MaxX(self.locateBtn), 0, WIDTH(bottomView)/2, bottomHeight);
+    [self.aroundBtn addTarget:self action:@selector(bottomButtonClick:) forControlEvents:UIControlEventTouchUpInside];
+    [self.aroundBtn setTitle:@"周边店铺" forState:UIControlStateNormal];
+    [bottomView addSubview:self.aroundBtn];
     
     _search = [[BMKSearch alloc]init];
     [_mapView setZoomLevel:13];
     _mapView.isSelectedAnnotationViewFront = YES;
+    [self locateClick];
 }
 
 - (void)didReceiveMemoryWarning
@@ -200,25 +180,26 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 
-
 - (void)bottomButtonClick:(id)sender
 {
     UIButton *btn = (UIButton *)sender;
-    if(btn.tag == 0){
+    if(btn == self.locateBtn){
         [self locateClick];
     }else{
-        [self foodsClick];
+        [self aroundClick];
     }
 }
 
 - (void)locateClick
 {
+    [self.aroundBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [self.locateBtn setTitleColor:[UIColor colorWithHexString:APP_NAVIGATIONBAR_COLOR] forState:UIControlStateNormal];
     //普通态
-//    debugLog(@"进入普通定位态");
-//    _mapView.showsUserLocation = NO;
-//    _mapView.userTrackingMode = BMKUserTrackingModeFollow;
-//    _mapView.zoomLevel = 16;
-//    _mapView.showsUserLocation = YES;
+    debugLog(@"进入普通定位态");
+    _mapView.showsUserLocation = NO;
+    _mapView.userTrackingMode = BMKUserTrackingModeFollow;
+    _mapView.zoomLevel = 13;
+    _mapView.showsUserLocation = YES;
     
     NSArray* array = [NSArray arrayWithArray:_mapView.annotations];
 	[_mapView removeAnnotations:array];
@@ -231,8 +212,10 @@
     _mapView.centerCoordinate = item.coordinate;
 }
 
-- (void)foodsClick
+- (void)aroundClick
 {
+    [self.locateBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [self.aroundBtn setTitleColor:[UIColor colorWithHexString:APP_NAVIGATIONBAR_COLOR] forState:UIControlStateNormal];
     // 清楚屏幕中所有的annotation
     NSArray* array = [NSArray arrayWithArray:_mapView.annotations];
 	[_mapView removeAnnotations:array];
@@ -253,26 +236,6 @@
 }
 
 
-- (void)lineClick
-{
-    
-    _mapView.zoomLevel = 13;
- 	BMKPlanNode* start = [[BMKPlanNode alloc]init];
-	start.name = @"当前地址";
-    start.pt = _mapView.centerCoordinate;
-	BMKPlanNode* end = [[BMKPlanNode alloc]init] ;
-    end.name = @"目标地址";
-    end.pt = CLLocationCoordinate2DMake(36.669123,117.023817);
-    
-	BOOL flag = [_search drivingSearch:start.name startNode:start endCity:end.name endNode:end];
-	if (flag) {
-		debugLog(@"search success.");
-	}
-    else{
-        debugLog(@"search failed!");
-    }
-}
-
 /**
  *根据anntation生成对应的View
  *@param mapView 地图View
@@ -286,7 +249,7 @@
 	}
     
     // 生成重用标示identifier
-    NSString *AnnotationViewID = @"gaoxinMark";
+    NSString *AnnotationViewID = @"annotationView";
 	
     // 检查是否有重用的缓存
     BMKAnnotationView* annotationView = [view dequeueReusableAnnotationViewWithIdentifier:AnnotationViewID];
@@ -321,7 +284,13 @@
 
 - (void)mapView:(BMKMapView *)mapView annotationViewForBubble:(BMKAnnotationView *)view
 {
-    [self.navigationController pushViewController:[GroupDetailViewController new] animated:YES];
+    if([view.annotation coordinate].latitude ==  self.currentLocation.latitude &&
+       [view.annotation coordinate].longitude ==  self.currentLocation.longitude){
+        return;
+    }
+    GroupDetailViewController *groupVc = [GroupDetailViewController new];
+    groupVc.group = nil;
+    [self.navigationController pushViewController:groupVc animated:YES];
 }
 
 #pragma mark -
@@ -373,6 +342,7 @@
 - (void)mapView:(BMKMapView *)mapView didUpdateUserLocation:(BMKUserLocation *)userLocation
 {
 	if (userLocation != nil) {
+        self.currentLocation = userLocation.location.coordinate;
 		debugLog(@"%f %f", userLocation.location.coordinate.latitude, userLocation.location.coordinate.longitude);
 	}
 }
@@ -569,15 +539,15 @@
  *@param mapview 地图View
  *@param coordinate 返回长按事件坐标点的经纬度
  */
-- (void)mapview:(BMKMapView *)mapView onLongClick:(CLLocationCoordinate2D)coordinate
-{
-    debugLog(@"onLongClick-latitude==%f,longitude==%f",coordinate.latitude,coordinate.longitude);
-    
-    BMKPointAnnotation* item1 = [[BMKPointAnnotation alloc]init];
-    item1.coordinate = coordinate;
-    item1.title = @"选中坐标";
-    [_mapView addAnnotation:item1];
-    
-}
+//- (void)mapview:(BMKMapView *)mapView onLongClick:(CLLocationCoordinate2D)coordinate
+//{
+//    debugLog(@"onLongClick-latitude==%f,longitude==%f",coordinate.latitude,coordinate.longitude);
+//    
+//    BMKPointAnnotation* item1 = [[BMKPointAnnotation alloc]init];
+//    item1.coordinate = coordinate;
+//    item1.title = @"选中坐标";
+//    [_mapView addAnnotation:item1];
+//    
+//}
 
 @end

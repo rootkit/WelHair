@@ -12,6 +12,8 @@
 
 #import "AppDelegate.h"
 #import "UMSocial.h"
+#import "UMSocialQQHandler.h"
+ #import "UMSocialWechatHandler.h"
 #import "RootViewController.h"
 #import "BMapKit.h"
 //#import <TencentOpenAPI/QQApiInterface.h> 
@@ -59,7 +61,8 @@
 //    [UMSocialConfig setWXAppId:CONFIG_WECHAT_ID url:nil];
 //    [UMSocialConfig setQQAppId:CONFIG_QQ_APP_ID url:nil importClasses:@[[QQApiInterface class],[TencentOAuth class]]];
     [UMSocialConfig setSupportSinaSSO:YES];
-    
+    [UMSocialQQHandler setQQWithAppId:CONFIG_QQ_APP_ID appKey:CONFIG_QQ_APP_KEY url:HOME_SITE];
+    [UMSocialWechatHandler setWXAppId:CONFIG_WECHAT_ID url:HOME_SITE];
     //setup baidu map component
     _mapManager = [[BMKMapManager alloc]init];
     // 如果要关注网络及授权验证事件，请设定generalDelegate参数

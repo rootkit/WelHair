@@ -115,7 +115,7 @@
     CGFloat navItemMargin = isIOS7 ? 16 : 0;
     UIButton *leftItemButton = [UIButton buttonWithType:UIButtonTypeCustom];
 
-    [leftItemButton addTarget:self action:@selector(leftNavItemClick) forControlEvents:UIControlEventTouchUpInside];
+    [leftItemButton addTarget:self action:@selector(leftNavItemClick) forControlEvents:UIControlEventTouchDown];
     if(title.length > 0){
         leftItemButton.frame = CGRectMake(6, 0, 80, kTopBarHeight);
         leftItemButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
@@ -138,7 +138,7 @@
     CGFloat navItemMargin = isIOS7 ? 16 : 0;
     UIButton *rightItemButton = [UIButton buttonWithType:UIButtonTypeCustom];
     
-    [rightItemButton addTarget:self action:@selector(rightNavItemClick) forControlEvents:UIControlEventTouchUpInside];
+    [rightItemButton addTarget:self action:@selector(rightNavItemClick) forControlEvents:UIControlEventTouchDown];
     if(title.length > 0){
         rightItemButton.frame = CGRectMake(-6, 0, 80, kTopBarHeight);
         rightItemButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;

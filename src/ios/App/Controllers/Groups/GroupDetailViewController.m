@@ -66,32 +66,39 @@ static const float profileViewHeight = 320;
 
 - (void)rightBtnClick
 {
-    NSString *shareText = @"我的分享";
-    UIImage *shareImage = [UIImage imageNamed:@"UMS_social_demo"];
-
+    NSString *shareText = @"快来这里看看吧";
+    UIImageView *v = [[UIImageView alloc] init];
+    [v setImageWithURL:self.group.imgUrls[0]];
+    UIImage *img = v.image;
     [UMSocialSnsService presentSnsIconSheetView:self
                                          appKey:CONFIG_UMSOCIAL_APPKEY
                                       shareText:shareText
-                                     shareImage:shareImage
+                                     shareImage:img
                                 shareToSnsNames:[NSArray arrayWithObjects:
+                                                 UMShareToSina,
                                                  UMShareToTencent,
                                                  UMShareToQQ,
-                                                 UMShareToSina,
-                                                 UMShareToRenren,
-                                                 UMShareToSms,nil]
+                                                 UMShareToWechatSession,nil]
                                        delegate:self];
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [self.navigationController setNavigationBarHidden:YES animated:NO];
+    [self.navigationController setNavigationBarHidden:YES animated:YES];
 }
 
-- (void)viewWillDisappear:(BOOL)animated{
-    [super viewWillDisappear:animated];
-    [self.navigationController setNavigationBarHidden:NO animated:NO];
+- (void)viewWillDisappear:(BOOL)animated
+{
+    NSArray *viewControllers = self.navigationController.viewControllers;
+    if([viewControllers objectAtIndex:viewControllers.count - 1] == self){
+        // navigationController is presenting viewcontrolls
+    }else{
+        // navigationController is pushing or poping viewcontrolls
+        [self.navigationController setNavigationBarHidden:NO animated:YES];
+    }
 }
+
 
 - (void)loadView
 {

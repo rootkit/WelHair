@@ -12,9 +12,11 @@
 
 #define WEBSOCKET_SERVER_URL @"ws://115.28.208.165:8080"
 
+#define HOME_SITE @"http://115.28.208.165/api"
 #define CONFIG_UMSOCIAL_APPKEY @"530c98ec56240bfad303d2d2"
 #define CONFIG_WECHAT_ID @"wxa3bf1e76d675b23a"
-#define CONFIG_QQ_APP_ID  @"100424468"
+#define CONFIG_QQ_APP_ID  @"101061921"
+#define CONFIG_QQ_APP_KEY @"65ee635188efe517af93da656e8777da"
 #define CONFIG_BAIDU_MAP_KEY  @"mATLLTobcd8XqZIj3xlPt8il"
 
 #define DB_FILE_NAME   @"db.sqlite"
@@ -89,4 +91,7 @@
 #define TABLEVIEW_PAGESIZE_DEFAULT 10
 
 #define CHARACTER_ARRAY  @[@'A',@'B',@'C',@'D',@'E',@'F',@'G',@'H',@'I',@'J',@'K',@'L',@'M',@'N',@'O',@'P',@'Q',@'R',@'S',@'T',@'U',@'V',@'W',@'X',@'Y',@'Z']
+
+
+#define  JINAN_CENTER_COORDINATE  CLLocationCoordinate2DMake(36.670266,117.149292);
 

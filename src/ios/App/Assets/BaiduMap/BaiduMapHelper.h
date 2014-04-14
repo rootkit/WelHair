@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "City.h"
+
 typedef void (^LocateCompleteHandler)(City *city);
 
 @interface BaiduMapHelper : NSObject
