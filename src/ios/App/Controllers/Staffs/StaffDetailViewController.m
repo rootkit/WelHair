@@ -10,6 +10,7 @@
 //
 // ==============================================================================
 
+#import "Appointment.h"
 #import "AppointmentPreviewViewController.h"
 #import "CalendarViewController.h"
 #import "CircleImageView.h"
@@ -254,9 +255,24 @@ static const float profileViewHeight = 90;
                    [self.tabBarController dismissSemiModalView];
                }
                submit:^(SelectOpition *opitions) {
-                   self.selectOpition = opitions;
+                   NSArray *selectedValues = opitions.selectedValues;
+
+                   OpitionItem *itemService = (OpitionItem *)selectedValues[0];
+
+                   Appointment *apt = [Appointment new];
+                   apt.staff = self.staff;
+                   apt.service = [Service new];
+                   apt.service.id = itemService.id;
+                   apt.service.name = itemService.title;
+                   apt.service.salePrice = itemService.price;
+                   apt.price = itemService.price;
+                   apt.date = selectedValues[1];
+
                    [self.tabBarController dismissSemiModalView];
-                   [self.navigationController pushViewController:[AppointmentPreviewViewController new] animated:YES];
+
+                   AppointmentPreviewViewController *aptPreviewVC = [AppointmentPreviewViewController new];
+                   aptPreviewVC.appointment = apt;
+                   [self.navigationController pushViewController:aptPreviewVC animated:YES];
                }];
     [self.tabBarController presentSemiView:panel withOptions:nil];
 }

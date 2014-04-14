@@ -304,6 +304,7 @@ static const float profileViewHeight = 90;
     switch (btn.tag) {
         case 0: {
             AppointmentsViewController *vc = [AppointmentsViewController new];
+            vc.userId = [[UserManager SharedInstance] userLogined].id;
             vc.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:vc animated:YES];
 

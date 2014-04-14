@@ -24,12 +24,17 @@
 #define API_PATH(path) [NSString stringWithFormat:@"http://welhair.com/api%@", path]
 
 //#define API_PATH(path) [NSString stringWithFormat:@"http://115.28.208.165/api%@", path]
+
+#define API_APPOINTMENTS_CREATE API_PATH(@"/appointments")
+#define API_APPOINTMENTS_UPDATE API_PATH(@"/appointments/%d")
+
 #define API_SOCIAL_LOGIN API_PATH(@"/socials/login")
 
 #define API_USERS_SIGNIN_EMAIL API_PATH(@"/users/signin/email")
 #define API_USERS_SIGNUP_EMAIL API_PATH(@"/users/signup/email")
 #define API_USERS_DETAIL API_PATH(@"/users/%d")
 #define API_USERS_UPDATE API_PATH(@"/users/%d")
+#define API_USERS_APPOINTMENT API_PATH(@"/users/%d/appointments")
 
 #define API_SERVICES_SEARCH API_PATH(@"/services")
 #define API_SERVICES_CREATE API_PATH(@"/services")
@@ -50,6 +55,7 @@
 #define API_STAFFS_WORKS API_PATH(@"/staffs/%d/works")
 #define API_STAFFS_SERVICE API_PATH(@"/staffs/%d/services")
 #define API_STAFFS_COMMENT_CREATE API_PATH(@"/staffs/%d/comments")
+#define API_STAFFS_APPOINTMENT API_PATH(@"/staffs/%d/appointments")
 
 #define API_COMPANIES_SEARCH API_PATH(@"/companies")
 #define API_COMPANIES_LIKED API_PATH(@"/companies/liked")
@@ -74,6 +80,7 @@
 
 #define NOTIFICATION_USER_CREATE_GROUP_SUCCESS  @"CreateGroupSuccessfully"
 #define NOTIFICATION_USER_LOGIN_SUCCESS  @"LoginSuccessfully"
+#define NOTIFICATION_REFRESH_APPOINTMENT @"RefreshAppintmentList"
 
 #define HAIR_STYLE_FACE_CICLE   0
 #define HAIR_STYLE_FACE_OVAL    1

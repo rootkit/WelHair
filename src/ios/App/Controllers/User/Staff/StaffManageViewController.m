@@ -20,6 +20,7 @@
 #import "StaffServicesViewController.h"
 #import "UploadWorkFormViewController.h"
 #import "UserManager.h"
+#import "UserProfileViewController.h"
 
 @interface StaffManageViewController ()
 
@@ -94,12 +95,16 @@
 
 - (void)infoClick
 {
-
+    UserProfileViewController *vc = [UserProfileViewController new];
+    vc.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 - (void)appointmentClick
 {
-    [self.navigationController pushViewController:[AppointmentsViewController new] animated:YES];
+    AppointmentsViewController *aptVC = [AppointmentsViewController new];
+    aptVC.staffId = [[UserManager SharedInstance] userLogined].id;
+    [self.navigationController pushViewController:aptVC animated:YES];
 }
 
 

@@ -27,6 +27,8 @@
     CircleImageView *avatorImgView;
     UILabel *nameLbl;
     UILabel *priceLbl;
+
+    UIDatePicker *pick;
 }
 @end
 
@@ -105,14 +107,21 @@
 {
     NSArray *unselectedCategory = [opition unselectedCategory];
     if (unselectedCategory.count == 0) {
+        NSMutableArray *selectedValues = [NSMutableArray arrayWithArray:opition.selectedValues];
+        [selectedValues addObject:pick.date];
+        opition.selectedValues = selectedValues;
+
         _submitHandler(opition);
     } else {
         NSMutableString *str = [NSMutableString string];
         [str appendString:@"请选择"];
         for (NSString *item in unselectedCategory) {
-            [str appendFormat:@",%@", item];
+            [str appendFormat:@"，%@", item];
         }
-        [SVProgressHUD showErrorWithStatus:str duration:1];
+
+        NSMutableCharacterSet *characterSet = [NSMutableCharacterSet whitespaceAndNewlineCharacterSet];
+        [characterSet addCharactersInString:@"，"];
+        [SVProgressHUD showErrorWithStatus:[str stringByTrimmingCharactersInSet:characterSet] duration:1];
     }
 }
 
@@ -160,10 +169,12 @@
     liner.backgroundColor = [UIColor colorWithHexString:@"cccccc"];
     [scrollView addSubview:liner];
     
-    UIDatePicker *pick = [[UIDatePicker alloc] initWithFrame:CGRectMake(0, MaxY(liner) + 10, 320, 100)];
-    [scrollView addSubview:pick];
-    offsetY = MaxY(pick);
+    pick = [[UIDatePicker alloc] initWithFrame:CGRectMake(0, MaxY(liner) + 10, 320, 100)];
     pick.locale = [[NSLocale alloc] initWithLocaleIdentifier:@"zh_CN"];
+    [scrollView addSubview:pick];
+
+    offsetY = MaxY(pick);
+
     scrollView.contentSize = CGSizeMake(WIDTH(self), offsetY);
 }
 

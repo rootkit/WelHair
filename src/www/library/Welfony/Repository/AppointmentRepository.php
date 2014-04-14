@@ -69,10 +69,12 @@ class AppointmentRepository extends AbstractRepository
         $offset = ($page - 1) * $pageSize;
         $strSql = "SELECT
                        A.*,
+                       S.AvatarUrl StaffAvatarUrl,
                        U.Nickname,
                        U.Username
                    FROM Appointment A
                    INNER JOIN Users U ON U.UserId = A.UserId
+                   INNER JOIN Users S ON S.UserId = A.StaffId
                    WHERE A.UserId > 0 $filter
                    ORDER BY A.AppointmentId DESC
                    LIMIT $offset, $pageSize";

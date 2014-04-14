@@ -1,10 +1,14 @@
+// ==============================================================================
 //
-//  AppointmentPreviewViewController.m
-//  WelHair
+// This file is part of the WelSpeak.
 //
-//  Created by lu larry on 3/12/14.
-//  Copyright (c) 2014 Welfony. All rights reserved.
+// Create by Welfony <support@welfony.com>
+// Copyright (c) 2013-2014 welfony.com
 //
+// For the full copyright and license information, please view the LICENSE
+// file that was distributed with this source code.
+//
+// ==============================================================================
 
 #import "AppointmentPreviewViewController.h"
 #import "CircleImageView.h"
@@ -19,11 +23,12 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         self.title = @"预约信息";
+
         FAKIcon *leftIcon = [FAKIonIcons ios7ArrowBackIconWithSize:NAV_BAR_ICON_SIZE];
         [leftIcon addAttribute:NSForegroundColorAttributeName value:[UIColor whiteColor]];
         self.leftNavItemImg =[leftIcon imageWithSize:CGSizeMake(NAV_BAR_ICON_SIZE, NAV_BAR_ICON_SIZE)];
-
     }
+
     return self;
 }
 
@@ -35,7 +40,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.appointment = [FakeDataHelper getFakeAppointmentList][0];
     
     UIImageView *barImgView = [[UIImageView alloc] initWithFrame:CGRectMake(10, self.topBarOffset + 20, 300, 10)];
     barImgView.image =[UIImage imageNamed:@"OrderPreviewViewController_BgBar"];
@@ -49,6 +53,7 @@
     [self.view addSubview:avatorImgView];
     avatorImgView.layer.borderColor = [[UIColor colorWithHexString:@"e0e0de"] CGColor];
     avatorImgView.layer.borderWidth = 2;
+    [avatorImgView setImageWithURL:self.appointment.staff.avatorUrl];
     
     UILabel *staffNameLbl = [[UILabel alloc] initWithFrame:CGRectMake(MaxX(avatorImgView) + 5,
                                                              Y(avatorImgView),
@@ -98,16 +103,16 @@
     
     
     UIView *seperaterView = [[UIView alloc] initWithFrame:CGRectMake(X(avatorImgView),
-                                                                   MaxY(groupAddressLbl) + 10,
+                                                                     MaxY(groupAddressLbl) + 10,
                                                                      WIDTH(self.view) - 2 * X(avatorImgView),
                                                                      1)];
     seperaterView.backgroundColor = [UIColor lightGrayColor];
     [self.view addSubview:seperaterView];
     
     UILabel *serviceNameLbl = [[UILabel alloc] initWithFrame:CGRectMake(X(avatorImgView),
-                                                                  MaxY(seperaterView) + 10,
-                                                                  WIDTH(seperaterView),
-                                                                  25)];
+                                                                        MaxY(seperaterView) + 10,
+                                                                        WIDTH(seperaterView),
+                                                                        25)];
     serviceNameLbl.font = [UIFont systemFontOfSize:16];
     serviceNameLbl.backgroundColor = [UIColor clearColor];
     serviceNameLbl.textColor = [UIColor blackColor];
@@ -115,13 +120,13 @@
     [self.view addSubview:serviceNameLbl];
     
     UILabel *dateLbl = [[UILabel alloc] initWithFrame:CGRectMake(X(serviceNameLbl),
-                                                                        MaxY(serviceNameLbl),
-                                                                        WIDTH(seperaterView),
-                                                                        25)];
+                                                                 MaxY(serviceNameLbl),
+                                                                 WIDTH(seperaterView),
+                                                                 25)];
     dateLbl.font = [UIFont systemFontOfSize:16];
     dateLbl.backgroundColor = [UIColor clearColor];
     dateLbl.textColor = [UIColor blackColor];
-    dateLbl.text = @"预约时间: 2014-12-12";
+    dateLbl.text = [NSString stringWithFormat:@"预约时间: %@", [[NSDate dateFormatter] stringFromDate:self.appointment.date]];
     [self.view addSubview:dateLbl];
     
     bgImgView.frame = CGRectMake(15, MaxY(barImgView)-5, 290, MaxY(dateLbl) + 10 - self.topBarOffset);
@@ -142,23 +147,54 @@
 
 - (void)submitClick:(id)sender
 {
-    [SVProgressHUD showSuccessWithStatus:@"去支付宝支付" duration:1];
+    [SVProgressHUD showWithMaskType:SVProgressHUDMaskTypeClear];
+
+    NSMutableDictionary *reqData = [[NSMutableDictionary alloc] initWithCapacity:1];
+    [reqData setObject:[NSString stringWithFormat:@"%d", self.appointment.staff.id] forKey:@"StaffId"];
+    [reqData setObject:[NSString stringWithFormat:@"%d", self.appointment.service.id] forKey:@"ServiceId"];
+    [reqData setObject:[[NSDate dateFormatter] stringFromDate:self.appointment.date] forKey:@"AppointmentDate"];
+
+    ASIFormDataRequest *request = [RequestUtil createPOSTRequestWithURL:[NSURL URLWithString:API_APPOINTMENTS_CREATE]
+                                                                andData:reqData];
+    [self.requests addObject:request];
+
+    [request setDelegate:self];
+    [request setDidFinishSelector:@selector(createAppointmentFinish:)];
+    [request setDidFailSelector:@selector(createAppointmentFail:)];
+    [request startAsynchronous];
 }
+
+- (void)createAppointmentFinish:(ASIHTTPRequest *)request
+{
+    [SVProgressHUD dismiss];
+
+    if (request.responseStatusCode == 200) {
+        NSDictionary *responseMessage = [Util objectFromJson:request.responseString];
+        if (responseMessage) {
+            if ([responseMessage objectForKey:@"appointment"] == nil) {
+                [SVProgressHUD showErrorWithStatus:[responseMessage objectForKey:@"message"]];
+                return;
+            }
+
+            [SVProgressHUD dismiss];
+
+            [SVProgressHUD showSuccessWithStatus:@"去支付宝支付" duration:1];
+
+            return;
+        }
+    }
+
+    [SVProgressHUD showErrorWithStatus:@"添加预约失败，请重试！"];
+}
+
+- (void)createAppointmentFail:(ASIHTTPRequest *)request
+{
+    [SVProgressHUD showErrorWithStatus:@"添加预约失败，请重试！"];
+}
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

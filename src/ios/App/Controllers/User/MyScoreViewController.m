@@ -1,17 +1,24 @@
+// ==============================================================================
 //
-//  MyScoreViewController.m
-//  WelHair
+// This file is part of the WelHair
 //
-//  Created by lu larry on 3/20/14.
-//  Copyright (c) 2014 Welfony. All rights reserved.
+// Create by Welfony <support@welfony.com>
+// Copyright (c) 2013-2014 welfony.com
 //
+// For the full copyright and license information, please view the LICENSE
+// file that was distributed with this source code.
+//
+// ==============================================================================
 
-#import "MyScoreViewController.h"
 #import "MyScoreCell.h"
+#import "MyScoreViewController.h"
+
 @interface MyScoreViewController ()<UITableViewDataSource, UITableViewDelegate>
+
 @property (nonatomic, strong) NSArray *datasource;
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) UILabel *scoreLbl;
+
 @end
 
 @implementation MyScoreViewController
@@ -27,6 +34,7 @@
         self.leftNavItemImg =[leftIcon imageWithSize:CGSizeMake(NAV_BAR_ICON_SIZE, NAV_BAR_ICON_SIZE)];
         
     }
+
     return self;
 }
 
@@ -92,7 +100,6 @@
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 - (float) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath

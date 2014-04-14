@@ -1,13 +1,18 @@
+// ==============================================================================
 //
-//  AppointmentsViewController.h
-//  WelHair
+// This file is part of the WelHair
 //
-//  Created by lu larry on 3/14/14.
-//  Copyright (c) 2014 Welfony. All rights reserved.
+// Create by Welfony <support@welfony.com>
+// Copyright (c) 2013-2014 welfony.com
 //
-
-#import <UIKit/UIKit.h>
+// For the full copyright and license information, please view the LICENSE
+// file that was distributed with this source code.
+//
+// ==============================================================================
 
 @interface AppointmentsViewController : BaseViewController
+
+@property (nonatomic) int userId;
+@property (nonatomic) int staffId;
 
 @end

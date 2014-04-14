@@ -462,6 +462,10 @@ button.u-btn-sm {
     width: 200px;
 }
 
+.m-table .colc {
+    width: 300px;
+}
+
 .m-table .col-chk {
     width: 30px;
 }

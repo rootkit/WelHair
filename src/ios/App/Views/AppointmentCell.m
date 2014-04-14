@@ -1,16 +1,21 @@
+// ==============================================================================
 //
-//  AppointmentCell.m
-//  WelHair
+// This file is part of the WelHair
 //
-//  Created by lu larry on 3/14/14.
-//  Copyright (c) 2014 Welfony. All rights reserved.
+// Create by Welfony <support@welfony.com>
+// Copyright (c) 2013-2014 welfony.com
 //
+// For the full copyright and license information, please view the LICENSE
+// file that was distributed with this source code.
+//
+// ==============================================================================
 
-#import "AppointmentCell.h"
-#import "UIImageView+WebCache.h"
 #import <AMRatingControl.h>
-#import "Staff.h"
+#import "AppointmentCell.h"
 #import "CircleImageView.h"
+#import "Staff.h"
+#import "User.h"
+#import "UserManager.h"
 
 @interface AppointmentCell()
 
@@ -21,6 +26,10 @@
 @property (nonatomic, strong) UILabel *priceLbl;
 @property (nonatomic, strong) UILabel *statusLbl;
 @property (nonatomic, strong) UILabel *datetimeLbl;
+@property (nonatomic, strong) UIButton *actionBtn;
+
+@property (nonatomic, strong) Appointment *appointment;
+
 @end
 
 @implementation AppointmentCell
@@ -30,14 +39,14 @@
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         self.imgView = [[CircleImageView alloc] initWithFrame:CGRectMake(15, 10, 60, 60)];
-        [self addSubview:self.imgView];
         self.imgView.layer.borderColor = [[UIColor colorWithHexString:@"e0e0de"] CGColor];
         self.imgView.layer.borderWidth = 2;
+        [self addSubview:self.imgView];
         
         self.staffNameLbl = [[UILabel alloc] initWithFrame:CGRectMake(MaxX(self.imgView) + 5,
-                                                                 Y(self.imgView),
-                                                                 120,
-                                                                 HEIGHT(self.imgView)/2)];
+                                                                      Y(self.imgView),
+                                                                      120,
+                                                                      HEIGHT(self.imgView)/2)];
         self.staffNameLbl.font = [UIFont boldSystemFontOfSize:16];
         self.staffNameLbl.numberOfLines = 2;
         self.staffNameLbl.backgroundColor = [UIColor clearColor];
@@ -72,7 +81,7 @@
                                                                     HEIGHT(self.staffNameLbl))];
         self.priceLbl.font = [UIFont systemFontOfSize:12];
         self.priceLbl.numberOfLines = 2;
-        self.priceLbl.textAlignment = NSTextAlignmentRight;
+        self.priceLbl.textAlignment = TextAlignmentRight;
         self.priceLbl.backgroundColor = [UIColor clearColor];
         self.priceLbl.textColor = [UIColor blackColor];
         [self addSubview:self.priceLbl];
@@ -82,21 +91,31 @@
                                                                      WIDTH(self.priceLbl),
                                                                      HEIGHT(self.priceLbl))];
         self.datetimeLbl.font = [UIFont systemFontOfSize:12];
-        self.datetimeLbl.textAlignment = NSTextAlignmentRight;
+        self.datetimeLbl.textAlignment = TextAlignmentRight;
         self.datetimeLbl.numberOfLines = 2;
         self.datetimeLbl.backgroundColor = [UIColor clearColor];
         self.datetimeLbl.textColor = [UIColor grayColor];
         [self addSubview:self.datetimeLbl];
-        
 
-        UIButton *cancelBtn = [[UIButton alloc] initWithFrame:CGRectMake(245 , Y(self.addressLbl) , 60,25 )];
-        [cancelBtn setTitle:@"取消" forState:UIControlStateNormal];
-        cancelBtn.titleLabel.font = [UIFont systemFontOfSize:12];
-        cancelBtn.tag = 0;
-        [cancelBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        [cancelBtn setBackgroundColor:[UIColor colorWithHexString:@"e43a3d"]];
-        [cancelBtn addTarget:self action:@selector(cancelClick) forControlEvents:UIControlEventTouchDown];
-        [self addSubview:cancelBtn];
+        self.statusLbl = [[UILabel alloc] initWithFrame:CGRectMake(MaxX(self.staffNameLbl) + 5,
+                                                                   Y(self.addressLbl),
+                                                                   100,
+                                                                   HEIGHT(self.staffNameLbl))];
+        self.statusLbl.font = [UIFont boldSystemFontOfSize:12];
+        self.statusLbl.numberOfLines = 2;
+        self.statusLbl.textAlignment = TextAlignmentRight;
+        self.statusLbl.backgroundColor = [UIColor clearColor];
+        self.statusLbl.textColor = [UIColor colorWithHexString:@"4CD964"];
+        [self addSubview:self.statusLbl];
+
+
+        self.actionBtn = [[UIButton alloc] initWithFrame:CGRectMake(245 , Y(self.addressLbl), 60, 25)];
+        self.actionBtn.titleLabel.font = [UIFont systemFontOfSize:12];
+        self.actionBtn.tag = 0;
+        [self.actionBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [self.actionBtn setBackgroundColor:[UIColor colorWithHexString:@"e43a3d"]];
+        [self.actionBtn addTarget:self action:@selector(actionClick:) forControlEvents:UIControlEventTouchUpInside];
+        [self addSubview:self.actionBtn];
     }
     return self;
 }
@@ -108,19 +127,101 @@
 
 - (void)setup:(Appointment *)appointment;
 {
-    Staff *staff = [FakeDataHelper getFakeStaffList][0];
-    [self.imgView setImageWithURL:staff.avatorUrl];
-    self.staffNameLbl.text = @"高级总监";
-    self.groupNameLbl.text = staff.group.name;
-    self.datetimeLbl.text = @"2014-3-10 09:30";
-    self.addressLbl.text = @"新泺大街11号";
-    self.priceLbl.text = @"￥100";
-    self.statusLbl.text = @"预约成功";
+    self.appointment = appointment;
+
+    self.staffNameLbl.text = appointment.staff.name;
+    self.addressLbl.text = appointment.staff.group.address;
+    self.groupNameLbl.text = appointment.staff.group.name;
+    self.datetimeLbl.text = [[NSDate dateWithHMFormatter] stringFromDate:appointment.date];
+    self.priceLbl.text = [NSString stringWithFormat:@"￥%.2f", appointment.price];
+    [self.imgView setImageWithURL:appointment.staff.avatorUrl];
+
+    User *currentUser = [[UserManager SharedInstance] userLogined];
+
+    switch (appointment.status) {
+        case WHApppointmentStatusPending: {
+            self.statusLbl.hidden = true;
+            self.actionBtn.hidden = NO;
+            self.actionBtn.tag = 1;
+            [self.actionBtn setTitle:@"付款" forState:UIControlStateNormal];
+            break;
+        }
+        case WHApppointmentStatusPaid: {
+            if (currentUser.role == WHStaff) {
+                self.statusLbl.hidden = true;
+                self.actionBtn.hidden = NO;
+                self.actionBtn.tag = 2;
+                [self.actionBtn setTitle:@"完成" forState:UIControlStateNormal];
+            } else {
+                self.statusLbl.hidden = NO;
+                self.actionBtn.hidden = YES;
+                self.statusLbl.text = @"已付款";
+            }
+            break;
+        }
+        case WHApppointmentStatusCompleted: {
+            self.statusLbl.hidden = NO;
+            self.actionBtn.hidden = YES;
+            self.statusLbl.text = @"已完成";
+            break;
+        }
+        case WHApppointmentStatusCancelled: {
+            self.statusLbl.hidden = NO;
+            self.actionBtn.hidden = YES;
+            self.statusLbl.text = @"已取消";
+            break;
+        }
+        default:
+            self.statusLbl.hidden = NO;
+            self.actionBtn.hidden = YES;
+            break;
+    }
 }
 
-- (void)cancelClick
+- (void)actionClick:(UIButton *)sender
 {
-    [SVProgressHUD showSuccessWithStatus:@"取消预订" duration:1];
+    [SVProgressHUD showWithMaskType:SVProgressHUDMaskTypeClear];
+
+    if (sender.tag == 2) {
+        NSMutableDictionary *reqData = [[NSMutableDictionary alloc] initWithCapacity:1];
+        [reqData setObject:[NSString stringWithFormat:@"%d", WHApppointmentStatusCompleted] forKey:@"Status"];
+
+        ASIFormDataRequest *request = [RequestUtil createPUTRequestWithURL:[NSURL URLWithString:[NSString stringWithFormat:API_APPOINTMENTS_UPDATE, self.appointment.id]]
+                                                                   andData:reqData];
+
+        [request setDelegate:self];
+        [request setDidFinishSelector:@selector(updateAppointmentFinish:)];
+        [request setDidFailSelector:@selector(updateAppointmentFail:)];
+        [request startAsynchronous];
+    }
+}
+
+- (void)updateAppointmentFinish:(ASIHTTPRequest *)request
+{
+    [SVProgressHUD dismiss];
+
+    if (request.responseStatusCode == 200) {
+        NSDictionary *responseMessage = [Util objectFromJson:request.responseString];
+        if (responseMessage) {
+            if ([[responseMessage objectForKey:@"success"] intValue] == 0) {
+                [SVProgressHUD showErrorWithStatus:[responseMessage objectForKey:@"message"]];
+                return;
+            }
+
+            [SVProgressHUD dismiss];
+            [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_REFRESH_APPOINTMENT object:nil];
+            [SVProgressHUD showSuccessWithStatus:@"操作成功！"];
+
+            return;
+        }
+    }
+
+    [SVProgressHUD showErrorWithStatus:@"操作失败，请重试！"];
+}
+
+- (void)updateAppointmentFail:(ASIHTTPRequest *)request
+{
+    [SVProgressHUD showErrorWithStatus:@"操作失败，请重试！"];
 }
 
 @end
