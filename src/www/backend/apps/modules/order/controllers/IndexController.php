@@ -170,5 +170,21 @@ class Order_IndexController extends AbstractAdminController
         $this->view->pageTitle = '订单详情';
     }
 
+    public function deleteAction()
+    {
+        $this->_helper->viewRenderer->setNoRender(true);
+        $this->_helper->layout->disableLayout();
+
+        $orderId =  intval($this->_request->getParam('orderid')) ;
+
+        $order = array('OrderId' => $orderId);
+
+        if ($this->_request->isPost()) {
+
+            $result = OrderService::deleteOrder($order);
+            $this->_helper->json->sendJson($result);
+        }
+    }
+
 
 }
