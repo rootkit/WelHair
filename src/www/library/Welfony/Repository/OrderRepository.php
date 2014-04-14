@@ -45,9 +45,17 @@ class OrderRepository extends AbstractRepository
     {
 
         $offset = ($pageNumber - 1) * $pageSize;
-        $strSql = "  SELECT *
-                     FROM `Order`
-                     ORDER BY OrderId
+        $strSql = "  SELECT O.*, CASE U.Username
+                                    WHEN  NULL THEN 'Admin'
+                                    ELSE U.Username
+                                END AS UserName,
+                                D.Name AS DeliveryName,
+                                P.Name AS PaymentName
+                     FROM `Order` O
+                     LEFT JOIN Users U ON U.UserId = O.UserId
+                     LEFT JOIN Delivery D ON O.Distribution = D.DeliveryId
+                     LEFT JOIN Payment P ON P.PaymentId = O.PayType
+                     ORDER BY O.OrderId
                      LIMIT $offset, $pageSize ";
 
         return $this->conn->fetchAll($strSql);

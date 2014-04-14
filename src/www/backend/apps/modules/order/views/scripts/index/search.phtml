@@ -36,11 +36,11 @@ use \Welfony\Utility\Util;
                 </a>
             </td>
             <td> <?php echo $order['AcceptName']; ?></td>
-            <td> <?php echo $order['PayStatus']; ?></td>
-            <td> <?php echo $order['DistributionStatus']; ?></td>
-            <td> <?php echo $order['Distribution']; ?></td>
-            <td><?php echo $order['PayType']; ?></td>
-            <td><?php echo $order['UserId']; ?></td>
+            <td> <?php echo $order['PayStatus']? ( $order['PayStatus']== '1' ? '已支付': '退款'):'未支付'; ?></td>
+            <td> <?php echo $order['DistributionStatus']?'已发送':'未发送'; ?></td>
+            <td> <?php echo $order['DeliveryName']; ?></td>
+            <td><?php echo $order['PaymentName']; ?></td>
+            <td><?php echo $order['UserName']; ?></td>
             <td><?php echo $order['CreateTime']; ?></td>
             <td> 
                 <a href="#" href="#" class="btnDelete" data-id="<?php echo $order['OrderId']; ?>" >

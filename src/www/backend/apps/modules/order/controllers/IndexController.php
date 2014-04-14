@@ -18,6 +18,7 @@ use Welfony\Service\AreaService;
 use Welfony\Service\OrderGoodsService;
 use Welfony\Service\DeliveryService;
 use Welfony\Service\PaymentService;
+use Welfony\Service\UserService;
 
 class Order_IndexController extends AbstractAdminController
 {
@@ -54,6 +55,17 @@ class Order_IndexController extends AbstractAdminController
             'PayType'=> 0,
             'Distribution'=>0,
             'AcceptName'=>'',
+            'AcceptTime'=>'',
+            'Province' => 0,
+            'Postscript' =>'',
+            'IfInsured' => 0,
+            'Invoice' => 0,
+            'InvoiceTitle'=>null,
+            'Discount' => 0,
+            'Address' => '',
+            'Mobile' => '',
+            'Postcode' =>'',
+            'Telphone' => '',
             'IsDeleted' => 0
         );
 
@@ -69,8 +81,28 @@ class Order_IndexController extends AbstractAdminController
             $this->_helper->layout->disableLayout();
             $order['OrderNo']= htmlspecialchars($this->_request->getParam('orderno'));
             $order['AcceptName']= htmlspecialchars($this->_request->getParam('acceptname'));
-            $order['Paytype']= $this->_request->getParam('paytype');
+            $order['PayType']= $this->_request->getParam('paytype');
             $order['Distribution']= $this->_request->getParam('distribution');
+            $order['Postscript']= htmlspecialchars($this->_request->getParam('postscript'));
+            $order['IfInsured']= $this->_request->getParam('ifinsured');
+            $order['Invoice']= $this->_request->getParam('invoice');
+            $order['InvoiceTitle']= $this->_request->getParam('invoicetitle');
+            $order['AcceptTime']= $this->_request->getParam('accepttime');
+            $order['Address']= $this->_request->getParam('address');
+            $order['Mobile']= $this->_request->getParam('mobile');
+            $order['Telphone']= $this->_request->getParam('telphone');
+            $order['Postcode']= $this->_request->getParam('postcode');
+            $order['Discount']= $this->_request->getParam('discount');
+            if( $this->_request->getParam('username'))
+            {
+                $user = UserService::getUserByName($this->_request->getParam('username'));
+                if( $user && !empty($user))
+                {
+                    $order['UserId'] = $user['UserId'];
+                }
+            }
+
+
             if( $this->_request->getParam('province') )
             {
                 $order['Province'] = $this->_request->getParam('province');
@@ -103,9 +135,29 @@ class Order_IndexController extends AbstractAdminController
                 $this->view->cityList = intval($order['Province']) > 0 ? AreaService::listAreaByParent($order['Province']) : array();
                 $this->view->districtList = intval($order['City']) > 0 ? AreaService::listAreaByParent($order['City']) : array();
 
+                if( $order['UserId'])
+                {
+                    $user = UserService::getUserById($order['UserId']);
+                    if( $user && !empty($user))
+                    {
+                        $order['UserName'] = $user['Username'];
+                    }
+                    else
+                    {
+                        $order['UserName'] = '';
+                    }
+                }
+                else
+                {
+                    $order['UserName'] = '';
+                }
                 if (!$order) {
                     // process not exist logic;
                 }
+            }
+            else
+            {
+                $order['UserName'] = '';
             }
         }
 

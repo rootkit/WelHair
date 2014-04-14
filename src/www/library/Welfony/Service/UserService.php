@@ -130,6 +130,13 @@ class UserService
         return $user;
     }
 
+    public static function getUserByName($userName)
+    {
+        $user = UserRepository::getInstance()->findUserByUsername($userName);
+
+        return $user;
+    }
+
     public static function getUserByUsernameOrMobile($usernameOrMobile)
     {
         if (empty($usernameOrMobile)) {

@@ -91,8 +91,8 @@ use \Welfony\Utility\Util;
                         <label class="lab">是否保价：</label>
                         <div class="ipt">
                              <span class="u-btns" data-type="radio">
-                                <span class="u-btn u-btn-c3" data-value="1" >是</span>
-                                <span class="u-btn u-btn-c4" data-value="0" >否</span>
+                                <span class="u-btn <?php echo $this->orderInfo['IfInsured']? 'u-btn-c3':'u-btn-c4'; ?>" data-value="1" name="ifinsured">是</span>
+                                <span class="u-btn <?php echo $this->orderInfo['IfInsured']? 'u-btn-c4':'u-btn-c3'; ?>" data-value="0" name="ifinsured" >否</span>
                              </span>
                         </div>
                     </div>
@@ -100,30 +100,30 @@ use \Welfony\Utility\Util;
                         <label class="lab">是否发票：</label>
                         <div class="ipt">
                             <span class="u-btns" data-type="radio">
-                                <span class="u-btn u-btn-c3" data-value="1" >是</span>
-                                <span class="u-btn u-btn-c4" data-value="0" >否</span>
+                                <span class="u-btn <?php echo $this->orderInfo['Invoice']? 'u-btn-c3':'u-btn-c4'; ?>" data-value="1" name="invoice" >是</span>
+                                <span class="u-btn <?php echo $this->orderInfo['Invoice']? 'u-btn-c4':'u-btn-c3'; ?>" data-value="0" name="invoice">否</span>
                              </span>
                         </div>
                     </div>
                     <div class="formitm">
                         <label class="lab">发票抬头：</label>
                         <div class="ipt">
-                            <input  type="text"    class="u-ipt"/> *
+                            <input  type="text" id="invoicetitle" value="<?php echo $this->orderInfo['InvoiceTitle']; ?>"  class="u-ipt"/> *
                         </div>
                     </div>
                     <div class="formitm">
                         <label class="lab">指定送货时间：</label>
                         <div class="ipt">
-                            <label class="attr"><input type="radio" value="任意" checked="checked" name="accept_time">任意</label>
-                            <label class="attr"><input type="radio" value="周一到周五" name="accept_time">周一到周五</label>
-                            <label class="attr"><input type="radio" value="周末" name="accept_time">周末</label>
+                            <label class="attr"><input type="radio" value="任意" <?php echo $this->orderInfo['AcceptTime'] == '任意'? 'checked':''; ?> name="accept_time">任意</label>
+                            <label class="attr"><input type="radio" value="周一到周五" <?php echo $this->orderInfo['AcceptTime'] == '周一到周五'? 'checked':''; ?> name="accept_time">周一到周五</label>
+                            <label class="attr"><input type="radio" value="周末" <?php echo $this->orderInfo['AcceptTime'] == '周末'? 'checked':''; ?> name="accept_time">周末</label>
                         </div>
                     </div>
 
                     <div class="formitm">
                         <label class="lab">订单折扣或涨价：</label>
                         <div class="ipt">
-                            <input id="" type="text"  value=""  class="u-ipt"/>￥
+                            <input id="discount" type="text"  value="<?php echo $this->orderInfo['Discount']; ?>"  class="u-ipt"/>￥
                             <p>折扣用" - ",涨价用" + "</p>
                         </div>
                     </div>
@@ -134,14 +134,14 @@ use \Welfony\Utility\Util;
                     <div class="formitm">
                         <label class="lab">所属用户名：</label>
                         <div class="ipt">
-                            <input id="" type="text"  value=""  class="u-ipt"/>
+                            <input id="username" type="text" data-id="<?php echo $this->orderInfo['UserId']; ?>" value="<?php echo $this->orderInfo['UserName']; ?>"  class="u-ipt"/>
                             <p>订单所属于的用户，直接填写用户名，订单创建后与该用户绑定在一起，如果为空则为游客订单或者线下订单</p>
                         </div>
                     </div>
                     <div class="formitm">
                         <label class="lab">收货人姓名：</label>
                         <div class="ipt">
-                            <input id="acceptname" type="text"  value=""  class="u-ipt"/>
+                            <input id="acceptname" type="text"  value="<?php echo $this->orderInfo['AcceptName']; ?>"  class="u-ipt"/>
                             <p></p>
                         </div>
                     </div>
@@ -172,35 +172,35 @@ use \Welfony\Utility\Util;
                     <div class="formitm">
                         <label class="lab">收货地址：</label>
                         <div class="ipt">
-                            <input id="" type="text"  value=""  class="u-ipt"/>
+                            <input id="address" type="text"  value="<?php echo $this->orderInfo['Address']; ?>"  class="u-ipt"/>
                             <p></p>
                         </div>
                     </div>
                     <div class="formitm">
                         <label class="lab">联系手机：</label>
                         <div class="ipt">
-                            <input id="" type="text"  value=""  class="u-ipt"/>
+                            <input id="mobile" type="text"  value="<?php echo $this->orderInfo['Mobile']; ?>"  class="u-ipt"/>
                             <p></p>
                         </div>
                     </div>
                     <div class="formitm">
                         <label class="lab">联系电话：</label>
                         <div class="ipt">
-                            <input id="" type="text"  value=""  class="u-ipt"/>
+                            <input id="telphone" type="text"  value="<?php echo $this->orderInfo['Telphone']; ?>"  class="u-ipt"/>
                             <p></p>
                         </div>
                     </div>
                     <div class="formitm">
                         <label class="lab">邮编：</label>
                         <div class="ipt">
-                            <input id="" type="text"  value=""  class="u-ipt"/>
+                            <input id="postcode" type="text"  value="<?php echo $this->orderInfo['Postcode']; ?>"  class="u-ipt"/>
                             <p></p>
                         </div>
                     </div>
                     <div class="formitm">
                         <label class="lab">用户附言：</label>
                         <div class="ipt">
-                           <textarea class="u-ipt"  type="text" id=""></textarea>
+                           <textarea class="u-ipt"  type="text" id="postscript"><?php echo $this->orderInfo['Postscript']; ?></textarea>
                             <p></p>
                         </div>
                     </div>

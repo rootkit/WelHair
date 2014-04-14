@@ -83,7 +83,18 @@ $(function() {
                 'orderno': orderno,
                 'distribution' : $('#distribution').val(),
                 'paytype':$('#paytype').val(),
-                'acceptname':$('#acceptname').val()
+                'acceptname':$('#acceptname').val(),
+                'postscript' :$('#postscript').val(),
+                'ifinsured': $('span[name="ifinsured"].u-btn-c3:first').attr('data-value'),
+                'invoice': $('span[name="invoice"].u-btn-c3:first').attr('data-value'),
+                'invoicetitle': $('#invoicetitle').val(),
+                'accepttime': $('input[name="accept_time"]:checked:first').val(),
+                'mobile': $('#mobile').val(),
+                'address':$('#address').val(),
+                'discount' : $('#discount').val(),
+                'postcode': $('#postcode').val(),
+                'telphone': $('#telphone').val(),
+                'username': $('#username').val()
             };
 
           var goods = $('tr.goodsid').map(function(i,n){
