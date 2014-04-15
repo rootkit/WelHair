@@ -15,8 +15,9 @@
 #import "CreateGroupViewController.h"
 #import "MapPickerViewController.h"
 
-static const float kOffsetY = 140;
+static const float kOffsetY = 150;
 static const float kMargin = 10;
+static const float kScrollViewContentHeight = 600;
 
 @interface CreateGroupViewController ()<UITextFieldDelegate, MapPickViewDelegate, CityPickViewDelegate, UIActionSheetDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIScrollViewDelegate>
 
@@ -180,10 +181,8 @@ static const float kMargin = 10;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
-
     self.scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, self.topBarOffset, WIDTH(self.view), [self contentHeightWithNavgationBar:YES withBottomBar:NO])];
-    self.scrollView.contentSize = CGSizeMake(WIDTH(self.view), 600);
+    self.scrollView.contentSize = CGSizeMake(WIDTH(self.view), kScrollViewContentHeight);
     self.scrollView.delegate = self;
     [self.view addSubview:self.scrollView];
     [self.scrollView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self
@@ -383,7 +382,7 @@ static const float kMargin = 10;
 
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
 {
-    if (self.scrollViewLastContentOffsetY > scrollView.contentOffset.y){
+    if (decelerate &&  self.scrollViewLastContentOffsetY > scrollView.contentOffset.y){
         [self.groupNameTxt resignFirstResponder];
         [self.phoneNumTxt resignFirstResponder];
         [self.mobileTxt resignFirstResponder];
@@ -403,7 +402,8 @@ static const float kMargin = 10;
     UIViewAnimationCurve animationCurve = curveValue.intValue;
 
     void (^animations)() = ^() {
-        self.view.frame = CGRectMake(0,self.view.frame.origin.y - kOffsetY , WIDTH(self.view), HEIGHT(self.view));
+        [self.scrollView setContentOffset:CGPointMake(0, kOffsetY) animated:YES];
+        self.scrollView.contentSize = CGSizeMake(WIDTH(self.scrollView), kScrollViewContentHeight + kChineseKeyboardHeight);
     };
 
     [UIView animateWithDuration:animationDuration
@@ -424,7 +424,8 @@ static const float kMargin = 10;
     UIViewAnimationCurve animationCurve = curveValue.intValue;
 
     void (^animations)() = ^() {
-        self.view.frame = CGRectMake(0,self.view.frame.origin.y + kOffsetY, WIDTH(self.view), HEIGHT(self.view));
+        [self.scrollView setContentOffset:CGPointMake(0, 0) animated:YES];
+        self.scrollView.contentSize = CGSizeMake(WIDTH(self.scrollView), kScrollViewContentHeight);
     };
 
     [UIView animateWithDuration:animationDuration
