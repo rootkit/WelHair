@@ -31,6 +31,7 @@
 #import "UserViewController.h"
 #import "OrderListViewController.h"
 
+#define  DefaultAvatorImage @"AvatarDefault.jpg"
 static const float profileViewHeight = 90;
 
 @interface UserViewController ()<UITableViewDataSource, UITableViewDelegate, UIActionSheetDelegate, UIImagePickerControllerDelegate,UINavigationControllerDelegate>
@@ -113,7 +114,7 @@ static const float profileViewHeight = 90;
     [headerView_ addSubview:profileIconView_];
     
     self.avatorImgView = [[CircleImageView alloc] initWithFrame:CGRectMake(20, 20, avatorSize, avatorSize)];
-    self.avatorImgView.image = [UIImage imageNamed:@"AvatarDefault.jpg"];
+    self.avatorImgView.image = [UIImage imageNamed:DefaultAvatorImage];
     self.avatorImgView.borderColor = [UIColor whiteColor];
     self.avatorImgView.borderWidth = 1;
     [profileIconView_ addSubview:self.avatorImgView];
@@ -183,7 +184,7 @@ static const float profileViewHeight = 90;
                                                object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(refreshUserInfo)
-                                                 name:NOTIFICATION_USER_LOGIN_SUCCESS
+                                                 name:NOTIFICATION_USER_STATUS_CHANGE
                                                object:nil];
     [self refreshUserInfo];
 }
@@ -560,6 +561,9 @@ static const float profileViewHeight = 90;
         } else {
             [self getUserDetail];
         }
+    }else{
+        self.avatorImgView.image = [UIImage imageNamed:DefaultAvatorImage];
+        self.nameLbl.text = nil;
     }
 }
 

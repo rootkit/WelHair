@@ -120,7 +120,7 @@
     [SVProgressHUD showSuccessWithStatus:@"注销成功" duration:1];
     [[UserManager SharedInstance] signout];
 
-    [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_USER_LOGIN_SUCCESS object:nil];
+    [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_USER_STATUS_CHANGE object:nil];
 
     [self performSelector:@selector(leftNavItemClick) withObject:nil afterDelay:1.5];
 }

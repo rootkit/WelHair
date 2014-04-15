@@ -21,9 +21,9 @@
 
 #define DB_FILE_NAME   @"db.sqlite"
 
-#define API_PATH(path) [NSString stringWithFormat:@"http://welhair.com/api%@", path]
+//#define API_PATH(path) [NSString stringWithFormat:@"http://welhair.com/api%@", path]
 
-//#define API_PATH(path) [NSString stringWithFormat:@"http://115.28.208.165/api%@", path]
+#define API_PATH(path) [NSString stringWithFormat:@"http://115.28.208.165/api%@", path]
 
 #define API_APPOINTMENTS_CREATE API_PATH(@"/appointments")
 #define API_APPOINTMENTS_UPDATE API_PATH(@"/appointments/%d")
@@ -80,7 +80,7 @@
 #define CUSTOME_BOTTOMBAR_HEIGHT  55
 
 #define NOTIFICATION_USER_CREATE_GROUP_SUCCESS  @"CreateGroupSuccessfully"
-#define NOTIFICATION_USER_LOGIN_SUCCESS  @"LoginSuccessfully"
+#define NOTIFICATION_USER_STATUS_CHANGE  @"UserStatusChanged"
 #define NOTIFICATION_REFRESH_APPOINTMENT @"RefreshAppintmentList"
 
 #define HAIR_STYLE_FACE_CICLE   0
