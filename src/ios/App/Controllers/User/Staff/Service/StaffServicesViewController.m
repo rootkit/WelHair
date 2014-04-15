@@ -66,7 +66,6 @@
                                       self.topBarOffset,
                                       WIDTH(self.view) ,
                                       [self contentHeightWithNavgationBar:YES withBottomBar:NO]);
-    self.tableView.backgroundColor = [UIColor clearColor];
     self.tableView.allowsSelectionDuringEditing = YES;
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
@@ -152,6 +151,7 @@
                                                      delegate:self
                                             cancelButtonTitle:@"取消"
                                             otherButtonTitles:@"确定",nil];
+        [alert.layer setValue:[NSNumber numberWithInteger:indexPath.row] forKey:@"editedIndex"];
         [alert show];
     }
 }
@@ -161,8 +161,10 @@
     if (buttonIndex == 1) {
         [SVProgressHUD showWithMaskType:SVProgressHUDMaskTypeClear];
 
+        NSNumber *editIndex = (NSNumber *)[alertView.layer valueForKey:@"editedIndex"];
+        Service *service = [self.datasource objectAtIndex:[editIndex integerValue]];
 
-        ASIFormDataRequest *request = [RequestUtil createPOSTRequestWithURL:[NSURL URLWithString:[NSString stringWithFormat:API_SERVICES_Remove, 1]]
+        ASIFormDataRequest *request = [RequestUtil createPOSTRequestWithURL:[NSURL URLWithString:[NSString stringWithFormat:API_SERVICES_REMOVE, service.id]]
                                                                     andData:nil];
         [self.requests addObject:request];
 

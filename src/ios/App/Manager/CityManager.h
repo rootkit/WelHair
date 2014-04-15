@@ -24,4 +24,5 @@
 - (void)setLocatedCity:(int)cityId;
 
 - (City *)getCityByName:(NSString *)cityName;
+- (City *)getCityById:(int)cityId;
 @end

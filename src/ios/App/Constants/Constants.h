@@ -39,7 +39,13 @@
 
 #define API_SERVICES_SEARCH API_PATH(@"/services")
 #define API_SERVICES_CREATE API_PATH(@"/services")
-#define API_SERVICES_Remove API_PATH(@"/services/%d/remove")
+#define API_SERVICES_REMOVE API_PATH(@"/services/%d/remove")
+
+#define API_ADDRESSES_LIST API_PATH(@"/users/%d/addresses")
+#define API_ADDRESSES_CREATE API_PATH(@"/addresses")
+#define API_ADDRESSES_UPDATE API_PATH(@"/addresses/%d")
+#define API_ADDRESSES_REMOVE API_PATH(@"/addresses/%d/remove")
+#define API_ADDRESSES_DEFAULT API_PATH(@"/addresses/%d/default")
 
 #define API_WORKS_SEARCH API_PATH(@"/works")
 #define API_WORKS_LIKED API_PATH(@"/works/liked")
@@ -79,6 +85,7 @@
 #define TOP_TAB_BAR_HEIGHT  40
 #define CUSTOME_BOTTOMBAR_HEIGHT  55
 
+#define NOTIFICATION_USER_CREATE_ADDRESS_SUCCESS  @"CreateAddressSuccessfully"
 #define NOTIFICATION_USER_CREATE_GROUP_SUCCESS  @"CreateGroupSuccessfully"
 #define NOTIFICATION_USER_STATUS_CHANGE  @"UserStatusChanged"
 #define NOTIFICATION_REFRESH_APPOINTMENT @"RefreshAppintmentList"

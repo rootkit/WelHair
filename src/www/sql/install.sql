@@ -865,10 +865,6 @@ CREATE TABLE IF NOT EXISTS `Payment` (
   PRIMARY KEY (`PaymentId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='支付方式表';
 
-
-
-
-
 -- ==============================================================================
 
 
@@ -1059,3 +1055,22 @@ END;;
 DELIMITER ;
 CALL sp_update_table_field();
 DROP PROCEDURE IF EXISTS `sp_update_table_field`;
+
+-- ==============================================================================
+-- Create Address table
+-- ==============================================================================
+
+CREATE TABLE IF NOT EXISTS `Address` (
+  `AddressId` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `UserId` INT UNSIGNED NOT NULL,
+  `ShippingName` VARCHAR(255) NOT NULL,
+  `Province` INT NOT NULL,
+  `City` INT NOT NULL,
+  `District` INT NOT NULL DEFAULT 0,
+  `Mobile` VARCHAR(20) NOT NULL DEFAULT '',
+  `Address` VARCHAR(255) NOT NULL,
+  `IsDefault` SMALLINT(1) DEFAULT 0,
+  `CreatedDate` DATETIME NOT NULL,
+  `LastModifiedDate` DATETIME NULL,
+  PRIMARY KEY (`AddressId`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;

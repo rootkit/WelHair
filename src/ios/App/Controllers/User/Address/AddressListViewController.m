@@ -1,21 +1,26 @@
+// ==============================================================================
 //
-//  AddressListViewController.m
-//  WelHair
+// This file is part of the WelHair
 //
-//  Created by lu larry on 3/26/14.
-//  Copyright (c) 2014 Welfony. All rights reserved.
+// Create by Welfony <support@welfony.com>
+// Copyright (c) 2013-2014 welfony.com
 //
+// For the full copyright and license information, please view the LICENSE
+// file that was distributed with this source code.
+//
+// ==============================================================================
 
-#import "AddressListViewController.h"
 #import "AddAddressViewController.h"
-#import "UIScrollView+UzysCircularProgressPullToRefresh.h"
 #import "Address.h"
 #import "AddressCell.h"
+#import "AddressListViewController.h"
+#import "UserManager.h"
+
 @interface AddressListViewController ()<UITableViewDataSource, UITableViewDelegate, AddressCellDelegate>
+
 @property (nonatomic, strong) NSMutableArray *datasource;
 @property (nonatomic, strong) UITableView *tableView;
 
-@property (nonatomic, strong) Address *defaultAddress;
 @end
 
 @implementation AddressListViewController
@@ -24,8 +29,8 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        // Custom initialization
         self.title = @"送货地址";
+
         FAKIcon *leftIcon = [FAKIonIcons ios7ArrowBackIconWithSize:NAV_BAR_ICON_SIZE];
         [leftIcon addAttribute:NSForegroundColorAttributeName value:[UIColor whiteColor]];
         self.leftNavItemImg =[leftIcon imageWithSize:CGSizeMake(NAV_BAR_ICON_SIZE, NAV_BAR_ICON_SIZE)];
@@ -45,6 +50,7 @@
 {
     [self.navigationController pushViewController:[AddAddressViewController new] animated:YES];
 }
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -53,44 +59,35 @@
     self.tableView.frame = CGRectMake(0,
                                       self.topBarOffset,
                                       WIDTH(self.view) ,
-                                      [self contentHeightWithNavgationBar:YES withBottomBar:NO] );
-    self.tableView.backgroundColor = [UIColor clearColor];
+                                      [self contentHeightWithNavgationBar:YES withBottomBar:NO]);
+    self.tableView.allowsSelectionDuringEditing = YES;
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    self.tableView.backgroundColor = [UIColor colorWithHexString:@"f2f2f2"];
+    self.tableView.backgroundColor = [UIColor whiteColor];
+
+    [self.view addSubview:self.tableView];
+
     __weak typeof(self) weakSelf = self;
     [self.tableView addPullToRefreshActionHandler:^{
-        [weakSelf insertRowAtTop];
+        [weakSelf getAddresses];
     }];
-    
+
     [self.tableView.pullToRefreshView setSize:CGSizeMake(25, 25)];
     [self.tableView.pullToRefreshView setBorderWidth:2];
     [self.tableView.pullToRefreshView setBorderColor:[UIColor whiteColor]];
     [self.tableView.pullToRefreshView setImageIcon:[UIImage imageNamed:@"centerIcon"]];
-    [self.view addSubview:self.tableView];
-    
-    self.datasource = [NSMutableArray arrayWithArray:[FakeDataHelper getFakeAddressLit]];
-}
 
-- (void)insertRowAtTop
-{
-    int64_t delayInSeconds = 1.2;
-    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
-    dispatch_after(popTime, dispatch_get_main_queue(), ^(void) {
-        [self.tableView stopRefreshAnimation];
-    });
+    [self.tableView triggerPullToRefresh];
 }
-
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
-
 #pragma mark UITableView delegate
+
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     return 100;
@@ -98,7 +95,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return  self.datasource.count;
+    return self.datasource.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -110,14 +107,16 @@
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         cell.delegate = self;
     }
+
     Address *item= [self.datasource objectAtIndex:indexPath.row];
     [cell setup:item];
-    if(self.isPickingAddress && item == self.pickedAddress){
+
+    if(self.isPickingAddress && item == self.pickedAddress) {
         [cell setPicked:YES];
-    }else if(!self.isPickingAddress && item.isDefault){
+    } else if(!self.isPickingAddress && item.isDefault) {
         [cell setPicked:YES];
-        self.defaultAddress = item;
     }
+
     return cell;
 }
 
@@ -126,7 +125,8 @@
     [self didSelectAddress:[self.datasource objectAtIndex:indexPath.row]];
 }
 
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
+{
     return YES;
 }
 
@@ -135,10 +135,15 @@
     return UITableViewCellEditingStyleDelete;
 }
 
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+{
     if (editingStyle == UITableViewCellEditingStyleDelete) {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"Are you sure to delete?" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Yes", nil];
+        UIAlertView*alert = [[UIAlertView alloc]initWithTitle:@"提示"
+                                                      message:@"确认要删除该地址么？"
+                                                     delegate:self
+                                            cancelButtonTitle:@"取消"
+                                            otherButtonTitles:@"确定",nil];
         [alert.layer setValue:[NSNumber numberWithInteger:indexPath.row] forKey:@"editedIndex"];
         [alert show];
     }
@@ -146,13 +151,49 @@
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
-    NSNumber *editIndex = (NSNumber *)[alertView.layer valueForKey:@"editedIndex"];
-    if(buttonIndex == 1)
-    {
-        Address *s = [self.datasource objectAtIndex:[editIndex integerValue]];
-        [self.datasource removeObject:s];
-        [self.tableView reloadData];
+    if (buttonIndex == 1) {
+        [SVProgressHUD showWithMaskType:SVProgressHUDMaskTypeClear];
+
+        NSNumber *editIndex = (NSNumber *)[alertView.layer valueForKey:@"editedIndex"];
+        Address *address = [self.datasource objectAtIndex:[editIndex integerValue]];
+
+        ASIFormDataRequest *request = [RequestUtil createPOSTRequestWithURL:[NSURL URLWithString:[NSString stringWithFormat:API_ADDRESSES_REMOVE, address.id]]
+                                                                    andData:nil];
+        [self.requests addObject:request];
+
+        [request setDelegate:self];
+        [request setDidFinishSelector:@selector(removeAddressFinish:)];
+        [request setDidFailSelector:@selector(removeAddressFail:)];
+        [request startAsynchronous];
     }
+}
+
+- (void)removeAddressFinish:(ASIHTTPRequest *)request
+{
+    [SVProgressHUD dismiss];
+
+    if (request.responseStatusCode == 200) {
+        NSDictionary *responseMessage = [Util objectFromJson:request.responseString];
+        if (responseMessage) {
+            if (![responseMessage objectForKey:@"success"]) {
+                [SVProgressHUD showErrorWithStatus:[responseMessage objectForKey:@"message"]];
+                return;
+            }
+
+            [SVProgressHUD dismiss];
+
+            [self.tableView triggerPullToRefresh];
+
+            return;
+        }
+    }
+
+    [SVProgressHUD showErrorWithStatus:@"删除地址失败，请重试！"];
+}
+
+- (void)removeAddressFail:(ASIHTTPRequest *)request
+{
+    [SVProgressHUD showErrorWithStatus:@"删除地址失败，请重试！"];
 }
 
 - (void)addressCell:(AddressCell *)addressCell didClickEdit:(Address *)address
@@ -162,7 +203,6 @@
     [self.navigationController pushViewController:vc animated:YES];
 }
 
-
 - (void)addressCell:(AddressCell *)addressCell didSelected:(Address *)address
 {
     [self didSelectAddress:address];
@@ -170,17 +210,91 @@
 
 - (void)didSelectAddress:(Address *)address
 {
-    if(self.isPickingAddress && self.pickedAddress){
+    if (self.isPickingAddress && self.pickedAddress) {
         [self.delegate didPickAddress:address];
         [self.navigationController popViewControllerAnimated:YES];
-    }else if(!self.isPickingAddress && !address.isDefault){
-        address.isDefault = YES;
-        self.defaultAddress.isDefault = NO;
-        self.defaultAddress = address;
-        [self.tableView reloadData];
-        [SVProgressHUD showSuccessWithStatus:@"设为默认地址" duration:1];
-        debugLog(@"Call api to set default address");
     }
+
+    if(!self.isPickingAddress && !address.isDefault) {
+        ASIFormDataRequest *request = [RequestUtil createPOSTRequestWithURL:[NSURL URLWithString:[NSString stringWithFormat:API_ADDRESSES_DEFAULT, address.id]]
+                                                                    andData:nil];
+        [self.requests addObject:request];
+
+        [request setDelegate:self];
+        [request setDidFinishSelector:@selector(setDefaultAddressFinish:)];
+        [request setDidFailSelector:@selector(setDefaultAddressFail:)];
+        [request startAsynchronous];
+    }
+}
+
+- (void)setDefaultAddressFinish:(ASIHTTPRequest *)request
+{
+    [SVProgressHUD dismiss];
+
+    if (request.responseStatusCode == 200) {
+        NSDictionary *responseMessage = [Util objectFromJson:request.responseString];
+        if (responseMessage) {
+            if (![responseMessage objectForKey:@"success"]) {
+                [SVProgressHUD showErrorWithStatus:[responseMessage objectForKey:@"message"]];
+                return;
+            }
+
+            [SVProgressHUD showSuccessWithStatus:@"设为默认地址" duration:1];
+            [self.tableView triggerPullToRefresh];
+            return;
+        }
+    }
+
+    [SVProgressHUD showErrorWithStatus:@"设置默认地址失败，请重试！"];
+    [self.tableView triggerPullToRefresh];
+}
+
+- (void)setDefaultAddressFail:(ASIHTTPRequest *)request
+{
+    [SVProgressHUD showErrorWithStatus:@"设置默认地址失败，请重试！"];
+}
+
+#pragma mark User Address API
+
+- (void)getAddresses
+{
+    ASIHTTPRequest *request = [RequestUtil createGetRequestWithURL:[NSURL URLWithString:[NSString stringWithFormat:API_ADDRESSES_LIST, [[UserManager SharedInstance] userLogined].id]]
+                                                          andParam:nil];
+    [self.requests addObject:request];
+
+    [request setDelegate:self];
+    [request setDidFinishSelector:@selector(finishGetAddresses:)];
+    [request setDidFailSelector:@selector(failGetAddresses:)];
+    [request startAsynchronous];
+}
+
+- (void)finishGetAddresses:(ASIHTTPRequest *)request
+{
+    NSDictionary *rst = [Util objectFromJson:request.responseString];
+    NSArray *dataList = [rst objectForKey:@"addresses"];
+
+    NSMutableArray *arr = [NSMutableArray array];
+
+    for (NSDictionary *dicData in dataList) {
+        [arr addObject:[[Address alloc] initWithDic:dicData]];
+    }
+
+    self.datasource = arr;
+
+    [self.tableView stopRefreshAnimation];
+
+    [self checkEmpty];
+
+    [self.tableView reloadData];
+}
+
+- (void)failGetAddresses:(ASIHTTPRequest *)request
+{
+}
+
+- (void)checkEmpty
+{
+    
 }
 
 @end
