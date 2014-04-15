@@ -1,18 +1,25 @@
+// ==============================================================================
 //
-//  MyGroupStaffListViewController.m
-//  WelHair
+// This file is part of the WelHair
 //
-//  Created by lu larry on 3/13/14.
-//  Copyright (c) 2014 Welfony. All rights reserved.
+// Create by Welfony <support@welfony.com>
+// Copyright (c) 2013-2014 welfony.com
 //
+// For the full copyright and license information, please view the LICENSE
+// file that was distributed with this source code.
+//
+// ==============================================================================
 
 #import "MyGroupStaffListViewController.h"
 #import "StaffCell.h"
-#import "MyGroupAddStaffViewController.h"
+#import "StaffDetailViewController.h"
 
 @interface MyGroupStaffListViewController ()<UITableViewDataSource,UITableViewDelegate>
-@property (nonatomic, strong) NSArray *datasource;
+
 @property (nonatomic, strong) UITableView *tableView;
+@property (nonatomic, strong) NSMutableArray *datasource;
+@property (nonatomic, assign) NSInteger currentPage;
+
 @end
 
 @implementation MyGroupStaffListViewController
@@ -22,15 +29,14 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         self.title = @"沙龙设计师列表";
+        self.currentPage = 1;
+
         FAKIcon *leftIcon = [FAKIonIcons ios7ArrowBackIconWithSize:NAV_BAR_ICON_SIZE];
         [leftIcon addAttribute:NSForegroundColorAttributeName value:[UIColor whiteColor]];
             self.leftNavItemImg =[leftIcon imageWithSize:CGSizeMake(NAV_BAR_ICON_SIZE, NAV_BAR_ICON_SIZE)];
-        
-//        FAKIcon *rightIcon = [FAKIonIcons ios7PlusOutlineIconWithSize:NAV_BAR_ICON_SIZE];
-//        [rightIcon addAttribute:NSForegroundColorAttributeName value:[UIColor whiteColor]];
-//        self.rightNavItemImg =[rightIcon imageWithSize:CGSizeMake(NAV_BAR_ICON_SIZE, NAV_BAR_ICON_SIZE)];
 
     }
+
     return self;
 }
 
@@ -39,34 +45,48 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 
-- (void)rightNavItemClick
-{
-    [self.navigationController pushViewController:[MyGroupAddStaffViewController new] animated:YES];
-}
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     
-    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0,
-                                                                   self.topBarOffset,
-                                                                   WIDTH(self.view),
-                                                                   [self contentHeightWithNavgationBar:YES withBottomBar:NO])];
+    self.tableView = [[UITableView alloc] init];
+    self.tableView.frame = CGRectMake(0,
+                                      self.topBarOffset,
+                                      WIDTH(self.view) ,
+                                      [self contentHeightWithNavgationBar:YES withBottomBar:NO]);
     self.tableView.backgroundColor = [UIColor clearColor];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
-    self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    self.tableView.backgroundColor = [UIColor clearColor];
     [self.view addSubview:self.tableView];
 
-    
-    self.datasource = [FakeDataHelper getFakeStaffList];
+    __weak typeof(self) weakSelf = self;
+    [self.tableView addPullToRefreshActionHandler:^{
+        weakSelf.currentPage = 1;
+        [weakSelf getStaffs];
+    }];
+
+    [self.tableView.pullToRefreshView setSize:CGSizeMake(25, 25)];
+    [self.tableView.pullToRefreshView setBorderWidth:2];
+    [self.tableView.pullToRefreshView setBorderColor:[UIColor whiteColor]];
+    [self.tableView.pullToRefreshView setImageIcon:[UIImage imageNamed:@"centerIcon"]];
+
+    [self.tableView addInfiniteScrollingWithActionHandler:^{
+        weakSelf.currentPage += 1;
+        [weakSelf getStaffs];
+    }];
+    self.tableView.showsInfiniteScrolling = NO;
+
+    [self.tableView triggerPullToRefresh];
 }
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
+
+#pragma mark UITableView delegate
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -75,21 +95,106 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return self.datasource.count;
+    return  self.datasource.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-        static NSString * cellIdentifier = @"GroupStaffCellIdentifier";
-        StaffCell * cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
-        if (!cell) {
-            cell = [[StaffCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
-            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    static NSString * cellIdentifier = @"StaffCellIdentifier";
+    StaffCell * cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+    if (!cell) {
+        cell = [[StaffCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    }
+    cell.contentView.backgroundColor =  cell.backgroundColor = indexPath.row % 2 == 0?
+    [UIColor whiteColor] : [UIColor colorWithHexString:@"f5f6f8"];
+
+    Staff *data = [self.datasource objectAtIndex:indexPath.row];
+    [cell setup:data];
+    return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    StaffDetailViewController *vc = [StaffDetailViewController new];
+    vc.staff = [self.datasource objectAtIndex:indexPath.row];
+    vc.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:vc animated:YES];
+}
+
+#pragma mark Group Search API
+
+- (void)getStaffs
+{
+    NSMutableDictionary *reqData = [[NSMutableDictionary alloc] initWithCapacity:1];
+    [reqData setObject:[NSString stringWithFormat:@"%d", self.currentPage] forKey:@"page"];
+    [reqData setObject:[NSString stringWithFormat:@"%d", TABLEVIEW_PAGESIZE_DEFAULT] forKey:@"pageSize"];
+    [reqData setObject:[NSString stringWithFormat:@"%d", self.group.id] forKey:@"companyId"];
+    [reqData setObject:@"0" forKey:@"city"];
+    [reqData setObject:@"0" forKey:@"district"];
+    [reqData setObject:@"4" forKey:@"sort"];
+
+    ASIHTTPRequest *request = [RequestUtil createGetRequestWithURL:[NSURL URLWithString:API_STAFFS_SEARCH] andParam:reqData];
+    [self.requests addObject:request];
+
+    [request setDelegate:self];
+    [request setDidFinishSelector:@selector(finishGetStaffs:)];
+    [request setDidFailSelector:@selector(failGetStaffs:)];
+    [request startAsynchronous];
+}
+
+- (void)finishGetStaffs:(ASIHTTPRequest *)request
+{
+    NSDictionary *rst = [Util objectFromJson:request.responseString];
+    NSInteger total = [[rst objectForKey:@"total"] integerValue];
+    NSArray *dataList = [rst objectForKey:@"staffs"];
+
+    NSMutableArray *arr = [NSMutableArray arrayWithArray:self.datasource];
+
+    if (self.currentPage == 1) {
+        [arr removeAllObjects];
+    } else {
+        if (self.currentPage % TABLEVIEW_PAGESIZE_DEFAULT > 0) {
+            int i;
+
+            for (i = 0; i < arr.count; i++) {
+                if (i >= (self.currentPage - 1) * TABLEVIEW_PAGESIZE_DEFAULT) {
+                    [arr removeObjectAtIndex:i];
+                    i--;
+                }
+            }
         }
-        Staff *staff = [self.datasource objectAtIndex:indexPath.row];
-        [cell setup:staff];
-        
-        return cell;
+    }
+
+    for (NSDictionary *dicData in dataList) {
+        [arr addObject:[[Staff alloc] initWithDic:dicData]];
+    }
+
+    self.datasource = arr;
+
+    BOOL enableInfinite = total > self.datasource.count;
+    if (self.tableView.showsInfiniteScrolling != enableInfinite) {
+        self.tableView.showsInfiniteScrolling = enableInfinite;
+    }
+
+    if (self.currentPage == 1) {
+        [self.tableView stopRefreshAnimation];
+    } else {
+        [self.tableView.infiniteScrollingView stopAnimating];
+    }
+
+    [self checkEmpty];
+
+    [self.tableView reloadData];
+}
+
+- (void)failGetStaffs:(ASIHTTPRequest *)request
+{
+}
+
+- (void)checkEmpty
+{
+    
 }
 
 @end

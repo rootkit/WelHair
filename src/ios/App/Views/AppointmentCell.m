@@ -182,6 +182,10 @@
 {
     [SVProgressHUD showWithMaskType:SVProgressHUDMaskTypeClear];
 
+    if (sender.tag == 1) {
+        [SVProgressHUD showSuccessWithStatus:@"去支付宝了"];
+    }
+
     if (sender.tag == 2) {
         NSMutableDictionary *reqData = [[NSMutableDictionary alloc] initWithCapacity:1];
         [reqData setObject:[NSString stringWithFormat:@"%d", WHApppointmentStatusCompleted] forKey:@"Status"];

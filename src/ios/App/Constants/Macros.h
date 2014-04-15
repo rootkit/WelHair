@@ -12,4 +12,5 @@
 
 typedef void (^CardTapHandler)(id model);
 typedef void (^ImageTapHandler)(NSArray *imgArr, int currentIndex);
+typedef void (^GroupInfoFinishedHandler)();
 
