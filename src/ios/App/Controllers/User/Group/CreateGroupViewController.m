@@ -246,6 +246,7 @@ static const float kScrollViewContentHeight = 600;
 
     self.phoneNumTxt =  [UITextField plainTextField:CGRectMake(kMargin, MaxY(self.groupNameTxt) + kMargin, WIDTH(self.groupNameTxt), 40)
                                         leftPadding:kMargin];
+    self.phoneNumTxt.keyboardType = UIKeyboardTypeNamePhonePad;
     self.phoneNumTxt.backgroundColor = [UIColor whiteColor];
     self.phoneNumTxt.font = [UIFont systemFontOfSize:14];
     self.phoneNumTxt.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
@@ -255,6 +256,7 @@ static const float kScrollViewContentHeight = 600;
 
     self.mobileTxt =  [UITextField plainTextField:CGRectMake(kMargin, MaxY(self.phoneNumTxt) + kMargin, WIDTH(self.groupNameTxt), 40)
                                         leftPadding:kMargin];
+    self.mobileTxt.keyboardType = UIKeyboardTypeNamePhonePad;
     self.mobileTxt.backgroundColor = [UIColor whiteColor];
     self.mobileTxt.font = [UIFont systemFontOfSize:14];
     self.mobileTxt.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
