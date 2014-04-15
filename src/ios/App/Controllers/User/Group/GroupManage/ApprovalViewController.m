@@ -60,7 +60,7 @@
     [self.tableView.pullToRefreshView setImageIcon:[UIImage imageNamed:@"centerIcon"]];
     
     self.tableView.showsInfiniteScrolling = NO;
-    self.datasource = [FakeDataHelper getFakeStaffList];
+    self.datasource = [NSMutableArray arrayWithArray: [FakeDataHelper getFakeStaffList]];
 
 }
 

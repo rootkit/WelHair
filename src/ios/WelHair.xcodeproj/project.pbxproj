@@ -149,7 +149,6 @@
 		461B0C5E18DC3BD700E0DAF5 /* AppointmentPreviewViewController_Bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 461B0C2418DC3BD700E0DAF5 /* AppointmentPreviewViewController_Bg@2x.png */; };
 		461B0C5F18DC3BD700E0DAF5 /* CouponDetailViewControl_Coupon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 461B0C2618DC3BD700E0DAF5 /* CouponDetailViewControl_Coupon@2x.png */; };
 		461B0C6018DC3BD700E0DAF5 /* Profile_Banner_Bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 461B0C2818DC3BD700E0DAF5 /* Profile_Banner_Bg@2x.png */; };
-		461B0C6118DC3BD700E0DAF5 /* Profile_Bottom_Bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 461B0C2918DC3BD700E0DAF5 /* Profile_Bottom_Bg@2x.png */; };
 		461B0C6418DC3BD700E0DAF5 /* GroupManageViewController_Bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 461B0C3018DC3BD700E0DAF5 /* GroupManageViewController_Bg@2x.png */; };
 		461B0C6518DC3BD700E0DAF5 /* MyGroupViewControl_ButtonBg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 461B0C3118DC3BD700E0DAF5 /* MyGroupViewControl_ButtonBg@2x.png */; };
 		461B0C6618DC3BD700E0DAF5 /* StaffManageViewControl_Bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 461B0C3318DC3BD700E0DAF5 /* StaffManageViewControl_Bg@2x.png */; };
@@ -295,7 +294,6 @@
 		46AD849D18EFC907005B2C3C /* OrderPreviewViewController_BgBar@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 46AD849C18EFC907005B2C3C /* OrderPreviewViewController_BgBar@2x.png */; };
 		46AF945818F662FB00479158 /* OrderPaidTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 46AF945718F662FB00479158 /* OrderPaidTableView.m */; };
 		46AF945B18F6630A00479158 /* OrderUnpaidTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 46AF945A18F6630A00479158 /* OrderUnpaidTableView.m */; };
-		46AF945D18F6741E00479158 /* Profile_Bottom_Bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 46AF945C18F6741E00479158 /* Profile_Bottom_Bg.png */; };
 		46AF945F18F683BB00479158 /* pick_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 46AF945E18F683BB00479158 /* pick_bg.png */; };
 		46B233B718BCDC4200CC27A3 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 46B233B618BCDC4200CC27A3 /* LoginViewController.m */; };
 		46B233B918BCE58400CC27A3 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46B233B818BCE58400CC27A3 /* Security.framework */; };
@@ -534,7 +532,6 @@
 		461B0C2418DC3BD700E0DAF5 /* AppointmentPreviewViewController_Bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "AppointmentPreviewViewController_Bg@2x.png"; sourceTree = "<group>"; };
 		461B0C2618DC3BD700E0DAF5 /* CouponDetailViewControl_Coupon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "CouponDetailViewControl_Coupon@2x.png"; sourceTree = "<group>"; };
 		461B0C2818DC3BD700E0DAF5 /* Profile_Banner_Bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Profile_Banner_Bg@2x.png"; sourceTree = "<group>"; };
-		461B0C2918DC3BD700E0DAF5 /* Profile_Bottom_Bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Profile_Bottom_Bg@2x.png"; sourceTree = "<group>"; };
 		461B0C3018DC3BD700E0DAF5 /* GroupManageViewController_Bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "GroupManageViewController_Bg@2x.png"; sourceTree = "<group>"; };
 		461B0C3118DC3BD700E0DAF5 /* MyGroupViewControl_ButtonBg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "MyGroupViewControl_ButtonBg@2x.png"; sourceTree = "<group>"; };
 		461B0C3318DC3BD700E0DAF5 /* StaffManageViewControl_Bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "StaffManageViewControl_Bg@2x.png"; sourceTree = "<group>"; };
@@ -860,7 +857,6 @@
 		46AF945718F662FB00479158 /* OrderPaidTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderPaidTableView.m; sourceTree = "<group>"; };
 		46AF945918F6630A00479158 /* OrderUnpaidTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderUnpaidTableView.h; sourceTree = "<group>"; };
 		46AF945A18F6630A00479158 /* OrderUnpaidTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderUnpaidTableView.m; sourceTree = "<group>"; };
-		46AF945C18F6741E00479158 /* Profile_Bottom_Bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Profile_Bottom_Bg.png; sourceTree = "<group>"; };
 		46AF945E18F683BB00479158 /* pick_bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pick_bg.png; sourceTree = "<group>"; };
 		46B233B518BCDC4200CC27A3 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
 		46B233B618BCDC4200CC27A3 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
@@ -1452,8 +1448,6 @@
 				461B0C2D18DC3BD700E0DAF5 /* UserViewControl */,
 				461B0C3F18DC3BD700E0DAF5 /* WorkDetail */,
 				461B0C2818DC3BD700E0DAF5 /* Profile_Banner_Bg@2x.png */,
-				46AF945C18F6741E00479158 /* Profile_Bottom_Bg.png */,
-				461B0C2918DC3BD700E0DAF5 /* Profile_Bottom_Bg@2x.png */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -2443,7 +2437,6 @@
 				461B0C5818DC3BD700E0DAF5 /* RootBottomTab3Selected@2x.png in Resources */,
 				46BCD25218BC3B4F005C4BD6 /* SVProgressHUD.bundle in Resources */,
 				18502DAB18F93ED600CD4A0A /* AvatarDefault@2x.jpg in Resources */,
-				46AF945D18F6741E00479158 /* Profile_Bottom_Bg.png in Resources */,
 				184B82DD18DAC7F000177BAB /* bubble-flat-outgoing-old@2x.png in Resources */,
 				184B82E718DAC7F000177BAB /* bubble-square-outgoing-selected@2x.png in Resources */,
 				461B0C5E18DC3BD700E0DAF5 /* AppointmentPreviewViewController_Bg@2x.png in Resources */,
@@ -2480,7 +2473,6 @@
 				184B82E018DAC7F000177BAB /* bubble-flat-outgoing.png in Resources */,
 				184B82E618DAC7F000177BAB /* bubble-square-outgoing-selected.png in Resources */,
 				461B0C6A18DC3BD700E0DAF5 /* UploadWorkViewControl_FaceStyleGuaZiSelected@2x.png in Resources */,
-				461B0C6118DC3BD700E0DAF5 /* Profile_Bottom_Bg@2x.png in Resources */,
 				184B82F418DAC7F000177BAB /* send-highlighted.png in Resources */,
 				467F0EEA18CB4FCF009FFE08 /* pick_bg@2x.png in Resources */,
 				184B82D118DAC7F000177BAB /* bubble-default-incoming@2x.png in Resources */,

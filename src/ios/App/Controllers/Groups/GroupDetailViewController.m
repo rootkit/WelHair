@@ -155,9 +155,11 @@ static const float profileViewHeight = 320;
 
     UIView *addressView = [[UIView alloc] initWithFrame:CGRectMake(0, profileViewHeight, WIDTH(headerView_), tabButtonViewHeight)];
     [headerView_ addSubview:addressView];
-    UIImageView *addressViewBg = [[UIImageView alloc] initWithFrame:addressView.bounds];
-    addressViewBg.image = [UIImage imageNamed:@"Profile_Bottom_Bg"];
-    [addressView addSubview:addressViewBg];
+    
+    addressView.backgroundColor = [UIColor whiteColor];
+    UIView *addressFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, MaxY(addressView), WIDTH(addressView), 7)];
+    addressFooterView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"Juchi"]];
+    [headerView_ addSubview:addressFooterView];
     
     self.avatorImgView = [[UIImageView alloc] initWithFrame:CGRectMake(20, 300, avatorSize, avatorSize)];
     self.avatorImgView.layer.borderColor = [[UIColor whiteColor] CGColor];

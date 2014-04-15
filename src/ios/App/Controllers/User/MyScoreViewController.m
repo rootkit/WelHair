@@ -52,9 +52,8 @@
     
     UIView *topView = [[UIView alloc] initWithFrame:CGRectMake(0, self.topBarOffset, WIDTH(self.view), topViewheight)];
     [self.view addSubview:topView];
-    UIImageView *topImageView = [[UIImageView alloc] initWithFrame:topView.bounds];
-    topImageView.image = [UIImage imageNamed:@"Profile_Bottom_Bg"];
-    [topView addSubview:topImageView];
+    topView.backgroundColor = [UIColor whiteColor];
+    
     UILabel *scoreTitleLbl = [[UILabel alloc] initWithFrame:CGRectMake(0,0,100,topViewheight)];
     scoreTitleLbl.backgroundColor = [UIColor clearColor];
     scoreTitleLbl.textColor = [UIColor blackColor];
@@ -70,12 +69,14 @@
     self.scoreLbl.textAlignment = NSTextAlignmentLeft;;
     [topView addSubview:self.scoreLbl];
     
-
+    UIView *topFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, MaxY(topView), WIDTH(topView), 7)];
+    topFooterView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"Juchi"]];
+    [self.view addSubview:topFooterView];
     
     self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0,
-                                                                   MaxY(topView),
+                                                                   MaxY(topFooterView),
                                                                    WIDTH(self.view),
-                                                                   [self contentHeightWithNavgationBar:YES withBottomBar:NO] - topViewheight)];
+                                                                   [self contentHeightWithNavgationBar:YES withBottomBar:NO] - topViewheight - 7)];
     
     self.tableView.backgroundColor = [UIColor clearColor];
     self.tableView.delegate = self;

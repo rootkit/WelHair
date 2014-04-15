@@ -61,12 +61,12 @@
                                                                      WIDTH(self.view),
                                                                      [self contentHeightWithNavgationBar:YES withBottomBar:NO])];
     [self.view addSubview:self.scrollView];
-    self.headerView = [[UIView alloc] initWithFrame:CGRectMake(0,0, WIDTH(self.scrollView), 150)];
+    self.headerView = [[UIView alloc] initWithFrame:CGRectMake(0,0, WIDTH(self.scrollView), 130)];
     [self.scrollView addSubview:self.headerView];
-    
-    UIImageView *headerBgView = [[UIImageView alloc] initWithFrame:self.headerView.bounds];
-    headerBgView.image = [UIImage imageNamed:@"Profile_Bottom_Bg"];
-    [self.headerView addSubview:headerBgView];
+    self.headerView.backgroundColor = [UIColor whiteColor];
+    UIView *headerFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, MaxY(self.headerView), WIDTH(self.headerView), 7)];
+    headerFooterView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"Juchi"]];
+    [self.scrollView addSubview:headerFooterView];
     
     self.groupAvatorImg = [[UIImageView alloc] initWithFrame:CGRectMake(10, 10, 100 , 100)];
     [self.groupAvatorImg setImageWithURL:[NSURL URLWithString:self.group.logoUrl]];
@@ -82,7 +82,7 @@
     [self.headerView addSubview:self.nameLbl];
     
     
-    self.rateCtrl = [[AMRatingControl alloc] initWithLocation:CGPointMake(X(self.nameLbl), MaxY(self.nameLbl) +7)
+    self.rateCtrl = [[AMRatingControl alloc] initWithLocation:CGPointMake(X(self.nameLbl), MaxY(self.nameLbl) )
                                                    emptyColor:[UIColor colorWithHexString:@"ffc62a"]
                                                    solidColor:[UIColor colorWithHexString:@"ffc62a"]
                                                  andMaxRating:5];
@@ -106,16 +106,17 @@
     self.addressLbl.text = self.group.address;
     [self.headerView addSubview:self.addressLbl];
     
+    
     for (int i =0 ; i < self.group.imgUrls.count; i ++) {
         UIImageView *img;
         if(i == 0){
-            img = [[UIImageView alloc] initWithFrame:CGRectMake(15 , MaxY(self.headerView) + 10, 90 , 90)];
+            img = [[UIImageView alloc] initWithFrame:CGRectMake(15 , MaxY(self.headerView) + 20, 90 , 90)];
         }else if(i == 1 ){
-            img = [[UIImageView alloc] initWithFrame:CGRectMake(115 , MaxY(self.headerView) + 10, 90 , 90)];
+            img = [[UIImageView alloc] initWithFrame:CGRectMake(115 , MaxY(self.headerView) + 20, 90 , 90)];
         }else if(i == 2 ){
-            img = [[UIImageView alloc] initWithFrame:CGRectMake(225 , MaxY(self.headerView) + 10, 90 , 90)];
+            img = [[UIImageView alloc] initWithFrame:CGRectMake(225 , MaxY(self.headerView) + 20, 90 , 90)];
         }else if(i == 3 ){
-            img = [[UIImageView alloc] initWithFrame:CGRectMake(15 , MaxY(self.headerView) + 110, 90 , 90)];
+            img = [[UIImageView alloc] initWithFrame:CGRectMake(15 , MaxY(self.headerView) + 120, 90 , 90)];
         }
         [self.scrollView addSubview:img];
         [img setImageWithURL:[NSURL URLWithString:self.group.imgUrls[i]]];

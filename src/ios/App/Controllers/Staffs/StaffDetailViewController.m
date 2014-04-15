@@ -127,10 +127,11 @@ static const float profileViewHeight = 90;
 #pragma topbar
     self.addressView = [[UIView alloc] initWithFrame:CGRectMake(0, profileViewHeight, WIDTH(headerView_), addressViewHeight)];
     [headerView_ addSubview:self.addressView];
-
-    UIImageView *addressViewBg = [[UIImageView alloc] initWithFrame:self.addressView.bounds];
-    addressViewBg.image = [UIImage imageNamed:@"Profile_Bottom_Bg"];
-    [self.addressView addSubview:addressViewBg];
+    
+    self.addressView.backgroundColor = [UIColor whiteColor];
+    UIView *addressFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, MaxY(self.addressView), WIDTH(self.addressView), 7)];
+    addressFooterView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"Juchi"]];
+    [headerView_ addSubview:addressFooterView];
     
     self.avatorImgView = [[CircleImageView alloc] initWithFrame:CGRectMake(20, profileViewHeight - avatorSize / 2, avatorSize, avatorSize)];
     self.avatorImgView.layer.borderColor = [[UIColor whiteColor] CGColor];
