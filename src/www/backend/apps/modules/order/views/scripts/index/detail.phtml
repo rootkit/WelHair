@@ -14,9 +14,9 @@ use \Welfony\Utility\Util;
                     <li id="li_6"><a href="#tab-6" hidefocus="true">订单日志</a></li>
                     <li id="li_7"><a href="#tab-7" hidefocus="true">订单附言</a></li>
                 </ul>
-                <div id="tab-1" name="table" style="display:none">
-                    <div class="content">
-                        <table class="list_table">
+                <div id="tab-1" name="table">
+                    <div class="formitm">
+                        <table class="m-table">
                             <col width="550px" />
                             <col width="100px" />
                             <col width="100px" />
@@ -48,12 +48,11 @@ use \Welfony\Utility\Util;
                                     <td>1</td>
                                     <td>22</td>
                                 </tr>
-                                            </tbody>
+                            </tbody>
                         </table>
-
-                        <table style="width:300px;margin-right:20px;" class="border_table f_l">
-                            <col width="80px" />
-                            <col />
+                    </div>
+                    <div style="display:block; width:100%; min-height:700px;">
+                        <table style="width:300px;margin-right:20px; height:400px;" class="m-table fl">
                             <thead>
                                 <tr><th colspan="2">订单金额明细</th></tr>
                             </thead>
@@ -85,9 +84,7 @@ use \Welfony\Utility\Util;
                             </tbody>
                         </table>
 
-                        <table style="width:300px;margin-right:20px;" class="border_table f_l">
-                            <col width="80px" />
-                            <col />
+                        <table style="width:200px;margin-right:20px; height:400px;" class="m-table fl">
                             <thead>
                                 <tr><th colspan="2">订单其他信息</th></tr>
                             </thead>
@@ -116,9 +113,7 @@ use \Welfony\Utility\Util;
                             </tbody>
                         </table>
 
-                        <table style="width:300px;margin-right:20px;" class="border_table f_l">
-                            <col width="80px" />
-                            <col />
+                        <table style="width:200px;margin-right:20px; height:400px;" class="m-table fl">
                             <thead>
                                 <tr><th colspan="2">收货人信息</th></tr>
                             </thead>
@@ -150,9 +145,7 @@ use \Welfony\Utility\Util;
                             </tbody>
                         </table>
 
-                        <table style="width:300px;margin-right:20px;" class="border_table f_l">
-                            <col width="80px" />
-                            <col />
+                        <table style="width:200px;margin-right:20px;" class="m-table fl">
                             <thead>
                                 <tr><th colspan="2">商城用户信息</th></tr>
                             </thead>
@@ -177,9 +170,9 @@ use \Welfony\Utility\Util;
                     </div>
                 </div>
 
-                <div id="tab-2" name="table" style="display:none">
-                    <div class="content">
-                        <table style="width:45%;margin-right:20px;" class="border_table f_l">
+                <div id="tab-2" name="table">
+                    <div class="formitm">
+                        <table style="width:45%;margin-right:20px; " class="m-table fl">
                             <col width="120px" />
                             <col />
                             <thead>
@@ -190,7 +183,7 @@ use \Welfony\Utility\Util;
                                             </tbody>
                         </table>
 
-                        <table style="width:45%;margin-right:20px;" class="border_table f_l">
+                        <table style="width:45%;margin-right:20px;" class="m-table fl">
                             <col width="120px" />
                             <col />
                             <thead>
@@ -204,7 +197,7 @@ use \Welfony\Utility\Util;
                 </div>
 
                 <div id="tab-3" name="table" style="display:none">
-                    <div class="content">
+                    <div class="formitm">
                         <table style="width:98%" class="border_table">
                             <col width="200px" />
                             <col />
@@ -219,7 +212,7 @@ use \Welfony\Utility\Util;
                 </div>
 
                 <div id="tab-4" name="table" style="display:none">
-                    <div class="content">
+                    <div class="formitm">
                         <table width="98%" class="border_table">
                             <col width="250px" />
                             <col />
@@ -237,8 +230,8 @@ use \Welfony\Utility\Util;
                 </div>
 
                 <div id="tab-5" name="table" style="display:none">
-                    <div class="content">
-                        <div class="content form_content">
+                    <div class="formitm">
+                        <div class="form_content">
                         <form name="ModelForm" action="/index.php?controller=order&action=order_note" method="post">
                             <input type="hidden" name="order_id" value="6"/>
                             <input type="hidden" name="tab" value="6"/>
@@ -262,7 +255,7 @@ use \Welfony\Utility\Util;
                 </div>
 
                 <div id="tab-6" name="table" style="display:none">
-                    <div class="content">
+                    <div>
                         <table class="border_table" style='width:98%'>
                             <colgroup>
                             <col width="200px">
@@ -294,8 +287,8 @@ use \Welfony\Utility\Util;
                 </div>
 
                 <div id="tab-7" name="table" style="display:none">
-                    <div class="content">
-                        <div class="content form_content">
+                    <div class="formitm">
+                        <div class="form_content">
                             <table class="form_table">
                                 <col width="150px" />
                                 <col />
