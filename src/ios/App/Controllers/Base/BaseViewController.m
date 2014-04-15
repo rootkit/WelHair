@@ -112,6 +112,10 @@
 - (void)setLeftNavButtonTitle:(NSString *)title
                  buttonImg:(UIImage *)img
 {
+    if (title.length <= 0 && !img) {
+        return;
+    }
+
     CGFloat navItemMargin = isIOS7 ? 16 : 0;
     UIButton *leftItemButton = [UIButton buttonWithType:UIButtonTypeCustom];
 
@@ -135,6 +139,10 @@
 - (void)setRightNavButtonTitle:(NSString *)title
                     buttonImg:(UIImage *)img
 {
+    if (title.length <= 0 && !img) {
+        return;
+    }
+
     CGFloat navItemMargin = isIOS7 ? 16 : 0;
     UIButton *rightItemButton = [UIButton buttonWithType:UIButtonTypeCustom];
     
