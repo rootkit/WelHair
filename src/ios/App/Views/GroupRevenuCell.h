@@ -9,5 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface GroupRevenuCell : UITableViewCell
-
+- (void)setup:(NSDictionary *)dic;
 @end

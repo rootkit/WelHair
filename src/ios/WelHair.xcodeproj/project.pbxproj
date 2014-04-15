@@ -239,6 +239,7 @@
 		466DF41818FD572500CB8A53 /* GCPlaceholderTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 466DF41718FD572500CB8A53 /* GCPlaceholderTextView.m */; };
 		466DF41A18FD6B0200CB8A53 /* GroupManageViewController_Bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 466DF41918FD6B0200CB8A53 /* GroupManageViewController_Bg.png */; };
 		466DF41D18FD6C7600CB8A53 /* ApprovalCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 466DF41C18FD6C7600CB8A53 /* ApprovalCell.m */; };
+		466DF42018FD73B600CB8A53 /* GroupRevenuCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 466DF41F18FD73B600CB8A53 /* GroupRevenuCell.m */; };
 		4673BB5B18D2E2A9000F64DE /* StaffWorksViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4673BB5A18D2E2A9000F64DE /* StaffWorksViewController.m */; };
 		4673BB6118D2ED4D000F64DE /* AppointmentsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4673BB6018D2ED4D000F64DE /* AppointmentsViewController.m */; };
 		4673BB6418D2ED61000F64DE /* AppointmentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4673BB6318D2ED61000F64DE /* AppointmentCell.m */; };
@@ -759,6 +760,8 @@
 		466DF41918FD6B0200CB8A53 /* GroupManageViewController_Bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = GroupManageViewController_Bg.png; sourceTree = "<group>"; };
 		466DF41B18FD6C7600CB8A53 /* ApprovalCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ApprovalCell.h; sourceTree = "<group>"; };
 		466DF41C18FD6C7600CB8A53 /* ApprovalCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ApprovalCell.m; sourceTree = "<group>"; };
+		466DF41E18FD73B600CB8A53 /* GroupRevenuCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroupRevenuCell.h; sourceTree = "<group>"; };
+		466DF41F18FD73B600CB8A53 /* GroupRevenuCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GroupRevenuCell.m; sourceTree = "<group>"; };
 		4673BB5918D2E2A9000F64DE /* StaffWorksViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StaffWorksViewController.h; sourceTree = "<group>"; };
 		4673BB5A18D2E2A9000F64DE /* StaffWorksViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StaffWorksViewController.m; sourceTree = "<group>"; };
 		4673BB5F18D2ED4D000F64DE /* AppointmentsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppointmentsViewController.h; sourceTree = "<group>"; };
@@ -2067,6 +2070,8 @@
 				46B25AEC18C086D30035F425 /* WorkCell.m */,
 				466DF41B18FD6C7600CB8A53 /* ApprovalCell.h */,
 				466DF41C18FD6C7600CB8A53 /* ApprovalCell.m */,
+				466DF41E18FD73B600CB8A53 /* GroupRevenuCell.h */,
+				466DF41F18FD73B600CB8A53 /* GroupRevenuCell.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -2556,6 +2561,7 @@
 				460C2F4A18CAFDB200AD16E6 /* GroupCell.m in Sources */,
 				4665C83B18F5455B0066753D /* FavoriteGroupTableView.m in Sources */,
 				46BCD25F18BC725D005C4BD6 /* GroupsViewController.m in Sources */,
+				466DF42018FD73B600CB8A53 /* GroupRevenuCell.m in Sources */,
 				4673BBC418D420AB000F64DE /* StaffServicesViewController.m in Sources */,
 				467F0F2C18CC95CA009FFE08 /* JOLImageSlider.m in Sources */,
 				46B233B718BCDC4200CC27A3 /* LoginViewController.m in Sources */,
