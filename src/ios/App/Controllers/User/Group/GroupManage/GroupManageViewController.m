@@ -44,17 +44,12 @@
     [contentView addSubview:btnBg];
     
     float buttonWidth = 240;
-    float buttonHeight = 67;
-    UIButton *couponBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    couponBtn.frame = CGRectMake(40,25 , buttonWidth, buttonHeight);
-    [couponBtn addTarget:self action:@selector(couponClick) forControlEvents:UIControlEventTouchDown];
-    [contentView addSubview:couponBtn];
-    
-    
+    float buttonHeight = 70;
     UIButton *revenuBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    revenuBtn.frame = CGRectMake(40, MaxY(couponBtn) + 20, buttonWidth, buttonHeight);
+    revenuBtn.frame = CGRectMake(40,20 , buttonWidth, buttonHeight);
     [revenuBtn addTarget:self action:@selector(revenuClick) forControlEvents:UIControlEventTouchDown];
     [contentView addSubview:revenuBtn];
+    
     
     UIButton *withDrawalBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     withDrawalBtn.frame = CGRectMake(40, MaxY(revenuBtn) + 20, buttonWidth, buttonHeight);
@@ -65,7 +60,6 @@
     approvalBtn.frame = CGRectMake(40, MaxY(withDrawalBtn) + 20, buttonWidth, buttonHeight);
     [approvalBtn addTarget:self action:@selector(approvalClick) forControlEvents:UIControlEventTouchDown];
     [contentView addSubview:approvalBtn];
-
 }
 
 - (void)didReceiveMemoryWarning
@@ -74,11 +68,6 @@
     
 }
 
-
-- (void)couponClick
-{
-    [self.navigationController pushViewController:[CouponManagerViewController new] animated:YES];
-}
 
 - (void)revenuClick
 {

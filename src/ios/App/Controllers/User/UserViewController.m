@@ -198,7 +198,6 @@ static const float profileViewHeight = 90;
 {
     [self.navigationController popToViewController:self animated:NO];
     [self getStaffDetail];
-
     if([UserManager SharedInstance].userLogined.role == WHManager){
         MyGroupViewController *myGroupVc = [MyGroupViewController new];
         myGroupVc.hidesBottomBarWhenPushed = YES;
@@ -327,7 +326,10 @@ static const float profileViewHeight = 90;
         }
         case 3: {
             [self getStaffDetail];
-
+            MyGroupViewController *vc = [MyGroupViewController new];
+            vc.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:vc animated:YES];
+            return;
             if ([UserManager SharedInstance].userLogined.isApproving) {
                 [SVProgressHUD showErrorWithStatus:@"正在审核中，请耐心等待。" duration:1];
                 return;

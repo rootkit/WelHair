@@ -7,7 +7,16 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Staff.h"
+@protocol ApprovalCellDelegate <NSObject>
+
+- (void)didTapStaff:(Staff *)staff;
+
+@end
 
 @interface ApprovalCell : UITableViewCell
+@property (nonatomic, weak) id<ApprovalCellDelegate> delegate;
+
+- (void)setup:(NSDictionary *)dic;
 
 @end

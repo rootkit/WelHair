@@ -237,6 +237,8 @@
 		466DF41318FC111300CB8A53 /* libSocialWechat.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 466DF40018FC111300CB8A53 /* libSocialWechat.a */; };
 		466DF41418FC111300CB8A53 /* libWeChatSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 466DF40118FC111300CB8A53 /* libWeChatSDK.a */; };
 		466DF41818FD572500CB8A53 /* GCPlaceholderTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 466DF41718FD572500CB8A53 /* GCPlaceholderTextView.m */; };
+		466DF41A18FD6B0200CB8A53 /* GroupManageViewController_Bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 466DF41918FD6B0200CB8A53 /* GroupManageViewController_Bg.png */; };
+		466DF41D18FD6C7600CB8A53 /* ApprovalCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 466DF41C18FD6C7600CB8A53 /* ApprovalCell.m */; };
 		4673BB5B18D2E2A9000F64DE /* StaffWorksViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4673BB5A18D2E2A9000F64DE /* StaffWorksViewController.m */; };
 		4673BB6118D2ED4D000F64DE /* AppointmentsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4673BB6018D2ED4D000F64DE /* AppointmentsViewController.m */; };
 		4673BB6418D2ED61000F64DE /* AppointmentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4673BB6318D2ED61000F64DE /* AppointmentCell.m */; };
@@ -754,6 +756,9 @@
 		466DF40418FC111300CB8A53 /* WXApiObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApiObject.h; sourceTree = "<group>"; };
 		466DF41618FD572500CB8A53 /* GCPlaceholderTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GCPlaceholderTextView.h; sourceTree = "<group>"; };
 		466DF41718FD572500CB8A53 /* GCPlaceholderTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GCPlaceholderTextView.m; sourceTree = "<group>"; };
+		466DF41918FD6B0200CB8A53 /* GroupManageViewController_Bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = GroupManageViewController_Bg.png; sourceTree = "<group>"; };
+		466DF41B18FD6C7600CB8A53 /* ApprovalCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ApprovalCell.h; sourceTree = "<group>"; };
+		466DF41C18FD6C7600CB8A53 /* ApprovalCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ApprovalCell.m; sourceTree = "<group>"; };
 		4673BB5918D2E2A9000F64DE /* StaffWorksViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StaffWorksViewController.h; sourceTree = "<group>"; };
 		4673BB5A18D2E2A9000F64DE /* StaffWorksViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StaffWorksViewController.m; sourceTree = "<group>"; };
 		4673BB5F18D2ED4D000F64DE /* AppointmentsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppointmentsViewController.h; sourceTree = "<group>"; };
@@ -1502,6 +1507,7 @@
 		461B0C2F18DC3BD700E0DAF5 /* GroupManageViewController */ = {
 			isa = PBXGroup;
 			children = (
+				466DF41918FD6B0200CB8A53 /* GroupManageViewController_Bg.png */,
 				461B0C3018DC3BD700E0DAF5 /* GroupManageViewController_Bg@2x.png */,
 			);
 			path = GroupManageViewController;
@@ -2059,6 +2065,8 @@
 				4630252D18C848EB000E0B51 /* WorkCardView.m */,
 				46B25AEB18C086D30035F425 /* WorkCell.h */,
 				46B25AEC18C086D30035F425 /* WorkCell.m */,
+				466DF41B18FD6C7600CB8A53 /* ApprovalCell.h */,
+				466DF41C18FD6C7600CB8A53 /* ApprovalCell.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -2441,6 +2449,7 @@
 				1825E1CE18E183B70052AA9A /* MeTab1@2x.png in Resources */,
 				1825E1CC18E183B70052AA9A /* Juchi@2x.png in Resources */,
 				466DF40E18FC111300CB8A53 /* UMSShareListController.xib in Resources */,
+				466DF41A18FD6B0200CB8A53 /* GroupManageViewController_Bg.png in Resources */,
 				184B82DE18DAC7F000177BAB /* bubble-flat-outgoing-selected.png in Resources */,
 				184B82EF18DAC7F000177BAB /* input-bar@2x.png in Resources */,
 				183B03E318E1110500765116 /* groupedTableViewCell_topRow_highlighted@2x.png in Resources */,
@@ -2551,6 +2560,7 @@
 				467F0F2C18CC95CA009FFE08 /* JOLImageSlider.m in Sources */,
 				46B233B718BCDC4200CC27A3 /* LoginViewController.m in Sources */,
 				46BDF12418D0B40E00999F50 /* Coupon.m in Sources */,
+				466DF41D18FD6C7600CB8A53 /* ApprovalCell.m in Sources */,
 				465D2D3218E98B8C009E4CD8 /* BaiduMapHelper.m in Sources */,
 				46BDF12718D0B51C00999F50 /* CouponDetailViewController.m in Sources */,
 				4673BB6418D2ED61000F64DE /* AppointmentCell.m in Sources */,
