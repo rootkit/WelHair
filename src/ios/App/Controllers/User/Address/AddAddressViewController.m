@@ -7,12 +7,12 @@
 //
 
 #import "AddAddressViewController.h"
-
+#import "GCPlaceholderTextView.h"
 @interface  AddAddressViewController()
 @property (nonatomic, strong) UITextField *nameTxt;
 @property (nonatomic, strong) UITextField *phoneTxt;
 @property (nonatomic, strong) UITextField *emailTxt;
-@property (nonatomic, strong) UITextField *addressTxt;
+@property (nonatomic, strong) GCPlaceholderTextView *addressTxt;
 @end
 
 @implementation AddAddressViewController
@@ -21,7 +21,6 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        self.title = @"添加收货地址";
         FAKIcon *leftIcon = [FAKIonIcons ios7ArrowBackIconWithSize:NAV_BAR_ICON_SIZE];
         [leftIcon addAttribute:NSForegroundColorAttributeName value:[UIColor whiteColor]];
         self.leftNavItemImg =[leftIcon imageWithSize:CGSizeMake(NAV_BAR_ICON_SIZE, NAV_BAR_ICON_SIZE)];
@@ -57,6 +56,7 @@
     self.nameTxt.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
     self.nameTxt.backgroundColor = [UIColor whiteColor];
     self.nameTxt.placeholder = @"收件人";
+    self.nameTxt.layer.cornerRadius = 5;
     [self.view addSubview:self.nameTxt];
     
     self.phoneTxt =  [UITextField plainTextField:CGRectMake(margin ,
@@ -68,23 +68,27 @@
     self.phoneTxt.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
     self.phoneTxt.backgroundColor = [UIColor whiteColor];
     self.phoneTxt.placeholder = @"电话";
+    self.phoneTxt.layer.cornerRadius = 5;
     [self.view addSubview:self.phoneTxt];
     
-    self.addressTxt = [[UITextField alloc] initWithFrame:CGRectMake(margin ,
+    self.addressTxt = [[GCPlaceholderTextView alloc] initWithFrame:CGRectMake(margin ,
                                                                    MaxY(self.phoneTxt)+ margin,
                                                                    WIDTH(self.nameTxt),
-                                                                    40)];
-    self.addressTxt.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
+                                                                    80)];
     self.addressTxt.backgroundColor = [UIColor whiteColor];
     self.addressTxt.font = [UIFont systemFontOfSize:14];
     self.addressTxt.backgroundColor = [UIColor whiteColor];
-    self.addressTxt.placeholder = @"详细地址";
+    self.addressTxt.placeholder = @" 详细地址";
+    self.addressTxt.layer.cornerRadius = 5;
     [self.view addSubview:self.addressTxt];
     
     if(self.address){
         self.nameTxt.text = self.address.userName;
         self.phoneTxt.text = self.address.phoneNumber;
         self.addressTxt.text = self.address.detailAddress;
+        self.title = @"编辑收货地址";
+    }else{
+        self.title = @"添加收货地址";
     }
 }
 

@@ -236,6 +236,7 @@
 		466DF41218FC111300CB8A53 /* TencentOpenApi_IOS_Bundle.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 466DF3FD18FC111300CB8A53 /* TencentOpenApi_IOS_Bundle.bundle */; };
 		466DF41318FC111300CB8A53 /* libSocialWechat.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 466DF40018FC111300CB8A53 /* libSocialWechat.a */; };
 		466DF41418FC111300CB8A53 /* libWeChatSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 466DF40118FC111300CB8A53 /* libWeChatSDK.a */; };
+		466DF41818FD572500CB8A53 /* GCPlaceholderTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 466DF41718FD572500CB8A53 /* GCPlaceholderTextView.m */; };
 		4673BB5B18D2E2A9000F64DE /* StaffWorksViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4673BB5A18D2E2A9000F64DE /* StaffWorksViewController.m */; };
 		4673BB6118D2ED4D000F64DE /* AppointmentsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4673BB6018D2ED4D000F64DE /* AppointmentsViewController.m */; };
 		4673BB6418D2ED61000F64DE /* AppointmentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4673BB6318D2ED61000F64DE /* AppointmentCell.m */; };
@@ -751,6 +752,8 @@
 		466DF40218FC111300CB8A53 /* UMSocialWechatHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMSocialWechatHandler.h; sourceTree = "<group>"; };
 		466DF40318FC111300CB8A53 /* WXApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApi.h; sourceTree = "<group>"; };
 		466DF40418FC111300CB8A53 /* WXApiObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApiObject.h; sourceTree = "<group>"; };
+		466DF41618FD572500CB8A53 /* GCPlaceholderTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GCPlaceholderTextView.h; sourceTree = "<group>"; };
+		466DF41718FD572500CB8A53 /* GCPlaceholderTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GCPlaceholderTextView.m; sourceTree = "<group>"; };
 		4673BB5918D2E2A9000F64DE /* StaffWorksViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StaffWorksViewController.h; sourceTree = "<group>"; };
 		4673BB5A18D2E2A9000F64DE /* StaffWorksViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StaffWorksViewController.m; sourceTree = "<group>"; };
 		4673BB5F18D2ED4D000F64DE /* AppointmentsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppointmentsViewController.h; sourceTree = "<group>"; };
@@ -1304,6 +1307,7 @@
 		18A912E518BB2826006B9A04 /* Vendor */ = {
 			isa = PBXGroup;
 			children = (
+				466DF41518FD572500CB8A53 /* GCPlaceholderTextView */,
 				466DF3DD18FC111300CB8A53 /* UMSocial_Sdk_3.3.7 */,
 				183B03C718E110F500765116 /* ABMGroupedTableView */,
 				18FAFAB218EAA6C200EF6960 /* BrickView */,
@@ -1873,6 +1877,15 @@
 				466DF40418FC111300CB8A53 /* WXApiObject.h */,
 			);
 			path = Wechat;
+			sourceTree = "<group>";
+		};
+		466DF41518FD572500CB8A53 /* GCPlaceholderTextView */ = {
+			isa = PBXGroup;
+			children = (
+				466DF41618FD572500CB8A53 /* GCPlaceholderTextView.h */,
+				466DF41718FD572500CB8A53 /* GCPlaceholderTextView.m */,
+			);
+			path = GCPlaceholderTextView;
 			sourceTree = "<group>";
 		};
 		4673BB9018D41B26000F64DE /* Coupon */ = {
@@ -2519,6 +2532,7 @@
 				467F0EEB18CB4FCF009FFE08 /* WelQRGeneraterViewController.m in Sources */,
 				46E84EE318C356B30004C146 /* OpitionButton.m in Sources */,
 				467F0EB518CB1721009FFE08 /* Product.m in Sources */,
+				466DF41818FD572500CB8A53 /* GCPlaceholderTextView.m in Sources */,
 				4659D27818E7E220005648C0 /* Address.m in Sources */,
 				467F0EE718CB4FCF009FFE08 /* NSDate+WelKit.m in Sources */,
 				467F0EB218CB16EB009FFE08 /* ProductCardView.m in Sources */,
@@ -2812,14 +2826,7 @@
 				INFOPLIST_FILE = "$(SRCROOT)/App/Info.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(SRCROOT)/App/Vendor/UMSocial_Sdk_3.3.6",
 					"$(SRCROOT)/App/Assets/BaiduMap/libs/Release$(EFFECTIVE_PLATFORM_NAME)",
-					"$(PROJECT_DIR)/App/Vendor/UMSocial_Sdk_3.3.4/frameworks/Wechat",
-					"$(PROJECT_DIR)/App/Vendor/UMSocial_Sdk_3.3.4",
-					"$(PROJECT_DIR)/App/Vendor/UMSocial_Sdk_3.3.7/UMSocial_Sdk_3.3.4/frameworks/Wechat",
-					"$(PROJECT_DIR)/App/Vendor/UMSocial_Sdk_3.3.7/UMSocial_Sdk_3.3.4",
-					"$(PROJECT_DIR)/App/Vendor/UMSocial_Sdk_3.3.7/UMSocial_Sdk_Extra_Frameworks/LaiWang",
-					"$(PROJECT_DIR)/App/Vendor/UMSocial_Sdk_3.3.7/UMSocial_Sdk_Extra_Frameworks/YiXin",
 					"$(PROJECT_DIR)/App/Vendor/UMSocial_Sdk_3.3.7/UMSocial_Sdk_3.3.7",
 					"$(PROJECT_DIR)/App/Vendor/UMSocial_Sdk_3.3.7/UMSocial_Sdk_Extra_Frameworks/TencentOpenAPI",
 					"$(PROJECT_DIR)/App/Vendor/UMSocial_Sdk_3.3.7/UMSocial_Sdk_Extra_Frameworks/Wechat",
@@ -2856,14 +2863,7 @@
 				INFOPLIST_FILE = "$(SRCROOT)/App/Info.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(SRCROOT)/App/Vendor/UMSocial_Sdk_3.3.6",
 					"$(SRCROOT)/App/Assets/BaiduMap/libs/Release$(EFFECTIVE_PLATFORM_NAME)",
-					"$(PROJECT_DIR)/App/Vendor/UMSocial_Sdk_3.3.4/frameworks/Wechat",
-					"$(PROJECT_DIR)/App/Vendor/UMSocial_Sdk_3.3.4",
-					"$(PROJECT_DIR)/App/Vendor/UMSocial_Sdk_3.3.7/UMSocial_Sdk_3.3.4/frameworks/Wechat",
-					"$(PROJECT_DIR)/App/Vendor/UMSocial_Sdk_3.3.7/UMSocial_Sdk_3.3.4",
-					"$(PROJECT_DIR)/App/Vendor/UMSocial_Sdk_3.3.7/UMSocial_Sdk_Extra_Frameworks/LaiWang",
-					"$(PROJECT_DIR)/App/Vendor/UMSocial_Sdk_3.3.7/UMSocial_Sdk_Extra_Frameworks/YiXin",
 					"$(PROJECT_DIR)/App/Vendor/UMSocial_Sdk_3.3.7/UMSocial_Sdk_3.3.7",
 					"$(PROJECT_DIR)/App/Vendor/UMSocial_Sdk_3.3.7/UMSocial_Sdk_Extra_Frameworks/TencentOpenAPI",
 					"$(PROJECT_DIR)/App/Vendor/UMSocial_Sdk_3.3.7/UMSocial_Sdk_Extra_Frameworks/Wechat",

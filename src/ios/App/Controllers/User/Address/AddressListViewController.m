@@ -14,6 +14,8 @@
 @interface AddressListViewController ()<UITableViewDataSource, UITableViewDelegate, AddressCellDelegate>
 @property (nonatomic, strong) NSMutableArray *datasource;
 @property (nonatomic, strong) UITableView *tableView;
+
+@property (nonatomic, strong) Address *defaultAddress;
 @end
 
 @implementation AddressListViewController
@@ -23,6 +25,7 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
+        self.title = @"送货地址";
         FAKIcon *leftIcon = [FAKIonIcons ios7ArrowBackIconWithSize:NAV_BAR_ICON_SIZE];
         [leftIcon addAttribute:NSForegroundColorAttributeName value:[UIColor whiteColor]];
         self.leftNavItemImg =[leftIcon imageWithSize:CGSizeMake(NAV_BAR_ICON_SIZE, NAV_BAR_ICON_SIZE)];
@@ -107,20 +110,20 @@
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         cell.delegate = self;
     }
-    if(!self.pickedAddress){
-        self.pickedAddress = [FakeDataHelper getFakeDefaultAddress];
-    }
     Address *item= [self.datasource objectAtIndex:indexPath.row];
     [cell setup:item];
-    if(item == self.pickedAddress){
+    if(self.isPickingAddress && item == self.pickedAddress){
         [cell setPicked:YES];
+    }else if(!self.isPickingAddress && item.isDefault){
+        [cell setPicked:YES];
+        self.defaultAddress = item;
     }
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    [self didselectAddress:[self.datasource objectAtIndex:indexPath.row]];
+    [self didSelectAddress:[self.datasource objectAtIndex:indexPath.row]];
 }
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -162,16 +165,21 @@
 
 - (void)addressCell:(AddressCell *)addressCell didSelected:(Address *)address
 {
-    [self didselectAddress:address];
+    [self didSelectAddress:address];
 }
 
-- (void)didselectAddress:(Address *)address
+- (void)didSelectAddress:(Address *)address
 {
-    if(self.pickedAddress){
+    if(self.isPickingAddress && self.pickedAddress){
         [self.delegate didPickAddress:address];
         [self.navigationController popViewControllerAnimated:YES];
-    }else{
-        debugLog(@"sa;ving default address to server");
+    }else if(!self.isPickingAddress && !address.isDefault){
+        address.isDefault = YES;
+        self.defaultAddress.isDefault = NO;
+        self.defaultAddress = address;
+        [self.tableView reloadData];
+        [SVProgressHUD showSuccessWithStatus:@"设为默认地址" duration:1];
+        debugLog(@"Call api to set default address");
     }
 }
 

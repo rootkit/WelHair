@@ -15,7 +15,7 @@
 @end
 
 @interface AddressListViewController : BaseViewController
+@property (nonatomic) BOOL isPickingAddress;
 @property (nonatomic) Address *pickedAddress;
-
 @property (nonatomic, weak) id<AddressPickDeleate> delegate;
 @end

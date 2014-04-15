@@ -176,6 +176,7 @@
 {
     AddressListViewController *vc = [AddressListViewController new];
     vc.delegate = self;
+    vc.isPickingAddress = YES;
     vc.pickedAddress = self.address;
     [self.navigationController pushViewController:vc animated:YES];
 }
