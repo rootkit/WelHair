@@ -379,6 +379,26 @@ static const float kScrollViewContentHeight = 600;
     self.uploadPictureActivityIndicator4.activityIndicatorViewStyle = UIActivityIndicatorViewStyleGray;
     [uploadPictureView addSubview:self.uploadPictureActivityIndicator4];
     
+    if(self.group){
+        [self.uploadLogo setImageWithURL:[NSURL URLWithString:self.group.logoUrl]];
+        self.cityLbl.text = self.group.city.name;
+        self.selectedCity = self.group.city;
+        self.groupNameTxt.text = self.group.name;
+        self.phoneNumTxt.text = self.group.tel;
+        self.mobileTxt.text = self.group.mobile;
+        self.groupAddressTxt.text = self.group.address;
+        for (int i =0 ; i < self.group.imgUrls.count; i++) {
+            if(i == 0){
+                [self.uploadPic1 setImageWithURL:[NSURL URLWithString:self.group.imgUrls[i]]];
+            }else if(i== 1){
+                [self.uploadPic2 setImageWithURL:[NSURL URLWithString:self.group.imgUrls[i]]];
+            }else if(i== 2){
+                [self.uploadPic3 setImageWithURL:[NSURL URLWithString:self.group.imgUrls[i]]];
+            }else if(i== 3){
+                [self.uploadPic4 setImageWithURL:[NSURL URLWithString:self.group.imgUrls[i]]];
+            }
+        }
+    }
 }
 
 - (void)didReceiveMemoryWarning

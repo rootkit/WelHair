@@ -69,7 +69,7 @@
     [self.headerView addSubview:headerBgView];
     
     self.groupAvatorImg = [[UIImageView alloc] initWithFrame:CGRectMake(10, 10, 100 , 100)];
-    [self.groupAvatorImg setImageWithURL:[NSURL URLWithString:self.group.imgUrls[0]]];
+    [self.groupAvatorImg setImageWithURL:[NSURL URLWithString:self.group.logoUrl]];
     [self.headerView addSubview:self.groupAvatorImg];
     
     
@@ -115,11 +115,13 @@
         }else if(i == 2 ){
             img = [[UIImageView alloc] initWithFrame:CGRectMake(225 , MaxY(self.headerView) + 10, 90 , 90)];
         }else if(i == 3 ){
-            img = [[UIImageView alloc] initWithFrame:CGRectMake(15 , MaxY(self.headerView) + 100, 90 , 90)];
+            img = [[UIImageView alloc] initWithFrame:CGRectMake(15 , MaxY(self.headerView) + 110, 90 , 90)];
         }
         [self.scrollView addSubview:img];
         [img setImageWithURL:[NSURL URLWithString:self.group.imgUrls[i]]];
         img.userInteractionEnabled = YES;
+        img.layer.borderColor = [[UIColor lightGrayColor] CGColor];
+        img.layer.borderWidth = 1;
         [img addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(imgTapp)]];
         [img drawBottomShadowOffset:1 opacity:1];
     }
