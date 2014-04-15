@@ -14,8 +14,7 @@ use \Welfony\Utility\Util;
 <table class="m-table">
     <thead>
         <tr>
-            <th class="col-chk"><input type="checkbox" /></th>
-            <th class="cola">订单号</th>
+            <th class="cola" style="width:125px;">订单号</th>
             <th class="cola">收货人</th>
             <th class="cola">支付状态</th>
             <th class="cola">发货状态</th>
@@ -29,11 +28,14 @@ use \Welfony\Utility\Util;
     <tbody>
       <?php foreach( $this->rows as $order) : ?>
         <tr>
-            <td class="col-center"><input type="checkbox" /></td>
             <td>
+                <?php if($order['IsDeleted']): ?>
+                    <?php echo $order['OrderNo']; ?>
+                <?php else: ?>
                 <a href="<?php echo $this->baseUrl('order/index/info?order_id=' .  $order['OrderId']); ?>">
                     <?php echo $order['OrderNo']; ?>
                 </a>
+                <?php endif;?>
             </td>
             <td> <?php echo $order['AcceptName']; ?></td>
             <td> <?php echo $order['PayStatus']? ( $order['PayStatus']== '1' ? '已支付': '退款'):'未支付'; ?></td>
@@ -43,8 +45,13 @@ use \Welfony\Utility\Util;
             <td><?php echo $order['UserName']; ?></td>
             <td><?php echo $order['CreateTime']; ?></td>
             <td> 
+                <?php if(!$order['IsDeleted']): ?>
                 <a href="#" href="#" class="btnDelete" data-id="<?php echo $order['OrderId']; ?>" >
                     <i class="iconfont">&#xf013f;</i>&nbsp;&nbsp;删除
+                </a>
+                <?php endif;?>
+                <a href="<?php echo $this->baseUrl('order/index/detail?order_id=' .  $order['OrderId']); ?>">
+                    <i class="iconfont">&#xf0198;</i>&nbsp;&nbsp;详情
                 </a>
             </td>
         </tr>

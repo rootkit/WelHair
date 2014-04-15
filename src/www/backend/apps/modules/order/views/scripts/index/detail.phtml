@@ -1,97 +1,327 @@
-<table class="m-table">
-    <thead>
-        <tr>
-            <th class="col-chk"><input type="checkbox" /></th>
-            <th class="cola">订单号</th>
-            <th>详情</th>
-            <th class="cola">收货人</th>
-            <th class="cola">状态</th>
-            <th class="colb">下单日期</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td class="col-center"><input type="checkbox" /></td>
-            <td>内容</td>
-            <td>内容内容内容内容内容内容内容</td>
-            <td>内容内容</td>
-            <td>内容内容</td>
-            <td>内容内容内容</td>
-        </tr>
-        <tr>
-            <td class="col-center"><input type="checkbox" /></td>
-            <td>内容</td>
-            <td>内容内容内容内容内容内容内容</td>
-            <td>内容内容</td>
-            <td>内容内容</td>
-            <td>内容内容内容</td>
-        </tr>
-        <tr>
-            <td class="col-center"><input type="checkbox" /></td>
-            <td>内容</td>
-            <td>内容内容内容内容内容内容内容</td>
-            <td>内容内容</td>
-            <td>内容内容</td>
-            <td>内容内容内容</td>
-        </tr>
-        <tr>
-            <td class="col-center"><input type="checkbox" /></td>
-            <td>内容</td>
-            <td>内容内容内容内容内容内容内容</td>
-            <td>内容内容</td>
-            <td>内容内容</td>
-            <td>内容内容内容</td>
-        </tr>
-        <tr>
-            <td class="col-center"><input type="checkbox" /></td>
-            <td>内容</td>
-            <td>内容内容内容内容内容内容内容</td>
-            <td>内容内容</td>
-            <td>内容内容</td>
-            <td>内容内容内容</td>
-        </tr>
-        <tr>
-            <td class="col-center"><input type="checkbox" /></td>
-            <td>内容</td>
-            <td>内容内容内容内容内容内容内容</td>
-            <td>内容内容</td>
-            <td>内容内容</td>
-            <td>内容内容内容</td>
-        </tr>
-        <tr>
-            <td class="col-center"><input type="checkbox" /></td>
-            <td>内容</td>
-            <td>内容内容内容内容内容内容内容</td>
-            <td>内容内容</td>
-            <td>内容内容</td>
-            <td>内容内容内容</td>
-        </tr>
-        <tr>
-            <td class="col-center"><input type="checkbox" /></td>
-            <td>内容</td>
-            <td>内容内容内容内容内容内容内容</td>
-            <td>内容内容</td>
-            <td>内容内容</td>
-            <td>内容内容内容</td>
-        </tr>
-        <tr>
-            <td class="col-center"><input type="checkbox" /></td>
-            <td>内容</td>
-            <td>内容内容内容内容内容内容内容</td>
-            <td>内容内容</td>
-            <td>内容内容</td>
-            <td>内容内容内容</td>
-        </tr>
-    </tbody>
-</table>
+<?php
+use \Welfony\Utility\Util;
+?>
+<div class="m-form" >
+    <form id="frm-order-info" method="post">
+        <fieldset>
+            <div id="tabs">
+               <ul class="tab" name="menu1">
+                    <li id="li_1"><a href="#tab-1" hidefocus="true">基本信息</a></li>
+                    <li id="li_2"><a href="#tab-2" hidefocus="true">收退款记录</a></li>
+                    <li id="li_3"><a href="#tab-3" hidefocus="true">发货记录</a></li>
+                    <li id="li_4"><a href="#tab-4" hidefocus="true">优惠方案</a></li>
+                    <li id="li_5"><a href="#tab-5" hidefocus="true">订单备注</a></li>
+                    <li id="li_6"><a href="#tab-6" hidefocus="true">订单日志</a></li>
+                    <li id="li_7"><a href="#tab-7" hidefocus="true">订单附言</a></li>
+                </ul>
+                <div id="tab-1" name="table" style="display:none">
+                    <div class="content">
+                        <table class="list_table">
+                            <col width="550px" />
+                            <col width="100px" />
+                            <col width="100px" />
+                            <col width="100px" />
+                            <col />
+                            <thead>
+                                <tr>
+                                    <th>商品名称</th>
+                                    <th>商品原价</th>
+                                    <th>实际价格</th>
+                                    <th>商品数量</th>
+                                    <th>小计</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                                <tr>
+                                    <td>
+                                                                sssssxxxx &nbsp;&nbsp; 包装:袋装 ,                  </td>
+                                    <td>22.00</td>
+                                    <td>22.00</td>
+                                    <td>1</td>
+                                    <td>22</td>
+                                </tr>
+                                                <tr>
+                                    <td>
+                                                                sssssxxxx &nbsp;&nbsp; 包装:瓶装 ,                  </td>
+                                    <td>22.00</td>
+                                    <td>22.00</td>
+                                    <td>1</td>
+                                    <td>22</td>
+                                </tr>
+                                            </tbody>
+                        </table>
 
-<div class="m-page m-page-rt">
-    <a href="#" class="first pageprv z-dis">上一页</a>
-    <a href="#">1</a>
-    <a href="#" class="z-crt">2</a>
-    <a href="#">3</a>
-    <a href="#">4</a>
-    <i>...</i>
-    <a href="#">10</a>
-    <a href="#" class="last pagenxt">下一页</a>
+                        <table style="width:300px;margin-right:20px;" class="border_table f_l">
+                            <col width="80px" />
+                            <col />
+                            <thead>
+                                <tr><th colspan="2">订单金额明细</th></tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <th>商品总额:</th><td>￥44.00</td>
+                                </tr>
+                                <tr>
+                                    <th>配送费用:</th><td>￥20.00</td>
+                                </tr>
+                                <tr>
+                                    <th>保价费用:</th><td>￥5.00</td>
+                                </tr>
+                                <tr>
+                                    <th>税金:</th><td>￥0.00</td>
+                                </tr>
+                                <tr>
+                                    <th>优惠总额:</th><td>￥0.00</td>
+                                </tr>
+                                <tr>
+                                    <th>增加或减少金额:</th><td>￥12.00</td>
+                                </tr>
+                                <tr>
+                                    <th>订单总额:</th><td>￥81.00</td>
+                                </tr>
+                                <tr>
+                                    <th>已支付金额:</th><td></td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <table style="width:300px;margin-right:20px;" class="border_table f_l">
+                            <col width="80px" />
+                            <col />
+                            <thead>
+                                <tr><th colspan="2">订单其他信息</th></tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <th>配送方式:</th><td>快递</td>
+                                </tr>
+                                <tr>
+                                    <th>配送保价:</th><td>保价</td>
+                                </tr>
+                                <tr>
+                                    <th>商品重量:</th><td>44</td>
+                                </tr>
+                                <tr>
+                                    <th>支付方式:</th><td>预存款支付</td>
+                                </tr>
+                                <tr>
+                                    <th>是否开票:</th><td>否</td>
+                                </tr>
+                                <tr>
+                                    <th>发票抬头:</th><td>test</td>
+                                </tr>
+                                <tr>
+                                    <th>可得积分:</th><td>44</td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <table style="width:300px;margin-right:20px;" class="border_table f_l">
+                            <col width="80px" />
+                            <col />
+                            <thead>
+                                <tr><th colspan="2">收货人信息</th></tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <th>发货日期:</th><td></td>
+                                </tr>
+                                <tr>
+                                    <th>姓名:</th><td>sss</td>
+                                </tr>
+                                <tr>
+                                    <th>电话:</th><td></td>
+                                </tr>
+                                <tr>
+                                    <th>手机 :</th><td>13706411579</td>
+                                </tr>
+                                <tr>
+                                    <th>地区:</th><td>广东省&nbsp;广州市&nbsp;市辖区</td>
+                                </tr>
+                                <tr>
+                                    <th>地址:</th><td>daf</td>
+                                </tr>
+                                <tr>
+                                    <th>邮编:</th><td></td>
+                                </tr>
+                                <tr>
+                                    <th>送货时间:</th><td>任意</td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <table style="width:300px;margin-right:20px;" class="border_table f_l">
+                            <col width="80px" />
+                            <col />
+                            <thead>
+                                <tr><th colspan="2">商城用户信息</th></tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <th>用户名:</th><td></td>
+                                </tr>
+                                <tr>
+                                    <th>姓名:</th><td></td>
+                                </tr>
+                                <tr>
+                                    <th>电话:</th><td></td>
+                                </tr>
+                                <tr>
+                                    <th>地区:</th><td></td>
+                                </tr>
+                                <tr>
+                                    <th>Email:</th><td></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div id="tab-2" name="table" style="display:none">
+                    <div class="content">
+                        <table style="width:45%;margin-right:20px;" class="border_table f_l">
+                            <col width="120px" />
+                            <col />
+                            <thead>
+                                <tr><th colspan="2">收款单据</th></tr>
+                            </thead>
+                            <tbody>
+                                                                <tr><td colspan='2'>暂无数据</td></tr>
+                                            </tbody>
+                        </table>
+
+                        <table style="width:45%;margin-right:20px;" class="border_table f_l">
+                            <col width="120px" />
+                            <col />
+                            <thead>
+                                <tr><th colspan="2">退款单据列表</th></tr>
+                            </thead>
+                            <tbody>
+                                                                <tr><td colspan='2'>暂无数据</td></tr>
+                                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div id="tab-3" name="table" style="display:none">
+                    <div class="content">
+                        <table style="width:98%" class="border_table">
+                            <col width="200px" />
+                            <col />
+                            <thead>
+                                <tr><th colspan="2">发货单据列表</th></tr>
+                            </thead>
+                            <tbody>
+                                                                <tr><td colspan="2">暂无数据</td></tr>
+                                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div id="tab-4" name="table" style="display:none">
+                    <div class="content">
+                        <table width="98%" class="border_table">
+                            <col width="250px" />
+                            <col />
+                            <thead>
+                                <tr>
+                                    <th>方案</th>
+                                    <th>优惠内容</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                        <tr><td colspan='2'>暂无数据</td></tr>
+                                        </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div id="tab-5" name="table" style="display:none">
+                    <div class="content">
+                        <div class="content form_content">
+                        <form name="ModelForm" action="/index.php?controller=order&action=order_note" method="post">
+                            <input type="hidden" name="order_id" value="6"/>
+                            <input type="hidden" name="tab" value="6"/>
+                            <table class="form_table">
+                                <col width="150px" />
+                                <col />
+                                <tbody>
+                                    <tr>
+                                        <th>订单备注:</th>
+                                        <td align="left"><textarea name="note" id="note" rows="8" cols="100"></textarea></td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td align="left"><button type="submit" class="submit"><span>保存</span></button></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </form>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="tab-6" name="table" style="display:none">
+                    <div class="content">
+                        <table class="border_table" style='width:98%'>
+                            <colgroup>
+                            <col width="200px">
+                            <col width="150px">
+                            <col width="150px">
+                            <col width="100px">
+                            <col />
+                            </colgroup>
+                            <thead>
+                                <tr>
+                                    <th>时间</th>
+                                    <th>操作人</th>
+                                    <th>动作</th>
+                                    <th>结果</th>
+                                    <th>备注</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                                <tr>
+                                    <td>2014-04-15 20:44:54</td>
+                                    <td>admin</td>
+                                    <td>作废</td>
+                                    <td>成功</td>
+                                    <td>订单【20140413202706462603】作废成功</td>
+                                </tr>
+                                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div id="tab-7" name="table" style="display:none">
+                    <div class="content">
+                        <div class="content form_content">
+                            <table class="form_table">
+                                <col width="150px" />
+                                <col />
+                                <tbody>
+                                    <tr>
+                                        <th>订单附言:</th>
+                                        <td align="left"></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pages_bar formitm formitm-1">
+                <div class="t_c" id="ctrlButtonArea">
+                    <button type="button" class="btn" id="to_pay" onclick="pay(6);"><span>支付</span></button>
+                    <button type="button" class="btn" id="to_deliver" onclick="deliver(6);"><span>发货</span></button>
+                    <button type="button" class="btn" id="to_refundment" onclick="refundment(6);"><span>退款</span></button>
+                    <button type="button" class="btn" onclick="complete(6,5)"><span>完成</span></button>
+                    <button type="button" class="btn" onclick="complete(6,4)"><span>作废</span></button>
+                </div>
+            </div>
+        </fieldset>
+    </form>
 </div>
+
+<script src="<?php echo Util::baseAssetUrl('js/backend/order-detail.js'); ?>"></script>
