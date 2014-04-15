@@ -240,6 +240,7 @@
 		466DF41A18FD6B0200CB8A53 /* GroupManageViewController_Bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 466DF41918FD6B0200CB8A53 /* GroupManageViewController_Bg.png */; };
 		466DF41D18FD6C7600CB8A53 /* ApprovalCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 466DF41C18FD6C7600CB8A53 /* ApprovalCell.m */; };
 		466DF42018FD73B600CB8A53 /* GroupRevenuCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 466DF41F18FD73B600CB8A53 /* GroupRevenuCell.m */; };
+		466DF42618FD7F6B00CB8A53 /* MyGroupDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 466DF42518FD7F6B00CB8A53 /* MyGroupDetailViewController.m */; };
 		4673BB5B18D2E2A9000F64DE /* StaffWorksViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4673BB5A18D2E2A9000F64DE /* StaffWorksViewController.m */; };
 		4673BB6118D2ED4D000F64DE /* AppointmentsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4673BB6018D2ED4D000F64DE /* AppointmentsViewController.m */; };
 		4673BB6418D2ED61000F64DE /* AppointmentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4673BB6318D2ED61000F64DE /* AppointmentCell.m */; };
@@ -762,6 +763,8 @@
 		466DF41C18FD6C7600CB8A53 /* ApprovalCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ApprovalCell.m; sourceTree = "<group>"; };
 		466DF41E18FD73B600CB8A53 /* GroupRevenuCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroupRevenuCell.h; sourceTree = "<group>"; };
 		466DF41F18FD73B600CB8A53 /* GroupRevenuCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GroupRevenuCell.m; sourceTree = "<group>"; };
+		466DF42418FD7F6B00CB8A53 /* MyGroupDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyGroupDetailViewController.h; sourceTree = "<group>"; };
+		466DF42518FD7F6B00CB8A53 /* MyGroupDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyGroupDetailViewController.m; sourceTree = "<group>"; };
 		4673BB5918D2E2A9000F64DE /* StaffWorksViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StaffWorksViewController.h; sourceTree = "<group>"; };
 		4673BB5A18D2E2A9000F64DE /* StaffWorksViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StaffWorksViewController.m; sourceTree = "<group>"; };
 		4673BB5F18D2ED4D000F64DE /* AppointmentsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppointmentsViewController.h; sourceTree = "<group>"; };
@@ -2229,6 +2232,8 @@
 		46EAF99118D19E2100D4C624 /* GroupInfo */ = {
 			isa = PBXGroup;
 			children = (
+				466DF42418FD7F6B00CB8A53 /* MyGroupDetailViewController.h */,
+				466DF42518FD7F6B00CB8A53 /* MyGroupDetailViewController.m */,
 			);
 			path = GroupInfo;
 			sourceTree = "<group>";
@@ -2605,6 +2610,7 @@
 				4631CF0418E3209900F39814 /* AddressListViewController.m in Sources */,
 				467F0EB818CB2164009FFE08 /* ProductCell.m in Sources */,
 				467F0EEC18CB4FCF009FFE08 /* WelQRReaderViewController.m in Sources */,
+				466DF42618FD7F6B00CB8A53 /* MyGroupDetailViewController.m in Sources */,
 				4665FD7C18BC7D4700E88C6B /* CommentsViewController.m in Sources */,
 				46B25AED18C086D30035F425 /* WorkCell.m in Sources */,
 				183B03CD18E110F500765116 /* ABMGroupedTableView.m in Sources */,

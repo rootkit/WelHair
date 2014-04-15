@@ -11,6 +11,7 @@
 #import "MyGroupStaffListViewController.h"
 #import "MyGroupViewController.h"
 #import "UploadWorkFormViewController.h"
+#import "MyGroupDetailViewController.h"
 
 @interface MyGroupViewController ()
 
@@ -78,7 +79,7 @@
 
 - (void)infoClick
 {
-    [self.navigationController pushViewController:[CreateGroupViewController new] animated:YES];
+    [self.navigationController pushViewController:[MyGroupDetailViewController new] animated:YES];
 }
 
 /*

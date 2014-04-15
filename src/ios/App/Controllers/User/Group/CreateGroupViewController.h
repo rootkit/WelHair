@@ -11,7 +11,7 @@
 // ==============================================================================
 
 #import "BaseViewController.h"
-
+#import "Group.h"
 @interface CreateGroupViewController : BaseViewController
-
+@property (nonatomic, strong) Group *group;
 @end

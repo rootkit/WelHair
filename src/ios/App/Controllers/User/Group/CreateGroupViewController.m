@@ -56,8 +56,6 @@ static const float kScrollViewContentHeight = 600;
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        self.title = @"添加沙龙";
-
         FAKIcon *leftIcon = [FAKIonIcons ios7ArrowBackIconWithSize:NAV_BAR_ICON_SIZE];
         [leftIcon addAttribute:NSForegroundColorAttributeName value:[UIColor whiteColor]];
         self.leftNavItemImg =[leftIcon imageWithSize:CGSizeMake(NAV_BAR_ICON_SIZE, NAV_BAR_ICON_SIZE)];
@@ -181,6 +179,11 @@ static const float kScrollViewContentHeight = 600;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    if(self.group){
+        self.title = @"编辑沙龙";
+    }else{
+        self.title = @"添加沙龙";
+    }
     self.scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, self.topBarOffset, WIDTH(self.view), [self contentHeightWithNavgationBar:YES withBottomBar:NO])];
     self.scrollView.contentSize = CGSizeMake(WIDTH(self.view), kScrollViewContentHeight);
     self.scrollView.delegate = self;
@@ -375,6 +378,7 @@ static const float kScrollViewContentHeight = 600;
     self.uploadPictureActivityIndicator4 = [[UIActivityIndicatorView alloc] initWithFrame:CGRectInset(self.uploadPic4.frame, 3, 3)];
     self.uploadPictureActivityIndicator4.activityIndicatorViewStyle = UIActivityIndicatorViewStyleGray;
     [uploadPictureView addSubview:self.uploadPictureActivityIndicator4];
+    
 }
 
 - (void)didReceiveMemoryWarning
