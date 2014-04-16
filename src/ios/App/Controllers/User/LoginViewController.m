@@ -125,32 +125,23 @@ static const float kOffsetY = 50;
     [bottomView addSubview:rightLineView];
     
     
-    float socialBtnSize = 28;
+    float socialBtnSize = 30;
     UIButton *sinaBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    sinaBtn.frame = CGRectMake(70, MaxY(socialLoginLbl) + 10, socialBtnSize, socialBtnSize);
+    sinaBtn.frame = CGRectMake(100, MaxY(socialLoginLbl) + 10, socialBtnSize, socialBtnSize);
     [sinaBtn setImage:[UIImage imageNamed:@"SinaWeibo"] forState:UIControlStateNormal];
     [sinaBtn addTarget:self action:@selector(sinaSignClick) forControlEvents:UIControlEventTouchDown];
     [bottomView addSubview:sinaBtn];
     
-    UIView *vLine1 = [[UIView alloc] initWithFrame:CGRectMake(MaxX(sinaBtn) + 22,MaxY(socialLoginLbl) + 10, 1, 30)];
+    UIView *vLine1 = [[UIView alloc] initWithFrame:CGRectMake(MaxX(sinaBtn) + 30,MaxY(socialLoginLbl) + 10, 1, 30)];
     vLine1.backgroundColor = [UIColor grayColor];
     [bottomView addSubview:vLine1];
     
     UIButton *qqBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    qqBtn.frame = CGRectMake(MaxX(sinaBtn) + 45, MaxY(socialLoginLbl) + 10, socialBtnSize, socialBtnSize);
+    qqBtn.frame = CGRectMake(MaxX(vLine1) + 30, MaxY(socialLoginLbl) + 10, socialBtnSize, socialBtnSize);
     [qqBtn setImage:[UIImage imageNamed:@"QQIcon"] forState:UIControlStateNormal];
     [qqBtn addTarget:self action:@selector(qqSignClick) forControlEvents:UIControlEventTouchDown];
     [bottomView addSubview:qqBtn];
     
-    UIView *vLine2 = [[UIView alloc] initWithFrame:CGRectMake(MaxX(qqBtn) + 22, MaxY(socialLoginLbl) + 10, 1, 30)];
-    vLine2.backgroundColor = [UIColor grayColor];
-    [bottomView addSubview:vLine2];
-    
-    UIButton *tecentWeiboBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    tecentWeiboBtn.frame = CGRectMake(MaxX(qqBtn) + 45, MaxY(socialLoginLbl) + 10, socialBtnSize, socialBtnSize);
-    [tecentWeiboBtn setImage:[UIImage imageNamed:@"QQWeiboIcon"] forState:UIControlStateNormal];
-    [tecentWeiboBtn addTarget:self action:@selector(sinaSignClick) forControlEvents:UIControlEventTouchDown];
-    [bottomView addSubview:tecentWeiboBtn];
 }
 
 - (void)viewDidLoad
@@ -315,6 +306,7 @@ static const float kOffsetY = 50;
     snsPlatform.loginClickHandler(self,[UMSocialControllerService defaultControllerService],YES,^(UMSocialResponseEntity *response)
                                   {
                                       debugLog(@"response is %@",response);
+                                      
                                       //如果是授权到新浪微博，SSO之后如果想获取用户的昵称、头像等需要再次获取一次账户信息
 //                                      if ([platformName isEqualToString:UMShareToSina]) {
 //                                          [[UMSocialDataService defaultDataService] requestSocialAccountWithCompletion:^(UMSocialResponseEntity *accountResponse){
@@ -322,15 +314,13 @@ static const float kOffsetY = 50;
 //                                          }];
 //                                      }
                                       
-                                      //这里可以获取到腾讯微博openid,Qzone的token等
-                                      /*
-                                       else if ([platformName isEqualToString:UMShareToTencent]) {
-                                       [[UMSocialDataService defaultDataService] requestSnsInformation:UMShareToTencent completion:^(UMSocialResponseEntity *respose){
+                             
+                                    
+                                       [[UMSocialDataService defaultDataService] requestSnsInformation:UMShareToQQ completion:^(UMSocialResponseEntity *respose){
                                        debugLog(@"get openid  response is %@",respose);
                                        }];
-                                       }
-                                       */
                                   });
 }
+
 
 @end
