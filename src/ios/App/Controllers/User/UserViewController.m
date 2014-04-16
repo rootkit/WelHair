@@ -325,11 +325,6 @@ static const float profileViewHeight = 90;
             break;
         }
         case 3: {
-            [self getStaffDetail];
-            StaffManageViewController *vc = [StaffManageViewController new];
-            vc.hidesBottomBarWhenPushed = YES;
-            [self.navigationController pushViewController:vc animated:YES];
-            return;
             if ([UserManager SharedInstance].userLogined.isApproving) {
                 [SVProgressHUD showErrorWithStatus:@"正在审核中，请耐心等待。" duration:1];
                 return;
