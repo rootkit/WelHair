@@ -175,7 +175,7 @@
     if (request.responseStatusCode == 200) {
         NSDictionary *responseMessage = [Util objectFromJson:request.responseString];
         if (responseMessage) {
-            if (![responseMessage objectForKey:@"success"]) {
+            if ([[responseMessage objectForKey:@"success"] intValue] <= 0) {
                 [SVProgressHUD showErrorWithStatus:[responseMessage objectForKey:@"message"]];
                 return;
             }
@@ -234,7 +234,7 @@
     if (request.responseStatusCode == 200) {
         NSDictionary *responseMessage = [Util objectFromJson:request.responseString];
         if (responseMessage) {
-            if (![responseMessage objectForKey:@"success"]) {
+            if ([[responseMessage objectForKey:@"success"] intValue] <= 0) {
                 [SVProgressHUD showErrorWithStatus:[responseMessage objectForKey:@"message"]];
                 return;
             }

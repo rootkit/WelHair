@@ -224,8 +224,29 @@ class StaffService
                 $staffDetail['Company']['Address'] = $row['CompanyAddress'];
                 $staffDetail['Company']['Status'] = $row['CompanyStatus'];
                 $staffDetail['Company']['LogoUrl'] = $row['CompanyLogoUrl'];
+                if (isset($row['Latitude'])) {
+                    $staffDetail['Company']['Latitude'] = $row['Latitude'];
+                }
+                if (isset($row['Longitude'])) {
+                    $staffDetail['Company']['Longitude'] = $row['Longitude'];
+                }
+                if (isset($row['CompanyRate'])) {
+                    $staffDetail['Company']['Rate'] = $row['CompanyRate'];
+                }
+                if (isset($row['CompanyTel'])) {
+                    $staffDetail['Company']['Tel'] = $row['CompanyTel'];
+                }
+                if (isset($row['CompanyMobile'])) {
+                    $staffDetail['Company']['Mobile'] = $row['CompanyMobile'];
+                }
+                if (isset($row['CompanyCity'])) {
+                    $staffDetail['Company']['City'] = $row['CompanyCity'];
+                }
                 if (isset($row['Distance'])) {
                     $staffDetail['Company']['Distance'] = $row['Distance'];
+                }
+                if (isset($row['CompanyPictureUrl'])) {
+                    $staffDetail['Company']['PictureUrl'] = json_decode($row['CompanyPictureUrl'], true);
                 }
             }
 

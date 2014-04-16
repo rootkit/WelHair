@@ -26,10 +26,12 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         self.title = @"沙龙管理";
+
         FAKIcon *leftIcon = [FAKIonIcons ios7ArrowBackIconWithSize:NAV_BAR_ICON_SIZE];
         [leftIcon addAttribute:NSForegroundColorAttributeName value:[UIColor whiteColor]];
         self.leftNavItemImg =[leftIcon imageWithSize:CGSizeMake(NAV_BAR_ICON_SIZE, NAV_BAR_ICON_SIZE)];
     }
+
     return self;
 }
 
@@ -37,9 +39,11 @@
 {
     [self.navigationController popViewControllerAnimated: YES];
 }
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+
     UIView *contentView = [[UIView alloc] initWithFrame:CGRectMake(0, self.topBarOffset, WIDTH(self.view), 416)];
     [self.view addSubview:contentView];
     
@@ -66,12 +70,20 @@
     [contentView addSubview:approvalBtn];
 }
 
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+
+    if (self.group.id <= 0) {
+        [SVProgressHUD showErrorWithStatus:@"无法获取沙龙信息。"];
+        [self.navigationController popViewControllerAnimated:YES];
+    }
+}
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
-    
 }
-
 
 - (void)revenuClick
 {

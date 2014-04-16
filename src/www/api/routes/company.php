@@ -52,4 +52,9 @@ $app->post('/companies', function () use ($app) {
 $app->post('/companies/:companyId/join', function ($companyId) use ($app) {
     $ctrl = new CompanyController();
     $ctrl->join($companyId);
-});
+})->conditions(array('companyId' => '\d{1,10}'));
+
+$app->put('/companies/:companyId', function ($companyId) use ($app) {
+    $ctrl = new CompanyController();
+    $ctrl->update($companyId);
+})->conditions(array('companyId' => '\d{1,10}'));

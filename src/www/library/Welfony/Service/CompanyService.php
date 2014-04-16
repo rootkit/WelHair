@@ -66,6 +66,31 @@ class CompanyService
         return array('total' => $total, 'companies' => $companies);
     }
 
+    public static function update($data)
+    {
+        $result = array('success' => false, 'message' => '');
+
+        if (empty($data['Tel']) && empty($data['Mobile'])) {
+            $result['message'] = '联系电话和手机至少填写一项。';
+
+            return $result;
+        }
+
+        if (!isset($data['PictureUrl']) || count($data['PictureUrl']) <= 0) {
+            $result['message'] = '请至少选择一张沙龙图片。';
+
+            return $result;
+        }
+
+        $data['PictureUrl'] = json_encode($data['PictureUrl'], true);
+        $data['LastModifiedDate'] = date('Y-m-d H:i:s');
+
+        $result['success'] = CompanyRepository::getInstance()->update($data['CompanyId'], $data);
+        $result['message'] = $result['success'] ? '更新沙龙成功！' : '更新沙龙失败！';
+
+        return $result;
+    }
+
     public static function save($data)
     {
         $result = array('success' => false, 'message' => '');

@@ -10,11 +10,13 @@
 //
 // ==============================================================================
 
-#import "MyGroupDetailViewController.h"
 #import <AMRatingControl.h>
 #import "CreateGroupViewController.h"
+#import "MyGroupDetailViewController.h"
 #import "MWPhotoBrowser.h"
-@interface MyGroupDetailViewController ()<MWPhotoBrowserDelegate>
+
+@interface MyGroupDetailViewController () <MWPhotoBrowserDelegate>
+
 @property (nonatomic, strong) UIScrollView *scrollView;
 
 @property (nonatomic, strong) UIView *headerView;
@@ -25,6 +27,7 @@
 @property (nonatomic, strong) AMRatingControl *rateCtrl;
 
 @property (nonatomic, strong) NSMutableArray *groupImages;
+
 @end
 
 @implementation MyGroupDetailViewController
@@ -42,6 +45,7 @@
         [leftIcon addAttribute:NSForegroundColorAttributeName value:[UIColor whiteColor]];
         self.leftNavItemImg =[leftIcon imageWithSize:CGSizeMake(NAV_BAR_ICON_SIZE, NAV_BAR_ICON_SIZE)];
     }
+
     return self;
 }
 
@@ -60,86 +64,100 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.group = [FakeDataHelper getFakeGroupList][0];
+
     self.scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, self.topBarOffset,
                                                                      WIDTH(self.view),
                                                                      [self contentHeightWithNavgationBar:YES withBottomBar:NO])];
     [self.view addSubview:self.scrollView];
+
     self.headerView = [[UIView alloc] initWithFrame:CGRectMake(0,0, WIDTH(self.scrollView), 130)];
-    [self.scrollView addSubview:self.headerView];
     self.headerView.backgroundColor = [UIColor whiteColor];
+    [self.scrollView addSubview:self.headerView];
+
     UIView *headerFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, MaxY(self.headerView), WIDTH(self.headerView), 7)];
     headerFooterView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"Juchi"]];
     [self.scrollView addSubview:headerFooterView];
     
     self.groupAvatorImg = [[UIImageView alloc] initWithFrame:CGRectMake(10, 10, 100 , 100)];
-    [self.groupAvatorImg setImageWithURL:[NSURL URLWithString:self.group.logoUrl]];
     [self.headerView addSubview:self.groupAvatorImg];
-    
-    
+
     self.nameLbl = [[UILabel alloc] initWithFrame:CGRectMake(MaxX(self.groupAvatorImg) + 10, 10, 200, 30)];
     self.nameLbl.backgroundColor = [UIColor clearColor];
     self.nameLbl.textColor = [UIColor blackColor];
     self.nameLbl.font = [UIFont boldSystemFontOfSize:16];
     self.nameLbl.textAlignment = TextAlignmentLeft;
-    self.nameLbl.text = self.group.name;
     [self.headerView addSubview:self.nameLbl];
     
-    
+
     self.rateCtrl = [[AMRatingControl alloc] initWithLocation:CGPointMake(X(self.nameLbl), MaxY(self.nameLbl) )
                                                    emptyColor:[UIColor colorWithHexString:@"ffc62a"]
                                                    solidColor:[UIColor colorWithHexString:@"ffc62a"]
                                                  andMaxRating:5];
     [self.headerView addSubview:self.rateCtrl];
     self.rateCtrl.enabled = NO;
-    [self.rateCtrl setRating:4];
+    [self.rateCtrl setRating:self.group.rating];
+
+    UIImageView *phoneImg = [[UIImageView alloc] initWithFrame:CGRectMake(MaxX(self.groupAvatorImg) + 10, MaxY(self.nameLbl) + 35, 20, 20)];
+    FAKIcon *phoneIcon = [FAKIonIcons ios7TelephoneIconWithSize:30];
+    [phoneIcon addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithHexString:APP_NAVIGATIONBAR_COLOR]];
+    phoneImg.image = [phoneIcon imageWithSize:CGSizeMake(30, 30)];
+    phoneImg.userInteractionEnabled = YES;
+    [self.headerView addSubview:phoneImg];
     
-    self.phoneLbl = [[UILabel alloc] initWithFrame:CGRectMake(MaxX(self.groupAvatorImg) + 10, MaxY(self.nameLbl)+30, 200, 30)];
+    self.phoneLbl = [[UILabel alloc] initWithFrame:CGRectMake(MaxX(phoneImg) + 5, MaxY(self.nameLbl) + 30, 200, 30)];
     self.phoneLbl.backgroundColor = [UIColor clearColor];
     self.phoneLbl.textColor = [UIColor blackColor];
     self.phoneLbl.font = [UIFont systemFontOfSize:14];
     self.phoneLbl.textAlignment = TextAlignmentLeft;
-    self.phoneLbl.text =  @"13333333";
     [self.headerView addSubview:self.phoneLbl];
+
+    UIImageView *locationImg = [[UIImageView alloc] initWithFrame:CGRectMake(MaxX(self.groupAvatorImg) + 10, MaxY(self.phoneLbl) + 5, 20, 20)];
+    FAKIcon *locationIcon = [FAKIonIcons locationIconWithSize:30];
+    [locationIcon addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithHexString:APP_NAVIGATIONBAR_COLOR]];
+    locationImg.image = [locationIcon imageWithSize:CGSizeMake(30, 30)];
+    locationImg.userInteractionEnabled = YES;
+    [self.headerView addSubview:locationImg];
+
     
-    self.addressLbl = [[UILabel alloc] initWithFrame:CGRectMake(MaxX(self.groupAvatorImg) + 10, MaxY(self.phoneLbl), 200, 30)];
+    self.addressLbl = [[UILabel alloc] initWithFrame:CGRectMake(MaxX(locationImg) + 5, MaxY(self.phoneLbl), 200, 30)];
     self.addressLbl.backgroundColor = [UIColor clearColor];
     self.addressLbl.textColor = [UIColor blackColor];
     self.addressLbl.font = [UIFont systemFontOfSize:14];
     self.addressLbl.textAlignment = TextAlignmentLeft;
-    self.addressLbl.text = self.group.address;
     [self.headerView addSubview:self.addressLbl];
     
-    
-    for (int i =0 ; i < self.group.imgUrls.count; i ++) {
+
+    for (int i = 0; i < self.group.imgUrls.count; i ++) {
         UIImageView *img;
-        if(i == 0){
+        if (i == 0) {
             img = [[UIImageView alloc] initWithFrame:CGRectMake(15 , MaxY(self.headerView) + 20, 90 , 90)];
-        }else if(i == 1 ){
+        } else if (i == 1) {
             img = [[UIImageView alloc] initWithFrame:CGRectMake(115 , MaxY(self.headerView) + 20, 90 , 90)];
-        }else if(i == 2 ){
+        } else if (i == 2) {
             img = [[UIImageView alloc] initWithFrame:CGRectMake(225 , MaxY(self.headerView) + 20, 90 , 90)];
-        }else if(i == 3 ){
+        } else if (i == 3) {
             img = [[UIImageView alloc] initWithFrame:CGRectMake(15 , MaxY(self.headerView) + 120, 90 , 90)];
         }
         [self.scrollView addSubview:img];
-        [img setImageWithURL:[NSURL URLWithString:self.group.imgUrls[i]]];
+
         img.userInteractionEnabled = YES;
         img.layer.borderColor = [[UIColor lightGrayColor] CGColor];
         img.layer.borderWidth = 1;
+        [img setImageWithURL:[NSURL URLWithString:self.group.imgUrls[i]]];
         [img addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(imgTapp)]];
         [img drawBottomShadowOffset:1 opacity:1];
     }
-    self.groupImages = [NSMutableArray array];
-    for (NSString *item in self.group.imgUrls) {
-        [self.groupImages addObject:[MWPhoto photoWithURL:[NSURL URLWithString:item]]];
-    }
+
+    [self fillGroupInfo];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(refreshGroupInfo:)
+                                                 name:NOTIFICATION_USER_REFRESH_GROUP_INFO
+                                               object:nil];
 }
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 - (void)imgTapp
@@ -162,6 +180,7 @@
 }
 
 #pragma mark - MWPhotoBrowserDelegate
+
 - (NSUInteger)numberOfPhotosInPhotoBrowser:(MWPhotoBrowser *)photoBrowser
 {
     return self.groupImages.count;
@@ -192,5 +211,23 @@
 {
 }
 
+- (void)refreshGroupInfo:(NSNotification *)notification
+{
+    self.group = notification.object;
+    [self fillGroupInfo];
+}
+
+- (void)fillGroupInfo
+{
+    self.nameLbl.text = self.group.name;
+    self.phoneLbl.text =  self.group.tel.length > 0 ? self.group.tel : self.group.mobile;
+    [self.groupAvatorImg setImageWithURL:[NSURL URLWithString:self.group.logoUrl]];
+    self.addressLbl.text = self.group.address;
+
+    self.groupImages = [NSMutableArray array];
+    for (NSString *item in self.group.imgUrls) {
+        [self.groupImages addObject:[MWPhoto photoWithURL:[NSURL URLWithString:item]]];
+    }
+}
 
 @end

@@ -80,6 +80,8 @@ static const float kScrollViewContentHeight = 600;
 
 - (void)rightNavItemClick
 {
+    [self resignInputResponder];
+
     bool valid = (self.groupNameTxt.text.length > 0 &&
                   self.groupAddressTxt.text.length >0 &&
                   self.selectedCity.id > 0 &&
@@ -102,17 +104,31 @@ static const float kScrollViewContentHeight = 600;
         return;
     }
 
+    if (self.group.id > 0) {
+        if (![self.groupNameTxt.text isEqualToString:self.group.name]) {
+            [SVProgressHUD showErrorWithStatus:@"如果要更改沙龙名称，请联系管理员审核。"];
+            return;
+        }
+        if (![self.groupAddressTxt.text isEqualToString:self.group.address]) {
+            [SVProgressHUD showErrorWithStatus:@"如果要更改沙龙地址，请联系管理员审核。"];
+            return;
+        }
+    }
+
     [SVProgressHUD showWithMaskType:SVProgressHUDMaskTypeClear];
 
     NSMutableDictionary *reqData = [[NSMutableDictionary alloc] initWithCapacity:1];
-    [reqData setObject:self.groupNameTxt.text forKey:@"Name"];
     [reqData setObject:self.phoneNumTxt.text forKey:@"Tel"];
     [reqData setObject:self.mobileTxt.text forKey:@"Mobile"];
-    [reqData setObject:@(self.selectedCity.id) forKey:@"City"];
-    [reqData setObject:self.groupAddressTxt.text forKey:@"Address"];
     [reqData setObject:self.uploadedPictures[0] forKey:@"LogoUrl"];
-    [reqData setObject:@(self.location.coordinate.latitude) forKey:@"Latitude"];
-    [reqData setObject:@(self.location.coordinate.longitude) forKey:@"Longitude"];
+
+    if (self.group.id <= 0) {
+        [reqData setObject:self.groupNameTxt.text forKey:@"Name"];
+        [reqData setObject:@(self.selectedCity.id) forKey:@"City"];
+        [reqData setObject:self.groupAddressTxt.text forKey:@"Address"];
+        [reqData setObject:@(self.location.coordinate.latitude) forKey:@"Latitude"];
+        [reqData setObject:@(self.location.coordinate.longitude) forKey:@"Longitude"];
+    }
 
     NSMutableArray *uploadPictures = [[NSMutableArray alloc] initWithCapacity:4];
     for (NSString *pictureURL in self.uploadedPictures) {
@@ -125,13 +141,22 @@ static const float kScrollViewContentHeight = 600;
     [uploadPictures removeObjectAtIndex:0];
     [reqData setObject:uploadPictures forKey:@"PictureUrl"];
 
-    ASIFormDataRequest *request = [RequestUtil createPOSTRequestWithURL:[NSURL URLWithString:API_COMPANIES_CREATE]
-                                                                andData:reqData];
+    ASIFormDataRequest *request = nil;
+
+    if (self.group.id > 0) {
+        request = [RequestUtil createPUTRequestWithURL:[NSURL URLWithString:[NSString stringWithFormat:API_COMPANIES_UPDATE, self.group.id]]
+                                               andData:reqData];
+        [request setDidFinishSelector:@selector(updateGroupFinish:)];
+        [request setDidFailSelector:@selector(updateGroupFail:)];
+    } else {
+        request = [RequestUtil createPOSTRequestWithURL:[NSURL URLWithString:API_COMPANIES_CREATE]
+                                                andData:reqData];
+        [request setDidFinishSelector:@selector(createGroupFinish:)];
+        [request setDidFailSelector:@selector(createGroupFail:)];
+    }
     [self.requests addObject:request];
 
     [request setDelegate:self];
-    [request setDidFinishSelector:@selector(createGroupFinish:)];
-    [request setDidFailSelector:@selector(createGroupFail:)];
     [request startAsynchronous];
 }
 
@@ -163,6 +188,50 @@ static const float kScrollViewContentHeight = 600;
     [SVProgressHUD showErrorWithStatus:@"添加沙龙失败，请重试！"];
 }
 
+- (void)updateGroupFinish:(ASIHTTPRequest *)request
+{
+    [SVProgressHUD dismiss];
+
+    if (request.responseStatusCode == 200) {
+        NSDictionary *responseMessage = [Util objectFromJson:request.responseString];
+        if (responseMessage) {
+            if ([[responseMessage objectForKey:@"success"] intValue] <= 0) {
+                [SVProgressHUD showErrorWithStatus:[responseMessage objectForKey:@"message"]];
+                return;
+            }
+
+            [SVProgressHUD dismiss];
+
+            [self.navigationController popViewControllerAnimated:YES];
+
+            self.group.tel = self.phoneNumTxt.text;
+            self.group.mobile = self.mobileTxt.text;
+            self.group.logoUrl = self.uploadedPictures[0];
+
+            NSMutableArray *uploadPictures = [[NSMutableArray alloc] initWithCapacity:4];
+            for (NSString *pictureURL in self.uploadedPictures) {
+                if ([pictureURL isEqualToString:@""]) {
+                    continue;
+                }
+
+                [uploadPictures addObject:pictureURL];
+            }
+            [uploadPictures removeObjectAtIndex:0];
+            self.group.imgUrls = uploadPictures;
+            [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_USER_REFRESH_GROUP_INFO object:self.group];
+
+            return;
+        }
+    }
+
+    [SVProgressHUD showErrorWithStatus:@"更新沙龙失败，请重试！"];
+}
+
+- (void)updateGroupFail:(ASIHTTPRequest *)request
+{
+    [SVProgressHUD showErrorWithStatus:@"更新沙龙失败，请重试！"];
+}
+
 - (void)loadView
 {
     [super loadView];
@@ -179,11 +248,13 @@ static const float kScrollViewContentHeight = 600;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+
     if(self.group){
         self.title = @"编辑沙龙";
     }else{
         self.title = @"添加沙龙";
     }
+
     self.scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, self.topBarOffset, WIDTH(self.view), [self contentHeightWithNavgationBar:YES withBottomBar:NO])];
     self.scrollView.contentSize = CGSizeMake(WIDTH(self.view), kScrollViewContentHeight);
     self.scrollView.delegate = self;
@@ -378,23 +449,28 @@ static const float kScrollViewContentHeight = 600;
     self.uploadPictureActivityIndicator4 = [[UIActivityIndicatorView alloc] initWithFrame:CGRectInset(self.uploadPic4.frame, 3, 3)];
     self.uploadPictureActivityIndicator4.activityIndicatorViewStyle = UIActivityIndicatorViewStyleGray;
     [uploadPictureView addSubview:self.uploadPictureActivityIndicator4];
+
     
-    if(self.group){
+    if (self.group) {
         [self.uploadLogo setImageWithURL:[NSURL URLWithString:self.group.logoUrl]];
+        self.uploadedPictures[0] = self.group.logoUrl;
         self.cityLbl.text = self.group.city.name;
         self.selectedCity = self.group.city;
         self.groupNameTxt.text = self.group.name;
         self.phoneNumTxt.text = self.group.tel;
         self.mobileTxt.text = self.group.mobile;
         self.groupAddressTxt.text = self.group.address;
+        self.coordinateLbl.text = [NSString stringWithFormat:@"%f, %f", self.group.longitude, self.group.latitude];
+        self.location = [[CLLocation alloc] initWithLatitude:self.group.latitude longitude:self.group.longitude];
         for (int i =0 ; i < self.group.imgUrls.count; i++) {
-            if(i == 0){
+            self.uploadedPictures[i + 1] = self.group.imgUrls[i];
+            if (i == 0) {
                 [self.uploadPic1 setImageWithURL:[NSURL URLWithString:self.group.imgUrls[i]]];
-            }else if(i== 1){
+            } else if (i== 1) {
                 [self.uploadPic2 setImageWithURL:[NSURL URLWithString:self.group.imgUrls[i]]];
-            }else if(i== 2){
+            } else if (i== 2) {
                 [self.uploadPic3 setImageWithURL:[NSURL URLWithString:self.group.imgUrls[i]]];
-            }else if(i== 3){
+            } else if (i== 3) {
                 [self.uploadPic4 setImageWithURL:[NSURL URLWithString:self.group.imgUrls[i]]];
             }
         }
@@ -470,15 +546,26 @@ static const float kScrollViewContentHeight = 600;
 
 - (void)pickCity
 {
+    if (self.group.id > 0) {
+        [SVProgressHUD showErrorWithStatus:@"如果要切换城市，请联系管理员审核。"];
+        return;
+    }
+
     CityListViewController *picker = [CityListViewController new];
     picker.selectedCity = self.selectedCity;
     picker.delegate = self;
-    [self.navigationController presentViewController:[[UINavigationController alloc] initWithRootViewController:picker] animated:YES completion:nil];
+    [self.navigationController presentViewController:[[UINavigationController alloc] initWithRootViewController:picker]
+                                            animated:YES completion:nil];
 }
 
 - (void)locateTapped
 {
     [self resignInputResponder];
+
+    if (self.group.id > 0) {
+        [SVProgressHUD showErrorWithStatus:@"如果要切换地图位置，请联系管理员审核。"];
+        return;
+    }
 
     MapPickViewController *picker = [MapPickViewController new];
     picker.delegate = self;

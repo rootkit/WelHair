@@ -11,6 +11,7 @@
 // ==============================================================================
 
 #import "Group.h"
+#import "CityManager.h"
 
 @implementation Group
 
@@ -28,6 +29,9 @@
         self.latitude = [[dictionary objectForKey:@"Latitude"] doubleValue];
         self.longitude = [[dictionary objectForKey:@"Longitude"] doubleValue];
 
+        if ([dictionary objectForKey:@"City"]) {
+            self.city = [[CityManager SharedInstance] getCityById:[[dictionary objectForKey:@"City"] intValue]];
+        }
         if ([dictionary objectForKey:@"Rate"]) {
             self.rating = [[dictionary objectForKey:@"Rate"] intValue];
         }

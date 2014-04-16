@@ -1775,9 +1775,9 @@
 		4660E68718BB73A8005B3C7D /* User */ = {
 			isa = PBXGroup;
 			children = (
-				4631CF1018E3284C00F39814 /* Order */,
 				4631CF0118E3209900F39814 /* Address */,
 				46BDF12E18D1515A00999F50 /* Group */,
+				4631CF1018E3284C00F39814 /* Order */,
 				46BDF13618D1771E00999F50 /* Staff */,
 				4673BB5F18D2ED4D000F64DE /* AppointmentsViewController.h */,
 				4673BB6018D2ED4D000F64DE /* AppointmentsViewController.m */,
@@ -2830,7 +2830,6 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(SYSTEM_APPS_DIR)/APPs/Reveal.app/Contents/SharedSupport/iOS-Libraries",
 					"$(PROJECT_DIR)/App/Vendor/UMSocial_Sdk_3.3.7/UMSocial_Sdk_Extra_Frameworks/TencentOpenAPI",
 				);
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
@@ -2868,7 +2867,6 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(SYSTEM_APPS_DIR)/APPs/Reveal.app/Contents/SharedSupport/iOS-Libraries",
 					"$(PROJECT_DIR)/App/Vendor/UMSocial_Sdk_3.3.7/UMSocial_Sdk_Extra_Frameworks/TencentOpenAPI",
 				);
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;

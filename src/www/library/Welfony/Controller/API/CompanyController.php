@@ -75,6 +75,19 @@ class CompanyController extends AbstractAPIController
         $this->sendResponse($result);
     }
 
+    public function update($companyId)
+    {
+        $reqData = $this->getDataFromRequestWithJsonFormat();
+
+        $response = array('success' => false);
+
+        $reqData['CompanyId'] = $companyId;
+
+        $response = CompanyService::update($reqData);
+
+        $this->sendResponse($response);
+    }
+
     public function liked()
     {
         $page = intval($this->app->request->get('page'));

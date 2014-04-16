@@ -11,13 +11,19 @@
 // ==============================================================================
 
 #import "CreateGroupViewController.h"
+#import "Group.h"
 #import "GroupManageViewController.h"
+#import "MyGroupDetailViewController.h"
 #import "MyGroupStaffListViewController.h"
 #import "MyGroupViewController.h"
+#import "Staff.h"
 #import "UploadWorkFormViewController.h"
-#import "MyGroupDetailViewController.h"
+#import "UserManager.h"
 
 @interface MyGroupViewController ()
+
+@property (nonatomic, strong) Group *group;
+@property (nonatomic, strong) GroupInfoFinishedHandler finishHandler;
 
 @end
 
@@ -28,6 +34,7 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         self.title = @"我的沙龙";
+
         FAKIcon *leftIcon = [FAKIonIcons ios7ArrowBackIconWithSize:NAV_BAR_ICON_SIZE];
         [leftIcon addAttribute:NSForegroundColorAttributeName value:[UIColor whiteColor]];
         self.leftNavItemImg =[leftIcon imageWithSize:CGSizeMake(NAV_BAR_ICON_SIZE, NAV_BAR_ICON_SIZE)];
@@ -64,6 +71,12 @@
     [infoBtn addTarget:self action:@selector(infoClick) forControlEvents:UIControlEventTouchDown];
     infoBtn.frame = CGRectMake(0, MaxY(manageBtn), WIDTH(contentView)/2, WIDTH(contentView)/2);
     [contentView addSubview:infoBtn];
+
+
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(refreshGroupInfo:)
+                                                 name:NOTIFICATION_USER_REFRESH_GROUP_INFO
+                                               object:nil];
 }
 
 - (void)didReceiveMemoryWarning
@@ -73,28 +86,89 @@
 
 - (void)staffClick
 {
-    [self.navigationController pushViewController:[MyGroupStaffListViewController new] animated:YES];
+    MyGroupStaffListViewController *myGroupStaffListVC = [MyGroupStaffListViewController new];
+    if (self.group) {
+        myGroupStaffListVC.group = self.group;
+        [self.navigationController pushViewController:myGroupStaffListVC animated:YES];
+    } else {
+        __weak typeof(self) weakSelf = self;
+        self.finishHandler = ^() {
+            myGroupStaffListVC.group = weakSelf.group;
+            [weakSelf.navigationController pushViewController:myGroupStaffListVC animated:YES];
+        };
+
+        [self getStaffDetail];
+    }
 }
 
 - (void)manageClick
 {
-    [self.navigationController pushViewController:[GroupManageViewController new] animated:YES];
+    GroupManageViewController *groupManageVC = [GroupManageViewController new];
+    if (self.group) {
+        groupManageVC.group = self.group;
+        [self.navigationController pushViewController:groupManageVC animated:YES];
+    } else {
+        __weak typeof(self) weakSelf = self;
+        self.finishHandler = ^() {
+            groupManageVC.group = weakSelf.group;
+            [weakSelf.navigationController pushViewController:groupManageVC animated:YES];
+        };
+
+        [self getStaffDetail];
+    }
 }
 
 - (void)infoClick
 {
-    [self.navigationController pushViewController:[MyGroupDetailViewController new] animated:YES];
+    MyGroupDetailViewController *myGroupDetailVC = [MyGroupDetailViewController new];
+    if (self.group) {
+        myGroupDetailVC.group = self.group;
+        [self.navigationController pushViewController:myGroupDetailVC animated:YES];
+    } else {
+        __weak typeof(self) weakSelf = self;
+        self.finishHandler = ^() {
+            myGroupDetailVC.group = weakSelf.group;
+            [weakSelf.navigationController pushViewController:myGroupDetailVC animated:YES];
+        };
+
+        [self getStaffDetail];
+    }
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+- (void)getStaffDetail
 {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+    ASIHTTPRequest *request = [RequestUtil createGetRequestWithURL:[NSURL URLWithString:[NSString stringWithFormat:API_STAFFS_DETAIL, [UserManager SharedInstance].userLogined.id]]
+                                                          andParam:nil];
+
+    [request setDelegate:self];
+    [request setDidFinishSelector:@selector(finishGetStaffDetail:)];
+    [request setDidFailSelector:@selector(failGetStaffDetail:)];
+    [request startAsynchronous];
 }
-*/
+
+- (void)finishGetStaffDetail:(ASIHTTPRequest *)request
+{
+    NSDictionary *rst = [Util objectFromJson:request.responseString];
+    id companyDic = [rst objectForKey:@"Company"];
+    if (companyDic == [NSNull null]) {
+        return;
+    }
+
+    self.group = [[Group alloc] initWithDic:companyDic];
+
+    if (self.finishHandler) {
+        self.finishHandler();
+    }
+}
+
+- (void)failGetStaffDetail:(ASIHTTPRequest *)request
+{
+    [SVProgressHUD showErrorWithStatus:@"无法获取沙龙信息。"];
+}
+
+- (void)refreshGroupInfo:(NSNotification *)notification
+{
+    self.group = notification.object;
+}
 
 @end

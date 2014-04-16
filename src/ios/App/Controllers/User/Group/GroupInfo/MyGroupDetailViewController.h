@@ -12,6 +12,9 @@
 
 #import "BaseViewController.h"
 #import "Group.h"
+
 @interface MyGroupDetailViewController : BaseViewController
+
 @property (nonatomic, strong) Group *group;
+
 @end

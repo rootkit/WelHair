@@ -78,7 +78,19 @@
     }];
     self.tableView.showsInfiniteScrolling = NO;
 
-    [self.tableView triggerPullToRefresh];
+    if (self.group.id > 0) {
+        [self.tableView triggerPullToRefresh];
+    }
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+
+    if (self.group.id <= 0) {
+        [SVProgressHUD showErrorWithStatus:@"无法获取沙龙信息。"];
+        [self.navigationController popViewControllerAnimated:YES];
+    }
 }
 
 - (void)didReceiveMemoryWarning
