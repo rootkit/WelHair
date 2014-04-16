@@ -24,7 +24,7 @@
 #define  FaceStyleSquareNormal  @"UploadWorkViewControl_FaceStyleSquareNormal"
 #define  FaceStyleSquareSelected  @"UploadWorkViewControl_FaceStyleSquareSelected"
 
-@interface UploadWorkFormViewController () <UITextFieldDelegate, UIActionSheetDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
+@interface UploadWorkFormViewController () <UITextFieldDelegate, UIActionSheetDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIScrollViewDelegate>
 
 @property (nonatomic, strong) Work *work;
 
@@ -54,10 +54,13 @@
 
 @implementation UploadWorkFormViewController
 
+static const float ScrollContentHeight = 420;
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
+        self.title = @"添加作品";
         FAKIcon *leftIcon = [FAKIonIcons ios7ArrowBackIconWithSize:NAV_BAR_ICON_SIZE];
         [leftIcon addAttribute:NSForegroundColorAttributeName value:[UIColor whiteColor]];
         self.leftNavItemImg =[leftIcon imageWithSize:CGSizeMake(NAV_BAR_ICON_SIZE, NAV_BAR_ICON_SIZE)];
@@ -165,6 +168,19 @@
     [SVProgressHUD showErrorWithStatus:@"添加作品失败，请重试！"];
 }
 
+- (void)loadView
+{
+    [super loadView];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardWillShow:)
+                                                 name:UIKeyboardWillShowNotification
+                                               object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardWillHide:)
+                                                 name:UIKeyboardWillHideNotification
+                                               object:nil];
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -172,6 +188,7 @@
     float margin =  10;
 
     self.scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, self.topBarOffset, WIDTH(self.view), [self contentHeightWithNavgationBar:YES withBottomBar:NO])];
+    self.scrollView.delegate = self;
     self.scrollView.contentSize = CGSizeMake(WIDTH(self.view), 500);
     [self.view addSubview:self.scrollView];
     [self.scrollView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self
@@ -269,7 +286,7 @@
     info2lbl.text = @"作品备注";
     info2lbl.textAlignment = NSTextAlignmentLeft;;
     [self.scrollView addSubview:info2lbl];
-    self.infoTxtView = [[UITextView alloc] initWithFrame: CGRectMake(X(uploadPictureView), MaxY(uploadPictureView) + 10, WIDTH(uploadPictureView), HEIGHT(uploadPictureView))];
+    self.infoTxtView = [[UITextView alloc] initWithFrame: CGRectMake(X(uploadPictureView), MaxY(info2lbl) +margin, WIDTH(uploadPictureView), HEIGHT(uploadPictureView))];
     self.infoTxtView.layer.cornerRadius = 5;
     [self.scrollView addSubview:self.infoTxtView];
     
@@ -416,6 +433,56 @@
 {
     [super didReceiveMemoryWarning];
 }
+
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
+{
+    if (decelerate){
+        [self resignInputResponder];
+    }
+}
+
+- (void)keyboardWillShow:(NSNotification *)aNotification
+{
+    NSDictionary *userInfo = aNotification.userInfo;
+    
+    NSNumber *durationValue = userInfo[UIKeyboardAnimationDurationUserInfoKey];
+    NSTimeInterval animationDuration = durationValue.doubleValue;
+    
+    NSNumber *curveValue = userInfo[UIKeyboardAnimationCurveUserInfoKey];
+    UIViewAnimationCurve animationCurve = curveValue.intValue;
+    
+    void (^animations)() = ^() {
+        self.scrollView.contentSize = CGSizeMake(WIDTH(self.scrollView), ScrollContentHeight + kChineseKeyboardHeight);
+    };
+    
+    [UIView animateWithDuration:animationDuration
+                          delay:0.0
+                        options:(animationCurve << 16)
+                     animations:animations
+                     completion:nil];
+}
+
+- (void)keyboardWillHide:(NSNotification *)aNotification
+{
+    NSDictionary *userInfo = aNotification.userInfo;
+    
+    NSNumber *durationValue = userInfo[UIKeyboardAnimationDurationUserInfoKey];
+    NSTimeInterval animationDuration = durationValue.doubleValue;
+    
+    NSNumber *curveValue = userInfo[UIKeyboardAnimationCurveUserInfoKey];
+    UIViewAnimationCurve animationCurve = curveValue.intValue;
+    
+    void (^animations)() = ^() {
+        self.scrollView.contentSize = CGSizeMake(WIDTH(self.scrollView), ScrollContentHeight);
+    };
+    
+    [UIView animateWithDuration:animationDuration
+                          delay:0.0
+                        options:(animationCurve << 16)
+                     animations:animations
+                     completion:nil];
+}
+
 
 - (void)bgTapped
 {

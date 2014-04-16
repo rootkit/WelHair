@@ -326,7 +326,7 @@ static const float profileViewHeight = 90;
         }
         case 3: {
             [self getStaffDetail];
-            MyGroupViewController *vc = [MyGroupViewController new];
+            StaffManageViewController *vc = [StaffManageViewController new];
             vc.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:vc animated:YES];
             return;
@@ -342,7 +342,7 @@ static const float profileViewHeight = 90;
             } else if ([UserManager SharedInstance].userLogined.role == WHStaff) {
                 StaffManageViewController *vc = [StaffManageViewController new];
                 vc.hidesBottomBarWhenPushed = YES;
-                [self.navigationController pushViewController:vc animated:NO];
+                [self.navigationController pushViewController:vc animated:YES];
             } else {
                 UserAuthorViewController *vc = [UserAuthorViewController new];
                 vc.hidesBottomBarWhenPushed = YES;
