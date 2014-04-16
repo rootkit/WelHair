@@ -20,6 +20,7 @@ static const float kMargin = 10;
 @property (nonatomic, strong) UITextField *nameTxt;
 @property (nonatomic, strong) UITextField *originalPriceTxt;
 @property (nonatomic, strong) UITextField *saleOffTxt;
+@property (nonatomic, strong) UILabel *finalPriceLbl;
 
 @end
 
@@ -122,6 +123,9 @@ static const float kMargin = 10;
     self.originalPriceTxt.backgroundColor = [UIColor whiteColor];
     self.originalPriceTxt.keyboardType = UIKeyboardTypeDecimalPad;
     self.originalPriceTxt.placeholder = @"原价";
+    [self.originalPriceTxt addTarget:self
+                  action:@selector(textFieldDidChange)
+        forControlEvents:UIControlEventEditingChanged];
     [self.view addSubview:self.originalPriceTxt];
     
     self.saleOffTxt =  [UITextField plainTextField:CGRectMake(kMargin ,
@@ -134,7 +138,18 @@ static const float kMargin = 10;
     self.saleOffTxt.backgroundColor = [UIColor whiteColor];
     self.saleOffTxt.keyboardType = UIKeyboardTypeDecimalPad;
     self.saleOffTxt.placeholder = @"折扣";
+    [self.saleOffTxt addTarget:self
+                              action:@selector(textFieldDidChange)
+                    forControlEvents:UIControlEventEditingChanged];
     [self.view addSubview:self.saleOffTxt];
+    
+    self.finalPriceLbl = [[UILabel alloc] initWithFrame:CGRectMake(kMargin,MaxY(self.saleOffTxt) + kMargin, WIDTH(self.nameTxt), 40)];
+    self.finalPriceLbl.backgroundColor = [UIColor clearColor];
+    self.finalPriceLbl.textColor = [UIColor redColor];
+    self.finalPriceLbl.font = [UIFont boldSystemFontOfSize:20];
+    self.finalPriceLbl.text = @"";
+    self.finalPriceLbl.textAlignment = NSTextAlignmentCenter;;
+    [self.view addSubview:self.finalPriceLbl];
 
     if (!self.service) {
         self.service = [Service new];
@@ -153,4 +168,9 @@ static const float kMargin = 10;
     [super didReceiveMemoryWarning];
 }
 
+
+- (void)textFieldDidChange
+{
+    self.finalPriceLbl.text = [NSString stringWithFormat:@"最终价格: ￥%.2f",[self.originalPriceTxt.text floatValue] * [self.saleOffTxt.text floatValue]];
+}
 @end
