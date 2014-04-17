@@ -126,7 +126,8 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    [self didSelectAddress:[self.datasource objectAtIndex:indexPath.row]];
+    self.pickedAddress = [self.datasource objectAtIndex:indexPath.row];
+    [self didSelectAddress:self.pickedAddress];
 }
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath

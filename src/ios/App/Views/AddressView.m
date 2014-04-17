@@ -30,9 +30,9 @@
     self = [super initWithFrame:frame];
     if (self) {
         self.backgroundColor = [UIColor whiteColor];
-        self.layer.borderColor = [[UIColor colorWithHexString:APP_CONTENT_BG_COLOR] CGColor];
+        self.layer.borderColor = [[UIColor lightGrayColor] CGColor];
         self.layer.borderWidth = 1;
-        self.layer.cornerRadius = 10;
+        self.layer.cornerRadius = 5;
 
         self.nameLbl = [[UILabel alloc] initWithFrame:CGRectMake(15, 10, 60, 20)];
         self.nameLbl.font = [UIFont boldSystemFontOfSize:16];
@@ -60,7 +60,7 @@
         
         self.detailAddressLbl = [[UILabel alloc] initWithFrame:CGRectMake(15, MaxY(self.nameLbl) +10, 240, 30)];
         self.detailAddressLbl.font = [UIFont boldSystemFontOfSize:12];
-        self.detailAddressLbl.numberOfLines = 2;
+        self.detailAddressLbl.numberOfLines = 3;
         self.detailAddressLbl.textColor = [UIColor lightGrayColor];
         self.detailAddressLbl.backgroundColor = [UIColor clearColor];
         [self addSubview:self.detailAddressLbl];
