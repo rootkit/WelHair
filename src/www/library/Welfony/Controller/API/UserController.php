@@ -90,6 +90,17 @@ class UserController extends AbstractAPIController
 
     public function signInWithSocial()
     {
+        $reqData = $this->getDataFromRequestWithJsonFormat();
+
+        $response = array('success' => false, 'message' => '');
+
+        if (!isset($reqData['Type']) || empty($reqData['Type'])) {
+            $response['message'] = '请输入邮箱！';
+        } else {
+            $response = UserService::signInWithSocial($reqData, intval($reqData['Type']));
+        }
+
+        $this->sendResponse($response);
     }
 
     public function signInWithEmail()

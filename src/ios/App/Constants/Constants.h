@@ -28,7 +28,7 @@
 #define API_APPOINTMENTS_CREATE API_PATH(@"/appointments")
 #define API_APPOINTMENTS_UPDATE API_PATH(@"/appointments/%d")
 
-#define API_SOCIAL_LOGIN API_PATH(@"/socials/login")
+#define API_SOCIAL_LOGIN API_PATH(@"/users/signin/social")
 
 #define API_USERS_SIGNIN_EMAIL API_PATH(@"/users/signin/email")
 #define API_USERS_SIGNUP_EMAIL API_PATH(@"/users/signup/email")

@@ -34,6 +34,11 @@ $app->put('/users/:userId', function ($userId) use ($app) {
     $ctrl->update($userId);
 })->conditions(array('userId' => '\d{1,10}'));
 
+$app->post('/users/signin/social', function () use ($app) {
+    $ctrl = new UserController();
+    $ctrl->signInWithSocial();
+});
+
 $app->post('/users/signin/email', function () use ($app) {
     $ctrl = new UserController();
     $ctrl->signInWithEmail();

@@ -215,7 +215,6 @@ static const float kOffsetY = 50;
 
 - (void)loginClick
 {
-
     if (![self validInput]) {
         return;
     }
@@ -267,7 +266,6 @@ static const float kOffsetY = 50;
     [SVProgressHUD showErrorWithStatus:@"登录失败，请重试！"];
 }
 
-
 - (BOOL)validInput
 {
     if(self.emailTxt.text.length == 0){
@@ -294,7 +292,21 @@ static const float kOffsetY = 50;
                                   {
                                       if (response.responseCode == UMSResponseCodeSuccess) {
                                           UMSocialAccountEntity *snsAccount = [[UMSocialAccountManager socialAccountDictionary] valueForKey:UMShareToSina];
-                                          debugLog(@"username is %@, uid is %@, token is %@",snsAccount.userName,snsAccount.usid,snsAccount.accessToken);
+
+                                          [SVProgressHUD showWithMaskType:SVProgressHUDMaskTypeClear];
+
+                                          NSMutableDictionary *reqData = [[NSMutableDictionary alloc] initWithCapacity:1];
+                                          [reqData setObject:snsAccount.usid forKey:@"Id"];
+                                          [reqData setObject:snsAccount.userName forKey:@"Username"];
+                                          [reqData setObject:@(5)forKey:@"Type"];
+
+                                          ASIFormDataRequest *request = [RequestUtil createPOSTRequestWithURL:[NSURL URLWithString:API_SOCIAL_LOGIN]
+                                                                                                      andData:reqData];
+                                          
+                                          [request setDelegate:self];
+                                          [request setDidFinishSelector:@selector(signInWithEmailFinish:)];
+                                          [request setDidFailSelector:@selector(signInWithEmailFail:)];
+                                          [request startAsynchronous];
                                       }
                                   });
 }
@@ -313,11 +325,26 @@ static const float kOffsetY = 50;
 //                                              debugLog(@"SinaWeibo's user name is %@",[[[accountResponse.data objectForKey:@"accounts"] objectForKey:UMShareToSina] objectForKey:@"username"]);
 //                                          }];
 //                                      }
-                                      
-                             
                                     
                                        [[UMSocialDataService defaultDataService] requestSnsInformation:UMShareToQQ completion:^(UMSocialResponseEntity *respose){
-                                       debugLog(@"get openid  response is %@",respose);
+                                           if (response.responseCode == UMSResponseCodeSuccess) {
+                                               UMSocialAccountEntity *snsAccount = [[UMSocialAccountManager socialAccountDictionary] valueForKey:UMShareToTencent];
+
+                                               [SVProgressHUD showWithMaskType:SVProgressHUDMaskTypeClear];
+
+                                               NSMutableDictionary *reqData = [[NSMutableDictionary alloc] initWithCapacity:1];
+                                               [reqData setObject:snsAccount.usid forKey:@"Id"];
+                                               [reqData setObject:snsAccount.userName forKey:@"Username"];
+                                               [reqData setObject:@(6)forKey:@"Type"];
+
+                                               ASIFormDataRequest *request = [RequestUtil createPOSTRequestWithURL:[NSURL URLWithString:API_SOCIAL_LOGIN]
+                                                                                                           andData:reqData];
+
+                                               [request setDelegate:self];
+                                               [request setDidFinishSelector:@selector(signInWithEmailFinish:)];
+                                               [request setDidFailSelector:@selector(signInWithEmailFail:)];
+                                               [request startAsynchronous];
+                                           }
                                        }];
                                   });
 }

@@ -17,6 +17,7 @@ namespace Welfony\Service;
 use PHPassLib\Hash\PBKDF2 as PassHash;
 use Welfony\Core\Enum\UserPointType;
 use Welfony\Core\Enum\UserRole;
+use Welfony\Repository\SocialRepository;
 use Welfony\Repository\UserRepository;
 use Welfony\Utility\Util;
 
@@ -107,8 +108,69 @@ class UserService
         return $result;
     }
 
-    public static function signInWithSocial($socialExternalId, $socialType)
+    public static function signInWithSocial($socialData, $socialType)
     {
+        $result = array('success' => false, 'message' => '');
+
+        if (!isset($socialData['Id']) || empty($socialData['Id'])) {
+            $result['message'] = '请输入用户ID！';
+
+            return $result;
+        }
+
+        if (!isset($socialData['Username']) || empty($socialData['Username'])) {
+            $result['message'] = '请输入用户名！';
+
+            return $result;
+        }
+
+        $existedUser = SocialRepository::getInstance()->getUserBySocial($socialData['Id'], $socialType);
+        if ($existedUser) {
+            unset($existedUser['Password']);
+
+            $result['success'] = true;
+            $result['user'] = $existedUser;
+
+            return $result;
+        }
+
+        $data = array();
+        $data['Username'] = Util::genRandomUsername();
+        $data['Nickname'] = $socialData['Username'];
+        $data['Role'] = UserRole::Client;
+        $data['Password'] = PassHash::hash(Util::genRandomUsername());
+        $data['AvatarUrl'] = Util::baseAssetUrl('img/avatar-default.jpg');
+        $data['CreatedDate'] = date('Y-m-d H:i:s');
+
+        $newId = UserRepository::getInstance()->save($data);
+        if ($newId) {
+            $data['UserId'] = $newId;
+            unset($data['Password']);
+
+            $result['success'] = true;
+            $result['user'] = $data;
+
+            $userPointData = array(
+                'Type' => UserPointType::NewRegister,
+                'UserId' => $newId
+            );
+            UserPointService::addPoint($userPointData);
+
+            $socialData = array(
+                'UserId' => $data['UserId'],
+                'ExternalId' => $socialData['Id'],
+                'DisplayName' => $socialData['Username'],
+                'Type' => $socialType,
+                'CreatedDate' => date('Y-m-d H:i:s')
+            );
+            SocialRepository::getInstance()->save($socialData);
+
+            return $result;
+        }
+
+        $result['message'] = '登录失败！';
+
+        return $result;
 
     }
 
