@@ -328,6 +328,7 @@ static const float profileViewHeight = 90;
             [self getStaffDetail];
             if ([UserManager SharedInstance].userLogined.isApproving) {
                 [SVProgressHUD showErrorWithStatus:@"正在审核中，请耐心等待。" duration:1];
+                [self getStaffDetail];
                 return;
             }
 

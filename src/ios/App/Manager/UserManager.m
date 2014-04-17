@@ -75,23 +75,32 @@
             NSString *findUserSql =[NSString stringWithFormat:@"select * from User where UserId = %d", userLogined.id];
             FMResultSet *set = [db executeQuery:findUserSql];
             NSString *userSql;
+            BOOL runSqlSuccess = NO;
             if ([set next]) {
-                userSql = @"update User set UserId = ?, UserName = ?, Email = ?,AvatorUrl = ?,NickName = ?, Role = ?, Followed = ?, IsApproving = ?";
+                userSql = @"update User set  UserName = ?, Email = ?,AvatorUrl = ?,NickName = ?, Role = ?, Followed = ?, IsApproving = ? where UserId = ?";
+               runSqlSuccess  = [db executeUpdate:userSql,
+                                   userLogined.username,
+                                   userLogined.email,
+                                   userLogined.avatarUrl,
+                                   userLogined.nickname,
+                                   @(userLogined.role),
+                                   @(userLogined.followed),
+                                   @(userLogined.isApproving),
+                                 @(userLogined.id)];
             }else{
                 userSql = @"insert into User (UserId, UserName, Email,AvatorUrl,NickName, Role, Followed, IsApproving) values(?,?,?,?,?,?,?,?) ";
+                runSqlSuccess  = [db executeUpdate:userSql,
+                                   @(userLogined.id),
+                                  userLogined.username,
+                                  userLogined.email,
+                                  userLogined.avatarUrl,
+                                  userLogined.nickname,
+                                  @(userLogined.role),
+                                  @(userLogined.followed),
+                                  @(userLogined.isApproving)];
             }
             [set close];
-            BOOL runSqlSuccess = [db executeUpdate:userSql,
-                                  @(userLogined.id),
-                             userLogined.username,
-                             userLogined.email,
-                             userLogined.avatarUrl,
-                             userLogined.nickname,
-                             @(userLogined.role),
-                             @(userLogined.followed),
-                             @(userLogined.isApproving)];
-
-            
+  
             if (!runSqlSuccess) {
                 *rollback = YES;
                 debugLog(@"error when set user online");

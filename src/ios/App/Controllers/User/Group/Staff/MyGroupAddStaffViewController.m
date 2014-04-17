@@ -55,7 +55,7 @@ static const float KOffsetY = 40;
                   self.groupAddressTxt.text.length >0 &&
                   self.selectedCity.id > 0 &&
                   self.location != nil &&
-                  self.phoneNumTxt.text.length >0);
+                  [Util validPhoneNum:self.phoneNumTxt.text]);
     if(!valid){
         [SVProgressHUD showSuccessWithStatus:@"请填写所有项目" duration:1];
         return;

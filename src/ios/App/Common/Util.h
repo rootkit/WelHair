@@ -31,6 +31,8 @@
 
 - (void)prepareApplicationData;
 
++ (BOOL)validPhoneNum:(NSString *)phoneStr;
+
 
 
 @end

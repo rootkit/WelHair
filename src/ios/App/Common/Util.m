@@ -133,4 +133,11 @@
     });
 }
 
++ (BOOL)validPhoneNum:(NSString *)phoneStr
+{
+    NSString *phoneRegex = @"^[1][358][0-9]{9}$";
+    NSPredicate *test = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", phoneRegex];
+    return [test evaluateWithObject:phoneStr];
+}
+
 @end

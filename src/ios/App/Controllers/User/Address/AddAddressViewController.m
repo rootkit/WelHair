@@ -56,10 +56,10 @@
     bool valid = (self.addressTxt.text.length > 0 &&
                   self.selectedCity.id > 0 &&
                   self.nameTxt.text.length > 0 &&
-                  self.phoneTxt.text.length > 0);
+                  [Util validPhoneNum:self.phoneTxt.text]);
 
     if (!valid) {
-        [SVProgressHUD showSuccessWithStatus:@"请填写所有项目" duration:1];
+        [SVProgressHUD showSuccessWithStatus:@"请正确填写所有项目" duration:1];
         return;
     }
 
