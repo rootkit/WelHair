@@ -13,9 +13,10 @@
 #import "ApprovalCell.h"
 #import "CircleImageView.h"
 #import "Staff.h"
+
 @interface ApprovalCell ()
 
-@property (nonatomic, strong) NSDictionary *dataDic;
+@property (nonatomic, strong) Staff *staff;
 @property (nonatomic, strong) CircleImageView *imgView;
 @property (nonatomic, strong) UILabel *nameLbl;
 @property (nonatomic, strong) UILabel *descrpLbl;
@@ -81,33 +82,40 @@
         [self addSubview:self.approveBtn];
 
     }
+
     return self;
 }
 
 
-- (void)setup:(NSDictionary *)dic
+- (void)setup:(Staff *)staff
 {
-    self.dataDic = dic;
-    Staff *s =  [FakeDataHelper getFakeStaffList][0];
-    [self.imgView setImageWithURL:s.avatorUrl];
-    self.nameLbl.text = s.name;
+    self.staff = staff;
+
+    [self.imgView setImageWithURL:staff.avatorUrl];
+    self.nameLbl.text = staff.name;
     self.descrpLbl.text = @"请求加入";
     
 }
 
 - (void)gotoStaffDetail
 {
-    Staff *s =  [FakeDataHelper getFakeStaffList][0];
-    [self.delegate didTapStaff:s];
+    if (self.delegate && [self.delegate respondsToSelector:@selector(didTapStaff:)]) {
+        [self.delegate didTapStaff:self.staff];
+    }
 }
 
 - (void)rejectClick
 {
+    if (self.delegate && [self.delegate respondsToSelector:@selector(didRemoveStaff:)]) {
+        [self.delegate didRemoveStaff:self.staff];
+    }
 }
 
 - (void)appriveClick
 {
-    
+    if (self.delegate && [self.delegate respondsToSelector:@selector(didApproveStaff:)]) {
+        [self.delegate didApproveStaff:self.staff];
+    }
 }
 
 @end

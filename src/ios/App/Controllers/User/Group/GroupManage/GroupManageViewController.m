@@ -10,11 +10,12 @@
 //
 // ==============================================================================
 
+#import "ApprovalViewController.h"
 #import "GroupManageViewController.h"
 #import "CouponManagerViewController.h"
 #import "GroupRevenuViewController.h"
 #import "WithDrawalViewController.h"
-#import "ApprovalViewController.h"
+
 @interface GroupManageViewController ()
 
 @end
@@ -97,7 +98,9 @@
 
 - (void)approvalClick
 {
-     [self.navigationController pushViewController:[ApprovalViewController new] animated:YES];
+    ApprovalViewController *approvalVC = [ApprovalViewController new];
+    approvalVC.group = self.group;
+    [self.navigationController pushViewController:approvalVC animated:YES];
 }
 
 @end

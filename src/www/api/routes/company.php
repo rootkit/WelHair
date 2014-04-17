@@ -29,6 +29,21 @@ $app->get('/companies/:companyId', function ($companyId) use ($app) {
     $ctrl->getDetail($companyId);
 })->conditions(array('companyId' => '\d{1,10}'));
 
+$app->get('/companies/:companyId/staffs', function ($companyId) use ($app) {
+    $ctrl = new CompanyController();
+    $ctrl->listStaffs($companyId);
+})->conditions(array('companyId' => '\d{1,10}'));
+
+$app->post('/companies/:companyId/staffs/:staffId/status', function ($companyId, $staffId) use ($app) {
+    $ctrl = new CompanyController();
+    $ctrl->changeStaffStatusByCompanyAndUser($companyId, $staffId);
+})->conditions(array('companyId' => '\d{1,10}', 'staffId' => '\d{1,10}'));
+
+$app->post('/companies/:companyId/staffs/:staffId/remove', function ($companyId, $staffId) use ($app) {
+    $ctrl = new CompanyController();
+    $ctrl->removeStaffByCompanyAndUser($companyId, $staffId);
+})->conditions(array('companyId' => '\d{1,10}', 'staffId' => '\d{1,10}'));
+
 $app->get('/companies/:companyId/comments', function ($companyId) use ($app) {
     $ctrl = new CompanyController();
     $ctrl->listComments($companyId);

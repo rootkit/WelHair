@@ -124,6 +124,16 @@ class StaffService
         return CompanyUserRepository::getInstance()->remove($companyUserId);
     }
 
+    public static function removeCompanyStaffByCompanyAndUser($companyId, $userId)
+    {
+        return CompanyUserRepository::getInstance()->removeByCompanyAndUser($companyId, $userId);
+    }
+
+    public static function getStaffByCompanyAndUser($companyId, $userId)
+    {
+        return CompanyUserRepository::getInstance()->findByUserAndCompany($userId, $companyId);
+    }
+
     public static function saveCompanyStaffByCompanyUser($companyUserId, $isApproved = false)
     {
         $data = array();

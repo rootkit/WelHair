@@ -2236,14 +2236,14 @@
 			isa = PBXGroup;
 			children = (
 				4673BB9018D41B26000F64DE /* Coupon */,
+				4673BB9A18D41BBB000F64DE /* ApprovalViewController.h */,
+				4673BB9B18D41BBB000F64DE /* ApprovalViewController.m */,
 				4673BB8A18D417EE000F64DE /* GroupManageViewController.h */,
 				4673BB8B18D417EE000F64DE /* GroupManageViewController.m */,
 				4673BB9418D41B75000F64DE /* GroupRevenuViewController.h */,
 				4673BB9518D41B75000F64DE /* GroupRevenuViewController.m */,
 				4673BB9718D41BA1000F64DE /* WithDrawalViewController.h */,
 				4673BB9818D41BA1000F64DE /* WithDrawalViewController.m */,
-				4673BB9A18D41BBB000F64DE /* ApprovalViewController.h */,
-				4673BB9B18D41BBB000F64DE /* ApprovalViewController.m */,
 			);
 			path = GroupManage;
 			sourceTree = "<group>";

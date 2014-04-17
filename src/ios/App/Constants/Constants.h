@@ -66,6 +66,9 @@
 
 #define API_COMPANIES_SEARCH API_PATH(@"/companies")
 #define API_COMPANIES_LIKED API_PATH(@"/companies/liked")
+#define API_COMPANIES_STAFFS API_PATH(@"/companies/%d/staffs")
+#define API_COMPANIES_STAFFS_STATUS API_PATH(@"/companies/%d/staffs/%d/status")
+#define API_COMPANIES_STAFFS_REMOVE API_PATH(@"/companies/%d/staffs/%d/remove")
 #define API_COMPANIES_CREATE API_PATH(@"/companies")
 #define API_COMPANIES_UPDATE API_PATH(@"/companies/%d")
 #define API_COMPANIES_DETAIL API_PATH(@"/companies/%d")

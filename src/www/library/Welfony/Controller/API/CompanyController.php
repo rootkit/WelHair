@@ -75,6 +75,16 @@ class CompanyController extends AbstractAPIController
         $this->sendResponse($result);
     }
 
+    public function listStaffs($companyId)
+    {
+        $page = intval($this->app->request->get('page'));
+        $pageSize = intval($this->app->request->get('pageSize'));
+        $isApproved = intval($this->app->request->get('isApproved'));
+
+        $staffList = StaffService::listAllStaff($companyId, $isApproved, $page, $pageSize);
+        $this->sendResponse($staffList);
+    }
+
     public function update($companyId)
     {
         $reqData = $this->getDataFromRequestWithJsonFormat();
@@ -143,6 +153,42 @@ class CompanyController extends AbstractAPIController
     public function getDetail($companyId)
     {
         $this->sendResponse(CompanyService::getCompanyDetail($companyId, $this->currentContext['UserId'], $this->currentContext['Location']));
+    }
+
+    public function changeStaffStatusByCompanyAndUser($companyId, $userId)
+    {
+        $result = array('success' => false, 'message' => '');
+
+        $reqData = $this->getDataFromRequestWithJsonFormat();
+
+        $staff = StaffService::getStaffByCompanyAndUser($companyId, $userId);
+        if (!$staff) {
+            $result['message'] = '发型师不存在！';
+            $this->sendResponse($result);
+        }
+
+        if (isset($reqData['IsApproved']) && intval($reqData['IsApproved']) > 0) {
+            $result['success'] = StaffService::saveCompanyStaffByCompanyUser($staff['CompanyUserId'], true);
+        }
+        $result['message'] = $result['success'] ? '更新成功。' : '更新失败。';
+
+        $this->sendResponse($result);
+    }
+
+    public function removeStaffByCompanyAndUser($companyId, $userId)
+    {
+        $result = array('success' => false, 'message' => '');
+
+        $staff = StaffService::getStaffByCompanyAndUser($companyId, $userId);
+        if (!$staff) {
+            $result['message'] = '发型师不存在！';
+            $this->sendResponse($result);
+        }
+
+        $result['success'] = StaffService::removeCompanyStaffByCompanyUser($staff['CompanyUserId'], true);
+        $result['message'] = $result['success'] ? '操作成功。' : '操作失败。';
+
+        $this->sendResponse($result);
     }
 
 }
