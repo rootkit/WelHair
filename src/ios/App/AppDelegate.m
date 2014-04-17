@@ -84,12 +84,12 @@
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
     [UMSocialSnsService  applicationDidBecomeActive];
-    [[WebSocketUtil sharedInstance] reconnect];
+//    [[WebSocketUtil sharedInstance] reconnect];
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application
 {
-    [[WebSocketUtil sharedInstance] close];
+//    [[WebSocketUtil sharedInstance] close];
 }
 
 
