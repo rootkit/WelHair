@@ -78,7 +78,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(triggerTablePullToRefresh) name:NOTIFICATION_REFRESH_COMMENTLIST object:nil];
+    
     if (self.goodsId > 0) {
         self.requestString = [NSString stringWithFormat:API_GOODS_COMMENT_CREATE, self.goodsId];
     }
@@ -121,6 +122,11 @@
     }];
     self.tableView.showsInfiniteScrolling = NO;
 
+    [self triggerTablePullToRefresh];
+}
+
+- (void)triggerTablePullToRefresh
+{
     [self.tableView triggerPullToRefresh];
 }
 

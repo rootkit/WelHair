@@ -276,7 +276,7 @@
             }
 
             [SVProgressHUD dismiss];
-
+            [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_REFRESH_COMMENTLIST object:nil];
             [self.navigationController popViewControllerAnimated:YES];
 
             return;

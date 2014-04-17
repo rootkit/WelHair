@@ -21,9 +21,9 @@
 
 #define DB_FILE_NAME   @"db.sqlite"
 
-#define API_PATH(path) [NSString stringWithFormat:@"http://welhair.com/api%@", path]
+//#define API_PATH(path) [NSString stringWithFormat:@"http://welhair.com/api%@", path]
 
-//#define API_PATH(path) [NSString stringWithFormat:@"http://115.28.208.165/api%@", path]
+#define API_PATH(path) [NSString stringWithFormat:@"http://115.28.208.165/api%@", path]
 
 #define API_APPOINTMENTS_CREATE API_PATH(@"/appointments")
 #define API_APPOINTMENTS_UPDATE API_PATH(@"/appointments/%d")
@@ -86,11 +86,12 @@
 #define TOP_TAB_BAR_HEIGHT  40
 #define CUSTOME_BOTTOMBAR_HEIGHT  55
 
-#define NOTIFICATION_USER_CREATE_ADDRESS_SUCCESS  @"CreateAddressSuccessfully"
-#define NOTIFICATION_USER_REFRESH_GROUP_INFO  @"RefreshGroupInfo"
-#define NOTIFICATION_USER_CREATE_GROUP_SUCCESS  @"CreateGroupSuccessfully"
-#define NOTIFICATION_USER_STATUS_CHANGE  @"UserStatusChanged"
-#define NOTIFICATION_REFRESH_APPOINTMENT @"RefreshAppintmentList"
+#define NOTIFICATION_USER_CREATE_ADDRESS_SUCCESS  @"Notification_CreateAddressSuccessfully"
+#define NOTIFICATION_USER_REFRESH_GROUP_INFO  @"Notification_RefreshGroupInfo"
+#define NOTIFICATION_USER_CREATE_GROUP_SUCCESS  @"Notification_CreateGroupSuccessfully"
+#define NOTIFICATION_USER_STATUS_CHANGE  @"Notification_UserStatusChanged"
+#define NOTIFICATION_REFRESH_APPOINTMENT @"Notification_RefreshAppintmentList"
+#define NOTIFICATION_REFRESH_COMMENTLIST @"Notification_RefreshCommentList"
 
 #define HAIR_STYLE_FACE_CICLE   0
 #define HAIR_STYLE_FACE_OVAL    1
