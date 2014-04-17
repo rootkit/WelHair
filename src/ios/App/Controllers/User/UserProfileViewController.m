@@ -47,8 +47,6 @@
 
 - (void)rightNavItemClick
 {
-    bool valid = false;
-
     NSString *username;
     NSString *nickname;
     NSString *email;
@@ -57,8 +55,6 @@
     for (int i = 0; i < 5; i++) {
         UITextField *textField = (UITextField *)[self.view viewWithTag:1000 + i];
         if (textField) {
-            valid = textField.text.length > 0;
-
             if (i == 0) {
                 username = textField.text;
             }
@@ -307,6 +303,8 @@
         UITextField *textField = (UITextField *)[self.view viewWithTag:1000];
         textField.keyboardType = UIKeyboardTypeNamePhonePad;
         textField.text = user.username;
+        textField.enabled = user.username.length == 0;
+        textField.textColor = textField.enabled ? [UIColor blackColor] : [UIColor lightGrayColor];
         textField = (UITextField *)[self.view viewWithTag:1001];
         textField.keyboardType = UIKeyboardTypeNamePhonePad;
         textField.text = user.nickname;
@@ -314,6 +312,8 @@
         textField.keyboardType = UIKeyboardTypeEmailAddress;
         textField.autocapitalizationType = UITextAutocapitalizationTypeNone;
         textField.text = user.email;
+        textField.enabled = user.email.length == 0;
+        textField.textColor = textField.enabled ? [UIColor blackColor] : [UIColor lightGrayColor];
         textField = (UITextField *)[self.view viewWithTag:1004];
         textField.keyboardType = UIKeyboardTypePhonePad;
         textField.text = user.mobile;

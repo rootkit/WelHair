@@ -45,7 +45,7 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        self.title =  NSLocalizedString(@"GroupsViewController.Title", nil);
+        self.title =  NSLocalizedString(@"StaffsViewController.Title", nil);
         self.currentPage = 1;
 
         self.areaDatasource = [NSMutableArray array];
