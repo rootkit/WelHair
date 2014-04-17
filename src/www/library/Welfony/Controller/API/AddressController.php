@@ -23,8 +23,7 @@ class AddressController extends AbstractAPIController
 
     public function setToDefault($addressId)
     {
-        $result = array('success' => false, 'message' => '');
-        $result['success'] = AddressService::setAddressToDefaultById($addressId);
+        $result = AddressService::setAddressToDefaultById($addressId);
         $this->sendResponse($result);
     }
 

@@ -97,7 +97,7 @@
             [SVProgressHUD dismiss];
 
             [self.navigationController popViewControllerAnimated:YES];
-            [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_USER_CREATE_ADDRESS_SUCCESS object:nil];
+            [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_REFRESH_ADDRESSLIST object:nil];
 
             return;
         }
@@ -127,6 +127,7 @@
     self.cityLbl.textAlignment = NSTextAlignmentLeft;
     self.cityLbl.backgroundColor = [UIColor clearColor];
     self.cityLbl.textColor = [UIColor lightGrayColor];
+    self.cityLbl.layer.cornerRadius = 5;
     self.cityLbl.text = @"选择城市";
     [cityView addSubview:self.cityLbl];
 
@@ -153,6 +154,7 @@
     self.phoneTxt.backgroundColor = [UIColor whiteColor];
     self.phoneTxt.placeholder = @"电话";
     self.phoneTxt.layer.cornerRadius = 5;
+    self.phoneTxt.keyboardType = UIKeyboardTypeNamePhonePad;
     [self.view addSubview:self.phoneTxt];
     
     self.addressTxt = [[GCPlaceholderTextView alloc] initWithFrame:CGRectMake(margin ,

@@ -54,7 +54,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(triggerTabelPullToRefresh) name:NOTIFICATION_REFRESH_ADDRESSLIST object:nil];
     self.tableView = [[UITableView alloc] init];
     self.tableView.frame = CGRectMake(0,
                                       self.topBarOffset,
@@ -78,9 +78,13 @@
     [self.tableView.pullToRefreshView setBorderColor:[UIColor whiteColor]];
     [self.tableView.pullToRefreshView setImageIcon:[UIImage imageNamed:@"centerIcon"]];
 
-    [self.tableView triggerPullToRefresh];
+    [self triggerTabelPullToRefresh];
 }
 
+- (void)triggerTabelPullToRefresh
+{
+    [self.tableView triggerPullToRefresh];
+}
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
