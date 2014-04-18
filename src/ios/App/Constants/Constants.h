@@ -67,6 +67,7 @@
 #define API_FEEDBACK_CREATE API_PATH(@"/feedback")
 
 #define API_GOODS_SEARCH API_PATH(@"/goods")
+#define API_GOODS_LIKED API_PATH(@"/goods/liked")
 
 #define API_COMPANIES_SEARCH API_PATH(@"/companies")
 #define API_COMPANIES_LIKED API_PATH(@"/companies/liked")

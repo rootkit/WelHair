@@ -2023,6 +2023,8 @@
 				4659D27418E7E100005648C0 /* AddressView.m */,
 				4673BB6218D2ED61000F64DE /* AppointmentCell.h */,
 				4673BB6318D2ED61000F64DE /* AppointmentCell.m */,
+				466DF41B18FD6C7600CB8A53 /* ApprovalCell.h */,
+				466DF41C18FD6C7600CB8A53 /* ApprovalCell.m */,
 				467F0EB918CB3956009FFE08 /* ChatGroupCell.h */,
 				467F0EBA18CB3956009FFE08 /* ChatGroupCell.m */,
 				467F0F2318CC8FFB009FFE08 /* CommentCell.h */,
@@ -2043,6 +2045,8 @@
 				4665C83718F542440066753D /* FavoriteWorkTableView.m */,
 				460C2F4818CAFDB200AD16E6 /* GroupCell.h */,
 				460C2F4918CAFDB200AD16E6 /* GroupCell.m */,
+				466DF41E18FD73B600CB8A53 /* GroupRevenuCell.h */,
+				466DF41F18FD73B600CB8A53 /* GroupRevenuCell.m */,
 				46F5865C18E1BB2B00F9BF51 /* GroupStaffCell.h */,
 				46F5865D18E1BB2B00F9BF51 /* GroupStaffCell.m */,
 				465A5C8918DB0B8D009B6D60 /* MyScoreCell.h */,
@@ -2075,10 +2079,6 @@
 				4630252D18C848EB000E0B51 /* WorkCardView.m */,
 				46B25AEB18C086D30035F425 /* WorkCell.h */,
 				46B25AEC18C086D30035F425 /* WorkCell.m */,
-				466DF41B18FD6C7600CB8A53 /* ApprovalCell.h */,
-				466DF41C18FD6C7600CB8A53 /* ApprovalCell.m */,
-				466DF41E18FD73B600CB8A53 /* GroupRevenuCell.h */,
-				466DF41F18FD73B600CB8A53 /* GroupRevenuCell.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
