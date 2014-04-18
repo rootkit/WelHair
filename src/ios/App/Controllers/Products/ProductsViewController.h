@@ -10,8 +10,6 @@
 //
 // ==============================================================================
 
-#import <UIKit/UIKit.h>
-
 @interface ProductsViewController : BaseViewController
 
 @end

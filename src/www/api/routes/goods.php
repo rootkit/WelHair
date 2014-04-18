@@ -1,19 +1,20 @@
+<?php
+
 // ==============================================================================
 //
-// This file is part of the WelHair
+// This file is part of the WelStory.
 //
-// Create by Welfony <support@welfony.com>
-// Copyright (c) 2013-2014 welfony.com
+// Create by Welfony Support <support@welfony.com>
+// Copyright (c) 2012-2014 welfony.com
 //
 // For the full copyright and license information, please view the LICENSE
 // file that was distributed with this source code.
 //
 // ==============================================================================
 
-#import "Group.h"
+use Welfony\Controller\API\GoodsController;
 
-@interface GroupProductListViewController : BaseViewController
-
-@property (nonatomic, strong) Group *group;
-
-@end
+$app->get('/goods', function () use ($app) {
+    $ctrl = new GoodsController();
+    $ctrl->search();
+});

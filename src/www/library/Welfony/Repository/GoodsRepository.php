@@ -19,6 +19,29 @@ use Welfony\Repository\Base\AbstractRepository;
 class GoodsRepository extends AbstractRepository
 {
 
+    public function searchCount($searchText, $city, $district)
+    {
+        $strSql = "SELECT
+                     COUNT(1) `Total`
+                   FROM Goods G
+                   LEFT OUTER JOIN CompanyGoods CG ON CG.GoodsId = G.GoodsId
+                   LEFT OUTER JOIN Company C ON C.CompanyId = CG.CompanyId
+                   WHERE C.Status = 1 AND G.IsDeleted = 0 AND (? = '' || G.Name LIKE ? || C.Name Like ?) AND (? = 0 || C.City = ?) AND (? = 0 || C.District= ?)
+                   LIMIT 1";
+
+        $row = $this->conn->fetchAssoc($strSql, array($searchText, "%$searchText%", "%$searchText%", $city, $city, $district, $district));
+
+        return $row['Total'];
+    }
+
+    public function search($currentUserId, $searchText, $city, $district, $sort, $location, $page, $pageSize)
+    {
+        $strSql = "CALL spGoodsSearch(?, ?, ?, ?, ?, ?, ?, ?, ?);";
+
+        return $this->conn->fetchAll($strSql, array($currentUserId, $searchText, $city, $district, $sort, $location['Latitude'], $location['Longitude'], $page, $pageSize));
+    }
+
+
     public function getAllGoodsCount()
     {
         $strSql = "SELECT
@@ -93,16 +116,16 @@ class GoodsRepository extends AbstractRepository
 
         $offset = ($pageNumber - 1) * $pageSize;
         $strSql = "  SELECT G.GoodsId, G.Name, G.GoodsNo,
-                     CASE P.SellPrice 
+                     CASE P.SellPrice
                         WHEN NULL THEN G.SellPrice
                         ELSE P.SellPrice
                      END AS SellPrice,
 
-                     CASE P.CostPrice 
+                     CASE P.CostPrice
                         WHEN NULL THEN G.CostPrice
                         ELSE P.CostPrice
                      END AS CostPrice,
-                     CASE P.Weight 
+                     CASE P.Weight
                         WHEN NULL THEN G.Weight
                         ELSE P.Weight
                      END AS Weight,

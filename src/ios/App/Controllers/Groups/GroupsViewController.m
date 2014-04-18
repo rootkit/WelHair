@@ -65,13 +65,15 @@
     [super viewDidLoad];
 
     float topTabButtonWidth = WIDTH(self.view)/2;
-    UIView *topTabView = [[UIView alloc] initWithFrame:CGRectMake(0, self.topBarOffset,WIDTH(self.view),TOP_TAB_BAR_HEIGHT)];
+    UIView *topTabView = [[UIView alloc] initWithFrame:CGRectMake(0, self.topBarOffset,WIDTH(self.view), TOP_TAB_BAR_HEIGHT)];
+    topTabView.backgroundColor = [UIColor whiteColor];
+    [self.view addSubview:topTabView];
+
     UIView *topTabBottomShadowView = [[UIView alloc] initWithFrame:topTabView.frame];
     topTabBottomShadowView.backgroundColor = [UIColor lightGrayColor];
     [topTabBottomShadowView drawBottomShadowOffset:1 opacity:1];
     [self.view addSubview:topTabBottomShadowView];
-    [self.view addSubview:topTabView];
-    topTabView.backgroundColor = [UIColor whiteColor];
+
     self.areaBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [self.areaBtn setTitleColor:[UIColor colorWithHexString:@"666666"] forState:UIControlStateNormal];
     self.areaBtn.frame = CGRectMake(0, 0, topTabButtonWidth, TOP_TAB_BAR_HEIGHT);
@@ -136,7 +138,7 @@
     [self.view addSubview:self.dropDownPicker];
     [self.view bringSubviewToFront:topTabView];
 
-    [self getGroups];
+    [self.tableView triggerPullToRefresh];
 }
 
 - (void)viewWillAppear:(BOOL)animated

@@ -74,25 +74,27 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString * cellIdentifier = @"ProductCellIdentifier";
-    ProductCell * cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
-    if (!cell) {
-        cell = [[ProductCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        cell.contentView.backgroundColor =  cell.backgroundColor = [UIColor clearColor];
-    }
-    CardTapHandler tapHandler = ^(id model){
-        Product *product = (Product *)model;
-        [self pushToDetial:product];
-    };
-    
-    Product *left = [self.datasource objectAtIndex: (2 * indexPath.row)];
-    Product *right = nil;
-    if(2 * (indexPath.row + 1) <= self.datasource.count){
-        right = [self.datasource objectAtIndex: (2 * indexPath.row)];
-    }
-    [cell setupWithLeftData:left rightData:right tapHandler:tapHandler];
-    return cell;
+//    static NSString * cellIdentifier = @"ProductCellIdentifier";
+//    ProductCell * cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+//    if (!cell) {
+//        cell = [[ProductCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
+//        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+//        cell.contentView.backgroundColor =  cell.backgroundColor = [UIColor clearColor];
+//    }
+//    CardTapHandler tapHandler = ^(id model){
+//        Product *product = (Product *)model;
+//        [self pushToDetial:product];
+//    };
+//    
+//    Product *left = [self.datasource objectAtIndex: (2 * indexPath.row)];
+//    Product *right = nil;
+//    if(2 * (indexPath.row + 1) <= self.datasource.count){
+//        right = [self.datasource objectAtIndex: (2 * indexPath.row)];
+//    }
+//    [cell setupWithLeftData:left rightData:right tapHandler:tapHandler];
+//    return cell;
+
+    return nil;
 }
 
 - (void)pushToDetial:(Product *)product

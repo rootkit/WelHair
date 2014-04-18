@@ -19,10 +19,28 @@ use Welfony\Repository\GoodsRepository;
 class GoodsService
 {
 
+    public static function search($currentUserId, $searchText, $city, $district, $sort, $location, $page, $pageSize)
+    {
+        $page = $page <= 0 ? 1 : $page;
+        $pageSize = $pageSize <= 0 ? 20 : $pageSize;
+
+        $total = GoodsRepository::getInstance()->searchCount($searchText, $city, $district);
+        $goodsList = GoodsRepository::getInstance()->search($currentUserId, $searchText, $city, $district, $sort, $location, $page, $pageSize);
+
+        $goods = array();
+        foreach ($goodsList as $g) {
+            $g['PictureUrl'] = array($g['Img']);
+            unset($g['Img']);
+
+            $goods[] = $g;
+        }
+
+        return array('total' => $total, 'goods' => $goods);
+    }
+
     public static function getGoodsById($id)
     {
-        return  GoodsRepository::getInstance()->findGoodsById( $id);
-
+        return GoodsRepository::getInstance()->findGoodsById( $id);
     }
 
     public static function listGoods($pageNumber, $pageSize)

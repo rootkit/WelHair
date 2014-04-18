@@ -9,66 +9,46 @@
 // file that was distributed with this source code.
 //
 // ==============================================================================
+
 #import "ProductCell.h"
 #import "ProductCardView.h"
 
 @interface ProductCell ()
-@property (nonatomic, strong) ProductCardView *leftCardView;
-@property (nonatomic, strong) ProductCardView *rightCardView;
-@property (nonatomic, strong) Product *leftProductData;
-@property (nonatomic, strong) Product *rightproductData;
+
+@property (nonatomic, strong) ProductCardView *cardView;
+@property (nonatomic, strong) Product *productData;
 @property (nonatomic, strong) CardTapHandler cardTapHandler;
 
 @end
+
 @implementation ProductCell
 
-- (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
+- (id)initWithReuseIdentifier:(NSString *)reuseIdentifier
 {
-    self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
+    self = [super initWithReuseIdentifier:reuseIdentifier];
     if (self) {
-        // Initialization code
     }
+
     return self;
 }
 
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated
+- (void)setupWithData:(Product *)data
+           tapHandler:(CardTapHandler)tapHandler
 {
-    [super setSelected:selected animated:animated];
-
-    // Configure the view for the selected state
-}
-
-- (void)setupWithLeftData:(Product *)leftData
-                rightData:(Product *)rightData
-               tapHandler:(CardTapHandler)tapHandler
-{
-    self.leftProductData = leftData;
-    self.rightproductData = rightData;
+    self.productData = data;
     self.cardTapHandler = tapHandler;
     
-    if(!self.leftCardView){
-        self.leftCardView = [[ProductCardView alloc] initWithFrame:CGRectMake(10, 5, 140, 200)];
-        [self addSubview:self.leftCardView];
-        self.leftCardView.tag = 0;
-        [self.leftCardView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(cardTapped:)]];
+    if(!self.cardView){
+        self.cardView = [[ProductCardView alloc] initWithFrame:CGRectMake(0, 0, 145, 210)];
+        [self addSubview:self.cardView];
+        [self.cardView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(cardTapped:)]];
     }
-    [self.leftCardView setupWithData:leftData];
-    
-    if(!self.rightCardView){
-        self.rightCardView = [[ProductCardView alloc] initWithFrame:CGRectMake(MaxX(self.leftCardView) + 20, 5, 140, 200)];
-        [self addSubview:self.rightCardView];
-        self.rightCardView.tag = 1;
-        [self.rightCardView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(cardTapped:)]];
-    }
-    [self.rightCardView setupWithData:rightData];
+    [self.cardView setupWithData:self.productData];
 }
 
 - (void)cardTapped:(id)sender
 {
-    UITapGestureRecognizer *tapView = (UITapGestureRecognizer *)sender;
-    UIView *cardView = tapView.view;
-    Product *product = cardView.tag == 0 ? self.leftProductData : self.rightproductData;
-    self.cardTapHandler(product);
+    self.cardTapHandler(self.productData);
 }
 
 @end

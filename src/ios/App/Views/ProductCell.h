@@ -10,13 +10,12 @@
 //
 // ==============================================================================
 
-#import <UIKit/UIKit.h>
+#import "BrickView.h"
 #import "Product.h"
 
-@interface ProductCell : UITableViewCell
+@interface ProductCell : BrickViewCell
 
-- (void)setupWithLeftData:(Product *)leftData
-                rightData:(Product *)rightData
-               tapHandler:(CardTapHandler)tapHandler;
+- (void)setupWithData:(Product *)data
+           tapHandler:(CardTapHandler)tapHandler;
 
 @end

@@ -10,16 +10,21 @@
 //
 // ==============================================================================
 
-#import <Foundation/Foundation.h>
 #import "BaseModel.h"
 #import "Group.h"
+
 @interface Product : BaseModel
 
 @property (nonatomic) float price;
+
 @property (nonatomic, strong) Group *group;
+
 @property (nonatomic, strong) NSArray *commentList;
 @property (nonatomic, strong) NSArray *imgUrlList;
 
-
 @property (nonatomic) NSInteger count;
+@property (nonatomic) BOOL isLiked;
+
+- (Product *)initWithDic:(NSDictionary *)dictionary;
+
 @end

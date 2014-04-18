@@ -338,7 +338,7 @@ static const float profileViewHeight = 320;
         [self.navigationController pushViewController:vc animated:YES];
     }else if(btn == self.productTabBtn){
         GroupProductListViewController *vc = [GroupProductListViewController new];
-        vc.datasource = [NSMutableArray arrayWithArray:[FakeDataHelper getFakeProductList]];
+        vc.group = self.group;
         [self.navigationController pushViewController:vc animated:YES];
     }else if(btn == self.commentTabBtn){
         CommentsViewController *vc = [CommentsViewController new];
