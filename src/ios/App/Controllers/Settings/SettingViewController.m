@@ -10,6 +10,7 @@
 //
 // ==============================================================================
 
+#import "FeedbackViewController.h"
 #import "SettingViewController.h"
 #import "UserManager.h"
 
@@ -101,7 +102,7 @@
             [SVProgressHUD showSuccessWithStatus:@"清除完毕" duration:1];
             break;
         case 1:
-            [SVProgressHUD showSuccessWithStatus:@"Feedback" duration:1];
+            [self.navigationController pushViewController:[FeedbackViewController new] animated:YES];
             break;
         case 2:
             [SVProgressHUD showSuccessWithStatus:@"您已经使用的是最新版本" duration:1];

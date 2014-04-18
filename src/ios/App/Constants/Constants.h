@@ -21,9 +21,9 @@
 
 #define DB_FILE_NAME   @"db.sqlite"
 
-#define API_PATH(path) [NSString stringWithFormat:@"http://welhair.com/api%@", path]
+//#define API_PATH(path) [NSString stringWithFormat:@"http://welhair.com/api%@", path]
 
-//#define API_PATH(path) [NSString stringWithFormat:@"http://115.28.208.165/api%@", path]
+#define API_PATH(path) [NSString stringWithFormat:@"http://115.28.208.165/api%@", path]
 
 #define API_APPOINTMENTS_CREATE API_PATH(@"/appointments")
 #define API_APPOINTMENTS_UPDATE API_PATH(@"/appointments/%d")
@@ -63,6 +63,8 @@
 #define API_STAFFS_SERVICE API_PATH(@"/staffs/%d/services")
 #define API_STAFFS_COMMENT_CREATE API_PATH(@"/staffs/%d/comments")
 #define API_STAFFS_APPOINTMENT API_PATH(@"/staffs/%d/appointments")
+
+#define API_FEEDBACK_CREATE API_PATH(@"/feedback")
 
 #define API_COMPANIES_SEARCH API_PATH(@"/companies")
 #define API_COMPANIES_LIKED API_PATH(@"/companies/liked")

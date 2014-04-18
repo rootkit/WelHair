@@ -32,6 +32,10 @@
             self.followed = [[dictionary objectForKey:@"Followed"] intValue] == 1;
         }
 
+        if ([dictionary objectForKey:@"IsApproved"] && [dictionary objectForKey:@"IsApproved"] != [NSNull null]) {
+            self.isApproving = [[dictionary objectForKey:@"IsApproved"] intValue] == 0;
+        }
+
         if ([dictionary objectForKey:@"Mobile"] && [dictionary objectForKey:@"Mobile"] != [NSNull null]) {
             self.mobile = [dictionary objectForKey:@"Mobile"];
         }

@@ -78,6 +78,18 @@ class CompanyUserRepository extends AbstractRepository
         return $this->conn->fetchAssoc($strSql, array($companyId, $userId));
     }
 
+    public function findByUser($userId)
+    {
+        $strSql = 'SELECT
+                       *
+                   FROM CompanyUser CU
+                   WHERE CU.UserId = ?
+                   ORDER BY CU.CompanyUserId DESC
+                   LIMIT 1';
+
+        return $this->conn->fetchAssoc($strSql, array($userId));
+    }
+
     public function findById($companyUserId)
     {
         $strSql = 'SELECT

@@ -1074,3 +1074,15 @@ CREATE TABLE IF NOT EXISTS `Address` (
   `LastModifiedDate` DATETIME NULL,
   PRIMARY KEY (`AddressId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ==============================================================================
+-- Create Feedback table
+-- ==============================================================================
+CREATE TABLE IF NOT EXISTS `Feedback` (
+  `FeedbackId` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `Body` TEXT NOT NULL,
+  `UserId` INT UNSIGNED NOT NULL DEFAULT 0,
+  `CreatedDate` DATETIME NOT NULL,
+  `LastModifiedDate` DATETIME NULL,
+  PRIMARY KEY (`FeedbackId`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;

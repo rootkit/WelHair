@@ -91,6 +91,7 @@
 		184B82FD18DAC7F000177BAB /* UIView+AnimationOptionsForCurve.m in Sources */ = {isa = PBXBuildFile; fileRef = 184B82C318DAC7F000177BAB /* UIView+AnimationOptionsForCurve.m */; };
 		18502DA918F8E2B800CD4A0A /* StaffServiceTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18502DA818F8E2B800CD4A0A /* StaffServiceTableViewCell.m */; };
 		18502DAB18F93ED600CD4A0A /* AvatarDefault@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 18502DAA18F93ED600CD4A0A /* AvatarDefault@2x.jpg */; };
+		1882D2731901314200D59861 /* FeedbackViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1882D2721901314200D59861 /* FeedbackViewController.m */; };
 		18A3E61318DC0C280080DC0B /* RegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A3E61218DC0C280080DC0B /* RegisterViewController.m */; };
 		18A3E61618DC10050080DC0B /* NSString+WelKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A3E61518DC10050080DC0B /* NSString+WelKit.m */; };
 		18A3E61918DC11240080DC0B /* RequestUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A3E61818DC11240080DC0B /* RequestUtil.m */; };
@@ -449,6 +450,8 @@
 		18502DA718F8E2B800CD4A0A /* StaffServiceTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StaffServiceTableViewCell.h; sourceTree = "<group>"; };
 		18502DA818F8E2B800CD4A0A /* StaffServiceTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StaffServiceTableViewCell.m; sourceTree = "<group>"; };
 		18502DAA18F93ED600CD4A0A /* AvatarDefault@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "AvatarDefault@2x.jpg"; sourceTree = "<group>"; };
+		1882D2711901314200D59861 /* FeedbackViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeedbackViewController.h; sourceTree = "<group>"; };
+		1882D2721901314200D59861 /* FeedbackViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeedbackViewController.m; sourceTree = "<group>"; };
 		18A3E61118DC0C280080DC0B /* RegisterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegisterViewController.h; sourceTree = "<group>"; };
 		18A3E61218DC0C280080DC0B /* RegisterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegisterViewController.m; sourceTree = "<group>"; };
 		18A3E61418DC10050080DC0B /* NSString+WelKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+WelKit.h"; sourceTree = "<group>"; };
@@ -1992,6 +1995,8 @@
 		467F0F0018CB60E0009FFE08 /* Settings */ = {
 			isa = PBXGroup;
 			children = (
+				1882D2711901314200D59861 /* FeedbackViewController.h */,
+				1882D2721901314200D59861 /* FeedbackViewController.m */,
 				467F0F0118CB610F009FFE08 /* SettingViewController.h */,
 				467F0F0218CB610F009FFE08 /* SettingViewController.m */,
 			);
@@ -2584,6 +2589,7 @@
 				4673BB9618D41B75000F64DE /* GroupRevenuViewController.m in Sources */,
 				46BDF12A18D0B53200999F50 /* CouponCell.m in Sources */,
 				184B82CA18DAC7F000177BAB /* JSMessageTextView.m in Sources */,
+				1882D2731901314200D59861 /* FeedbackViewController.m in Sources */,
 				4673BB6118D2ED4D000F64DE /* AppointmentsViewController.m in Sources */,
 				46BCD26918BC797B005C4BD6 /* GroupDetailViewController.m in Sources */,
 				4621AAE118EE9D3A00B8E18D /* Service.m in Sources */,

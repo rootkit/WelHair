@@ -17,6 +17,7 @@ namespace Welfony\Service;
 use PHPassLib\Hash\PBKDF2 as PassHash;
 use Welfony\Core\Enum\UserPointType;
 use Welfony\Core\Enum\UserRole;
+use Welfony\Repository\CompanyUserRepository;
 use Welfony\Repository\SocialRepository;
 use Welfony\Repository\UserRepository;
 use Welfony\Utility\Util;
@@ -53,6 +54,7 @@ class UserService
         $newId = UserRepository::getInstance()->save($data);
         if ($newId) {
             $data['UserId'] = $newId;
+            $data['IsApproved'] = 1;
             unset($data['Password']);
 
             $result['success'] = true;
@@ -102,6 +104,21 @@ class UserService
 
         unset($user['Password']);
 
+        $companyUser = CompanyUserRepository::getInstance()->findByUser($user['UserId']);
+        if ($companyUser) {
+            $user['IsApproved'] = $companyUser['IsApproved'];
+        } else {
+            if ($user['Role'] == UserRole::Staff || $user['Role'] == UserRole::Manager) {
+                $smData = array(
+                    'UserId' => $user['UserId'],
+                    'Role' => UserRole::Client
+                );
+                UserRepository::getInstance()->update($user['UserId'], $smData);
+            }
+            $user['Role'] = UserRole::Client;
+            $user['IsApproved'] = 1;
+        }
+
         $result['success'] = true;
         $result['user'] = $user;
 
@@ -128,6 +145,13 @@ class UserService
         if ($existedUser) {
             unset($existedUser['Password']);
 
+            $companyUser = CompanyUserRepository::getInstance()->findByUser($existedUser['UserId']);
+            if ($companyUser) {
+                $existedUser['IsApproved'] = $companyUser['IsApproved'];
+            } else {
+                $existedUser['IsApproved'] = !($existedUser['Role'] == UserRole::Staff || $existedUser['Role'] == UserRole::Manager);
+            }
+
             $result['success'] = true;
             $result['user'] = $existedUser;
 
@@ -145,6 +169,7 @@ class UserService
         $newId = UserRepository::getInstance()->save($data);
         if ($newId) {
             $data['UserId'] = $newId;
+            $data['IsApproved'] = 1;
             unset($data['Password']);
 
             $result['success'] = true;
