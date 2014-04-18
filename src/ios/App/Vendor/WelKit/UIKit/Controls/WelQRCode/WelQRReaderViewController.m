@@ -14,7 +14,7 @@
 #import <AVFoundation/AVFoundation.h>
 
 
-@interface WelQRReaderViewController ()
+@interface WelQRReaderViewController ()<UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 {
     BOOL isCameraInited;
     NSTimer *cameraInitedTimer;
@@ -27,17 +27,22 @@
     UIImageView  *line;
     
     UIView *scannerView;
+    
+    UIView *overlayView;
 }
 
 @end
 
 @implementation WelQRReaderViewController
-
+static float CenterSquareSize = 200;
 #pragma mark - View Controller Methods
 
 - (id)init{
     self = [super init];
     if(self){
+        self.leftNavItemTitle = @"取消";
+        self.rightNavItemTitle = @"相册";
+        self.title = @"扫描二维码";
         cameraInitedTimer = [NSTimer scheduledTimerWithTimeInterval:.02 target:self selector:@selector(checkCameraInited) userInfo:nil repeats:YES];
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
             capture = [[ZXCapture alloc] init];
@@ -51,80 +56,122 @@
     return self;
 }
 
+- (void)leftNavItemClick
+{
+    [self cancel];
+}
+
+- (void)rightNavItemClick
+{
+    UIImagePickerController *imagePickerController = [[UIImagePickerController alloc] init];
+    imagePickerController.delegate = self;
+    imagePickerController.allowsEditing = NO;
+    imagePickerController.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+    [self presentViewController:imagePickerController
+                       animated:YES
+                     completion:nil];
+}
+
 - (void) loadView
 {
     [super loadView];
     
-    scannerView = [[UIView alloc] initWithFrame:self.view.bounds];
+    float scannerHeight = [self contentHeightWithNavgationBar:YES withBottomBar:NO];
+    scannerView = [[UIView alloc] initWithFrame:CGRectMake(0,
+                                                           self.topBarOffset,
+                                                           WIDTH(self.view),
+                                                           scannerHeight)];
     scannerView.backgroundColor = [UIColor blackColor];
     [self.view addSubview:scannerView];
     
-    UIImageView * imageView = [[UIImageView alloc]initWithFrame:CGRectMake(60, 100, 200, 200)];
+    overlayView = [[UIView alloc] initWithFrame:scannerView.frame];
+    [self.view addSubview:overlayView];
+    overlayView.hidden = YES;
+    UIImageView * imageView = [[UIImageView alloc]initWithFrame:CGRectMake(60, (scannerHeight - CenterSquareSize)/2 , CenterSquareSize, CenterSquareSize)];
     imageView.image = [UIImage imageNamed:@"pick_bg"];
-    [self.view addSubview:imageView];
+    [overlayView addSubview:imageView];
     
     upOrdown = NO;
     num =0;
-    line = [[UIImageView alloc] initWithFrame:CGRectMake(70, 110, 180, 2)];
+    line = [[UIImageView alloc] initWithFrame:CGRectMake(70, Y(imageView), CenterSquareSize - 20, 2)];
     line.image = [UIImage imageNamed:@"line.png"];
-    line.hidden = YES;
-    [self.view addSubview:line];
+    [overlayView addSubview:line];
     
-
-    UIButton *cancelBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    cancelBtn.frame =CGRectMake(0,
-                              HEIGHT(self.view) - kToolBarHeight,
-                              WIDTH(self.view),
-                              kToolBarHeight);
-    cancelBtn.backgroundColor = [UIColor lightGrayColor];
-    [cancelBtn setTitle:@"取消" forState:UIControlStateNormal];
-    cancelBtn.titleLabel.font = [UIFont systemFontOfSize:16];
-    [cancelBtn addTarget:self action:@selector(cancel) forControlEvents:UIControlEventTouchDown];
-    [self.view addSubview:cancelBtn];
+    float overlayAlpha = 0.7;
+    UIView *topOverlayView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, WIDTH(self.view), (scannerHeight - CenterSquareSize)/2)];
+    topOverlayView.backgroundColor = [UIColor blackColor];
+    topOverlayView.alpha = overlayAlpha;
+    [overlayView addSubview:topOverlayView];
+    
+    UIView *leftOverlayView = [[UIView alloc] initWithFrame:CGRectMake(0, MaxY(topOverlayView), 60, CenterSquareSize)];
+    leftOverlayView.backgroundColor = [UIColor blackColor];
+    leftOverlayView.alpha = overlayAlpha;
+    [overlayView addSubview:leftOverlayView];
+    
+    UIView *bottomOverlayView = [[UIView alloc] initWithFrame:CGRectMake(0, MaxY(leftOverlayView), WIDTH(self.view), HEIGHT(scannerView) - MaxY(leftOverlayView))];
+    bottomOverlayView.backgroundColor = [UIColor blackColor];
+    bottomOverlayView.alpha = overlayAlpha;
+    [overlayView addSubview:bottomOverlayView];
+    
+    UIView *rightOverlayView = [[UIView alloc] initWithFrame:CGRectMake(260, MaxY(topOverlayView), 60, CenterSquareSize)];
+    rightOverlayView.backgroundColor = [UIColor blackColor];
+    rightOverlayView.alpha = overlayAlpha;
+    [overlayView addSubview:rightOverlayView];
 }
 
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    self.navigationController.navigationBarHidden = YES;
+//    self.navigationController.navigationBarHidden = YES;
     if(!isCameraInited){
         [SVProgressHUD show];
     }
 }
 
-- (void)showRoundOverlayView
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
-    UIView *topOverlayView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, WIDTH(self.view), 100)];
-    topOverlayView.backgroundColor = [UIColor blackColor];
-    topOverlayView.alpha = 0.5;
-    [self.view addSubview:topOverlayView];
+    [picker dismissViewControllerAnimated:NO completion:nil];
+    UIImage *pickedImg = [info objectForKey:UIImagePickerControllerOriginalImage];
     
-    UIView *leftOverlayView = [[UIView alloc] initWithFrame:CGRectMake(0, MaxY(topOverlayView), 60, 200)];
-    leftOverlayView.backgroundColor = [UIColor blackColor];
-    leftOverlayView.alpha = 0.5;
-    [self.view addSubview:leftOverlayView];
+    CGImageRef imageToDecode = pickedImg.CGImage;  // Given a CGImage in which we are looking for barcodes
     
-    UIView *bottomOverlayView = [[UIView alloc] initWithFrame:CGRectMake(0, MaxY(leftOverlayView), WIDTH(self.view), HEIGHT(self.view) - MaxY(leftOverlayView) - kToolBarHeight)];
-    bottomOverlayView.backgroundColor = [UIColor blackColor];
-    bottomOverlayView.alpha = 0.5;
-    [self.view addSubview:bottomOverlayView];
+    ZXLuminanceSource* source = [[ZXCGImageLuminanceSource alloc] initWithCGImage:imageToDecode];
+    ZXBinaryBitmap* bitmap = [ZXBinaryBitmap binaryBitmapWithBinarizer:[ZXHybridBinarizer binarizerWithSource:source]];
     
-    UIView *rightOverlayView = [[UIView alloc] initWithFrame:CGRectMake(260, MaxY(topOverlayView), 60, 200)];
-    rightOverlayView.backgroundColor = [UIColor blackColor];
-    rightOverlayView.alpha = 0.5;
-    [self.view addSubview:rightOverlayView];
+    NSError* error = nil;
+    
+    // There are a number of hints we can give to the reader, including
+    // possible formats, allowed lengths, and the string encoding.
+    ZXDecodeHints* hints = [ZXDecodeHints hints];
+    
+    ZXMultiFormatReader* reader = [ZXMultiFormatReader reader];
+    ZXResult* result = [reader decode:bitmap
+                                hints:hints
+                                error:&error];
+    if (result) {
+        // The coded result as a string. The raw data can be accessed with
+        // result.rawBytes and result.length.
+        NSString* contents = result.text;
+        isCaptured = YES;
+        [self playSound];
+        [self cancel];
+        [self.delegate didCaptureText:result.text welQRReaderViewController:self];
+        
+        // The barcode format, such as a QR code or UPC-A
+        ZXBarcodeFormat format = result.barcodeFormat;
+    } else {
+        [SVProgressHUD showErrorWithStatus:@"未识别的二维码" duration:1];
+        [self cancel];
+    }
 }
 
 - (void)startScan
 {
-    capture.layer.frame = self.view.bounds;
+    capture.layer.frame = scannerView.bounds;
     [scannerView.layer addSublayer:capture.layer];
-    scannerView.backgroundColor = [UIColor clearColor];
-    line.hidden = NO;
-    [self showRoundOverlayView];
+    overlayView.hidden = NO;
     [SVProgressHUD dismiss];
     timer = [NSTimer scheduledTimerWithTimeInterval:.02 target:self selector:@selector(lineAnimation) userInfo:nil repeats:YES];
-
 }
 
 - (void)checkCameraInited
@@ -136,14 +183,8 @@
     }
 }
 
-//- (BOOL)shouldAutorotate
-//{
-//    return NO;
-//}
-//- (NSUInteger)supportedInterfaceOrientations
-//{
-//    return UIInterfaceOrientationMaskPortrait | UIInterfaceOrientationMaskPortraitUpsideDown;
-//}
+
+
 - (UIInterfaceOrientation)preferredInterfaceOrientationForPresentation
 {
     return UIInterfaceOrientationPortrait;
@@ -151,16 +192,17 @@
 
 -(void)lineAnimation
 {
+    float height = (HEIGHT(scannerView) - CenterSquareSize)/2;
     if (upOrdown == NO) {
         num ++;
-        line.frame = CGRectMake(70, 110+2*num, 180, 2);
+        line.frame = CGRectMake(70, height+2*num, 180, 2);
         if (2*num == 190) {
             upOrdown = YES;
         }
     }
     else {
         num --;
-        line.frame = CGRectMake(70, 110+2*num, 180, 2);
+        line.frame = CGRectMake(70, height+2*num, 180, 2);
         if (num == 0) {
             upOrdown = NO;
         }

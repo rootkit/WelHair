@@ -53,7 +53,7 @@
 {
     WelQRReaderViewController *scanner = [WelQRReaderViewController new];
     scanner.delegate = self;
-    [self.navigationController presentViewController:scanner animated:YES completion:nil];
+    [self.navigationController presentViewController:[[UINavigationController alloc] initWithRootViewController:scanner] animated:YES completion:nil];
 }
 
 
@@ -191,7 +191,7 @@
 
 - (void)didCancelWelQRReaderViewController:(WelQRReaderViewController *)readerVc
 {
-    [readerVc dismissViewControllerAnimated:YES completion:nil];
+    [readerVc dismissViewControllerAnimated:NO completion:nil];
 }
 
 #pragma mark UITableView delegate

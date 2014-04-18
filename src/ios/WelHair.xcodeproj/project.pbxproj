@@ -323,6 +323,7 @@
 		46BDF13118D1516F00999F50 /* MyGroupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 46BDF13018D1516F00999F50 /* MyGroupViewController.m */; };
 		46BDF13918D1779100999F50 /* UserAuthorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 46BDF13818D1779100999F50 /* UserAuthorViewController.m */; };
 		46BDF13C18D17AF300999F50 /* CreateGroupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 46BDF13B18D17AF300999F50 /* CreateGroupViewController.m */; };
+		46E258701900E28E005DFBCE /* WFViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 46E2586F1900E28E005DFBCE /* WFViewController.m */; };
 		46E84EBF18C2C7040004C146 /* centerIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 46E84EBA18C2C7040004C146 /* centerIcon@2x.png */; };
 		46E84EC018C2C7040004C146 /* UIScrollView+UzysCircularProgressPullToRefresh.m in Sources */ = {isa = PBXBuildFile; fileRef = 46E84EBC18C2C7040004C146 /* UIScrollView+UzysCircularProgressPullToRefresh.m */; };
 		46E84EC118C2C7040004C146 /* UzysRadialProgressActivityIndicator.m in Sources */ = {isa = PBXBuildFile; fileRef = 46E84EBE18C2C7040004C146 /* UzysRadialProgressActivityIndicator.m */; };
@@ -906,6 +907,8 @@
 		46BDF13818D1779100999F50 /* UserAuthorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserAuthorViewController.m; sourceTree = "<group>"; };
 		46BDF13A18D17AF300999F50 /* CreateGroupViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreateGroupViewController.h; sourceTree = "<group>"; };
 		46BDF13B18D17AF300999F50 /* CreateGroupViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CreateGroupViewController.m; sourceTree = "<group>"; };
+		46E2586E1900E28E005DFBCE /* WFViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WFViewController.h; sourceTree = "<group>"; };
+		46E2586F1900E28E005DFBCE /* WFViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WFViewController.m; sourceTree = "<group>"; };
 		46E84EBA18C2C7040004C146 /* centerIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "centerIcon@2x.png"; sourceTree = "<group>"; };
 		46E84EBB18C2C7040004C146 /* UIScrollView+UzysCircularProgressPullToRefresh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+UzysCircularProgressPullToRefresh.h"; sourceTree = "<group>"; };
 		46E84EBC18C2C7040004C146 /* UIScrollView+UzysCircularProgressPullToRefresh.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+UzysCircularProgressPullToRefresh.m"; sourceTree = "<group>"; };
@@ -1965,6 +1968,8 @@
 				467F0ED518CB4FCF009FFE08 /* WelQRCode */,
 				467F0EDD18CB4FCF009FFE08 /* WelTabBarController.h */,
 				467F0EDE18CB4FCF009FFE08 /* WelTabBarController.m */,
+				46E2586E1900E28E005DFBCE /* WFViewController.h */,
+				46E2586F1900E28E005DFBCE /* WFViewController.m */,
 			);
 			path = Controls;
 			sourceTree = "<group>";
@@ -2665,6 +2670,7 @@
 				4630253118C849FD000E0B51 /* Staff.m in Sources */,
 				46E84ECA18C2D9050004C146 /* ProductDetailViewController.m in Sources */,
 				4631CF1E18E3284C00F39814 /* OrderPreviewViewController.m in Sources */,
+				46E258701900E28E005DFBCE /* WFViewController.m in Sources */,
 				18A9126F18BB216E006B9A04 /* main.m in Sources */,
 				4630252E18C848EB000E0B51 /* WorkCardView.m in Sources */,
 				465A5C8818DB08C7009B6D60 /* MyScoreViewController.m in Sources */,

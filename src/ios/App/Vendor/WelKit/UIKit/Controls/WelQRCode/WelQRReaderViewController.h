@@ -11,11 +11,11 @@
 // ==============================================================================
 
 #import "ZXingObjC.h"
+#import "WFViewController.h"
 @protocol WelQRReaderDelegate;
-@interface WelQRReaderViewController : UIViewController<ZXCaptureDelegate>
+@interface WelQRReaderViewController : WFViewController<ZXCaptureDelegate>
 
 @property (nonatomic, weak) id<WelQRReaderDelegate> delegate;
-
 
 @end
 
