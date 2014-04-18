@@ -23,14 +23,14 @@ use \Welfony\Utility\Util;
                     <p>完整的URL链接地址，如：http://www.welhair.com</p>
                 </div>
             </div>
-          
+
             <div class="formitm">
                 <label class="lab">LOGO：</label>
                 <div class="ipt">
                     <span class="u-img2">
                         <a href="javascript:;">
-                            <img id="brand-image" src="<?php echo $this->baseUrl( $this->brandInfo['Logo']); ?>"  alt="">
-                            <input id="brand-url" type="hidden" name="logo_url" value="<?php echo $this->baseUrl( $this->brandInfo['Logo']); ?>" />
+                            <img id="brand-image" src="<?php echo $this->brandInfo['Logo']; ?>"  alt="">
+                            <input id="brand-url" type="hidden" name="logo_url" value="<?php echo $this->brandInfo['Logo']; ?>" />
                         </a>
                     </span>
                 </div>
@@ -55,7 +55,7 @@ use \Welfony\Utility\Util;
              <div class="formitm">
                 <label class="lab">描述：</label>
                 <div class="ipt">
-                    <textarea id = "description" name="description"    value="<?php echo $this->brandInfo['Description']; ?>" class="u-ipt"></textarea> 
+                    <textarea id = "description" name="description"    value="<?php echo $this->brandInfo['Description']; ?>" class="u-ipt"></textarea>
                 </div>
             </div>
             <div class="formitm formitm-1">

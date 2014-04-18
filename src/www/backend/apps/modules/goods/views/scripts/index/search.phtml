@@ -25,6 +25,7 @@ use \Welfony\Utility\Util;
         </tr>
     </thead>
     <tbody>
+      <?php if (count($this->rows) > 0): ?>
       <?php foreach( $this->rows as $goods) : ?>
         <tr>
             <td class="col-center"><input type="checkbox" /></td>
@@ -38,13 +39,18 @@ use \Welfony\Utility\Util;
             <td> <?php echo $goods['StoreNums']; ?></td>
             <td> <?php echo $goods['BrandName']; ?></td>
             <td><?php echo $goods['Sort']; ?></td>
-            <td> 
+            <td>
                 <a href="#" href="#" class="btnDelete" data-id="<?php echo $goods['GoodsId']; ?>" >
                     <i class="iconfont">&#xf013f;</i>&nbsp;&nbsp;删除
                 </a>
             </td>
         </tr>
-    <?php endforeach; ?>
+        <?php endforeach; ?>
+        <?php else: ?>
+        <tr>
+            <td class="col-center" colspan="8">您还没有添加任何记录</td>
+        </tr>
+        <?php endif; ?>
     </tbody>
 </table>
 

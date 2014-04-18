@@ -23,7 +23,7 @@ WF.Model = {
         $('#specList').html(data);
 
         $('#specList input[type=radio]').click(function(){
-          
+
           //var first= $('#basicdatatable thead tr th:first');
           //var row = $('<th class="cola">' + $(this).attr('data-name') + '</th>');
           //first.after(row);
@@ -41,7 +41,7 @@ WF.Model = {
           $('#basicdatatable thead tr').append( $(headerline));
 
           var val = $(this).attr('data-value');
-          
+
           $('#basicdatatable tbody').empty();
 
           if( val != null && val.replace(/\s+/g, '').length > 0 )
@@ -86,7 +86,7 @@ WF.Model = {
 $(function() {
     window.addedspecs = 0;
     window.addattributes = 0;
-    $('#frm-goods-info').Validform({
+    var validator = $('#frm-goods-info').Validform({
         tiptype: 3
     });
 
@@ -157,7 +157,7 @@ $(function() {
                                       valstr="<td attr-type='3' attr-id='" + data[index].AttributeId + "'><select class='attribute'>";
                                       for( i in va )
                                       {
-                                         
+
                                           valstr += '<option value="' +va[i] + '" >' +va[i] + '</option>';
                                       }
                                       valstr +="</select></td>";
@@ -167,7 +167,7 @@ $(function() {
 
                             }
 
-                            var row = "<tr><th>" + data[index].Name +"</th>" + valstr +"</tr>"; 
+                            var row = "<tr><th>" + data[index].Name +"</th>" + valstr +"</tr>";
                             $('#attributestable').append( $(row));
                          }
                       }
@@ -176,14 +176,14 @@ $(function() {
                         $('#attributepanel').hide();
                       }
                       if( i > window.addattributes)
-                      { 
+                      {
                         window.addattributes = i;
                       }
-                        
+
                     },
                     error:function()
                     {
-                        
+
                     }
         });
 
@@ -217,15 +217,15 @@ $(function() {
 
 
     $( "#frm-goods-info" ).submit(function( event ) {
-
-
-          event.preventDefault();
+        if (!validator.check()) {
+          return false;
+        }
           var form = $( this );
 
           var name = $('#goodsname').val();
 
 
-          var goodsdata= { 
+          var goodsdata= {
                 'name': name,
                 'goodsno': $('#goodsno').val(),
                 'modelid': $('#goodsmodel').val(),
@@ -235,7 +235,7 @@ $(function() {
                 'experience': $('#experience').val(),
                 'sort': $('#sort').val(),
                 'keywords': $( '#goodskeywords').val()
-               
+
             };
 
           //var specids  = $('tr.specid').map(function(i,n) {
@@ -243,7 +243,7 @@ $(function() {
           //}).get().join(",");
 
           /*var attributes =  $('tr.attributerow').map(function(i,n) {
-                return { 
+                return {
                     'name':$(n).find('input[name="attributename"]').val(),
                     'type':$(n).find('select[name="attributetype"]').val(),
                     'value':$(n).find('input[name="attributevalue"]').val(),
@@ -356,9 +356,9 @@ $(function() {
          goodsdata['attributes'] = attributes.concat(extAttributes);
 
          goodsdata['img'] =$('#goods-url').val();
-      
+
          //console.log(goodsdata);
-         
+
 
           url = form.attr( "action" );
           var posting = $.post( url, goodsdata );
@@ -370,15 +370,17 @@ $(function() {
               {
 
                 window.location = globalSetting.baseUrl + '/goods/index/search';
-                return;
+                return false;
               }
 
           });
+
+          return false;
 
       });
 
     $('#btnCancel').click(function(){
         window.location = globalSetting.baseUrl + '/goods/index/search';
-        return;
+        return false;
     });
 });

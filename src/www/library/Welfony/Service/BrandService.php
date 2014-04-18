@@ -74,7 +74,6 @@ class BrandService
                 return $result;
             }
         } else {
-
             $r = BrandRepository::getInstance()->update($data['BrandId'],$data);
             if ($r) {
 

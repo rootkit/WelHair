@@ -15,6 +15,7 @@
 use Welfony\Controller\Base\AbstractAdminController;
 use Welfony\Service\BrandCategoryService;
 use Welfony\Service\BrandService;
+use Welfony\Utility\Util;
 
 class Goods_BrandController extends AbstractAdminController
 {
@@ -115,7 +116,7 @@ class Goods_BrandController extends AbstractAdminController
         $brand = array();
         $brand['BrandId'] = $brandId;
         $brand['Name'] = '';
-        $brand['Logo'] = '';
+        $brand['Logo'] = Util::baseAssetUrl('img/photo-default.png');
         $brand['Url'] = '';
         $brand['Description'] = '';
         $brand['Sort'] = '';

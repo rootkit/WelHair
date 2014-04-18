@@ -11,39 +11,32 @@
 // ==============================================================================
 
 $(function() {
-    $('#frm-category-info').Validform({
+    var validator = $('#frm-category-info').Validform({
         tiptype: 3
     });
 
-
-    
-
     $( "#frm-category-info" ).submit(function( event ) {
+        if (!validator.check()) {
+          return false;
+        }
+
+        var form = $( this );
+        var url = form.attr( "action" );
+
+        var posting = $.post( url, {
+          'name' : $('#categoryname').val(),
+          'sort' : $('#categorysort').val(),
+          'parentid': $('#categoryparent').val(),
+          'visibility':$('.u-btn-c3').attr('data-value'),
+           'modelid':$('#categorymodel').val()
+         } );
 
 
-          event.preventDefault();
+        posting.done(function( data ) {
+            window.location = globalSetting.baseUrl + '/goods/category/search';
+            return false;
+        });
 
-          var form = $( this );
-
-          var url = form.attr( "action" );
-
-       
-
-          var posting = $.post( url, { 
-              'name' : $('#categoryname').val(),
-	            'sort' : $('#categorysort').val(),
-              'parentid': $('#categoryparent').val(),
-              'visibility':$('.u-btn-c3').attr('data-value'),
-               'modelid':$('#categorymodel').val()         
-             } );
-
-
-          posting.done(function( data ) {
-
-              window.location = globalSetting.baseUrl + '/goods/category/search';
-              return;
-
-          });
-
-      });
+        return false;
+    });
 });

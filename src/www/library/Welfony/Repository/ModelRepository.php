@@ -142,7 +142,9 @@ class ModelRepository extends AbstractRepository
                 $this->conn->delete('Attribute', array('ModelId' => $modelId));
             }
 
-            return $this->conn->update('Model', $data, array('ModelId' => $modelId));
+            $this->conn->update('Model', $data, array('ModelId' => $modelId));
+
+            return true;
         } catch (\Exception $e) {
             $this->logger->log($e, \Zend_Log::ERR);
 

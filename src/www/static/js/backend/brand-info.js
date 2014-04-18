@@ -11,9 +11,9 @@
 // ==============================================================================
 
 $(function() {
-    $('#frm-brand-info').Validform({
+    var validator = $('#frm-brand-info').Validform({
         tiptype: 3
-    });   
+    });
 
     $('#brand-uploader').uploadify({
         fileObjName: 'uploadfile',
@@ -42,9 +42,9 @@ $(function() {
     });
 
     $( "#frm-brand-info" ).submit(function( event ) {
-
-
-          event.preventDefault();
+        if (!validator.check()) {
+          return false;
+        }
 
           var form = $( this );
 
@@ -55,15 +55,15 @@ $(function() {
           var brandcategories  = $('input[name="category[]"]:checked').map(function(i,n) {
                 return $(n).val();
             }).get();
-         
+
           var description = $('textarea#description').val();
 
 
           url = form.attr( "action" );
 
-          var posting = $.post( url, { 
+          var posting = $.post( url, {
                 'brand_id': $('#brandid').val(),
-                'name': name, 
+                'name': name,
                 'sort': sort,
                 'brandurl' : brandurl,
                 'logo' : logo,
@@ -75,14 +75,16 @@ $(function() {
           posting.done(function( data ) {
 
               window.location = globalSetting.baseUrl + '/goods/brand/search';
-              return;
+              return false;
 
           });
+
+          return false;
 
       });
 
     $('#btnCancel').click(function(){
         window.location = globalSetting.baseUrl + '/goods/brand/search';
-        return;
+        return false;
     });
 });

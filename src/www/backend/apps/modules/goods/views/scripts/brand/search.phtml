@@ -29,6 +29,7 @@ use \Welfony\Utility\Util;
         </tr>
     </thead>
     <tbody>
+        <?php if (count($this->rows) > 0): ?>
         <?php foreach( $this->rows as $brand) : ?>
         <tr>
             <td class="col-center"><input type="checkbox" /></td>
@@ -56,6 +57,11 @@ use \Welfony\Utility\Util;
             </td>
         </tr>
         <?php endforeach; ?>
+        <?php else: ?>
+        <tr>
+            <td class="col-center" colspan="6">您还没有添加任何记录</td>
+        </tr>
+        <?php endif; ?>
     </tbody>
 </table>
 

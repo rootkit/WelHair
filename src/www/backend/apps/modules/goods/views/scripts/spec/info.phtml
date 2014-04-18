@@ -13,7 +13,7 @@ use \Welfony\Utility\Util;
             <div class="formitm">
                 <label class="lab">备注：</label>
                 <div class="ipt">
-                    <input id="note" type="text" value="<?php echo $this->specInfo['Note']; ?>"   class="u-ipt"/> 
+                    <input id="note" type="text" value="<?php echo $this->specInfo['Note']; ?>"   class="u-ipt"/>
                 </div>
             </div>
             <div class="formitm">
@@ -28,15 +28,15 @@ use \Welfony\Utility\Util;
                     <table class="m-table" id="spectable" style="width:600px;">
                         <thead>
                             <tr>
-                                <th class="cola">规格值</th>
+                                <th class="colb">规格值</th>
                                 <th class="cola">操作</th>
                             </tr>
                         </thead>
                         <tbody>
-                        <?php  
+                        <?php
                             if( isset( $this->specInfo['Value'] ) && $this->specInfo['Value'])
                             {
-                                $val = json_decode( $this->specInfo['Value']); 
+                                $val = json_decode( $this->specInfo['Value']);
                                 if($val && is_array($val))
                                 {
                                     foreach( $val as $specVal)
@@ -54,8 +54,8 @@ use \Welfony\Utility\Util;
                     </table>
                 </div>
             </div>
-            
-            
+
+
             <div class="formitm formitm-1">
                 <input type="hidden" name="spec_id" value="<?php echo intval($this->specInfo['SpecId']); ?>" />
                 <button class="u-btn u-btn-submit" type="button">确定</button>

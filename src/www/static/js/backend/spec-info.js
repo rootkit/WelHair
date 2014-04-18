@@ -11,7 +11,7 @@
 // ==============================================================================
 
 $(function() {
-    $('#frm-spec-info').Validform({
+    var validator = $('#frm-spec-info').Validform({
         tiptype: 3
     });
 
@@ -53,9 +53,9 @@ $(function() {
 
 
     $( "#frm-spec-info" ).submit(function( event ) {
-
-
-          event.preventDefault();
+        if (!validator.check()) {
+          return false;
+        }
 
           var form = $( this );
 
@@ -66,12 +66,12 @@ $(function() {
           var values  = $('input[name="specval"]').map(function(i,n) {
                 return $(n).val();
           }).get();
-         
-          
+
+
 
           url = form.attr( "action" );
 
-          var posting = $.post( url, { 
+          var posting = $.post( url, {
                 'name': name,
                 'value': JSON.stringify(values),
                 'note' :note
@@ -81,14 +81,15 @@ $(function() {
           posting.done(function( data ) {
 
               window.location = globalSetting.baseUrl + '/goods/spec/search';
-              return;
+              return false;
 
           });
 
+          return false;
       });
 
     $('#btnCancel').click(function(){
         window.location = globalSetting.baseUrl + '/goods/spec/search';
-        return;
+        return false;
     });
 });

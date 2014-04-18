@@ -23,6 +23,7 @@ use \Welfony\Utility\Util;
         </tr>
     </thead>
     <tbody>
+        <?php if (count($this->rows) > 0): ?>
       <?php foreach( $this->rows as $spec) : ?>
         <tr>
             <td class="col-center"><input type="checkbox" /></td>
@@ -32,23 +33,28 @@ use \Welfony\Utility\Util;
                 </a>
             </td>
             <td>文字</td>
-            <td><?php  
+            <td><?php
                 if( isset( $spec['Value'] ) && $spec['Value'])
                 {
-                    $val = json_decode( $spec['Value']); 
+                    $val = json_decode( $spec['Value']);
                     if($val && is_array($val))
                     {
                         echo implode(',', $val);
                     }
                 }
             ?></td>
-            <td> 
+            <td>
                 <a href="#" href="#" class="btnDelete" data-id="<?php echo $spec['SpecId']; ?>" >
                     <i class="iconfont">&#xf013f;</i>&nbsp;&nbsp;删除
                 </a>
             </td>
         </tr>
     <?php endforeach; ?>
+        <?php else: ?>
+        <tr>
+            <td class="col-center" colspan="5">您还没有添加任何记录</td>
+        </tr>
+        <?php endif; ?>
     </tbody>
 </table>
 

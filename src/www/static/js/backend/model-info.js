@@ -52,7 +52,7 @@ WF.Model = {
 };
 
 $(function() {
-    $('#frm-model-info').Validform({
+    var validator = $('#frm-model-info').Validform({
         tiptype: 3
     });
 
@@ -87,9 +87,9 @@ $(function() {
 
 
     $( "#frm-model-info" ).submit(function( event ) {
-
-
-          event.preventDefault();
+        if (!validator.check()) {
+          return false;
+        }
 
           var form = $( this );
 
@@ -124,17 +124,19 @@ $(function() {
 
               if( data.success)
               {
-
                 window.location = globalSetting.baseUrl + '/goods/model/search';
-                return;
+                return false;
+              } else {
+                WF.showMessage('error', '注意', data.message);
               }
 
           });
 
+          return false;
       });
 
     $('#btnCancel').click(function(){
         window.location = globalSetting.baseUrl + '/goods/model/search';
-        return;
+        return false;
     });
 });

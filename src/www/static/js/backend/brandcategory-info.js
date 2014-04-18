@@ -11,38 +11,35 @@
 // ==============================================================================
 
 $(function() {
-     $('#frmBrandCategoryInfo').Validform({
-                tiptype: 3
+     var validator = $('#frmBrandCategoryInfo').Validform({
+        tiptype: 3
      });
 
-
     $( "#frmBrandCategoryInfo" ).submit(function( event ) {
+        if (!validator.check()) {
+          return false;
+        }
 
+        var form = $( this );
+        var name = $('#brandcategoryname').val();
+        var id = $('#brandcategoryid').val();
+        url = form.attr( "action" );
 
-          event.preventDefault();
+        var posting = $.post( url, { 'name': name, 'bc_id': id} );
 
-          var form = $( this );
+        posting.done(function( data ) {
 
-          var name = $('#brandcategoryname').val();
-          var id = $('#brandcategoryid').val();
+            window.location = globalSetting.baseUrl + '/goods/brand/categorysearch';
+            return false;
+        });
 
-          url = form.attr( "action" );
+        return false;
 
-          var posting = $.post( url, { 'name': name, 'bc_id': id} );
-
-
-          posting.done(function( data ) {
-
-              window.location = globalSetting.baseUrl + '/goods/brand/categorysearch';
-              return;
-
-          });
-
-      });
+    });
 
     $('#btnCancel').click(function(){
         window.location = globalSetting.baseUrl + '/goods/brand/categorysearch';
-        return;
+        return false;
     });
 
 });

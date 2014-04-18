@@ -86,7 +86,7 @@ class BrandRepository extends AbstractRepository
     public function update($brandId, $data)
     {
         try {
-            return $this->conn->update('Model', $data, array('BrandId' => $brandId));
+            return $this->conn->update('Brand', $data, array('BrandId' => $brandId));
         } catch (\Exception $e) {
             $this->logger->log($e, \Zend_Log::ERR);
 

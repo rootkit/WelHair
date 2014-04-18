@@ -435,6 +435,7 @@ button.u-btn-sm {
 .m-table th, .m-table td {
     padding: 10px;
     border: 1px solid #ddd;
+    position: relative;
 }
 
 .m-table td.col-center {
@@ -792,5 +793,9 @@ a.u-upload,a.u-upload:hover {
 {
     float: left;
     margin-top: 20px;
+}
+
+.m-table td .Validform_checktip {
+    top: 16px;
 }
 

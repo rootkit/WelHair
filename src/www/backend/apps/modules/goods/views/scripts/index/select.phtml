@@ -5,7 +5,7 @@ use \Welfony\Utility\Util;
     <thead>
         <tr>
             <th class="col-chk"></th>
-            
+
             <th class="cola">货号</th>
             <th class="cola">名称</th>
             <th class="cola">规格</th>
@@ -14,6 +14,7 @@ use \Welfony\Utility\Util;
         </tr>
     </thead>
     <tbody>
+      <?php if (count($this->rows) > 0): ?>
       <?php foreach( $this->rows as $goods) : ?>
       <?php
                     $spc= '';
@@ -22,7 +23,7 @@ use \Welfony\Utility\Util;
                         $spec= json_decode($goods['SpecArray'],true);
                         $spc= $spec['Name'].":".$spec['Value'];
                     }
-                    
+
         ?>
         <tr>
             <td class="col-center"><input type="radio" data-name="<?php echo $goods['Name'];?>"
@@ -43,7 +44,12 @@ use \Welfony\Utility\Util;
             <td> <?php echo $goods['SellPrice']; ?></td>
             <td><img style="max-width:100px;max-height:100px;" src="<?php echo $goods['Img']; ?>"/></td>
         </tr>
-    <?php endforeach; ?>
+        <?php endforeach; ?>
+        <?php else: ?>
+        <tr>
+            <td class="col-center" colspan="5">您还没有添加任何记录</td>
+        </tr>
+        <?php endif; ?>
     </tbody>
 </table>
 <div class="m-page m-page-rt">

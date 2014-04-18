@@ -21,6 +21,7 @@ use Welfony\Service\CompanyService;
 use Welfony\Service\ProductsService;
 use Welfony\Service\RecommendGoodsService;
 use Welfony\Service\GoodsAttributeService;
+use Welfony\Utility\Util;
 
 class Goods_IndexController extends AbstractAdminController
 {
@@ -69,7 +70,7 @@ class Goods_IndexController extends AbstractAdminController
             'MarketPrice'=>0,
             'CostPrice'=>0,
             'Weight'=>0,
-            'Img'=>'',
+            'Img'=>Util::baseAssetUrl('img/photo-default.png'),
             'IsDeleted' => 0,
             'Keywords' => '',
         );
@@ -130,7 +131,7 @@ class Goods_IndexController extends AbstractAdminController
                     {
                         $attrArray[] = $attr;
                     }
-                    
+
                 }
             }
             $products = $this->_request->getParam('products');
@@ -218,7 +219,7 @@ class Goods_IndexController extends AbstractAdminController
 
         $page = intval($this->_request->getParam('page'));
         $func = intval($this->_request->getParam('func'));
-     
+
         $searchResult = GoodsService::listGoodsAndProducts($page, $pageSize);
         $this->view->rows = $searchResult['goods'];
         $this->view->pagerHTML = $this->renderPager('',
