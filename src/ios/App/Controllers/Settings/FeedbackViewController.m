@@ -88,11 +88,15 @@
 {
     [super viewDidLoad];
 
-    textView = [[UITextView alloc] initWithFrame:CGRectMake(0,
-                                                            self.topBarOffset,
-                                                            WIDTH(self.view) ,
-                                                            [self contentHeightWithNavgationBar:YES withBottomBar:NO])];
+    float height = [self contentHeightWithNavgationBar:YES withBottomBar:NO] - kChineseKeyboardHeight - 20;
+    textView = [[UITextView alloc] initWithFrame:CGRectMake(10,
+                                                            self.topBarOffset + 10,
+                                                            WIDTH(self.view) - 20 ,
+                                                            height )];
     textView.font = [UIFont systemFontOfSize:16];
+    textView.layer.borderColor = [[UIColor lightGrayColor] CGColor];
+    textView.layer.borderWidth = 1;
+    textView.layer.cornerRadius = 3;
     [self.view addSubview:textView];
 }
 
