@@ -168,6 +168,38 @@ class Order_IndexController extends AbstractAdminController
 	public function detailAction()
     {
         $this->view->pageTitle = '订单详情';
+
+        $orderId = $this->_request->getParam('order_id')?  intval($this->_request->getParam('order_id')) : 0;
+
+
+        if ($orderId > 0) {
+     
+            $this->view->ordergoods = OrderGoodsService::listAllOrderGoodsByOrder($orderId);
+            $order = OrderService::getOrderById($orderId);
+            $this->view->cityList = intval($order['Province']) > 0 ? AreaService::listAreaByParent($order['Province']) : array();
+            $this->view->districtList = intval($order['City']) > 0 ? AreaService::listAreaByParent($order['City']) : array();
+
+            if( $order['UserId'])
+            {
+                $user = UserService::getUserById($order['UserId']);
+                if( $user && !empty($user))
+                {
+                    $order['UserName'] = $user['Username'];
+                }
+                else
+                {
+                    $order['UserName'] = '';
+                }
+            }
+            else
+            {
+                $order['UserName'] = '';
+            }
+        }
+        else
+        {
+            $this->_redirect('/order/index/search');
+        }
     }
 
     public function deleteAction()

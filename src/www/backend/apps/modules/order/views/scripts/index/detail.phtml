@@ -32,24 +32,20 @@ use \Welfony\Utility\Util;
                                 </tr>
                             </thead>
                             <tbody>
+                                <?php foreach( $this->ordergoods as $ordergoods): ?>
                                 <tr>
                                     <td>
-                                        sssssxxxx &nbsp;&nbsp; 包装:袋装 ,                  
+                                        <?php 
+                                            $goodName = json_decode($ordergoods['GoodsArray'], true);
+                                            echo $goodName["Name"]. '&nbsp;&nbsp;'.$goodName['Value'];
+                                        ?>                
                                     </td>
-                                    <td>22.00</td>
-                                    <td>22.00</td>
-                                    <td>1</td>
-                                    <td>22</td>
+                                    <td><?php   echo $ordergoods['GoodsPrice'] ?></td>
+                                    <td><?php   echo $ordergoods['RealPrice'] ?></td>
+                                    <td><?php   echo $ordergoods['GoodsNums'] ?></td>
+                                    <td><?php   echo $ordergoods['GoodsPrice']*$ordergoods['GoodsNums']; ?></td>
                                 </tr>
-                                <tr>
-                                    <td>
-                                        sssssxxxx &nbsp;&nbsp; 包装:瓶装 ,                  
-                                    </td>
-                                    <td>22.00</td>
-                                    <td>22.00</td>
-                                    <td>1</td>
-                                    <td>22</td>
-                                </tr>
+                                <?php endforeach;?>
                             </tbody>
                         </table>
                     </div>
