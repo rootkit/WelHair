@@ -45,14 +45,15 @@ use \Welfony\Utility\Util;
             <td><?php echo $order['UserName']; ?></td>
             <td><?php echo $order['CreateTime']; ?></td>
             <td> 
+                 <a href="<?php echo $this->baseUrl('order/index/detail?order_id=' .  $order['OrderId']); ?>">
+                    <i class="iconfont">&#xf0198;</i>&nbsp;&nbsp;详情
+                </a>
                 <?php if(!$order['IsDeleted']): ?>
                 <a href="#" href="#" class="btnDelete" data-id="<?php echo $order['OrderId']; ?>" >
                     <i class="iconfont">&#xf013f;</i>&nbsp;&nbsp;删除
                 </a>
                 <?php endif;?>
-                <a href="<?php echo $this->baseUrl('order/index/detail?order_id=' .  $order['OrderId']); ?>">
-                    <i class="iconfont">&#xf0198;</i>&nbsp;&nbsp;详情
-                </a>
+               
             </td>
         </tr>
     <?php endforeach; ?>

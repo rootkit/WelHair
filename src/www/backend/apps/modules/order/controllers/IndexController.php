@@ -66,7 +66,9 @@ class Order_IndexController extends AbstractAdminController
             'Mobile' => '',
             'Postcode' =>'',
             'Telphone' => '',
-            'IsDeleted' => 0
+            'IsDeleted' => 0,
+            'Taxes'=>0,
+            'PayFee' => 0
         );
 
         $this->view->provinceList = AreaService::listAreaByParent(0);
@@ -116,10 +118,87 @@ class Order_IndexController extends AbstractAdminController
                 $order['Area'] = $this->_request->getParam('area');
             }
             $goods = $this->_request->getParam('goods');
+            $payable = 0; //总价格
+            $goodTotalWeight = 0; //总重量
+            if( !empty($goods) )           
+            {
+                foreach( $goods as $g)
+                {
+                    $payable += $g['GoodsPrice'] * $g["GoodsNums"];
+                    $goodTotalWeight  += $g['GoodsWeight'];
+                }
+            }
+
+            $goodTotalWeight = $goodTotalWeight * 1000;
+
+            $order["PayableAmount"] = $payable;
+            $order['RealAmount'] = $payable;
+
+
+
             $order['CreateTime']= date('Y-m-d H:i:s');
             $order['IsDeleted']= '0';
 
-           
+            $payableFreight = 0;
+            $realFreight = 0;
+
+            $insured = 0;
+
+            if( $this->_request->getParam('distribution'))
+            {
+                $distributionDetail = DeliveryService::getDeliveryById($this->_request->getParam('distribution'));
+
+                $firstPrice = $distributionDetail['FirstPrice'];
+                $secondPrice = $distributionDetail['FirstPrice'];
+
+                if( $distributionDetail['Type']) //制定地区
+                {
+                    if( $distributionDetail['AreaGroupId'])
+                    {
+                        $areaGroupIds = json_decode($distributionDetail['AreaGroupId'],true);
+                        $areaFirstPrices = json_decode($distributionDetail['AreaFirstPrice'],true);
+                        $areaSecondPrices = json_decode($distributionDetail['AreaSecondPrice'],true);
+                        foreach( $areaGroupIds as $areaIndex=>$areaId)
+                        {
+                            if( $this->_request->getParam('province') === $areaId )
+                            {
+                                $firstPrice = $areaFirstPrices[$areaIndex];
+                                $secondPrice = $areaSecondPrices[$areaIndex];
+                            }
+                        }
+                    }
+                }
+               
+
+                if( $goodTotalWeight <= $distributionDetail['FirstWeight'] )
+                {
+                    $payableFreight = $firstPrice;
+                    $realFreight =  $firstPrice;
+                }
+                else
+                {
+                    $payableFreight = $firstPrice +  ceil( ( $goodTotalWeight - $distributionDetail['FirstWeight'])/$distributionDetail['SecondWeight']) * $secondPrice;
+                    $realFreight = $firstPrice +  ceil( ( $goodTotalWeight - $distributionDetail['FirstWeight'])/$distributionDetail['SecondWeight']) * $secondPrice;
+                }
+
+                if($this->_request->getParam('ifinsured'))
+                {
+                    if( $distributionDetail['IsSavePrice'])
+                    {
+                        $insured = $distributionDetail['SaveRate'] * $payable;
+                        if($insured < $distributionDetail['LowPrice'])
+                        {
+                            $insured = $distributionDetail['LowPrice'];
+                        }
+                        $insured = number_format($insured,2);
+                    }
+                }
+            }
+
+            $order['PayableFreight'] = $payableFreight;
+            $order['RealFreight'] = $realFreight;
+            $order['Insured'] = $insured;
+            $order['OrderAmount'] = $order['PayableAmount'] + $order['PayableFreight'] + $order['Insured'] + $order['PayFee'] + $order['Taxes'] + $order['Discount'];
 
             $result = OrderService::save($order, $goods);
             if ($result['success']) {

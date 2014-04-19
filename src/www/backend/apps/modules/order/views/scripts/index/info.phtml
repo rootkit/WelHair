@@ -70,8 +70,10 @@ use \Welfony\Utility\Util;
                         <div class="ipt">
                             <select class="u-sel" id="distribution">
                                 <?php foreach($this->deliveries as $delivery): ?>
-                                <option value="<?php echo $delivery['DeliveryId']; ?>" 
-                                    <?php echo $this->orderInfo['Distribution'] == $delivery['DeliveryId'] ? 'selected' : ''; ?>><?php echo $delivery['Name']; ?></option>
+                                    <?php if($delivery['Status']):?>
+                                    <option value="<?php echo $delivery['DeliveryId']; ?>" 
+                                        <?php echo $this->orderInfo['Distribution'] == $delivery['DeliveryId'] ? 'selected' : ''; ?>><?php echo $delivery['Name']; ?></option>
+                                    <?php endif; ?>
                                 <?php endforeach; ?>
                             </select>
                         </div>
