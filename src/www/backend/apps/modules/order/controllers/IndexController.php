@@ -274,6 +274,13 @@ class Order_IndexController extends AbstractAdminController
             {
                 $order['UserName'] = '';
             }
+            $this->view->orderInfo = $order;
+            $this->view->delivery = DeliveryService::getDeliveryById($order['Distribution']);
+            $this->view->payment = PaymentService::getPaymentById($order['PayType']);
+            $this->view->province = AreaService::getAreaById($order['Province']);
+            $this->view->city = AreaService::getAreaById($order['City']);
+            $this->view->area = AreaService::getAreaById($order['Area']);
+
         }
         else
         {

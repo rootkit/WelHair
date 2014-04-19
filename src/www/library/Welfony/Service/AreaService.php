@@ -34,6 +34,13 @@ class AreaService
         return $areaList;
     }
 
+    public static function getAreaById($id)
+    {
+        $areaList = AreaRepository::getInstance()->getAreaById($id);
+
+        return $areaList;
+    }
+
     public static function listAllAreas()
     {
         $result = AreaRepository::getInstance()->getAreas();

@@ -32,7 +32,11 @@ use \Welfony\Utility\Util;
                                 </tr>
                             </thead>
                             <tbody>
-                                <?php foreach( $this->ordergoods as $ordergoods): ?>
+                                <?php 
+                                $totalWeight = 0;
+                                foreach( $this->ordergoods as $ordergoods): 
+                                $totalWeight += $ordergoods['GoodsWeight'];
+                                    ?>
                                 <tr>
                                     <td>
                                         <?php 
@@ -56,25 +60,25 @@ use \Welfony\Utility\Util;
                             </thead>
                             <tbody>
                                 <tr>
-                                    <th>商品总额:</th><td>￥44.00</td>
+                                    <th>商品总额:</th><td>￥<?php echo $this->orderInfo['PayableAmount']; ?></td>
                                 </tr>
                                 <tr>
-                                    <th>配送费用:</th><td>￥20.00</td>
+                                    <th>配送费用:</th><td>￥<?php echo $this->orderInfo['PayableFreight']; ?></td>
                                 </tr>
                                 <tr>
-                                    <th>保价费用:</th><td>￥5.00</td>
+                                    <th>保价费用:</th><td>￥<?php echo $this->orderInfo['Insured']; ?></td>
                                 </tr>
                                 <tr>
-                                    <th>税金:</th><td>￥0.00</td>
+                                    <th>税金:</th><td>￥<?php echo $this->orderInfo['Taxes']; ?></td>
                                 </tr>
                                 <tr>
                                     <th>优惠总额:</th><td>￥0.00</td>
                                 </tr>
                                 <tr>
-                                    <th>增加或减少金额:</th><td>￥12.00</td>
+                                    <th>增加或减少金额:</th><td>￥<?php echo $this->orderInfo['Discount']; ?></td>
                                 </tr>
                                 <tr>
-                                    <th>订单总额:</th><td>￥81.00</td>
+                                    <th>订单总额:</th><td>￥<?php echo $this->orderInfo['OrderAmount']; ?></td>
                                 </tr>
                                 <tr>
                                     <th>已支付金额:</th><td></td>
@@ -88,25 +92,25 @@ use \Welfony\Utility\Util;
                             </thead>
                             <tbody>
                                 <tr>
-                                    <th>配送方式:</th><td>快递</td>
+                                    <th>配送方式:</th><td><?php echo $this->delivery['Name']; ?></td>
                                 </tr>
                                 <tr>
-                                    <th>配送保价:</th><td>保价</td>
+                                    <th>配送保价:</th><td><?php echo $this->orderInfo['IfInsured']? '保价':'否'; ?></td>
                                 </tr>
                                 <tr>
-                                    <th>商品重量:</th><td>44</td>
+                                    <th>商品重量:</th><td><?php echo $totalWeight;?></td>
                                 </tr>
                                 <tr>
-                                    <th>支付方式:</th><td>预存款支付</td>
+                                    <th>支付方式:</th><td><?php echo $this->payment['Name']; ?></td>
                                 </tr>
                                 <tr>
-                                    <th>是否开票:</th><td>否</td>
+                                    <th>是否开票:</th><td><?php echo $this->orderInfo['Invoice']? '是':'否'; ?></td>
                                 </tr>
                                 <tr>
-                                    <th>发票抬头:</th><td>test</td>
+                                    <th>发票抬头:</th><td><?php echo $this->orderInfo['InvoiceTitle']; ?></td>
                                 </tr>
                                 <tr>
-                                    <th>可得积分:</th><td>44</td>
+                                    <th>可得积分:</th><td><?php echo $this->orderInfo['Point']; ?></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -117,28 +121,28 @@ use \Welfony\Utility\Util;
                             </thead>
                             <tbody>
                                 <tr>
-                                    <th>发货日期:</th><td></td>
+                                    <th>发货日期:</th><td><?php echo $this->orderInfo['SendTime']; ?></td>
                                 </tr>
                                 <tr>
-                                    <th>姓名:</th><td>sss</td>
+                                    <th>姓名:</th><td><?php echo $this->orderInfo['AcceptName']; ?></td>
                                 </tr>
                                 <tr>
-                                    <th>电话:</th><td></td>
+                                    <th>电话:</th><td><?php echo $this->orderInfo['Telphone']; ?></td>
                                 </tr>
                                 <tr>
-                                    <th>手机 :</th><td>13706411579</td>
+                                    <th>手机 :</th><td><?php echo $this->orderInfo['Mobile']; ?></td>
                                 </tr>
                                 <tr>
-                                    <th>地区:</th><td>广东省&nbsp;广州市&nbsp;市辖区</td>
+                                    <th>地区:</th><td><?php echo $this->province?$this->province['Name']:''; ?>&nbsp;<?php echo $this->city?$this->city['Name']:''; ?>&nbsp;<?php echo $this->area?$this->area['Name']:''; ?></td>
                                 </tr>
                                 <tr>
-                                    <th>地址:</th><td>daf</td>
+                                    <th>地址:</th><td><?php echo $this->orderInfo['Address']; ?></td>
                                 </tr>
                                 <tr>
-                                    <th>邮编:</th><td></td>
+                                    <th>邮编:</th><td><?php echo $this->orderInfo['Postcode']; ?></td>
                                 </tr>
                                 <tr>
-                                    <th>送货时间:</th><td>任意</td>
+                                    <th>送货时间:</th><td><?php echo $this->orderInfo['AcceptTime']; ?></td>
                                 </tr>
                             </tbody>
                         </table>
