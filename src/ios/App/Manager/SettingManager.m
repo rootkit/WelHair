@@ -11,7 +11,6 @@
 // ==============================================================================
 #import "SettingManager.h"
 
-
 @implementation SettingManager
 
 +(id)SharedInstance
@@ -122,7 +121,23 @@
 
 - (void)setLocatedCityId:(int)cityId
 {
-    [self setSettingValue:[NSString stringWithFormat:@"%d",cityId] forKey:DB_TABLE_SETTING_LOCATED_CITY];
+    [self setSettingValue:[NSString stringWithFormat:@"%d",cityId] forKey:DB_TABLE_SETTING_LOCATED_COORDINATE];
+}
+
+- (void)setLocatedCoordinate:(CLLocationCoordinate2D) coordinate
+{
+    [self setSettingValue:[NSString stringWithFormat:@"%f,%f",coordinate.latitude,coordinate.longitude] forKey:DB_TABLE_SETTING_LOCATED_COORDINATE];
+}
+
+- (CLLocationCoordinate2D) locatedCoordinate
+{
+    NSString *value = [self getSettingBySettingKey:DB_TABLE_SETTING_LOCATED_COORDINATE];
+    NSArray *values = [value componentsSeparatedByString:@","];
+    if(values.count == 2){
+        return CLLocationCoordinate2DMake([values[0] floatValue], [values[1] floatValue]);
+    }else{
+        return CLLocationCoordinate2DMake(0, 0);
+    }
 }
 
 #pragma data version

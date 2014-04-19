@@ -13,13 +13,18 @@
 #import "BaiduMapHelper.h"
 #import "BMapKit.h"
 #import "CityManager.h"
+@implementation BDLocation
 
+@end
 
-@interface BaiduMapHelper ()<BMKSearchDelegate,BMKMapViewDelegate>
+@interface BaiduMapHelper ()<BMKSearchDelegate,BMKUserLocationDelegate>
 {
-    BMKMapView *_mapView;
+    BMKUserLocation *_locate;
     BMKSearch* _search;
-    LocateCompleteHandler _locateComplete;
+    BDLocation *_currentLocation;
+    LocateCompleteHandler _locateCityComplete;
+    LocateCompleteHandler _locateCoordinateComplete;
+    BOOL _isNeedLocateCity;
 }
 @end
 @implementation BaiduMapHelper
@@ -27,13 +32,15 @@
 - (id)init{
     self = [super init];
     if(self){
-        _mapView = [[BMKMapView alloc] init];
-        _mapView.delegate = self;
+        _locate = [[BMKUserLocation alloc] init];
+        _locate.delegate = self;
         _search = [[BMKSearch alloc]init];
         _search.delegate = self;
+        _currentLocation = [BDLocation new];
     }
     return self;
 }
+
 +(id)SharedInstance
 {
     static BaiduMapHelper *sharedInstance  = nil;
@@ -46,23 +53,35 @@
 
 - (void)locateCityWithCompletion:(LocateCompleteHandler)completion
 {
-    _locateComplete = completion;
-    _mapView.showsUserLocation = NO;//先关闭显示的定位图层
-    _mapView.userTrackingMode = BMKUserTrackingModeNone;//设置定位的状态
-    _mapView.showsUserLocation = YES;//显示定位图层
+    _isNeedLocateCity = YES;
+    _locateCityComplete = completion;
+    [_locate startUserLocationService];
 }
 
-- (void)mapView:(BMKMapView *)mapView didUpdateUserLocation:(BMKUserLocation *)userLocation
+- (void)locateCoordinateWithCompletion:(LocateCompleteHandler)completion
 {
-	if (userLocation != nil) {
-        NSLog(@"%f %f", userLocation.location.coordinate.latitude, userLocation.location.coordinate.longitude);
-        if([_search reverseGeocode:userLocation.coordinate]){
+    _locateCoordinateComplete = completion;
+    if(![_locate isUpdating]){
+        _isNeedLocateCity = NO;
+        [_locate startUserLocationService];
+    }
+}
+
+- (void)viewDidGetLocatingUser:(CLLocationCoordinate2D)userLoc
+{
+    _currentLocation.coordinate = userLoc;
+    if(_locateCoordinateComplete){
+        _locateCoordinateComplete(_currentLocation);
+    }
+
+    if(_isNeedLocateCity){
+        if([_search reverseGeocode:userLoc]){
             debugLog(@"reverse geo code success");
         }else{
             debugLog(@"reverse geo code fail");
         }
-        _mapView.showsUserLocation = NO;
-	}
+    }
+    [_locate stopUserLocationService];
 }
 
 - (void)onGetAddrResult:(BMKAddrInfo*)result errorCode:(int)error
@@ -70,11 +89,21 @@
 	if (error == 0) {
         NSString *cityName = result.addressComponent.city;
         City *locatedCity =  [[CityManager SharedInstance] getCityByName:cityName];
-        _locateComplete(locatedCity);
-        _mapView.delegate = nil;
-        _search.delegate = nil;
+        _currentLocation.locatedCity = locatedCity;
+        _locateCityComplete(_currentLocation);
 	}
 }
 
+
+- (void)dealloc
+{
+    _locate.delegate = nil;
+    _locate = nil;
+    _search.delegate = nil;
+    _search = nil;
+    _locateCoordinateComplete = nil;
+    _locateCityComplete = nil;
+    _currentLocation = nil;
+}
 
 @end

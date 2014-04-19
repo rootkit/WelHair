@@ -44,13 +44,16 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    
     [_mapView viewWillAppear];
     _mapView.delegate = self; // 此处记得不用的时候需要置nil，否则影响内存的释放
     if(self.location.coordinate.latitude >0){
-        [self addAnnotation:self.location.coordinate];
+        [_mapView setCenterCoordinate:self.location.coordinate animated:YES];
+        [self addAnnotation:self.location.coordinate setCenter:YES];
     }else{
+        [_mapView setCenterCoordinate:CLLocationCoordinate2DMake(36.670266,117.149292) animated:YES];
         [self locateClick];
-    }    
+    }
 }
 
 -(void)viewWillDisappear:(BOOL)animated
@@ -58,14 +61,15 @@
     [super viewWillDisappear:animated];
     [_mapView viewWillDisappear];
     _mapView.delegate = nil; // 不用时，置nil
+    _mapView = nil;
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     _mapView = [[BMKMapView alloc]initWithFrame:CGRectMake(0, self.topBarOffset, WIDTH(self.view), HEIGHT(self.view) - self.topBarOffset)];
+    _mapView.zoomLevel = 16;
     [self.view addSubview:_mapView];
-    _mapView.centerCoordinate = JINAN_CENTER_COORDINATE;
 }
 
 - (void)didReceiveMemoryWarning
@@ -75,6 +79,11 @@
 }
 
 - (void) leftNavItemClick
+{
+    [self didPickCoordinate];
+}
+
+- (void)didPickCoordinate
 {
     NSArray *pickedPoint = _mapView.annotations;
     CLLocation *pickedLocation;
@@ -99,20 +108,13 @@
 {
     //普通态
     debugLog(@"进入普通定位态");
-    _mapView.showsUserLocation = NO;
-    _mapView.userTrackingMode = BMKUserTrackingModeFollow;
-    _mapView.zoomLevel = 16;
+    _mapView.userTrackingMode = BMKUserTrackingModeNone;
     _mapView.showsUserLocation = YES;
 }
 
 - (void)mapView:(BMKMapView *)mapView didUpdateUserLocation:(BMKUserLocation *)userLocation
 {
-    [mapView.annotations enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-        BMKPointAnnotation *item = (BMKPointAnnotation *)obj;
-        item.title = [NSString stringWithFormat:@"经度:%f，纬度:%f",
-                      item.coordinate.longitude,
-                      item.coordinate.latitude];
-    }];
+    NSLog(@"mapview did update loation %f, %f",userLocation.coordinate.latitude, userLocation.coordinate.longitude);
 }
 
 
@@ -139,11 +141,29 @@
     // 单击弹出泡泡，弹出泡泡前提annotation必须实现title属性
 	annotationView.canShowCallout = YES;
     // 设置是否可以拖拽
-    annotationView.draggable = NO;
+//    annotationView.draggable = NO;
     
     return annotationView;
 }
 
+- (void)mapView:(BMKMapView *)mapView annotationView:(BMKAnnotationView *)view didChangeDragState:(BMKAnnotationViewDragState)newState
+   fromOldState:(BMKAnnotationViewDragState)oldState
+{
+    __weak typeof(self) selfDelegate = self;
+    [mapView.annotations enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        BMKPointAnnotation *item = (BMKPointAnnotation *)obj;
+        item.title = [NSString stringWithFormat:@"%f,%f",
+                      item.coordinate.longitude,
+                      item.coordinate.latitude];
+        selfDelegate.title = item.title;
+
+    }];
+}
+
+- (void)mapView:(BMKMapView *)mapView annotationViewForBubble:(BMKAnnotationView *)view
+{
+    [self didPickCoordinate];
+}
 /**
  *长按地图时会回调此接口
  *@param mapview 地图View
@@ -152,18 +172,23 @@
 - (void)mapview:(BMKMapView *)mapView onLongClick:(CLLocationCoordinate2D)coordinate
 {
     NSMutableArray *annotationMArray = [[NSArray arrayWithArray:mapView.annotations] mutableCopy];
+    
     [mapView removeAnnotations:annotationMArray];
-    [self addAnnotation:coordinate];
+    [self addAnnotation:coordinate setCenter:NO];
 }
 
 
+
 - (void)addAnnotation:(CLLocationCoordinate2D )coordinate
+            setCenter:(BOOL)center
 {
     BMKPointAnnotation* item = [[BMKPointAnnotation alloc]init];
     item.coordinate = coordinate;
-    
+    item.title = [NSString stringWithFormat:@"%f,%f",
+                  item.coordinate.longitude,
+                  item.coordinate.latitude];
     [_mapView addAnnotation:item];
-
+    self.title = item.title;
 }
 
 @end

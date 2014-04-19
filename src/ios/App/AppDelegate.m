@@ -16,6 +16,7 @@
  #import "UMSocialWechatHandler.h"
 #import "RootViewController.h"
 #import "BMapKit.h"
+#import "SettingManager.h"
 //#import <TencentOpenAPI/QQApiInterface.h> 
 //#import <TencentOpenAPI/TencentOAuth.h>
 
@@ -27,6 +28,7 @@
 #import "ChatSessionListViewController.h"
 #import "ProductsViewController.h"
 #import "UserViewController.h"
+
 
 @interface AppDelegate()
 {
@@ -85,6 +87,10 @@
 {
     [UMSocialSnsService  applicationDidBecomeActive];
 //    [[WebSocketUtil sharedInstance] reconnect];
+    [[BaiduMapHelper SharedInstance] locateCoordinateWithCompletion:^(BDLocation *locatioin)
+    {
+        [[SettingManager SharedInstance] setLocatedCoordinate:locatioin.coordinate];
+    }];
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application

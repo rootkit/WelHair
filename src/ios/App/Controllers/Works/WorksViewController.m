@@ -287,6 +287,8 @@
 
 - (void)getWorks
 {
+    CLLocationCoordinate2D coordinate = [[SettingManager SharedInstance] locatedCoordinate];
+    NSLog(@"lati %f, long %f",coordinate.latitude, coordinate.longitude);
     NSMutableDictionary *reqData = [[NSMutableDictionary alloc] initWithCapacity:1];
     [reqData setObject:[NSString stringWithFormat:@"%d", self.currentPage] forKey:@"page"];
     [reqData setObject:[NSString stringWithFormat:@"%d", TABLEVIEW_PAGESIZE_DEFAULT] forKey:@"pageSize"];
