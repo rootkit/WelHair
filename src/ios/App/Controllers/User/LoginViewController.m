@@ -317,35 +317,24 @@ static const float kOffsetY = 50;
     UMSocialSnsPlatform *snsPlatform = [UMSocialSnsPlatformManager getSocialPlatformWithName:UMShareToQQ];
     snsPlatform.loginClickHandler(self,[UMSocialControllerService defaultControllerService],YES,^(UMSocialResponseEntity *response)
                                   {
-                                      debugLog(@"response is %@",response);
-                                      
-                                      //如果是授权到新浪微博，SSO之后如果想获取用户的昵称、头像等需要再次获取一次账户信息
-//                                      if ([platformName isEqualToString:UMShareToSina]) {
-//                                          [[UMSocialDataService defaultDataService] requestSocialAccountWithCompletion:^(UMSocialResponseEntity *accountResponse){
-//                                              debugLog(@"SinaWeibo's user name is %@",[[[accountResponse.data objectForKey:@"accounts"] objectForKey:UMShareToSina] objectForKey:@"username"]);
-//                                          }];
-//                                      }
-                                    
-                                       [[UMSocialDataService defaultDataService] requestSnsInformation:UMShareToQQ completion:^(UMSocialResponseEntity *respose){
-                                           if (response.responseCode == UMSResponseCodeSuccess) {
-                                               UMSocialAccountEntity *snsAccount = [[UMSocialAccountManager socialAccountDictionary] valueForKey:UMShareToTencent];
+                                       if (response.responseCode == UMSResponseCodeSuccess) {
+                                           UMSocialAccountEntity *snsAccount = [[UMSocialAccountManager socialAccountDictionary] valueForKey:UMShareToQQ];
 
-                                               [SVProgressHUD showWithMaskType:SVProgressHUDMaskTypeClear];
+                                           [SVProgressHUD showWithMaskType:SVProgressHUDMaskTypeClear];
 
-                                               NSMutableDictionary *reqData = [[NSMutableDictionary alloc] initWithCapacity:1];
-                                               [reqData setObject:snsAccount.usid forKey:@"Id"];
-                                               [reqData setObject:snsAccount.userName forKey:@"Username"];
-                                               [reqData setObject:@(6)forKey:@"Type"];
+                                           NSMutableDictionary *reqData = [[NSMutableDictionary alloc] initWithCapacity:1];
+                                           [reqData setObject:snsAccount.usid forKey:@"Id"];
+                                           [reqData setObject:snsAccount.userName forKey:@"Username"];
+                                           [reqData setObject:@(6)forKey:@"Type"];
 
-                                               ASIFormDataRequest *request = [RequestUtil createPOSTRequestWithURL:[NSURL URLWithString:API_SOCIAL_LOGIN]
-                                                                                                           andData:reqData];
+                                           ASIFormDataRequest *request = [RequestUtil createPOSTRequestWithURL:[NSURL URLWithString:API_SOCIAL_LOGIN]
+                                                                                                       andData:reqData];
 
-                                               [request setDelegate:self];
-                                               [request setDidFinishSelector:@selector(signInWithEmailFinish:)];
-                                               [request setDidFailSelector:@selector(signInWithEmailFail:)];
-                                               [request startAsynchronous];
-                                           }
-                                       }];
+                                           [request setDelegate:self];
+                                           [request setDidFinishSelector:@selector(signInWithEmailFinish:)];
+                                           [request setDidFailSelector:@selector(signInWithEmailFail:)];
+                                           [request startAsynchronous];
+                                       }
                                   });
 }
 
