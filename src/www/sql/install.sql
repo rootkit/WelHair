@@ -865,6 +865,61 @@ CREATE TABLE IF NOT EXISTS `Payment` (
   PRIMARY KEY (`PaymentId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='支付方式表';
 
+
+CREATE TABLE IF NOT EXISTS `CollectionDoc` (
+  `CollectionDocId` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `OrderId` int(11) unsigned NOT NULL COMMENT '订单号',
+  `UserId` int(11) unsigned NOT NULL COMMENT '用户ID',
+  `Amount` decimal(15,2) NOT NULL DEFAULT '0.00' COMMENT '金额',
+  `CreateTime` datetime NOT NULL COMMENT '时间',
+  `PaymentId` int(11) NOT NULL COMMENT '支付方式ID',
+  `AdminId` int(11) DEFAULT NULL COMMENT '管理员id',
+  `PayStatus` tinyint(1) NOT NULL DEFAULT '0' COMMENT '支付状态，0:准备，1:支付成功',
+  `Note` text COMMENT '收款备注',
+  `IsDeleted` tinyint(1) NOT NULL DEFAULT '0' COMMENT '0:未删除 1:删除',
+  PRIMARY KEY (`CollectionDocId`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='收款单';
+
+CREATE TABLE IF NOT EXISTS `RefundmentDoc` (
+  `RefundmentDocId` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `OrderNo` varchar(20) NOT NULL DEFAULT '' COMMENT '订单号',
+  `OrderId` int(11) unsigned NOT NULL COMMENT '订单id',
+  `UserId` int(11) unsigned NOT NULL COMMENT '用户ID',
+  `Amount` decimal(15,2) NOT NULL DEFAULT '0.00' COMMENT '退款金额',
+  `CreateTime` datetime DEFAULT NULL COMMENT '时间',
+  `AdminId` int(11) unsigned DEFAULT NULL COMMENT '管理员id',
+  `PayStatus` tinyint(1) NOT NULL DEFAULT '0' COMMENT '退款状态，0:申请退款 1:退款失败 2:退款成功',
+  `Content` text COMMENT '申请退款原因',
+  `DisposeTime` datetime DEFAULT NULL COMMENT '处理时间',
+  `DisposeIdea` text COMMENT '处理意见',
+  `IsDeleted` tinyint(1) NOT NULL DEFAULT '0' COMMENT '0:未删除 1:删除',
+  PRIMARY KEY (`RefundmentDocId`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='退款单';
+
+CREATE TABLE IF NOT EXISTS `DeliveryDoc` (
+  `DeliveryDocId` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '发货单ID',
+  `OrderId` int(11) unsigned NOT NULL COMMENT '订单ID',
+  `UserId` int(11) unsigned NOT NULL COMMENT '用户ID',
+  `AdminId` int(11) unsigned NOT NULL COMMENT '管理员ID',
+  `Name` varchar(255) NOT NULL COMMENT '收货人',
+  `Postcode` varchar(6) DEFAULT NULL COMMENT '邮编',
+  `Telphone` varchar(20) DEFAULT NULL COMMENT '联系电话',
+  `Country` int(11) unsigned DEFAULT NULL COMMENT '国ID',
+  `Province` int(11) unsigned NOT NULL COMMENT '省ID',
+  `City` int(11) unsigned NOT NULL COMMENT '市ID',
+  `Area` int(11) unsigned NOT NULL COMMENT '区ID',
+  `Address` varchar(250) NOT NULL COMMENT '收货地址',
+  `Mobile` varchar(20) DEFAULT NULL COMMENT '手机',
+  `CreateTime` datetime NOT NULL COMMENT '创建时间',
+  `Freight` decimal(15,2) NOT NULL DEFAULT '0.00' COMMENT '运费',
+  `DeliveryCode` varchar(255) NOT NULL COMMENT '物流单号',
+  `DeliveryType` varchar(255) NOT NULL COMMENT '物流方式',
+  `Note` text COMMENT '管理员添加的备注信息',
+  `IsDeleted` tinyint(1) NOT NULL DEFAULT '0' COMMENT '0:未删除 1:已删除',
+  PRIMARY KEY (`DeliveryDocId`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='发货单';
+
+
 -- ==============================================================================
 
 
