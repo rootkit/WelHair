@@ -799,3 +799,25 @@ a.u-upload,a.u-upload:hover {
     top: 16px;
 }
 
+.o-tab
+{
+    min-height: 500px;
+}
+
+.o-table
+{
+    margin:0px 20px 0px 20px;
+}
+
+.o-table tbody, .o-table thead, .o-table tbody tr, .o-table thead tr
+{
+    width: 100%;
+    display: block;
+}
+
+
+.o-table th, .o-table td
+{
+    display: block;
+    padding: 10px 10px 10px 10px;
+}

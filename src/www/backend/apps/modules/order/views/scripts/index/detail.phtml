@@ -14,7 +14,7 @@ use \Welfony\Utility\Util;
                     <li id="li_6"><a href="#tab-6" hidefocus="true">订单日志</a></li>
                     <li id="li_7"><a href="#tab-7" hidefocus="true">订单附言</a></li>
                 </ul>
-                <div id="tab-1" name="table">
+                <div id="tab-1" name="table" class="o-tab">
                     <div class="formitm">
                         <table class="m-table">
                             <col width="550px" />
@@ -84,7 +84,7 @@ use \Welfony\Utility\Util;
                             </tbody>
                         </table>
 
-                        <table style="width:200px;margin-right:20px; height:400px;" class="m-table fl">
+                        <table style="width:300px;margin-right:20px; height:400px;" class="m-table fl">
                             <thead>
                                 <tr><th colspan="2">订单其他信息</th></tr>
                             </thead>
@@ -113,7 +113,7 @@ use \Welfony\Utility\Util;
                             </tbody>
                         </table>
 
-                        <table style="width:200px;margin-right:20px; height:400px;" class="m-table fl">
+                        <table style="width:300px;margin-right:20px; height:400px;" class="m-table fl">
                             <thead>
                                 <tr><th colspan="2">收货人信息</th></tr>
                             </thead>
@@ -145,7 +145,7 @@ use \Welfony\Utility\Util;
                             </tbody>
                         </table>
 
-                        <table style="width:200px;margin-right:20px;" class="m-table fl">
+                        <table style="width:300px;margin-right:20px;" class="m-table fl">
                             <thead>
                                 <tr><th colspan="2">商城用户信息</th></tr>
                             </thead>
@@ -170,37 +170,35 @@ use \Welfony\Utility\Util;
                     </div>
                 </div>
 
-                <div id="tab-2" name="table">
+                <div id="tab-2" name="table" class="o-tab">
                     <div class="formitm">
-                        <table style="width:45%;margin-right:20px; " class="m-table fl">
-                            <col width="120px" />
-                            <col />
-                            <thead>
-                                <tr><th colspan="2">收款单据</th></tr>
-                            </thead>
-                            <tbody>
-                                                                <tr><td colspan='2'>暂无数据</td></tr>
-                                            </tbody>
-                        </table>
+                    
+                            <table style="width:400px; min-height:500px; display:block;float:left;" class="m-table o-table">
+            
+                                <thead>
+                                    <tr><th colspan="2" style="padding:auto;">收款单据</th></tr>
+                                </thead>
+                                <tbody>
+                                    <tr><td colspan='2'>暂无数据</td></tr>
+                                </tbody>
+                            </table>
 
-                        <table style="width:45%;margin-right:20px;" class="m-table fl">
-                            <col width="120px" />
-                            <col />
-                            <thead>
-                                <tr><th colspan="2">退款单据列表</th></tr>
-                            </thead>
-                            <tbody>
-                                                                <tr><td colspan='2'>暂无数据</td></tr>
-                                            </tbody>
-                        </table>
+                            <table style="width:400px; min-height:500px; display:block; float:left;" class="m-table o-table">
+    
+                                <thead>
+                                    <tr><th colspan="2">退款单据列表</th></tr>
+                                </thead>
+                                <tbody>
+                                                                    <tr><td colspan='2'>暂无数据</td></tr>
+                                                </tbody>
+                            </table>
+                      
                     </div>
                 </div>
 
-                <div id="tab-3" name="table" style="display:none">
+                <div id="tab-3" name="table" style="display:none" class="o-tab">
                     <div class="formitm">
-                        <table style="width:98%" class="border_table">
-                            <col width="200px" />
-                            <col />
+                        <table style="width:98%" class="m-table o-table">
                             <thead>
                                 <tr><th colspan="2">发货单据列表</th></tr>
                             </thead>
@@ -211,11 +209,9 @@ use \Welfony\Utility\Util;
                     </div>
                 </div>
 
-                <div id="tab-4" name="table" style="display:none">
+                <div id="tab-4" name="table" style="display:none" class="o-tab">
                     <div class="formitm">
-                        <table width="98%" class="border_table">
-                            <col width="250px" />
-                            <col />
+                        <table width="98%" class="m-table">
                             <thead>
                                 <tr>
                                     <th>方案</th>
@@ -229,18 +225,16 @@ use \Welfony\Utility\Util;
                     </div>
                 </div>
 
-                <div id="tab-5" name="table" style="display:none">
+                <div id="tab-5" name="table" style="display:none" class="o-tab">
                     <div class="formitm">
                         <div class="form_content">
                         <form name="ModelForm" action="/index.php?controller=order&action=order_note" method="post">
                             <input type="hidden" name="order_id" value="6"/>
                             <input type="hidden" name="tab" value="6"/>
-                            <table class="form_table">
-                                <col width="150px" />
-                                <col />
+                            <table  class="m-table">
                                 <tbody>
                                     <tr>
-                                        <th>订单备注:</th>
+                                        <th style="width:200px;">订单备注:</th>
                                         <td align="left"><textarea name="note" id="note" rows="8" cols="100"></textarea></td>
                                     </tr>
                                     <tr>
@@ -254,16 +248,9 @@ use \Welfony\Utility\Util;
                     </div>
                 </div>
 
-                <div id="tab-6" name="table" style="display:none">
+                <div id="tab-6" name="table" style="display:none" class="o-tab">
                     <div>
-                        <table class="border_table" style='width:98%'>
-                            <colgroup>
-                            <col width="200px">
-                            <col width="150px">
-                            <col width="150px">
-                            <col width="100px">
-                            <col />
-                            </colgroup>
+                        <table style='width:98%' class="m-table">
                             <thead>
                                 <tr>
                                     <th>时间</th>
@@ -286,15 +273,13 @@ use \Welfony\Utility\Util;
                     </div>
                 </div>
 
-                <div id="tab-7" name="table" style="display:none">
+                <div id="tab-7" name="table" style="display:none" class="o-tab">
                     <div class="formitm">
                         <div class="form_content">
-                            <table class="form_table">
-                                <col width="150px" />
-                                <col />
+                            <table class="m-table">
                                 <tbody>
                                     <tr>
-                                        <th>订单附言:</th>
+                                        <th style="width:200px;">订单附言:</th>
                                         <td align="left"></td>
                                     </tr>
                                 </tbody>
