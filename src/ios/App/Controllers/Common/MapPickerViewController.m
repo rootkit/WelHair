@@ -114,7 +114,7 @@
 
 - (void)mapView:(BMKMapView *)mapView didUpdateUserLocation:(BMKUserLocation *)userLocation
 {
-
+    NSLog(@"mapview did update loation %f, %f",userLocation.coordinate.latitude, userLocation.coordinate.longitude);
 }
 
 
@@ -176,6 +176,7 @@
     [mapView removeAnnotations:annotationMArray];
     [self addAnnotation:coordinate setCenter:NO];
 }
+
 
 
 - (void)addAnnotation:(CLLocationCoordinate2D )coordinate

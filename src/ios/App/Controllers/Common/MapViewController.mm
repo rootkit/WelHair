@@ -209,7 +209,7 @@
 	[_mapView removeAnnotations:array];
     
     BMKPointAnnotation* item = [[BMKPointAnnotation alloc]init];
-    item.coordinate = CLLocationCoordinate2DMake(36.670266,117.149292);
+    item.coordinate = JINAN_CENTER_COORDINATE;
     item.title = @"haha";
     [_mapView addAnnotation:item];
     //将第一个点的坐标移到屏幕中央

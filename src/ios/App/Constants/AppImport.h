@@ -38,5 +38,8 @@
 #import "ASIFormDataRequest.h"
 
 #import "RequestUtil.h"
+#import "BaiduMapHelper.h"
+#import "SettingManager.h"
+
 
 #endif

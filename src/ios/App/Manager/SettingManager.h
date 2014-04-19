@@ -12,9 +12,12 @@
 
 #import "BaseManager.h"
 #import "City.h"
+#import <CoreLocation/CoreLocation.h>
+
 #define DB_TABLE_SETTING_ISINITIALSTART  @"DB_TABLE_SETTING_ISINITIALSTART"
 #define DB_TABLE_SETTING_SELECTED_CITY  @"DB_TABLE_SETTING_SELECTED_CITY"
 #define DB_TABLE_SETTING_LOCATED_CITY  @"DB_TABLE_SETTING_LOCATED_CITY"
+#define DB_TABLE_SETTING_LOCATED_COORDINATE  @"DB_TABLE_SETTING_LOCATED_COORDINATE"
 #define DB_TABLE_SETTING_ONLINEUSERID @"DB_TABLE_SETTING_ONLINEUSERID"
 #define DB_TABLE_SETTING_CITY_VERSION @"DB_TABLE_SETTING_CITY_VERSION"
 
@@ -31,6 +34,10 @@
 
 - (int)locatedCityId;
 - (void)setLocatedCityId:(int)cityId;
+
+- (CLLocationCoordinate2D)locatedCoordinate;
+- (void)setLocatedCoordinate:(CLLocationCoordinate2D)coordinate;
+
 
 - (int)cityDataVersion;
 - (void)setCityDataVersion:(int)version;

@@ -185,10 +185,10 @@
             [self setLeftNavButtonTitle:self.leftNavItemTitle buttonImg:nil];
         }else{
             [self setTopLeftLoading];
-            [[BaiduMapHelper SharedInstance] locateCityWithCompletion:^(City *city){
-                [self setLeftNavButtonTitle:city.name buttonImg:nil];
-                [[CityManager SharedInstance] setLocatedCity:city.id];
-                [[CityManager SharedInstance] setSelectedCity:city.id];
+            [[BaiduMapHelper SharedInstance] locateCityWithCompletion:^(BDLocation *location){
+                [self setLeftNavButtonTitle:location.locatedCity.name buttonImg:nil];
+                [[CityManager SharedInstance] setLocatedCity:location.locatedCity.id];
+                [[CityManager SharedInstance] setSelectedCity:location.locatedCity.id];
             }];
         }
     }

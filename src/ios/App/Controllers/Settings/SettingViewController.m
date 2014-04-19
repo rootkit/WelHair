@@ -108,7 +108,7 @@
             [SVProgressHUD showSuccessWithStatus:@"您已经使用的是最新版本" duration:1];
             break;
         case 3:
-            [SVProgressHUD showSuccessWithStatus:@"Rate" duration:1];
+//            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:AppStoreRateLink]];
             break;
             
         default:

@@ -15,7 +15,6 @@
 #import "CityManager.h"
 #import "City.h"
 #import "BMapKit.h"
-#import "BaiduMapHelper.h"
 @interface CityListViewController ()
 
 @property (nonatomic) int cityId;
@@ -65,10 +64,10 @@
         self.locatedCity = [[CityManager SharedInstance] getLocatedCity];
         self.locationCell = [self getLocaitonCell:self.locatedCity.name];
         __weak CityListViewController *selfDelegate = self;
-        [[BaiduMapHelper SharedInstance] locateCityWithCompletion:^(City *city){
-            if(self.locatedCity.id != city.id){
-                [[CityManager SharedInstance] setLocatedCity:city.id];
-                self.locatedCity = city;
+        [[BaiduMapHelper SharedInstance] locateCityWithCompletion:^(BDLocation *location){
+            if(self.locatedCity.id != location.locatedCity.id){
+                [[CityManager SharedInstance] setLocatedCity:location.locatedCity.id];
+                self.locatedCity = location.locatedCity;
                 self.locationCell = [self getLocaitonCell:self.locatedCity.name];
                 [selfDelegate.tableView reloadData];
             }
