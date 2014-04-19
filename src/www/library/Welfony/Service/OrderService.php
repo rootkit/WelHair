@@ -92,6 +92,24 @@ class OrderService
         }
     }
 
+    public static function updateOrder($orderId, $data)
+    {
+        $result = array('success' => false, 'message' => '');
+        $r = OrderRepository::getInstance()->updateOrder($orderId,$data);
+        if ($r) {
+
+            $result['success'] = true;
+            $result['message'] = '更新订单成功！';
+            $result['order'] = $data;
+
+            return $result;
+        } else {
+            $result['message'] = '更新订单失败！';
+
+            return $result;
+        }
+    }
+
     public static function deleteOrder($data)
     {
         $result = array('success' => false, 'message' => '');

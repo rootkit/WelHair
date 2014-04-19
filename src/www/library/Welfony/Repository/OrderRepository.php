@@ -172,4 +172,17 @@ class OrderRepository extends AbstractRepository
             return false;
         }
     }
+
+
+    public function updateOrder($orderId, $data)
+    {
+      
+        try {
+            return $this->conn->update('`Order`', $data, array('OrderId' => $orderId));
+        } catch (\Exception $e) {
+            $this->logger->log($e, \Zend_Log::ERR);
+
+            return false;
+        }
+    }
 }

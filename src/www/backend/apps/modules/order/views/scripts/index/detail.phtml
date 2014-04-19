@@ -230,22 +230,19 @@ use \Welfony\Utility\Util;
                 <div id="tab-5" name="table" style="display:none" class="o-tab">
                     <div class="formitm">
                         <div class="form_content">
-                        <form name="ModelForm" action="/index.php?controller=order&action=order_note" method="post">
-                            <input type="hidden" name="order_id" value="6"/>
                             <input type="hidden" name="tab" value="6"/>
                             <table  class="m-table">
                                 <tbody>
                                     <tr>
                                         <th style="width:200px;">订单备注:</th>
-                                        <td align="left"><textarea name="note" id="note" rows="8" cols="100"></textarea></td>
+                                        <td align="left"><textarea name="note" id="note" rows="8" cols="100"><?php echo $this->orderInfo['Note']; ?></textarea></td>
                                     </tr>
                                     <tr>
                                         <td></td>
-                                        <td align="left"><button type="submit" class="submit"><span>保存</span></button></td>
+                                        <td align="left"><button type="button" id="btnSaveOrderNote" class="submit"><span>保存</span></button></td>
                                     </tr>
                                 </tbody>
                             </table>
-                        </form>
                         </div>
                     </div>
                 </div>
@@ -263,13 +260,21 @@ use \Welfony\Utility\Util;
                                 </tr>
                             </thead>
                             <tbody>
+                                <?php if(empty($this->logs)): ?>
                                 <tr>
-                                    <td>2014-04-15 20:44:54</td>
-                                    <td>admin</td>
-                                    <td>作废</td>
-                                    <td>成功</td>
-                                    <td>订单【20140413202706462603】作废成功</td>
+                                    <td colspan="5">暂无数据</td>
                                 </tr>
+                                <?php else: ?>
+                                    <?php foreach($this->logs as $log): ?>
+                                    <tr>
+                                        <td><?php echo $log['AddTime']; ?></td>
+                                        <td><?php echo $log['User']; ?></td>
+                                        <td><?php echo $log['Action']; ?></td>
+                                        <td><?php echo $log['Result']; ?></td>
+                                        <td><?php echo $log['Note']; ?></td>
+                                    </tr>
+                                    <?php endforeach;?>
+                                <?php endif; ?>
                             </tbody>
                         </table>
                     </div>
@@ -282,7 +287,7 @@ use \Welfony\Utility\Util;
                                 <tbody>
                                     <tr>
                                         <th style="width:200px;">订单附言:</th>
-                                        <td align="left"></td>
+                                        <td align="left"><?php echo $this->orderInfo['Postscript']; ?></td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -293,6 +298,7 @@ use \Welfony\Utility\Util;
 
             <div class="pages_bar formitm formitm-1">
                 <div class="t_c" id="ctrlButtonArea">
+                    <input type="hidden" id="order_id" value="<?php echo $this->orderInfo['OrderId']; ?>"/>
                     <button type="button" class="btn" id="to_pay" onclick="pay(6);"><span>支付</span></button>
                     <button type="button" class="btn" id="to_deliver" onclick="deliver(6);"><span>发货</span></button>
                     <button type="button" class="btn" id="to_refundment" onclick="refundment(6);"><span>退款</span></button>

@@ -19,6 +19,7 @@ use Welfony\Service\OrderGoodsService;
 use Welfony\Service\DeliveryService;
 use Welfony\Service\PaymentService;
 use Welfony\Service\UserService;
+use Welfony\Service\OrderLogService;
 
 class Order_IndexController extends AbstractAdminController
 {
@@ -280,6 +281,7 @@ class Order_IndexController extends AbstractAdminController
             $this->view->province = AreaService::getAreaById($order['Province']);
             $this->view->city = AreaService::getAreaById($order['City']);
             $this->view->area = AreaService::getAreaById($order['Area']);
+            $this->view->logs = OrderLogService::listOrderLogByOrder($orderId);
 
         }
         else
@@ -300,6 +302,23 @@ class Order_IndexController extends AbstractAdminController
         if ($this->_request->isPost()) {
 
             $result = OrderService::deleteOrder($order);
+            $this->_helper->json->sendJson($result);
+        }
+    }
+
+    public function savenoteAction()
+    {
+        $this->_helper->viewRenderer->setNoRender(true);
+        $this->_helper->layout->disableLayout();
+
+        $orderId =  intval($this->_request->getParam('order_id')) ;
+        $orderNote =  $this->_request->getParam('note') ;
+
+        $order = array('Note'=>$orderNote);
+
+        if ($this->_request->isPost()) {
+
+            $result = OrderService::updateOrder($orderId, $order);
             $this->_helper->json->sendJson($result);
         }
     }

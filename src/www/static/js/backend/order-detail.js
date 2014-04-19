@@ -19,6 +19,23 @@ $(function() {
     });
     $( "#tabs" ).tabs();
 
+    $('#btnSaveOrderNote').click(function(){
+    	 $.ajax({
+                    type: 'post',
+                    dataType: 'json',
+                    url:  globalSetting.baseUrl + '/order/index/savenote',
+                    data: {
+                        'order_id':$('#order_id').val(),
+                        'note': $('#note').val()
+                     },
+                    success: function(data){
+                     
+                    },
+                    error:function()
+                    {
 
+                    }
+        });
+    });
    
 });
