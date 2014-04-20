@@ -18,3 +18,13 @@ $app->get('/goods', function () use ($app) {
     $ctrl = new GoodsController();
     $ctrl->search();
 });
+
+$app->get('/companies/:companyId/goods', function ($companyId) use ($app) {
+    $ctrl = new GoodsController();
+    $ctrl->listByCompany($companyId);
+})->conditions(array('companyId' => '\d{1,10}'));
+
+$app->get('/goods/liked', function () use ($app) {
+    $ctrl = new GoodsController();
+    $ctrl->liked();
+});

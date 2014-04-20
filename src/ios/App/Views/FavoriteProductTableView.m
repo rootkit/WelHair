@@ -108,7 +108,7 @@
     [reqData setObject:[NSString stringWithFormat:@"%d", self.currentPage] forKey:@"page"];
     [reqData setObject:[NSString stringWithFormat:@"%d", TABLEVIEW_PAGESIZE_DEFAULT] forKey:@"pageSize"];
 
-    ASIHTTPRequest *request = [RequestUtil createGetRequestWithURL:[NSURL URLWithString:API_GOODS_SEARCH] andParam:reqData];
+    ASIHTTPRequest *request = [RequestUtil createGetRequestWithURL:[NSURL URLWithString:API_GOODS_LIKED] andParam:reqData];
     [request setDelegate:self];
     [request setDidFinishSelector:@selector(finishGetGoods:)];
     [request setDidFailSelector:@selector(failGetGoods:)];
@@ -171,6 +171,7 @@
 
 - (void)pushToDetial:(Product *)product
 {
+    product.distance = -1;
     [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_PUSH_TO_PRODUCT_DETAIL_VIEW  object:product];
 }
 

@@ -36,4 +36,22 @@ class GoodsController extends AbstractAPIController
         $this->sendResponse($companyList);
     }
 
+    public function liked()
+    {
+        $page = intval($this->app->request->get('page'));
+        $pageSize = intval($this->app->request->get('pageSize'));
+
+        $goodsList = GoodsService::listLikedGoods($this->currentContext['UserId'], $page, $pageSize);
+        $this->sendResponse($goodsList);
+    }
+
+    public function listByCompany($companyId)
+    {
+        $page = intval($this->app->request->get('page'));
+        $pageSize = intval($this->app->request->get('pageSize'));
+
+        $goodsList = GoodsService::listByCompany($companyId, $page, $pageSize);
+        $this->sendResponse($goodsList);
+    }
+
 }

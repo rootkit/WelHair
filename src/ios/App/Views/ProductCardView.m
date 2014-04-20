@@ -21,6 +21,7 @@
 @property (nonatomic, strong) UILabel *nameLbl;
 @property (nonatomic, strong) UILabel *groupLbl;
 @property (nonatomic, strong) UILabel *priceLbl;
+@property (nonatomic, strong) UIImageView *locationImg;
 @property (nonatomic, strong) UILabel *distanceLbl;
 
 @end
@@ -57,11 +58,11 @@
         float locationIconSize = 15;
         FAKIcon *locationIcon = [FAKIonIcons locationIconWithSize:locationIconSize];
         [locationIcon addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithHexString:@"b7bcc2"]];
-        UIImageView *locationImg = [[UIImageView alloc] initWithFrame:CGRectMake(MaxX(self.priceLbl)+10, Y(self.priceLbl),locationIconSize, locationIconSize)];
-        locationImg.image = [locationIcon imageWithSize:CGSizeMake(locationIconSize,locationIconSize)];
-        [self addSubview:locationImg];
+        self.locationImg = [[UIImageView alloc] initWithFrame:CGRectMake(MaxX(self.priceLbl)+10, Y(self.priceLbl),locationIconSize, locationIconSize)];
+        self.locationImg.image = [locationIcon imageWithSize:CGSizeMake(locationIconSize,locationIconSize)];
+        [self addSubview:self.locationImg];
         
-        self.distanceLbl = [[UILabel alloc] initWithFrame:CGRectMake(MaxX(locationImg), Y(locationImg), 30,20)];
+        self.distanceLbl = [[UILabel alloc] initWithFrame:CGRectMake(MaxX(self.locationImg), Y(self.locationImg), 30, 20)];
         self.distanceLbl.font = [UIFont systemFontOfSize:10];
         self.distanceLbl.textAlignment = NSTextAlignmentRight;
         self.distanceLbl.backgroundColor = [UIColor clearColor];
@@ -80,7 +81,11 @@
     self.nameLbl.text = productData.name;
     self.groupLbl.text = productData.group.name;
     self.priceLbl.text = [NSString stringWithFormat:@"￥%.2f",productData.price];
-    self.distanceLbl.text = [NSString stringWithFormat:@"%.0f千米 ",productData.distance];
+
+    self.distanceLbl.hidden = productData.distance < 0;
+    self.locationImg.hidden = productData.distance < 0;
+
+    self.distanceLbl.text = [NSString stringWithFormat:@"%.0f千米 ", productData.distance];
 }
 
 @end

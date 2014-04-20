@@ -10,8 +10,10 @@
 //
 // ==============================================================================
 
-#import <UIKit/UIKit.h>
 #import "Product.h"
+
 @interface ProductDetailViewController : BaseViewController
+
 @property (nonatomic, strong) Product *product;
+
 @end

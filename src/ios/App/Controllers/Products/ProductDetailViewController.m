@@ -9,27 +9,26 @@
 // file that was distributed with this source code.
 //
 // ==============================================================================
-#import "ProductDetailViewController.h"
-#import "CommentsViewController.h"
-#import "StaffDetailViewController.h"
-#import "MapViewController.h"
-#import "UIImageView+WebCache.h"
-#import "Work.h"
-#import "UMSocial.h"
+
+#import <Block-KVO/MTKObserving.h>
 #import "CircleImageView.h"
-#import "JOLImageSlider.h"
 #import "CommentsViewController.h"
-#import "MWPhotoBrowser.h"
 #import "GroupDetailViewController.h"
+#import "JOLImageSlider.h"
+#import "MapViewController.h"
+#import "MWPhotoBrowser.h"
+#import "OrderPreviewViewController.h"
+#import "ProductDetailViewController.h"
 #import "ProductDetailWebViewController.h"
 #import "ProductOpitionPanel.h"
-#import "UIViewController+KNSemiModal.h"
-#import "OrderPreviewViewController.h"
-#import "CircleImageView.h"
-#import "Util.h"
-#import <Block-KVO/MTKObserving.h>
+#import "StaffDetailViewController.h"
 #import "ToggleButton.h"
-@interface ProductDetailViewController ()<UMSocialUIDelegate,JOLImageSliderDelegate,MWPhotoBrowserDelegate>
+#import "UMSocial.h"
+#import "UIViewController+KNSemiModal.h"
+#import "Util.h"
+
+@interface ProductDetailViewController () <UMSocialUIDelegate,JOLImageSliderDelegate,MWPhotoBrowserDelegate>
+
 @property (nonatomic, strong) UIScrollView *scrollView;
 @property (nonatomic, strong) JOLImageSlider *imgSlider;
 @property (nonatomic, strong) UILabel *productNameLbl;
@@ -47,7 +46,10 @@
 
 @implementation ProductDetailViewController
 
-
+- (void)dealloc
+{
+    [self removeAllObservations];
+}
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -55,6 +57,7 @@
     if (self) {
         self.title = @"商品";
     }
+
     return self;
 }
 
@@ -66,8 +69,6 @@
 - (void)loadView
 {
     [super loadView];
-    
-    
 }
 
 
@@ -80,10 +81,8 @@
 - (void)viewWillDisappear:(BOOL)animated
 {
     NSArray *viewControllers = self.navigationController.viewControllers;
-    if([viewControllers objectAtIndex:viewControllers.count - 1] == self){
-        // navigationController is presenting viewcontrolls
-    }else{
-        // navigationController is pushing or poping viewcontrolls
+    if ([viewControllers objectAtIndex:viewControllers.count - 1] == self) {
+    } else {
         [self.navigationController setNavigationBarHidden:NO animated:YES];
     }
 }
@@ -91,8 +90,10 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+
     self.scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, WIDTH(self.view), self.view.bounds.size.height - kBottomBarHeight)];
     [self.view addSubview:self.scrollView];
+
 #pragma bottom bar
     UIView *bottomView = [[UIView alloc] initWithFrame:CGRectMake(0,
                                                                   MaxY(self.scrollView),
@@ -363,7 +364,6 @@
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 - (void)leftBtnClick
@@ -373,7 +373,7 @@
 
 - (void)countDownClick
 {
-    if(self.product.count > 1){
+    if (self.product.count > 1) {
         self.product.count--;
     }
 }
@@ -383,7 +383,8 @@
     self.product.count++;
 }
 
-- (void) imagePager:(JOLImageSlider *)imagePager didSelectImageAtIndex:(NSUInteger)index {
+- (void)imagePager:(JOLImageSlider *)imagePager didSelectImageAtIndex:(NSUInteger)index
+{
     [self OpenImageGallery];
 }
 
@@ -411,21 +412,25 @@
     debugLog(@"mark as fav %c", markFav);
 }
 
-
 - (void)tabClicked:(id)sender
 {
     UIButton *btn = (UIButton *)sender;
-    if(btn.tag == 0){
-        [self.navigationController pushViewController:[ProductDetailWebViewController new] animated:YES];
-    }else{
-        [self.navigationController pushViewController:[CommentsViewController new] animated:YES];
+    if (btn.tag == 0) {
+        ProductDetailWebViewController *productDetailWebVC = [ProductDetailWebViewController new];
+        productDetailWebVC.product = self.product;
+        [self.navigationController pushViewController:productDetailWebVC animated:YES];
+    } else {
+        CommentsViewController *commentVC = [CommentsViewController new];
+        commentVC.goodsId = self.product.id;
+        [self.navigationController pushViewController:commentVC animated:YES];
     }
 }
 
-
 - (void)groupTapped
 {
-    [self.navigationController pushViewController:[GroupDetailViewController new] animated:YES];
+    GroupDetailViewController *groupDetailVC = [GroupDetailViewController new];
+    groupDetailVC.group = self.product.group;
+    [self.navigationController pushViewController:groupDetailVC animated:YES];
 }
 
 - (void) OpenImageGallery
@@ -447,17 +452,20 @@
 }
 
 #pragma mark - MWPhotoBrowserDelegate
-- (NSUInteger)numberOfPhotosInPhotoBrowser:(MWPhotoBrowser *)photoBrowser {
+- (NSUInteger)numberOfPhotosInPhotoBrowser:(MWPhotoBrowser *)photoBrowser
+{
     return self.productImgs.count;
 }
 
-- (id <MWPhoto>)photoBrowser:(MWPhotoBrowser *)photoBrowser photoAtIndex:(NSUInteger)index {
+- (id <MWPhoto>)photoBrowser:(MWPhotoBrowser *)photoBrowser photoAtIndex:(NSUInteger)index
+{
     if (index < self.productImgs.count)
         return [self.productImgs objectAtIndex:index];
     return nil;
 }
 
-- (MWCaptionView *)photoBrowser:(MWPhotoBrowser *)photoBrowser captionViewForPhotoAtIndex:(NSUInteger)index {
+- (MWCaptionView *)photoBrowser:(MWPhotoBrowser *)photoBrowser captionViewForPhotoAtIndex:(NSUInteger)index
+{
     MWPhoto *photo = [self.productImgs objectAtIndex:index];
     MWCaptionView *captionView = [[MWCaptionView alloc] initWithPhoto:photo];
     return captionView ;
@@ -467,10 +475,10 @@
     NSLog(@"ACTION!");
 }
 
-- (void)photoBrowser:(MWPhotoBrowser *)photoBrowser didDisplayPhotoAtIndex:(NSUInteger)index {
+- (void)photoBrowser:(MWPhotoBrowser *)photoBrowser didDisplayPhotoAtIndex:(NSUInteger)index
+{
     NSLog(@"Did start viewing photo at index %lu", (unsigned long)index);
 }
-
 
 - (void)submitClick
 {
@@ -560,10 +568,6 @@
     self.selectOpition.selectedValues = [NSArray array];
     
     return self.selectOpition;
-}
-- (void)dealloc
-{
-    [self removeAllObservations];
 }
 
 @end

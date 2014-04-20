@@ -19,6 +19,92 @@ use Welfony\Repository\Base\AbstractRepository;
 class GoodsRepository extends AbstractRepository
 {
 
+    public function listLikedGoodsCount($userId)
+    {
+        $strSql = "SELECT
+                     COUNT(1) `Total`
+                   FROM Goods G
+                   INNER JOIN UserLike UL ON UL.GoodsId = G.GoodsId
+                   LEFT OUTER JOIN CompanyGoods CG ON CG.GoodsId = G.GoodsId
+                   LEFT OUTER JOIN Company C ON C.CompanyId = CG.CompanyId
+                   WHERE C.Status = 1 AND G.IsDeleted = 0 AND UL.UserId = ?
+                   LIMIT 1";
+
+        $row = $this->conn->fetchAssoc($strSql, array($userId));
+
+        return $row['Total'];
+    }
+
+    public function listLikedGoods($userId, $page, $pageSize)
+    {
+        $offset = ($page - 1) * $pageSize;
+        $strSql = "SELECT
+                      G.GoodsId,
+                      G.Name,
+                      G.SellPrice,
+                      G.Img,
+
+                      C.CompanyId,
+                      C.Name CompanyName,
+                      C.LogoUrl,
+                      C.PictureUrl,
+                      C.Tel,
+                      C.Mobile,
+                      C.Address,
+                      C.Latitude,
+                      C.Longitude
+                   FROM Goods G
+                   INNER JOIN UserLike UL ON UL.GoodsId = G.GoodsId
+                   LEFT OUTER JOIN CompanyGoods CG ON CG.GoodsId = G.GoodsId
+                   LEFT OUTER JOIN Company C ON C.CompanyId = CG.CompanyId
+                   WHERE C.Status = 1 AND G.IsDeleted = 0 AND UL.UserId = ?
+                   LIMIT $offset, $pageSize ";
+
+        return $this->conn->fetchAll($strSql, array($userId));
+    }
+
+    public function listByCompanyCount($companyId)
+    {
+        $strSql = "SELECT
+                     COUNT(1) `Total`
+                   FROM Goods G
+                   INNER JOIN CompanyGoods CG ON CG.GoodsId = G.GoodsId
+                   INNER JOIN Company C ON C.CompanyId = CG.CompanyId
+                   WHERE C.Status = 1 AND G.IsDeleted = 0 AND C.CompanyId = ?
+                   LIMIT 1";
+
+        $row = $this->conn->fetchAssoc($strSql, array($companyId));
+
+        return $row['Total'];
+    }
+
+    public function listByCompany($companyId, $page, $pageSize)
+    {
+        $offset = ($page - 1) * $pageSize;
+        $strSql = "SELECT
+                      G.GoodsId,
+                      G.Name,
+                      G.SellPrice,
+                      G.Img,
+
+                      C.CompanyId,
+                      C.Name CompanyName,
+                      C.LogoUrl,
+                      C.PictureUrl,
+                      C.Tel,
+                      C.Mobile,
+                      C.Address,
+                      C.Latitude,
+                      C.Longitude
+                   FROM Goods G
+                   INNER JOIN CompanyGoods CG ON CG.GoodsId = G.GoodsId
+                   INNER JOIN Company C ON C.CompanyId = CG.CompanyId
+                   WHERE C.Status = 1 AND G.IsDeleted = 0 AND C.CompanyId = ?
+                   LIMIT $offset, $pageSize ";
+
+        return $this->conn->fetchAll($strSql, array($companyId));
+    }
+
     public function searchCount($searchText, $city, $district)
     {
         $strSql = "SELECT
@@ -81,7 +167,6 @@ class GoodsRepository extends AbstractRepository
 
     public function listGoods($pageNumber, $pageSize)
     {
-
         $offset = ($pageNumber - 1) * $pageSize;
         $strSql = "  SELECT G.*, B.Name AS BrandName, GROUP_CONCAT(C.Name SEPARATOR ',') AS CategoryName
                      FROM Goods G

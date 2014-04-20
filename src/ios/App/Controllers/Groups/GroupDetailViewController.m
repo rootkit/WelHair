@@ -332,15 +332,15 @@ static const float profileViewHeight = 320;
 - (void)tabClicked:(id)sender
 {
     UIButton *btn = (UIButton *)sender;
-    if(btn == self.staffTabBtn){
+    if (btn == self.staffTabBtn) {
         GroupStaffListViewController *vc = [GroupStaffListViewController new];
         vc.group = self.group;
         [self.navigationController pushViewController:vc animated:YES];
-    }else if(btn == self.productTabBtn){
+    } else if(btn == self.productTabBtn) {
         GroupProductListViewController *vc = [GroupProductListViewController new];
         vc.group = self.group;
         [self.navigationController pushViewController:vc animated:YES];
-    }else if(btn == self.commentTabBtn){
+    } else if(btn == self.commentTabBtn) {
         CommentsViewController *vc = [CommentsViewController new];
         vc.companyId = self.group.id;
         [self.navigationController pushViewController:vc animated:YES];
@@ -478,4 +478,5 @@ static const float profileViewHeight = 320;
 - (void)failGetGroupDetail:(ASIHTTPRequest *)request
 {
 }
+
 @end

@@ -11,7 +11,10 @@
 // ==============================================================================
 
 #import "BaseViewController.h"
+#import "Product.h"
 
 @interface ProductDetailWebViewController : BaseViewController
+
+@property (nonatomic, strong) Product *product;
 
 @end

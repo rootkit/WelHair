@@ -132,7 +132,7 @@
 - (void)pushToDetial:(Product *)product
 {
     ProductDetailViewController *productVc = [[ProductDetailViewController alloc] init];;
-    productVc.product = [self.datasource objectAtIndex:0];
+    productVc.product = product;
     productVc.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:productVc animated:YES];
 }
@@ -146,7 +146,7 @@
     [reqData setObject:[NSString stringWithFormat:@"%d", self.currentPage] forKey:@"page"];
     [reqData setObject:[NSString stringWithFormat:@"%d", TABLEVIEW_PAGESIZE_DEFAULT] forKey:@"pageSize"];
 
-    ASIHTTPRequest *request = [RequestUtil createGetRequestWithURL:[NSURL URLWithString:API_GOODS_SEARCH] andParam:reqData];
+    ASIHTTPRequest *request = [RequestUtil createGetRequestWithURL:[NSURL URLWithString:[NSString stringWithFormat:API_COMPANIES_GOODS, self.group.id]] andParam:reqData];
     [request setDelegate:self];
     [request setDidFinishSelector:@selector(finishGetGoods:)];
     [request setDidFailSelector:@selector(failGetGoods:)];
@@ -177,7 +177,9 @@
     }
 
     for (NSDictionary *dicData in dataList) {
-        [arr addObject:[[Product alloc] initWithDic:dicData]];
+        Product *product = [[Product alloc] initWithDic:dicData];
+        product.distance = -1;
+        [arr addObject:product];
     }
 
     self.datasource = arr;

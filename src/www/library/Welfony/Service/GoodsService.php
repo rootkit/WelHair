@@ -19,6 +19,44 @@ use Welfony\Repository\GoodsRepository;
 class GoodsService
 {
 
+    public static function listLikedGoods($userId, $page, $pageSize)
+    {
+        $page = $page <= 0 ? 1 : $page;
+        $pageSize = $pageSize <= 0 ? 20 : $pageSize;
+
+        $total = GoodsRepository::getInstance()->listLikedGoodsCount($userId);
+        $goodsList = GoodsRepository::getInstance()->listLikedGoods($userId, $page, $pageSize);
+
+        $goods = array();
+        foreach ($goodsList as $g) {
+            $g['PictureUrl'] = array($g['Img']);
+            unset($g['Img']);
+
+            $goods[] = $g;
+        }
+
+        return array('total' => $total, 'goods' => $goods);
+    }
+
+    public static function listByCompany($companyId, $page, $pageSize)
+    {
+        $page = $page <= 0 ? 1 : $page;
+        $pageSize = $pageSize <= 0 ? 20 : $pageSize;
+
+        $total = GoodsRepository::getInstance()->listByCompanyCount($companyId);
+        $goodsList = GoodsRepository::getInstance()->listByCompany($companyId, $page, $pageSize);
+
+        $goods = array();
+        foreach ($goodsList as $g) {
+            $g['PictureUrl'] = array($g['Img']);
+            unset($g['Img']);
+
+            $goods[] = $g;
+        }
+
+        return array('total' => $total, 'goods' => $goods);
+    }
+
     public static function search($currentUserId, $searchText, $city, $district, $sort, $location, $page, $pageSize)
     {
         $page = $page <= 0 ? 1 : $page;
