@@ -299,7 +299,7 @@ use \Welfony\Utility\Util;
             <div class="pages_bar formitm formitm-1">
                 <div class="t_c" id="ctrlButtonArea">
                     <input type="hidden" id="order_id" value="<?php echo $this->orderInfo['OrderId']; ?>"/>
-                    <button type="button" class="btn" id="to_pay" onclick="pay(6);"><span>支付</span></button>
+                    <button type="button" class="btn" id="to_pay"><span>支付</span></button>
                     <button type="button" class="btn" id="to_deliver" onclick="deliver(6);"><span>发货</span></button>
                     <button type="button" class="btn" id="to_refundment" onclick="refundment(6);"><span>退款</span></button>
                     <button type="button" class="btn" onclick="complete(6,5)"><span>完成</span></button>
@@ -308,6 +308,122 @@ use \Welfony\Utility\Util;
             </div>
         </fieldset>
     </form>
+</div>
+<div id="paypopin" style="display:none;">
+    <table width="90%" style="margin:10px auto" class="m-table">
+        <colgroup><col width="100px">
+        <col>
+        <col width="100px">
+        <col>
+        </colgroup><tbody>
+            <tr>
+                <th>订单号:</th><td align="left"><?php echo $this->orderInfo['OrderNo']; ?></td>
+                <th>下单时间:</th><td align="left"><?php echo $this->orderInfo['PayableAmount']; ?></td>
+            </tr>
+            <tr>
+                <th>订单总金额:</th><td align="left">48.10</td>
+            </tr>
+            <tr>
+                <th>收款方式:</th>
+                <td align="left">
+                    <select alt="请选择支付方式" pattern="required" name="payment_id">
+                                        <option selected="" value="1">预存款支付</option>
+                                        <option value="7">支付宝</option>
+                                        </select>
+                </td>
+            </tr>
+            <tr>
+                <th>收款金额:</th>
+                <td align="left" colspan="3"><input type="text" pattern="float" value="48.10" id="amount" name="amount" class="small"></td>
+            </tr>
+            <tr>
+                <th>是否开票:</th><td align="left">是</td>
+                <th>税金:</th><td align="left">￥2.10</td>
+            </tr>
+            <tr>
+                <th>发票抬头:</th><td align="left">ss</td>
+                <th>付款人:</th><td align="left"></td>
+            </tr>
+            <tr>
+                <th>收款备注:</th>
+                <td align="left" colspan="3">
+                    <textarea cols="65" rows="3" id="note" name="note"></textarea>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<div id="deliverpopin" style="display:none;">
+    <table width="90%" style="margin:10px auto" class="m-table">
+            <colgroup><col width="100px">
+            <col>
+            <col width="100px">
+            <col>
+            </colgroup><tbody>
+                <tr>
+                    <th>订单号:</th><td align="left">20140420084016907083</td>
+                    <th>下单时间:</th><td align="left">2014-04-20 08:40:16</td>
+                </tr>
+                <tr>
+                    <th>配送方式:</th>
+                    <td align="left">
+                        <select alt="请选择配送方式" pattern="required" name="delivery_type">
+                                                <option selected="" value="1">快递</option>
+                                                <option value="2">test</option>
+                                                <option value="3">test222</option>
+                                                <option value="4">sadfasdf</option>
+                                                </select>
+                    </td>
+                    <th>配送费用:</th><td align="left">20.00</td>
+                </tr>
+                <tr>
+                    <th>配送单号:</th><td align="left" colspan="3"><input type="text" pattern="required" name="delivery_code" class="small"></td>
+                </tr>
+                <tr>
+                    <th>是否保价:</th><td align="left">是</td><th>保价费用:</th><td align="left">￥5.00</td>
+                </tr>
+                <tr>
+                    <th>收货人姓名:</th><td align="left"><input type="text" pattern="required" value="sss" name="name" class="small"></td>
+                    <th>电话:</th><td align="left"><input type="text" empty="" pattern="phone" value="" name="telphone" class="small"></td>
+                </tr>
+                <tr>
+                    <th>手机:</th><td align="left"><input type="text" pattern="mobi" value="13706411579" name="mobile" class="small"></td>
+                    <th>邮政编码:</th><td align="left"><input type="text" empty="" pattern="zip" value="" class="small" name="postcode"></td>
+                </tr>
+                <tr>
+                    <th>地区:</th>
+                    <td align="left" colspan="3">
+                        <select onchange="areaChangeCallback(this);" child="city,area" name="province"><option value="">请选择</option><option value="110000">北京市</option><option selected="selected" value="430000">湖南省</option><option value="440000">广东省</option><option value="450000">广西壮族自治区</option><option value="460000">海南省</option><option value="500000">重庆市</option><option value="510000">四川省</option><option value="520000">贵州省</option><option value="530000">云南省</option><option value="540000">西藏自治区</option><option value="610000">陕西省</option><option value="620000">甘肃省</option><option value="630000">青海省</option><option value="640000">宁夏回族自治区</option><option value="420000">湖北省</option><option value="410000">河南省</option><option value="370000">山东省</option><option value="120000">天津市</option><option value="130000">河北省</option><option value="140000">山西省</option><option value="150000">内蒙古自治区</option><option value="210000">辽宁省</option><option value="220000">吉林省</option><option value="230000">黑龙江省</option><option value="310000">上海市</option><option value="320000">江苏省</option><option value="330000">浙江省</option><option value="340000">安徽省</option><option value="350000">福建省</option><option value="360000">江西省</option><option value="650000">新疆维吾尔自治区</option></select>
+                        <select onchange="areaChangeCallback(this);" parent="province" child="area" name="city"><option value="">请选择</option><option value="430100">长沙市</option><option selected="selected" value="431300">娄底市</option><option value="431200">怀化市</option><option value="431100">永州市</option><option value="431000">郴州市</option><option value="430900">益阳市</option><option value="430800">张家界市</option><option value="430700">常德市</option><option value="430600">岳阳市</option><option value="430500">邵阳市</option><option value="430400">衡阳市</option><option value="430300">湘潭市</option><option value="430200">株洲市</option><option value="433100">湘西土家族苗族自治州</option></select>
+                        <select pattern="required" parent="city" name="area"><option value="">请选择</option><option selected="selected" value="431301">市辖区</option><option value="431302">娄星区</option><option value="431321">双峰县</option><option value="431322">新化县</option><option value="431381">冷水江市</option><option value="431382">涟源市</option></select>
+                    </td>
+                </tr>
+                <tr>
+                    <th>地址:</th><td align="left" colspan="3"><input type="text" pattern="required" size="50" value="sss" name="address" class="normal"></td>
+                </tr>
+                <tr>
+                    <th>发货单备注:</th><td align="left" colspan="3"><textarea cols="85" rows="3" name="note"></textarea></td>
+                </tr>
+            </tbody>
+        </table>
+        <table width="100%" style="margin:10px auto" class="m-table">
+            <colgroup><col>
+            <col width="80px">
+            <col width="80px">
+            <col width="130px">
+            </colgroup><thead>
+                <tr><th>商品名称</th><th>商品价格</th><th>购买数量</th><th>商品数量</th></tr>
+            </thead>
+            <tbody>
+                                <tr>
+                    <td>
+                                                飘柔洗发液 &nbsp;&nbsp; 容量:250ML ,                   </td>
+                    <td>21.00</td>
+                    <td>1</td>
+                    <td>1</td>
+                </tr>
+                            </tbody>
+        </table>
 </div>
 
 <script src="<?php echo Util::baseAssetUrl('js/backend/order-detail.js'); ?>"></script>

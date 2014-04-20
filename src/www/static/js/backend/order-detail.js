@@ -37,5 +37,59 @@ $(function() {
                     }
         });
     });
+
+    $('#to_pay').click(function(){
+        $('#paypopin').dialog(
+            {"modal": true, 
+             "width":800, 
+             "height":640,
+             "title":"付款",
+              buttons: 
+                    [
+                        {
+                            text: "付款",
+                            class:"",
+                            click: function()
+                            {
+                            }
+                         },
+                           {
+                                text : "关闭",
+                                class: "",
+                                click: function() {
+                                    $(this).dialog('close');
+                                }
+                        } 
+                    ]
+
+        });
+    });
+    $('#to_deliver').click(function(){
+        $('#deliverpopin').dialog(
+            {"modal": true, 
+             "width":870, 
+             "height":740,
+             "title":"发货",
+              buttons: 
+                    [
+                        {
+                            text: "发货",
+                            class:"",
+                            click: function()
+                            {
+                            }
+                         },
+                           {
+                                text : "关闭",
+                                class: "",
+                                click: function() {
+                                    $(this).dialog('close');
+                                }
+                        } 
+                    ]
+
+        });
+    });
+   
    
 });
