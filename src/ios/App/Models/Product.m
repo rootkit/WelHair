@@ -9,6 +9,7 @@
 // file that was distributed with this source code.
 //
 // ==============================================================================
+
 #import "Product.h"
 
 @implementation Product
@@ -22,15 +23,22 @@
         self.imgUrlList = [dictionary objectForKey:@"PictureUrl"];
         self.price = [[dictionary objectForKey:@"SellPrice"] floatValue];
 
-        if ([dictionary objectForKey:@"CompanyId"]) {
-            self.group = [Group new];
-            self.group.id = [[dictionary objectForKey:@"CompanyId"] intValue];
-            self.group.name = [dictionary objectForKey:@"CompanyName"];
-            self.group.distance = [[dictionary objectForKey:@"CompanyId"] floatValue];
+        if ([dictionary objectForKey:@"Company"]) {
+            NSDictionary *dicCompany = [dictionary objectForKey:@"Company"];
+            self.group = [[Group alloc] initWithDic:dicCompany];
+            self.distance = self.group.distance;
         }
 
         if ([dictionary objectForKey:@"IsLiked"]) {
             self.isLiked = [[dictionary objectForKey:@"IsLiked"] intValue] == 1;
+        }
+
+        if ([dictionary objectForKey:@"Attributes"]) {
+            self.attrList = [dictionary objectForKey:@"Attributes"];
+        }
+
+        if ([dictionary objectForKey:@"Spec"]) {
+            self.specList = [dictionary objectForKey:@"Spec"];
         }
     }
     

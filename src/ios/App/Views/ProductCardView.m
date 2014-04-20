@@ -58,11 +58,11 @@
         float locationIconSize = 15;
         FAKIcon *locationIcon = [FAKIonIcons locationIconWithSize:locationIconSize];
         [locationIcon addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithHexString:@"b7bcc2"]];
-        self.locationImg = [[UIImageView alloc] initWithFrame:CGRectMake(MaxX(self.priceLbl)+10, Y(self.priceLbl),locationIconSize, locationIconSize)];
+        self.locationImg = [[UIImageView alloc] initWithFrame:CGRectMake(MaxX(self.priceLbl) - 0, Y(self.priceLbl) + 2 ,locationIconSize, locationIconSize)];
         self.locationImg.image = [locationIcon imageWithSize:CGSizeMake(locationIconSize,locationIconSize)];
         [self addSubview:self.locationImg];
         
-        self.distanceLbl = [[UILabel alloc] initWithFrame:CGRectMake(MaxX(self.locationImg), Y(self.locationImg), 30, 20)];
+        self.distanceLbl = [[UILabel alloc] initWithFrame:CGRectMake(MaxX(self.locationImg), Y(self.locationImg) - 2, 46, 20)];
         self.distanceLbl.font = [UIFont systemFontOfSize:10];
         self.distanceLbl.textAlignment = NSTextAlignmentRight;
         self.distanceLbl.backgroundColor = [UIColor clearColor];
@@ -85,7 +85,7 @@
     self.distanceLbl.hidden = productData.distance < 0;
     self.locationImg.hidden = productData.distance < 0;
 
-    self.distanceLbl.text = [NSString stringWithFormat:@"%.0f千米 ", productData.distance];
+    self.distanceLbl.text = [NSString stringWithFormat:@"%.0f千米 ", productData.distance / 1000];
 }
 
 @end

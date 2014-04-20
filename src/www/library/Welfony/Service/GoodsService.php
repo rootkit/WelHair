@@ -14,7 +14,11 @@
 
 namespace Welfony\Service;
 
+use Welfony\Repository\CompanyRepository;
+use Welfony\Repository\GoodsAttributeRepository;
 use Welfony\Repository\GoodsRepository;
+use Welfony\Repository\ProductsRepository;
+use Welfony\Utility\Util;
 
 class GoodsService
 {
@@ -36,6 +40,89 @@ class GoodsService
         }
 
         return array('total' => $total, 'goods' => $goods);
+    }
+
+    public static function getGoodsDetail($goodsId, $companyId, $currentUserId = 0, $location = null)
+    {
+        $goods = GoodsRepository::getInstance()->findGoodsDetailById($goodsId, $currentUserId);
+        $goods['PictureUrl'] = !$goods['Img'] ? array() : array($goods['Img']);
+        unset($goods['Img']);
+
+        $hasCompany = false;
+        $companySet = CompanyRepository::getInstance()->listAllCompaniesByGoods($goodsId);
+        foreach ($companySet as $com) {
+            if ($com['CompanyId'] == $companyId) {
+                $hasCompany = true;
+                break;
+            }
+        }
+        if ($hasCompany) {
+            $resultSet = CompanyRepository::getInstance()->findCompanyDetailById($companyId, $currentUserId, $location);
+            if (count($resultSet) > 0) {
+                $company = $resultSet[0];
+                $goods['Company'] = array(
+                    'CompanyId' => $company['CompanyId'],
+                    'Name' => $company['CompanyName'],
+                    'LogoUrl' => $company['CompanyLogoUrl'],
+                    'Tel' => $company['Tel'],
+                    'Mobile' => $company['Mobile'],
+                    'Address' => $company['Address'],
+                    'Latitude' => $company['Latitude'],
+                    'Longitude' => $company['Longitude'],
+                    'Distance' => $company['Distance']
+                );
+            }
+        }
+
+        $products = ProductsRepository::getInstance()->getAllProductsByGoods($goodsId);
+
+        $attributeSet = GoodsAttributeRepository::getInstance()->listByGoods($goodsId);
+        $goods['Attributes'] = array();
+        $goods['Spec'] = array();
+        foreach ($attributeSet as $attr) {
+            if ($attr['AttributeId'] > 0) {
+                $goods['Attributes'][] = array (
+                    'Title' => $attr['Title'],
+                    'Value' => $attr['AttributeValue']
+                );
+            }
+            if ($attr['SpecId'] > 0) {
+                $specIndex = Util::keyValueExistedInArray($goods['Spec'], 'SpecId', $attr['SpecId']);
+                if ($specIndex === false) {
+                    $spec = array(
+                        'SpecId' => $attr['SpecId'],
+                        'Title' => $attr['Title'],
+                        'Options' => array()
+                    );
+                } else {
+                    $spec = $goods['Spec'][$specIndex];
+                }
+
+                $prodSelected = null;
+                $specCanAdd = false;
+                foreach ($products as $prod) {
+                    $specFromJson = json_decode($prod['SpecArray'], true);
+                    if ($specFromJson['Id'] == $attr['SpecId'] && $specFromJson['Value'] == $attr['SpecValue']) {
+                        $prodSelected = $prod;
+                        $specCanAdd = true;
+                    }
+                }
+
+                if (!$specCanAdd) {
+                    continue;
+                }
+
+                $spec['Options'][] = array('Label' => $attr['SpecValue'], 'Price' => $prodSelected['SellPrice']);
+
+                if ($specIndex === false) {
+                    $goods['Spec'][] = $spec;
+                } else {
+                    $goods['Spec'][$specIndex] = $spec;
+                }
+            }
+        }
+
+        return $goods;
     }
 
     public static function listByCompany($companyId, $page, $pageSize)
@@ -70,6 +157,29 @@ class GoodsService
             $g['PictureUrl'] = array($g['Img']);
             unset($g['Img']);
 
+            if (intval($g['CompanyId'] > 0)) {
+                $g['Company'] = array(
+                    'CompanyId' => $g['CompanyId'],
+                    'Name' => $g['CompanyName'],
+                    'LogoUrl' => $g['LogoUrl'],
+                    'Tel' => $g['Tel'],
+                    'Mobile' => $g['Mobile'],
+                    'Address' => $g['Address'],
+                    'Latitude' => $g['Latitude'],
+                    'Longitude' => $g['Longitude'],
+                    'Distance' => $g['Distance']
+                );
+
+                unset($g['CompanyId']);
+                unset($g['CompanyName']);
+                unset($g['LogoUrl']);
+                unset($g['Tel']);
+                unset($g['Mobile']);
+                unset($g['Address']);
+                unset($g['Latitude']);
+                unset($g['Longitude']);
+            }
+
             $goods[] = $g;
         }
 
@@ -78,7 +188,7 @@ class GoodsService
 
     public static function getGoodsById($id)
     {
-        return GoodsRepository::getInstance()->findGoodsById( $id);
+        return GoodsRepository::getInstance()->findGoodsById($id);
     }
 
     public static function listGoods($pageNumber, $pageSize)

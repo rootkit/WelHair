@@ -21,9 +21,9 @@
 
 #define DB_FILE_NAME   @"db.sqlite"
 
-#define API_PATH(path) [NSString stringWithFormat:@"http://welhair.com/api%@", path]
+//#define API_PATH(path) [NSString stringWithFormat:@"http://welhair.com/api%@", path]
 
-//#define API_PATH(path) [NSString stringWithFormat:@"http://115.28.208.165/api%@", path]
+#define API_PATH(path) [NSString stringWithFormat:@"http://115.28.208.165/api%@", path]
 
 #define API_APPOINTMENTS_CREATE API_PATH(@"/appointments")
 #define API_APPOINTMENTS_UPDATE API_PATH(@"/appointments/%d")
@@ -67,7 +67,10 @@
 #define API_FEEDBACK_CREATE API_PATH(@"/feedback")
 
 #define API_GOODS_SEARCH API_PATH(@"/goods")
+#define API_GOODS_LIKE API_PATH(@"/goods/%d/likes")
 #define API_GOODS_LIKED API_PATH(@"/goods/liked")
+#define API_GOODS_DETAIL API_PATH(@"/goods/%d")
+#define API_GOODS_COMMENT_CREATE API_PATH(@"/goods/%d/comments")
 
 #define API_COMPANIES_SEARCH API_PATH(@"/companies")
 #define API_COMPANIES_LIKED API_PATH(@"/companies/liked")
@@ -83,7 +86,6 @@
 #define API_COMPANIES_COMMENT_CREATE API_PATH(@"/companies/%d/comments")
 
 #define API_UPLOAD_PICTURE API_PATH(@"/upload/image")
-#define API_GOODS_COMMENT_CREATE API_PATH(@"/goods/%d/comments")
 
 
 #define APP_BASE_COLOR              @"206ba7"

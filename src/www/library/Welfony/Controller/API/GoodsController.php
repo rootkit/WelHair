@@ -15,10 +15,46 @@
 namespace Welfony\Controller\API;
 
 use Welfony\Controller\Base\AbstractAPIController;
+use Welfony\Service\CommentService;
 use Welfony\Service\GoodsService;
+use Welfony\Service\UserLikeService;
 
 class GoodsController extends AbstractAPIController
 {
+
+    public function listComments($goodsId)
+    {
+        $page = intval($this->app->request->get('page'));
+        $pageSize = intval($this->app->request->get('pageSize'));
+
+        $result = CommentService::listComment(null, null, null, $goodsId, $page, $pageSize);
+        $this->sendResponse($result);
+    }
+
+    public function addComment($goodsId)
+    {
+        $reqData = $this->getDataFromRequestWithJsonFormat();
+        $reqData['GoodsId'] = $goodsId;
+
+        $result = CommentService::save($reqData);
+        $this->sendResponse($result);
+    }
+
+    public function addGoodsLike($goodsId)
+    {
+        $reqData = $this->getDataFromRequestWithJsonFormat();
+        $reqData['GoodsId'] = $goodsId;
+
+        $result = UserLikeService::save($reqData);
+        $this->sendResponse($result);
+    }
+
+    public function detail($goodsId)
+    {
+        $companyId = intval($this->app->request->get('companyId'));
+        $goods = GoodsService::getGoodsDetail($goodsId, $companyId, $this->currentContext['UserId'], $this->currentContext['Location']);
+        $this->sendResponse($goods);
+    }
 
     public function search()
     {

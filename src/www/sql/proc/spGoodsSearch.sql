@@ -47,7 +47,7 @@ FROM (
     LEFT OUTER JOIN CompanyGoods CG ON CG.GoodsId = G.GoodsId
     LEFT OUTER JOIN Company C ON C.CompanyId = CG.CompanyId
     WHERE C.Status = 1 AND G.IsDeleted = 0 AND (searchText = '' || G.Name LIKE CONCAT('%', searchText, '%') || C.Name LIKE CONCAT('%', searchText, '%')) AND (city = 0 || C.City = city) AND (district = 0 || C.District = district)
-    GROUP BY G.GoodsId
+    GROUP BY G.GoodsId, C.CompanyId
     ORDER BY CASE WHEN sort = 0 THEN G.GoodsId END DESC,
              CASE WHEN sort = 1 THEN Distance END ASC,
              CASE WHEN sort = 2 THEN LikeCount END DESC
@@ -55,6 +55,5 @@ FROM (
 ) TBLG;
 
 END$$
-
 
 DELIMITER ;

@@ -21,6 +21,8 @@
 
 @property (nonatomic, strong) NSArray *commentList;
 @property (nonatomic, strong) NSArray *imgUrlList;
+@property (nonatomic, strong) NSArray *attrList;
+@property (nonatomic, strong) NSArray *specList;
 
 @property (nonatomic) NSInteger count;
 @property (nonatomic) BOOL isLiked;

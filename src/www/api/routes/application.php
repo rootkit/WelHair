@@ -33,11 +33,15 @@ $app->hook('slim.before.router', function () use ($app) {
         $locationArr = $isLocalhost ? array(36.68278473, 117.02496707) : array(0, 0);
     }
     if (doubleval($locationArr[0]) <= 0) {
-        $client = new \GuzzleHttp\Client();
-        $res = $client->get('http://api.map.baidu.com/location/ip?ak=3998daac6ca53a8067263f139b4aadf4&ip=' . $ip . '&coor=bd09ll');
-        $bdData = $res->json();
-        $locationArr[0] = $bdData['content']['point']['y'];
-        $locationArr[1] = $bdData['content']['point']['x'];
+        if ($isLocalhost) {
+            $locationArr = array(36.68278473, 117.02496707);
+        } else {
+            $client = new \GuzzleHttp\Client();
+            $res = $client->get('http://api.map.baidu.com/location/ip?ak=3998daac6ca53a8067263f139b4aadf4&ip=' . $ip . '&coor=bd09ll');
+            $bdData = $res->json();
+            $locationArr[0] = $bdData['content']['point']['y'];
+            $locationArr[1] = $bdData['content']['point']['x'];
+        }
     }
 
     $currentUserId = intval($contextArr['currentUserId']);

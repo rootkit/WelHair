@@ -19,7 +19,7 @@ use Welfony\Repository\Base\AbstractRepository;
 class GoodsAttributeRepository extends AbstractRepository
 {
 
-    
+
     public function getAll()
     {
         $strSql = 'SELECT
@@ -33,8 +33,16 @@ class GoodsAttributeRepository extends AbstractRepository
     public function listByGoods($goodsId)
     {
 
-        $strSql = "  SELECT *
-                     FROM GoodsAttribute                  
+        $strSql = "  SELECT
+                        GA.*,
+                        CASE
+                        WHEN GA.AttributeId > 0 THEN A.Name
+                        WHEN GA.SpecId > 0 THEN S.Name
+                        ELSE '特殊属性'
+                        END Title
+                     FROM GoodsAttribute GA
+                     LEFT OUTER JOIN Attribute A ON A.AttributeId = GA.AttributeId
+                     LEFT OUTER JOIN Spec S ON S.SpecId = GA.SpecId
                      WHERE  GoodsId = $goodsId ";
 
         return $this->conn->fetchAll($strSql);
@@ -54,7 +62,7 @@ class GoodsAttributeRepository extends AbstractRepository
 
     }
 
-    
+
 
     public function findById($id)
     {

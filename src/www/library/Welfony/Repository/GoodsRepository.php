@@ -22,12 +22,12 @@ class GoodsRepository extends AbstractRepository
     public function listLikedGoodsCount($userId)
     {
         $strSql = "SELECT
-                     COUNT(1) `Total`
+                     COUNT(DISTINCT(G.GoodsId)) `Total`
                    FROM Goods G
                    INNER JOIN UserLike UL ON UL.GoodsId = G.GoodsId
                    LEFT OUTER JOIN CompanyGoods CG ON CG.GoodsId = G.GoodsId
                    LEFT OUTER JOIN Company C ON C.CompanyId = CG.CompanyId
-                   WHERE C.Status = 1 AND G.IsDeleted = 0 AND UL.UserId = ?
+                   WHERE C.Status = 1 AND G.IsDeleted = 0 AND UL.CreatedBy = ?
                    LIMIT 1";
 
         $row = $this->conn->fetchAssoc($strSql, array($userId));
@@ -57,7 +57,8 @@ class GoodsRepository extends AbstractRepository
                    INNER JOIN UserLike UL ON UL.GoodsId = G.GoodsId
                    LEFT OUTER JOIN CompanyGoods CG ON CG.GoodsId = G.GoodsId
                    LEFT OUTER JOIN Company C ON C.CompanyId = CG.CompanyId
-                   WHERE C.Status = 1 AND G.IsDeleted = 0 AND UL.UserId = ?
+                   WHERE C.Status = 1 AND G.IsDeleted = 0 AND UL.CreatedBy = ?
+                   GROUP BY G.GoodsId
                    LIMIT $offset, $pageSize ";
 
         return $this->conn->fetchAll($strSql, array($userId));
@@ -225,6 +226,19 @@ class GoodsRepository extends AbstractRepository
                      LIMIT $offset, $pageSize ";
         return $this->conn->fetchAll($strSql);
 
+    }
+
+    public function findGoodsDetailById($goodsId, $currentUserId)
+    {
+
+        $strSql = 'SELECT
+                       *,
+                      (SELECT COUNT(1) FROM UserLike UL WHERE ? > 0 AND ? = UL.CreatedBy AND UL.GoodsId = G.GoodsId) IsLiked
+                   FROM Goods G
+                   WHERE G.GoodsId = ?
+                   LIMIT 1';
+
+        return $this->conn->fetchAssoc($strSql, array($currentUserId, $currentUserId, $goodsId));
     }
 
     public function findGoodsById($id)

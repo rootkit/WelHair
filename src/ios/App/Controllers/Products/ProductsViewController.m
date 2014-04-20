@@ -297,7 +297,7 @@
 - (void)pushToDetial:(Product *)product
 {
     ProductDetailViewController *productVc = [[ProductDetailViewController alloc] init];;
-    productVc.product = [self.datasource objectAtIndex:0];
+    productVc.product = product;
     productVc.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:productVc animated:YES];
 }

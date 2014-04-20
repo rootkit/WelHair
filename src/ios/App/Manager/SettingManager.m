@@ -121,7 +121,7 @@
 
 - (void)setLocatedCityId:(int)cityId
 {
-    [self setSettingValue:[NSString stringWithFormat:@"%d",cityId] forKey:DB_TABLE_SETTING_LOCATED_COORDINATE];
+    [self setSettingValue:[NSString stringWithFormat:@"%d",cityId] forKey:DB_TABLE_SETTING_LOCATED_CITY];
 }
 
 - (void)setLocatedCoordinate:(CLLocationCoordinate2D) coordinate

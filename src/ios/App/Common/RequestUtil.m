@@ -24,7 +24,9 @@
 
     NSMutableDictionary *contextParams = [[NSMutableDictionary alloc] initWithCapacity:2];
     [contextParams setObject:@([UserManager SharedInstance].userLogined.id) forKey:@"currentUserId"];
-    [contextParams setObject:@"36.68278473,117.02496707" forKey:@"currentLocation"];
+
+    CLLocationCoordinate2D coordinate = [[SettingManager SharedInstance] locatedCoordinate];
+    [contextParams setObject:[NSString stringWithFormat:@"%f,%f", coordinate.latitude, coordinate.longitude] forKey:@"currentLocation"];
     [request addRequestHeader:@"WH-Context" value:[Util parseJsonFromObject:contextParams]];
 
 
@@ -38,6 +40,9 @@
 
     NSMutableDictionary *contextParams = [[NSMutableDictionary alloc] initWithCapacity:2];
     [contextParams setObject:@([UserManager SharedInstance].userLogined.id) forKey:@"currentUserId"];
+
+    CLLocationCoordinate2D coordinate = [[SettingManager SharedInstance] locatedCoordinate];
+    [contextParams setObject:[NSString stringWithFormat:@"%f,%f", coordinate.latitude, coordinate.longitude] forKey:@"currentLocation"];
     [request addRequestHeader:@"WH-Context" value:[Util parseJsonFromObject:contextParams]];
 
     request.requestMethod = @"POST";
@@ -56,6 +61,9 @@
 
     NSMutableDictionary *contextParams = [[NSMutableDictionary alloc] initWithCapacity:2];
     [contextParams setObject:@([UserManager SharedInstance].userLogined.id) forKey:@"currentUserId"];
+
+    CLLocationCoordinate2D coordinate = [[SettingManager SharedInstance] locatedCoordinate];
+    [contextParams setObject:[NSString stringWithFormat:@"%f,%f", coordinate.latitude, coordinate.longitude] forKey:@"currentLocation"];
     [request addRequestHeader:@"WH-Context" value:[Util parseJsonFromObject:contextParams]];
 
     request.requestMethod = @"PUT";

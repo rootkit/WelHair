@@ -142,6 +142,11 @@ class CompanyRepository extends AbstractRepository
                        C.Address CompanyAddress,
                        C.Status CompanyStatus,
                        C.LogoUrl CompanyLogoUrl,
+                       C.Tel,
+                       C.Mobile,
+                       C.Address,
+                       C.Latitude,
+                       C.Longitude,
 
                        (SELECT COUNT(1) FROM UserLike UL WHERE ? > 0 AND ? = UL.CreatedBy AND UL.CompanyId = C.CompanyId) IsLiked,
                        getDistance(C.Latitude, C.Longitude, ?, ?) Distance

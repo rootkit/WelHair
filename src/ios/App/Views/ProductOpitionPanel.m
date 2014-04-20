@@ -10,11 +10,10 @@
 //
 // ==============================================================================
 
-#import "ProductOpitionPanel.h"
-#import "OpitionButton.h"
-
 #import "CircleImageView.h"
-#import "UIImageView+WebCache.h"
+#import "OpitionButton.h"
+#import "ProductOpitionPanel.h"
+
 @interface ProductOpitionPanel ()
 {
     Product *_product;
@@ -55,14 +54,12 @@
         avatorImgView = [[CircleImageView alloc] initWithFrame:CGRectMake(20, 20, 60, 60)];
         avatorImgView.layer.borderColor = [[UIColor lightGrayColor] CGColor];
         avatorImgView.layer.borderWidth = 1;
-        [avatorImgView setImageWithURL:[NSURL URLWithString:@"http://4.xiustatic.com/upload/goods20111107/65002396/650023960001/g1_600_600.1339481667492.jpg"]];
         [topView addSubview:avatorImgView];
         
         nameLbl= [[UILabel alloc] initWithFrame:CGRectMake(MaxX(avatorImgView) + 5, Y(avatorImgView), 100, 30)];
         nameLbl.backgroundColor = [UIColor clearColor];
         nameLbl.textColor = [UIColor blackColor];
         nameLbl.font = [UIFont boldSystemFontOfSize:14];
-        nameLbl.text = @"海飞丝";
         nameLbl.textAlignment = NSTextAlignmentLeft;;
         [topView addSubview:nameLbl];
         priceLbl = [[UILabel alloc] initWithFrame:CGRectMake(MaxX(avatorImgView) + 5, MaxY(nameLbl), 100, 30)];
@@ -129,6 +126,7 @@
         scrollView.backgroundColor = [UIColor colorWithHexString:@"EEE"];
         [self addSubview:scrollView];
     }
+
     return self;
 }
 
@@ -173,7 +171,12 @@
             submit:(submitSelection)submitHandler
 {
     _product = product;
+
+    [avatorImgView setImageWithURL:[NSURL URLWithString:product.imgUrlList[0]]];
+    nameLbl.text = product.name;
+
     titleLbl.text = title;
+
     _cancelHandler = cancelHandler;
     _submitHandler = submitHandler;
     
@@ -238,8 +241,7 @@
 {
     OpitionButton *btn = (OpitionButton *)sender;
     btn.choosen = YES;
-    float money = btn.tag == 0 ? 100 : 200;
-    priceLbl.text = [NSString stringWithFormat:@"￥%.2f", money];
+    priceLbl.text = [NSString stringWithFormat:@"￥%.2f", btn.opitionItem.price];
     
     OpitionItem *item = btn.opitionItem;
     OpitionItem *itemUnderSameCategory = nil;
