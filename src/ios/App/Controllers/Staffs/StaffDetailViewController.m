@@ -226,7 +226,6 @@ static const float profileViewHeight = 90;
         NSDictionary *responseMessage = [Util objectFromJson:request.responseString];
         if (responseMessage) {
             if ([[responseMessage objectForKey:@"success"] intValue] == 1) {
-                [SVProgressHUD showSuccessWithStatus:@"操作成功" duration:1];
                 return;
             }
         }
