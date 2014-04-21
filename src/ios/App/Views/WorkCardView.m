@@ -59,7 +59,7 @@
         [self.heartBtn setToggleButtonOnImage:[heartIconOn imageWithSize:CGSizeMake(25, 25)]
                                   offImg:[heartIconOff imageWithSize:CGSizeMake(25, 25)]
                       toggleEventHandler:^(BOOL isOn){
-                          [selfDelegate favClick:isOn];
+                         return [selfDelegate favClick:isOn];
                       }];
         self.heartBtn.frame = CGRectMake(WIDTH(self) - 25 - 15, MaxY(self.hairImgView) + 5,25, 25);
         [self addSubview:self.heartBtn];
@@ -129,8 +129,13 @@
 }
 
 
-- (void)favClick:(BOOL)markFav
+- (BOOL)favClick:(BOOL)markFav
 {
+    if(![UserManager SharedInstance].userLogined){
+        [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_SHOW_LOGIN_VIEW object:nil];
+        return NO;
+    }
+    
     NSMutableDictionary *reqData = [[NSMutableDictionary alloc] initWithCapacity:1];
     [reqData setObject:[NSString stringWithFormat:@"%d", [[UserManager SharedInstance] userLogined].id] forKey:@"CreatedBy"];
     [reqData setObject:[NSString stringWithFormat:@"%d", markFav ? 1 : 0] forKey:@"IsLike"];
@@ -142,6 +147,7 @@
     [request setDidFinishSelector:@selector(addLikeFinish:)];
     [request setDidFailSelector:@selector(addLikeFail:)];
     [request startAsynchronous];
+    return YES;
 }
 
 - (void)addLikeFinish:(ASIHTTPRequest *)request

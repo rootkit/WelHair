@@ -182,7 +182,7 @@ static const float profileViewHeight = 320;
     [self.heartBtn setToggleButtonOnImage:[heartIconOn imageWithSize:CGSizeMake(25, 25)]
                                    offImg:[heartIconOff imageWithSize:CGSizeMake(25, 25)]
                        toggleEventHandler:^(BOOL isOn) {
-                           [selfDelegate favClick:isOn];
+                           return [selfDelegate favClick:isOn];
                        }];
     self.heartBtn.frame = CGRectMake(MaxX(self.groupNameLbl), 10, 30, 30);
     [addressView addSubview:self.heartBtn];
@@ -347,8 +347,11 @@ static const float profileViewHeight = 320;
     }
 }
 
-- (void)favClick:(BOOL)isOn
+- (BOOL)favClick:(BOOL)isOn
 {
+    if(![self checkLogin]){
+        return NO;
+    }
     NSMutableDictionary *reqData = [[NSMutableDictionary alloc] initWithCapacity:1];
     [reqData setObject:[NSString stringWithFormat:@"%d", [[UserManager SharedInstance] userLogined].id] forKey:@"CreatedBy"];
     [reqData setObject:[NSString stringWithFormat:@"%d", isOn ? 1 : 0] forKey:@"IsLike"];
@@ -360,6 +363,7 @@ static const float profileViewHeight = 320;
     [request setDidFinishSelector:@selector(addLikeFinish:)];
     [request setDidFailSelector:@selector(addLikeFail:)];
     [request startAsynchronous];
+    return YES;
 }
 
 - (void)addLikeFinish:(ASIHTTPRequest *)request

@@ -235,28 +235,21 @@ static const float profileViewHeight = 90;
 
 - (void)avatorClicked
 {
-    if(![UserManager SharedInstance].userLogined)
-    {
-        [self.navigationController presentViewController:[[UINavigationController alloc] initWithRootViewController:[LoginViewController new]]
-                                                animated:YES
-                                              completion:nil];
+    if([self checkLogin]){
+        UserProfileViewController *vc = [UserProfileViewController new];
+        vc.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:vc animated:YES];
+        
         return;
+        
+        UIActionSheet *actionSheet = [[UIActionSheet alloc]
+                                      initWithTitle:nil
+                                      delegate:self
+                                      cancelButtonTitle:NSLocalizedString(@"Cancel", nil)
+                                      destructiveButtonTitle:nil
+                                      otherButtonTitles:NSLocalizedString(@"Camera", nil),NSLocalizedString(@"Album", nil), nil];
+        [actionSheet showInView:self.view];
     }
-
-    UserProfileViewController *vc = [UserProfileViewController new];
-    vc.hidesBottomBarWhenPushed = YES;
-    [self.navigationController pushViewController:vc animated:YES];
-
-    return;
-
-    UIActionSheet *actionSheet = [[UIActionSheet alloc]
-                                  initWithTitle:nil
-                                  delegate:self
-                                  cancelButtonTitle:NSLocalizedString(@"Cancel", nil)
-                                  destructiveButtonTitle:nil
-                                  otherButtonTitles:NSLocalizedString(@"Camera", nil),NSLocalizedString(@"Album", nil), nil];
-    [actionSheet showInView:self.view];
-
 }
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
@@ -292,11 +285,7 @@ static const float profileViewHeight = 90;
 
 - (void) tabClick:(id)sender
 {
-    if(![UserManager SharedInstance].userLogined)
-    {
-        [self.navigationController presentViewController:[[UINavigationController alloc] initWithRootViewController:[LoginViewController new]]
-                                                animated:YES
-                                              completion:nil];
+    if(![self checkLogin]){
         return;
     }
 
@@ -351,6 +340,7 @@ static const float profileViewHeight = 90;
         default:
             break;
     }
+            
 }
 
 - (void)getStaffDetail
@@ -486,13 +476,9 @@ static const float profileViewHeight = 90;
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 
-    if(![UserManager SharedInstance].userLogined)
-    {
-        [self.navigationController presentViewController:[[UINavigationController alloc] initWithRootViewController:[LoginViewController new]]
-                                                animated:YES
-                                              completion:nil];
-        return;
-    }
+       if(![self checkLogin]){
+           return;
+       }
 
     if(indexPath.section == 0) {
         switch (indexPath.row) {

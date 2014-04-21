@@ -149,7 +149,7 @@ static const float profileViewHeight = 90;
     [self.foBtn setToggleButtonOnImage:[heartIconOn imageWithSize:CGSizeMake(heartIconSize, heartIconSize)]
                                 offImg:[heartIconOff imageWithSize:CGSizeMake(heartIconSize, heartIconSize)]
                     toggleEventHandler:^(BOOL isOn){
-                        [selfDelegate foClick:isOn];
+                       return [selfDelegate foClick:isOn];
                     }];
     self.foBtn.frame = CGRectMake(MaxX(self.nameLbl), 0, heartIconSize, heartIconSize);
     [self.addressView addSubview:self.foBtn];
@@ -199,8 +199,11 @@ static const float profileViewHeight = 90;
     }
 }
 
-- (void)foClick:(BOOL)isFo
+- (BOOL)foClick:(BOOL)isFo
 {
+    if(![self checkLogin]){
+        return NO;
+    }
     NSMutableDictionary *reqData = [[NSMutableDictionary alloc] initWithCapacity:1];
     [reqData setObject:[NSString stringWithFormat:@"%d", [[UserManager SharedInstance] userLogined].id] forKey:@"CreatedBy"];
     [reqData setObject:[NSString stringWithFormat:@"%d", isFo ? 1 : 0] forKey:@"IsLike"];
@@ -212,6 +215,7 @@ static const float profileViewHeight = 90;
     [request setDidFinishSelector:@selector(addLikeFinish:)];
     [request setDidFailSelector:@selector(addLikeFail:)];
     [request startAsynchronous];
+    return YES;
 }
 
 - (void)addLikeFinish:(ASIHTTPRequest *)request

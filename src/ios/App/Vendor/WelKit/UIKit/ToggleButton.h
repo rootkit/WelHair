@@ -11,7 +11,7 @@
 // ==============================================================================
 
 #import <UIKit/UIKit.h>
-typedef void (^ToggleButtonEventHandler)(BOOL isOn);
+typedef BOOL (^ToggleButtonEventHandler)(BOOL isOn);
 
 @interface ToggleButton : UIButton
 @property (nonatomic) BOOL on;

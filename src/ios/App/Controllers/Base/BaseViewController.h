@@ -30,4 +30,6 @@
 - (void)rightNavItemClick;
 
 - (void)setTopLeftCityName;
+
+- (BOOL)checkLogin;
 @end

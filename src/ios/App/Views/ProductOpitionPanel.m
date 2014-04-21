@@ -56,7 +56,7 @@
         avatorImgView.layer.borderWidth = 1;
         [topView addSubview:avatorImgView];
         
-        nameLbl= [[UILabel alloc] initWithFrame:CGRectMake(MaxX(avatorImgView) + 5, Y(avatorImgView), 100, 30)];
+        nameLbl= [[UILabel alloc] initWithFrame:CGRectMake(MaxX(avatorImgView) + 5, Y(avatorImgView), 250, 30)];
         nameLbl.backgroundColor = [UIColor clearColor];
         nameLbl.textColor = [UIColor blackColor];
         nameLbl.font = [UIFont boldSystemFontOfSize:14];
@@ -211,20 +211,21 @@
                                                                       contentMaxWidth  ,
                                                                       cateTitleSsize.height + categoryMargin)];
     cateTitleLbl.text = category.title;
-    cateTitleLbl.font = [UIFont systemFontOfSize:14];
+    cateTitleLbl.font = [UIFont systemFontOfSize:16];
     cateTitleLbl.textAlignment = TextAlignmentLeft;
+    cateTitleLbl.backgroundColor = [UIColor clearColor];
     [scrollView addSubview:cateTitleLbl];
     UIView *liner = [[UIView alloc] initWithFrame:CGRectMake(categoryMargin, MaxY(cateTitleLbl), contentMaxWidth, 1)];
-    liner.backgroundColor = [UIColor grayColor];
+    liner.backgroundColor = [UIColor lightGrayColor];
     [scrollView addSubview:liner];
     offsetY = MaxY(liner);
     for (OpitionItem *item in category.opitionItems) {
         CGSize itemTitleSsize = [item.title sizeWithFont:font
-                                       constrainedToSize:CGSizeMake(contentMaxWidth , CGFLOAT_MAX)
+                                       constrainedToSize:CGSizeMake(contentMaxWidth - 2*categoryMargin , CGFLOAT_MAX)
                                            lineBreakMode:NSLineBreakByWordWrapping];
-        OpitionButton *opitionBtn = [[OpitionButton alloc] initWithFrame:CGRectMake(categoryMargin,
+        OpitionButton *opitionBtn = [[OpitionButton alloc] initWithFrame:CGRectMake(2 * categoryMargin,
                                                                                     offsetY + categoryMargin,
-                                                                                    contentMaxWidth,
+                                                                                    contentMaxWidth - 2*categoryMargin,
                                                                                     itemTitleSsize.height + 2*categoryMargin)];
         [opitionBtn setTitle:item.title forState:UIControlStateNormal];
         opitionBtn.opitionItem = item;

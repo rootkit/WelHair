@@ -14,7 +14,8 @@
 #import "City.h"
 #import "CityManager.h"
 #import "BaiduMapHelper.h"
-
+#import "UserManager.h"
+#import "LoginViewController.h"
 @interface BaseViewController ()
 {
     BOOL isAppearanceSetup;
@@ -209,5 +210,18 @@
     [negativeSpacer setWidth:-navItemMargin];
     self.navigationItem.leftBarButtonItems = [NSArray arrayWithObjects:negativeSpacer, self.navigationItem.leftBarButtonItem, nil];
 
+}
+
+- (BOOL)checkLogin
+{
+    if(![UserManager SharedInstance].userLogined)
+    {
+        [self.navigationController presentViewController:[[UINavigationController alloc] initWithRootViewController:[LoginViewController new]]
+                                                animated:YES
+                                              completion:nil];
+        return NO;
+    }else{
+        return YES;
+    }
 }
 @end

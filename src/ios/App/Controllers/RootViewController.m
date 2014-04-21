@@ -16,6 +16,7 @@
 #import "ProductsViewController.h"
 #import "GroupsViewController.h"
 #import "UserViewController.h"
+#import "LoginViewController.h"
 #import <FontAwesomeKit.h>
 
 @interface RootViewController ()<UINavigationControllerDelegate>
@@ -32,6 +33,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showLoginView) name:NOTIFICATION_SHOW_LOGIN_VIEW object:nil];
     WorksViewController *worksVc = [WorksViewController new];
     UINavigationController *workNav = [[UINavigationController alloc] initWithRootViewController:worksVc];
     workNav.delegate = self;
@@ -65,6 +67,12 @@
                    tabSelectedImages:tabSelectedImages];
 }
 
+- (void)showLoginView
+{
+    [self.navigationController presentViewController:[[UINavigationController alloc] initWithRootViewController:[LoginViewController new]]
+                                            animated:YES
+                                          completion:nil];
+}
 -(NSUInteger)supportedInterfaceOrientations {
     return UIInterfaceOrientationPortrait;
 }
