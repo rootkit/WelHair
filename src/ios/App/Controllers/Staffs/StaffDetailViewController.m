@@ -110,20 +110,6 @@ static const float profileViewHeight = 90;
     headerView_.backgroundColor = [UIColor clearColor];
     [self.scrollView addSubview:headerView_];
     
-    FAKIcon *foIconOn = [FAKIonIcons personIconWithSize:NAV_BAR_ICON_SIZE];
-    [foIconOn addAttribute:NSForegroundColorAttributeName value:[UIColor redColor]];
-    UIImage *foImgOn =[foIconOn imageWithSize:CGSizeMake(NAV_BAR_ICON_SIZE, NAV_BAR_ICON_SIZE)];
-    
-    FAKIcon *foIconOff = [FAKIonIcons personAddIconWithSize:NAV_BAR_ICON_SIZE];
-    [foIconOff addAttribute:NSForegroundColorAttributeName value:[UIColor whiteColor]];
-    UIImage *foImgOff =[foIconOff imageWithSize:CGSizeMake(NAV_BAR_ICON_SIZE, NAV_BAR_ICON_SIZE)];
-    self.foBtn = [[ToggleButton alloc] initWithFrame:CGRectMake(260, 50 , 25, 25)];
-    __weak StaffDetailViewController *selfDelegate = self;
-    [self.foBtn setToggleButtonOnImage:foImgOn offImg:foImgOff toggleEventHandler:^(BOOL isOn){
-        [selfDelegate foClick:isOn];
-    }];
-    [self.scrollView addSubview:self.foBtn];
-    
 #pragma topbar
     self.addressView = [[UIView alloc] initWithFrame:CGRectMake(0, profileViewHeight, WIDTH(headerView_), addressViewHeight)];
     [headerView_ addSubview:self.addressView];
@@ -139,33 +125,50 @@ static const float profileViewHeight = 90;
     self.avatorImgView.backgroundColor = [UIColor colorWithHexString:@"eeeeee"];
     [headerView_ addSubview:self.avatorImgView];
     
-    self.nameLbl = [[UILabel alloc] initWithFrame:CGRectMake(70 + 5, 0, WIDTH(self.addressView) - 10 - MaxX(self.avatorImgView), 20)];
+    self.nameLbl = [[UILabel alloc] initWithFrame:CGRectMake(70 + 5, 0, WIDTH(self.addressView) - 10 - MaxX(self.avatorImgView)-60, 20)];
     self.nameLbl.backgroundColor = [UIColor clearColor];
     self.nameLbl.textColor = [UIColor blackColor];
     self.nameLbl.font = [UIFont boldSystemFontOfSize:14];
     self.nameLbl.textAlignment = TextAlignmentLeft;
     [self.addressView addSubview:self.nameLbl];
 
-    self.groupNameLbl = [[UILabel alloc] initWithFrame:CGRectMake(X(self.nameLbl), MaxY(self.nameLbl), WIDTH(self.addressView) - 10 - MaxX(self.avatorImgView) - 100, 20)];
+    self.groupNameLbl = [[UILabel alloc] initWithFrame:CGRectMake(X(self.nameLbl), MaxY(self.nameLbl), WIDTH(self.addressView) - 10 - MaxX(self.avatorImgView) - 80, 20)];
     self.groupNameLbl.backgroundColor = [UIColor clearColor];
     self.groupNameLbl.textColor = [UIColor grayColor];
     self.groupNameLbl.font = [UIFont systemFontOfSize:12];
     self.groupNameLbl.textAlignment = TextAlignmentLeft;
     [self.addressView addSubview:self.groupNameLbl];
 
-    FAKIcon *locationIcon = [FAKIonIcons locationIconWithSize:20];
-    [locationIcon addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithHexString:@"000000"]];
-    UIImageView *locationImg = [[UIImageView alloc] initWithFrame:CGRectMake(MaxX(self.groupNameLbl), Y(self.self.groupNameLbl), 20, 20)];
-    locationImg.image = [locationIcon imageWithSize:CGSizeMake(20, 20)];
+    float heartIconSize = 30;
+    FAKIcon *heartIconOn = [FAKIonIcons ios7HeartIconWithSize:heartIconSize];
+    [heartIconOn addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithHexString:@"e43a3d"]];
+    FAKIcon *heartIconOff = [FAKIonIcons ios7HeartOutlineIconWithSize:heartIconSize];
+    [heartIconOff addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithHexString:@"e43a3d"]];
+    self.foBtn = [ToggleButton buttonWithType:UIButtonTypeCustom];
+    __weak StaffDetailViewController *selfDelegate = self;
+    [self.foBtn setToggleButtonOnImage:[heartIconOn imageWithSize:CGSizeMake(heartIconSize, heartIconSize)]
+                                offImg:[heartIconOff imageWithSize:CGSizeMake(heartIconSize, heartIconSize)]
+                    toggleEventHandler:^(BOOL isOn){
+                        [selfDelegate foClick:isOn];
+                    }];
+    self.foBtn.frame = CGRectMake(MaxX(self.nameLbl), 0, heartIconSize, heartIconSize);
+    [self.addressView addSubview:self.foBtn];
+    
+    FAKIcon *locationIcon = [FAKIonIcons locationIconWithSize:15];
+    [locationIcon addAttribute:NSForegroundColorAttributeName value:[UIColor lightGrayColor]];
+    UIImageView *locationImg = [[UIImageView alloc] initWithFrame:CGRectMake(MaxX(self.groupNameLbl), Y(self.groupNameLbl)+10,20,20)];
+    locationImg.image = [locationIcon imageWithSize:CGSizeMake(15, 15)];
     [self.addressView addSubview:locationImg];
 
-    self.distanceLbl = [[UILabel alloc] initWithFrame:CGRectMake(MaxX(locationImg) + 2, Y(locationImg),70,20)];
+    self.distanceLbl = [[UILabel alloc] initWithFrame:CGRectMake(MaxX(locationImg), Y(locationImg),60,20)];
     self.distanceLbl.backgroundColor = [UIColor clearColor];
     self.distanceLbl.textColor = [UIColor grayColor];
     self.distanceLbl.font = [UIFont systemFontOfSize:12];
     self.distanceLbl.textAlignment = TextAlignmentLeft;
     [self.addressView addSubview:self.distanceLbl];
 
+  
+    
     [self getStaffDetail];
 }
 
