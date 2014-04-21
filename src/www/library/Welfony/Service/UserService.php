@@ -115,7 +115,7 @@ class UserService
                 );
                 UserRepository::getInstance()->update($user['UserId'], $smData);
             }
-            $user['Role'] = UserRole::Client;
+            $user['Role'] = $user['Role'] == UserRole::Admin ? UserRole::Admin : UserRole::Client;
             $user['IsApproved'] = 1;
         }
 
