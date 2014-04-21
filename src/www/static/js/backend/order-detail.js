@@ -113,5 +113,5 @@ $(function() {
         });
     });
    
-   
+    WF.initAreaSelector();
 });

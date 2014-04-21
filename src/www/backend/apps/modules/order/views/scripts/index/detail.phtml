@@ -304,7 +304,7 @@ use \Welfony\Utility\Util;
                     <button type="button" class="u-btn" id="to_deliver"><span>发货</span></button>
                     <button type="button" class="u-btn <?php echo $this->orderInfo['PayStatus'] == '0' ? ' u-btn-disabled ':''; ?>" id="to_refundment"  <?php echo $this->orderInfo['PayStatus'] == '0' ? ' disabled="disabled" ':''; ?>><span>退款</span></button>
                     <button type="button" class="u-btn" onclick="complete(6,5)"><span>完成</span></button>
-                    <button type="button" class="u-btn" onclick="complete(6,4)"><span>作废</span></button>
+                    <button type="button" class="u-btn"><span>作废</span></button>
                 </div>
             </div>
         </fieldset>
@@ -330,7 +330,7 @@ use \Welfony\Utility\Util;
                     <select alt="请选择支付方式" pattern="required" id="pay_payment_id">
                         <?php foreach($this->payments as $payment): ?>
                             <?php if(!$payment['Status']):?>
-                            <option selected="" value="<?php echo $payment['PaymentId'] ?>"><?php echo $payment['Name'];?></option>
+                            <option <?php echo $payment['PaymentId'] == $this->orderInfo['PayType'] ? ' selected ': ''; ?> value="<?php echo $payment['PaymentId'] ?>"><?php echo $payment['Name'];?></option>
                             <?php endif;?>
                         <?php endforeach; ?>
                     </select>
@@ -369,45 +369,59 @@ use \Welfony\Utility\Util;
             <col>
             </colgroup><tbody>
                 <tr>
-                    <th>订单号:</th><td align="left">20140420084016907083</td>
-                    <th>下单时间:</th><td align="left">2014-04-20 08:40:16</td>
+                    <th>订单号:</th><td align="left"><?php echo $this->orderInfo['OrderNo']; ?></td>
+                    <th>下单时间:</th><td align="left"><?php echo $this->orderInfo['CreateTime']; ?></td>
                 </tr>
                 <tr>
                     <th>配送方式:</th>
                     <td align="left">
                         <select alt="请选择配送方式" pattern="required" name="delivery_type">
-                                                <option selected="" value="1">快递</option>
-                                                <option value="2">test</option>
-                                                <option value="3">test222</option>
-                                                <option value="4">sadfasdf</option>
-                                                </select>
+                            <?php foreach($this->deliveries as $delivery): ?>
+                            <option  <?php echo $delivery['DeliveryId'] == $this->orderInfo['Distribution']? ' selected ':''; ?> value="<?php echo $delivery['DeliveryId']; ?>"><?php echo $delivery['Name']; ?></option>
+                            <?php endforeach; ?>
+                        </select>
                     </td>
-                    <th>配送费用:</th><td align="left">20.00</td>
+                    <th>配送费用:</th><td align="left"><?php echo $this->orderInfo['PayableFreight']; ?></td>
                 </tr>
                 <tr>
                     <th>配送单号:</th><td align="left" colspan="3"><input type="text" pattern="required" name="delivery_code" class="small"></td>
                 </tr>
                 <tr>
-                    <th>是否保价:</th><td align="left">是</td><th>保价费用:</th><td align="left">￥5.00</td>
+                    <th>是否保价:</th><td align="left"><?php echo $this->orderInfo['IfInsured']? '是':'否'; ?></td><th>保价费用:</th><td align="left">￥<?php echo $this->orderInfo['Insured']; ?></td>
                 </tr>
                 <tr>
-                    <th>收货人姓名:</th><td align="left"><input type="text" pattern="required" value="sss" name="name" class="small"></td>
-                    <th>电话:</th><td align="left"><input type="text" empty="" pattern="phone" value="" name="telphone" class="small"></td>
+                    <th>收货人姓名:</th><td align="left"><input type="text" pattern="required" value="<?php echo $this->orderInfo['AcceptName']; ?>" name="name" class="small"></td>
+                    <th>电话:</th><td align="left"><input type="text" empty="" pattern="phone" value="" name="telphone" class="small"><?php echo $this->orderInfo['Telphone']; ?></td>
                 </tr>
                 <tr>
-                    <th>手机:</th><td align="left"><input type="text" pattern="mobi" value="13706411579" name="mobile" class="small"></td>
-                    <th>邮政编码:</th><td align="left"><input type="text" empty="" pattern="zip" value="" class="small" name="postcode"></td>
+                    <th>手机:</th><td align="left"><input type="text" pattern="mobi" value="13706411579" name="mobile" class="small"><?php echo $this->orderInfo['Mobile']; ?></td>
+                    <th>邮政编码:</th><td align="left"><input type="text" empty="" pattern="zip" value="" class="small" name="postcode"><?php echo $this->orderInfo['Postcode']; ?></td>
                 </tr>
                 <tr>
                     <th>地区:</th>
                     <td align="left" colspan="3">
-                        <select onchange="areaChangeCallback(this);" child="city,area" name="province"><option value="">请选择</option><option value="110000">北京市</option><option selected="selected" value="430000">湖南省</option><option value="440000">广东省</option><option value="450000">广西壮族自治区</option><option value="460000">海南省</option><option value="500000">重庆市</option><option value="510000">四川省</option><option value="520000">贵州省</option><option value="530000">云南省</option><option value="540000">西藏自治区</option><option value="610000">陕西省</option><option value="620000">甘肃省</option><option value="630000">青海省</option><option value="640000">宁夏回族自治区</option><option value="420000">湖北省</option><option value="410000">河南省</option><option value="370000">山东省</option><option value="120000">天津市</option><option value="130000">河北省</option><option value="140000">山西省</option><option value="150000">内蒙古自治区</option><option value="210000">辽宁省</option><option value="220000">吉林省</option><option value="230000">黑龙江省</option><option value="310000">上海市</option><option value="320000">江苏省</option><option value="330000">浙江省</option><option value="340000">安徽省</option><option value="350000">福建省</option><option value="360000">江西省</option><option value="650000">新疆维吾尔自治区</option></select>
-                        <select onchange="areaChangeCallback(this);" parent="province" child="area" name="city"><option value="">请选择</option><option value="430100">长沙市</option><option selected="selected" value="431300">娄底市</option><option value="431200">怀化市</option><option value="431100">永州市</option><option value="431000">郴州市</option><option value="430900">益阳市</option><option value="430800">张家界市</option><option value="430700">常德市</option><option value="430600">岳阳市</option><option value="430500">邵阳市</option><option value="430400">衡阳市</option><option value="430300">湘潭市</option><option value="430200">株洲市</option><option value="433100">湘西土家族苗族自治州</option></select>
-                        <select pattern="required" parent="city" name="area"><option value="">请选择</option><option selected="selected" value="431301">市辖区</option><option value="431302">娄星区</option><option value="431321">双峰县</option><option value="431322">新化县</option><option value="431381">冷水江市</option><option value="431382">涟源市</option></select>
+                        <select id="sel-province" name="province" class="u-sel">
+                                <option value="">请选择</option>
+                                <?php foreach ($this->provinceList as $province): ?>
+                                <option value="<?php echo $province['AreaId']; ?>"<?php echo $this->orderInfo['Province'] == $province['AreaId'] ? ' selected' : ''; ?>><?php echo $province['Name']; ?></option>
+                                <?php endforeach; ?>
+                            </select>
+                            <select id="sel-city" name="city" class="u-sel">
+                                <option value="">请选择</option>
+                                <?php foreach ($this->cityList as $city): ?>
+                                <option value="<?php echo $city['AreaId']; ?>"<?php echo $this->orderInfo['City'] == $city['AreaId'] ? ' selected' : ''; ?>><?php echo $city['Name']; ?></option>
+                                <?php endforeach; ?>
+                            </select>
+                            <select id="sel-district" name="district" class="u-sel" datatype="*">
+                                <option value="">请选择</option>
+                                <?php foreach ($this->districtList as $district): ?>
+                                <option value="<?php echo $district['AreaId']; ?>"<?php echo $this->orderInfo['Area'] == $district['AreaId'] ? ' selected' : ''; ?>><?php echo $district['Name']; ?></option>
+                                <?php endforeach; ?>
+                            </select>
                     </td>
                 </tr>
                 <tr>
-                    <th>地址:</th><td align="left" colspan="3"><input type="text" pattern="required" size="50" value="sss" name="address" class="normal"></td>
+                    <th>地址:</th><td align="left" colspan="3"><input type="text" pattern="required" size="50" value="sss" name="address" class="normal"><?php echo $this->orderInfo['Address']; ?></td>
                 </tr>
                 <tr>
                     <th>发货单备注:</th><td align="left" colspan="3"><textarea cols="85" rows="3" name="note"></textarea></td>
@@ -415,22 +429,24 @@ use \Welfony\Utility\Util;
             </tbody>
         </table>
         <table width="100%" style="margin:10px auto" class="m-table">
-            <colgroup><col>
-            <col width="80px">
-            <col width="80px">
-            <col width="130px">
+
             </colgroup><thead>
-                <tr><th>商品名称</th><th>商品价格</th><th>购买数量</th><th>商品数量</th></tr>
+                <tr><th>商品名称</th><th>商品价格</th><th>购买数量</th></tr>
             </thead>
             <tbody>
-                                <tr>
+                <?php foreach( $this->ordergoods as $ordergoods): ?>
+                <tr>
                     <td>
-                                                飘柔洗发液 &nbsp;&nbsp; 容量:250ML ,                   </td>
-                    <td>21.00</td>
-                    <td>1</td>
-                    <td>1</td>
+                        <?php 
+                            $goodName = json_decode($ordergoods['GoodsArray'], true);
+                            echo $goodName["Name"]. '&nbsp;&nbsp;'.$goodName['Value'];
+                        ?>                
+                    </td>
+                    <td><?php   echo $ordergoods['RealPrice'] ?></td>
+                    <td><?php   echo $ordergoods['GoodsNums'] ?></td>
                 </tr>
-                            </tbody>
+                <?php endforeach;?>
+            </tbody>
         </table>
 </div>
 
