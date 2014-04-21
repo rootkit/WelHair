@@ -400,24 +400,25 @@ use \Welfony\Utility\Util;
                 <tr>
                     <th>地区:</th>
                     <td align="left" colspan="3">
+                        
                         <select id="sel-province" name="province" class="u-sel">
-                                <option value="">请选择</option>
-                                <?php foreach ($this->provinceList as $province): ?>
-                                <option value="<?php echo $province['AreaId']; ?>"<?php echo $this->orderInfo['Province'] == $province['AreaId'] ? ' selected' : ''; ?>><?php echo $province['Name']; ?></option>
-                                <?php endforeach; ?>
-                            </select>
-                            <select id="sel-city" name="city" class="u-sel">
-                                <option value="">请选择</option>
-                                <?php foreach ($this->cityList as $city): ?>
-                                <option value="<?php echo $city['AreaId']; ?>"<?php echo $this->orderInfo['City'] == $city['AreaId'] ? ' selected' : ''; ?>><?php echo $city['Name']; ?></option>
-                                <?php endforeach; ?>
-                            </select>
-                            <select id="sel-district" name="district" class="u-sel" datatype="*">
-                                <option value="">请选择</option>
-                                <?php foreach ($this->districtList as $district): ?>
-                                <option value="<?php echo $district['AreaId']; ?>"<?php echo $this->orderInfo['Area'] == $district['AreaId'] ? ' selected' : ''; ?>><?php echo $district['Name']; ?></option>
-                                <?php endforeach; ?>
-                            </select>
+                            <option value="">请选择</option>
+                            <?php foreach ($this->provinceList as $province): ?>
+                            <option value="<?php echo $province['AreaId']; ?>"<?php echo $this->orderInfo['Province'] == $province['AreaId'] ? ' selected="selected" ' : ''; ?>><?php echo $province['Name']; ?></option>
+                            <?php endforeach; ?>
+                        </select>
+                        <select id="sel-city" name="city" class="u-sel">
+                            <option value="">请选择</option>
+                            <?php foreach ($this->cityList as $city): ?>
+                            <option value="<?php echo $city['AreaId']; ?>"<?php echo $this->orderInfo['City'] == $city['AreaId'] ? ' selected="selected" ' : ''; ?>><?php echo $city['Name']; ?></option>
+                            <?php endforeach; ?>
+                        </select>
+                        <select id="sel-district" name="district" class="u-sel" datatype="*">
+                            <option value="">请选择</option>
+                            <?php foreach ($this->districtList as $district): ?>
+                            <option value="<?php echo $district['AreaId']; ?>"<?php echo $this->orderInfo['Area'] == $district['AreaId'] ? ' selected="selected" ' : ''; ?>><?php echo $district['Name']; ?></option>
+                            <?php endforeach; ?>
+                        </select>
                     </td>
                 </tr>
                 <tr>

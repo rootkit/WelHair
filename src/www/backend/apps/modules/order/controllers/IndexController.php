@@ -259,8 +259,8 @@ class Order_IndexController extends AbstractAdminController
             $this->view->ordergoods = OrderGoodsService::listAllOrderGoodsByOrder($orderId);
             $order = OrderService::getOrderById($orderId);
             $this->view->provinceList = AreaService::listAreaByParent(0);
-            $this->view->cityList = intval($order['Province']) > 0 ? AreaService::listAreaByParent($order['Province']) : array();
-            $this->view->districtList = intval($order['City']) > 0 ? AreaService::listAreaByParent($order['City']) : array();
+            $this->view->cityList = $order['Province'] ? AreaService::listAreaByParent($order['Province']) : array();
+            $this->view->districtList = $order['City']? AreaService::listAreaByParent($order['City']) : array();
 
             if( $order['UserId'])
             {
