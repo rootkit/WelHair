@@ -51,9 +51,10 @@
 }
 
 - (void)toggle{
-    self.on = !self.on;
-    [self setbgImg];
-    self.toggleHandler(self.on);
+    if(self.toggleHandler(!self.on)){
+        self.on = !self.on;
+        [self setbgImg];
+    }
 }
 
 - (void)setbgImg

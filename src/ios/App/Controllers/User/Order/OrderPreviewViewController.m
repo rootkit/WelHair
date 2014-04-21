@@ -187,6 +187,10 @@
 
 - (void)submitClick:(id)sender
 {
+    if(![self checkLogin]){
+        return;
+    }
+    
     if(self.order.address){
         [SVProgressHUD showSuccessWithStatus:@"去支付宝支付" duration:1];
     }else

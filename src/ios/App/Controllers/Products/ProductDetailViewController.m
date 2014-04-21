@@ -200,7 +200,7 @@
     [self.heartBtn setToggleButtonOnImage:[heartIconOn imageWithSize:CGSizeMake(25, 25)]
                                    offImg:[heartIconOff imageWithSize:CGSizeMake(25, 25)]
                        toggleEventHandler:^(BOOL isOn) {
-                           [weakSelf favClick:isOn];
+                           return [weakSelf favClick:isOn];
                        }];
     [self.scrollView addSubview:self.heartBtn];
     
@@ -264,8 +264,11 @@
 }
 
 
-- (void)favClick:(BOOL)markFav
+- (BOOL)favClick:(BOOL)markFav
 {
+    if(![self checkLogin]){
+        return NO;
+    }
     NSMutableDictionary *reqData = [[NSMutableDictionary alloc] initWithCapacity:1];
     [reqData setObject:[NSString stringWithFormat:@"%d", [[UserManager SharedInstance] userLogined].id] forKey:@"CreatedBy"];
     [reqData setObject:[NSString stringWithFormat:@"%d", markFav ? 1 : 0] forKey:@"IsLike"];
@@ -278,6 +281,7 @@
     [request setDidFinishSelector:@selector(addLikeFinish:)];
     [request setDidFailSelector:@selector(addLikeFail:)];
     [request startAsynchronous];
+    return YES;
 }
 
 - (void)addLikeFinish:(ASIHTTPRequest *)request

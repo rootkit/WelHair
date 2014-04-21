@@ -103,6 +103,7 @@
 #define NOTIFICATION_REFRESH_APPOINTMENT @"Notification_RefreshAppintmentList"
 #define NOTIFICATION_REFRESH_COMMENTLIST @"Notification_RefreshCommentList"
 #define NOTIFICATION_REFRESH_ADDRESSLIST @"Notification_RefreshAddressList"
+#define NOTIFICATION_SHOW_LOGIN_VIEW  @"Notification_ShowLoginView"
 
 #define HAIR_STYLE_FACE_CICLE   0
 #define HAIR_STYLE_FACE_OVAL    1

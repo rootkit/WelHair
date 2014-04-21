@@ -59,20 +59,15 @@
 
 - (void) rightNavItemClick
 {
-    if (![UserManager SharedInstance].userLogined) {
-        [self.navigationController presentViewController:[[UINavigationController alloc] initWithRootViewController:[LoginViewController new]]
-                                                animated:YES
-                                              completion:nil];
-        return;
+    if([self checkLogin]){
+        CommentComposorViewController *commentComposorVc = [[CommentComposorViewController alloc] init];;
+        commentComposorVc.hidesBottomBarWhenPushed = YES;
+        commentComposorVc.userId = self.userId;
+        commentComposorVc.companyId = self.companyId;
+        commentComposorVc.workId = self.workId;
+        commentComposorVc.goodsId = self.goodsId;
+        [self.navigationController pushViewController:commentComposorVc animated:YES];
     }
-
-    CommentComposorViewController *commentComposorVc = [[CommentComposorViewController alloc] init];;
-    commentComposorVc.hidesBottomBarWhenPushed = YES;
-    commentComposorVc.userId = self.userId;
-    commentComposorVc.companyId = self.companyId;
-    commentComposorVc.workId = self.workId;
-    commentComposorVc.goodsId = self.goodsId;
-    [self.navigationController pushViewController:commentComposorVc animated:YES];
 }
 
 - (void)viewDidLoad
