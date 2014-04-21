@@ -282,7 +282,6 @@
 		467F0F2518CC8FFB009FFE08 /* CommentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 467F0F2418CC8FFB009FFE08 /* CommentCell.m */; };
 		467F0F2B18CC95CA009FFE08 /* JOLImageSlide.m in Sources */ = {isa = PBXBuildFile; fileRef = 467F0F2818CC95CA009FFE08 /* JOLImageSlide.m */; };
 		467F0F2C18CC95CA009FFE08 /* JOLImageSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = 467F0F2A18CC95CA009FFE08 /* JOLImageSlider.m */; };
-		4689FA3B1905037700BE094A /* WFTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4689FA3A1905037700BE094A /* WFTableView.m */; };
 		468BD8A818F243EB00B11209 /* Order.m in Sources */ = {isa = PBXBuildFile; fileRef = 468BD8A718F243EB00B11209 /* Order.m */; };
 		4693AAA718D8426100104F01 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4693AAA618D8426100104F01 /* Images.xcassets */; };
 		46A46FE518BE21160057F579 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46A46FE418BE21160057F579 /* CoreLocation.framework */; };
@@ -845,8 +844,6 @@
 		467F0F2818CC95CA009FFE08 /* JOLImageSlide.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JOLImageSlide.m; sourceTree = "<group>"; };
 		467F0F2918CC95CA009FFE08 /* JOLImageSlider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JOLImageSlider.h; sourceTree = "<group>"; };
 		467F0F2A18CC95CA009FFE08 /* JOLImageSlider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JOLImageSlider.m; sourceTree = "<group>"; };
-		4689FA391905037700BE094A /* WFTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WFTableView.h; sourceTree = "<group>"; };
-		4689FA3A1905037700BE094A /* WFTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WFTableView.m; sourceTree = "<group>"; };
 		468BD8A618F243EB00B11209 /* Order.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Order.h; sourceTree = "<group>"; };
 		468BD8A718F243EB00B11209 /* Order.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Order.m; sourceTree = "<group>"; };
 		4693AAA618D8426100104F01 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
@@ -1346,8 +1343,6 @@
 				467F0ED318CB4FCF009FFE08 /* UIKit */,
 				18A912EA18BB2826006B9A04 /* WelKit.h */,
 				18A912EB18BB2826006B9A04 /* WelKitMacros.h */,
-				4689FA391905037700BE094A /* WFTableView.h */,
-				4689FA3A1905037700BE094A /* WFTableView.m */,
 			);
 			path = WelKit;
 			sourceTree = "<group>";
@@ -2597,7 +2592,6 @@
 				1882D2731901314200D59861 /* FeedbackViewController.m in Sources */,
 				4673BB6118D2ED4D000F64DE /* AppointmentsViewController.m in Sources */,
 				46BCD26918BC797B005C4BD6 /* GroupDetailViewController.m in Sources */,
-				4689FA3B1905037700BE094A /* WFTableView.m in Sources */,
 				4621AAE118EE9D3A00B8E18D /* Service.m in Sources */,
 				4631CF0D18E325C300F39814 /* OrderCell.m in Sources */,
 				18A3E61918DC11240080DC0B /* RequestUtil.m in Sources */,
