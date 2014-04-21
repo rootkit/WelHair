@@ -151,14 +151,13 @@ static float CenterSquareSize = 200;
     if (result) {
         // The coded result as a string. The raw data can be accessed with
         // result.rawBytes and result.length.
-        NSString* contents = result.text;
         isCaptured = YES;
         [self playSound];
         [self cancel];
         [self.delegate didCaptureText:result.text welQRReaderViewController:self];
         
         // The barcode format, such as a QR code or UPC-A
-        ZXBarcodeFormat format = result.barcodeFormat;
+//        ZXBarcodeFormat format = result.barcodeFormat;
     } else {
         [SVProgressHUD showErrorWithStatus:@"未识别的二维码" duration:1];
         [self cancel];

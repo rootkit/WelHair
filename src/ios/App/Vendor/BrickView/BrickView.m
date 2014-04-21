@@ -170,6 +170,8 @@
 @property (nonatomic, strong) NSMutableArray *heightIndexes;
 @property (nonatomic, strong) NSMutableArray *visibleCells;
 @property (nonatomic, strong) NSMutableDictionary *reusableCells;
+
+@property (nonatomic, strong) UIView *emptyView;
 @end
 
 @implementation BrickView
@@ -205,6 +207,19 @@
     self.alwaysBounceVertical = YES;
     [super setDelegate:self];
     _reusableCells = [@{} mutableCopy];
+        
+    self.emptyView = [[UIView alloc] initWithFrame:self.bounds];
+    self.emptyView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+    UILabel *emptyLbl = [[UILabel alloc] initWithFrame:self.emptyView.bounds];
+    emptyLbl.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+    emptyLbl.font = [UIFont systemFontOfSize:16];
+    emptyLbl.textAlignment = TextAlignmentCenter;
+    emptyLbl.backgroundColor = [UIColor clearColor];
+    emptyLbl.textColor = [UIColor lightGrayColor];
+    emptyLbl.text = @"没有数据";
+    [self.emptyView addSubview:emptyLbl];
+    self.emptyView.hidden = YES;
+    [self addSubview:self.emptyView];
 }
 
 #pragma mark -
@@ -217,6 +232,18 @@
     }
     self.visibleCells = [@[] mutableCopy];
     [self updateData];
+}
+
+- (void)layoutSubviews
+{
+    [super layoutSubviews];
+    if([self.dataSource numberOfCellsInBrickView:self] == 0){
+        [self bringSubviewToFront:self.emptyView];
+        self.emptyView.hidden = NO;
+    }else{
+        self.emptyView.hidden = YES;
+    }
+
 }
 
 - (void)updateData
