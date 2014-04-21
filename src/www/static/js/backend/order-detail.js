@@ -48,14 +48,36 @@ $(function() {
                     [
                         {
                             text: "付款",
-                            class:"",
+                            class:"u-btn",
                             click: function()
                             {
+                                var popin = $(this);
+                                $.ajax({
+                                            type: 'post',
+                                            dataType: 'json',
+                                            url:  globalSetting.baseUrl + '/order/index/payorder',
+                                            data: {
+                                                'order_id':$('#order_id').val(),
+                                                'note':  $('#paynote').val(),
+                                                'order_no':$('#order_no').val(),
+                                                'orderamount':$('#to_pay_amount').val(),
+                                                'payamount':$('#pay_amount').val(),
+                                                'paymentid': $('#pay_payment_id').val(),
+                                                'userid':$('#order_user').val()
+                                             },
+                                            success: function(data){
+                                                popin.dialog('close');
+                                            },
+                                            error:function()
+                                            {
+
+                                            }
+                                });
                             }
                          },
                            {
                                 text : "关闭",
-                                class: "",
+                                class: "u-btn",
                                 click: function() {
                                     $(this).dialog('close');
                                 }
@@ -74,14 +96,14 @@ $(function() {
                     [
                         {
                             text: "发货",
-                            class:"",
+                            class:"u-btn",
                             click: function()
                             {
                             }
                          },
                            {
                                 text : "关闭",
-                                class: "",
+                                class: "u-btn",
                                 click: function() {
                                     $(this).dialog('close');
                                 }

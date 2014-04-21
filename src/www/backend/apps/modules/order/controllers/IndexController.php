@@ -254,6 +254,8 @@ class Order_IndexController extends AbstractAdminController
 
         if ($orderId > 0) {
      
+            $this->view->deliveries = DeliveryService::listAllDelivery();
+            $this->view->payments = PaymentService::listActivePayment();
             $this->view->ordergoods = OrderGoodsService::listAllOrderGoodsByOrder($orderId);
             $order = OrderService::getOrderById($orderId);
             $this->view->cityList = intval($order['Province']) > 0 ? AreaService::listAreaByParent($order['Province']) : array();
@@ -319,6 +321,49 @@ class Order_IndexController extends AbstractAdminController
         if ($this->_request->isPost()) {
 
             $result = OrderService::updateOrder($orderId, $order);
+            $this->_helper->json->sendJson($result);
+        }
+    }
+
+    public function payorderAction()
+    {
+        $this->_helper->viewRenderer->setNoRender(true);
+        $this->_helper->layout->disableLayout();
+
+        $currentUser = $this->getCurrentUser();
+        if( !$currentUser )
+        {
+            $this->_helper->json->sendJson(array('success' => false, 'message' => 'Need login' ));
+            return;
+        }
+
+        $orderId =  intval($this->_request->getParam('order_id')) ;
+        $orderNo =  $this->_request->getParam('order_no') ;
+        $payNote =  $this->_request->getParam('note') ;
+        $log= array(
+                'OrderId' => $orderId,
+                'User' => $currentUser["Username"],
+                'Action'=>'付款',
+                'AddTime'=>date('Y-m-d H:i:s'),
+                'Result'=> '成功',
+                'Note' => '订单【'.$orderNo.'】付款'.$this->_request->getParam('payamount')
+            );
+        $doc = array(
+                'OrderId' => $orderId,
+                'UserId' => $this->_request->getParam('userid'),
+                'Amount' => $this->_request->getParam('orderamount'),
+                'CreateTime'=>date('Y-m-d H:i:s'),
+                'PaymentId'=> $this->_request->getParam('paymentid'),
+                'AdminId' => $currentUser["UserId"],
+                'PayStatus'=> 1,
+                'Note' => $payNote
+            );
+
+        $order = array('Status'=> 2, 'PayStatus'=> 1);
+
+        if ($this->_request->isPost()) {
+
+            $result = OrderService::payOrder($orderId, $order, $log, $doc);
             $this->_helper->json->sendJson($result);
         }
     }

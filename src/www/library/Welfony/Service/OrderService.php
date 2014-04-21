@@ -127,4 +127,23 @@ class OrderService
         }
     }
 
+    public static function payOrder($orderId, $data, $log, $doc)
+    {
+        $result = array('success' => false, 'message' => '');
+        $r = OrderRepository::getInstance()->payOrder($orderId,$data, $log, $doc);
+        if ($r) {
+
+            $result['success'] = true;
+            $result['message'] = '付款成功！';
+            //$result['order'] = $data;
+
+            return $result;
+        } else {
+            $result['message'] = '付款失败！';
+
+            return $result;
+        }
+    }
+
+
 }

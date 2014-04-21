@@ -425,6 +425,12 @@ button.u-btn-sm {
     border-radius: 0;
 }
 
+.u-btn-disabled
+{
+   border:0px !important;
+   background: #EEEEEE !important;
+}
+
 /* 简易数据表格-格边框 */
 .m-table {
     width: 100%;

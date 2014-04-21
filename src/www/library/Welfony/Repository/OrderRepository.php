@@ -164,13 +164,7 @@ class OrderRepository extends AbstractRepository
 
     public function delete($orderId)
     {
-        try {
-            return $this->conn->executeUpdate(" UPDATE `Order` SET IsDeleted = 1 WHERE OrderId  = $orderId; ");
-        } catch (\Exception $e) {
-            $this->logger->log($e, \Zend_Log::ERR);
-
-            return false;
-        }
+         
     }
 
 
@@ -180,6 +174,38 @@ class OrderRepository extends AbstractRepository
         try {
             return $this->conn->update('`Order`', $data, array('OrderId' => $orderId));
         } catch (\Exception $e) {
+            $this->logger->log($e, \Zend_Log::ERR);
+
+            return false;
+        }
+    }
+
+    public function payOrder($orderId, $data, $log, $doc)
+    {
+      
+        $conn = $this->conn;
+        $conn->beginTransaction();
+        try {
+
+            $this->conn->update('`Order`', $data, array('OrderId' => $orderId));
+
+            if ($log) {
+       
+                 $this->conn->insert('OrderLog', $log);
+               
+            }
+            
+            if ($doc) {
+       
+                 $this->conn->insert('CollectionDoc', $doc);
+               
+            }
+
+            $conn->commit();
+
+            return $orderId;
+        } catch (\Exception $e) {
+            $conn->rollback();
             $this->logger->log($e, \Zend_Log::ERR);
 
             return false;
