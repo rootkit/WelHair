@@ -33,6 +33,7 @@ static const float profileViewHeight = 320;
 @property (nonatomic, strong) UIScrollView *scrollView;
 
 @property (nonatomic, strong) NSMutableArray *groupImgs;
+@property (nonatomic, strong) MWPhotoBrowser *groupImagesBrowser;
 
 @property (nonatomic, strong) UIImageView *headerBackgroundView;
 @property (nonatomic, strong) JOLImageSlider *imgSlider;
@@ -164,6 +165,9 @@ static const float profileViewHeight = 320;
     self.avatorImgView = [[UIImageView alloc] initWithFrame:CGRectMake(20, 300, avatorSize, avatorSize)];
     self.avatorImgView.layer.borderColor = [[UIColor whiteColor] CGColor];
     self.avatorImgView.layer.borderWidth = 1;
+    self.avatorImgView.userInteractionEnabled = YES;
+    [self.avatorImgView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(openAvator)]];
+    
     [headerView_ addSubview:self.avatorImgView];
 
     self.groupNameLbl = [[UILabel alloc] initWithFrame:CGRectMake(70 + 5, 0, 200, 40)];
@@ -417,7 +421,7 @@ static const float profileViewHeight = 320;
     self.addressLbl.text = [NSString stringWithFormat:@"la:%f, lo:%f",location.coordinate.latitude, location.coordinate.longitude];
 }
 
-- (void)OpenImageGallery
+- (void)openAvator
 {
     MWPhotoBrowser *browser = [[MWPhotoBrowser alloc] initWithDelegate:self];
     browser.displayActionButton = NO;
@@ -435,29 +439,61 @@ static const float profileViewHeight = 320;
     [self.navigationController presentViewController:nc animated:YES completion:Nil];
 }
 
+- (void)OpenImageGallery
+{
+    self.groupImagesBrowser = [[MWPhotoBrowser alloc] initWithDelegate:self];
+    self.groupImagesBrowser.displayActionButton = NO;
+    self.groupImagesBrowser.displayNavArrows = YES;
+    self.groupImagesBrowser.displaySelectionButtons = NO;
+    self.groupImagesBrowser.alwaysShowControls = NO;
+    self.groupImagesBrowser.wantsFullScreenLayout = YES;
+    self.groupImagesBrowser.zoomPhotosToFill = YES;
+    self.groupImagesBrowser.enableGrid = NO;
+    self.groupImagesBrowser.startOnGrid = NO;
+    [self.groupImagesBrowser setCurrentPhotoIndex:0];
+    
+    UINavigationController *nc = [[UINavigationController alloc] initWithRootViewController:self.groupImagesBrowser];
+    nc.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+    [self.navigationController presentViewController:nc animated:YES completion:Nil];
+}
+
 #pragma mark - MWPhotoBrowserDelegate
 
 - (NSUInteger)numberOfPhotosInPhotoBrowser:(MWPhotoBrowser *)photoBrowser
 {
-    return self.groupImgs.count;
+    if(photoBrowser == self.groupImagesBrowser){
+        return self.groupImgs.count;
+    }else{
+        return 1;
+    }
 }
 
 - (id <MWPhoto>)photoBrowser:(MWPhotoBrowser *)photoBrowser photoAtIndex:(NSUInteger)index
 {
-    if (index < self.groupImgs.count) {
-        return [self.groupImgs objectAtIndex:index];
+    if(photoBrowser == self.groupImagesBrowser){
+        if (index < self.groupImgs.count) {
+            return [self.groupImgs objectAtIndex:index];
+        }
+        return nil;
+    }else{
+        return [MWPhoto photoWithURL:[NSURL URLWithString:self.group.logoUrl]];
     }
-
-    return nil;
 }
 
 - (MWCaptionView *)photoBrowser:(MWPhotoBrowser *)photoBrowser captionViewForPhotoAtIndex:(NSUInteger)index
 {
-    MWPhoto *photo = [self.groupImgs objectAtIndex:index];
-    MWCaptionView *captionView = [[MWCaptionView alloc] initWithPhoto:photo];
-    return captionView ;
-}
+    if(photoBrowser == self.groupImagesBrowser){
+        MWPhoto *photo = [self.groupImgs objectAtIndex:index];
+        MWCaptionView *captionView = [[MWCaptionView alloc] initWithPhoto:photo];
+        return captionView ;
+    }else{
+        MWPhoto *photo = [MWPhoto photoWithURL:[NSURL URLWithString:self.group.logoUrl]];
+        MWCaptionView *captionView = [[MWCaptionView alloc] initWithPhoto:photo];
+        return captionView ;
+    }
 
+
+}
 - (void)photoBrowser:(MWPhotoBrowser *)photoBrowser actionButtonPressedForPhotoAtIndex:(NSUInteger)index
 {
 }
