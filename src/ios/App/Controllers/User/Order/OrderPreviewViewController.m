@@ -42,7 +42,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.order = [FakeDataHelper getFakeOrderList:NO][0];
     self.addressView = [[AddressView alloc] initWithFrame:CGRectMake(15, self.topBarOffset+10, 290, 80)];
     [self.addressView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(pickAddress)]];
     [self.view addSubview:self.addressView];
@@ -114,16 +113,16 @@
     productNameLbl.text = self.order.product.name;
     [detailView addSubview:productNameLbl];
     
-    UILabel *productDescLbl = [[UILabel alloc] initWithFrame:CGRectMake(MaxX(avatorImgView) + 5,
-                                                                  MaxY(productNameLbl),
-                                                                  130,
-                                                                  HEIGHT(avatorImgView)/3)];
-    productDescLbl.font = [UIFont systemFontOfSize:12];
-    productDescLbl.numberOfLines = 1;
-    productDescLbl.backgroundColor = [UIColor clearColor];
-    productDescLbl.textColor = [UIColor lightGrayColor];
-    productDescLbl.text = [self.order selectedSpecStr]; //self.order.product.description;
-    [detailView addSubview:productDescLbl];
+    UILabel *productSpecLbl = [[UILabel alloc] initWithFrame:CGRectMake(MaxX(avatorImgView) + 5,
+                                                                        MaxY(productNameLbl),
+                                                                        130,
+                                                                        HEIGHT(avatorImgView)*1/3)];
+    productSpecLbl.font = [UIFont systemFontOfSize:12];
+    productSpecLbl.numberOfLines = 2;
+    productSpecLbl.backgroundColor = [UIColor clearColor];
+    productSpecLbl.textColor = [UIColor lightGrayColor];
+    productSpecLbl.text = [self.order selectedSpecStr];
+    [detailView addSubview:productSpecLbl];
     
     UILabel *priceLbl = [[UILabel alloc] initWithFrame:CGRectMake(MaxX(productNameLbl) + 5,
                                                                   Y(productNameLbl),
@@ -134,12 +133,12 @@
     priceLbl.backgroundColor = [UIColor clearColor];
     priceLbl.textAlignment = NSTextAlignmentRight;
     priceLbl.textColor = [UIColor colorWithHexString:APP_NAVIGATIONBAR_COLOR];
-    priceLbl.text = [NSString stringWithFormat:@"￥%.2f", self.order.price];
+    priceLbl.text = [NSString stringWithFormat:@"￥%.2f", self.order.singleProductPrice];
     [detailView addSubview:priceLbl];
     
 
-    UILabel *productCountLbl = [[UILabel alloc] initWithFrame:CGRectMake(MaxX(productDescLbl) + 5,
-                                                                         Y(productDescLbl),
+    UILabel *productCountLbl = [[UILabel alloc] initWithFrame:CGRectMake(MaxX(productSpecLbl) + 5,
+                                                                         Y(productSpecLbl),
                                                                          60,
                                                                          HEIGHT(avatorImgView)/3)];
     productCountLbl.font = [UIFont systemFontOfSize:14];

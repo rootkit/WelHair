@@ -43,7 +43,7 @@
 - (NSString *)selectedSpecStr
 {
     NSMutableString *str = [NSMutableString string];
-    for (OpitionItem *item in self.productSelectedSpecs) {
+    for (OpitionItem *item in self.productSelectedSpecs.allValues) {
         [str appendFormat:@"%@,",item.title];
     }
     if(str.length > 0){
