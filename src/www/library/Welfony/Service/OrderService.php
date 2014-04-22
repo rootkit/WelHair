@@ -163,6 +163,24 @@ class OrderService
         }
     }
 
+    public static function refundOrder($orderId, $data, $log, $doc)
+    {
+        $result = array('success' => false, 'message' => '');
+        $r = OrderRepository::getInstance()->refundOrder($orderId,$data, $log, $doc);
+        if ($r) {
+
+            $result['success'] = true;
+            $result['message'] = '退款成功！';
+            //$result['order'] = $data;
+
+            return $result;
+        } else {
+            $result['message'] = '退款失败！';
+
+            return $result;
+        }
+    }
+
 
 
 }

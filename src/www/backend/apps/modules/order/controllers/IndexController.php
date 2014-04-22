@@ -423,4 +423,48 @@ class Order_IndexController extends AbstractAdminController
     }
 
 
+    public function refundorderAction()
+    {
+        $this->_helper->viewRenderer->setNoRender(true);
+        $this->_helper->layout->disableLayout();
+
+        $currentUser = $this->getCurrentUser();
+        if( !$currentUser )
+        {
+            $this->_helper->json->sendJson(array('success' => false, 'message' => 'Need login' ));
+            return;
+        }
+
+        $orderId =  intval($this->_request->getParam('order_id')) ;
+        $orderNo =  $this->_request->getParam('order_no') ;
+        $log= array(
+                'OrderId' => $orderId,
+                'User' => $currentUser["Username"],
+                'Action'=>'退款',
+                'AddTime'=>date('Y-m-d H:i:s'),
+                'Result'=> '成功',
+                'Note' => '订单【'.$orderNo.'】退款'.$this->_request->getParam('refundamount')
+            );
+        $doc = array(
+                'OrderId' => $orderId,
+                'OrderNo' => $orderNo,
+                'UserId' => $this->_request->getParam('userid'),
+                'Amount' => $this->_request->getParam('refundamount'),
+                'CreateTime'=>date('Y-m-d H:i:s'),
+                'AdminId' => $currentUser["UserId"],
+                'PayStatus'=> 2,
+                'DisposeTime'=>date('Y-m-d H:i:s'),
+                'DisposeIdea' => '退款成功'
+            );
+
+        $order = array('Status'=> 5, 'PayStatus'=> 2);
+
+        if ($this->_request->isPost()) {
+
+            $result = OrderService::refundOrder($orderId, $order, $log, $doc);
+            $this->_helper->json->sendJson($result);
+        }
+    }
+
+
 }

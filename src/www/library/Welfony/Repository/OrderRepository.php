@@ -226,11 +226,37 @@ class OrderRepository extends AbstractRepository
                  $this->conn->insert('OrderLog', $log);
                
             }
-            
             if ($doc) {
+                 $this->conn->insert('DeliveryDoc', $doc);     
+            }
+
+            $conn->commit();
+
+            return $orderId;
+        } catch (\Exception $e) {
+            $conn->rollback();
+            $this->logger->log($e, \Zend_Log::ERR);
+
+            return false;
+        }
+    }
+
+    public function refundOrder($orderId, $data, $log, $doc)
+    {
+      
+        $conn = $this->conn;
+        $conn->beginTransaction();
+        try {
+
+            $this->conn->update('`Order`', $data, array('OrderId' => $orderId));
+
+            if ($log) {
        
-                 $this->conn->insert('DeliveryDoc', $doc);
+                 $this->conn->insert('OrderLog', $log);
                
+            }
+            if ($doc) {
+                 $this->conn->insert('RefundmentDoc', $doc);     
             }
 
             $conn->commit();

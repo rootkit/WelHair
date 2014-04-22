@@ -146,6 +146,56 @@ $(function() {
 
         });
     });
+
+    
+    $('#to_refundment').click(function(){
+        var theButton = $(this);
+        $('#refoundpopin').dialog(
+            {"modal": true, 
+             "width":800, 
+             "height":640,
+             "title":"退款",
+              buttons: 
+                    [
+                        {
+                            text: "退款",
+                            class:"u-btn",
+                            click: function()
+                            {
+                                var popin = $(this);
+                                $.ajax({
+                                            type: 'post',
+                                            dataType: 'json',
+                                            url:  globalSetting.baseUrl + '/order/index/refundorder',
+                                            data: {
+                                                'order_id':$('#order_id').val(),
+                                                'order_no':$('#order_no').val(),
+                                                'orderamount':$('#to_pay_amount').val(),
+                                                'refundamount':$('#refund_amount').val(),
+                                                'userid':$('#order_user').val()
+                                             },
+                                            success: function(data){
+                                                popin.dialog('close');
+                                                theButton.addClass('u-btn-disabled');
+                                            },
+                                            error:function()
+                                            {
+
+                                            }
+                                });
+                            }
+                         },
+                           {
+                                text : "关闭",
+                                class: "u-btn",
+                                click: function() {
+                                    $(this).dialog('close');
+                                }
+                        } 
+                    ]
+
+        });
+    });
    
     WF.initAreaSelector();
 });
