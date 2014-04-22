@@ -181,6 +181,42 @@ class OrderService
         }
     }
 
+    public static function completeOrder($orderId, $data, $log)
+    {
+        $result = array('success' => false, 'message' => '');
+        $r = OrderRepository::getInstance()->completeOrder($orderId,$data, $log);
+        if ($r) {
+
+            $result['success'] = true;
+            $result['message'] = '完成成功！';
+            //$result['order'] = $data;
+
+            return $result;
+        } else {
+            $result['message'] = '完成失败！';
+
+            return $result;
+        }
+    }
+
+    public static function discardOrder($orderId, $data, $log)
+    {
+        $result = array('success' => false, 'message' => '');
+        $r = OrderRepository::getInstance()->completeOrder($orderId,$data, $log);
+        if ($r) {
+
+            $result['success'] = true;
+            $result['message'] = '作废成功！';
+            //$result['order'] = $data;
+
+            return $result;
+        } else {
+            $result['message'] = '作废失败！';
+
+            return $result;
+        }
+    }
+
 
 
 }

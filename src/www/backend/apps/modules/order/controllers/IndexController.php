@@ -466,5 +466,69 @@ class Order_IndexController extends AbstractAdminController
         }
     }
 
+    public function completeorderAction()
+    {
+        $this->_helper->viewRenderer->setNoRender(true);
+        $this->_helper->layout->disableLayout();
+
+        $currentUser = $this->getCurrentUser();
+        if( !$currentUser )
+        {
+            $this->_helper->json->sendJson(array('success' => false, 'message' => 'Need login' ));
+            return;
+        }
+
+        $orderId =  intval($this->_request->getParam('order_id')) ;
+        $orderNo =  $this->_request->getParam('order_no') ;
+        $log= array(
+                'OrderId' => $orderId,
+                'User' => $currentUser["Username"],
+                'Action'=>'完成',
+                'AddTime'=>date('Y-m-d H:i:s'),
+                'Result'=> '成功',
+                'Note' => '订单【'.$orderNo.'】完成成功'
+            );
+    
+        $order = array('Status'=> 5);
+
+        if ($this->_request->isPost()) {
+
+            $result = OrderService::completeOrder($orderId, $order, $log);
+            $this->_helper->json->sendJson($result);
+        }
+    }
+
+    public function discardorderAction()
+    {
+        $this->_helper->viewRenderer->setNoRender(true);
+        $this->_helper->layout->disableLayout();
+
+        $currentUser = $this->getCurrentUser();
+        if( !$currentUser )
+        {
+            $this->_helper->json->sendJson(array('success' => false, 'message' => 'Need login' ));
+            return;
+        }
+
+        $orderId =  intval($this->_request->getParam('order_id')) ;
+        $orderNo =  $this->_request->getParam('order_no') ;
+        $log= array(
+                'OrderId' => $orderId,
+                'User' => $currentUser["Username"],
+                'Action'=>'作废',
+                'AddTime'=>date('Y-m-d H:i:s'),
+                'Result'=> '成功',
+                'Note' => '订单【'.$orderNo.'】作废成功'
+            );
+    
+        $order = array('Status'=> 4);
+
+        if ($this->_request->isPost()) {
+
+            $result = OrderService::discardOrder($orderId, $order, $log);
+            $this->_helper->json->sendJson($result);
+        }
+    }
+
 
 }

@@ -177,6 +177,8 @@ $(function() {
                                             success: function(data){
                                                 popin.dialog('close');
                                                 theButton.addClass('u-btn-disabled');
+                                                $('#ctrlButtonArea').find('button').addClass('u-btn-disabled');
+                                                $('#ctrlButtonArea').find('button').attr('disabled', 'disabled');
                                             },
                                             error:function()
                                             {
@@ -196,6 +198,63 @@ $(function() {
 
         });
     });
+
+    $('#to_complete').click(function(){
+        var theButton = $(this);
+
+        if( $('#order_status').val() == 1)
+        {
+
+            $('<div><p>您需要支付，才能完成！</p></div>').dialog({'title':'提示','modal':true});
+        }
+        else
+        {
+            $.ajax({
+                        type: 'post',
+                        dataType: 'json',
+                        url:  globalSetting.baseUrl + '/order/index/completeorder',
+                        data: {
+                            'order_id':$('#order_id').val(),
+                            'order_no':$('#order_no').val(),
+                            'userid':$('#order_user').val()
+                         },
+                        success: function(data){
+                            $('#ctrlButtonArea').find('button').addClass('u-btn-disabled');
+                            $('#ctrlButtonArea').find('button').attr('disabled', 'disabled');
+                        },
+                        error:function()
+                        {
+
+                        }
+            });
+        }
+                           
+    });
+
+    $('#to_discard').click(function(){
+        var theButton = $(this);
+        $.ajax({
+                    type: 'post',
+                    dataType: 'json',
+                    url:  globalSetting.baseUrl + '/order/index/discardorder',
+                    data: {
+                        'order_id':$('#order_id').val(),
+                        'order_no':$('#order_no').val(),
+                        'userid':$('#order_user').val()
+                     },
+                    success: function(data){
+                        $('#ctrlButtonArea').find('button').addClass('u-btn-disabled');
+                        $('#ctrlButtonArea').find('button').attr('disabled', 'disabled');
+                    },
+                    error:function()
+                    {
+
+                    }
+        });
+                           
+    });
+
+    
    
     WF.initAreaSelector();
 });
