@@ -147,7 +147,7 @@ static const float profileViewHeight = 90;
     self.groupNameLbl.userInteractionEnabled = YES;
     [self.groupNameLbl addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(groupTapped)]];
 
-    float heartIconSize = 35;
+    float heartIconSize = 30;
     FAKIcon *heartIconOn = [FAKIonIcons ios7HeartIconWithSize:heartIconSize];
     [heartIconOn addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithHexString:@"e43a3d"]];
     FAKIcon *heartIconOff = [FAKIonIcons ios7HeartOutlineIconWithSize:heartIconSize];
