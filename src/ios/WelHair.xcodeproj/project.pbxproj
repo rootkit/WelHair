@@ -2838,8 +2838,8 @@
 				);
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: SHIGUANG LU (X23L3QCJ5Z)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: SHIGUANG LU (X23L3QCJ5Z)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: larry lu (3LBN2U88Z3)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: larry lu (3LBN2U88Z3)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/App/Vendor/UMSocial_Sdk_3.3.7/UMSocial_Sdk_Extra_Frameworks/TencentOpenAPI",
@@ -2858,7 +2858,7 @@
 				);
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "BE938645-F77D-4CEA-82D4-7458BBC7D308";
+				PROVISIONING_PROFILE = "51098E5B-F9A9-468E-A5C0-B376EA3D9913";
 				SDKROOT = iphoneos;
 				VALID_ARCHS = "armv7 armv7s arm64";
 				WRAPPER_EXTENSION = app;
@@ -2875,8 +2875,8 @@
 				);
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: SHIGUANG LU (X23L3QCJ5Z)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: SHIGUANG LU (X23L3QCJ5Z)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: larry lu (3LBN2U88Z3)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: larry lu (3LBN2U88Z3)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/App/Vendor/UMSocial_Sdk_3.3.7/UMSocial_Sdk_Extra_Frameworks/TencentOpenAPI",
@@ -2894,7 +2894,7 @@
 				);
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "BE938645-F77D-4CEA-82D4-7458BBC7D308";
+				PROVISIONING_PROFILE = "51098E5B-F9A9-468E-A5C0-B376EA3D9913";
 				SDKROOT = iphoneos;
 				VALID_ARCHS = "armv7 armv7s arm64";
 				WRAPPER_EXTENSION = app;

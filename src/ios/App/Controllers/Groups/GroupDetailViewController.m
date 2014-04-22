@@ -386,7 +386,9 @@ static const float profileViewHeight = 320;
 
 - (void)mapClick
 {
-    [self.navigationController pushViewController:[MapViewController new] animated:YES];
+    MapViewController *vc = [MapViewController new];
+    vc.modelInfo = self.group;
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 - (void)phoneClick

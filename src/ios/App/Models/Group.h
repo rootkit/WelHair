@@ -27,8 +27,8 @@ typedef enum {
 @property (nonatomic, strong) City *city;
 @property (nonatomic, strong) NSString *address;
 
-@property (nonatomic) double latitude;
-@property (nonatomic) double longitude;
+//@property (nonatomic) double latitude;
+//@property (nonatomic) double longitude;
 
 @property (nonatomic, strong) NSString *logoUrl;
 @property (nonatomic, strong) NSArray *imgUrls;

@@ -33,6 +33,14 @@
 @synthesize degree = _degree;
 @end
 
+
+@interface WHPointAnnotation : BMKPointAnnotation
+@property (nonatomic, strong) BaseModel *modelInfo;
+@end
+
+@implementation WHPointAnnotation
+@end
+
 @interface UIImage(InternalMethod)
 
 - (UIImage*)imageRotatedByDegrees:(CGFloat)degrees;
@@ -74,8 +82,8 @@
 }
 @property (nonatomic, strong) UIButton *locateBtn;
 @property (nonatomic, strong) UIButton *aroundBtn;
-
-@property (nonatomic) CLLocationCoordinate2D currentLocation;
+//@property (nonatomic) CLLocationCoordinate2D currentLocation;
+@property (nonatomic, strong) NSArray *aroundGroups;
 @end
 
 @implementation MapViewController
@@ -107,6 +115,9 @@
     _mapView.delegate = self; // 此处记得不用的时候需要置nil，否则影响内存的释放
     _search.delegate = self; // 此处记得不用的时候需要置nil，否则影响内存的释放
     [self.navigationController setNavigationBarHidden:YES animated:YES];
+//    if(_mapView.annotations.count == 0){
+//        [self locateCurrentGroup];
+//    }
 }
 
 -(void)viewWillDisappear:(BOOL)animated
@@ -123,8 +134,11 @@
     [super viewDidLoad];
     float bottomHeight = 49;
     _mapView = [[BMKMapView alloc]initWithFrame:CGRectMake(0, 0, WIDTH(self.view), HEIGHT(self.view) - bottomHeight)];
-    _mapView.centerCoordinate = JINAN_CENTER_COORDINATE;
     [self.view addSubview:_mapView];
+    _search = [[BMKSearch alloc]init];
+    [_mapView setZoomLevel:15];
+    _mapView.isSelectedAnnotationViewFront = YES;
+    
     
     float topViewHeight = isIOS7 ? kStatusBarHeight + kTopBarHeight : kTopBarHeight;
     UIView *topNavView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, WIDTH(self.view), topViewHeight)];
@@ -166,11 +180,15 @@
     [self.aroundBtn addTarget:self action:@selector(bottomButtonClick:) forControlEvents:UIControlEventTouchUpInside];
     [self.aroundBtn setTitle:@"周边店铺" forState:UIControlStateNormal];
     [bottomView addSubview:self.aroundBtn];
-    
-    _search = [[BMKSearch alloc]init];
-    [_mapView setZoomLevel:13];
-    _mapView.isSelectedAnnotationViewFront = YES;
-    [self locateClick];
+}
+
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    if(_mapView.annotations.count == 0){
+        [self locateCurrentGroup];
+    }
 }
 
 - (void)didReceiveMemoryWarning
@@ -188,29 +206,24 @@
 {
     UIButton *btn = (UIButton *)sender;
     if(btn == self.locateBtn){
-        [self locateClick];
+        [self locateCurrentGroup];
     }else{
         [self aroundClick];
     }
 }
 
-- (void)locateClick
+- (void)locateCurrentGroup
 {
     [self.aroundBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     [self.locateBtn setTitleColor:[UIColor colorWithHexString:APP_NAVIGATIONBAR_COLOR] forState:UIControlStateNormal];
-    //普通态
-    debugLog(@"进入普通定位态");
-    _mapView.showsUserLocation = NO;
-    _mapView.userTrackingMode = BMKUserTrackingModeFollow;
-    _mapView.zoomLevel = 13;
-    _mapView.showsUserLocation = YES;
     
     NSArray* array = [NSArray arrayWithArray:_mapView.annotations];
 	[_mapView removeAnnotations:array];
     
-    BMKPointAnnotation* item = [[BMKPointAnnotation alloc]init];
-    item.coordinate = JINAN_CENTER_COORDINATE;
-    item.title = @"haha";
+    WHPointAnnotation* item = [[WHPointAnnotation alloc]init];
+    item.coordinate = self.modelInfo.coordinate;
+    item.title = self.modelInfo.name;
+    item.modelInfo = self.modelInfo;
     [_mapView addAnnotation:item];
     //将第一个点的坐标移到屏幕中央
     _mapView.centerCoordinate = item.coordinate;
@@ -224,16 +237,18 @@
     NSArray* array = [NSArray arrayWithArray:_mapView.annotations];
 	[_mapView removeAnnotations:array];
     
-    BMKPointAnnotation* item = [[BMKPointAnnotation alloc]init];
-    item.coordinate = CLLocationCoordinate2DMake(36.670266,117.149292);
-    item.title = @"高新区永琪店";
+    WHPointAnnotation* item = [[WHPointAnnotation alloc]init];
+    item.coordinate = CLLocationCoordinate2DMake(36.670277,117.149292);
+    item.title = self.modelInfo.name;
+    item.modelInfo = self.modelInfo;
     [_mapView addAnnotation:item];
     //将第一个点的坐标移到屏幕中央
     _mapView.centerCoordinate = item.coordinate;
 	 
-    BMKPointAnnotation* item1 = [[BMKPointAnnotation alloc]init];
-    item1.coordinate = CLLocationCoordinate2DMake(36.669166,117.144945);
-    item1.title = @"沙宣店";
+    WHPointAnnotation* item1 = [[WHPointAnnotation alloc]init];
+    item1.coordinate = CLLocationCoordinate2DMake(36.970288,117.249292);
+    item1.title = self.modelInfo.name;
+    item1.modelInfo = self.modelInfo;
     [_mapView addAnnotation:item1];
 
     //[_search poiSearchNearBy:@"餐厅" center:_mapView.centerCoordinate radius:100 pageIndex:0];
@@ -288,13 +303,14 @@
 
 - (void)mapView:(BMKMapView *)mapView annotationViewForBubble:(BMKAnnotationView *)view
 {
-    if([view.annotation coordinate].latitude ==  self.currentLocation.latitude &&
-       [view.annotation coordinate].longitude ==  self.currentLocation.longitude){
-        return;
+    if([view.annotation isKindOfClass:[WHPointAnnotation class]]){
+        WHPointAnnotation *anno = (WHPointAnnotation *)view.annotation;
+        if([anno.modelInfo isKindOfClass:[Group class]]){
+            GroupDetailViewController *groupVc = [GroupDetailViewController new];
+            groupVc.group = (Group *)anno.modelInfo;
+            [self.navigationController pushViewController:groupVc animated:YES];
+        }
     }
-    GroupDetailViewController *groupVc = [GroupDetailViewController new];
-    groupVc.group = nil;
-    [self.navigationController pushViewController:groupVc animated:YES];
 }
 
 #pragma mark -
@@ -346,8 +362,9 @@
 - (void)mapView:(BMKMapView *)mapView didUpdateUserLocation:(BMKUserLocation *)userLocation
 {
 	if (userLocation != nil) {
-        self.currentLocation = userLocation.location.coordinate;
+//        self.currentLocation = userLocation.location.coordinate;
 		debugLog(@"%f %f", userLocation.location.coordinate.latitude, userLocation.location.coordinate.longitude);
+        _mapView.showsUserLocation = NO;
 	}
 }
 

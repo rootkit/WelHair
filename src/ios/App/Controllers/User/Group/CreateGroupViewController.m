@@ -460,8 +460,8 @@ static const float kScrollViewContentHeight = 600;
         self.phoneNumTxt.text = self.group.tel;
         self.mobileTxt.text = self.group.mobile;
         self.groupAddressTxt.text = self.group.address;
-        self.coordinateLbl.text = [NSString stringWithFormat:@"%f, %f", self.group.longitude, self.group.latitude];
-        self.location = [[CLLocation alloc] initWithLatitude:self.group.latitude longitude:self.group.longitude];
+        self.coordinateLbl.text = [NSString stringWithFormat:@"%f, %f", self.group.coordinate.longitude, self.group.coordinate.latitude];
+        self.location = [[CLLocation alloc] initWithLatitude:self.group.coordinate.latitude longitude:self.group.coordinate.longitude];
         for (int i =0 ; i < self.group.imgUrls.count; i++) {
             self.uploadedPictures[i + 1] = self.group.imgUrls[i];
             if (i == 0) {

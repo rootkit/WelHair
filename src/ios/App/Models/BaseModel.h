@@ -11,6 +11,7 @@
 // ==============================================================================
 
 #import <Foundation/Foundation.h>
+#import <CoreLocation/CoreLocation.h>
 
 @interface BaseModel : NSObject
 
@@ -18,5 +19,6 @@
 @property (nonatomic, strong) NSString *name;
 @property (nonatomic, strong) NSString *description;
 @property (nonatomic) float distance;
+@property (nonatomic) CLLocationCoordinate2D coordinate;
 
 @end
