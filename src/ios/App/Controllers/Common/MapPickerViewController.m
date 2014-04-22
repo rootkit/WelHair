@@ -27,11 +27,9 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         self.title = @"长按取坐标点";
-        FAKIcon *leftIcon = [FAKIonIcons ios7ArrowBackIconWithSize:NAV_BAR_ICON_SIZE];
-        [leftIcon addAttribute:NSForegroundColorAttributeName value:[UIColor whiteColor]];
-        self.leftNavItemImg =[leftIcon imageWithSize:CGSizeMake(NAV_BAR_ICON_SIZE, NAV_BAR_ICON_SIZE)];
+        self.leftNavItemTitle = @"确定";
         
-        self.rightNavItemTitle = @"删除";
+        self.rightNavItemTitle = @"取消";
     }
     return self;
 }
@@ -100,14 +98,14 @@
 
 - (void) rightNavItemClick
 {
-    NSArray *pickedPoint = _mapView.annotations;
-    [_mapView removeAnnotations:pickedPoint];
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)locateClick
 {
     //普通态
     debugLog(@"进入普通定位态");
+    _mapView.showsUserLocation = NO;
     _mapView.userTrackingMode = BMKUserTrackingModeNone;
     _mapView.showsUserLocation = YES;
 }

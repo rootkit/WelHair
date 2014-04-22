@@ -93,11 +93,11 @@
     [self.scrollView addSubview:self.imgSlider];
 
 #pragma staffView
-    UIView *staffView = [[UIView alloc] initWithFrame:CGRectMake(0, MaxY(self.imgSlider) - 80, 240, 80)];
+    UIView *staffView = [[UIView alloc] initWithFrame:CGRectMake(0, MaxY(self.imgSlider) - 80, 200, 80)];
     staffView.backgroundColor = [UIColor clearColor];
     [self.scrollView addSubview:staffView];
 
-    UIImageView *staffOverlayview = [[UIImageView alloc] initWithFrame:CGRectMake(0, 20, WIDTH(staffView), HEIGHT(staffView) - 20)];
+    UIImageView *staffOverlayview = [[UIImageView alloc] initWithFrame:CGRectMake(-60, 20, WIDTH(staffView), HEIGHT(staffView) - 20)];
     staffOverlayview.image = [UIImage imageNamed:@"WD_AuthorLayerBg@2x"];
     [staffView addSubview:staffOverlayview];
     
@@ -106,8 +106,8 @@
     [self.staffImgView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(staffTapped)]];
     [staffView addSubview:self.staffImgView];
 
-    self.staffNameLbl = [[UILabel alloc] initWithFrame:CGRectMake(-42, MaxY(self.staffImgView) + 2, 200, 20)];
-    self.staffNameLbl.textAlignment = NSTextAlignmentCenter;
+    self.staffNameLbl = [[UILabel alloc] initWithFrame:CGRectMake(10, MaxY(self.staffImgView) + 2, 150, 20)];
+    self.staffNameLbl.textAlignment = NSTextAlignmentLeft;
     self.staffNameLbl.textColor = [UIColor whiteColor];
     self.staffNameLbl.backgroundColor = [UIColor clearColor];
     self.staffNameLbl.font = [UIFont systemFontOfSize:14];
@@ -124,22 +124,22 @@
                        toggleEventHandler:^(BOOL isOn){
                           return [selfDelegate favClick:isOn];
                        }];
-    self.heartBtn.frame = CGRectMake(MaxX(self.staffImgView) + 132, 35, 30, 30);
+    self.heartBtn.frame = CGRectMake(MaxX(self.staffImgView) + 30, 35, 30, 30);
     [staffView addSubview:self.heartBtn];
     
-    UIImageView *locationImg = [[UIImageView alloc] initWithFrame:CGRectMake(MaxX(self.staffImgView) + 10, 25, 20, 20)];
-    FAKIcon *locationIcon = [FAKIonIcons locationIconWithSize:20];
-    [locationIcon addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithHexString:@"FFF"]];
-    locationImg.image = [locationIcon imageWithSize:CGSizeMake(20, 20)];
-    [staffView addSubview:locationImg];
-    
-    self.distanceLbl = [[UILabel alloc] initWithFrame:CGRectMake(MaxX(locationImg) + 2, 25, WIDTH(staffView) - MaxX(locationImg), HEIGHT(locationImg))];
-    self.distanceLbl.textAlignment = NSTextAlignmentLeft;
-    self.distanceLbl.textColor = [UIColor whiteColor];
-    self.distanceLbl.font = [UIFont systemFontOfSize:14];
-    self.distanceLbl.backgroundColor = [UIColor clearColor];
-    self.distanceLbl.font = [UIFont systemFontOfSize:14];
-    [staffView addSubview:self.distanceLbl];
+//    UIImageView *locationImg = [[UIImageView alloc] initWithFrame:CGRectMake(MaxX(self.staffImgView) + 10, 25, 20, 20)];
+//    FAKIcon *locationIcon = [FAKIonIcons locationIconWithSize:20];
+//    [locationIcon addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithHexString:@"FFF"]];
+//    locationImg.image = [locationIcon imageWithSize:CGSizeMake(20, 20)];
+//    [staffView addSubview:locationImg];
+//    
+//    self.distanceLbl = [[UILabel alloc] initWithFrame:CGRectMake(MaxX(locationImg) + 2, 25, WIDTH(staffView) - MaxX(locationImg), HEIGHT(locationImg))];
+//    self.distanceLbl.textAlignment = NSTextAlignmentLeft;
+//    self.distanceLbl.textColor = [UIColor whiteColor];
+//    self.distanceLbl.font = [UIFont systemFontOfSize:14];
+//    self.distanceLbl.backgroundColor = [UIColor clearColor];
+//    self.distanceLbl.font = [UIFont systemFontOfSize:14];
+//    [staffView addSubview:self.distanceLbl];
     
 #pragma people  view
     UIView *peopleView = [[UIView alloc] initWithFrame:CGRectMake(15, MaxY(self.imgSlider )+ 20, 280, 160)];

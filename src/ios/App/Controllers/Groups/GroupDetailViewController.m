@@ -238,55 +238,63 @@ static const float profileViewHeight = 320;
     detainInfoView.layer.cornerRadius = 5;
     [self.scrollView addSubview:detainInfoView];
     
+    UIView *addressCellView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 300, 44)];
+    addressCellView.backgroundColor = [UIColor clearColor];
+    [detainInfoView addSubview:addressCellView];
+    [addressCellView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(mapClick)]];
+    
     UILabel *addressTitleLbl = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, 44, 44)];
     addressTitleLbl.textAlignment = TextAlignmentLeft;
     addressTitleLbl.textColor = [UIColor grayColor];
     addressTitleLbl.font = [UIFont systemFontOfSize:12];
     addressTitleLbl.backgroundColor = [UIColor clearColor];
     addressTitleLbl.text = @"地址:";
-    [detainInfoView addSubview:addressTitleLbl];
+    [addressCellView addSubview:addressTitleLbl];
 
     self.addressLbl = [[UILabel alloc] initWithFrame:CGRectMake(MaxX(addressTitleLbl),Y(addressTitleLbl), 190, 44)];
     self.addressLbl.backgroundColor = [UIColor clearColor];
     self.addressLbl.textColor = [UIColor grayColor];
     self.addressLbl.font = [UIFont systemFontOfSize:12];
     self.addressLbl.textAlignment = TextAlignmentLeft;
-    [detainInfoView addSubview:self.addressLbl];
+    [addressCellView addSubview:self.addressLbl];
     
     UIImageView *locationImg = [[UIImageView alloc] initWithFrame:CGRectMake(MaxX(self.addressLbl) + 20, 12, 20, 20)];
     FAKIcon *locationIcon = [FAKIonIcons locationIconWithSize:30];
     [locationIcon addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithHexString:APP_NAVIGATIONBAR_COLOR]];
     locationImg.image = [locationIcon imageWithSize:CGSizeMake(30, 30)];
     locationImg.userInteractionEnabled = YES;
-    [detainInfoView addSubview:locationImg];
-    [locationImg addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(mapClick)]];
+    [addressCellView addSubview:locationImg];
     
-    UIView *tabContentLiner = [[UIView alloc] initWithFrame:CGRectMake(0, MaxY(self.addressLbl), WIDTH(tabView), .5)];
+    UIView *tabContentLiner = [[UIView alloc] initWithFrame:CGRectMake(0, MaxY(addressCellView) -1, WIDTH(tabView), .5)];
     tabContentLiner.backgroundColor = [UIColor colorWithHexString:@"dddddd"];
     [detainInfoView addSubview:tabContentLiner];
     
-    UILabel *photoTitle = [[UILabel alloc] initWithFrame:CGRectMake(10, MaxY(tabContentLiner), 44, 44)];
+    UIView *phoneCellView = [[UIView alloc] initWithFrame:CGRectMake(0, 44, 300, 44)];
+    phoneCellView.backgroundColor = [UIColor clearColor];
+    [detainInfoView addSubview:phoneCellView];
+    [phoneCellView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(phoneClick)]];
+    
+    UILabel *photoTitle = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, 44, 44)];
     photoTitle.textAlignment = TextAlignmentLeft;
     photoTitle.textColor = [UIColor grayColor];
     photoTitle.font = [UIFont systemFontOfSize:12];
     photoTitle.backgroundColor = [UIColor clearColor];
     photoTitle.text = @"电话:";
-    [detainInfoView addSubview:photoTitle];
+    [phoneCellView addSubview:photoTitle];
     
     self.phoneLbl = [[UILabel alloc] initWithFrame:CGRectMake(MaxX(photoTitle), Y(photoTitle), 190, 44)];
     self.phoneLbl.backgroundColor = [UIColor clearColor];
     self.phoneLbl.textColor = [UIColor grayColor];
     self.phoneLbl.font = [UIFont systemFontOfSize:12];
     self.phoneLbl.textAlignment = TextAlignmentLeft;
-    [detainInfoView addSubview:self.phoneLbl];
+    [phoneCellView addSubview:self.phoneLbl];
     
-    UIImageView *phoneImg = [[UIImageView alloc] initWithFrame:CGRectMake(MaxX(self.phoneLbl) + 20, MaxY(tabContentLiner) + 12, 20, 20)];
+    UIImageView *phoneImg = [[UIImageView alloc] initWithFrame:CGRectMake(MaxX(self.phoneLbl) + 20, 12, 20, 20)];
     FAKIcon *phoneIcon = [FAKIonIcons ios7TelephoneIconWithSize:30];
     [phoneIcon addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithHexString:APP_NAVIGATIONBAR_COLOR]];
     phoneImg.image = [phoneIcon imageWithSize:CGSizeMake(30, 30)];
     phoneImg.userInteractionEnabled = YES;
-    [detainInfoView addSubview:phoneImg];
-    [phoneImg addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(phoneClick)]];
+    [phoneCellView addSubview:phoneImg];
 
     float scrollViewContentHeight = MAX(MaxY(detainInfoView), self.view.bounds.size.height) + 40;
     self.scrollView.scrollEnabled = YES;
@@ -386,7 +394,9 @@ static const float profileViewHeight = 320;
 
 - (void)mapClick
 {
-    [self.navigationController pushViewController:[MapViewController new] animated:YES];
+    MapViewController *vc = [MapViewController new];
+    vc.modelInfo = self.group;
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 - (void)phoneClick

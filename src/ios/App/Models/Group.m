@@ -26,8 +26,7 @@
         self.address = [dictionary objectForKey:@"Address"];
         self.tel = [dictionary objectForKey:@"Tel"];
         self.mobile = [dictionary objectForKey:@"Mobile"];
-        self.latitude = [[dictionary objectForKey:@"Latitude"] doubleValue];
-        self.longitude = [[dictionary objectForKey:@"Longitude"] doubleValue];
+        self.coordinate = CLLocationCoordinate2DMake([[dictionary objectForKey:@"Latitude"] doubleValue], [[dictionary objectForKey:@"Longitude"] doubleValue]);
 
         if ([dictionary objectForKey:@"City"]) {
             self.city = [[CityManager SharedInstance] getCityById:[[dictionary objectForKey:@"City"] intValue]];

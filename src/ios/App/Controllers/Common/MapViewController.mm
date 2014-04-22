@@ -33,6 +33,14 @@
 @synthesize degree = _degree;
 @end
 
+
+@interface WHPointAnnotation : BMKPointAnnotation
+@property (nonatomic, strong) BaseModel *modelInfo;
+@end
+
+@implementation WHPointAnnotation
+@end
+
 @interface UIImage(InternalMethod)
 
 - (UIImage*)imageRotatedByDegrees:(CGFloat)degrees;
@@ -74,8 +82,8 @@
 }
 @property (nonatomic, strong) UIButton *locateBtn;
 @property (nonatomic, strong) UIButton *aroundBtn;
-
 @property (nonatomic) CLLocationCoordinate2D currentLocation;
+@property (nonatomic, strong) NSArray *aroundGroups;
 @end
 
 @implementation MapViewController
@@ -107,6 +115,9 @@
     _mapView.delegate = self; // 此处记得不用的时候需要置nil，否则影响内存的释放
     _search.delegate = self; // 此处记得不用的时候需要置nil，否则影响内存的释放
     [self.navigationController setNavigationBarHidden:YES animated:YES];
+//    if(_mapView.annotations.count == 0){
+//        [self locateCurrentGroup];
+//    }
 }
 
 -(void)viewWillDisappear:(BOOL)animated
@@ -123,8 +134,11 @@
     [super viewDidLoad];
     float bottomHeight = 49;
     _mapView = [[BMKMapView alloc]initWithFrame:CGRectMake(0, 0, WIDTH(self.view), HEIGHT(self.view) - bottomHeight)];
-    _mapView.centerCoordinate = JINAN_CENTER_COORDINATE;
     [self.view addSubview:_mapView];
+    _search = [[BMKSearch alloc]init];
+    [_mapView setZoomLevel:15];
+    _mapView.isSelectedAnnotationViewFront = YES;
+    
     
     float topViewHeight = isIOS7 ? kStatusBarHeight + kTopBarHeight : kTopBarHeight;
     UIView *topNavView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, WIDTH(self.view), topViewHeight)];
@@ -144,6 +158,12 @@
     [leftBtn addTarget:self action:@selector(leftBtnClick) forControlEvents:UIControlEventTouchUpInside];
     [leftBtn setImage:leftImg forState:UIControlStateNormal];
     [topNavView addSubview:leftBtn];
+    
+    UIButton *rightBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    rightBtn.frame = CGRectMake(260, topViewHeight - 35, 50, NAV_BAR_ICON_SIZE);
+    [rightBtn setTitle:@"路线" forState:UIControlStateNormal];
+    [rightBtn addTarget:self action:@selector(rightBtnClick) forControlEvents:UIControlEventTouchUpInside];
+    [topNavView addSubview:rightBtn];
     
     UIView *bottomView = [[UIView alloc] initWithFrame:CGRectMake(0, MaxY(_mapView), WIDTH(self.view), bottomHeight)];
     [self.view addSubview:bottomView];
@@ -166,11 +186,15 @@
     [self.aroundBtn addTarget:self action:@selector(bottomButtonClick:) forControlEvents:UIControlEventTouchUpInside];
     [self.aroundBtn setTitle:@"周边店铺" forState:UIControlStateNormal];
     [bottomView addSubview:self.aroundBtn];
-    
-    _search = [[BMKSearch alloc]init];
-    [_mapView setZoomLevel:13];
-    _mapView.isSelectedAnnotationViewFront = YES;
-    [self locateClick];
+}
+
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    if(_mapView.annotations.count == 0){
+        [self locateCurrentGroup];
+    }
 }
 
 - (void)didReceiveMemoryWarning
@@ -184,33 +208,42 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 
+- (void)rightBtnClick
+{
+    BMKPlanNode* start = [[BMKPlanNode alloc]init] ;
+    start.pt = self.currentLocation;
+    BMKPlanNode* end = [[BMKPlanNode alloc] init];
+    end.pt = self.modelInfo.coordinate;
+    [_search drivingSearch:nil startNode:start endCity:nil endNode:end];
+}
+
 - (void)bottomButtonClick:(id)sender
 {
     UIButton *btn = (UIButton *)sender;
     if(btn == self.locateBtn){
-        [self locateClick];
+        [self locateCurrentGroup];
     }else{
         [self aroundClick];
     }
 }
 
-- (void)locateClick
+- (void)locateCurrentGroup
 {
     [self.aroundBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     [self.locateBtn setTitleColor:[UIColor colorWithHexString:APP_NAVIGATIONBAR_COLOR] forState:UIControlStateNormal];
-    //普通态
-    debugLog(@"进入普通定位态");
+    NSArray *annotations = [NSArray arrayWithArray:_mapView.annotations];
+	[_mapView removeAnnotations:annotations];
+    NSArray *overlayers = [NSArray arrayWithArray:_mapView.overlays];
+    [_mapView removeOverlays:overlayers];
+    
     _mapView.showsUserLocation = NO;
-    _mapView.userTrackingMode = BMKUserTrackingModeFollow;
-    _mapView.zoomLevel = 13;
+    _mapView.userTrackingMode = BMKUserTrackingModeNone;
     _mapView.showsUserLocation = YES;
     
-    NSArray* array = [NSArray arrayWithArray:_mapView.annotations];
-	[_mapView removeAnnotations:array];
-    
-    BMKPointAnnotation* item = [[BMKPointAnnotation alloc]init];
-    item.coordinate = JINAN_CENTER_COORDINATE;
-    item.title = @"haha";
+    WHPointAnnotation* item = [[WHPointAnnotation alloc]init];
+    item.coordinate = self.modelInfo.coordinate;
+    item.title = self.modelInfo.name;
+    item.modelInfo = self.modelInfo;
     [_mapView addAnnotation:item];
     //将第一个点的坐标移到屏幕中央
     _mapView.centerCoordinate = item.coordinate;
@@ -221,19 +254,19 @@
     [self.locateBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     [self.aroundBtn setTitleColor:[UIColor colorWithHexString:APP_NAVIGATIONBAR_COLOR] forState:UIControlStateNormal];
     // 清楚屏幕中所有的annotation
-    NSArray* array = [NSArray arrayWithArray:_mapView.annotations];
-	[_mapView removeAnnotations:array];
     
-    BMKPointAnnotation* item = [[BMKPointAnnotation alloc]init];
-    item.coordinate = CLLocationCoordinate2DMake(36.670266,117.149292);
-    item.title = @"高新区永琪店";
+    WHPointAnnotation* item = [[WHPointAnnotation alloc]init];
+    item.coordinate = CLLocationCoordinate2DMake(36.670277,117.149292);
+    item.title = self.modelInfo.name;
+    item.modelInfo = self.modelInfo;
     [_mapView addAnnotation:item];
     //将第一个点的坐标移到屏幕中央
     _mapView.centerCoordinate = item.coordinate;
 	 
-    BMKPointAnnotation* item1 = [[BMKPointAnnotation alloc]init];
-    item1.coordinate = CLLocationCoordinate2DMake(36.669166,117.144945);
-    item1.title = @"沙宣店";
+    WHPointAnnotation* item1 = [[WHPointAnnotation alloc]init];
+    item1.coordinate = CLLocationCoordinate2DMake(36.970288,117.249292);
+    item1.title = self.modelInfo.name;
+    item1.modelInfo = self.modelInfo;
     [_mapView addAnnotation:item1];
 
     //[_search poiSearchNearBy:@"餐厅" center:_mapView.centerCoordinate radius:100 pageIndex:0];
@@ -288,13 +321,14 @@
 
 - (void)mapView:(BMKMapView *)mapView annotationViewForBubble:(BMKAnnotationView *)view
 {
-    if([view.annotation coordinate].latitude ==  self.currentLocation.latitude &&
-       [view.annotation coordinate].longitude ==  self.currentLocation.longitude){
-        return;
+    if([view.annotation isKindOfClass:[WHPointAnnotation class]]){
+        WHPointAnnotation *anno = (WHPointAnnotation *)view.annotation;
+        if([anno.modelInfo isKindOfClass:[Group class]]){
+            GroupDetailViewController *groupVc = [GroupDetailViewController new];
+            groupVc.group = (Group *)anno.modelInfo;
+            [self.navigationController pushViewController:groupVc animated:YES];
+        }
     }
-    GroupDetailViewController *groupVc = [GroupDetailViewController new];
-    groupVc.group = nil;
-    [self.navigationController pushViewController:groupVc animated:YES];
 }
 
 #pragma mark -
@@ -346,14 +380,97 @@
 - (void)mapView:(BMKMapView *)mapView didUpdateUserLocation:(BMKUserLocation *)userLocation
 {
 	if (userLocation != nil) {
-        self.currentLocation = userLocation.location.coordinate;
+//        self.currentLocation = userLocation.location.coordinate;
 		debugLog(@"%f %f", userLocation.location.coordinate.latitude, userLocation.location.coordinate.longitude);
+        self.currentLocation = userLocation.coordinate;
+        _mapView.showsUserLocation = NO;
 	}
 }
 
+- (void)onGetDrivingRouteResult:(BMKSearch*)searcher result:(BMKPlanResult*)result errorCode:(int)error
+{
+    if (result != nil) {
+        NSArray* array = [NSArray arrayWithArray:_mapView.annotations];
+        [_mapView removeAnnotations:array];
+        array = [NSArray arrayWithArray:_mapView.overlays];
+        [_mapView removeOverlays:array];
+        
+        // error 值的意义请参考BMKErrorCode
+        if (error == BMKErrorOk) {
+            BMKRoutePlan* plan = (BMKRoutePlan*)[result.plans objectAtIndex:0];
+            
+            // 添加起点
+            RouteAnnotation* item = [[RouteAnnotation alloc]init];
+            item.coordinate = result.startNode.pt;
+            item.title = @"起点";
+            item.type = 0;
+            [_mapView addAnnotation:item];
+            
+            
+            // 下面开始计算路线，并添加驾车提示点
+            int index = 0;
+            int size = [plan.routes count];
+            for (int i = 0; i < 1; i++) {
+                BMKRoute* route = [plan.routes objectAtIndex:i];
+                for (int j = 0; j < route.pointsCount; j++) {
+                    int len = [route getPointsNum:j];
+                    index += len;
+                }
+            }
+            
+            BMKMapPoint* points = new BMKMapPoint[index];
+            index = 0;
+            for (int i = 0; i < 1; i++) {
+                BMKRoute* route = [plan.routes objectAtIndex:i];
+                for (int j = 0; j < route.pointsCount; j++) {
+                    int len = [route getPointsNum:j];
+                    BMKMapPoint* pointArray = (BMKMapPoint*)[route getPoints:j];
+                    memcpy(points + index, pointArray, len * sizeof(BMKMapPoint));
+                    index += len;
+                }
+                size = route.steps.count;
+                for (int j = 0; j < size; j++) {
+                    // 添加驾车关键点
+                    BMKStep* step = [route.steps objectAtIndex:j];
+                    item = [[RouteAnnotation alloc]init];
+                    item.coordinate = step.pt;
+                    item.title = step.content;
+                    item.degree = step.degree * 30;
+                    item.type = 4;
+                    [_mapView addAnnotation:item];
+                }
+                
+            }
+            
+            // 添加终点
+            item = [[RouteAnnotation alloc]init];
+            item.coordinate = result.endNode.pt;
+            item.type = 1;
+            item.title = @"终点";
+            [_mapView addAnnotation:item];
+            
+            // 添加途经点
+            if (result.wayNodes) {
+                for (BMKPlanNode* tempNode in result.wayNodes) {
+                    item = [[RouteAnnotation alloc]init];
+                    item.coordinate = tempNode.pt;
+                    item.type = 5;
+                    item.title = tempNode.name;
+                    [_mapView addAnnotation:item];
+                }
+            }
+            
+            // 根究计算的点，构造并添加路线覆盖物
+            BMKPolyline* polyLine = [BMKPolyline polylineWithPoints:points count:index];
+            [_mapView addOverlay:polyLine];
+            delete []points;
+            
+            [_mapView setCenterCoordinate:result.startNode.pt animated:YES];
+        }
+    }
+}
+
 #pragma mark drive line
-
-
 
 - (BMKAnnotationView*)getRouteAnnotationView:(BMKMapView *)mapview viewForAnnotation:(RouteAnnotation*)routeAnnotation
 {
