@@ -82,7 +82,7 @@
 }
 @property (nonatomic, strong) UIButton *locateBtn;
 @property (nonatomic, strong) UIButton *aroundBtn;
-//@property (nonatomic) CLLocationCoordinate2D currentLocation;
+@property (nonatomic) CLLocationCoordinate2D currentLocation;
 @property (nonatomic, strong) NSArray *aroundGroups;
 @end
 
@@ -159,6 +159,12 @@
     [leftBtn setImage:leftImg forState:UIControlStateNormal];
     [topNavView addSubview:leftBtn];
     
+    UIButton *rightBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    rightBtn.frame = CGRectMake(260, topViewHeight - 35, 50, NAV_BAR_ICON_SIZE);
+    [rightBtn setTitle:@"路线" forState:UIControlStateNormal];
+    [rightBtn addTarget:self action:@selector(rightBtnClick) forControlEvents:UIControlEventTouchUpInside];
+    [topNavView addSubview:rightBtn];
+    
     UIView *bottomView = [[UIView alloc] initWithFrame:CGRectMake(0, MaxY(_mapView), WIDTH(self.view), bottomHeight)];
     [self.view addSubview:bottomView];
     bottomView.backgroundColor = [UIColor whiteColor];
@@ -202,6 +208,15 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 
+- (void)rightBtnClick
+{
+    BMKPlanNode* start = [[BMKPlanNode alloc]init] ;
+    start.pt = self.currentLocation;
+    BMKPlanNode* end = [[BMKPlanNode alloc] init];
+    end.pt = self.modelInfo.coordinate;
+    [_search drivingSearch:nil startNode:start endCity:nil endNode:end];
+}
+
 - (void)bottomButtonClick:(id)sender
 {
     UIButton *btn = (UIButton *)sender;
@@ -216,9 +231,14 @@
 {
     [self.aroundBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     [self.locateBtn setTitleColor:[UIColor colorWithHexString:APP_NAVIGATIONBAR_COLOR] forState:UIControlStateNormal];
+    NSArray *annotations = [NSArray arrayWithArray:_mapView.annotations];
+	[_mapView removeAnnotations:annotations];
+    NSArray *overlayers = [NSArray arrayWithArray:_mapView.overlays];
+    [_mapView removeOverlays:overlayers];
     
-    NSArray* array = [NSArray arrayWithArray:_mapView.annotations];
-	[_mapView removeAnnotations:array];
+    _mapView.showsUserLocation = NO;
+    _mapView.userTrackingMode = BMKUserTrackingModeNone;
+    _mapView.showsUserLocation = YES;
     
     WHPointAnnotation* item = [[WHPointAnnotation alloc]init];
     item.coordinate = self.modelInfo.coordinate;
@@ -234,8 +254,6 @@
     [self.locateBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     [self.aroundBtn setTitleColor:[UIColor colorWithHexString:APP_NAVIGATIONBAR_COLOR] forState:UIControlStateNormal];
     // 清楚屏幕中所有的annotation
-    NSArray* array = [NSArray arrayWithArray:_mapView.annotations];
-	[_mapView removeAnnotations:array];
     
     WHPointAnnotation* item = [[WHPointAnnotation alloc]init];
     item.coordinate = CLLocationCoordinate2DMake(36.670277,117.149292);
@@ -364,13 +382,95 @@
 	if (userLocation != nil) {
 //        self.currentLocation = userLocation.location.coordinate;
 		debugLog(@"%f %f", userLocation.location.coordinate.latitude, userLocation.location.coordinate.longitude);
+        self.currentLocation = userLocation.coordinate;
         _mapView.showsUserLocation = NO;
 	}
 }
 
+- (void)onGetDrivingRouteResult:(BMKSearch*)searcher result:(BMKPlanResult*)result errorCode:(int)error
+{
+    if (result != nil) {
+        NSArray* array = [NSArray arrayWithArray:_mapView.annotations];
+        [_mapView removeAnnotations:array];
+        array = [NSArray arrayWithArray:_mapView.overlays];
+        [_mapView removeOverlays:array];
+        
+        // error 值的意义请参考BMKErrorCode
+        if (error == BMKErrorOk) {
+            BMKRoutePlan* plan = (BMKRoutePlan*)[result.plans objectAtIndex:0];
+            
+            // 添加起点
+            RouteAnnotation* item = [[RouteAnnotation alloc]init];
+            item.coordinate = result.startNode.pt;
+            item.title = @"起点";
+            item.type = 0;
+            [_mapView addAnnotation:item];
+            
+            
+            // 下面开始计算路线，并添加驾车提示点
+            int index = 0;
+            int size = [plan.routes count];
+            for (int i = 0; i < 1; i++) {
+                BMKRoute* route = [plan.routes objectAtIndex:i];
+                for (int j = 0; j < route.pointsCount; j++) {
+                    int len = [route getPointsNum:j];
+                    index += len;
+                }
+            }
+            
+            BMKMapPoint* points = new BMKMapPoint[index];
+            index = 0;
+            for (int i = 0; i < 1; i++) {
+                BMKRoute* route = [plan.routes objectAtIndex:i];
+                for (int j = 0; j < route.pointsCount; j++) {
+                    int len = [route getPointsNum:j];
+                    BMKMapPoint* pointArray = (BMKMapPoint*)[route getPoints:j];
+                    memcpy(points + index, pointArray, len * sizeof(BMKMapPoint));
+                    index += len;
+                }
+                size = route.steps.count;
+                for (int j = 0; j < size; j++) {
+                    // 添加驾车关键点
+                    BMKStep* step = [route.steps objectAtIndex:j];
+                    item = [[RouteAnnotation alloc]init];
+                    item.coordinate = step.pt;
+                    item.title = step.content;
+                    item.degree = step.degree * 30;
+                    item.type = 4;
+                    [_mapView addAnnotation:item];
+                }
+                
+            }
+            
+            // 添加终点
+            item = [[RouteAnnotation alloc]init];
+            item.coordinate = result.endNode.pt;
+            item.type = 1;
+            item.title = @"终点";
+            [_mapView addAnnotation:item];
+            
+            // 添加途经点
+            if (result.wayNodes) {
+                for (BMKPlanNode* tempNode in result.wayNodes) {
+                    item = [[RouteAnnotation alloc]init];
+                    item.coordinate = tempNode.pt;
+                    item.type = 5;
+                    item.title = tempNode.name;
+                    [_mapView addAnnotation:item];
+                }
+            }
+            
+            // 根究计算的点，构造并添加路线覆盖物
+            BMKPolyline* polyLine = [BMKPolyline polylineWithPoints:points count:index];
+            [_mapView addOverlay:polyLine];
+            delete []points;
+            
+            [_mapView setCenterCoordinate:result.startNode.pt animated:YES];
+        }
+    }
+}
+
 #pragma mark drive line
-
-
 
 - (BMKAnnotationView*)getRouteAnnotationView:(BMKMapView *)mapview viewForAnnotation:(RouteAnnotation*)routeAnnotation
 {
