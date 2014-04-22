@@ -39,6 +39,7 @@ $(function() {
     });
 
     $('#to_pay').click(function(){
+        var theButton = $(this);
         $('#paypopin').dialog(
             {"modal": true, 
              "width":800, 
@@ -67,6 +68,7 @@ $(function() {
                                              },
                                             success: function(data){
                                                 popin.dialog('close');
+                                                theButton.addClass('u-btn-disabled');
                                             },
                                             error:function()
                                             {
@@ -87,6 +89,7 @@ $(function() {
         });
     });
     $('#to_deliver').click(function(){
+        var theButton = $(this);
         $('#deliverpopin').dialog(
             {"modal": true, 
              "width":870, 
@@ -123,6 +126,7 @@ $(function() {
                                              },
                                             success: function(data){
                                                 popin.dialog('close');
+                                                theButton.addClass('u-btn-disabled');
                                             },
                                             error:function()
                                             {
