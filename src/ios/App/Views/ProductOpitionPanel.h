@@ -13,14 +13,16 @@
 #import <Foundation/Foundation.h>
 #import "SelectOpition.h"
 #import "Product.h"
+#import "Order.h"
 typedef void(^cancelSelection)(void);
 typedef void(^submitSelection)(SelectOpition *);
 
 @interface ProductOpitionPanel : UIView
 
+
 - (void)setupTitle:(NSString *)title
           opitions:(SelectOpition *)selectOptioin
-           product:(Product *)product
+             order:(Order *)order
             cancel:(cancelSelection )cancelHandler
             submit:(submitSelection )submitHandler;
 ;

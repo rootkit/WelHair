@@ -224,7 +224,7 @@
         o.id = i;
         o.address = [FakeDataHelper getFakeAddressLit][i];
         o.product = [FakeDataHelper getFakeProductList][i];
-        o.group = [FakeDataHelper getFakeGroupList][i];
+        o.product.group = [FakeDataHelper getFakeGroupList][i];
         o.status = paid ? OrderStatusEnum_Paid : OrderStatusEnum_UnPaid;
         o.price = 149.0;
         o.count = 2;

@@ -76,7 +76,7 @@
     groupNameLbl.numberOfLines = 2;
     groupNameLbl.backgroundColor = [UIColor clearColor];
     groupNameLbl.textColor = [UIColor colorWithHexString:APP_NAVIGATIONBAR_COLOR];
-    groupNameLbl.text = self.order.group.name;
+    groupNameLbl.text = self.order.product.group.name;
     [detailView addSubview:groupNameLbl];
     
     UILabel *totalPriceLbl = [[UILabel alloc] initWithFrame:CGRectMake(MaxX(groupNameLbl) + 5,
@@ -102,7 +102,7 @@
     [detailView addSubview:avatorImgView];
     avatorImgView.layer.borderColor = [[UIColor colorWithHexString:@"e0e0de"] CGColor];
     avatorImgView.layer.borderWidth = 2;
-    
+    [avatorImgView setImageWithURL:[NSURL URLWithString:self.order.product.imgUrlList[0]]];
     UILabel *productNameLbl = [[UILabel alloc] initWithFrame:CGRectMake(MaxX(avatorImgView) + 5,
                                                                       Y(avatorImgView),
                                                                       130,
@@ -122,7 +122,7 @@
     productDescLbl.numberOfLines = 1;
     productDescLbl.backgroundColor = [UIColor clearColor];
     productDescLbl.textColor = [UIColor lightGrayColor];
-    productDescLbl.text = @"300ml, 亮发"; //self.order.product.description;
+    productDescLbl.text = [self.order selectedSpecStr]; //self.order.product.description;
     [detailView addSubview:productDescLbl];
     
     UILabel *priceLbl = [[UILabel alloc] initWithFrame:CGRectMake(MaxX(productNameLbl) + 5,
@@ -134,7 +134,7 @@
     priceLbl.backgroundColor = [UIColor clearColor];
     priceLbl.textAlignment = NSTextAlignmentRight;
     priceLbl.textColor = [UIColor colorWithHexString:APP_NAVIGATIONBAR_COLOR];
-    priceLbl.text = [NSString stringWithFormat:@"￥%.2f", self.order.product.price];
+    priceLbl.text = [NSString stringWithFormat:@"￥%.2f", self.order.price];
     [detailView addSubview:priceLbl];
     
 

@@ -16,7 +16,7 @@
 
 @interface ProductOpitionPanel ()
 {
-    Product *_product;
+    Order *_order;
     SelectOpition *opition;
     cancelSelection _cancelHandler;
     submitSelection _submitHandler;
@@ -29,6 +29,7 @@
     UILabel *nameLbl;
     UILabel *priceLbl;
     UILabel *countLbl;
+    UILabel *bottomPriceLbl;
 }
 @end
 @implementation ProductOpitionPanel
@@ -79,23 +80,23 @@
         [cancelBtn addTarget:self action:@selector(cancelClick) forControlEvents:UIControlEventTouchDown];
         [topView addSubview:cancelBtn];
         
-        float bottomHeight = 40;
+        float bottomHeight = kBottomBarHeight;
         UIView *bottomView = [[UIView alloc] initWithFrame:CGRectMake(0,
                                                                       HEIGHT(self) - bottomHeight,
                                                                       WIDTH(self),
-                                                                      40)];
+                                                                      bottomHeight)];
         bottomView.backgroundColor = [UIColor whiteColor];
         [self addSubview:bottomView];
         
         UIButton *btnDecrese = [UIButton buttonWithType:UIButtonTypeCustom];
-        btnDecrese.frame = CGRectMake(20, 5, 30, 30);
+        btnDecrese.frame = CGRectMake(10, 10, 30, 30);
         [btnDecrese addTarget:self action:@selector(countDownClick) forControlEvents:UIControlEventTouchDown];
         [btnDecrese setBackgroundImage:[UIImage imageNamed:@"CountDownBtn"] forState:UIControlStateNormal];
         [bottomView addSubview:btnDecrese];
         
         countLbl = [[UILabel alloc] initWithFrame:CGRectMake(MaxX(btnDecrese) + 10,
                                                                           Y(btnDecrese),
-                                                                          50,
+                                                                          40,
                                                                            HEIGHT(btnDecrese))];
         countLbl.layer.borderColor = [[UIColor colorWithHexString:APP_CONTENT_BG_COLOR] CGColor];
         countLbl.layer.borderWidth = 1;
@@ -109,9 +110,18 @@
         [btnIncrease addTarget:self action:@selector(countUpClick) forControlEvents:UIControlEventTouchDown];
         [btnIncrease setBackgroundImage:[UIImage imageNamed:@"CountUpBtn"] forState:UIControlStateNormal];
         [bottomView addSubview:btnIncrease];
+
+        bottomPriceLbl = [[UILabel alloc] initWithFrame:CGRectMake(MaxX(btnIncrease)+5,
+                                                                   Y(btnDecrese),
+                                                                   60,
+                                                                   HEIGHT(btnDecrese))];;
+        bottomPriceLbl.font = [UIFont systemFontOfSize:12];
+        bottomPriceLbl.textAlignment = NSTextAlignmentCenter;
+        bottomPriceLbl.textColor = [UIColor redColor];
+        [bottomView addSubview:bottomPriceLbl];
         
         UIButton *orderBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        orderBtn.frame = CGRectMake(220, 5, 80, 30);
+        orderBtn.frame = CGRectMake(220, 10, 80, 30);
         [orderBtn setTitle:@"下单" forState:UIControlStateNormal];
         orderBtn.layer.borderWidth = 1;
         orderBtn.layer.borderColor = [[UIColor colorWithHexString:APP_CONTENT_BG_COLOR] CGColor];
@@ -132,30 +142,29 @@
 
 - (void)countDownClick
 {
-    if(_product.count > 1){
-        _product.count--;
-        countLbl.text = [NSString stringWithFormat:@"%d", _product.count];
+    if(_order.count > 1){
+        _order.count--;
+        countLbl.text = [NSString stringWithFormat:@"%d", _order.count];
+        _order.price =  _order.singleProductPrice  * _order.count;
+        bottomPriceLbl.text = [NSString stringWithFormat:@"￥%.2f",_order.price];
     }
 }
 
 - (void)countUpClick
 {
-    _product.count++;
-    countLbl.text = [NSString stringWithFormat:@"%d", _product.count];
+    _order.count++;
+    countLbl.text = [NSString stringWithFormat:@"%d", _order.count];
+    _order.price =  _order.singleProductPrice  * _order.count;
+    bottomPriceLbl.text = [NSString stringWithFormat:@"￥%.2f",_order.price];
 }
 
 - (void)orderClick
 {
-    NSArray *unselectedCategory = [opition unselectedCategory];
-    if(unselectedCategory.count == 0){
+    NSString *unSelectedSpecStr = [_order unSelectedSpecStr];
+    if(unSelectedSpecStr.length == 0){
         _submitHandler(opition);
     }else{
-        NSMutableString *str = [NSMutableString string];
-        [str appendString:@"请选择"];
-        for (NSString *item in unselectedCategory) {
-            [str appendFormat:@",%@", item];
-        }
-        [SVProgressHUD showErrorWithStatus:str duration:1];
+        [SVProgressHUD showErrorWithStatus:[NSString stringWithFormat:@"请选择%@",unSelectedSpecStr] duration:1];
     }
 }
 
@@ -166,14 +175,14 @@
 
 - (void)setupTitle:(NSString *)title
           opitions:(SelectOpition *)selectOptioin
-           product:(Product *)product
+           order:(Order *)order
             cancel:(cancelSelection)cancelHandler
             submit:(submitSelection)submitHandler
 {
-    _product = product;
+    _order = order;
 
-    [avatorImgView setImageWithURL:[NSURL URLWithString:product.imgUrlList[0]]];
-    nameLbl.text = product.name;
+    [avatorImgView setImageWithURL:[NSURL URLWithString:_order.product.imgUrlList[0]]];
+    nameLbl.text = _order.product.name;
 
     titleLbl.text = title;
 
@@ -190,7 +199,8 @@
     for (OpitionCategory *category in opition.opitionCateogries) {
         offsetY = [self fillCategory:category withOffsetY:offsetY];
     }
-    countLbl.text = [NSString stringWithFormat:@"%d", _product.count];
+    countLbl.text = [NSString stringWithFormat:@"%d", _order.count == 0 ? 1 : _order.count];
+    bottomPriceLbl.text = [NSString stringWithFormat:@"￥%.2f",_order.price];
     scrollView.contentSize = CGSizeMake(WIDTH(self), offsetY);
 }
 
@@ -219,6 +229,7 @@
     liner.backgroundColor = [UIColor lightGrayColor];
     [scrollView addSubview:liner];
     offsetY = MaxY(liner);
+    int selectedOptionId = ((OpitionItem *)[_order.productSelectedSpecs objectForKey:@(category.id)]).id;
     for (OpitionItem *item in category.opitionItems) {
         CGSize itemTitleSsize = [item.title sizeWithFont:font
                                        constrainedToSize:CGSizeMake(contentMaxWidth - 2*categoryMargin , CGFLOAT_MAX)
@@ -233,6 +244,7 @@
         opitionBtn.tag = item.id;
         [opitionBtn addTarget:self action:@selector(itemClick:) forControlEvents:UIControlEventTouchDown];
         [scrollView addSubview:opitionBtn];
+        opitionBtn.choosen = item.id == selectedOptionId;
         offsetY = MaxY(opitionBtn);
     }
     return offsetY;
@@ -242,34 +254,15 @@
 {
     OpitionButton *btn = (OpitionButton *)sender;
     btn.choosen = YES;
-    priceLbl.text = [NSString stringWithFormat:@"￥%.2f", btn.opitionItem.price];
+    _order.singleProductPrice = btn.opitionItem.price;
+    priceLbl.text = [NSString stringWithFormat:@"￥%.2f", _order.singleProductPrice];
+    _order.price = _order.singleProductPrice  * [countLbl.text floatValue];
+    
+    bottomPriceLbl.text = [NSString stringWithFormat:@"￥%.2f",_order.price];
     
     OpitionItem *item = btn.opitionItem;
-    OpitionItem *itemUnderSameCategory = nil;
-    NSMutableArray *selectedValues = [NSMutableArray arrayWithArray:opition.selectedValues];
-    for (OpitionItem *opitionItem in selectedValues) {
-        if(opitionItem.categoryId == item.categoryId){
-            itemUnderSameCategory = opitionItem;
-            break;
-        }
-    }
-    if(itemUnderSameCategory)
-        [selectedValues removeObject:itemUnderSameCategory];
-    [selectedValues addObject:item];
-    opition.selectedValues = selectedValues;
+    [_order.productSelectedSpecs setObject:item forKey:@(item.categoryId)];
 }
 
-- (BOOL)isChecked:(OpitionButton *)btn
-{
-    BOOL isChecked = NO;
-    OpitionItem *btnItem = btn.opitionItem;
-    for (OpitionItem *item in opition.selectedValues) {
-        if(item.id == btnItem.id){
-            isChecked = YES;
-            break;
-        }
-    }
-    return isChecked;
-}
 
 @end

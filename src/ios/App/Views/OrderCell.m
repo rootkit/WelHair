@@ -204,7 +204,7 @@
         self.statusLbl.hidden = YES;
     }
 
-    self.groupNameLbl.text = order.group.name;
+    self.groupNameLbl.text = order.product.group.name;
     self.nameLbl.text = order.product.name;
     self.descLbl.text = order.product.description;
     self.priceLbl.text = [NSString stringWithFormat:@"￥%.2f",order.product.price];

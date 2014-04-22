@@ -22,10 +22,17 @@ typedef NS_ENUM(NSInteger, OrderStatusEnum) {
 
 @interface Order : BaseModel
 
-@property (nonatomic, strong) Group *group;
 @property (nonatomic, strong) Product *product;
+@property (nonatomic, strong) NSMutableDictionary *productSelectedSpecs;
 @property (nonatomic) int count;
-@property (nonatomic) float price;
+@property (nonatomic) float price; // total price
+@property (nonatomic) float singleProductPrice; // total price
 @property (nonatomic) OrderStatusEnum status;
 @property (nonatomic, strong) Address *address;
+
+// check if need pick spec
+- (NSString *)unSelectedSpecStr;
+
+- (NSString *)selectedSpecStr;
 @end
+
