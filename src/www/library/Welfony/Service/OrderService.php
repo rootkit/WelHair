@@ -145,5 +145,24 @@ class OrderService
         }
     }
 
+    public static function deliverOrder($orderId, $data, $log, $doc)
+    {
+        $result = array('success' => false, 'message' => '');
+        $r = OrderRepository::getInstance()->deliverOrder($orderId,$data, $log, $doc);
+        if ($r) {
+
+            $result['success'] = true;
+            $result['message'] = '发货成功！';
+            //$result['order'] = $data;
+
+            return $result;
+        } else {
+            $result['message'] = '发货失败！';
+
+            return $result;
+        }
+    }
+
+
 
 }

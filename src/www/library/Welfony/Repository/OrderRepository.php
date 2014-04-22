@@ -211,4 +211,36 @@ class OrderRepository extends AbstractRepository
             return false;
         }
     }
+
+    public function deliverOrder($orderId, $data, $log, $doc)
+    {
+      
+        $conn = $this->conn;
+        $conn->beginTransaction();
+        try {
+
+            $this->conn->update('`Order`', $data, array('OrderId' => $orderId));
+
+            if ($log) {
+       
+                 $this->conn->insert('OrderLog', $log);
+               
+            }
+            
+            if ($doc) {
+       
+                 $this->conn->insert('DeliveryDoc', $doc);
+               
+            }
+
+            $conn->commit();
+
+            return $orderId;
+        } catch (\Exception $e) {
+            $conn->rollback();
+            $this->logger->log($e, \Zend_Log::ERR);
+
+            return false;
+        }
+    }
 }

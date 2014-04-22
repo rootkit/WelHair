@@ -98,7 +98,37 @@ $(function() {
                             text: "发货",
                             class:"u-btn",
                             click: function()
-                            {
+                            { 
+                                var popin = $(this);
+                                $.ajax({
+                                            type: 'post',
+                                            dataType: 'json',
+                                            url:  globalSetting.baseUrl + '/order/index/deliverorder',
+                                            data: {
+                                                'order_id':$('#order_id').val(),
+                                                'note':  $('#delivery_note').val(),
+                                                'order_no':$('#order_no').val(),
+                                                'name':$('#delivery_accept_name').val(),
+                                                'telphone':$('#delivery_telphone').val(),
+                                                'mobile':$('#delivery_mobile').val(),
+                                                'postcode': $('#delivery_postcode').val(),
+                                                'province': $('#sel-province').val(),
+                                                'city': $('#sel-city').val(),
+                                                'area': $('#sel-district').val(),
+                                                'address': $('#delivery_address').val(),
+                                                'freight':$('#delivery_freight').val(),
+                                                'deliverytype':$('#delivery_type').val(),
+                                                'deliverycode':$('#delivery_code').val(),
+                                                'userid':$('#order_user').val()
+                                             },
+                                            success: function(data){
+                                                popin.dialog('close');
+                                            },
+                                            error:function()
+                                            {
+
+                                            }
+                                });
                             }
                          },
                            {

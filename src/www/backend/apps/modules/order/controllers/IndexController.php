@@ -369,5 +369,58 @@ class Order_IndexController extends AbstractAdminController
         }
     }
 
+    public function deliverorderAction()
+    {
+        $this->_helper->viewRenderer->setNoRender(true);
+        $this->_helper->layout->disableLayout();
+
+        $currentUser = $this->getCurrentUser();
+        if( !$currentUser )
+        {
+            $this->_helper->json->sendJson(array('success' => false, 'message' => 'Need login' ));
+            return;
+        }
+
+        $orderId =  intval($this->_request->getParam('order_id')) ;
+        $orderNo =  $this->_request->getParam('order_no') ;
+        $deliveryNote =  $this->_request->getParam('note') ;
+        $log= array(
+                'OrderId' => $orderId,
+                'User' => $currentUser["Username"],
+                'Action'=>'发货',
+                'AddTime'=>date('Y-m-d H:i:s'),
+                'Result'=> '成功',
+                'Note' => '订单【'.$orderNo.'】发货成功'
+            );
+        $doc = array(
+                'OrderId' => $orderId,
+                'AdminId' => $currentUser["UserId"],
+                'UserId' => $this->_request->getParam('userid'),
+                'Name' => $this->_request->getParam('name'),
+                'Postcode' => $this->_request->getParam('postcode'),
+                'Telphone' => $this->_request->getParam('telphone'),
+                'Country' => 0,
+                'Province'=>$this->_request->getParam('province'),
+                'City'=>$this->_request->getParam('city'),
+                'Area'=>$this->_request->getParam('area'),
+                'Address'=>$this->_request->getParam('address'),
+                'Mobile'=>$this->_request->getParam('mobile'),
+                'CreateTime'=>date('Y-m-d H:i:s'),
+                'Freight'=> $this->_request->getParam('freight'),
+                'DeliveryCode' => $this->_request->getParam("deliverycode"),
+                'DeliveryType' => $this->_request->getParam("deliverytype"),
+                'Note' => $deliveryNote,
+                'IsDeleted' => 0
+            );
+
+        $order = array( 'DistributionStatus'=> 1);
+
+        if ($this->_request->isPost()) {
+
+            $result = OrderService::deliverOrder($orderId, $order, $log, $doc);
+            $this->_helper->json->sendJson($result);
+        }
+    }
+
 
 }

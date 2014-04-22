@@ -301,7 +301,7 @@ use \Welfony\Utility\Util;
                     <input type="hidden" id="order_id" value="<?php echo $this->orderInfo['OrderId']; ?>"/>
                     <input type="hidden" id="order_no" value="<?php echo $this->orderInfo['OrderNo']; ?>"/>
                     <button type="button" class="u-btn <?php echo $this->orderInfo['PayStatus'] == '1' ? ' u-btn-disabled ':''; ?>" id="to_pay" <?php echo $this->orderInfo['PayStatus'] == '1' ? ' disabled="disabled" ':''; ?>><span>支付</span></button>
-                    <button type="button" class="u-btn" id="to_deliver"><span>发货</span></button>
+                    <button type="button" class="u-btn <?php echo $this->orderInfo['DistributionStatus'] == '1' ? ' u-btn-disabled ':''; ?>" id="to_deliver" <?php echo $this->orderInfo['DistributionStatus'] == '1' ? ' disabled="disabled" ':''; ?>><span>发货</span></button>
                     <button type="button" class="u-btn <?php echo $this->orderInfo['PayStatus'] == '0' ? ' u-btn-disabled ':''; ?>" id="to_refundment"  <?php echo $this->orderInfo['PayStatus'] == '0' ? ' disabled="disabled" ':''; ?>><span>退款</span></button>
                     <button type="button" class="u-btn" onclick="complete(6,5)"><span>完成</span></button>
                     <button type="button" class="u-btn"><span>作废</span></button>
@@ -375,27 +375,27 @@ use \Welfony\Utility\Util;
                 <tr>
                     <th>配送方式:</th>
                     <td align="left">
-                        <select alt="请选择配送方式" pattern="required" name="delivery_type">
+                        <select alt="请选择配送方式" pattern="required" id="delivery_type">
                             <?php foreach($this->deliveries as $delivery): ?>
                             <option  <?php echo $delivery['DeliveryId'] == $this->orderInfo['Distribution']? ' selected ':''; ?> value="<?php echo $delivery['DeliveryId']; ?>"><?php echo $delivery['Name']; ?></option>
                             <?php endforeach; ?>
                         </select>
                     </td>
-                    <th>配送费用:</th><td align="left"><?php echo $this->orderInfo['PayableFreight']; ?></td>
+                    <th>配送费用:</th><td align="left"><?php echo $this->orderInfo['PayableFreight']; ?><input type="hidden" value="<?php echo $this->orderInfo['PayableFreight']; ?>" id="delivery_freight"></td>
                 </tr>
                 <tr>
-                    <th>配送单号:</th><td align="left" colspan="3"><input type="text" pattern="required" name="delivery_code" class="small"></td>
+                    <th>配送单号:</th><td align="left" colspan="3"><input type="text" pattern="required" id="delivery_code" class="small"></td>
                 </tr>
                 <tr>
                     <th>是否保价:</th><td align="left"><?php echo $this->orderInfo['IfInsured']? '是':'否'; ?></td><th>保价费用:</th><td align="left">￥<?php echo $this->orderInfo['Insured']; ?></td>
                 </tr>
                 <tr>
-                    <th>收货人姓名:</th><td align="left"><input type="text" pattern="required" value="<?php echo $this->orderInfo['AcceptName']; ?>" name="name" class="small"></td>
-                    <th>电话:</th><td align="left"><input type="text" empty="" pattern="phone" value="" name="telphone" class="small"><?php echo $this->orderInfo['Telphone']; ?></td>
+                    <th>收货人姓名:</th><td align="left"><input type="text" pattern="required" value="<?php echo $this->orderInfo['AcceptName']; ?>" id="delivery_accept_name" class="small"></td>
+                    <th>电话:</th><td align="left"><input type="text" empty="" pattern="phone" value="<?php echo $this->orderInfo['Telphone']; ?>" id="delivery_telphone" class="small"></td>
                 </tr>
                 <tr>
-                    <th>手机:</th><td align="left"><input type="text" pattern="mobi" value="13706411579" name="mobile" class="small"><?php echo $this->orderInfo['Mobile']; ?></td>
-                    <th>邮政编码:</th><td align="left"><input type="text" empty="" pattern="zip" value="" class="small" name="postcode"><?php echo $this->orderInfo['Postcode']; ?></td>
+                    <th>手机:</th><td align="left"><input type="text" pattern="mobi" value="<?php echo $this->orderInfo['Mobile']; ?>" id="delivery_mobile" class="small"></td>
+                    <th>邮政编码:</th><td align="left"><input type="text" empty="" pattern="zip" value="<?php echo $this->orderInfo['Postcode']; ?>" class="small" id="delivery_postcode"></td>
                 </tr>
                 <tr>
                     <th>地区:</th>
@@ -422,10 +422,10 @@ use \Welfony\Utility\Util;
                     </td>
                 </tr>
                 <tr>
-                    <th>地址:</th><td align="left" colspan="3"><input type="text" pattern="required" size="50" value="sss" name="address" class="normal"><?php echo $this->orderInfo['Address']; ?></td>
+                    <th>地址:</th><td align="left" colspan="3"><input type="text" pattern="required" size="50" value="<?php echo $this->orderInfo['Address']; ?>" id="delivery_address" class="normal"></td>
                 </tr>
                 <tr>
-                    <th>发货单备注:</th><td align="left" colspan="3"><textarea cols="85" rows="3" name="note"></textarea></td>
+                    <th>发货单备注:</th><td align="left" colspan="3"><textarea cols="85" rows="3" id="delivery_note"></textarea></td>
                 </tr>
             </tbody>
         </table>
