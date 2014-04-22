@@ -25,12 +25,14 @@
 #import "UIViewController+KNSemiModal.h"
 #import "UserManager.h"
 #import "WorkDetailViewController.h"
+#import "MWPhotoBrowser.h"
 
 static const float profileViewHeight = 90;
 
-@interface StaffDetailViewController () <UIScrollViewDelegate>
+@interface StaffDetailViewController () <UIScrollViewDelegate,MWPhotoBrowserDelegate>
 
 @property (nonatomic, strong) UIScrollView *scrollView;
+@property (nonatomic, strong) UIView *bottomView;
 
 @property (nonatomic, strong) UIImageView *headerBackgroundView;
 @property (nonatomic, strong) CircleImageView *avatorImgView;
@@ -75,27 +77,25 @@ static const float profileViewHeight = 90;
     float tabButtonViewHeight = 50;
     float avatorSize = 50;
     
-    self.headerBackgroundView = [[UIImageView alloc] initWithFrame:CGRectMake(0, self.topBarOffset, WIDTH(self.view), profileViewHeight)];
-    
-    self.headerBackgroundView.image = [UIImage imageNamed:@"Profile_Banner_Bg"];
-    [self.view addSubview:self.headerBackgroundView];
+
     
     self.scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, self.topBarOffset,
                                                                      WIDTH(self.view),
-                                                                     [self contentHeightWithNavgationBar:YES withBottomBar:YES])];
+                                                                     [self contentHeightWithNavgationBar:YES withBottomBar:NO])];
     self.scrollView.delegate  =self;
     [self.view addSubview:self.scrollView];
-
-    UIView *bottomView = [[UIView alloc] initWithFrame:CGRectMake(0,
-                                                                  MaxY(self.scrollView),
+    
+    self.bottomView = [[UIView alloc] initWithFrame:CGRectMake(0,
+                                                                  MaxY(self.scrollView) - kBottomBarHeight,
                                                                   WIDTH(self.view),
                                                                   kBottomBarHeight)];
-    bottomView.backgroundColor =[UIColor whiteColor];
-    [self.view addSubview:bottomView];
+    self.bottomView.backgroundColor =[UIColor whiteColor];
+    self.bottomView.hidden = YES;
+    [self.view addSubview:self.bottomView];
 
-    UIView *bottomBorderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, WIDTH(bottomView), 1)];
+    UIView *bottomBorderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, WIDTH(self.bottomView), 1)];
     bottomBorderView.backgroundColor = [UIColor colorWithHexString:@"e1e1e1"];
-    [bottomView addSubview:bottomBorderView];
+    [self.bottomView addSubview:bottomBorderView];
 
     self.submitBtn = [[UIButton alloc] initWithFrame:CGRectMake(230, 12, 80, 24)];
     self.submitBtn.tag = 0;
@@ -103,15 +103,19 @@ static const float profileViewHeight = 90;
     [self.submitBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [self.submitBtn setBackgroundColor:[UIColor colorWithHexString:@"e43a3d"]];
     [self.submitBtn addTarget:self action:@selector(submitClick) forControlEvents:UIControlEventTouchUpInside];
-    [bottomView addSubview:self.submitBtn];
+    [self.bottomView addSubview:self.submitBtn];
     
     
-    UIView *headerView_ = [[UIView alloc] initWithFrame:CGRectMake(0, 0, WIDTH(self.view), profileViewHeight + addressViewHeight + tabButtonViewHeight)];
+    UIView *headerView_ = [[UIView alloc] initWithFrame:CGRectMake(0, 0, WIDTH(self.view),profileViewHeight+ addressViewHeight + tabButtonViewHeight)];
     headerView_.backgroundColor = [UIColor clearColor];
     [self.scrollView addSubview:headerView_];
     
+    self.headerBackgroundView = [[UIImageView alloc] initWithFrame:CGRectMake(0,0, WIDTH(self.view), profileViewHeight)];
+    
+    self.headerBackgroundView.image = [UIImage imageNamed:@"Profile_Banner_Bg"];
+    [headerView_ addSubview:self.headerBackgroundView];
 #pragma topbar
-    self.addressView = [[UIView alloc] initWithFrame:CGRectMake(0, profileViewHeight, WIDTH(headerView_), addressViewHeight)];
+    self.addressView = [[UIView alloc] initWithFrame:CGRectMake(0, MaxY(self.headerBackgroundView), WIDTH(headerView_), addressViewHeight)];
     [headerView_ addSubview:self.addressView];
     
     self.addressView.backgroundColor = [UIColor whiteColor];
@@ -123,6 +127,8 @@ static const float profileViewHeight = 90;
     self.avatorImgView.layer.borderColor = [[UIColor whiteColor] CGColor];
     self.avatorImgView.layer.borderWidth = 3;
     self.avatorImgView.backgroundColor = [UIColor colorWithHexString:@"eeeeee"];
+    self.avatorImgView.userInteractionEnabled = YES;
+    [self.avatorImgView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(openAvator)]];
     [headerView_ addSubview:self.avatorImgView];
     
     self.nameLbl = [[UILabel alloc] initWithFrame:CGRectMake(70 + 5, 0, WIDTH(self.addressView) - 10 - MaxX(self.avatorImgView)-60, 20)];
@@ -135,11 +141,13 @@ static const float profileViewHeight = 90;
     self.groupNameLbl = [[UILabel alloc] initWithFrame:CGRectMake(X(self.nameLbl), MaxY(self.nameLbl), WIDTH(self.addressView) - 10 - MaxX(self.avatorImgView) - 80, 20)];
     self.groupNameLbl.backgroundColor = [UIColor clearColor];
     self.groupNameLbl.textColor = [UIColor grayColor];
-    self.groupNameLbl.font = [UIFont systemFontOfSize:12];
+    self.groupNameLbl.font = [UIFont systemFontOfSize:14];
     self.groupNameLbl.textAlignment = TextAlignmentLeft;
     [self.addressView addSubview:self.groupNameLbl];
+    self.groupNameLbl.userInteractionEnabled = YES;
+    [self.groupNameLbl addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(groupTapped)]];
 
-    float heartIconSize = 30;
+    float heartIconSize = 35;
     FAKIcon *heartIconOn = [FAKIonIcons ios7HeartIconWithSize:heartIconSize];
     [heartIconOn addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithHexString:@"e43a3d"]];
     FAKIcon *heartIconOff = [FAKIonIcons ios7HeartOutlineIconWithSize:heartIconSize];
@@ -151,24 +159,22 @@ static const float profileViewHeight = 90;
                     toggleEventHandler:^(BOOL isOn){
                        return [selfDelegate foClick:isOn];
                     }];
-    self.foBtn.frame = CGRectMake(MaxX(self.nameLbl), 0, heartIconSize, heartIconSize);
+    self.foBtn.frame = CGRectMake(MaxX(self.nameLbl), 5, heartIconSize, heartIconSize);
     [self.addressView addSubview:self.foBtn];
     
-    FAKIcon *locationIcon = [FAKIonIcons locationIconWithSize:15];
-    [locationIcon addAttribute:NSForegroundColorAttributeName value:[UIColor lightGrayColor]];
-    UIImageView *locationImg = [[UIImageView alloc] initWithFrame:CGRectMake(MaxX(self.groupNameLbl), Y(self.groupNameLbl)+10,20,20)];
-    locationImg.image = [locationIcon imageWithSize:CGSizeMake(15, 15)];
-    [self.addressView addSubview:locationImg];
+//    FAKIcon *locationIcon = [FAKIonIcons locationIconWithSize:15];
+//    [locationIcon addAttribute:NSForegroundColorAttributeName value:[UIColor lightGrayColor]];
+//    UIImageView *locationImg = [[UIImageView alloc] initWithFrame:CGRectMake(MaxX(self.groupNameLbl), Y(self.groupNameLbl)+10,20,20)];
+//    locationImg.image = [locationIcon imageWithSize:CGSizeMake(15, 15)];
+//    [self.addressView addSubview:locationImg];
+//
+//    self.distanceLbl = [[UILabel alloc] initWithFrame:CGRectMake(MaxX(locationImg), Y(locationImg),60,20)];
+//    self.distanceLbl.backgroundColor = [UIColor clearColor];
+//    self.distanceLbl.textColor = [UIColor grayColor];
+//    self.distanceLbl.font = [UIFont systemFontOfSize:12];
+//    self.distanceLbl.textAlignment = TextAlignmentLeft;
+//    [self.addressView addSubview:self.distanceLbl];
 
-    self.distanceLbl = [[UILabel alloc] initWithFrame:CGRectMake(MaxX(locationImg), Y(locationImg),60,20)];
-    self.distanceLbl.backgroundColor = [UIColor clearColor];
-    self.distanceLbl.textColor = [UIColor grayColor];
-    self.distanceLbl.font = [UIFont systemFontOfSize:12];
-    self.distanceLbl.textAlignment = TextAlignmentLeft;
-    [self.addressView addSubview:self.distanceLbl];
-
-  
-    
     [self getStaffDetail];
 }
 
@@ -179,24 +185,76 @@ static const float profileViewHeight = 90;
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
-    CGFloat yOffset = self.scrollView.contentOffset.y;
-    if (yOffset > 0) {
-        CGRect f = self.headerBackgroundView.frame;
-        f.origin.y = -yOffset + self.topBarOffset;
-        self.headerBackgroundView.frame = f;
-        return;
-    }
+//    CGFloat yOffset = self.scrollView.contentOffset.y;
+//    if (yOffset > 0) {
+//        CGRect f = self.headerBackgroundView.frame;
+//        f.origin.y = -yOffset + self.topBarOffset;
+//        self.headerBackgroundView.frame = f;
+//        return;
+//    }
+//
+//    float viewWidth = 320;
+//    float rate = ABS(yOffset) / profileViewHeight;
+//
+//    if (yOffset < 0) {
+//        CGRect f = CGRectMake(-rate * viewWidth / 2, self.topBarOffset, (1 + rate) * viewWidth, (1 + rate) *profileViewHeight);
+//        self.headerBackgroundView.frame = f;
+//    } else {
+//        CGRect f = CGRectMake(rate * viewWidth / 2, self.topBarOffset, (1 + rate) * viewWidth, (1 + rate) *profileViewHeight);
+//        self.headerBackgroundView.frame = f;
+//    }
+}
 
-    float viewWidth = 320;
-    float rate = ABS(yOffset) / profileViewHeight;
+- (void)openAvator
+{
+    MWPhotoBrowser *browser = [[MWPhotoBrowser alloc] initWithDelegate:self];
+    browser.displayActionButton = NO;
+    browser.displayNavArrows = YES;
+    browser.displaySelectionButtons = NO;
+    browser.alwaysShowControls = NO;
+    browser.wantsFullScreenLayout = YES;
+    browser.zoomPhotosToFill = YES;
+    browser.enableGrid = NO;
+    browser.startOnGrid = NO;
+    [browser setCurrentPhotoIndex:0];
+    
+    UINavigationController *nc = [[UINavigationController alloc] initWithRootViewController:browser];
+    nc.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+    [self.navigationController presentViewController:nc animated:YES completion:Nil];
+}
 
-    if (yOffset < 0) {
-        CGRect f = CGRectMake(-rate * viewWidth / 2, self.topBarOffset, (1 + rate) * viewWidth, (1 + rate) *profileViewHeight);
-        self.headerBackgroundView.frame = f;
-    } else {
-        CGRect f = CGRectMake(rate * viewWidth / 2, self.topBarOffset, (1 + rate) * viewWidth, (1 + rate) *profileViewHeight);
-        self.headerBackgroundView.frame = f;
-    }
+#pragma mark - MWPhotoBrowserDelegate
+- (NSUInteger)numberOfPhotosInPhotoBrowser:(MWPhotoBrowser *)photoBrowser
+{
+    return 1;
+}
+
+- (id <MWPhoto>)photoBrowser:(MWPhotoBrowser *)photoBrowser photoAtIndex:(NSUInteger)index
+{
+    return [MWPhoto photoWithURL:self.staff.avatorUrl];
+}
+
+- (MWCaptionView *)photoBrowser:(MWPhotoBrowser *)photoBrowser captionViewForPhotoAtIndex:(NSUInteger)index
+{
+    MWPhoto *photo = [MWPhoto photoWithURL:self.staff.avatorUrl];
+    MWCaptionView *captionView = [[MWCaptionView alloc] initWithPhoto:photo];
+    
+    return captionView ;
+}
+
+- (void)photoBrowser:(MWPhotoBrowser *)photoBrowser actionButtonPressedForPhotoAtIndex:(NSUInteger)index
+{
+}
+
+- (void)photoBrowser:(MWPhotoBrowser *)photoBrowser didDisplayPhotoAtIndex:(NSUInteger)index
+{
+}
+
+- (void)groupTapped
+{
+    GroupDetailViewController *vc = [GroupDetailViewController new];
+    vc.group = self.staff.group;
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 - (BOOL)foClick:(BOOL)isFo
@@ -463,34 +521,36 @@ static const float profileViewHeight = 90;
         serviceScrollView.frame = newFrame;
 
         scrollViewOffsetY = MaxY(serviceScrollView);
-
-        self.submitBtn.enabled = true;
-    } else {
-        self.submitBtn.enabled = false;
+        self.bottomView.hidden = NO;
+        CGRect scrollFrame = self.scrollView.frame;
+        scrollFrame.size.height -= kBottomBarHeight;
+        self.scrollView.frame = scrollFrame;
     }
 
-    if (self.staff.works.count > 0) {
-        UIImageView *workTitleImg = [[UIImageView alloc] initWithFrame:CGRectMake(contentPadding, scrollViewOffsetY + contentPadding, 20, 20)];
-        workTitleImg.image = [UIImage imageNamed:@"StaffCellI_WorkIcon"];
-        [self.scrollView addSubview:workTitleImg];
+    
+    UIImageView *workTitleImg = [[UIImageView alloc] initWithFrame:CGRectMake(contentPadding, scrollViewOffsetY + contentPadding, 20, 20)];
+    workTitleImg.image = [UIImage imageNamed:@"StaffCellI_WorkIcon"];
+    [self.scrollView addSubview:workTitleImg];
+    
+    UILabel *workTitleLbl = [[UILabel alloc] initWithFrame:CGRectMake(MaxX(workTitleImg)+5,
+                                                                      Y(workTitleImg),
+                                                                      scrollViewOffsetY,
+                                                                      20)];
+    workTitleLbl.font = [UIFont systemFontOfSize:16];
+    workTitleLbl.numberOfLines = 1;
+    workTitleLbl.textAlignment = TextAlignmentLeft;
+    workTitleLbl.backgroundColor = [UIColor clearColor];
+    workTitleLbl.textColor = [UIColor blackColor];
+    workTitleLbl.text = @"作品";
+    [self.scrollView addSubview:workTitleLbl];
 
-        UILabel *workTitleLbl = [[UILabel alloc] initWithFrame:CGRectMake(MaxX(workTitleImg)+5,
-                                                                          Y(workTitleImg),
-                                                                          scrollViewOffsetY,
-                                                                          20)];
-        workTitleLbl.font = [UIFont systemFontOfSize:16];
-        workTitleLbl.numberOfLines = 1;
-        workTitleLbl.textAlignment = TextAlignmentLeft;
-        workTitleLbl.backgroundColor = [UIColor clearColor];
-        workTitleLbl.textColor = [UIColor blackColor];
-        workTitleLbl.text = @"作品";
-        [self.scrollView addSubview:workTitleLbl];
-
-        UIView *workView = [[UIView alloc] initWithFrame:CGRectMake(contentPadding, MaxY(workTitleLbl) + 5, 300, 60)];
-        workView.layer.cornerRadius = 5;
-        workView.backgroundColor = [UIColor whiteColor];
-        [self.scrollView addSubview:workView];
-
+    UIView *workView = [[UIView alloc] initWithFrame:CGRectMake(contentPadding, MaxY(workTitleLbl) + 5, 300, 60)];
+    workView.layer.cornerRadius = 5;
+    workView.backgroundColor = [UIColor whiteColor];
+    [self.scrollView addSubview:workView];
+    scrollViewOffsetY = MaxY(workView);
+    if (self.staff.works.count == 0) {
+        
         float imgHorizontalPadding = 5;
         float imgVeritalPadding = 3;
         float imgSize = 54;
@@ -524,7 +584,16 @@ static const float profileViewHeight = 90;
                 [workView addSubview:moreLbl];
             }
         }
-        scrollViewOffsetY = MaxY(workView);
+        
+    }else{
+        UILabel *emptyWorkLbl = [[UILabel alloc] initWithFrame:workView.bounds];
+        emptyWorkLbl.font = [UIFont systemFontOfSize:16];
+        emptyWorkLbl.numberOfLines = 1;
+        emptyWorkLbl.textAlignment = TextAlignmentCenter;
+        emptyWorkLbl.backgroundColor = [UIColor clearColor];
+        emptyWorkLbl.textColor = [UIColor lightGrayColor];
+        emptyWorkLbl.text = @"暂无作品";
+        [workView addSubview:emptyWorkLbl];
     }
 
     self.staff.bio = self.staff.bio.length <= 0 ? @"这家伙什么也没留下" : self.staff.bio;
