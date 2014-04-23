@@ -1,0 +1,20 @@
+                  
+<div class="formitm">
+    <table style="width:98%" class="m-table">
+        <thead>
+            <tr><th colspan="2">发货单据列表</th></tr>
+        </thead>
+        <tbody>
+            <?php  if($this->deliverydoc):?>
+            <tr><th>配送时间：</th><td><?php echo $this->deliverydoc['CreateTime']; ?></td></tr>
+            <tr><th>配送方式：</th><td><?php echo $this->deliverydoc['DeliveryName']; ?></td></tr>
+            <tr><th>配送单号：</th><td><?php echo $this->deliverydoc['DeliveryCode']; ?></td></tr>
+            <tr><th>收件人:</th><td><?php echo $this->deliverydoc['Name']; ?></td></tr>
+            <tr><th>备注：</th><td><?php echo $this->deliverydoc['Note']; ?></td></tr>
+            <?php else:?>
+            <tr><td colspan='2'>暂无数据</td></tr>
+            <?php endif;?>
+        </tbody>
+    </table>
+
+</div>

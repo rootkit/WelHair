@@ -111,4 +111,17 @@ class DeliveryDocRepository extends AbstractRepository
         }
     }
 
+
+    public function findDeliveryDocByOrder($oid)
+    {
+        $strSql = 'SELECT
+                       DD.*, D.Name AS DeliveryName
+                   FROM DeliveryDoc DD
+                   LEFT JOIN Delivery D ON D.DeliveryId = DD.DeliveryType
+                   WHERE DD.OrderId = ?
+                   LIMIT 1';
+
+        return $this->conn->fetchAssoc($strSql, array($oid));
+    }
+
 }

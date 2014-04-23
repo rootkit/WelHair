@@ -22,6 +22,7 @@ use Welfony\Service\UserService;
 use Welfony\Service\OrderLogService;
 use Welfony\Service\CollectionDocService;
 use Welfony\Service\RefundmentDocService;
+use Welfony\Service\DeliveryDocService;
 
 
 class Order_IndexController extends AbstractAdminController
@@ -557,6 +558,19 @@ class Order_IndexController extends AbstractAdminController
         if ($orderId > 0) {            
             $this->view->collectiondoc = CollectionDocService::getCollectionDocByOrder($orderId);
             $this->view->refundmentdoc = RefundmentDocService::getRefundmentDocByOrder($orderId);
+        }
+    }
+
+    public function deliverylogsAction()
+    {
+
+        $this->_helper->layout->disableLayout();
+
+        $orderId = $this->_request->getParam('order_id')?  intval($this->_request->getParam('order_id')) : 0;
+
+
+        if ($orderId > 0) {            
+            $this->view->deliverydoc = DeliveryDocService::getDeliveryDocByOrder($orderId);
         }
     }
 

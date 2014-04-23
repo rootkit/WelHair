@@ -272,7 +272,7 @@ $(function() {
         });
     });
 
-     $('#ui-id-2').click(function(){
+    $('#ui-id-2').click(function(){
         $.ajax({
                 type: 'get',
                 dataType: 'text',
@@ -282,6 +282,24 @@ $(function() {
                  },
                 success: function(data){
                     $('#tab-2').html(data);
+                },
+                error:function()
+                {
+
+                }
+        });
+    });
+
+    $('#ui-id-3').click(function(){
+        $.ajax({
+                type: 'get',
+                dataType: 'text',
+                url:  globalSetting.baseUrl + '/order/index/deliverylogs',
+                data: {
+                    'order_id':$('#order_id').val()
+                 },
+                success: function(data){
+                    $('#tab-3').html(data);
                 },
                 error:function()
                 {

@@ -22,8 +22,14 @@ class DeliveryDocService
     public static function getDeliveryDocById($id)
     {
         return  DeliveryDocRepository::getInstance()->findDeliveryDocById( $id);
+    }
+
+    public static function getDeliveryDocByOrder($oid)
+    {
+        return  DeliveryDocRepository::getInstance()->findDeliveryDocByOrder( $oid);
 
     }
+
     public static function listDeliveryDoc($pageNumber, $pageSize)
     {
         $result = array(
