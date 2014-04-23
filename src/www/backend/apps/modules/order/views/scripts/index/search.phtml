@@ -29,7 +29,7 @@ use \Welfony\Utility\Util;
       <?php foreach( $this->rows as $order) : ?>
         <tr>
             <td>
-                <?php if($order['IsDeleted']): ?>
+                <?php if($order['IsDeleted'] || $order['Status'] == '4' || $order['Status'] == '5' ): ?>
                     <?php echo $order['OrderNo']; ?>
                 <?php else: ?>
                 <a href="<?php echo $this->baseUrl('order/index/info?order_id=' .  $order['OrderId']); ?>">

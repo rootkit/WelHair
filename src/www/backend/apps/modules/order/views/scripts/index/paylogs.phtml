@@ -1,0 +1,36 @@
+<div class="formitm">                    
+    <table style="width:400px; min-height:500px; display:block;float:left;" class="m-table">
+
+        <thead>
+            <tr><th colspan="2" style="padding:auto;">收款单据</th></tr>
+        </thead>
+        <tbody>
+            <?php  if($this->collectiondoc):?>
+            <tr><th>时间：</th><td><?php echo $this->collectiondoc['CreateTime']; ?></td></tr>
+            <tr><th>金额：</th><td><?php echo $this->collectiondoc['Amount']; ?></td></tr>
+            <tr><th>支付方式：</th><td><?php echo $this->collectiondoc['Name']; ?></td></tr>
+            <tr><th>状态：</th><td><?php echo '成功'; ?></td></tr>
+            <?php else:?>
+            <tr><td colspan='2'>暂无数据</td></tr>
+            <?php endif;?>
+        </tbody>
+    </table>
+
+    <table style="width:400px; min-height:500px; display:block; float:left;" class="m-table">
+
+        <thead>
+            <tr><th colspan="2">退款单据列表</th></tr>
+        </thead>
+        <tbody>
+            <?php  if($this->refundmentdoc):?>
+            <tr><th>时间：</th><td><?php echo $this->refundmentdoc['CreateTime']; ?></td></tr>
+            <tr><th>金额：</th><td><?php echo $this->refundmentdoc['Amount']; ?></td></tr>
+            <tr><th>状态：</th><td><?php echo '成功'; ?></td></tr>
+            <tr><th>退款理由：</th><td><?php echo $this->refundmentdoc['DisposeIdea']; ?></td></tr>
+            <?php else:?>
+            <tr><td colspan='2'>暂无数据</td></tr>
+            <?php endif;?>
+        </tbody>
+    </table>
+
+</div>

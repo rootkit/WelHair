@@ -111,4 +111,16 @@ class CollectionDocRepository extends AbstractRepository
         }
     }
 
+    public function findCollectionDocByOrder($orderid)
+    {
+        $strSql = "SELECT
+                       CD.*, P.Name
+                   FROM CollectionDoc CD
+                   LEFT JOIN Payment P ON CD.PaymentId = CD.PaymentId
+                   WHERE CD.IsDeleted = 0 AND CD.OrderId = $orderid
+                  ";
+
+        return $this->conn->fetchAssoc($strSql);
+    }
+
 }

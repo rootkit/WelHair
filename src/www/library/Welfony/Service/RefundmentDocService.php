@@ -22,8 +22,8 @@ class RefundmentDocService
     public static function getRefundmentDocById($id)
     {
         return  RefundmentDocRepository::getInstance()->findRefundmentDocById( $id);
-
     }
+
     public static function listRefundmentDoc($pageNumber, $pageSize)
     {
         $result = array(
@@ -105,6 +105,12 @@ class RefundmentDocService
 
             return $result;
         }
+    }
+
+    public static function getRefundmentDocByOrder($oid)
+    {
+        return  RefundmentDocRepository::getInstance()->findRefundmentDocByOrder( $oid);
+
     }
 
 }

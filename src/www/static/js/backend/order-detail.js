@@ -254,6 +254,42 @@ $(function() {
                            
     });
 
+    $('#ui-id-6').click(function(){
+        $.ajax({
+                type: 'get',
+                dataType: 'text',
+                url:  globalSetting.baseUrl + '/order/index/logs',
+                data: {
+                    'order_id':$('#order_id').val()
+                 },
+                success: function(data){
+                    $('#tab-logs').html(data);
+                },
+                error:function()
+                {
+
+                }
+        });
+    });
+
+     $('#ui-id-2').click(function(){
+        $.ajax({
+                type: 'get',
+                dataType: 'text',
+                url:  globalSetting.baseUrl + '/order/index/paylogs',
+                data: {
+                    'order_id':$('#order_id').val()
+                 },
+                success: function(data){
+                    $('#tab-2').html(data);
+                },
+                error:function()
+                {
+
+                }
+        });
+    });
+
     
    
     WF.initAreaSelector();

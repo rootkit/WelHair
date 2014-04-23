@@ -111,4 +111,15 @@ class RefundmentDocRepository extends AbstractRepository
         }
     }
 
+    public function findRefundmentDocByOrder($orderid)
+    {
+        $strSql = 'SELECT
+                       *
+                   FROM RefundmentDoc
+                   WHERE OrderId = ?
+                   LIMIT 1';
+
+        return $this->conn->fetchAssoc($strSql, array($orderid));
+    }
+
 }

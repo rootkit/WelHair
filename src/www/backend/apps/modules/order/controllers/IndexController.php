@@ -20,6 +20,9 @@ use Welfony\Service\DeliveryService;
 use Welfony\Service\PaymentService;
 use Welfony\Service\UserService;
 use Welfony\Service\OrderLogService;
+use Welfony\Service\CollectionDocService;
+use Welfony\Service\RefundmentDocService;
+
 
 class Order_IndexController extends AbstractAdminController
 {
@@ -527,6 +530,33 @@ class Order_IndexController extends AbstractAdminController
 
             $result = OrderService::discardOrder($orderId, $order, $log);
             $this->_helper->json->sendJson($result);
+        }
+    }
+
+    public function logsAction()
+    {
+        $this->_helper->layout->disableLayout();
+
+        $orderId = $this->_request->getParam('order_id')?  intval($this->_request->getParam('order_id')) : 0;
+
+
+        if ($orderId > 0) {            
+            $this->view->logs = OrderLogService::listOrderLogByOrder($orderId);
+        }
+        
+    }
+
+    public function paylogsAction()
+    {
+
+        $this->_helper->layout->disableLayout();
+
+        $orderId = $this->_request->getParam('order_id')?  intval($this->_request->getParam('order_id')) : 0;
+
+
+        if ($orderId > 0) {            
+            $this->view->collectiondoc = CollectionDocService::getCollectionDocByOrder($orderId);
+            $this->view->refundmentdoc = RefundmentDocService::getRefundmentDocByOrder($orderId);
         }
     }
 

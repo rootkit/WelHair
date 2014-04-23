@@ -107,4 +107,10 @@ class CollectionDocService
         }
     }
 
+    public static function getCollectionDocByOrder($oid)
+    {
+        return  CollectionDocRepository::getInstance()->findCollectionDocByOrder( $oid);
+
+    }
+
 }
