@@ -94,7 +94,7 @@ class CompanyRepository extends AbstractRepository
                       C.*
                    FROM CompanyGoods CG
                    JOIN Company C ON CG.CompanyId = CG.CompanyId
-                   WHERE CG.GoodsId = $goodsId ";
+                   WHERE C.Status = 1 AND CG.GoodsId = $goodsId ";
 
         return $this->conn->fetchAll($strSql);
     }
