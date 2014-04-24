@@ -13,6 +13,7 @@
 // ==============================================================================
 
 use Welfony\Controller\Base\AbstractAdminController;
+use Welfony\Core\Enum\CompanyStatus;
 use Welfony\Service\GoodsService;
 use Welfony\Service\CategoryService;
 use Welfony\Service\BrandService;
@@ -51,7 +52,9 @@ class Goods_IndexController extends AbstractAdminController
         $this->view->categories=CategoryService::listAllCategory();
         $this->view->models=ModelService::listAllModel();
         $this->view->brands=BrandService::listAllBrand();
-        $this->view->companies = CompanyService::listAll();
+        $this->view->companies = CompanyService::listAllCompanies(array(
+            CompanyStatus::Valid
+        ), 1, 100);
 
         $goodsId = $this->_request->getParam('goods_id')?  intval($this->_request->getParam('goods_id')) : 0;
 
