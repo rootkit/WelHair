@@ -549,7 +549,7 @@ static const float profileViewHeight = 90;
     workView.backgroundColor = [UIColor whiteColor];
     [self.scrollView addSubview:workView];
     scrollViewOffsetY = MaxY(workView);
-    if (self.staff.works.count == 0) {
+    if (self.staff.works.count > 0) {
         
         float imgHorizontalPadding = 5;
         float imgVeritalPadding = 3;
