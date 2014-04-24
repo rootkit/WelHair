@@ -77,6 +77,7 @@ class Goods_IndexController extends AbstractAdminController
             'Img'=>Util::baseAssetUrl('img/photo-default.png'),
             'IsDeleted' => 0,
             'Keywords' => '',
+            'Content' => ''
         );
         $this->view->goodscompanies=[];
         $this->view->goodscategories=[];

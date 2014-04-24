@@ -55,8 +55,7 @@ class Company_IndexController extends AbstractAdminController
             'Address' => '',
             'Latitude' => 36.682785,
             'Longitude' => 117.024967,
-            'PictureUrl' => array(),
-            'Content' => ''
+            'PictureUrl' => array()
         );
 
         if ($this->_request->isPost()) {
