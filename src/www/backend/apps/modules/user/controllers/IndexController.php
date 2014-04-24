@@ -27,7 +27,7 @@ class User_IndexController extends AbstractAdminController
         $this->view->pageTitle = '会员列表';
 
         $page = intval($this->_request->getParam('page'));
-        $searchResult = UserService::listAllUsers($page, $pageSize);
+        $searchResult = UserService::listAllUsers(UserRole::Client, $page, $pageSize);
 
         $this->view->dataList = $searchResult['users'];
         $this->view->pager = $this->renderPager($this->view->baseUrl('user/index/search?s='),

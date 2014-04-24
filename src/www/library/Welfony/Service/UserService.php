@@ -199,13 +199,13 @@ class UserService
 
     }
 
-    public static function listAllUsers($page, $pageSize)
+    public static function listAllUsers($role, $page, $pageSize)
     {
         $page = $page <= 0 ? 1 : $page;
         $pageSize = $pageSize <= 0 ? 20 : $pageSize;
 
-        $total = UserRepository::getInstance()->getAllUsersCount();
-        $userList = UserRepository::getInstance()->getAllUsers($page, $pageSize);
+        $total = UserRepository::getInstance()->getAllUsersCount($role);
+        $userList = UserRepository::getInstance()->getAllUsers($role, $page, $pageSize);
 
         return array('total' => $total, 'users' => $userList);
     }

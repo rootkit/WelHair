@@ -57,6 +57,7 @@ class StaffRepository extends AbstractRepository
                        U.Nickname,
                        U.AvatarUrl,
                        U.Email,
+                       U.Role,
                        U.EmailVerified,
                        U.Mobile,
                        U.MobileVerified,

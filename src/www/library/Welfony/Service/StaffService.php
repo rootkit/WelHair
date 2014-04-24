@@ -121,12 +121,25 @@ class StaffService
 
     public static function removeCompanyStaffByCompanyUser($companyUserId)
     {
-        return CompanyUserRepository::getInstance()->remove($companyUserId);
+        $companyUser = CompanyUserRepository::getInstance()->findById($companyUserId);
+        $result = CompanyUserRepository::getInstance()->remove($companyUserId);
+        if ($result) {
+            $staff = array('UserId' => $companyUser['UserId'], 'Role' => UserRole::Client);
+            UserRepository::getInstance()->update($staff['UserId'], $staff);
+        }
+
+        return $result;
     }
 
     public static function removeCompanyStaffByCompanyAndUser($companyId, $userId)
     {
-        return CompanyUserRepository::getInstance()->removeByCompanyAndUser($companyId, $userId);
+        $result = CompanyUserRepository::getInstance()->removeByCompanyAndUser($companyId, $userId);
+        if ($result) {
+            $staff = array('UserId' => $userId, 'Role' => UserRole::Client);
+            UserRepository::getInstance()->update($staff['UserId'], $staff);
+        }
+
+        return $result;
     }
 
     public static function getStaffByCompanyAndUser($companyId, $userId)
@@ -226,7 +239,7 @@ class StaffService
             $staffDetail['MobileVerified'] = $row['MobileVerified'];
             $staffDetail['Role'] = $row['Role'];
             $staffDetail['IsApproved'] = $row['IsApproved'];
-            $staffDetail['IsLiked'] = $row['IsLiked'];
+            $staffDetail['IsLiked'] = isset($row['IsLiked']) ? $row['IsLiked'] : 0;
 
             if ($row['CompanyId'] > 0) {
                 $staffDetail['Company']['CompanyId'] =  $row['CompanyId'];

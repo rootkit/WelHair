@@ -20,11 +20,17 @@ use Welfony\Repository\Base\AbstractRepository;
 class UserRepository extends AbstractRepository
 {
 
-    public function getAllUsersCount()
+    public function getAllUsersCount($role)
     {
+        $filter = '';
+        if ($role > 0) {
+            $filter = "AND U.Role = " . intval($role);
+        }
+
         $strSql = "SELECT
                        COUNT(1) `Total`
-                   FROM Users
+                   FROM Users U
+                   WHERE U.UserId > 0 $filter
                    LIMIT 1";
 
         $row = $this->conn->fetchAssoc($strSql);
@@ -32,12 +38,18 @@ class UserRepository extends AbstractRepository
         return $row['Total'];
     }
 
-    public function getAllUsers($page, $pageSize)
+    public function getAllUsers($role, $page, $pageSize)
     {
+        $filter = '';
+        if ($role > 0) {
+            $filter = "AND U.Role = " . intval($role);
+        }
+
         $offset = ($page - 1) * $pageSize;
         $strSql = "SELECT
                        *
                    FROM Users U
+                   WHERE U.UserId > 0 $filter
                    ORDER BY U.UserId DESC
                    LIMIT $offset, $pageSize";
 
