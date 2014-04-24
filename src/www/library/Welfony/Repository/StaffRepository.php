@@ -114,7 +114,31 @@ class StaffRepository extends AbstractRepository
                        C.City CompanyCity,
                        C.Latitude,
                        C.Longitude,
-                       AVG(IFNULL(TBLRate.Rate, 0)) CompanyRate,
+                       (SELECT
+                           AVG(IFNULL(TBLRate.Rate, 0))
+                        FROM ( SELECT
+                                 CMC.CommentId,
+                                 CMC.Rate,
+                                 CMC.CompanyId
+                               FROM Comment CMC
+                               UNION
+                               SELECT
+                                 CMU.CommentId,
+                                 CMU.Rate,
+                                 CU.CompanyId
+                               FROM Comment CMU
+                               INNER JOIN CompanyUser CU ON CU.UserId = CMU.UserId
+                               UNION
+                               SELECT
+                                 CMW.CommentId,
+                                 CMW.Rate,
+                                 CU.CompanyId
+                               FROM Comment CMW
+                               INNER JOIN Work W ON W.WorkId = CMW.WorkId
+                               INNER JOIN CompanyUser CU ON CU.UserId = W.UserId
+                        ) AS TBLRate
+                        WHERE TBLRate.CompanyId = C.CompanyId
+                       ) CompanyRate,
 
                        S.ServiceId,
                        S.Title ServiceTitle,
@@ -133,27 +157,6 @@ class StaffRepository extends AbstractRepository
                    FROM Users U
                    LEFT OUTER JOIN CompanyUser CU ON CU.UserId = U.UserId
                    LEFT OUTER JOIN Company C ON C.CompanyId = CU.CompanyId
-                   LEFT OUTER JOIN ( SELECT
-                                       CMC.CommentId,
-                                       CMC.Rate,
-                                       CMC.CompanyId
-                                     FROM Comment CMC
-                                     UNION
-                                     SELECT
-                                       CMU.CommentId,
-                                       CMU.Rate,
-                                       CU.CompanyId
-                                     FROM Comment CMU
-                                     INNER JOIN CompanyUser CU ON CU.UserId = CMU.UserId
-                                     UNION
-                                     SELECT
-                                       CMW.CommentId,
-                                       CMW.Rate,
-                                       CU.CompanyId
-                                     FROM Comment CMW
-                                     INNER JOIN Work W ON W.WorkId = CMW.WorkId
-                                     INNER JOIN CompanyUser CU ON CU.UserId = W.UserId
-                   ) AS TBLRate ON TBLRate.CompanyId = C.CompanyId
                    LEFT OUTER JOIN Service S ON S.UserId = U.UserId
                    LEFT OUTER JOIN Work W ON W.UserId = U.UserId
                    WHERE U.UserId = ?';
