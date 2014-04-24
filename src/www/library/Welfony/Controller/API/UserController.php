@@ -69,6 +69,9 @@ class UserController extends AbstractAPIController
 
         $response = array('success' => false);
 
+        if (!isset($reqData['Nickname']) || empty($reqData['Nickname'])) {
+            $error = '请输入昵称！';
+        }
         if (!isset($reqData['Email']) || empty($reqData['Email'])) {
             $error = '请输入邮箱！';
         }
@@ -79,10 +82,11 @@ class UserController extends AbstractAPIController
         if (!empty($error)) {
             $response['message'] = $error;
         } else {
+            $nickname = htmlspecialchars($reqData['Nickname']);
             $email = htmlspecialchars($reqData['Email']);
             $password = $reqData['Password'];
 
-            $response = UserService::signUpWithEmail($email, $password);
+            $response = UserService::signUpWithEmail($email, $password, $nickname);
         }
 
         $this->sendResponse($response);

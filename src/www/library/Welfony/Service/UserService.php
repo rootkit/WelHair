@@ -25,7 +25,7 @@ use Welfony\Utility\Util;
 class UserService
 {
 
-    public static function signUpWithEmail($email, $password)
+    public static function signUpWithEmail($email, $password, $nickname = null)
     {
         $result = array('success' => false, 'message' => '');
 
@@ -44,7 +44,7 @@ class UserService
 
         $data = array();
         $data['Username'] = Util::genRandomUsername();
-        $data['Nickname'] = $email;
+        $data['Nickname'] = $nickname ? $nickname : $email;
         $data['Role'] = UserRole::Client;
         $data['Email'] = $email;
         $data['Password'] = PassHash::hash($password);

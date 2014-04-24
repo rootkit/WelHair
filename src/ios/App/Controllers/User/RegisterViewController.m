@@ -12,12 +12,13 @@
 
 #import "RegisterViewController.h"
 #import "UserManager.h"
-static const float kOffsetY = 50;
+static const float kOffsetY = 140;
 
 @interface RegisterViewController ()<UITextFieldDelegate, UIGestureRecognizerDelegate>
 
 @property (nonatomic, strong) UIView * viewContainer;
 
+@property (nonatomic, strong) UITextField * nicknameTxt;
 @property (nonatomic, strong) UITextField * emailTxt;
 @property (nonatomic, strong) UITextField * pwdTxt;
 @property (nonatomic, strong) UITextField * repeatePwdTxt;
@@ -57,12 +58,24 @@ static const float kOffsetY = 50;
     [self.view addSubview:self.viewContainer];
 
     float margin = 40;
-    UIImageView *logoIcon = [[UIImageView alloc] initWithFrame:CGRectMake(110, 20, 100, 100)];
+    UIImageView *logoIcon = [[UIImageView alloc] initWithFrame:CGRectMake(110, 0, 100, 100)];
     logoIcon.image = [UIImage imageNamed:@"Logo"];
     [self.viewContainer addSubview:logoIcon];
 
+    self.nicknameTxt =  [UITextField plainTextField:CGRectMake(margin,
+                                                               MaxY(logoIcon) + margin,
+                                                               WIDTH(self.view) - 2 * margin,
+                                                               35)
+                                        leftPadding:5];
+    self.nicknameTxt.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
+    self.nicknameTxt.backgroundColor = [UIColor whiteColor];
+    self.nicknameTxt.placeholder = @"  昵称";
+    self.nicknameTxt.autocapitalizationType = UITextAutocapitalizationTypeNone;
+    self.nicknameTxt.delegate = self;
+    [self.viewContainer addSubview:self.nicknameTxt];
+
     self.emailTxt =  [UITextField plainTextField:CGRectMake(margin,
-                                                            MaxY(logoIcon) + margin,
+                                                            MaxY(self.nicknameTxt) + 10,
                                                             WIDTH(self.view) - 2 * margin,
                                                             35)
                                      leftPadding:5];
@@ -126,6 +139,7 @@ static const float kOffsetY = 50;
 
 - (void)backgroundTapped
 {
+    [self.nicknameTxt resignFirstResponder];
     [self.emailTxt resignFirstResponder];
     [self.pwdTxt resignFirstResponder];
     [self.repeatePwdTxt resignFirstResponder];
@@ -182,6 +196,7 @@ static const float kOffsetY = 50;
     [SVProgressHUD showWithMaskType:SVProgressHUDMaskTypeClear];
 
     NSMutableDictionary *reqData = [[NSMutableDictionary alloc] initWithCapacity:1];
+    [reqData setObject:self.nicknameTxt.text forKey:@"Nickname"];
     [reqData setObject:self.emailTxt.text forKey:@"Email"];
     [reqData setObject:self.pwdTxt.text forKey:@"Password"];
 
@@ -227,7 +242,13 @@ static const float kOffsetY = 50;
 
 - (BOOL)validInput
 {
-    if(self.emailTxt.text.length == 0){
+    if(self.nicknameTxt.text.length == 0){
+        [self.nicknameTxt shake:10
+                      withDelta:5
+                       andSpeed:0.04
+                 shakeDirection:ShakeDirectionHorizontal];
+        return NO;
+    } else if(self.emailTxt.text.length == 0){
         [self.emailTxt shake:10
                    withDelta:5
                     andSpeed:0.04
