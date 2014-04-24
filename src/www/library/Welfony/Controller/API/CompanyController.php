@@ -107,6 +107,15 @@ class CompanyController extends AbstractAPIController
         $this->sendResponse($companyList);
     }
 
+    public function nearby()
+    {
+        $maxDistance = intval($this->app->request->get('distance'));
+        $maxDistance = $maxDistance > 0 ? $maxDistance : 100000;
+
+        $companyList = CompanyService::nearby($maxDistance, $this->currentContext['Location']);
+        $this->sendResponse($companyList);
+    }
+
     public function search()
     {
         $page = intval($this->app->request->get('page'));

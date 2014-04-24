@@ -19,6 +19,11 @@ $app->get('/companies', function () use ($app) {
     $ctrl->search();
 });
 
+$app->get('/companies/nearby', function () use ($app) {
+    $ctrl = new CompanyController();
+    $ctrl->nearby();
+});
+
 $app->get('/companies/liked', function () use ($app) {
     $ctrl = new CompanyController();
     $ctrl->liked();

@@ -23,6 +23,20 @@ use Welfony\Repository\UserRepository;
 class CompanyService
 {
 
+    public static function nearby($maxDistance, $location)
+    {
+        $companyList = CompanyRepository::getInstance()->nearby($maxDistance, $location);
+
+        $companies = array();
+        foreach ($companyList as $company) {
+            $company['PictureUrl'] = json_decode($company['PictureUrl'], true);
+
+            $companies[] = $company;
+        }
+
+        return $companies;
+    }
+
     public static function getCompanyDetail($companyId, $currentUserId, $location)
     {
         $resultSet = CompanyRepository::getInstance()->findCompanyDetailById($companyId, $currentUserId, $location);

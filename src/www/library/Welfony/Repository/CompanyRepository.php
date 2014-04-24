@@ -19,6 +19,13 @@ use Welfony\Repository\Base\AbstractRepository;
 class CompanyRepository extends AbstractRepository
 {
 
+    public function nearby($maxDistance, $location)
+    {
+        $strSql = "CALL spCompanyNearby(?, ?, ?);";
+
+        return $this->conn->fetchAll($strSql, array($maxDistance, $location['Latitude'], $location['Longitude']));
+    }
+
     public function searchCount($searchText, $city, $district)
     {
         $strSql = "SELECT
