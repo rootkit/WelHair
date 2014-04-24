@@ -42,18 +42,18 @@ use \Welfony\Utility\Util;
             <div class="formitm">
                 <label class="lab">物流公司网址：</label>
                 <div class="ipt">
-                    <input id="url" type="text" value="<?php echo $this->freightInfo['Url']; ?>"   class="u-ipt"/> 
+                    <input id="url" type="text" value="<?php echo $this->freightInfo['Url']; ?>"   class="u-ipt"/>
                 </div>
             </div>
             <div class="formitm">
                 <label class="lab">排序：</label>
                 <div class="ipt">
-                    <input id="sort" type="text" value="<?php echo $this->freightInfo['Sort']; ?>"   class="u-ipt"/> 
+                    <input id="sort" type="text" value="<?php echo $this->freightInfo['Sort']; ?>"  datatype="n" class="u-ipt"/>
                 </div>
             </div>
-            
-            
-            
+
+
+
             <div class="formitm formitm-1">
                 <input type="hidden" name="freight_id" value="<?php echo intval($this->freightInfo['FreightId']); ?>" />
                 <button class="u-btn u-btn-submit" type="button">确定</button>

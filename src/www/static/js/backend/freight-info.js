@@ -13,25 +13,24 @@
 
 
 $(function() {
-    $('#frm-freight-info').Validform({
+    $validator = $('#frm-freight-info').Validform({
         tiptype: 3
     });
 
     $('#freighttype').change(function(){
-
       $('#freightname').val($(this).find('option:selected').text());
     });
 
     $( "#frm-freight-info" ).submit(function( event ) {
-
-
-          event.preventDefault();
+        if (!validator.check()) {
+          return false;
+        }
 
           var form = $( this );
 
           var name = $('#freightname').val();
 
-        
+
 
 
 
@@ -51,10 +50,12 @@ $(function() {
               {
 
                 window.location = globalSetting.baseUrl + '/system/freight/search';
-                return;
+                return false;
               }
 
           });
+
+          return false;
 
       });
 

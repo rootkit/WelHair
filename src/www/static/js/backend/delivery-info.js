@@ -15,7 +15,7 @@
 $(function() {
 
     window.addedHeight = 0;
-    $('#frm-delivery-info').Validform({
+    var validator = $('#frm-delivery-info').Validform({
         tiptype: 3
     });
 
@@ -31,7 +31,7 @@ $(function() {
     $('.btnAddProvince').bind('click', function(){
        var province = $(this).parent().find('select[name="province"]');
        if( $(this).parent().find('input[name="areagroupid[]"]').val().replace(/\s+/g, '').length > 0)
-       {  
+       {
           var selectedArray = $(this).parent().find('input[name="areagroupid[]"]').val();
           var areaArray = selectedArray.split(',');
           if( $.inArray( province.val(), areaArray) != -1)
@@ -65,7 +65,7 @@ $(function() {
        $('.btnAddProvince').bind('click', function(){
            var province = $(this).parent().find('select[name="province"]');
            if( $(this).parent().find('input[name="areagroupid[]"]').val().replace(/\s+/g, '').length > 0)
-           {  
+           {
               var selectedArray = $(this).parent().find('input[name="areagroupid[]"]').val();
               var areaArray = selectedArray.split(',');
               if( $.inArray( province.val(), areaArray) != -1)
@@ -99,21 +99,21 @@ $(function() {
             $('.content').height($('.content').height() + 170);
             window.addedHeight = 1;
           }
-          
+
           $('#areaBox').show();
         }
     });
 
     $( "#frm-delivery-info" ).submit(function( event ) {
-
-
-          event.preventDefault();
+        if (!validator.check()) {
+          return false;
+        }
 
           var form = $( this );
 
           var name = $('#deliveryname').val();
 
-        
+
           var firstprice = $('#first_price').val().replace(/\s+/g, '').length > 0 ? $('#first_price').val().replace(/\s+/g, ''): 0;
           var secondprice = $('#second_price').val().replace(/\s+/g, '').length > 0 ? $('#second_price').val().replace(/\s+/g, ''): 0;
           var isSavePrice =  $('#is_save_price').is(':checked') ? 1: 0;
@@ -173,11 +173,12 @@ $(function() {
               {
 
                 window.location = globalSetting.baseUrl + '/system/delivery/search';
-                return;
+                return false;
               }
 
           });
 
+          return false;
       });
 
     $('#btnCancel').click(function(){
