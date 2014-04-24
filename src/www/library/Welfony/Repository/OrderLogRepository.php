@@ -24,7 +24,7 @@ class OrderLogRepository extends AbstractRepository
         $strSql = "SELECT
                        COUNT(1) `Total`
                    FROM OrderLog
-				   WHERE OrderId = $orderId
+                   WHERE OrderId = $orderId
                    LIMIT 1";
 
         $row = $this->conn->fetchAssoc($strSql);
@@ -53,8 +53,8 @@ class OrderLogRepository extends AbstractRepository
         return $this->conn->fetchAll($strSql);
 
     }
-	
-	public function getOrderLogByOrder($orderId)
+
+    public function getOrderLogByOrder($orderId)
     {
          $strSql = "SELECT
                        *
@@ -72,7 +72,7 @@ class OrderLogRepository extends AbstractRepository
         $offset = ($pageNumber - 1) * $pageSize;
         $strSql = "SELECT *
                    FROM OrderLog
-				   WHERE OrderId = $orderId
+                   WHERE OrderId = $orderId
                    ORDER BY OrderLogId
                    LIMIT $offset, $pageSize ";
 
@@ -91,7 +91,6 @@ class OrderLogRepository extends AbstractRepository
         return $this->conn->fetchAssoc($strSql, array($id));
     }
 
-    
     public function save($data)
     {
         try {
@@ -106,8 +105,7 @@ class OrderLogRepository extends AbstractRepository
 
         return false;
     }
-    
-    
+
     public function update($orderLogId, $data)
     {
         try {
@@ -118,7 +116,6 @@ class OrderLogRepository extends AbstractRepository
             return false;
         }
     }
-    
 
     /*
     public function delete($paymentId)

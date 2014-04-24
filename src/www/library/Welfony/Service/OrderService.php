@@ -51,7 +51,6 @@ class OrderService
         return $searchResult = OrderRepository::getInstance()->getAllOrder();
     }
 
-
     public static function save($data, $goods=null)
     {
         $result = array('success' => false, 'message' => '');
@@ -136,7 +135,6 @@ class OrderService
             $result['success'] = true;
             $result['message'] = '付款成功！';
             //$result['order'] = $data;
-
             return $result;
         } else {
             $result['message'] = '付款失败！';
@@ -154,7 +152,6 @@ class OrderService
             $result['success'] = true;
             $result['message'] = '发货成功！';
             //$result['order'] = $data;
-
             return $result;
         } else {
             $result['message'] = '发货失败！';
@@ -172,7 +169,6 @@ class OrderService
             $result['success'] = true;
             $result['message'] = '退款成功！';
             //$result['order'] = $data;
-
             return $result;
         } else {
             $result['message'] = '退款失败！';
@@ -190,7 +186,6 @@ class OrderService
             $result['success'] = true;
             $result['message'] = '完成成功！';
             //$result['order'] = $data;
-
             return $result;
         } else {
             $result['message'] = '完成失败！';
@@ -208,7 +203,6 @@ class OrderService
             $result['success'] = true;
             $result['message'] = '作废成功！';
             //$result['order'] = $data;
-
             return $result;
         } else {
             $result['message'] = '作废失败！';
@@ -216,7 +210,5 @@ class OrderService
             return $result;
         }
     }
-
-
 
 }

@@ -19,7 +19,6 @@ use Welfony\Repository\Base\AbstractRepository;
 class GoodsAttributeRepository extends AbstractRepository
 {
 
-
     public function getAll()
     {
         $strSql = 'SELECT
@@ -49,7 +48,6 @@ class GoodsAttributeRepository extends AbstractRepository
 
     }
 
-
     public function listExtendByGoods($goodsId)
     {
 
@@ -61,8 +59,6 @@ class GoodsAttributeRepository extends AbstractRepository
         return $this->conn->fetchAll($strSql);
 
     }
-
-
 
     public function findById($id)
     {

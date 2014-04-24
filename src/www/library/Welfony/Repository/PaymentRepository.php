@@ -77,7 +77,6 @@ class PaymentRepository extends AbstractRepository
         return $this->conn->fetchAssoc($strSql, array($id));
     }
 
-    
     public function save($data)
     {
         try {
@@ -92,8 +91,7 @@ class PaymentRepository extends AbstractRepository
 
         return false;
     }
-    
-    
+
     public function update($paymentId, $data)
     {
         try {
@@ -104,7 +102,6 @@ class PaymentRepository extends AbstractRepository
             return false;
         }
     }
-    
 
     /*
     public function delete($paymentId)

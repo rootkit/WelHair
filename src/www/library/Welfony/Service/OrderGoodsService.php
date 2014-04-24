@@ -48,7 +48,7 @@ class OrderGoodsService
     {
         return $searchResult = OrderGoodsRepository::getInstance()->getAllOrderGoods();
     }
-    
+
     public static function listAllOrderGoodsByOrder($orderId)
     {
         return $searchResult = OrderGoodsRepository::getInstance()->getAllOrderGoodsByOrder($orderId);

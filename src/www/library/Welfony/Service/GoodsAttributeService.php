@@ -21,12 +21,11 @@ class GoodsAttributeService
     public static function listAllByGoods($goodsId)
     {
         return $searchResult = GoodsAttributeRepository::getInstance()->listByGoods($goodsId);
-    }   
+    }
 
     public static function listExtendByGoods($goodsId)
     {
         return $searchResult = GoodsAttributeRepository::getInstance()->listExtendByGoods($goodsId);
-    }   
-   
+    }
 
 }

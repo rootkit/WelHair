@@ -68,7 +68,6 @@ class DeliveryRepository extends AbstractRepository
         return $this->conn->fetchAssoc($strSql, array($id));
     }
 
-    
     public function save($data)
     {
         try {
@@ -83,12 +82,12 @@ class DeliveryRepository extends AbstractRepository
 
         return false;
     }
-    
 
     public function update($deliveryId, $data)
     {
         try {
             $r= $this->conn->update('Delivery', $data, array('DeliveryId' => $deliveryId));
+
             return $r;
         } catch (\Exception $e) {
 
@@ -97,8 +96,6 @@ class DeliveryRepository extends AbstractRepository
             return false;
         }
     }
-    
-
 
     public function delete($deliveryId)
     {

@@ -143,9 +143,7 @@ class OrderRepository extends AbstractRepository
                  $row['OrderId'] = $orderId;
                  $this->conn->insert('OrderGoods', $row);
                }
-            }
-            else
-            {
+            } else {
                 $this->conn->delete('OrderGoods', array('OrderId'=> $orderId));
             }
 
@@ -164,13 +162,12 @@ class OrderRepository extends AbstractRepository
 
     public function delete($orderId)
     {
-         
-    }
 
+    }
 
     public function updateOrder($orderId, $data)
     {
-      
+
         try {
             return $this->conn->update('`Order`', $data, array('OrderId' => $orderId));
         } catch (\Exception $e) {
@@ -182,7 +179,7 @@ class OrderRepository extends AbstractRepository
 
     public function payOrder($orderId, $data, $log, $doc)
     {
-      
+
         $conn = $this->conn;
         $conn->beginTransaction();
         try {
@@ -190,15 +187,15 @@ class OrderRepository extends AbstractRepository
             $this->conn->update('`Order`', $data, array('OrderId' => $orderId));
 
             if ($log) {
-       
+
                  $this->conn->insert('OrderLog', $log);
-               
+
             }
-            
+
             if ($doc) {
-       
+
                  $this->conn->insert('CollectionDoc', $doc);
-               
+
             }
 
             $conn->commit();
@@ -214,7 +211,7 @@ class OrderRepository extends AbstractRepository
 
     public function deliverOrder($orderId, $data, $log, $doc)
     {
-      
+
         $conn = $this->conn;
         $conn->beginTransaction();
         try {
@@ -222,12 +219,12 @@ class OrderRepository extends AbstractRepository
             $this->conn->update('`Order`', $data, array('OrderId' => $orderId));
 
             if ($log) {
-       
+
                  $this->conn->insert('OrderLog', $log);
-               
+
             }
             if ($doc) {
-                 $this->conn->insert('DeliveryDoc', $doc);     
+                 $this->conn->insert('DeliveryDoc', $doc);
             }
 
             $conn->commit();
@@ -243,7 +240,7 @@ class OrderRepository extends AbstractRepository
 
     public function refundOrder($orderId, $data, $log, $doc)
     {
-      
+
         $conn = $this->conn;
         $conn->beginTransaction();
         try {
@@ -251,12 +248,12 @@ class OrderRepository extends AbstractRepository
             $this->conn->update('`Order`', $data, array('OrderId' => $orderId));
 
             if ($log) {
-       
+
                  $this->conn->insert('OrderLog', $log);
-               
+
             }
             if ($doc) {
-                 $this->conn->insert('RefundmentDoc', $doc);     
+                 $this->conn->insert('RefundmentDoc', $doc);
             }
 
             $conn->commit();
@@ -272,7 +269,7 @@ class OrderRepository extends AbstractRepository
 
     public function completeOrder($orderId, $data, $log)
     {
-      
+
         $conn = $this->conn;
         $conn->beginTransaction();
         try {
@@ -280,9 +277,9 @@ class OrderRepository extends AbstractRepository
             $this->conn->update('`Order`', $data, array('OrderId' => $orderId));
 
             if ($log) {
-       
+
                  $this->conn->insert('OrderLog', $log);
-               
+
             }
             $conn->commit();
 

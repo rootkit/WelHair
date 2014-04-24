@@ -68,7 +68,6 @@ class FreightRepository extends AbstractRepository
         return $this->conn->fetchAssoc($strSql, array($id));
     }
 
-    
     public function save($data)
     {
         try {
@@ -83,8 +82,7 @@ class FreightRepository extends AbstractRepository
 
         return false;
     }
-    
-    
+
     public function update($freightId, $data)
     {
         try {
@@ -95,8 +93,6 @@ class FreightRepository extends AbstractRepository
             return false;
         }
     }
-    
-
 
     public function delete($freightId)
     {

@@ -19,7 +19,6 @@ use Welfony\Core\Enum\UserRole;
 use Welfony\Repository\CompanyRepository;
 use Welfony\Repository\UserLikeRepository;
 use Welfony\Repository\UserRepository;
-use Welfony\Service\StaffService;
 
 class CompanyService
 {
@@ -27,6 +26,7 @@ class CompanyService
     public static function getCompanyDetail($companyId, $currentUserId, $location)
     {
         $resultSet = CompanyRepository::getInstance()->findCompanyDetailById($companyId, $currentUserId, $location);
+
         return count($resultSet) > 0 ? $resultSet[0] : null;
     }
 
@@ -197,6 +197,7 @@ class CompanyService
     {
 
         $companyList = CompanyRepository::getInstance()->listAllCompanies();
+
         return $companyList;
     }
 
@@ -204,6 +205,7 @@ class CompanyService
     {
 
         $companyList = CompanyRepository::getInstance()->listAllCompaniesByGoods( $goodsId);
+
         return $companyList;
     }
 

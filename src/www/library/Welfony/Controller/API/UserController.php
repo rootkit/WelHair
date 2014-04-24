@@ -46,7 +46,6 @@ class UserController extends AbstractAPIController
             $response['user'] = $user;
         }
 
-
         $this->sendResponse($response);
     }
 

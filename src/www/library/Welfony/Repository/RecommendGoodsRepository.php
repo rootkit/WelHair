@@ -19,7 +19,6 @@ use Welfony\Repository\Base\AbstractRepository;
 class RecommendGoodsRepository extends AbstractRepository
 {
 
-    
     public function getAll()
     {
         $strSql = 'SELECT
@@ -40,8 +39,6 @@ class RecommendGoodsRepository extends AbstractRepository
         return $this->conn->fetchAll($strSql);
 
     }
-
-    
 
     public function findById($id)
     {

@@ -68,7 +68,6 @@ class RefundmentDocRepository extends AbstractRepository
         return $this->conn->fetchAssoc($strSql, array($id));
     }
 
-    
     public function save($data)
     {
         try {
@@ -83,12 +82,12 @@ class RefundmentDocRepository extends AbstractRepository
 
         return false;
     }
-    
 
     public function update($refundmentDocId, $data)
     {
         try {
             $r= $this->conn->update('RefundmentDoc', $data, array('RefundmentDocId' => $refundmentDocId));
+
             return $r;
         } catch (\Exception $e) {
 
@@ -97,8 +96,6 @@ class RefundmentDocRepository extends AbstractRepository
             return false;
         }
     }
-    
-
 
     public function delete($refundmentDocId)
     {

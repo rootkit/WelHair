@@ -48,7 +48,7 @@ class ProductsService
     {
         return $searchResult = ProductsRepository::getInstance()->getAllProducts();
     }
-    
+
     public static function listAllProductsByGoods($goodsId)
     {
         return $searchResult = ProductsRepository::getInstance()->getAllProductsByGoods($goodsId);

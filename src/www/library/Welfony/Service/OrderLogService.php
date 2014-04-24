@@ -56,7 +56,6 @@ class OrderLogService
         return $searchResult = OrderLogRepository::getInstance()->getOrderLogByAction($orderId, $action);
     }
 
-
     public static function save($data)
     {
         $result = array('success' => false, 'message' => '');

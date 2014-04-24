@@ -15,7 +15,6 @@
 namespace Welfony\Controller\API;
 
 use Welfony\Controller\Base\AbstractAPIController;
-use Welfony\Core\Enum\PaymentTransactionStatus;
 use Welfony\Service\PaymentTransactionService;
 
 class PaymentTransactionController extends AbstractAPIController

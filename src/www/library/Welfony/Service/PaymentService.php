@@ -57,7 +57,6 @@ class PaymentService
 
     }
 
-
     public static function save($data)
     {
         $result = array('success' => false, 'message' => '');

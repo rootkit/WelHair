@@ -128,7 +128,6 @@ class GoodsRepository extends AbstractRepository
         return $this->conn->fetchAll($strSql, array($currentUserId, $searchText, $city, $district, $sort, $location['Latitude'], $location['Longitude'], $page, $pageSize));
     }
 
-
     public function getAllGoodsCount()
     {
         $strSql = "SELECT
@@ -164,7 +163,6 @@ class GoodsRepository extends AbstractRepository
 
         return $this->conn->fetchAll($strSql);
     }
-
 
     public function listGoods($pageNumber, $pageSize)
     {
@@ -224,6 +222,7 @@ class GoodsRepository extends AbstractRepository
                      LEFT JOIN Products P ON G.GoodsId = P.GoodsId
                      WHERE G.IsDeleted = 0
                      LIMIT $offset, $pageSize ";
+
         return $this->conn->fetchAll($strSql);
 
     }
@@ -354,9 +353,7 @@ class GoodsRepository extends AbstractRepository
                 $cat['GoodsId'] = $goodsId;
                 $this->conn->insert('CategoryExtend', $cat);
               }
-            }
-            else
-            {
+            } else {
                 $this->conn->delete('CategoryExtend', array('GoodsId'=> $goodsId));
             }
 
@@ -367,9 +364,7 @@ class GoodsRepository extends AbstractRepository
                 $row['GoodsId'] = $goodsId;
                 $this->conn->insert('GoodsAttribute', $row);
               }
-            }
-            else
-            {
+            } else {
                 $this->conn->delete('GoodsAttribute', array('GoodsId'=> $goodsId));
             }
 
@@ -379,9 +374,7 @@ class GoodsRepository extends AbstractRepository
                 $product['GoodsId'] = $goodsId;
                 $this->conn->insert('Products', $product);
               }
-            }
-            else
-            {
+            } else {
                 $this->conn->delete('Products', array('GoodsId'=> $goodsId));
             }
 
@@ -391,9 +384,7 @@ class GoodsRepository extends AbstractRepository
                 $rec['GoodsId'] = $goodsId;
                 $this->conn->insert('RecommendGoods', $rec);
               }
-            }
-            else
-            {
+            } else {
                 $this->conn->delete('RecommendGoods', array('GoodsId'=> $goodsId));
             }
 
@@ -403,9 +394,7 @@ class GoodsRepository extends AbstractRepository
                 $com['GoodsId'] = $goodsId;
                 $this->conn->insert('CompanyGoods', $com);
               }
-            }
-            else
-            {
+            } else {
                 $this->conn->delete('CompanyGoods', array('GoodsId'=> $goodsId));
             }
 
