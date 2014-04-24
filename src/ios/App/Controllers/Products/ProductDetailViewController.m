@@ -20,6 +20,7 @@
 #import "OrderPreviewViewController.h"
 #import "ProductDetailViewController.h"
 #import "ProductDetailWebViewController.h"
+#import "SVWebViewController.h"
 #import "ProductOpitionPanel.h"
 #import "StaffDetailViewController.h"
 #import "ToggleButton.h"
@@ -328,9 +329,10 @@
 {
     UIButton *btn = (UIButton *)sender;
     if (btn.tag == 0) {
-        ProductDetailWebViewController *productDetailWebVC = [ProductDetailWebViewController new];
-        productDetailWebVC.product = self.product;
-        [self.navigationController pushViewController:productDetailWebVC animated:YES];
+        NSURL *URL = [NSURL URLWithString:@"http://baidu.com"];
+        SVModalWebViewController *webViewController = [[SVModalWebViewController alloc] initWithURL:URL];
+        webViewController.modalPresentationStyle = UIModalPresentationPageSheet;
+        [self presentViewController:webViewController animated:YES completion:NULL];
     } else {
         CommentsViewController *commentVC = [CommentsViewController new];
         commentVC.goodsId = self.product.id;
