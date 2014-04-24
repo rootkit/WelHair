@@ -1,5 +1,13 @@
 <?php
 use \Welfony\Utility\Util;
+
+$this->headLink()
+     ->appendStylesheet(Util::baseAssetUrl('js/vendor/umeditor/1.2.2/themes/default/css/umeditor.min.css'));
+
+$this->headScript()
+     ->appendFile(Util::baseAssetUrl('js/vendor/umeditor/1.2.2/umeditor.config.js'))
+     ->appendFile(Util::baseAssetUrl('js/vendor/umeditor/1.2.2/umeditor.min.js'))
+     ->appendFile(Util::baseAssetUrl('js/vendor/umeditor/1.2.2/lang/zh-cn/zh-cn.js'));
 ?>
 <div class="m-form">
     <form id="frm-goods-info" method="post">
@@ -13,10 +21,10 @@ use \Welfony\Utility\Util;
             <div class="formitm">
                 <label class="lab">关键词：</label>
                 <div class="ipt">
-                    <input id="goodskeywords" type="text"   value="<?php echo $this->goodsInfo['Keywords']; ?>"  class="u-ipt"/> 
+                    <input id="goodskeywords" type="text"   value="<?php echo $this->goodsInfo['Keywords']; ?>"  class="u-ipt"/>
                     <p>每个关键词最长为15个字符，超过后系统不予存储</p>
                 </div>
-            </div>  
+            </div>
             <div class="formitm">
                 <label class="lab">沙龙：</label>
                 <div class="ipt">
@@ -27,7 +35,7 @@ use \Welfony\Utility\Util;
 
                     </ul>
                 </div>
-            </div>  
+            </div>
             <div class="formitm">
                 <label class="lab">分类：</label>
                 <div class="ipt">
@@ -38,7 +46,7 @@ use \Welfony\Utility\Util;
 
                     </ul>
                 </div>
-            </div>    
+            </div>
             <div class="formitm">
                 <label class="lab">是否上架：</label>
                 <div class="ipt">
@@ -63,9 +71,9 @@ use \Welfony\Utility\Util;
                         </thead>
                         <tbody>
                             <td><input id="point" type="text" value="<?php echo $this->goodsInfo['Point']? $this->goodsInfo['Point']: '0'; ?>"  class="u-ipt"/></td>
-                            <td><input id="sort" type="text" value="<?php echo $this->goodsInfo['Sort']? $this->goodsInfo['Sort']: '99'; ?>" class="u-ipt"/></td>  
-                            <td><input id="unit" type="text" value="<?php echo $this->goodsInfo['Unit']? $this->goodsInfo['Unit']: '千克'; ?>" class="u-ipt"/></td>  
-                            <td><input id="experience" type="text" value="<?php echo $this->goodsInfo['Experience']? $this->goodsInfo['Experience']: '0'; ?>"  class="u-ipt"/></td>  
+                            <td><input id="sort" type="text" value="<?php echo $this->goodsInfo['Sort']? $this->goodsInfo['Sort']: '99'; ?>" class="u-ipt"/></td>
+                            <td><input id="unit" type="text" value="<?php echo $this->goodsInfo['Unit']? $this->goodsInfo['Unit']: '千克'; ?>" class="u-ipt"/></td>
+                            <td><input id="experience" type="text" value="<?php echo $this->goodsInfo['Experience']? $this->goodsInfo['Experience']: '0'; ?>"  class="u-ipt"/></td>
                         </tbody>
                     </table>
                     <br/>
@@ -90,11 +98,11 @@ use \Welfony\Utility\Util;
                         <tbody>
                             <tr>
                                 <td><input name="goodsno"  type="text" value="<?php echo $this->defaultgoodsno; ?>"  class="u-ipt"/></td>
-                                <td><input name="storenums" type="text" value="100"  class="u-ipt"/></td>  
-                                <td><input name="marketprice" type="text" value="0.00"  class="u-ipt"/></td>  
-                                <td><input name="sellprice" type="text" value="0.00"  class="u-ipt"/></td> 
-                                <td><input name="costprice" type="text" value="0.00"  class="u-ipt"/></td>  
-                                <td><input name="weight" type="text" value="0.00"  class="u-ipt"/></td> 
+                                <td><input name="storenums" type="text" value="100"  class="u-ipt"/></td>
+                                <td><input name="marketprice" type="text" value="0.00"  class="u-ipt"/></td>
+                                <td><input name="sellprice" type="text" value="0.00"  class="u-ipt"/></td>
+                                <td><input name="costprice" type="text" value="0.00"  class="u-ipt"/></td>
+                                <td><input name="weight" type="text" value="0.00"  class="u-ipt"/></td>
                             </tr>
                         </tbody>
                     </table>
@@ -118,11 +126,11 @@ use \Welfony\Utility\Util;
                             <tr spec-id="<?php echo $specrow['Id']; ?>" spec-value="<?php echo $specrow['Value']; ?>">
                                 <td><input name="goodsno"  type="text" value="<?php echo $product['ProductsNo']; ?>"  class="u-ipt"/></td>
                                 <td><?php echo $specrow['Value']; ?><input type=hidden name="spec" value='<?php echo $product['SpecArray']; ?>'></td>
-                                <td><input name="storenums" type="text" value="<?php echo $product['StoreNums']; ?>"  class="u-ipt"/></td>  
-                                <td><input name="marketprice" type="text" value="<?php echo $product['MarketPrice']; ?>"  class="u-ipt"/></td>  
-                                <td><input name="sellprice" type="text" value="<?php echo $product['SellPrice']; ?>"  class="u-ipt"/></td> 
-                                <td><input name="costprice" type="text" value="<?php echo $product['CostPrice']; ?>"  class="u-ipt"/></td>  
-                                <td><input name="weight" type="text" value="<?php echo $product['Weight']; ?>"  class="u-ipt"/></td> 
+                                <td><input name="storenums" type="text" value="<?php echo $product['StoreNums']; ?>"  class="u-ipt"/></td>
+                                <td><input name="marketprice" type="text" value="<?php echo $product['MarketPrice']; ?>"  class="u-ipt"/></td>
+                                <td><input name="sellprice" type="text" value="<?php echo $product['SellPrice']; ?>"  class="u-ipt"/></td>
+                                <td><input name="costprice" type="text" value="<?php echo $product['CostPrice']; ?>"  class="u-ipt"/></td>
+                                <td><input name="weight" type="text" value="<?php echo $product['Weight']; ?>"  class="u-ipt"/></td>
                             </tr>
                             <?php endforeach;?>
                         </tbody>
@@ -143,8 +151,8 @@ use \Welfony\Utility\Util;
                      <select id="goodsmodel"  class="u-sel">
                         <option value="0" >通用模型</option>
                         <?php foreach( $this->models as $model) :?>
-                        <option value="<?php echo $model['ModelId']; ?>"  <?php echo $this->goodsInfo['ModelId'] == $model['ModelId']? 'selected':''; ?>><?php echo $model['Name']; ?></option>  
-                        <?php endforeach;?>                       
+                        <option value="<?php echo $model['ModelId']; ?>"  <?php echo $this->goodsInfo['ModelId'] == $model['ModelId']? 'selected':''; ?>><?php echo $model['Name']; ?></option>
+                        <?php endforeach;?>
                      </select>
                      <p></p>
                 </div>
@@ -156,7 +164,7 @@ use \Welfony\Utility\Util;
                      <table class="m-table" id="attributestable" style="width:600px;">
                         <tbody>
                         </tbody>
-                    </table>                    
+                    </table>
                 </div>
             </div>
             <?php else: ?>
@@ -187,7 +195,7 @@ use \Welfony\Utility\Util;
                         </tr>
                         <?php endforeach;?>
                         </tbody>
-                    </table>                    
+                    </table>
                 </div>
             </div>
             <?php endif; ?>
@@ -197,17 +205,17 @@ use \Welfony\Utility\Util;
                     <label class="attr"><input type="checkbox" value="1" <?php echo in_array("1", $this->recommends) ? 'checked':''; ?> name="goods_commend[]">最新商品</label>
                     <label class="attr"><input type="checkbox" value="2" <?php echo in_array("2", $this->recommends)? 'checked':''; ?> name="goods_commend[]">特价商品</label>
                     <label class="attr"><input type="checkbox" value="3" <?php echo in_array("3", $this->recommends) ? 'checked':''; ?> name="goods_commend[]">热卖商品</label>
-                    <label class="attr"><input type="checkbox" value="4" <?php echo in_array("4", $this->recommends) ? 'checked':''; ?> name="goods_commend[]">推荐商品</label> 
+                    <label class="attr"><input type="checkbox" value="4" <?php echo in_array("4", $this->recommends) ? 'checked':''; ?> name="goods_commend[]">推荐商品</label>
                 </div>
             </div>
               <div class="formitm">
                 <label class="lab">商品品牌：</label>
                 <div class="ipt">
                      <select id="goodsbrand"  class="u-sel">
-                        <option value="0" >请选择</option>  
+                        <option value="0" >请选择</option>
                         <?php foreach( $this->brands as $brand) :?>
-                        <option value="<?php echo $brand['BrandId']; ?>" <?php echo $this->goodsInfo['BrandId'] == $brand['BrandId']? 'selected':''; ?>><?php echo $brand['Name']; ?></option>  
-                        <?php endforeach;?>                   
+                        <option value="<?php echo $brand['BrandId']; ?>" <?php echo $this->goodsInfo['BrandId'] == $brand['BrandId']? 'selected':''; ?>><?php echo $brand['Name']; ?></option>
+                        <?php endforeach;?>
                      </select>
                      <p></p>
                 </div>
@@ -229,9 +237,17 @@ use \Welfony\Utility\Util;
                 <div class="ipt">
                     <div id="goods-uploader"></div>
                 </div>
-            </div>           
-            
-            
+            </div>
+            <div class="formitm">
+                <label class="lab">图文详情：</label>
+                <div class="ipt">
+                    <div id="goods-editor" style="width: 80%; height: 600px;">
+                        <?php echo $this->goodsInfo['Content']; ?>
+                    </div>
+                </div>
+            </div>
+
+
             <div class="formitm formitm-1">
                 <input type="hidden" name="goods_id" value="<?php echo intval($this->goodsInfo['GoodsId']); ?>" />
                 <input type="hidden" id="goodsno" name="goodsno" value="<?php echo $this->defaultgoodsno; ?>"/>

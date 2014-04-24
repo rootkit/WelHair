@@ -67,9 +67,10 @@ class UploadController extends AbstractAPIController
         move_uploaded_file($rtn['FileTmpPath'], $fileTargetPath);
 
         if ($onlyOriginal) {
-
             self::sendResponse(array(
-                'OriginalUrl' => $rtn['Url']
+                'OriginalUrl' => $rtn['Url'],
+                'url' => $rtn['Url'],
+                'state' => 'SUCCESS'
             ));
         } else {
             $imagine = new Imagine();

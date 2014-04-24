@@ -96,6 +96,7 @@ class Goods_IndexController extends AbstractAdminController
             $goods['StoreNums']= $this->_request->getParam('storenums');
             $goods['Weight']= $this->_request->getParam('weight');
             $goods['Img']= $this->_request->getParam('img');
+            $goods['Content']= $this->_request->getParam('content');
 
             $goods['CreateTime'] = date('Y-m-d H:i:s');
             if( $goodsId )

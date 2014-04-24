@@ -86,6 +86,20 @@ WF.Model = {
 $(function() {
     window.addedspecs = 0;
     window.addattributes = 0;
+
+    var serverPath = WF.setting.staticAssetBaseUrl;
+    var editor = UM.getEditor('goods-editor', {
+        imageUrl: WF.setting.apiBaseUrl + '/upload/image/original',
+        imagePath: '',
+        imageFieldName: 'uploadfile',
+        lang: /^zh/.test(navigator.language || navigator.browserLanguage || navigator.userLanguage) ? 'zh-cn' : 'en',
+        langPath: WF.setting.staticAssetBaseUrl + "/lang/",
+        focus: true
+    });
+    editor.ready(function(editor) {
+        $(window).resize();
+    });
+
     var validator = $('#frm-goods-info').Validform({
         tiptype: 3
     });
@@ -232,6 +246,7 @@ $(function() {
                 'brandid': $('#goodsbrand').val(),
                 'unit': $('#unit').val(),
                 'point': $('#point').val(),
+                'content': editor.getContent(),
                 'experience': $('#experience').val(),
                 'sort': $('#sort').val(),
                 'keywords': $( '#goodskeywords').val()
