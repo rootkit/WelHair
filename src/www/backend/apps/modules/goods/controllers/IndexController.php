@@ -52,9 +52,10 @@ class Goods_IndexController extends AbstractAdminController
         $this->view->categories=CategoryService::listAllCategory();
         $this->view->models=ModelService::listAllModel();
         $this->view->brands=BrandService::listAllBrand();
-        $this->view->companies = CompanyService::listAllCompanies(array(
+        $companyList = CompanyService::listAllCompanies(array(
             CompanyStatus::Valid
         ), 1, 100);
+        $this->view->companies = $companyList['companies'];
 
         $goodsId = $this->_request->getParam('goods_id')?  intval($this->_request->getParam('goods_id')) : 0;
 
