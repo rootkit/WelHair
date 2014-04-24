@@ -53,7 +53,8 @@ FROM (
     INNER JOIN Company C ON C.CompanyId = CU.CompanyId
     WHERE (area = 0 || C.City = area) AND (gender = 0 || W.Gender = gender) AND (hairStyle = 0 || W.HairStyle = hairStyle)
     ORDER BY CASE WHEN sort = 0 THEN W.WorkId END DESC,
-             CASE WHEN sort = 1 THEN WorkLikeCount END DESC
+             CASE WHEN sort = 1 THEN W.WorkId END DESC,
+             CASE WHEN sort = 2 THEN WorkLikeCount END DESC
     LIMIT offset, pageSize
 ) TBLW
 LEFT OUTER JOIN Comment C ON C.CommentId = (SELECT MAX(CommentId) FROM Comment CC WHERE CC.WorkId = TBLW.WorkId)

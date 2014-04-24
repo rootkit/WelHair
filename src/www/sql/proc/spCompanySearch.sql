@@ -63,8 +63,9 @@ FROM (
                 ) AS TBLRate ON TBLRate.CompanyId = C.CompanyId
     WHERE C.Status = 1 AND (searchText = '' || C.Name LIKE CONCAT('%', searchText, '%')) AND (city = 0 || C.City = city) AND (district = 0 || C.District = district)
     GROUP BY C.CompanyId
-    ORDER BY CASE WHEN sort = 0 THEN Distance END ASC,
-             CASE WHEN sort = 1 THEN Rate END DESC
+    ORDER BY CASE WHEN sort = 0 THEN C.CompanyId END DESC,
+             CASE WHEN sort = 1 THEN Distance END ASC,
+             CASE WHEN sort = 2 THEN Rate END DESC
     LIMIT offset, pageSize
 ) TBLC;
 
