@@ -19,9 +19,9 @@
 #import "MWPhotoBrowser.h"
 #import "OrderPreviewViewController.h"
 #import "ProductDetailViewController.h"
-#import "SVWebViewController.h"
 #import "ProductOpitionPanel.h"
 #import "StaffDetailViewController.h"
+#import "SVWebViewController.h"
 #import "ToggleButton.h"
 #import "UMSocial.h"
 #import "UIViewController+KNSemiModal.h"
@@ -77,7 +77,6 @@
 {
     [super loadView];
 }
-
 
 - (void)viewWillAppear:(BOOL)animated
 {
@@ -328,7 +327,9 @@
 {
     UIButton *btn = (UIButton *)sender;
     if (btn.tag == 0) {
-        NSURL *URL = [NSURL URLWithString:@"http://baidu.com"];
+        NSLog(@"%@", [NSString stringWithFormat:SITE_GOODS_CONTENT, self.product.id]);
+
+        NSURL *URL = [NSURL URLWithString:[NSString stringWithFormat:SITE_GOODS_CONTENT, self.product.id]];
         SVModalWebViewController *webViewController = [[SVModalWebViewController alloc] initWithURL:URL];
         webViewController.modalPresentationStyle = UIModalPresentationPageSheet;
         [self presentViewController:webViewController animated:YES completion:NULL];

@@ -2,10 +2,23 @@
 use \Welfony\Utility\Util;
 
 $this->headLink()
-     ->appendStylesheet(Util::baseAssetUrl('css/vendor/normalize/1.1.3/normalize.css'));
+     ->appendStylesheet(Util::baseAssetUrl('css/vendor/normalize/1.1.3/normalize.css'))
+     ->appendStylesheet(Util::baseAssetUrl('css/vendor/jquery.ui/1.9.2/jquery-ui.css'))
+     ->appendStylesheet(Util::baseAssetUrl('css/vendor/jquery.validform/5.3.2/jquery.validform.css'))
+     ->appendStylesheet(Util::baseAssetUrl('css/vendor/jquery.uploadify/3.2.1/jquery.uploadify.css'))
+     ->appendStylesheet(Util::baseAssetUrl('css/vendor/jquery.imgareaselect/0.9.10/imgareaselect-default.css'))
+     ->appendStylesheet(Util::baseAssetUrl('css/vendor/jquery.pnotify/1.2.0/jquery.pnotify.css'))
+     ->appendStylesheet(Util::baseAssetUrl('css/frontend/style.css'));
 
 $this->headScript()
-     ->prependFile(Util::baseAssetUrl('js/vendor/jquery/1.11.0/jquery.min.js'));
+     ->prependFile(Util::baseAssetUrl('js/vendor/jquery.ui/1.9.2/jquery-ui.min.js'))
+     ->prependFile(Util::baseAssetUrl('js/vendor/jquery/1.11.0/jquery.min.js'))
+     ->appendFile(Util::baseAssetUrl('js/vendor/jquery.validform/5.3.2/jquery.validform.min.js'))
+     ->appendFile(Util::baseAssetUrl('js/vendor/jquery.uploadify/3.2.1/jquery.uploadify.min.js'))
+     ->appendFile(Util::baseAssetUrl('js/vendor/jquery.imgareaselect/0.9.10/jquery.imgareaselect.min.js'))
+     ->appendFile(Util::baseAssetUrl('js/vendor/jquery.pnotify/1.2.0/jquery.pnotify.js'))
+     ->appendFile(Util::baseAssetUrl('js/vendor/json/json2.js'))
+     ->appendFile(Util::baseAssetUrl('js/frontend/main.js'));
 ?>
 <!DOCTYPE html>
 <html>
@@ -16,13 +29,24 @@ $this->headScript()
         <meta name="description" content="">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
         <meta name="viewport" content="width=device-width,initial-scale=1">
+        <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+        <!--[if lt IE 9]>
+        <script src="<?php echo Util::baseAssetUrl('js/vendor/html5shiv/3.7.0/html5shiv.js'); ?>"></script>
+        <![endif]-->
         <?php
         echo $this->headLink();
         echo $this->headScript();
         ?>
     </head>
     <body>
-        <?php echo $this->partial('header.phtml'); ?>
+        <div id="error-message"><?php echo $this->errorMessage; ?></div>
+        <div id="success-message"><?php echo $this->successMessage; ?></div>
+        <?php
+        echo $this->partial('header.phtml', array(
+            'module' => $this->module,
+            'config' => $this->config,
+            'currentUser' => $this->currentUser));
+        ?>
         <?php echo $this->layout()->content; ?>
         <?php echo $this->partial('footer.phtml'); ?>
     </body>

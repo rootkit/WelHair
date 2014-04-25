@@ -29,6 +29,12 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         Zend_Session::start();
     }
 
+    protected function _initRouter()
+    {
+        $front = Zend_Controller_Front::getInstance();
+        $router = $front->getRouter();
+    }
+
     protected function _initDatabase()
     {
         $dbConfig = new \Doctrine\DBAL\Configuration();

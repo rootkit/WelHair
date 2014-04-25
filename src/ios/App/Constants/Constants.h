@@ -10,9 +10,6 @@
 //
 // ==============================================================================
 
-#define WEBSOCKET_SERVER_URL @"ws://115.28.208.165:8080"
-
-#define HOME_SITE @"http://115.28.208.165/api"
 #define CONFIG_UMSOCIAL_APPKEY @"530c98ec56240bfad303d2d2"
 #define CONFIG_WECHAT_ID @"wxa3bf1e76d675b23a"
 #define CONFIG_QQ_APP_ID  @"101061921"
@@ -21,9 +18,14 @@
 
 #define DB_FILE_NAME   @"db.sqlite"
 
-//#define API_PATH(path) [NSString stringWithFormat:@"http://welhair.com/api%@", path]
+#define DOMAIN_NAME @"115.28.208.165"
+//#define DOMAIN_NAME @"welhair.com"
 
-#define API_PATH(path) [NSString stringWithFormat:@"http://115.28.208.165/api%@", path]
+#define WEBSOCKET_SERVER_URL [NSString stringWithFormat:@"ws://%@:8080", DOMAIN_NAME]
+#define SITE_PATH(path) [NSString stringWithFormat:@"http://%@%@", DOMAIN_NAME, path]
+#define API_PATH(path) [NSString stringWithFormat:@"http://%@/api%@", DOMAIN_NAME, path]
+
+#define SITE_GOODS_CONTENT SITE_PATH(@"/goods/index/content?goods_id=%d")
 
 #define API_APPOINTMENTS_CREATE API_PATH(@"/appointments")
 #define API_APPOINTMENTS_UPDATE API_PATH(@"/appointments/%d")

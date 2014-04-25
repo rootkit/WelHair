@@ -1,0 +1,23 @@
+<?php
+use \Welfony\Utility\Util;
+
+$this->headLink()
+     ->appendStylesheet(Util::baseAssetUrl('css/vendor/normalize/1.1.3/normalize.css'));
+?>
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>商品</title>
+        <meta name="keywords" content="">
+        <meta name="description" content="">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="viewport" content="width=device-width,initial-scale=1">
+        <?php
+        echo $this->headLink();
+        ?>
+    </head>
+    <body>
+        <?php echo $this->htmlContent; ?>
+    </body>
+</html>

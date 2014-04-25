@@ -13,12 +13,22 @@
 // ==============================================================================
 
 use Welfony\Controller\Base\AbstractFrontendController;
+use Welfony\Service\GoodsService;
 
-class IndexController extends AbstractFrontendController
+class Goods_IndexController extends AbstractFrontendController
 {
 
     public function indexAction()
     {
+    }
+
+    public function contentAction()
+    {
+        $goodsId = intval($this->_request->getParam('goods_id'));
+        if ($goodsId > 0) {
+            $goods = GoodsService::getGoodsById($goodsId);
+            $this->view->htmlContent = $goods['Content'];
+        }
     }
 
 }

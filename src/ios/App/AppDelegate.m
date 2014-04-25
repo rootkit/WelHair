@@ -63,8 +63,8 @@
 //    [UMSocialConfig setWXAppId:CONFIG_WECHAT_ID url:nil];
 //    [UMSocialConfig setQQAppId:CONFIG_QQ_APP_ID url:nil importClasses:@[[QQApiInterface class],[TencentOAuth class]]];
     [UMSocialConfig setSupportSinaSSO:YES];
-    [UMSocialQQHandler setQQWithAppId:CONFIG_QQ_APP_ID appKey:CONFIG_QQ_APP_KEY url:HOME_SITE];
-    [UMSocialWechatHandler setWXAppId:CONFIG_WECHAT_ID url:HOME_SITE];
+    [UMSocialQQHandler setQQWithAppId:CONFIG_QQ_APP_ID appKey:CONFIG_QQ_APP_KEY url:SITE_PATH(@"")];
+    [UMSocialWechatHandler setWXAppId:CONFIG_WECHAT_ID url:SITE_PATH(@"")];
     //setup baidu map component
     _mapManager = [[BMKMapManager alloc]init];
     // 如果要关注网络及授权验证事件，请设定generalDelegate参数
