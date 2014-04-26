@@ -13,7 +13,7 @@
 
 
 $(function() {
-    $validator = $('#frm-freight-info').Validform({
+    var validator = $('#frm-freight-info').Validform({
         tiptype: 3
     });
 
