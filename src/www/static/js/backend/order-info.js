@@ -27,7 +27,7 @@ WF.Goods = {
 
                     '               <td>' + $(this).attr('data-name') + ' ' + $(this).attr('data-spec') +'</td> ' +
                     '               <td>' + $(this).attr('data-sellprice') + '</td> ' +
-                    '               <td><input type="text" name="goodscount" value="1"/>' + 
+                    '               <td><input type="text" name="goodscount" value="1"/>' +
                     '       <input type="hidden" name="goodsid" value="' + $(this).attr('data-goodsid')  + '"/>' +
                     '       <input type="hidden" name="productsid" value="' + $(this).attr('data-productsid')  + '"/>' +
                     '       <input type="hidden" name="goodsname" value="' + $(this).attr('data-name')  + '"/>' +
@@ -55,8 +55,12 @@ $(function() {
     $('#frm-order-info').Validform({
         tiptype: 3
     });
-    $( "#tabs" ).tabs();
 
+    $( "#tabs" ).tabs({
+        activate: function(event ,ui) {
+            $(window).resize();
+        }
+    });
 
     $('#btnAddGoods').click(function(){
       $('#goodsList').dialog({"modal": true, "width":800, "height":640});
@@ -74,12 +78,12 @@ $(function() {
 
           var orderno = $('#orderno').val();
 
-         
-          
+
+
 
           url = form.attr( "action" );
 
-          var orderdata = { 
+          var orderdata = {
                 'orderno': orderno,
                 'distribution' : $('#distribution').val(),
                 'paytype':$('#paytype').val(),
@@ -100,7 +104,7 @@ $(function() {
           var goods = $('tr.goodsid').map(function(i,n){
 
               var  goodsArray = {
-                          'Name':$(n).find('input[name="goodsname"]:first').val(), 
+                          'Name':$(n).find('input[name="goodsname"]:first').val(),
                           'Value':$(n).find('input[name="goodsspec"]:first').val()
               };
               return {

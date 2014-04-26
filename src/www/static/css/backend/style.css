@@ -427,8 +427,9 @@ button.u-btn-sm {
 
 .u-btn-disabled
 {
-   border:0px !important;
-   background: #EEEEEE !important;
+    border: 1px solid #ccc !important;
+    background: #eee !important;
+    color: #aaa !important;
 }
 
 /* 简易数据表格-格边框 */

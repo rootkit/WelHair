@@ -17,7 +17,12 @@ $(function() {
     $('#frm-order-detail').Validform({
         tiptype: 3
     });
-    $( "#tabs" ).tabs();
+
+    $( "#tabs" ).tabs({
+        activate: function(event ,ui) {
+            $(window).resize();
+        }
+    });
 
     $('#btnSaveOrderNote').click(function(){
     	 $.ajax({
@@ -29,7 +34,7 @@ $(function() {
                         'note': $('#note').val()
                      },
                     success: function(data){
-                     
+
                     },
                     error:function()
                     {
@@ -41,11 +46,11 @@ $(function() {
     $('#to_pay').click(function(){
         var theButton = $(this);
         $('#paypopin').dialog(
-            {"modal": true, 
-             "width":800, 
+            {"modal": true,
+             "width":800,
              "height":640,
              "title":"付款",
-              buttons: 
+              buttons:
                     [
                         {
                             text: "付款",
@@ -83,7 +88,7 @@ $(function() {
                                 click: function() {
                                     $(this).dialog('close');
                                 }
-                        } 
+                        }
                     ]
 
         });
@@ -91,17 +96,17 @@ $(function() {
     $('#to_deliver').click(function(){
         var theButton = $(this);
         $('#deliverpopin').dialog(
-            {"modal": true, 
-             "width":870, 
+            {"modal": true,
+             "width":870,
              "height":740,
              "title":"发货",
-              buttons: 
+              buttons:
                     [
                         {
                             text: "发货",
                             class:"u-btn",
                             click: function()
-                            { 
+                            {
                                 var popin = $(this);
                                 $.ajax({
                                             type: 'post',
@@ -141,21 +146,21 @@ $(function() {
                                 click: function() {
                                     $(this).dialog('close');
                                 }
-                        } 
+                        }
                     ]
 
         });
     });
 
-    
+
     $('#to_refundment').click(function(){
         var theButton = $(this);
         $('#refoundpopin').dialog(
-            {"modal": true, 
-             "width":800, 
+            {"modal": true,
+             "width":800,
              "height":640,
              "title":"退款",
-              buttons: 
+              buttons:
                     [
                         {
                             text: "退款",
@@ -193,7 +198,7 @@ $(function() {
                                 click: function() {
                                     $(this).dialog('close');
                                 }
-                        } 
+                        }
                     ]
 
         });
@@ -228,7 +233,7 @@ $(function() {
                         }
             });
         }
-                           
+
     });
 
     $('#to_discard').click(function(){
@@ -251,7 +256,7 @@ $(function() {
 
                     }
         });
-                           
+
     });
 
     $('#ui-id-6').click(function(){
@@ -308,7 +313,7 @@ $(function() {
         });
     });
 
-    
-   
+
+
     WF.initAreaSelector();
 });

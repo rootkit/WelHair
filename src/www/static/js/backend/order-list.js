@@ -11,7 +11,7 @@
 // ==============================================================================
 
 $(function() {
-    
+
     $( ".btnDelete" ).click(function( event ) {
 
 
@@ -21,8 +21,8 @@ $(function() {
 
           var url = globalSetting.baseUrl + '/order/index/delete';
 
-          
-          var posting = $.post( url, { 
+
+          var posting = $.post( url, {
                 'orderid' : item.attr('data-id')
             } );
 
@@ -32,6 +32,8 @@ $(function() {
           	  if( data.success)
           	  {
               	window.location = globalSetting.baseUrl + '/order/index/search';
+              } else {
+                WF.showMessage('error', '警告', data.message);
               }
               return;
 
@@ -39,5 +41,5 @@ $(function() {
 
     });
 
-    
+
 });

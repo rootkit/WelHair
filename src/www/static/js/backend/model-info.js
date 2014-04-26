@@ -31,16 +31,19 @@ WF.Model = {
 
             $('#spectable tbody').append( $(row));
             $('.content').height($('.content').height() + 50);
-            $('#spectable').find('.btnDelete').click(function(){$(this).parents('tr:first').remove();});
+            $('#spectable').find('.btnDelete').click(function(){
+              $(this).parents('tr:first').remove();
+              return false;
+            });
             $('#spectable').find('.btnUp').click(function(){
               var row = $(this).parents('tr:first');
               row.insertBefore(row.prev());
-
+              return false;
             });
             $('#spectable').find('.btnDown').click(function(){
               var row = $(this).parents('tr:first');
               row.insertAfter(row.next());
-
+              return false;
             });
 
           }
@@ -74,17 +77,37 @@ $(function() {
 
         $('#attributetable tbody').append( $(row));
         $('.content').height($('.content').height() + 50);
-        $('#attributetable').find('.btnDelete').click(function(){$(this).parents('tr:first').remove();});
-
+        $('#attributetable').find('.btnDelete').click(function() {
+            $(this).parents('tr:first').remove();
+            return false;
+        });
     });
 
+    $('#spectable').find('.btnDelete').click(function(){
+        $(this).parents('tr:first').remove();
+        return false;
+    });
 
+    $('#attributetable').find('.btnDelete').click(function() {
+        $(this).parents('tr:first').remove();
+        return false;
+    });
+
+    $('#spectable').find('.btnUp').click(function(){
+      var row = $(this).parents('tr:first');
+      row.insertBefore(row.prev());
+      return false;
+    });
+    $('#spectable').find('.btnDown').click(function(){
+      var row = $(this).parents('tr:first');
+      row.insertAfter(row.next());
+      return false;
+    });
 
     $('#btnAddSpec').click(function(){
       $('#specList').dialog({"modal": true, "width":800, "height":640});
       WF.Model.updateSpecList(1);
     });
-
 
     $( "#frm-model-info" ).submit(function( event ) {
         if (!validator.check()) {
@@ -104,7 +127,7 @@ $(function() {
                     'name':$(n).find('input[name="attributename"]').val(),
                     'type':$(n).find('select[name="attributetype"]').val(),
                     'value':$(n).find('input[name="attributevalue"]').val(),
-                    'search' : $(n).find('input[name="attributesearch"]:checked').length
+                    'search': $(n).find('input[name="attributesearch"]:checked').length
                  };
           }).get();
 
