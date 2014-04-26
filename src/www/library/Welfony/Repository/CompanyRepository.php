@@ -100,7 +100,7 @@ class CompanyRepository extends AbstractRepository
         $strSql = "SELECT
                       C.*
                    FROM CompanyGoods CG
-                   INNER JOIN Company C ON CG.CompanyId = CG.CompanyId
+                   INNER JOIN Company C ON CG.CompanyId = C.CompanyId
                    WHERE C.Status = 1 AND CG.GoodsId = $goodsId ";
 
         return $this->conn->fetchAll($strSql);
