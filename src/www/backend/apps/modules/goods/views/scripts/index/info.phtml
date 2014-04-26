@@ -97,12 +97,12 @@ $this->headScript()
                         </thead>
                         <tbody>
                             <tr>
-                                <td><input name="goodsno"  type="text" value="<?php echo $this->defaultgoodsno; ?>"  class="u-ipt"/></td>
-                                <td><input name="storenums" type="text" value="100"  class="u-ipt"/></td>
-                                <td><input name="marketprice" type="text" value="0.00"  class="u-ipt"/></td>
-                                <td><input name="sellprice" type="text" value="0.00"  class="u-ipt"/></td>
-                                <td><input name="costprice" type="text" value="0.00"  class="u-ipt"/></td>
-                                <td><input name="weight" type="text" value="0.00"  class="u-ipt"/></td>
+                                <td><input name="goodsno"  type="text" value="<?php echo $this->goodsInfo['GoodsNo'] ? : $this->defaultgoodsno; ?>"  class="u-ipt"/></td>
+                                <td><input name="storenums" type="text" value="<?php echo $this->goodsInfo['StoreNums'] ? : 100; ?>"  class="u-ipt"/></td>
+                                <td><input name="marketprice" type="text" value="<?php echo $this->goodsInfo['MarketPrice'] ? : '0.00'; ?>"  class="u-ipt"/></td>
+                                <td><input name="sellprice" type="text" value="<?php echo $this->goodsInfo['SellPrice'] ? : '0.00'; ?>" class="u-ipt"/></td>
+                                <td><input name="costprice" type="text" value="<?php echo $this->goodsInfo['CostPrice'] ? : '0.00'; ?>"  class="u-ipt"/></td>
+                                <td><input name="weight" type="text" value="<?php echo $this->goodsInfo['Weight'] ? : '0'; ?>"  class="u-ipt"/></td>
                             </tr>
                         </tbody>
                     </table>

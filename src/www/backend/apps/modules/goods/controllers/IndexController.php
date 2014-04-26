@@ -144,8 +144,6 @@ class Goods_IndexController extends AbstractAdminController
             $recommends = $this->_request->getParam('recommendgoods');
             $companies = $this->_request->getParam('companies');
 
-
-
             $result = GoodsService::save($goods,$categories,$attrArray,$products,$recommends,$companies);
             /*
             if ($result['success']) {
