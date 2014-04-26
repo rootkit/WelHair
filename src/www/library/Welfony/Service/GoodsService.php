@@ -112,7 +112,7 @@ class GoodsService
                     continue;
                 }
 
-                $spec['Options'][] = array('Label' => $attr['SpecValue'], 'Price' => $prodSelected['SellPrice']);
+                $spec['Options'][] = array('ProductId' => $prodSelected['ProductsId'], 'Label' => $attr['SpecValue'], 'Price' => $prodSelected['SellPrice']);
 
                 if ($specIndex === false) {
                     $goods['Spec'][] = $spec;

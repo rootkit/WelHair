@@ -200,17 +200,17 @@ class GoodsRepository extends AbstractRepository
 
         $offset = ($pageNumber - 1) * $pageSize;
         $strSql = "  SELECT G.GoodsId, G.Name, G.GoodsNo,
-                     CASE P.SellPrice
-                        WHEN NULL THEN G.SellPrice
+                     CASE
+                        WHEN P.SellPrice IS NULL THEN G.SellPrice
                         ELSE P.SellPrice
                      END AS SellPrice,
 
-                     CASE P.CostPrice
-                        WHEN NULL THEN G.CostPrice
+                     CASE
+                        WHEN P.CostPrice IS NULL THEN G.CostPrice
                         ELSE P.CostPrice
                      END AS CostPrice,
-                     CASE P.Weight
-                        WHEN NULL THEN G.Weight
+                     CASE
+                        WHEN P.Weight IS NULL THEN G.Weight
                         ELSE P.Weight
                      END AS Weight,
                      P.ProductsNo,
