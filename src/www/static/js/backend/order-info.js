@@ -26,6 +26,7 @@ WF.Goods = {
              var row = '   <tr class="goodsid" data-id="' +  $(this).attr('data-id')  + '"> ' +
 
                     '               <td>' + $(this).attr('data-name') + ' ' + $(this).attr('data-spec') +'</td> ' +
+                    '               <td>' + $(this).attr('data-companyname') +'</td> ' +
                     '               <td>' + $(this).attr('data-sellprice') + '</td> ' +
                     '               <td><input type="text" name="goodscount" value="1"/>' +
                     '       <input type="hidden" name="goodsid" value="' + $(this).attr('data-goodsid')  + '"/>' +
@@ -35,6 +36,7 @@ WF.Goods = {
                     '       <input type="hidden" name="weight" value="' + $(this).attr('data-weight')  + '"/>' +
                     '       <input type="hidden" name="sellprice" value="' + $(this).attr('data-sellprice')  + '"/>' +
                     '       <input type="hidden" name="goodsimg" value="' + $(this).attr('data-img')  + '"/>' +
+                    '       <input type="hidden" name="companyid" value="' + $(this).attr('data-companyid')  + '"/>' +
                     '               </td> ' +
                     '               <td><a href="#" class="btnDelete"><i class="iconfont">&#xf013f;</i></a></td>' +
                     '     </tr>';
@@ -63,7 +65,7 @@ $(function() {
     });
 
     $('#btnAddGoods').click(function(){
-      $('#goodsList').dialog({"modal": true, "width":800, "height":640});
+      $('#goodsList').dialog({"modal": true, "width":880, "height":640});
       WF.Goods.updateGoodsList(1);
     });
 
@@ -115,6 +117,7 @@ $(function() {
                   'RealPrice':$(n).find('input[name="sellprice"]:first').val(),
                   'GoodsNums':$(n).find('input[name="goodscount"]:first').val(),
                   'GoodsWeight':$(n).find('input[name="weight"]:first').val(),
+                  'CompanyId':$(n).find('input[name="companyid"]:first').val(),
                   'GoodsArray': JSON.stringify( goodsArray)
               };
           }).get();

@@ -24,6 +24,7 @@ use \Welfony\Utility\Util;
                                  <thead>
                                     <tr>
                                         <th class="cola">商品名称</th>
+                                        <th class="cola">沙龙</th>
                                         <th class="cola">商品价格</th>
                                         <th class="cola">数量</th>
                                         <th class="cola">操作</th>
@@ -38,7 +39,9 @@ use \Welfony\Utility\Util;
                                     <tr class="goodsid" data-id="<?php echo $goods['GoodsId'].'_'.$goods['ProductsId']; ?>">
 
                                             <td><?php echo $goodsname; ?></td>
+                                            <td><?php echo isset($goods['CompanyName'])? $goods['CompanyName']:''; ?></td>
                                             <td><?php echo $goods['GoodsPrice']; ?></td>
+
                                             <td><input type="text" name="goodscount" value="<?php echo $goods['GoodsNums']; ?>"/>
                                             <input type="hidden" name="goodsid" value="<?php echo $goods['GoodsId']; ?>" />
                                                 <input type="hidden" name="productsid" value="<?php echo $goods['ProductsId']; ?>"/>
@@ -47,6 +50,7 @@ use \Welfony\Utility\Util;
                                                 <input type="hidden" name="weight" value="<?php echo $goods['GoodsWeight']; ?>" />
                                                 <input type="hidden" name="sellprice" value="<?php echo $goods['GoodsPrice']; ?>"/>
                                                 <input type="hidden" name="goodsimg" value="<?php echo $goods['Img']; ?>"/>
+                                                <input type="hidden" name="companyid" value="<?php echo $goods['CompanyId']; ?>"/>
                                             </td>
                                             <td><a href="#" class="btnDelete"><i class="iconfont">&#xf013f;</i></a></td>
                                     </tr>

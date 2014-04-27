@@ -44,9 +44,10 @@ class OrderGoodsRepository extends AbstractRepository
     public function getAllOrderGoodsByOrder($orderId)
     {
         $strSql = "SELECT
-                       *
-                   FROM OrderGoods
-                   WHERE OrderId = $orderId
+                       OrderGoods.*, C.Name AS CompanyName
+                   FROM OrderGoods OrderGoods
+                   LEFT JOIN Company C ON C.CompanyId = OrderGoods.CompanyId
+                   WHERE OrderGoods.OrderId = $orderId
                   ";
 
         return $this->conn->fetchAll($strSql);

@@ -5,12 +5,12 @@ use \Welfony\Utility\Util;
     <thead>
         <tr>
             <th class="col-chk"></th>
-            <th class="cola">沙龙</th>
-            <th class="cola">货号</th>
-            <th class="cola">名称</th>
-            <th class="cola">规格</th>
-            <th class="cola">售价</th>
-            <th class="cola"></th>
+            <th >沙龙</th>
+            <th style="width:120px;">货号</th>
+            <th>名称</th>
+            <th >规格</th>
+            <th >售价</th>
+            <th ></th>
         </tr>
     </thead>
     <tbody>
@@ -35,7 +35,10 @@ use \Welfony\Utility\Util;
                 data-img= "<?php echo $goods['Img']; ?>"
                 data-spec="<?php echo $spc; ?>"
                 data-id="<?php echo $goods['GoodsId'].'_'.$goods['ProductsId'];  ?>"
+                data-companyid = "<?php echo $goods['CompanyId']; ?>"
+                data-companyname = "<?php echo $goods['CompanyName']; ?>"
              /></td>
+            <td><?php echo $goods['CompanyName']; ?></td>
             <td>
                     <?php echo isset($goods['ProductsNo'])? $goods['ProductsNo']: $goods['GoodsNo']; ?>
             </td>
