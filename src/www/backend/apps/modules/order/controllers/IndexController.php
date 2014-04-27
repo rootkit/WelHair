@@ -82,7 +82,7 @@ class Order_IndexController extends AbstractAdminController
         $this->view->ordergoods = [];
         $this->view->deliveries = DeliveryService::listAllDelivery();
         $this->view->payments = PaymentService::listActivePayment();
-      
+
         if ($this->_request->isPost()) {
             $this->_helper->viewRenderer->setNoRender(true);
             $this->_helper->layout->disableLayout();
@@ -125,7 +125,7 @@ class Order_IndexController extends AbstractAdminController
             $goods = $this->_request->getParam('goods');
             $payable = 0; //总价格
             $goodTotalWeight = 0; //总重量
-            if( !empty($goods) )           
+            if( !empty($goods) )
             {
                 foreach( $goods as $g)
                 {
@@ -173,7 +173,7 @@ class Order_IndexController extends AbstractAdminController
                         }
                     }
                 }
-               
+
 
                 if( $goodTotalWeight <= $distributionDetail['FirstWeight'] )
                 {
@@ -213,7 +213,7 @@ class Order_IndexController extends AbstractAdminController
         } else {
 
             if ($orderId > 0) {
-         
+
                 $this->view->ordergoods = OrderGoodsService::listAllOrderGoodsByOrder($orderId);
                 $order = OrderService::getOrderById($orderId);
                 $this->view->cityList = intval($order['Province']) > 0 ? AreaService::listAreaByParent($order['Province']) : array();
@@ -249,7 +249,7 @@ class Order_IndexController extends AbstractAdminController
 
     }
 
-	public function detailAction()
+    public function detailAction()
     {
         $this->view->pageTitle = '订单详情';
 
@@ -257,7 +257,7 @@ class Order_IndexController extends AbstractAdminController
 
 
         if ($orderId > 0) {
-     
+
             $this->view->deliveries = DeliveryService::listAllDelivery();
             $this->view->payments = PaymentService::listActivePayment();
             $this->view->ordergoods = OrderGoodsService::listAllOrderGoodsByOrder($orderId);
@@ -266,22 +266,18 @@ class Order_IndexController extends AbstractAdminController
             $this->view->cityList = $order['Province'] ? AreaService::listAreaByParent($order['Province']) : array();
             $this->view->districtList = $order['City']? AreaService::listAreaByParent($order['City']) : array();
 
-            if( $order['UserId'])
-            {
+            if ($order['UserId']) {
                 $user = UserService::getUserById($order['UserId']);
-                if( $user && !empty($user))
-                {
-                    $order['UserName'] = $user['Username'];
-                }
-                else
-                {
-                    $order['UserName'] = '';
+                if ($user && !empty($user)) {
+                    $order['User'] = $user;
+                } else {
+                    $order['User'] = null;
                 }
             }
-            else
-            {
-                $order['UserName'] = '';
+            else {
+                $order['User'] = null;
             }
+
             $this->view->orderInfo = $order;
             $this->view->delivery = DeliveryService::getDeliveryById($order['Distribution']);
             $this->view->payment = PaymentService::getPaymentById($order['PayType']);
@@ -492,7 +488,7 @@ class Order_IndexController extends AbstractAdminController
                 'Result'=> '成功',
                 'Note' => '订单【'.$orderNo.'】完成成功'
             );
-    
+
         $order = array('Status'=> 5);
 
         if ($this->_request->isPost()) {
@@ -524,7 +520,7 @@ class Order_IndexController extends AbstractAdminController
                 'Result'=> '成功',
                 'Note' => '订单【'.$orderNo.'】作废成功'
             );
-    
+
         $order = array('Status'=> 4);
 
         if ($this->_request->isPost()) {
@@ -541,10 +537,10 @@ class Order_IndexController extends AbstractAdminController
         $orderId = $this->_request->getParam('order_id')?  intval($this->_request->getParam('order_id')) : 0;
 
 
-        if ($orderId > 0) {            
+        if ($orderId > 0) {
             $this->view->logs = OrderLogService::listOrderLogByOrder($orderId);
         }
-        
+
     }
 
     public function paylogsAction()
@@ -555,7 +551,7 @@ class Order_IndexController extends AbstractAdminController
         $orderId = $this->_request->getParam('order_id')?  intval($this->_request->getParam('order_id')) : 0;
 
 
-        if ($orderId > 0) {            
+        if ($orderId > 0) {
             $this->view->collectiondoc = CollectionDocService::getCollectionDocByOrder($orderId);
             $this->view->refundmentdoc = RefundmentDocService::getRefundmentDocByOrder($orderId);
         }
@@ -569,7 +565,7 @@ class Order_IndexController extends AbstractAdminController
         $orderId = $this->_request->getParam('order_id')?  intval($this->_request->getParam('order_id')) : 0;
 
 
-        if ($orderId > 0) {            
+        if ($orderId > 0) {
             $this->view->deliverydoc = DeliveryDocService::getDeliveryDocByOrder($orderId);
         }
     }

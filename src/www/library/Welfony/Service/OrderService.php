@@ -24,8 +24,7 @@ class OrderService
 
     public static function getOrderById($id)
     {
-        return  OrderRepository::getInstance()->findOrderById( $id);
-
+        return  OrderRepository::getInstance()->findOrderById($id);
     }
 
     public static function listOrder($pageNumber, $pageSize)
@@ -108,6 +107,7 @@ class OrderService
                         'GoodsId' => $goods['GoodsId'],
                         'Img' => $goods['Img'],
                         'ProductsId' => 0,
+                        'CompanyId' => isset($item['CompanyId']) ? intval($item['CompanyId']) : 0,
                         'GoodsPrice' => $goods['SellPrice'],
                         'RealPrice' => $goods['SellPrice'],
                         'GoodsNums' => $item['Num'],
@@ -125,9 +125,20 @@ class OrderService
                             $orderGoods['GoodsPrice'] = $product['SellPrice'];
                             $orderGoods['RealPrice'] = $product['SellPrice'];
                             $orderGoods['GoodsWeight'] = $product['Weight'];
+
+                            $specArr = array();
+                            $specJsonArr = json_decode($product['SpecArray'], true);
+                            if (isset($specJsonArr['Name'])) {
+                                $specArr[] = $specJsonArr['Name'] . '：' . $specJsonArr['Value'];
+                            } else {
+                                foreach($specJsonArr as $spec) {
+                                    $specArr[] = $spec['Name'] . '：' . $spec['Value'];
+                                }
+                            }
+
                             $orderGoods['GoodsArray'] = json_encode(array(
                                 'Name' => $goods['Name'],
-                                'Value' => ''
+                                'Value' => implode('，', $specArr)
                             ));
                         }
                     }
@@ -146,6 +157,7 @@ class OrderService
         }
 
         $orderData = array(
+            'OrderId' => isset($data['OrderId']) ? intval($data['OrderId']) : 0,
             'OrderNo' => date('YmdHis').rand(100000, 999999),
             'PayableAmount' => $totalPrice,
             'RealAmount' => $totalPrice,
@@ -190,7 +202,6 @@ class OrderService
         $result = array('success' => false, 'message' => '');
 
         if ($data['OrderId'] == 0) {
-
             $newId = OrderRepository::getInstance()->save($data, $goods);
             if ($newId) {
                 $data['OrderId'] = $newId;
@@ -206,7 +217,6 @@ class OrderService
                 return $result;
             }
         } else {
-
             $r = OrderRepository::getInstance()->update($data['OrderId'],$data, $goods);
             if ($r) {
 

@@ -32,17 +32,17 @@ use \Welfony\Utility\Util;
                                 </tr>
                             </thead>
                             <tbody>
-                                <?php 
+                                <?php
                                 $totalWeight = 0;
-                                foreach( $this->ordergoods as $ordergoods): 
+                                foreach( $this->ordergoods as $ordergoods):
                                 $totalWeight += $ordergoods['GoodsWeight'];
                                     ?>
                                 <tr>
                                     <td>
-                                        <?php 
+                                        <?php
                                             $goodName = json_decode($ordergoods['GoodsArray'], true);
                                             echo $goodName["Name"]. '&nbsp;&nbsp;'.$goodName['Value'];
-                                        ?>                
+                                        ?>
                                     </td>
                                     <td><?php   echo $ordergoods['GoodsPrice'] ?></td>
                                     <td><?php   echo $ordergoods['RealPrice'] ?></td>
@@ -153,19 +153,16 @@ use \Welfony\Utility\Util;
                             </thead>
                             <tbody>
                                 <tr>
-                                    <th>用户名:</th><td></td>
+                                    <th>账号:</th><td><?php echo $this->orderInfo['User'] ? $this->orderInfo['User']['Username'] : ''; ?></td>
                                 </tr>
                                 <tr>
-                                    <th>姓名:</th><td></td>
+                                    <th>昵称:</th><td><?php echo $this->orderInfo['User'] ? $this->orderInfo['User']['Nickname'] : ''; ?></td>
                                 </tr>
                                 <tr>
-                                    <th>电话:</th><td></td>
+                                    <th>邮箱:</th><td><?php echo $this->orderInfo['User'] ? $this->orderInfo['User']['Email'] : ''; ?></td>
                                 </tr>
                                 <tr>
-                                    <th>地区:</th><td></td>
-                                </tr>
-                                <tr>
-                                    <th>Email:</th><td></td>
+                                    <th>手机:</th><td><?php echo $this->orderInfo['User'] ? $this->orderInfo['User']['Mobile'] : ''; ?></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -174,9 +171,9 @@ use \Welfony\Utility\Util;
 
                 <div id="tab-2" name="table" class="o-tab">
                     <div class="formitm">
-                    
+
                             <table style="width:400px; min-height:500px; display:block;float:left;" class="m-table o-table">
-            
+
                                 <thead>
                                     <tr><th colspan="2" style="padding:auto;">收款单据</th></tr>
                                 </thead>
@@ -186,7 +183,7 @@ use \Welfony\Utility\Util;
                             </table>
 
                             <table style="width:400px; min-height:500px; display:block; float:left;" class="m-table o-table">
-    
+
                                 <thead>
                                     <tr><th colspan="2">退款单据列表</th></tr>
                                 </thead>
@@ -194,7 +191,7 @@ use \Welfony\Utility\Util;
                                     <tr><td colspan='2'>暂无数据</td></tr>
                                 </tbody>
                             </table>
-                      
+
                     </div>
                 </div>
 
@@ -351,7 +348,7 @@ use \Welfony\Utility\Util;
             </tr>
             <tr>
                 <th>发票抬头:</th><td align="left"><?php echo $this->orderInfo['InvoiceTitle']; ?></td>
-                <th>付款人:</th><td align="left"><?php echo $this->orderInfo['UserName']; ?></td>
+                <th>付款人:</th><td align="left"><?php echo $this->orderInfo['User'] ? $this->orderInfo['User']['Username'] : ''; ?></td>
             </tr>
             <tr>
                 <th>收款备注:</th>
@@ -401,7 +398,7 @@ use \Welfony\Utility\Util;
                 <tr>
                     <th>地区:</th>
                     <td align="left" colspan="3">
-                        
+
                         <select id="sel-province" name="province" class="u-sel">
                             <option value="">请选择</option>
                             <?php foreach ($this->provinceList as $province): ?>
@@ -439,10 +436,10 @@ use \Welfony\Utility\Util;
                 <?php foreach( $this->ordergoods as $ordergoods): ?>
                 <tr>
                     <td>
-                        <?php 
+                        <?php
                             $goodName = json_decode($ordergoods['GoodsArray'], true);
                             echo $goodName["Name"]. '&nbsp;&nbsp;'.$goodName['Value'];
-                        ?>                
+                        ?>
                     </td>
                     <td><?php   echo $ordergoods['RealPrice'] ?></td>
                     <td><?php   echo $ordergoods['GoodsNums'] ?></td>

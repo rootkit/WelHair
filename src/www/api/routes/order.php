@@ -14,7 +14,7 @@
 
 use Welfony\Controller\API\OrderController;
 
-$app->post('/order', function () use ($app) {
+$app->post('/orders', function () use ($app) {
     $ctrl = new OrderController();
     $ctrl->create();
 });

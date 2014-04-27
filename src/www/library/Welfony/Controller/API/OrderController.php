@@ -25,7 +25,7 @@ class OrderController extends AbstractAPIController
         $reqData = $this->getDataFromRequestWithJsonFormat();
         $reqData['OrderId'] = 0;
 
-        $result = OrderService::save($reqData);
+        $result = OrderService::create($reqData);
         $this->sendResponse($result);
     }
 
