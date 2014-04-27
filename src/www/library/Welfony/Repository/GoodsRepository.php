@@ -188,7 +188,7 @@ class GoodsRepository extends AbstractRepository
                    FROM Goods G
                    LEFT JOIN Products P ON G.GoodsId = P.GoodsId
                    LEFT JOIN CompanyGoods CG ON G.GoodsId = CG.GoodsId
-                   LEFT JOIN Company C ON CG.CompanyId = C.CompanyId
+                   LEFT JOIN Company C ON CG.CompanyId = C.CompanyId AND C.Status = 1
                    WHERE IsDeleted = 0
                    LIMIT 1";
 
@@ -226,7 +226,7 @@ class GoodsRepository extends AbstractRepository
 
                      LEFT JOIN Products P ON G.GoodsId = P.GoodsId
                      LEFT JOIN CompanyGoods CG ON G.GoodsId = CG.GoodsId
-                     LEFT JOIN Company C ON CG.CompanyId = C.CompanyId
+                     LEFT JOIN Company C ON CG.CompanyId = C.CompanyId AND C.Status = 1
                      WHERE G.IsDeleted = 0
                      LIMIT $offset, $pageSize ";
 

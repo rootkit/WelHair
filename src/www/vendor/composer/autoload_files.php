@@ -9,5 +9,4 @@ return array(
     $vendorDir . '/guzzlehttp/streams/src/functions.php',
     $vendorDir . '/phpseclib/phpseclib/phpseclib/Crypt/Random.php',
     $vendorDir . '/guzzlehttp/guzzle/src/functions.php',
-	$vendorDir . '/phpqrcode/qrlib.php',
 );

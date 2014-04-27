@@ -160,7 +160,7 @@ class Company_IndexController extends AbstractAdminController
         //                                        $page,
         //                                        ceil($searchResult['total'] / $pageSize), $func);
 
-        $this->view->pagerHTML = $this->renderPager($this->view->baseUrl('company/index/goods'),
+        $this->view->pagerHTML = $this->renderPager($this->view->baseUrl('company/index/goods?s='),
                                                 $page,
                                                 ceil($searchResult['total'] / $pageSize));
     }

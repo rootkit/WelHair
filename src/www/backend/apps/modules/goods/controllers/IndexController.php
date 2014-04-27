@@ -275,7 +275,7 @@ class Goods_IndexController extends AbstractAdminController
         {
             $value .=" Company:".$company['Name'];
         }
-        QRcode::png($value);
+        \PHPQRCode\QRcode::png($value);
     }
 
 }

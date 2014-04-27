@@ -6,6 +6,7 @@
         }
     },
     "require": {
+        "aferrandini/phpqrcode": "1.0.1",
         "cboden/Ratchet": "0.3.*",
         "doctrine/dbal": "2.3.4",
         "guzzlehttp/guzzle": "~4.0",

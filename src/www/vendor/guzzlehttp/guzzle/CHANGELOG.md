@@ -1,6 +1,22 @@
 CHANGELOG
 =========
 
+4.0.2 (2014-04-16)
+------------------
+
+* Proxy requests using the StreamAdapter now properly use request_fulluri (#632)
+* Added the ability to set scalars as POST fields (#628)
+
+4.0.1 (2014-04-04)
+------------------
+
+* The HTTP status code of a response is now set as the exception code of
+  RequestException objects.
+* 303 redirects will now correctly switch from POST to GET requests.
+* The default parallel adapter of a client now correctly uses the MultiAdapter.
+* HasDataTrait now initializes the internal data array as an empty array so
+  that the toArray() method always returns an array.
+
 4.0.0 (2014-03-29)
 ------------------
 

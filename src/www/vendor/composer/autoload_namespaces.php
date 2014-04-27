@@ -20,6 +20,7 @@ return array(
     'React\\EventLoop' => array($vendorDir . '/react/event-loop'),
     'Ratchet' => array($vendorDir . '/cboden/ratchet/src'),
     'PHPassLib' => array($vendorDir . '/rych/phpass/src'),
+    'PHPQRCode' => array($vendorDir . '/aferrandini/phpqrcode/lib'),
     'Net' => array($vendorDir . '/phpseclib/phpseclib/phpseclib'),
     'Math' => array($vendorDir . '/phpseclib/phpseclib/phpseclib'),
     'Imagine' => array($vendorDir . '/imagine/imagine/lib'),
