@@ -18,9 +18,21 @@ use Welfony\Repository\AddressRepository;
 use Welfony\Repository\GoodsRepository;
 use Welfony\Repository\OrderRepository;
 use Welfony\Repository\ProductsRepository;
+use Welfony\Utility\Util;
 
 class OrderService
 {
+
+    public static function listAllOrdersByUserId($userId, $status, $page, $pageSize)
+    {
+        $page = $page <= 0 ? 1 : $page;
+        $pageSize = $pageSize <= 0 ? 20 : $pageSize;
+
+        $total = OrderRepository::getInstance()->getAllOrdersCountByUserId($userId, $status);
+        $orderList = OrderRepository::getInstance()->getAllOrdersByUserId($userId, $status, $page, $pageSize);
+
+        return array('total' => $total, 'orders' => self::composeOrderDetail($orderList));
+    }
 
     public static function getOrderById($id)
     {
@@ -353,6 +365,86 @@ class OrderService
 
             return $result;
         }
+    }
+
+     private static function composeOrderDetail($dataset)
+    {
+        $result = array();
+
+        foreach ($dataset as $row) {
+            $orderDetailIndex = Util::keyValueExistedInArray($result, 'OrderId', $row['OrderId']);
+            if ($orderDetailIndex === false) {
+                $orderDetail = array(
+                    'OrderId' => 0,
+                    'User' => null,
+                    'Goods' => array()
+                );
+            } else {
+                $orderDetail = $result[$orderDetailIndex];
+            }
+
+            $orderDetail['OrderId'] = $row['OrderId'];
+            $orderDetail['OrderNo'] = $row['OrderNo'];
+            $orderDetail['Postscript'] = $row['Postscript'];
+
+            $orderDetail['Status'] = $row['Status'];
+            $orderDetail['PayType'] = $row['PayType'];
+            $orderDetail['PayStatus'] = $row['PayStatus'];
+
+            $orderDetail['Distribution'] = $row['Distribution'];
+            $orderDetail['DistributionStatus'] = $row['DistributionStatus'];
+
+            $orderDetail['ProvinceName'] = $row['ProvinceName'];
+            $orderDetail['CityName'] = $row['CityName'];
+            $orderDetail['DistrictName'] = $row['DistrictName'];
+            $orderDetail['Address'] = $row['Address'];
+
+            $orderDetail['AcceptName'] = $row['AcceptName'];
+            $orderDetail['Mobile'] = $row['Mobile'];
+
+            $orderDetail['OrderAmount'] = $row['OrderAmount'];
+            $orderDetail['PayableAmount'] = $row['PayableAmount'];
+            $orderDetail['PayableFreight'] = $row['PayableFreight'];
+
+            $orderDetail['CreateTime'] = $row['CreateTime'];
+            $orderDetail['SendTime'] = $row['SendTime'];
+            $orderDetail['CompletionTime'] = $row['CompletionTime'];
+            $orderDetail['AcceptTime'] = $row['AcceptTime'];
+
+            if ($row['UserId'] > 0) {
+                $orderDetail['User']['UserId'] =  $row['UserId'];
+                $orderDetail['User']['Username'] = $row['Username'];
+                $orderDetail['User']['Nickname'] = $row['Nickname'];
+                $orderDetail['User']['Email'] = $row['Email'];
+                $orderDetail['User']['AvatarUrl'] = $row['AvatarUrl'];
+            }
+
+            if ($row['OrderGoodsId'] > 0 && Util::keyValueExistedInArray($orderDetail['Goods'], 'OrderGoodsId', $row['OrderGoodsId']) === false) {
+                $goods = array(
+                    'OrderGoodsId' => $row['OrderGoodsId'],
+                    'GoodsId' => $row['GoodsId'],
+                    'ProductsId' => $row['ProductsId'],
+                    'Img' => $row['Img'],
+                    'GoodsNums' => $row['GoodsNums'],
+                    'GoodsWeight' => $row['GoodsWeight'],
+                    'GoodsPrice' => $row['GoodsPrice']
+                );
+
+                $goodsArray = json_decode($row['GoodsArray'], true);
+                $goods['Name'] = $goodsArray['Name'];
+                $goods['SpecDetail'] = $goodsArray['Value'];
+
+                $orderDetail['Goods'][] = $goods;
+            }
+
+            if ($orderDetailIndex === false) {
+                $result[] = $orderDetail;
+            } else {
+                $result[$orderDetailIndex] = $orderDetail;
+            }
+        }
+
+        return $result;
     }
 
 }

@@ -14,6 +14,11 @@
 
 use Welfony\Controller\API\OrderController;
 
+$app->get('/users/:userId/orders', function ($userId) use ($app) {
+    $controller = new OrderController();
+    $controller->listAllOrdersByUserId($userId);
+})->conditions(array('userId' => '\d{1,10}'));
+
 $app->post('/orders', function () use ($app) {
     $ctrl = new OrderController();
     $ctrl->create();

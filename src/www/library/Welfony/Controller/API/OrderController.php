@@ -20,6 +20,16 @@ use Welfony\Service\OrderService;
 class OrderController extends AbstractAPIController
 {
 
+    public function listAllOrdersByUserId($userId)
+    {
+        $page = intval($this->app->request->get('page'));
+        $pageSize = intval($this->app->request->get('pageSize'));
+
+        $status = intval($this->app->request->get('status'));
+
+        $this->sendResponse(OrderService::listAllOrdersByUserId($userId, $status, $page, $pageSize));
+    }
+
     public function create()
     {
         $reqData = $this->getDataFromRequestWithJsonFormat();

@@ -43,8 +43,8 @@ class OrderRepository extends AbstractRepository
 
     public function listOrder($pageNumber, $pageSize)
     {
-
         $offset = ($pageNumber - 1) * $pageSize;
+
         $strSql = "  SELECT O.*, CASE U.Username
                                     WHEN  NULL THEN 'Admin'
                                     ELSE U.Username
@@ -59,7 +59,95 @@ class OrderRepository extends AbstractRepository
                      LIMIT $offset, $pageSize ";
 
         return $this->conn->fetchAll($strSql);
+    }
 
+    public function getAllOrdersCountByUserId($userId, $status)
+    {
+        $filter = '';
+        if ($status > 0) {
+            $filter = ' AND O.Status = ' . intval($status);
+        }
+
+        $strSql = "SELECT
+                       COUNT(1) `Total`
+                   FROM `Order` O
+                   WHERE O.IsDeleted = 0 AND O.UserId = ? $filter
+                   LIMIT 1";
+
+        $row = $this->conn->fetchAssoc($strSql, array($userId));
+
+        return $row['Total'];
+    }
+
+    public function getAllOrdersByUserId($userId, $status, $page, $pageSize)
+    {
+        $offset = ($page - 1) * $pageSize;
+
+        $filter = '';
+        if ($status > 0) {
+            $filter = ' AND O.Status = ' . intval($status);
+        }
+
+        $strSql = "SELECT
+                     O.OrderId,
+                     O.OrderNo,
+                     O.Postscript,
+
+                     O.Status,
+                     O.PayType,
+                     O.PayStatus,
+
+                     O.Distribution,
+                     O.DistributionStatus,
+
+                     O.Country,
+                     O.Province,
+                     PA.Name ProvinceName,
+                     O.City,
+                     PC.Name CityName,
+                     O.Area District,
+                     IFNULL(PD.Name, '') DistrictName,
+                     O.Postcode,
+                     O.Address,
+
+                     O.AcceptName,
+                     O.Mobile,
+
+                     O.OrderAmount,
+                     O.PayableAmount,
+                     O.PayableFreight,
+
+                     O.CreateTime,
+                     O.SendTime,
+                     O.CompletionTime,
+                     O.AcceptTime,
+
+                     U.UserId,
+                     U.Username,
+                     U.Nickname,
+                     U.Email,
+                     U.AvatarUrl,
+
+                     OG.Id OrderGoodsId,
+                     OG.GoodsId,
+                     OG.ProductsId,
+                     OG.Img,
+                     OG.RealPrice GoodsPrice,
+                     OG.GoodsNums,
+                     OG.GoodsWeight,
+                     OG.GoodsArray
+
+                   FROM `Order` O
+                   INNER JOIN Area PA ON PA.AreaId = O.Province
+                   INNER JOIN Area PC ON PC.AreaId = O.City
+                   LEFT OUTER JOIN Area PD ON PD.AreaId = O.Area
+                   INNER JOIN Users U ON U.UserId = O.UserId
+                   INNER JOIN OrderGoods OG ON OG.OrderId = O.OrderId
+                   WHERE O.IsDeleted = 0 AND O.UserId = ? $filter
+                   ORDER BY O.OrderId DESC
+                   LIMIT $offset, $pageSize";
+
+        return $this->conn->fetchAll($strSql, array($userId));
     }
 
     public function findOrderById($id)
