@@ -48,6 +48,7 @@ class Goods_IndexController extends AbstractAdminController
     public function infoAction()
     {
         $this->view->pageTitle = '添加商品';
+
         $this->view->defaultgoodsno= self::GOODS_PREFIX.time().rand(10,99);
         $this->view->categories=CategoryService::listAllCategory();
         $this->view->models=ModelService::listAllModel();
@@ -229,6 +230,52 @@ class Goods_IndexController extends AbstractAdminController
         $this->view->pagerHTML = $this->renderPager('',
                                                 $page,
                                                 ceil($searchResult['total'] / $pageSize), $func);
+    }
+
+    public function qrcodeAction()
+    {
+        $this->_helper->viewRenderer->setNoRender(true);
+        $this->_helper->layout->disableLayout();
+
+        $goodsId =  $this->_request->getParam('goodsid');
+        $productId = $this->_request->getParam('productsid');
+        $companyId = $this->_request->getParam('companyid');
+        if(!$goodsId)
+        {
+            return;
+        }
+        $goods = GoodsService::getGoodsById($goodsId);
+        $product = array();
+        $products=ProductsService::listAllProductsByGoods($goodsId);
+        if( $productId )
+        {
+            foreach( $products as $p)
+            {
+                if( $p['ProductsId'] == $productId )
+                {
+                    $product = $p;
+                }
+            }
+        }
+        $company = array();
+        $companies = CompanyService::listAllByGoods($goodsId);
+        if( $companyId)
+        {
+            foreach( $companies as $c)
+            {
+                if( $c['CompanyId'] == $companyId)
+                {
+                    $company = $c;
+                }
+            }
+        }
+        $value= "GoodsId:$goodsId\n";
+        $value .= $goods['Name'];
+        if($company)
+        {
+            $value .=" Company:".$company['Name'];
+        }
+        QRcode::png($value);
     }
 
 }

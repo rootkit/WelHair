@@ -187,6 +187,8 @@ class GoodsRepository extends AbstractRepository
                        COUNT(1) `Total`
                    FROM Goods G
                    LEFT JOIN Products P ON G.GoodsId = P.GoodsId
+                   LEFT JOIN CompanyGoods CG ON G.GoodsId = CG.GoodsId
+                   LEFT JOIN Company C ON CG.CompanyId = C.CompanyId
                    WHERE IsDeleted = 0
                    LIMIT 1";
 
