@@ -1141,3 +1141,71 @@ CREATE TABLE IF NOT EXISTS `Feedback` (
   `LastModifiedDate` DATETIME NULL,
   PRIMARY KEY (`FeedbackId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+-- ==============================================================================
+-- Add CompanyId to OrderGoods table
+-- ==============================================================================
+DELIMITER ;;
+
+CREATE PROCEDURE `sp_update_table_field`()
+BEGIN
+  IF NOT EXISTS (
+      SELECT 1
+      FROM information_schema.COLUMNS
+      WHERE lower(TABLE_SCHEMA) = 'welhair'
+        AND lower(TABLE_NAME) ='ordergoods'
+        AND lower(COLUMN_NAME) ='companyid'
+  ) THEN
+    ALTER TABLE `OrderGoods` ADD `CompanyId` int(11) DEFAULT NULL COMMENT '沙龙ID';
+  END IF;
+END;;
+
+DELIMITER ;
+CALL sp_update_table_field();
+DROP PROCEDURE IF EXISTS `sp_update_table_field`;
+
+-- ==============================================================================
+-- Add QrCode to Goods table
+-- ==============================================================================
+DELIMITER ;;
+
+CREATE PROCEDURE `sp_update_table_field`()
+BEGIN
+  IF NOT EXISTS (
+      SELECT 1
+      FROM information_schema.COLUMNS
+      WHERE lower(TABLE_SCHEMA) = 'welhair'
+        AND lower(TABLE_NAME) ='goods'
+        AND lower(COLUMN_NAME) ='qrcode'
+  ) THEN
+    ALTER TABLE `Goods` ADD `QrCode` varchar(500) DEFAULT NULL COMMENT '二维码图';
+  END IF;
+END;;
+
+DELIMITER ;
+CALL sp_update_table_field();
+DROP PROCEDURE IF EXISTS `sp_update_table_field`;
+
+-- ==============================================================================
+-- Add QrCode to Products table
+-- ==============================================================================
+DELIMITER ;;
+
+CREATE PROCEDURE `sp_update_table_field`()
+BEGIN
+  IF NOT EXISTS (
+      SELECT 1
+      FROM information_schema.COLUMNS
+      WHERE lower(TABLE_SCHEMA) = 'welhair'
+        AND lower(TABLE_NAME) ='products'
+        AND lower(COLUMN_NAME) ='qrcode'
+  ) THEN
+    ALTER TABLE `Products` ADD `QrCode` varchar(500) DEFAULT NULL COMMENT '二维码图';
+  END IF;
+END;;
+
+DELIMITER ;
+CALL sp_update_table_field();
+DROP PROCEDURE IF EXISTS `sp_update_table_field`;
+
