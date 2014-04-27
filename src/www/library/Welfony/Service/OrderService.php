@@ -151,7 +151,7 @@ class OrderService
             'RealAmount' => $totalPrice,
 
             'UserId' => intval($data['UserId']),
-            'Postscript' => isset($data['Postscript']) ? htmlspecialchars($data['Postscript']) : ''),
+            'Postscript' => isset($data['Postscript']) ? htmlspecialchars($data['Postscript']) : '',
 
             'AcceptName' => $address['ShippingName'],
             'Province' => $address['Province'],
