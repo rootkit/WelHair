@@ -223,7 +223,7 @@ class Goods_IndexController extends AbstractAdminController
         static $pageSize = 10;
 
         $page = intval($this->_request->getParam('page'));
-        $func = intval($this->_request->getParam('func'));
+        $func = $this->_request->getParam('func');
 
         $searchResult = GoodsService::listGoodsAndProducts($page, $pageSize);
         $this->view->rows = $searchResult['goods'];

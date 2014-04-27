@@ -65,7 +65,7 @@ $(function() {
     });
 
     $('#btnAddGoods').click(function(){
-      $('#goodsList').dialog({"modal": true, "width":920, "height":640});
+      $('#goodsList').dialog({"modal": true, "width":940, "height":640});
       WF.Goods.updateGoodsList(1);
     });
 
