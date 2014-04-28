@@ -42,36 +42,66 @@ WF.Model = {
 
           var val = $(this).attr('data-value');
 
-          $('#basicdatatable tbody').empty();
+          if( !$('#basicdatatable').hasClass('hasspecs') )
+          {
+            $('#basicdatatable tbody').empty();
+          }
 
           if( val != null && val.replace(/\s+/g, '').length > 0 )
           {
 
               $('#basicdatatable').addClass('hasspecs');
-              $('#basicdatatable').attr('specarray',JSON.stringify({'Name': $(this).attr('data-name'), 'Id': $(this).attr('data-id'), 'Value': val, "Type":"1"}));
-              val = JSON.parse(val );
-              var i= 0;
-              for( var idx in val)
+              var added = false;
+              var specArrayVal = $('#basicdatatable').attr('specarray');
+
+              if( specArrayVal !== undefined && specArrayVal !== false)
               {
-                var spec = {'Name': $(this).attr('data-name'), 'Id': $(this).attr('data-id'), 'Value': val[idx]};
-                var addedrow = '<tr spec-id="'+$(this).attr('data-id')+'" spec-value="'+ val[idx]  +'">' +
-                '<td><input name="goodsno" type="text" value="' + $('#goodsno').val() + '-' + (++i) + '"  class="u-ipt"/></td>' +
-                '<td>' + val[idx] + '<input type=hidden name="spec" value=\'' + JSON.stringify(spec) +'\'></td>' +
-                '<td><input name="storenums" type="text" value="100"  class="u-ipt"/></td>' +
-                '<td><input name="marketprice" type="text" value="0.00"  class="u-ipt"/></td>' +
-                '<td><input name="sellprice" type="text" value="0.00"  class="u-ipt"/></td>' +
-                '<td><input name="costprice" type="text" value="0.00"  class="u-ipt"/></td>' +
-                '<td><input name="weight" type="text" value="0.00"  class="u-ipt"/></td>' +
-                '</tr>';
-                $('#basicdatatable tbody').append(addedrow);
+                  specArrayVal = JSON.parse(specArrayVal  );
+
+                  for( var i =0; i< specArrayVal.length ; i++)
+                  {
+                      if( specArrayVal[i]['Id'] == $(this).attr('data-id') )
+                      {
+                        added = true;
+                      }
+                  }
+                  if( !added)
+                  {
+                      specArrayVal.push({'Name': $(this).attr('data-name'), 'Id': $(this).attr('data-id'), 'Value': val, "Type":"1"});
+                      $('#basicdatatable').attr('specarray', JSON.stringify(specArrayVal) );
+                  }
+              }
+              else
+              {
+                  $('#basicdatatable').attr('specarray',JSON.stringify([{'Name': $(this).attr('data-name'), 'Id': $(this).attr('data-id'), 'Value': val, "Type":"1"}]));
+              }
+              
+              if( !added )
+              {
+                val = JSON.parse(val );
+                var i= 0;
+                for( var idx in val)
+                {
+                  var spec = {'Name': $(this).attr('data-name'), 'Id': $(this).attr('data-id'), 'Value': val[idx]};
+                  var addedrow = '<tr spec-id="'+$(this).attr('data-id')+'" spec-value="'+ val[idx]  +'">' +
+                  '<td><input name="goodsno" type="text" value="' + $('#goodsno').val() + '-' + (++i) + '"  class="u-ipt"/></td>' +
+                  '<td>' + val[idx] + '<input type=hidden name="spec" value=\'' + JSON.stringify(spec) +'\'></td>' +
+                  '<td><input name="storenums" type="text" value="100"  class="u-ipt"/></td>' +
+                  '<td><input name="marketprice" type="text" value="0.00"  class="u-ipt"/></td>' +
+                  '<td><input name="sellprice" type="text" value="0.00"  class="u-ipt"/></td>' +
+                  '<td><input name="costprice" type="text" value="0.00"  class="u-ipt"/></td>' +
+                  '<td><input name="weight" type="text" value="0.00"  class="u-ipt"/></td>' +
+                  '</tr>';
+                  $('#basicdatatable tbody').append(addedrow);
+                  if( i> window.addedspecs )
+                  {
+                      $('.content').height($('.content').height() + 50);
+                  }
+                }
                 if( i> window.addedspecs )
                 {
-                    $('.content').height($('.content').height() + 50);
+                  window.addedspecs = i;
                 }
-              }
-              if( i> window.addedspecs )
-              {
-                window.addedspecs = 1;
               }
           }
 

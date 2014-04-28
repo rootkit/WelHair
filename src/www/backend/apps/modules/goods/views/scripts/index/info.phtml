@@ -108,7 +108,7 @@ $this->headScript()
                     </table>
                     <?php else: ?>
 
-                     <table class="m-table small-tbl hasspecs" id="basicdatatable" style="width:550px;">
+                     <table class="m-table small-tbl hasspecs" id="basicdatatable" style="width:550px;" specarray='<?php echo $this->goodsInfo['SpecArray'];?>'>
                         <thead>
                             <tr>
                                 <th class="cola">商品货号</th>
