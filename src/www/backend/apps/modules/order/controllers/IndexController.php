@@ -127,10 +127,18 @@ class Order_IndexController extends AbstractAdminController
             $goodTotalWeight = 0; //总重量
             if( !empty($goods) )
             {
-                foreach( $goods as $g)
+                foreach( $goods as &$g)
                 {
                     $payable += $g['GoodsPrice'] * $g["GoodsNums"];
                     $goodTotalWeight  += $g['GoodsWeight'];
+                    if( !$g['CompanyId'])
+                    {
+                        unset($g['CompanyId']);
+                    }
+                    if( !$g['ProductsId'])
+                    {
+                        unset($g['ProductsId']);
+                    }
                 }
             }
 
