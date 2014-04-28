@@ -166,7 +166,7 @@ use \Welfony\Utility\Util;
                                 <option value="<?php echo $city['AreaId']; ?>"<?php echo $this->orderInfo['City'] == $city['AreaId'] ? ' selected' : ''; ?>><?php echo $city['Name']; ?></option>
                                 <?php endforeach; ?>
                             </select>
-                            <select id="sel-district" name="district" class="u-sel" datatype="*">
+                            <select id="sel-district" name="district" class="u-sel">
                                 <option value="">请选择</option>
                                 <?php foreach ($this->districtList as $district): ?>
                                 <option value="<?php echo $district['AreaId']; ?>"<?php echo $this->orderInfo['Area'] == $district['AreaId'] ? ' selected' : ''; ?>><?php echo $district['Name']; ?></option>
