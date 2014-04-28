@@ -250,6 +250,13 @@ class OrderRepository extends AbstractRepository
 
     public function delete($orderId)
     {
+        try {
+            return $this->conn->executeUpdate(" UPDATE `Order` SET IsDeleted = 1 WHERE OrderId  = $orderId; ");
+        } catch (\Exception $e) {
+            $this->logger->log($e, \Zend_Log::ERR);
+
+            return false;
+        }
 
     }
 
