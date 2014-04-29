@@ -33,6 +33,7 @@
 
 + (BOOL)validPhoneNum:(NSString *)phoneStr;
 
++ (void)phoneCall:(NSString *)phoneNumStr;
 
 
 @end

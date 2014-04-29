@@ -14,7 +14,7 @@
 #import "CreateGroupViewController.h"
 #import "MyGroupDetailViewController.h"
 #import "MWPhotoBrowser.h"
-
+#import "MapViewController.h"
 @interface MyGroupDetailViewController () <MWPhotoBrowserDelegate>
 
 @property (nonatomic, strong) UIScrollView *scrollView;
@@ -103,12 +103,16 @@
     phoneImg.image = [phoneIcon imageWithSize:CGSizeMake(30, 30)];
     phoneImg.userInteractionEnabled = YES;
     [self.headerView addSubview:phoneImg];
+    [phoneImg addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(phoneCall)]];
+    phoneImg.userInteractionEnabled = YES;
     
     self.phoneLbl = [[UILabel alloc] initWithFrame:CGRectMake(MaxX(phoneImg) + 5, MaxY(self.nameLbl) + 30, 200, 30)];
     self.phoneLbl.backgroundColor = [UIColor clearColor];
     self.phoneLbl.textColor = [UIColor blackColor];
     self.phoneLbl.font = [UIFont systemFontOfSize:14];
     self.phoneLbl.textAlignment = TextAlignmentLeft;
+    [self.phoneLbl addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(phoneCall)]];
+    self.phoneLbl.userInteractionEnabled = YES;
     [self.headerView addSubview:self.phoneLbl];
 
     UIImageView *locationImg = [[UIImageView alloc] initWithFrame:CGRectMake(MaxX(self.groupAvatorImg) + 10, MaxY(self.phoneLbl) + 5, 20, 20)];
@@ -116,6 +120,7 @@
     [locationIcon addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithHexString:APP_NAVIGATIONBAR_COLOR]];
     locationImg.image = [locationIcon imageWithSize:CGSizeMake(30, 30)];
     locationImg.userInteractionEnabled = YES;
+    [locationImg addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(addressMap)]];
     [self.headerView addSubview:locationImg];
 
     
@@ -124,6 +129,8 @@
     self.addressLbl.textColor = [UIColor blackColor];
     self.addressLbl.font = [UIFont systemFontOfSize:14];
     self.addressLbl.textAlignment = TextAlignmentLeft;
+    [self.addressLbl addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(addressMap)]];
+    self.addressLbl.userInteractionEnabled = YES;
     [self.headerView addSubview:self.addressLbl];
     
 
@@ -158,6 +165,18 @@
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
+}
+
+- (void)phoneCall
+{
+    [Util phoneCall:self.phoneLbl.text];
+}
+
+- (void)addressMap
+{
+    MapViewController *vc = [MapViewController new];
+    vc.modelInfo = self.group;
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 - (void)imgTapp

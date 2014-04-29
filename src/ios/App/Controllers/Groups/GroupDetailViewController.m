@@ -405,8 +405,7 @@ static const float profileViewHeight = 320;
 
 - (void)phoneClick
 {
-    NSString *phoneNumber = [@"telprompt://" stringByAppendingString:self.phoneLbl.text];
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:phoneNumber]];
+    [Util phoneCall:self.phoneLbl.text];
 }
 
 - (void) imagePager:(JOLImageSlider *)imagePager didSelectImageAtIndex:(NSUInteger)index

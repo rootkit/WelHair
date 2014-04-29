@@ -12,7 +12,6 @@
 
 #import "User.h"
 #import "Util.h"
-
 @implementation Util
 {
     User *currentUser_;
@@ -138,6 +137,15 @@
     NSString *phoneRegex = @"^[1][358][0-9]{9}$";
     NSPredicate *test = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", phoneRegex];
     return [test evaluateWithObject:phoneStr];
+}
+
+
++(void)phoneCall:(NSString *)phoneNumStr
+{
+    if(phoneNumStr.length  > 0){
+        NSString *phoneNumber = [@"telprompt://" stringByAppendingString:phoneNumStr];
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:phoneNumber]];
+    }
 }
 
 @end
