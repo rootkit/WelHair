@@ -13,7 +13,7 @@
 #import "OpitionButton.h"
 #import "UploadWorkFormViewController.h"
 #import "Work.h"
-
+#import "CTAssetsPickerController.h"
 #define  SelectedViewColor  @"206ba7"
 #define  FaceStyleCircleNormal  @"UploadWorkViewControl_FaceStyleCircleNormal"
 #define  FaceStyleCircleSelected  @"UploadWorkViewControl_FaceStyleCircleSelected"
@@ -24,25 +24,23 @@
 #define  FaceStyleSquareNormal  @"UploadWorkViewControl_FaceStyleSquareNormal"
 #define  FaceStyleSquareSelected  @"UploadWorkViewControl_FaceStyleSquareSelected"
 
-@interface UploadWorkFormViewController () <UITextFieldDelegate, UIActionSheetDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIScrollViewDelegate>
+#define  RequestUserInfoKeyUploadPictureIndex    @"UploadPictureIndex"
+
+@interface UploadWorkFormViewController () <UITextFieldDelegate, UIActionSheetDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIScrollViewDelegate, CTAssetsPickerControllerDelegate>
 
 @property (nonatomic, strong) Work *work;
 
 @property (nonatomic, strong) UIScrollView *scrollView;
 @property (nonatomic, strong) UITextView *infoTxtView;
 
-@property (nonatomic) int uploadIndex;
-@property (nonatomic) int uploadRemoveIndex;
-@property (nonatomic, strong) UIImageView *uploadLogo;
-@property (nonatomic, strong) UIActivityIndicatorView *uploadLogoActivityIndicator;
+@property (nonatomic, strong) UIImageView *uploadPic0;
+@property (nonatomic, strong) UIActivityIndicatorView *uploadPictureActivityIndicator0;
 @property (nonatomic, strong) UIImageView *uploadPic1;
 @property (nonatomic, strong) UIActivityIndicatorView *uploadPictureActivityIndicator1;
 @property (nonatomic, strong) UIImageView *uploadPic2;
 @property (nonatomic, strong) UIActivityIndicatorView *uploadPictureActivityIndicator2;
 @property (nonatomic, strong) UIImageView *uploadPic3;
 @property (nonatomic, strong) UIActivityIndicatorView *uploadPictureActivityIndicator3;
-@property (nonatomic, strong) UIImageView *uploadPic4;
-@property (nonatomic, strong) UIActivityIndicatorView *uploadPictureActivityIndicator4;
 
 @property (nonatomic, strong) NSMutableArray *uploadedPictures;
 
@@ -66,9 +64,6 @@ static const float ScrollContentHeight = 420;
         self.leftNavItemImg =[leftIcon imageWithSize:CGSizeMake(NAV_BAR_ICON_SIZE, NAV_BAR_ICON_SIZE)];
         
         self.rightNavItemTitle = @"提交";
-
-        self.uploadIndex = -1;
-        self.uploadRemoveIndex = -1;
 
         self.uploadedPictures = [[NSMutableArray alloc] initWithCapacity:5];
         for (int i = 0; i < 5; i++) {
@@ -108,7 +103,7 @@ static const float ScrollContentHeight = 420;
     }
 
     if (faceStyle.count <= 0) {
-        [SVProgressHUD showSuccessWithStatus:@"请至少选择一种脸型" duration:1];
+        [SVProgressHUD showErrorWithStatus:@"请至少选择一种脸型" duration:1];
         return;
     }
     [reqData setObject:[faceStyle componentsJoinedByString:@","] forKey:@"Face"];
@@ -123,7 +118,11 @@ static const float ScrollContentHeight = 420;
     }
 
     if (uploadPictures.count < 1) {
-        [SVProgressHUD showSuccessWithStatus:@"请至少选择一张作品图片" duration:1];
+        [SVProgressHUD showErrorWithStatus:@"请至少选择一张作品图片" duration:1];
+        return;
+    }
+    if([self isUploadingPicutres]){
+        [SVProgressHUD showErrorWithStatus:@"图片正在上传，请稍候" duration:1];
         return;
     }
 
@@ -209,7 +208,25 @@ static const float ScrollContentHeight = 420;
     uploadPictureView.layer.cornerRadius = 3;
     [self.scrollView addSubview:uploadPictureView];
 
-    self.uploadPic1 = [[UIImageView alloc] initWithFrame:CGRectMake(5 + 70 * 0, 5, 70, 70)];
+    self.uploadPic0 = [[UIImageView alloc] initWithFrame:CGRectMake(5 + 70 * 0, 5, 70, 70)];
+    self.uploadPic0.image = [UIImage imageNamed:@"AddImage"];
+    [uploadPictureView addSubview:self.uploadPic0];
+
+    UIButton *uploadPictureButton0 = [UIButton buttonWithType:UIButtonTypeCustom];
+    uploadPictureButton0.tag = 0;
+    uploadPictureButton0.backgroundColor = [UIColor clearColor];
+    uploadPictureButton0.frame = CGRectInset(self.uploadPic0.frame, 3, 3);
+    [uploadPictureView addSubview:uploadPictureButton0];
+    [uploadPictureButton0 addTarget:self action:@selector(uploadPictureTapped:) forControlEvents:UIControlEventTouchUpInside];
+//    UILongPressGestureRecognizer *uploadPictureLongPress1 = [[UILongPressGestureRecognizer alloc] initWithTarget:self
+//                                                                                                          action:@selector(uploadPictureLongPress:)];
+//    [uploadPictureButton0 addGestureRecognizer:uploadPictureLongPress1];
+
+    self.uploadPictureActivityIndicator0 = [[UIActivityIndicatorView alloc] initWithFrame:CGRectInset(self.uploadPic0.frame, 3, 3)];
+    self.uploadPictureActivityIndicator0.activityIndicatorViewStyle = UIActivityIndicatorViewStyleGray;
+    [uploadPictureView addSubview:self.uploadPictureActivityIndicator0];
+
+    self.uploadPic1 = [[UIImageView alloc] initWithFrame:CGRectMake(MaxX(self.uploadPic0) + 3, 5, 70, 70)];
     self.uploadPic1.image = [UIImage imageNamed:@"AddImage"];
     [uploadPictureView addSubview:self.uploadPic1];
 
@@ -219,13 +236,13 @@ static const float ScrollContentHeight = 420;
     uploadPictureButton1.frame = CGRectInset(self.uploadPic1.frame, 3, 3);
     [uploadPictureView addSubview:uploadPictureButton1];
     [uploadPictureButton1 addTarget:self action:@selector(uploadPictureTapped:) forControlEvents:UIControlEventTouchUpInside];
-    UILongPressGestureRecognizer *uploadPictureLongPress1 = [[UILongPressGestureRecognizer alloc] initWithTarget:self
-                                                                                                          action:@selector(uploadPictureLongPress:)];
-    [uploadPictureButton1 addGestureRecognizer:uploadPictureLongPress1];
+//    UILongPressGestureRecognizer *uploadPictureLongPress2 = [[UILongPressGestureRecognizer alloc] initWithTarget:self
+//                                                                                                          action:@selector(uploadPictureLongPress:)];
+//    [uploadPictureButton1 addGestureRecognizer:uploadPictureLongPress2];
 
-    self.uploadPictureActivityIndicator1 = [[UIActivityIndicatorView alloc] initWithFrame:CGRectInset(self.uploadPic1.frame, 3, 3)];
-    self.uploadPictureActivityIndicator1.activityIndicatorViewStyle = UIActivityIndicatorViewStyleGray;
-    [uploadPictureView addSubview:self.uploadPictureActivityIndicator1];
+    self.uploadPictureActivityIndicator2 = [[UIActivityIndicatorView alloc] initWithFrame:CGRectInset(self.uploadPic1.frame, 3, 3)];
+    self.uploadPictureActivityIndicator2.activityIndicatorViewStyle = UIActivityIndicatorViewStyleGray;
+    [uploadPictureView addSubview:self.uploadPictureActivityIndicator2];
 
     self.uploadPic2 = [[UIImageView alloc] initWithFrame:CGRectMake(MaxX(self.uploadPic1) + 3, 5, 70, 70)];
     self.uploadPic2.image = [UIImage imageNamed:@"AddImage"];
@@ -237,9 +254,9 @@ static const float ScrollContentHeight = 420;
     uploadPictureButton2.frame = CGRectInset(self.uploadPic2.frame, 3, 3);
     [uploadPictureView addSubview:uploadPictureButton2];
     [uploadPictureButton2 addTarget:self action:@selector(uploadPictureTapped:) forControlEvents:UIControlEventTouchUpInside];
-    UILongPressGestureRecognizer *uploadPictureLongPress2 = [[UILongPressGestureRecognizer alloc] initWithTarget:self
-                                                                                                          action:@selector(uploadPictureLongPress:)];
-    [uploadPictureButton2 addGestureRecognizer:uploadPictureLongPress2];
+//    UILongPressGestureRecognizer *uploadPictureLongPress3 = [[UILongPressGestureRecognizer alloc] initWithTarget:self
+//                                                                                                          action:@selector(uploadPictureLongPress:)];
+//    [uploadPictureButton2 addGestureRecognizer:uploadPictureLongPress3];
 
     self.uploadPictureActivityIndicator2 = [[UIActivityIndicatorView alloc] initWithFrame:CGRectInset(self.uploadPic2.frame, 3, 3)];
     self.uploadPictureActivityIndicator2.activityIndicatorViewStyle = UIActivityIndicatorViewStyleGray;
@@ -255,31 +272,13 @@ static const float ScrollContentHeight = 420;
     uploadPictureButton3.frame = CGRectInset(self.uploadPic3.frame, 3, 3);
     [uploadPictureView addSubview:uploadPictureButton3];
     [uploadPictureButton3 addTarget:self action:@selector(uploadPictureTapped:) forControlEvents:UIControlEventTouchUpInside];
-    UILongPressGestureRecognizer *uploadPictureLongPress3 = [[UILongPressGestureRecognizer alloc] initWithTarget:self
-                                                                                                          action:@selector(uploadPictureLongPress:)];
-    [uploadPictureButton3 addGestureRecognizer:uploadPictureLongPress3];
+//    UILongPressGestureRecognizer *uploadPictureLongPress4 = [[UILongPressGestureRecognizer alloc] initWithTarget:self
+//                                                                                                          action:@selector(uploadPictureLongPress:)];
+//    [uploadPictureButton3 addGestureRecognizer:uploadPictureLongPress4];
 
     self.uploadPictureActivityIndicator3 = [[UIActivityIndicatorView alloc] initWithFrame:CGRectInset(self.uploadPic3.frame, 3, 3)];
     self.uploadPictureActivityIndicator3.activityIndicatorViewStyle = UIActivityIndicatorViewStyleGray;
     [uploadPictureView addSubview:self.uploadPictureActivityIndicator3];
-
-    self.uploadPic4 = [[UIImageView alloc] initWithFrame:CGRectMake(MaxX(self.uploadPic3) + 3, 5, 70, 70)];
-    self.uploadPic4.image = [UIImage imageNamed:@"AddImage"];
-    [uploadPictureView addSubview:self.uploadPic4];
-
-    UIButton *uploadPictureButton4 = [UIButton buttonWithType:UIButtonTypeCustom];
-    uploadPictureButton4.tag = 4;
-    uploadPictureButton4.backgroundColor = [UIColor clearColor];
-    uploadPictureButton4.frame = CGRectInset(self.uploadPic4.frame, 3, 3);
-    [uploadPictureView addSubview:uploadPictureButton4];
-    [uploadPictureButton4 addTarget:self action:@selector(uploadPictureTapped:) forControlEvents:UIControlEventTouchUpInside];
-    UILongPressGestureRecognizer *uploadPictureLongPress4 = [[UILongPressGestureRecognizer alloc] initWithTarget:self
-                                                                                                          action:@selector(uploadPictureLongPress:)];
-    [uploadPictureButton4 addGestureRecognizer:uploadPictureLongPress4];
-
-    self.uploadPictureActivityIndicator4 = [[UIActivityIndicatorView alloc] initWithFrame:CGRectInset(self.uploadPic4.frame, 3, 3)];
-    self.uploadPictureActivityIndicator4.activityIndicatorViewStyle = UIActivityIndicatorViewStyleGray;
-    [uploadPictureView addSubview:self.uploadPictureActivityIndicator4];
     
     
     UILabel *info2lbl = [[UILabel alloc] initWithFrame:CGRectMake(margin,MaxY(uploadPictureView) + margin, 100, 20)];
@@ -494,10 +493,64 @@ static const float ScrollContentHeight = 420;
     [self resignInputResponder];
 }
 
+// check if upload image is processing or not
+- (BOOL)isUploadingPicutres
+{
+    for (NSString *url in self.uploadedPictures) {
+        if(url.length == 0 ||  [url componentsSeparatedByString:@"http"].count > 1)
+            continue;
+        else {
+            return YES;
+        }
+    }
+    return NO;
+}
+
+- (int)uploadedImagesCount
+{
+    int i = 0;
+    for (NSString *item in self.uploadedPictures) {
+        i = item.length > 0? i+1 : i;
+    }
+    return i;
+}
+
+// get the empty upload image button index
+- (int)tobeUploadingImageIndex
+{
+    int i = -1;
+    for (int j = 0; j < self.uploadedPictures.count; j++) {
+        if(((NSString *)self.uploadedPictures[j]).length == 0){
+            return j;
+        }
+    }
+    return i;
+}
+
+- (void)resetUploadImageViewAtIndex:(int)index
+{
+    switch (index) {
+        case 0:
+            self.uploadPic0.image  = [UIImage imageNamed:@"AddImage"];
+            break;
+        case 1:
+            self.uploadPic1.image  = [UIImage imageNamed:@"AddImage"];
+            break;
+        case 2:
+            self.uploadPic2.image  = [UIImage imageNamed:@"AddImage"];
+            break;
+        case 3:
+            self.uploadPic3.image  = [UIImage imageNamed:@"AddImage"];
+            break;
+        default:
+            break;
+    }
+    [self stopUploadActivityIndicator:index];
+}
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {
     NSString *buttonTitle = [actionSheet buttonTitleAtIndex:buttonIndex];
-
+    int tag = actionSheet.tag;
     if ([buttonTitle isEqualToString:NSLocalizedString(@"Camera", nil)]) {
         UIImagePickerController *imagePickerController = [[UIImagePickerController alloc] init];
         imagePickerController.delegate = self;
@@ -507,126 +560,154 @@ static const float ScrollContentHeight = 420;
                                                 animated:YES
                                               completion:nil];
     } else if ([buttonTitle isEqualToString:NSLocalizedString(@"Album", nil)]) {
-        UIImagePickerController *imagePickerController = [[UIImagePickerController alloc] init];
-        imagePickerController.delegate = self;
-        imagePickerController.allowsEditing = YES;
-        imagePickerController.sourceType = UIImagePickerControllerSourceTypeSavedPhotosAlbum;
-
-        [self presentViewController:imagePickerController
-                           animated:YES
-                         completion:nil];
+        CTAssetsPickerController *picker = [[CTAssetsPickerController alloc] init];
+        picker.maximumNumberOfSelections = 4 - [self uploadedImagesCount];
+        picker.assetsFilter = [ALAssetsFilter allPhotos];
+        picker.delegate = self;
+        [self presentViewController:picker animated:YES completion:nil];
+        
     } else if ([buttonTitle isEqualToString:NSLocalizedString(@"Remove", nil)]) {
-        if (self.uploadRemoveIndex == 0) {
-            self.uploadLogo.image  = [UIImage imageNamed:@"AddImage"];
+        int uploadRemoveIndex = tag ;
+        [self resetUploadImageViewAtIndex:uploadRemoveIndex];
+        self.uploadedPictures[uploadRemoveIndex] = @"";
+        ASIHTTPRequest *uploadRequest ;
+        for (ASIHTTPRequest *request in self.requests) {
+            if([[request.userInfo objectForKey:RequestUserInfoKeyUploadPictureIndex] intValue] == uploadRemoveIndex){
+                uploadRequest = request;
+                break;
+            }
         }
-
-        if (self.uploadRemoveIndex == 1) {
-            self.uploadPic1.image  = [UIImage imageNamed:@"AddImage"];
+        if(uploadRequest){
+            [uploadRequest clearDelegatesAndCancel];
+            [self.requests removeObject:uploadRequest];
         }
-        if (self.uploadRemoveIndex == 2) {
-            self.uploadPic2.image  = [UIImage imageNamed:@"AddImage"];
-        }
-        if (self.uploadRemoveIndex == 3) {
-            self.uploadPic3.image  = [UIImage imageNamed:@"AddImage"];
-        }
-        if (self.uploadRemoveIndex == 4) {
-            self.uploadPic4.image  = [UIImage imageNamed:@"AddImage"];
-        }
-
-        self.uploadedPictures[self.uploadRemoveIndex] = @"";
-        self.uploadRemoveIndex = -1;
     }
 }
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
     [picker dismissViewControllerAnimated:YES completion:nil];
-
+    
     UIImage *pickedImg = [info objectForKey:UIImagePickerControllerEditedImage];
-    pickedImg = [pickedImg createThumbnailWithWidth:pickedImg.size.width];
-
-    if (self.uploadIndex == 0) {
-        self.uploadLogo.image  = pickedImg;
-        [self.uploadLogoActivityIndicator startAnimating];
+    pickedImg = [pickedImg createThumbnailWithWidth:MIN(pickedImg.size.width, pickedImg.size.height)];
+    
+    int tobeUploadingImageIndex = [self tobeUploadingImageIndex];
+    if (tobeUploadingImageIndex == 0) {
+        self.uploadPic0.image  = pickedImg;
+        [self.uploadPictureActivityIndicator0 startAnimating];
     }
-
-    if (self.uploadIndex == 1) {
+    if (tobeUploadingImageIndex == 1) {
         self.uploadPic1.image  = pickedImg;
         [self.uploadPictureActivityIndicator1 startAnimating];
     }
-    if (self.uploadIndex == 2) {
+    if (tobeUploadingImageIndex == 2) {
         self.uploadPic2.image  = pickedImg;
         [self.uploadPictureActivityIndicator2 startAnimating];
     }
-    if (self.uploadIndex == 3) {
+    if (tobeUploadingImageIndex == 3) {
         self.uploadPic3.image  = pickedImg;
         [self.uploadPictureActivityIndicator3 startAnimating];
     }
-    if (self.uploadIndex == 4) {
-        self.uploadPic4.image  = pickedImg;
-        [self.uploadPictureActivityIndicator4 startAnimating];
+    
+    if(tobeUploadingImageIndex >= 0){
+        self.uploadedPictures[tobeUploadingImageIndex] = [NSString stringWithFormat:@"%d",tobeUploadingImageIndex];// put this tmp value for checking if uploading
+        NSMutableDictionary *reqData = [[NSMutableDictionary alloc] initWithCapacity:1];
+        ASIFormDataRequest *request = [RequestUtil createPOSTRequestWithURL:[NSURL URLWithString:API_UPLOAD_PICTURE]
+                                                                    andData:reqData];
+        [self.requests addObject:request];
+        
+        [request setUserInfo:@{RequestUserInfoKeyUploadPictureIndex: @(tobeUploadingImageIndex)}];
+        [request addData:UIImageJPEGRepresentation(pickedImg, 1) withFileName:@"uploadfile.jpg" andContentType:@"mage/JPEG" forKey:@"uploadfile"];
+        [request setDelegate:self];
+        [request setDidFinishSelector:@selector(uploadPictureFinish:)];
+        [request setDidFailSelector:@selector(uploadPictureFail:)];
+        [request startAsynchronous];
     }
 
-    NSMutableDictionary *reqData = [[NSMutableDictionary alloc] initWithCapacity:1];
-
-    ASIFormDataRequest *request = [RequestUtil createPOSTRequestWithURL:[NSURL URLWithString:API_UPLOAD_PICTURE]
-                                                                andData:reqData];
-    [self.requests addObject:request];
-
-    [request setUserInfo:@{@"UploadPictureIndex": @(self.uploadIndex)}];
-    [request addData:UIImageJPEGRepresentation(pickedImg, 1) withFileName:@"uploadfile.jpg" andContentType:@"mage/JPEG" forKey:@"uploadfile"];
-    [request setDelegate:self];
-    [request setDidFinishSelector:@selector(uploadPictureFinish:)];
-    [request setDidFailSelector:@selector(uploadPictureFail:)];
-    [request startAsynchronous];
 }
+
+- (void)assetsPickerController:(CTAssetsPickerController *)picker didFinishPickingAssets:(NSArray *)assets
+{
+    [picker.presentingViewController dismissViewControllerAnimated:YES completion:nil];
+    for (ALAsset *asset in assets) {
+        int tobeUploadingImageIndex = [self tobeUploadingImageIndex];
+        if (tobeUploadingImageIndex == 0) {
+            self.uploadPic0.image  = [UIImage imageWithCGImage:asset.thumbnail];
+            [self.uploadPictureActivityIndicator0 startAnimating];
+        }
+        if (tobeUploadingImageIndex == 1) {
+            self.uploadPic1.image  = [UIImage imageWithCGImage:asset.thumbnail];
+            [self.uploadPictureActivityIndicator1 startAnimating];
+        }
+        if (tobeUploadingImageIndex == 2) {
+            self.uploadPic2.image  = [UIImage imageWithCGImage:asset.thumbnail];
+            [self.uploadPictureActivityIndicator2 startAnimating];
+        }
+        if (tobeUploadingImageIndex == 3) {
+            self.uploadPic3.image  = [UIImage imageWithCGImage:asset.thumbnail];
+            [self.uploadPictureActivityIndicator3 startAnimating];
+        }
+        
+        if(tobeUploadingImageIndex >= 0){
+            self.uploadedPictures[tobeUploadingImageIndex] = [NSString stringWithFormat:@"%d",tobeUploadingImageIndex];// put this tmp value for checking if uploading
+            NSMutableDictionary *reqData = [[NSMutableDictionary alloc] initWithCapacity:1];
+            UIImage *pickedImg =[UIImage imageWithCGImage:[asset.defaultRepresentation fullResolutionImage]];
+            pickedImg = [pickedImg createThumbnailWithWidth:MIN(pickedImg.size.width, pickedImg.size.height)];
+            
+            ASIFormDataRequest *request = [RequestUtil createPOSTRequestWithURL:[NSURL URLWithString:API_UPLOAD_PICTURE]
+                                                                        andData:reqData];
+            [self.requests addObject:request];
+            [request setUserInfo:@{RequestUserInfoKeyUploadPictureIndex: @(tobeUploadingImageIndex)}];
+            [request addData:UIImageJPEGRepresentation(pickedImg, 1) withFileName:@"uploadfile.jpg" andContentType:@"mage/JPEG" forKey:@"uploadfile"];
+            [request setDelegate:self];
+            [request setDidFinishSelector:@selector(uploadPictureFinish:)];
+            [request setDidFailSelector:@selector(uploadPictureFail:)];
+            [request startAsynchronous];
+        }
+    }
+}
+
 
 - (void)uploadPictureFinish:(ASIHTTPRequest *)request
 {
-    self.uploadIndex = [[request.userInfo objectForKey:@"UploadPictureIndex"] intValue];
+    int uploadIndex = [[request.userInfo objectForKey:RequestUserInfoKeyUploadPictureIndex] intValue];
 
     if (request.responseStatusCode == 200) {
         NSDictionary *responseMessage = [Util objectFromJson:request.responseString];
         if ([responseMessage objectForKey:@"Thumb480Url"] && [responseMessage objectForKey:@"Thumb480Url"] != [NSNull null]) {
             NSString *picUrl = [responseMessage objectForKey:@"Thumb480Url"];
-            self.uploadedPictures[self.uploadIndex] = picUrl;
-        } else {
-            [SVProgressHUD showErrorWithStatus:@"上传图片失败，请重试！"];
+            self.uploadedPictures[uploadIndex] = picUrl;
+            [self stopUploadActivityIndicator:uploadIndex];
+            return;
         }
-    } else {
-        [SVProgressHUD showErrorWithStatus:@"上传图片失败，请重试！"];
     }
-
-    [self stopUploadActivityIndicator];
+    [SVProgressHUD showErrorWithStatus:@"上传图片失败，请重试！"];
+    [self resetUploadImageViewAtIndex:uploadIndex];
+    self.uploadedPictures[uploadIndex] = @"";
 }
 
 - (void)uploadPictureFail:(ASIHTTPRequest *)request
 {
+    int uploadIndex = [[request.userInfo objectForKey:@"UploadPictureIndex"] intValue];
     [SVProgressHUD showErrorWithStatus:@"上传图片失败，请重试！"];
-
-    self.uploadIndex = [[request.userInfo objectForKey:@"UploadPictureIndex"] intValue];
-    [self stopUploadActivityIndicator];
+    [self resetUploadImageViewAtIndex:uploadIndex];
+    self.uploadedPictures[uploadIndex] = @"";
 }
 
-- (void)stopUploadActivityIndicator
+- (void)stopUploadActivityIndicator:(int)index
 {
-    if (self.uploadIndex == 0) {
-        [self.uploadLogoActivityIndicator stopAnimating];
+    if (index == 0) {
+        [self.uploadPictureActivityIndicator0 stopAnimating];
     }
-    if (self.uploadIndex == 1) {
-        [self.uploadPictureActivityIndicator1 stopAnimating];
-    }
-    if (self.uploadIndex == 2) {
+    if (index == 1) {
         [self.uploadPictureActivityIndicator2 stopAnimating];
     }
-    if (self.uploadIndex == 3) {
+    if (index == 2) {
+        [self.uploadPictureActivityIndicator2 stopAnimating];
+    }
+    if (index == 3) {
         [self.uploadPictureActivityIndicator3 stopAnimating];
     }
-    if (self.uploadIndex == 4) {
-        [self.uploadPictureActivityIndicator4 stopAnimating];
-    }
-    
-    self.uploadIndex = -1;
 }
 
 - (void)faceStyleBtnClick:(id)sender
@@ -704,40 +785,29 @@ static const float ScrollContentHeight = 420;
     [self.infoTxtView resignFirstResponder];
 }
 
-- (void)uploadPictureLongPress:(UILongPressGestureRecognizer *)gesture
+- (void)uploadPictureTapped:(UIButton *)sender
 {
     [self resignInputResponder];
-
-    if (gesture.state == UIGestureRecognizerStateEnded) {
-        self.uploadRemoveIndex = gesture.view.tag;
-
-        if ([self.uploadedPictures[self.uploadRemoveIndex] isEqualToString:@""]) {
-            return;
-        }
-
+    
+    if ([self.uploadedPictures[sender.tag] isEqualToString:@""]) {
+        UIActionSheet *actionSheet = [[UIActionSheet alloc]
+                                      initWithTitle:nil
+                                      delegate:self
+                                      cancelButtonTitle:NSLocalizedString(@"Cancel", nil)
+                                      destructiveButtonTitle:nil
+                                      otherButtonTitles:NSLocalizedString(@"Camera", nil), NSLocalizedString(@"Album", nil), nil];
+        actionSheet.tag = sender.tag;
+        [actionSheet showInView:self.view];
+    }else{
         UIActionSheet *actionSheet = [[UIActionSheet alloc]
                                       initWithTitle:nil
                                       delegate:self
                                       cancelButtonTitle:NSLocalizedString(@"Cancel", nil)
                                       destructiveButtonTitle:nil
                                       otherButtonTitles:NSLocalizedString(@"Remove", nil), nil];
+        actionSheet.tag = sender.tag;
         [actionSheet showInView:self.view];
     }
-}
-
-- (void)uploadPictureTapped:(UIButton *)sender
-{
-    [self resignInputResponder];
-
-    self.uploadIndex = sender.tag;
-
-    UIActionSheet *actionSheet = [[UIActionSheet alloc]
-                                  initWithTitle:nil
-                                  delegate:self
-                                  cancelButtonTitle:NSLocalizedString(@"Cancel", nil)
-                                  destructiveButtonTitle:nil
-                                  otherButtonTitles:NSLocalizedString(@"Camera", nil), NSLocalizedString(@"Album", nil), nil];
-    [actionSheet showInView:self.view];
 }
 
 @end
