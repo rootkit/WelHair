@@ -16,7 +16,6 @@
 #import "AppointmentsViewController.h"
 #import "ChatSessionListViewController.h"
 #import "CircleImageView.h"
-#import "DoubleCoverCell.h"
 #import "FavoritesViewController.h"
 #import "MyGroupViewController.h"
 #import "MyScoreViewController.h"

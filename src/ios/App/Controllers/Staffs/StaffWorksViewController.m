@@ -11,7 +11,6 @@
 // ==============================================================================
 
 #import "BrickView.h"
-#import "DoubleCoverCell.h"
 #import "StaffWorkCell.h"
 #import "StaffWorksViewController.h"
 #import "UploadWorkFormViewController.h"
