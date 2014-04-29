@@ -14,6 +14,7 @@
 #import "ABMGroupedTableViewCell.h"
 #import "AddressListViewController.h"
 #import "AppointmentsViewController.h"
+#import "ChatSessionListViewController.h"
 #import "CircleImageView.h"
 #import "DoubleCoverCell.h"
 #import "FavoritesViewController.h"
@@ -36,7 +37,7 @@
 #define  DefaultAvatorImage @"AvatarDefault.jpg"
 static const float profileViewHeight = 90;
 
-@interface UserViewController ()<UITableViewDataSource, UITableViewDelegate, UIActionSheetDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate,JOLImageSliderDelegate, MWPhotoBrowserDelegate>
+@interface UserViewController ()<UITableViewDataSource, UITableViewDelegate, UIActionSheetDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 
 
 @property (nonatomic, strong) CircleImageView *avatorImgView;
@@ -68,11 +69,13 @@ static const float profileViewHeight = 90;
 
         NSMutableArray *menuList = [[NSMutableArray alloc] initWithCapacity:5];
         [menuList addObject:@[@"个人信息", @"收货地址"]];
+        [menuList addObject:@[@"我的私信"]];
         [menuList addObject:@[@"我的收藏", @"积分兑换"]];
         self.datasource = menuList;
 
         NSMutableArray *menuIconList = [[NSMutableArray alloc] initWithCapacity:5];
         [menuIconList addObject:@[[FAKIonIcons ios7InformationOutlineIconWithSize:NAV_BAR_ICON_SIZE], [FAKIonIcons ios7FilingOutlineIconWithSize:NAV_BAR_ICON_SIZE]]];
+        [menuIconList addObject:@[[FAKIonIcons ios7ChatboxesOutlineIconWithSize:NAV_BAR_ICON_SIZE]]];
         [menuIconList addObject:@[[FAKIonIcons ios7HeartOutlineIconWithSize:NAV_BAR_ICON_SIZE], [FAKIonIcons ios7BookmarksOutlineIconWithSize:NAV_BAR_ICON_SIZE]]];
         self.iconDatasource = menuIconList;
     }
@@ -115,7 +118,6 @@ static const float profileViewHeight = 90;
     [headerView_ addSubview:profileBackground];
 
     self.imgSlider = [[JOLImageSlider alloc] initWithFrame:profileBackground.frame];
-    self.imgSlider.delegate = self;
     [self.imgSlider setContentMode: UIViewContentModeScaleAspectFill];
     [headerView_ addSubview:self.imgSlider];
     
@@ -509,9 +511,9 @@ static const float profileViewHeight = 90;
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 
-       if(![self checkLogin]){
-           return;
-       }
+    if(![self checkLogin]){
+       return;
+    }
 
     if(indexPath.section == 0) {
         switch (indexPath.row) {
@@ -538,7 +540,25 @@ static const float profileViewHeight = 90;
 
     }
 
-    if (indexPath.section == 1) {
+    if(indexPath.section == 1) {
+        switch (indexPath.row) {
+            case 0:
+            {
+                ChatSessionListViewController *vc = [ChatSessionListViewController new];
+                vc.hidesBottomBarWhenPushed = YES;
+                [self.navigationController pushViewController:vc animated:YES];
+
+                break;
+            }
+            default: {
+                break;
+            }
+        }
+        
+        
+    }
+
+    if (indexPath.section == 2) {
         switch (indexPath.row) {
             case 0:
             {

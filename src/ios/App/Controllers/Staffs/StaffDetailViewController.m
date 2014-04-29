@@ -13,6 +13,7 @@
 #import "Appointment.h"
 #import "AppointmentPreviewViewController.h"
 #import "CalendarViewController.h"
+#import "ChatViewController.h"
 #import "CircleImageView.h"
 #import "CommentsViewController.h"
 #import "GroupDetailViewController.h"
@@ -27,8 +28,6 @@
 #import "UserManager.h"
 #import "WorkDetailViewController.h"
 #import "MWPhotoBrowser.h"
-
-static const float profileViewHeight = 90;
 
 @interface StaffDetailViewController () <UIScrollViewDelegate, MWPhotoBrowserDelegate>
 
@@ -60,6 +59,8 @@ static const float profileViewHeight = 90;
         FAKIcon *leftIcon = [FAKIonIcons ios7ArrowBackIconWithSize:NAV_BAR_ICON_SIZE];
         [leftIcon addAttribute:NSForegroundColorAttributeName value:[UIColor whiteColor]];
         self.leftNavItemImg =[leftIcon imageWithSize:CGSizeMake(NAV_BAR_ICON_SIZE, NAV_BAR_ICON_SIZE)];
+
+        self.rightNavItemTitle = @"私信";
     }
 
     return self;
@@ -68,6 +69,13 @@ static const float profileViewHeight = 90;
 - (void)leftNavItemClick
 {
     [self.navigationController popViewControllerAnimated:YES];
+}
+
+- (void)rightNavItemClick
+{
+    ChatViewController *chatVC= [ChatViewController new];
+    chatVC.sender = self.staff;
+    [self.navigationController pushViewController:chatVC animated:YES];
 }
 
 - (void)viewDidLoad
@@ -116,7 +124,6 @@ static const float profileViewHeight = 90;
     [headerView_ addSubview:profileBackground];
 
     self.imgSlider = [[JOLImageSlider alloc] initWithFrame:profileBackground.frame];
-    self.imgSlider.delegate = self;
     [self.imgSlider setContentMode: UIViewContentModeScaleAspectFill];
     [headerView_ addSubview:self.imgSlider];
 
@@ -125,6 +132,11 @@ static const float profileViewHeight = 90;
     [headerView_ addSubview:self.addressView];
     
     self.addressView.backgroundColor = [UIColor whiteColor];
+
+    UIView *tabFooterBgView_ = [[UIView alloc] initWithFrame:CGRectMake(0, MaxY(self.addressView), WIDTH(self.addressView), 67)];
+    tabFooterBgView_.backgroundColor = [UIColor colorWithHexString:APP_CONTENT_BG_COLOR];
+    [headerView_ addSubview:tabFooterBgView_];
+
     UIView *addressFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, MaxY(self.addressView), WIDTH(self.addressView), 7)];
     addressFooterView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"Juchi"]];
     [headerView_ addSubview:addressFooterView];

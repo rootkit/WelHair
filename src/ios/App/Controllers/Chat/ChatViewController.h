@@ -14,4 +14,6 @@
 
 @interface ChatViewController : JSMessagesViewController <JSMessagesViewDataSource, JSMessagesViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIActionSheetDelegate>
 
+@property (nonatomic, strong) id sender;
+
 @end
