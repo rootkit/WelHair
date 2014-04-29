@@ -218,9 +218,6 @@ static const float ScrollContentHeight = 420;
     uploadPictureButton0.frame = CGRectInset(self.uploadPic0.frame, 3, 3);
     [uploadPictureView addSubview:uploadPictureButton0];
     [uploadPictureButton0 addTarget:self action:@selector(uploadPictureTapped:) forControlEvents:UIControlEventTouchUpInside];
-//    UILongPressGestureRecognizer *uploadPictureLongPress1 = [[UILongPressGestureRecognizer alloc] initWithTarget:self
-//                                                                                                          action:@selector(uploadPictureLongPress:)];
-//    [uploadPictureButton0 addGestureRecognizer:uploadPictureLongPress1];
 
     self.uploadPictureActivityIndicator0 = [[UIActivityIndicatorView alloc] initWithFrame:CGRectInset(self.uploadPic0.frame, 3, 3)];
     self.uploadPictureActivityIndicator0.activityIndicatorViewStyle = UIActivityIndicatorViewStyleGray;
@@ -236,9 +233,6 @@ static const float ScrollContentHeight = 420;
     uploadPictureButton1.frame = CGRectInset(self.uploadPic1.frame, 3, 3);
     [uploadPictureView addSubview:uploadPictureButton1];
     [uploadPictureButton1 addTarget:self action:@selector(uploadPictureTapped:) forControlEvents:UIControlEventTouchUpInside];
-//    UILongPressGestureRecognizer *uploadPictureLongPress2 = [[UILongPressGestureRecognizer alloc] initWithTarget:self
-//                                                                                                          action:@selector(uploadPictureLongPress:)];
-//    [uploadPictureButton1 addGestureRecognizer:uploadPictureLongPress2];
 
     self.uploadPictureActivityIndicator2 = [[UIActivityIndicatorView alloc] initWithFrame:CGRectInset(self.uploadPic1.frame, 3, 3)];
     self.uploadPictureActivityIndicator2.activityIndicatorViewStyle = UIActivityIndicatorViewStyleGray;
@@ -254,9 +248,6 @@ static const float ScrollContentHeight = 420;
     uploadPictureButton2.frame = CGRectInset(self.uploadPic2.frame, 3, 3);
     [uploadPictureView addSubview:uploadPictureButton2];
     [uploadPictureButton2 addTarget:self action:@selector(uploadPictureTapped:) forControlEvents:UIControlEventTouchUpInside];
-//    UILongPressGestureRecognizer *uploadPictureLongPress3 = [[UILongPressGestureRecognizer alloc] initWithTarget:self
-//                                                                                                          action:@selector(uploadPictureLongPress:)];
-//    [uploadPictureButton2 addGestureRecognizer:uploadPictureLongPress3];
 
     self.uploadPictureActivityIndicator2 = [[UIActivityIndicatorView alloc] initWithFrame:CGRectInset(self.uploadPic2.frame, 3, 3)];
     self.uploadPictureActivityIndicator2.activityIndicatorViewStyle = UIActivityIndicatorViewStyleGray;
@@ -272,9 +263,6 @@ static const float ScrollContentHeight = 420;
     uploadPictureButton3.frame = CGRectInset(self.uploadPic3.frame, 3, 3);
     [uploadPictureView addSubview:uploadPictureButton3];
     [uploadPictureButton3 addTarget:self action:@selector(uploadPictureTapped:) forControlEvents:UIControlEventTouchUpInside];
-//    UILongPressGestureRecognizer *uploadPictureLongPress4 = [[UILongPressGestureRecognizer alloc] initWithTarget:self
-//                                                                                                          action:@selector(uploadPictureLongPress:)];
-//    [uploadPictureButton3 addGestureRecognizer:uploadPictureLongPress4];
 
     self.uploadPictureActivityIndicator3 = [[UIActivityIndicatorView alloc] initWithFrame:CGRectInset(self.uploadPic3.frame, 3, 3)];
     self.uploadPictureActivityIndicator3.activityIndicatorViewStyle = UIActivityIndicatorViewStyleGray;
@@ -547,6 +535,7 @@ static const float ScrollContentHeight = 420;
     }
     [self stopUploadActivityIndicator:index];
 }
+
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {
     NSString *buttonTitle = [actionSheet buttonTitleAtIndex:buttonIndex];
