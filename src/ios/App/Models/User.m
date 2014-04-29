@@ -40,7 +40,8 @@
             self.mobile = [dictionary objectForKey:@"Mobile"];
         }
 
-        if ([dictionary objectForKey:@"ProfileBackgroundUrl"]) {
+        id urls = [dictionary objectForKey:@"ProfileBackgroundUrl"];
+        if (urls && [urls isKindOfClass:[NSArray class]]) {
             self.imgUrls = [dictionary objectForKey:@"ProfileBackgroundUrl"];
         } else {
             self.imgUrls = @[];
