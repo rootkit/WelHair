@@ -289,6 +289,10 @@ class UserService
             }
         }
 
+        if (isset($data['ProfileBackgroundUrl'])) {
+            $data['ProfileBackgroundUrl'] = json_encode($data['ProfileBackgroundUrl']);
+        }
+
         $data['LastModifiedDate'] = date('Y-m-d H:i:s');
 
         $result['success'] = UserRepository::getInstance()->update($data['UserId'], $data);

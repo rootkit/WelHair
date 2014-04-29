@@ -10,9 +10,10 @@
 //
 // ==============================================================================
 
-#import <UIKit/UIKit.h>
 #import "BaseModel.h"
+
 @interface MapViewController : BaseViewController
 
-@property (nonatomic, strong) BaseModel *modelInfo;;
+@property (nonatomic, strong) BaseModel *modelInfo;
+
 @end

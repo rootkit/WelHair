@@ -43,6 +43,12 @@ class UserController extends AbstractAPIController
         $user = UserService::getUserById($userId);
         if ($user) {
             unset($user['Password']);
+
+            if ($user['ProfileBackgroundUrl']) {
+                $user['ProfileBackgroundUrl'] = json_decode($user['ProfileBackgroundUrl'], true);
+            } else {
+                $user['ProfileBackgroundUrl'] = array();
+            }
             $response['user'] = $user;
         }
 

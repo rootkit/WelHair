@@ -102,6 +102,7 @@ class StaffRepository extends AbstractRepository
                        U.Mobile,
                        U.MobileVerified,
                        U.Role,
+                       U.ProfileBackgroundUrl,
 
                        C.CompanyId,
                        C.Name CompanyName,

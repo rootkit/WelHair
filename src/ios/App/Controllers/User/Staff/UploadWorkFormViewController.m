@@ -204,6 +204,9 @@ static const float ScrollContentHeight = 420;
 
     UIView *uploadPictureView = [[UIView alloc] initWithFrame:CGRectMake(margin, MaxY(info1lbl) + 5, WIDTH(self.view) - 2 * margin, 80)];
     uploadPictureView.backgroundColor = [UIColor whiteColor];
+    uploadPictureView.layer.borderColor = [[UIColor colorWithHexString:@"e1e1e1"] CGColor];
+    uploadPictureView.layer.borderWidth = 1;
+    uploadPictureView.layer.cornerRadius = 3;
     [self.scrollView addSubview:uploadPictureView];
 
     self.uploadPic1 = [[UIImageView alloc] initWithFrame:CGRectMake(5 + 70 * 0, 5, 70, 70)];
@@ -287,7 +290,9 @@ static const float ScrollContentHeight = 420;
     info2lbl.textAlignment = NSTextAlignmentLeft;;
     [self.scrollView addSubview:info2lbl];
     self.infoTxtView = [[UITextView alloc] initWithFrame: CGRectMake(X(uploadPictureView), MaxY(info2lbl) +margin, WIDTH(uploadPictureView), HEIGHT(uploadPictureView))];
-    self.infoTxtView.layer.cornerRadius = 5;
+    self.infoTxtView.layer.borderColor = [[UIColor colorWithHexString:@"e1e1e1"] CGColor];
+    self.infoTxtView.layer.borderWidth = 1;
+    self.infoTxtView.layer.cornerRadius = 3;
     [self.scrollView addSubview:self.infoTxtView];
     
 #pragma face style view

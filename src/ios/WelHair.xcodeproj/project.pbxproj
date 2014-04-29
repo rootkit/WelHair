@@ -91,6 +91,7 @@
 		184B82FD18DAC7F000177BAB /* UIView+AnimationOptionsForCurve.m in Sources */ = {isa = PBXBuildFile; fileRef = 184B82C318DAC7F000177BAB /* UIView+AnimationOptionsForCurve.m */; };
 		18502DA918F8E2B800CD4A0A /* StaffServiceTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18502DA818F8E2B800CD4A0A /* StaffServiceTableViewCell.m */; };
 		18502DAB18F93ED600CD4A0A /* AvatarDefault@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 18502DAA18F93ED600CD4A0A /* AvatarDefault@2x.jpg */; };
+		187638CA190F976A00846BB9 /* ProfileBackgroundDefault@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 187638C9190F976A00846BB9 /* ProfileBackgroundDefault@2x.png */; };
 		1882D2731901314200D59861 /* FeedbackViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1882D2721901314200D59861 /* FeedbackViewController.m */; };
 		18A3E61318DC0C280080DC0B /* RegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A3E61218DC0C280080DC0B /* RegisterViewController.m */; };
 		18A3E61618DC10050080DC0B /* NSString+WelKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A3E61518DC10050080DC0B /* NSString+WelKit.m */; };
@@ -449,6 +450,7 @@
 		18502DA718F8E2B800CD4A0A /* StaffServiceTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StaffServiceTableViewCell.h; sourceTree = "<group>"; };
 		18502DA818F8E2B800CD4A0A /* StaffServiceTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StaffServiceTableViewCell.m; sourceTree = "<group>"; };
 		18502DAA18F93ED600CD4A0A /* AvatarDefault@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "AvatarDefault@2x.jpg"; sourceTree = "<group>"; };
+		187638C9190F976A00846BB9 /* ProfileBackgroundDefault@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "ProfileBackgroundDefault@2x.png"; path = "UserViewControl/ProfileBackgroundDefault@2x.png"; sourceTree = "<group>"; };
 		1882D2711901314200D59861 /* FeedbackViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeedbackViewController.h; sourceTree = "<group>"; };
 		1882D2721901314200D59861 /* FeedbackViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeedbackViewController.m; sourceTree = "<group>"; };
 		18A3E61118DC0C280080DC0B /* RegisterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegisterViewController.h; sourceTree = "<group>"; };
@@ -1451,6 +1453,7 @@
 				461B0C2D18DC3BD700E0DAF5 /* UserViewControl */,
 				461B0C3F18DC3BD700E0DAF5 /* WorkDetail */,
 				461B0C2818DC3BD700E0DAF5 /* Profile_Banner_Bg@2x.png */,
+				187638C9190F976A00846BB9 /* ProfileBackgroundDefault@2x.png */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -2389,6 +2392,7 @@
 				461B0C4F18DC3BD700E0DAF5 /* SinaWeibo@2x.png in Resources */,
 				184B82E118DAC7F000177BAB /* bubble-flat-outgoing@2x.png in Resources */,
 				184B82F818DAC7F000177BAB /* messageReceived.aiff in Resources */,
+				187638CA190F976A00846BB9 /* ProfileBackgroundDefault@2x.png in Resources */,
 				461B0C5C18DC3BD700E0DAF5 /* RootBottomTab5Selected@2x.png in Resources */,
 				1825E1CD18E183B70052AA9A /* MeTab1.png in Resources */,
 				4659D27F18E7E8E2005648C0 /* AddressEditBtn.png in Resources */,

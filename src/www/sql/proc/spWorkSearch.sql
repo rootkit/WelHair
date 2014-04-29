@@ -45,6 +45,9 @@ FROM (
       U.AvatarUrl StaffAvatarUrl,
       U.Nickname StaffNickname,
 
+      C.CompanyId,
+      C.Name CompanyName,
+
       (SELECT COUNT(1) FROM Comment CM WHERE CM.WorkId = W.WorkId) WorkCommentCount,
       (SELECT COUNT(1) FROM UserLike UL WHERE UL.WorkId = W.WorkId) WorkLikeCount
     FROM Work W

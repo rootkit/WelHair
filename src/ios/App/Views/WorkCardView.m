@@ -23,7 +23,7 @@
 @property (nonatomic, strong) UIImageView *hairImgView;
 @property (nonatomic, strong) ToggleButton *heartBtn;
 
-@property (nonatomic, strong) UIImageView *commentorImgView;
+@property (nonatomic, strong) CircleImageView *commentorImgView;
 @property (nonatomic, strong) UILabel *commentCountLbl;
 @property (nonatomic, strong) UILabel *commentContentLbl;
 @property (nonatomic, strong) UILabel *commentorNameLbl;
@@ -40,7 +40,7 @@
 
         float width = frame.size.width;
 
-        self.hairImgView = [[UIImageView alloc] initWithFrame:CGRectMake(2, 2, width -4, width-4)];
+        self.hairImgView = [[UIImageView alloc] initWithFrame:CGRectMake(2, 2, width - 4, width - 4)];
         [self addSubview:self.hairImgView];
         
         self.commentCountLbl = [[UILabel alloc] initWithFrame:CGRectMake(10, MaxY(self.hairImgView) + 5, width/2 ,20)];
@@ -70,8 +70,9 @@
         
         self.commentorImgView = [[CircleImageView alloc] initWithFrame:CGRectMake(5,
                                                                               MaxY(linerView)+ 5,
-                                                                              25,
-                                                                              25)];
+                                                                              30,
+                                                                              30)];
+        self.commentorImgView.borderWidth = 2;
         [self addSubview:self.commentorImgView];
         
         // comment
@@ -112,16 +113,10 @@
     self.commentCountLbl.text = [NSString stringWithFormat:@"评论(%d)", workData.commentCount];
     self.heartBtn.on = workData.isfav;
 
-    if (self.workData.commentCount > 0) {
-        Comment *comment = workData.lastComment;
-        [self.commentorImgView setImageWithURL:comment.commentor.avatarUrl];
-        self.commentorNameLbl.text = [NSString stringWithFormat:@"%@:",comment.commentor.nickname];
-        self.commentContentLbl.text = [NSString stringWithFormat:@"%@",comment.description];
-    }
 
-    self.commentorImgView.hidden = self.workData.commentCount <= 0;
-    self.commentorNameLbl.hidden = self.workData.commentCount <= 0;
-    self.commentContentLbl.hidden = self.workData.commentCount <= 0;
+    [self.commentorImgView setImageWithURL:workData.creator.avatorUrl];
+    self.commentorNameLbl.text = workData.creator.name;
+    self.commentContentLbl.text = workData.creator.group.name;
 
     [self drawBottomShadowOffset:1 opacity:1];
 

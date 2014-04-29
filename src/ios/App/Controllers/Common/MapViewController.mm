@@ -10,9 +10,10 @@
 //
 // ==============================================================================
 
-#import "MapViewController.h"
 #import "BMapKit.h"
 #import "GroupDetailViewController.h"
+#import "MapViewController.h"
+
 #define MYBUNDLE_NAME @ "mapapi.bundle"
 #define MYBUNDLE_PATH [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent: MYBUNDLE_NAME]
 #define MYBUNDLE [NSBundle bundleWithPath: MYBUNDLE_PATH]
@@ -25,17 +26,21 @@
 
 @property (nonatomic) int type;
 @property (nonatomic) int degree;
+
 @end
 
 @implementation RouteAnnotation
 
 @synthesize type = _type;
 @synthesize degree = _degree;
+
 @end
 
 
 @interface WHPointAnnotation : BMKPointAnnotation
+
 @property (nonatomic, strong) BaseModel *modelInfo;
+
 @end
 
 @implementation WHPointAnnotation
@@ -51,7 +56,6 @@
 
 - (UIImage*)imageRotatedByDegrees:(CGFloat)degrees
 {
-    
     CGFloat width = CGImageGetWidth(self.CGImage);
     CGFloat height = CGImageGetHeight(self.CGImage);
     
@@ -231,6 +235,7 @@
 {
     [self.aroundBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     [self.locateBtn setTitleColor:[UIColor colorWithHexString:APP_NAVIGATIONBAR_COLOR] forState:UIControlStateNormal];
+
     NSArray *annotations = [NSArray arrayWithArray:_mapView.annotations];
 	[_mapView removeAnnotations:annotations];
     NSArray *overlayers = [NSArray arrayWithArray:_mapView.overlays];

@@ -244,8 +244,7 @@
 
 - (CGFloat)brickView:(BrickView *)brickView heightForCellAtIndex:(NSInteger)index
 {
-    Work *work = [self.datasource objectAtIndex:index];
-    return work.commentCount > 0 ? 250 : 180;
+    return 250;
 }
 
 - (NSInteger)numberOfColumnsInBrickView:(BrickView *)brickView

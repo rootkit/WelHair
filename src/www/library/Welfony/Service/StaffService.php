@@ -241,6 +241,10 @@ class StaffService
             $staffDetail['IsApproved'] = $row['IsApproved'];
             $staffDetail['IsLiked'] = isset($row['IsLiked']) ? $row['IsLiked'] : 0;
 
+            if (isset($row['ProfileBackgroundUrl'])) {
+                $staffDetail['ProfileBackgroundUrl'] = json_decode($row['ProfileBackgroundUrl'], true);
+            }
+
             if ($row['CompanyId'] > 0) {
                 $staffDetail['Company']['CompanyId'] =  $row['CompanyId'];
                 $staffDetail['Company']['Name'] = $row['CompanyName'];

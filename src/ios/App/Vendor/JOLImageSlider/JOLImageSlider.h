@@ -53,6 +53,7 @@
 @property (nonatomic, weak) id <JOLImageSliderDelegate> delegate;
 
 - (void)setSlides:(NSArray *)slideSet;
+- (void)initialize;
 
 @end
 

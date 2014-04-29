@@ -57,6 +57,13 @@ class WorkService
                     'AvatarUrl' => $work['StaffAvatarUrl'],
                     'Nickname' => $work['StaffNickname']
                 );
+
+                if (intval($work['CompanyId']) > 0) {
+                    $work['Staff']['Company'] = array(
+                        'CompanyId' => $work['CompanyId'],
+                        'Name' => $work['CompanyName']
+                    );
+                }
             } else {
                 $work['Staff'] = array();
             }
@@ -64,6 +71,8 @@ class WorkService
             unset($work['StaffUserId']);
             unset($work['StaffAvatarUrl']);
             unset($work['StaffNickname']);
+            unset($work['CompanyId']);
+            unset($work['CompanyName']);
 
             $works[] = $work;
         }
@@ -108,6 +117,13 @@ class WorkService
                     'AvatarUrl' => $work['StaffAvatarUrl'],
                     'Nickname' => $work['StaffNickname']
                 );
+
+                if (intval($work['CompanyId']) > 0) {
+                    $work['Staff']['Company'] = array(
+                        'CompanyId' => $work['CompanyId'],
+                        'Name' => $work['CompanyName']
+                    );
+                }
             } else {
                 $work['Staff'] = array();
             }
@@ -115,6 +131,8 @@ class WorkService
             unset($work['StaffUserId']);
             unset($work['StaffAvatarUrl']);
             unset($work['StaffNickname']);
+            unset($work['CompanyId']);
+            unset($work['CompanyName']);
 
             $works[] = $work;
         }

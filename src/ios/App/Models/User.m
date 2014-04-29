@@ -39,6 +39,12 @@
         if ([dictionary objectForKey:@"Mobile"] && [dictionary objectForKey:@"Mobile"] != [NSNull null]) {
             self.mobile = [dictionary objectForKey:@"Mobile"];
         }
+
+        if ([dictionary objectForKey:@"ProfileBackgroundUrl"]) {
+            self.imgUrls = [dictionary objectForKey:@"ProfileBackgroundUrl"];
+        } else {
+            self.imgUrls = @[];
+        }
     }
 
     return self;

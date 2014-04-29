@@ -1209,3 +1209,25 @@ DELIMITER ;
 CALL sp_update_table_field();
 DROP PROCEDURE IF EXISTS `sp_update_table_field`;
 
+
+-- ==============================================================================
+-- Change ProfileBackgroundUrl to Text on table Users
+-- ==============================================================================
+DELIMITER ;;
+CREATE PROCEDURE `sp_update_table_field`()
+BEGIN
+  IF EXISTS (
+      SELECT 1
+      FROM information_schema.COLUMNS
+      WHERE lower(TABLE_SCHEMA) = 'welhair'
+        AND lower(TABLE_NAME) ='users'
+        AND lower(COLUMN_NAME) ='profilebackgroundurl'
+  ) THEN
+    ALTER TABLE `Users` CHANGE COLUMN `ProfileBackgroundUrl` `ProfileBackgroundUrl` TEXT NULL ;
+  END IF;
+END;;
+
+DELIMITER ;
+CALL sp_update_table_field();
+DROP PROCEDURE IF EXISTS `sp_update_table_field`;
+

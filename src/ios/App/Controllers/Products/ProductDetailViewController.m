@@ -347,7 +347,7 @@
     [self.navigationController pushViewController:groupDetailVC animated:YES];
 }
 
-- (void) OpenImageGallery
+- (void)OpenImageGallery
 {
     MWPhotoBrowser *browser = [[MWPhotoBrowser alloc] initWithDelegate:self];
     browser.displayActionButton = NO;
@@ -498,8 +498,10 @@
     }
 
     self.product = [[Product alloc] initWithDic:rst];
+
     self.order.product = self.product;
-    self.order.singleProductPrice = self.order.product.specList.count == 0? self.product.price: 0;
+    self.order.singleProductPrice = self.order.product.specList.count == 0 ? self.product.price: 0;
+
     [self setupUIPerData];
 }
 

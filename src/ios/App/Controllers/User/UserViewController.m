@@ -19,7 +19,9 @@
 #import "FavoritesViewController.h"
 #import "MyGroupViewController.h"
 #import "MyScoreViewController.h"
+#import "JOLImageSlider.h"
 #import "LoginViewController.h"
+#import "MWPhotoBrowser.h"
 #import "SettingViewController.h"
 #import "UserAuthorViewController.h"
 #import "UserProfileViewController.h"
@@ -34,10 +36,9 @@
 #define  DefaultAvatorImage @"AvatarDefault.jpg"
 static const float profileViewHeight = 90;
 
-@interface UserViewController ()<UITableViewDataSource, UITableViewDelegate, UIActionSheetDelegate, UIImagePickerControllerDelegate,UINavigationControllerDelegate>
+@interface UserViewController ()<UITableViewDataSource, UITableViewDelegate, UIActionSheetDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate,JOLImageSliderDelegate, MWPhotoBrowserDelegate>
 
 
-@property (nonatomic, strong) UIImageView *headerBackgroundView;
 @property (nonatomic, strong) CircleImageView *avatorImgView;
 @property (nonatomic, strong) UIButton *loginButton;
 @property (nonatomic, strong) UILabel *nameLbl;
@@ -46,6 +47,8 @@ static const float profileViewHeight = 90;
 @property (nonatomic, strong) NSArray *iconDatasource;
 @property (nonatomic, strong) NSArray *tabTextDatasource;
 @property (nonatomic, strong) ABMGroupedTableView *tableView;
+
+@property (nonatomic, strong) JOLImageSlider *imgSlider;
 
 @end
 
@@ -89,13 +92,10 @@ static const float profileViewHeight = 90;
     
     float tabButtonViewHeight = 56;
     float avatorSize = 50;
-    
-    self.headerBackgroundView = [[UIImageView alloc] initWithFrame:CGRectMake(0, self.topBarOffset, WIDTH(self.view), profileViewHeight)];
-    self.headerBackgroundView.image = [UIImage imageNamed:@"Profile_Banner_Bg"];
-    [self.view addSubview:self.headerBackgroundView];
-    
-    
-    self.tableView = [[ABMGroupedTableView alloc] initWithFrame:CGRectMake(0, self.topBarOffset, WIDTH(self.view), [self contentHeightWithNavgationBar:YES withBottomBar:YES])
+
+
+    self.tableView = [[ABMGroupedTableView alloc] initWithFrame:CGRectMake(0, self.topBarOffset, WIDTH(self.view), [self contentHeightWithNavgationBar:YES
+                                                                                                                                         withBottomBar:YES])
                                                           style:UITableViewStyleGrouped];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
@@ -105,11 +105,21 @@ static const float profileViewHeight = 90;
 
     [self.view addSubview:self.tableView];
     
-    UIView *headerView_ = [[UIView alloc] initWithFrame:CGRectMake(0, self.topBarOffset, WIDTH(self.view), profileViewHeight + tabButtonViewHeight)];
+    UIView *headerView_ = [[UIView alloc] initWithFrame:CGRectMake(0, 0, WIDTH(self.view), WIDTH(self.view) + tabButtonViewHeight)];
     headerView_.backgroundColor = [UIColor clearColor];
+    headerView_.clipsToBounds = YES;
     self.tableView.tableHeaderView = headerView_;
+
+    UIImageView *profileBackground = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, WIDTH(self.view), WIDTH(self.view))];
+    profileBackground.image = [UIImage imageNamed:@"ProfileBackgroundDefault"];
+    [headerView_ addSubview:profileBackground];
+
+    self.imgSlider = [[JOLImageSlider alloc] initWithFrame:profileBackground.frame];
+    self.imgSlider.delegate = self;
+    [self.imgSlider setContentMode: UIViewContentModeScaleAspectFill];
+    [headerView_ addSubview:self.imgSlider];
     
-    UIView *profileIconView_ = [[UIView alloc] initWithFrame:CGRectMake(0, 0, WIDTH(self.view), profileViewHeight)];
+    UIView *profileIconView_ = [[UIView alloc] initWithFrame:CGRectMake(0, 320 - profileViewHeight, WIDTH(self.view), profileViewHeight)];
     profileIconView_.backgroundColor = [UIColor clearColor];
     [headerView_ addSubview:profileIconView_];
     
@@ -151,6 +161,9 @@ static const float profileViewHeight = 90;
     tabContentView_.backgroundColor = [UIColor whiteColor];
     [tabView_ addSubview:tabContentView_];
 
+    UIView *tabFooterBgView_ = [[UIView alloc] initWithFrame:CGRectMake(0, MaxY(tabContentView_), WIDTH(profileIconView_), 7)];
+    tabFooterBgView_.backgroundColor = [UIColor colorWithHexString:APP_CONTENT_BG_COLOR];
+    [tabView_ addSubview:tabFooterBgView_];
     UIView *tabFooterView_ = [[UIView alloc] initWithFrame:CGRectMake(0, MaxY(tabContentView_), WIDTH(profileIconView_), 7)];
     tabFooterView_.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"Juchi"]];
     [tabView_ addSubview:tabFooterView_];
@@ -208,28 +221,6 @@ static const float profileViewHeight = 90;
         [self.navigationController pushViewController:vc animated:NO];
     } else {
         [SVProgressHUD showErrorWithStatus:@"正在审核中，请耐心等待。" duration:1];
-    }
-}
-
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView
-{
-    CGFloat yOffset = self.tableView.contentOffset.y;
-    if (yOffset > 0) {
-        CGRect f = self.headerBackgroundView.frame;
-        f.origin.y = -yOffset + self.topBarOffset;
-        self.headerBackgroundView.frame = f;
-        return;
-    }
-
-    float viewWidth = 320;
-    float rate = ABS(yOffset) / profileViewHeight;
-
-    if (yOffset < 0) {
-        CGRect f = CGRectMake(-rate * viewWidth / 2, self.topBarOffset, (1 + rate) * viewWidth, (1 + rate) *profileViewHeight);
-        self.headerBackgroundView.frame = f;
-    } else {
-        CGRect f = CGRectMake(rate * viewWidth / 2, self.topBarOffset, (1 + rate) * viewWidth, (1 + rate) *profileViewHeight);
-        self.headerBackgroundView.frame = f;
     }
 }
 
@@ -364,8 +355,27 @@ static const float profileViewHeight = 90;
 
     self.addressLbl.text = [(NSDictionary *)companyDic objectForKey:@"Address"];
 
+    User *usr = [[User alloc] initWithDic:rst];
+
+    [self.avatorImgView setImageWithURL:usr.avatarUrl];
+    self.nameLbl.text = usr.nickname;
+
+    if (usr.imgUrls.count > 0) {
+        NSMutableArray *sliderArray = [NSMutableArray array];
+        for (NSString *item in usr.imgUrls) {
+            JOLImageSlide * slideImg= [[JOLImageSlide alloc] init];
+            slideImg.image = item;
+            [sliderArray addObject:slideImg];
+        }
+
+        [self.imgSlider setSlides:sliderArray];
+        [self.imgSlider initialize];
+        self.imgSlider.hidden = NO;
+    } else {
+        self.imgSlider.hidden = YES;
+    }
+
     if ([[rst objectForKey:@"IsApproved"] isEqualToString:@"0"] || [[(NSDictionary *)companyDic objectForKey:@"Status"] intValue] == Requested) {
-        User *usr = [[User alloc] initWithDic:rst];
         usr.isApproving = true;
         [UserManager SharedInstance].userLogined = usr;
         
@@ -373,13 +383,9 @@ static const float profileViewHeight = 90;
     }
 
     if ([[rst objectForKey:@"IsApproved"] isEqualToString:@"1"] && [[(NSDictionary *)companyDic objectForKey:@"Status"] intValue] == Valid) {
-        User *usr = [[User alloc] initWithDic:rst];
         usr.isApproving = false;
         usr.role = [[rst objectForKey:@"Role"] intValue];
         [UserManager SharedInstance].userLogined = usr;
-
-        [self.avatorImgView setImageWithURL:[UserManager SharedInstance].userLogined.avatarUrl];
-        self.nameLbl.text = [UserManager SharedInstance].userLogined.nickname;
     }
 
 }
@@ -406,8 +412,35 @@ static const float profileViewHeight = 90;
         [UserManager SharedInstance].userLogined = [[User alloc] initWithDic:[rst objectForKey:@"user"]];
     }
 
-    [self.avatorImgView setImageWithURL:[UserManager SharedInstance].userLogined.avatarUrl];
-    self.nameLbl.text = [UserManager SharedInstance].userLogined.nickname;
+    User *usr = [UserManager SharedInstance].userLogined;
+
+    [self.avatorImgView setImageWithURL:usr.avatarUrl];
+    self.nameLbl.text = usr.nickname;
+
+    if (usr.imgUrls.count > 0) {
+        NSMutableArray *sliderArray = [NSMutableArray array];
+        for (NSString *item in usr.imgUrls) {
+            JOLImageSlide * slideImg= [[JOLImageSlide alloc] init];
+            slideImg.image = item;
+            [sliderArray addObject:slideImg];
+        }
+
+        [self.imgSlider setSlides:sliderArray];
+        [self.imgSlider initialize];
+        self.imgSlider.hidden = NO;
+    } else {
+        self.imgSlider.hidden = YES;
+    }
+}
+
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    if (scrollView.contentOffset.y > 0) {
+        self.imgSlider.frame = CGRectMake(scrollView.contentOffset.x, scrollView.contentOffset.y * 0.5f, WIDTH(self.view), WIDTH(self.view));
+    } else {
+        self.imgSlider.frame = CGRectMake(0, 0, WIDTH(self.view), WIDTH(self.view));
+    }
 }
 
 - (void)failGetUserDetail:(ASIHTTPRequest *)request
@@ -549,6 +582,7 @@ static const float profileViewHeight = 90;
     }else{
         self.avatorImgView.image = [UIImage imageNamed:DefaultAvatorImage];
         self.nameLbl.text = nil;
+        self.imgSlider.hidden = YES;
     }
 }
 
