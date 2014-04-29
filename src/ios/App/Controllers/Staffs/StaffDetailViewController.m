@@ -16,6 +16,7 @@
 #import "CircleImageView.h"
 #import "CommentsViewController.h"
 #import "GroupDetailViewController.h"
+#import "JOLImageSlider.h"
 #import "OpitionSelectPanel.h"
 #import "StaffDetailViewController.h"
 #import "StaffWorksViewController.h"
@@ -29,12 +30,12 @@
 
 static const float profileViewHeight = 90;
 
-@interface StaffDetailViewController () <UIScrollViewDelegate,MWPhotoBrowserDelegate>
+@interface StaffDetailViewController () <UIScrollViewDelegate, MWPhotoBrowserDelegate>
 
 @property (nonatomic, strong) UIScrollView *scrollView;
 @property (nonatomic, strong) UIView *bottomView;
 
-@property (nonatomic, strong) UIImageView *headerBackgroundView;
+@property (nonatomic, strong) JOLImageSlider *imgSlider;
 @property (nonatomic, strong) CircleImageView *avatorImgView;
 @property (nonatomic, strong) UILabel *nameLbl;
 @property (nonatomic, strong) UILabel *groupNameLbl;
@@ -104,18 +105,23 @@ static const float profileViewHeight = 90;
     [self.submitBtn setBackgroundColor:[UIColor colorWithHexString:@"e43a3d"]];
     [self.submitBtn addTarget:self action:@selector(submitClick) forControlEvents:UIControlEventTouchUpInside];
     [self.bottomView addSubview:self.submitBtn];
-    
-    
-    UIView *headerView_ = [[UIView alloc] initWithFrame:CGRectMake(0, 0, WIDTH(self.view),profileViewHeight+ addressViewHeight + tabButtonViewHeight)];
+
+    UIView *headerView_ = [[UIView alloc] initWithFrame:CGRectMake(0, 0, WIDTH(self.view), WIDTH(self.view) + addressViewHeight + tabButtonViewHeight)];
     headerView_.backgroundColor = [UIColor clearColor];
+    headerView_.clipsToBounds = YES;
     [self.scrollView addSubview:headerView_];
     
-    self.headerBackgroundView = [[UIImageView alloc] initWithFrame:CGRectMake(0,0, WIDTH(self.view), profileViewHeight)];
-    
-    self.headerBackgroundView.image = [UIImage imageNamed:@"Profile_Banner_Bg"];
-    [headerView_ addSubview:self.headerBackgroundView];
+    UIImageView *profileBackground = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, WIDTH(self.view), WIDTH(self.view))];
+    profileBackground.image = [UIImage imageNamed:@"ProfileBackgroundDefault"];
+    [headerView_ addSubview:profileBackground];
+
+    self.imgSlider = [[JOLImageSlider alloc] initWithFrame:profileBackground.frame];
+    self.imgSlider.delegate = self;
+    [self.imgSlider setContentMode: UIViewContentModeScaleAspectFill];
+    [headerView_ addSubview:self.imgSlider];
+
 #pragma topbar
-    self.addressView = [[UIView alloc] initWithFrame:CGRectMake(0, MaxY(self.headerBackgroundView), WIDTH(headerView_), addressViewHeight)];
+    self.addressView = [[UIView alloc] initWithFrame:CGRectMake(0, MaxY(profileBackground), WIDTH(headerView_), addressViewHeight)];
     [headerView_ addSubview:self.addressView];
     
     self.addressView.backgroundColor = [UIColor whiteColor];
@@ -123,7 +129,7 @@ static const float profileViewHeight = 90;
     addressFooterView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"Juchi"]];
     [headerView_ addSubview:addressFooterView];
     
-    self.avatorImgView = [[CircleImageView alloc] initWithFrame:CGRectMake(20, profileViewHeight - avatorSize / 2, avatorSize, avatorSize)];
+    self.avatorImgView = [[CircleImageView alloc] initWithFrame:CGRectMake(20, WIDTH(self.view) - avatorSize / 2, avatorSize, avatorSize)];
     self.avatorImgView.layer.borderColor = [[UIColor whiteColor] CGColor];
     self.avatorImgView.layer.borderWidth = 3;
     self.avatorImgView.backgroundColor = [UIColor colorWithHexString:@"eeeeee"];
@@ -185,24 +191,11 @@ static const float profileViewHeight = 90;
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
-//    CGFloat yOffset = self.scrollView.contentOffset.y;
-//    if (yOffset > 0) {
-//        CGRect f = self.headerBackgroundView.frame;
-//        f.origin.y = -yOffset + self.topBarOffset;
-//        self.headerBackgroundView.frame = f;
-//        return;
-//    }
-//
-//    float viewWidth = 320;
-//    float rate = ABS(yOffset) / profileViewHeight;
-//
-//    if (yOffset < 0) {
-//        CGRect f = CGRectMake(-rate * viewWidth / 2, self.topBarOffset, (1 + rate) * viewWidth, (1 + rate) *profileViewHeight);
-//        self.headerBackgroundView.frame = f;
-//    } else {
-//        CGRect f = CGRectMake(rate * viewWidth / 2, self.topBarOffset, (1 + rate) * viewWidth, (1 + rate) *profileViewHeight);
-//        self.headerBackgroundView.frame = f;
-//    }
+    if (scrollView.contentOffset.y > 0) {
+        self.imgSlider.frame = CGRectMake(scrollView.contentOffset.x, scrollView.contentOffset.y * 0.5f, WIDTH(self.view), WIDTH(self.view));
+    } else {
+        self.imgSlider.frame = CGRectMake(0, 0, WIDTH(self.view), WIDTH(self.view));
+    }
 }
 
 - (void)openAvator
@@ -415,6 +408,23 @@ static const float profileViewHeight = 90;
     self.distanceLbl.text = [NSString stringWithFormat:@"%.2f 千米", self.staff.distance / 1000];
     self.foBtn.on = self.staff.isLiked;
     [self.avatorImgView setImageWithURL:self.staff.avatorUrl];
+
+    User *usr = [[User alloc] initWithDic:rst];
+    if (usr.imgUrls.count > 0) {
+        NSMutableArray *sliderArray = [NSMutableArray array];
+        for (NSString *item in usr.imgUrls) {
+            JOLImageSlide * slideImg= [[JOLImageSlide alloc] init];
+            slideImg.image = item;
+            [sliderArray addObject:slideImg];
+        }
+
+        [self.imgSlider setSlides:sliderArray];
+        [self.imgSlider initialize];
+        self.imgSlider.hidden = NO;
+    } else {
+        self.imgSlider.hidden = YES;
+    }
+
 
     [self setupUIPerData];
 }
