@@ -27,13 +27,23 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        self.title = NSLocalizedString(@"ChatSessionViewController.Title", nil);
-        FAKIcon *rightIcon = [FAKIonIcons ios7PlusOutlineIconWithSize:NAV_BAR_ICON_SIZE];
-        [rightIcon addAttribute:NSForegroundColorAttributeName value:[UIColor whiteColor]];
-        self.rightNavItemImg =[rightIcon imageWithSize:CGSizeMake(NAV_BAR_ICON_SIZE, NAV_BAR_ICON_SIZE)];
+        self.title = @"我的私信";
+
+//        FAKIcon *rightIcon = [FAKIonIcons ios7PlusOutlineIconWithSize:NAV_BAR_ICON_SIZE];
+//        [rightIcon addAttribute:NSForegroundColorAttributeName value:[UIColor whiteColor]];
+//        self.rightNavItemImg =[rightIcon imageWithSize:CGSizeMake(NAV_BAR_ICON_SIZE, NAV_BAR_ICON_SIZE)];
+
+        FAKIcon *leftIcon = [FAKIonIcons ios7ArrowBackIconWithSize:NAV_BAR_ICON_SIZE];
+        [leftIcon addAttribute:NSForegroundColorAttributeName value:[UIColor whiteColor]];
+        self.leftNavItemImg =[leftIcon imageWithSize:CGSizeMake(NAV_BAR_ICON_SIZE, NAV_BAR_ICON_SIZE)];
         
     }
     return self;
+}
+
+- (void)leftNavItemClick
+{
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void) rightNavItemClick
@@ -49,17 +59,13 @@
     self.tableView.frame = CGRectMake(0,
                                       self.topBarOffset,
                                       WIDTH(self.view) ,
-                                      [self contentHeightWithNavgationBar:YES withBottomBar:YES]);
+                                      [self contentHeightWithNavgationBar:YES withBottomBar:NO]);
     self.tableView.backgroundColor = [UIColor clearColor];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
-    self.tableView.backgroundColor = [UIColor whiteColor];//[UIColor colorWithHexString:@"f2f2f2"];
-//    __weak typeof(self) weakSelf = self;
-//    [self.tableView addPullToRefreshActionHandler:^{
-////        [weakSelf insertRowAtTop];
-//    }];
-    
+    self.tableView.backgroundColor = [UIColor whiteColor];
+
     [self.tableView.pullToRefreshView setSize:CGSizeMake(25, 25)];
     [self.tableView.pullToRefreshView setBorderWidth:2];
     [self.tableView.pullToRefreshView setBorderColor:[UIColor whiteColor]];
