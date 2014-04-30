@@ -10,12 +10,10 @@
 //
 // ==============================================================================
 
-#import "Work.h"
+#import "StaffClient.h"
 
-@interface DoubleCoverCell : UITableViewCell
+@interface MyClientCell : UITableViewCell
 
-- (void)setupWithLeftData:(Work *)leftData
-                rightData:(Work *)rightData
-               tapHandler:(CardTapHandler)tapHandler;
+- (void)setup:(StaffClient *)client;
 
 @end

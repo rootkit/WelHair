@@ -438,7 +438,6 @@ static const float profileViewHeight = 90;
     }
 }
 
-
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
     if (scrollView.contentOffset.y < 160 && scrollView.contentInset.top < 0) {

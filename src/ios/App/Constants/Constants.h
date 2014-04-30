@@ -62,6 +62,7 @@
 #define API_STAFFS_LIKE API_PATH(@"/staffs/%d/likes")
 #define API_STAFFS_DETAIL API_PATH(@"/staffs/%d")
 #define API_STAFFS_WORKS API_PATH(@"/staffs/%d/works")
+#define API_STAFFS_CLIENTS API_PATH(@"/staffs/%d/clients")
 #define API_STAFFS_SERVICE API_PATH(@"/staffs/%d/services")
 #define API_STAFFS_COMMENT_CREATE API_PATH(@"/staffs/%d/comments")
 #define API_STAFFS_APPOINTMENT API_PATH(@"/staffs/%d/appointments")

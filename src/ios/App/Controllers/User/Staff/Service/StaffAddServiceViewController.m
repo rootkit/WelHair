@@ -137,7 +137,7 @@ static const float kMargin = 10;
     self.saleOffTxt.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
     self.saleOffTxt.backgroundColor = [UIColor whiteColor];
     self.saleOffTxt.keyboardType = UIKeyboardTypeDecimalPad;
-    self.saleOffTxt.placeholder = @"折扣";
+    self.saleOffTxt.placeholder = @"折后价";
     [self.saleOffTxt addTarget:self
                               action:@selector(textFieldDidChange)
                     forControlEvents:UIControlEventEditingChanged];
@@ -171,6 +171,6 @@ static const float kMargin = 10;
 
 - (void)textFieldDidChange
 {
-    self.finalPriceLbl.text = [NSString stringWithFormat:@"最终价格: ￥%.2f",[self.originalPriceTxt.text floatValue] * [self.saleOffTxt.text floatValue]];
+    self.finalPriceLbl.text = [NSString stringWithFormat:@"最终价格: ￥%.2f", [self.saleOffTxt.text floatValue]];
 }
 @end

@@ -33,7 +33,10 @@ class AppointmentController extends AbstractAPIController
     {
         $page = intval($this->app->request->get('page'));
         $pageSize = intval($this->app->request->get('pageSize'));
-        $dataList = AppointmentService::listAllAppointments($page, $pageSize, $staffId, 0, array(AppointmentStatus::Paid, AppointmentStatus::Completed));
+
+        $userId = intval($this->app->request->get('userId'));
+
+        $dataList = AppointmentService::listAllAppointments($page, $pageSize, $staffId, $userId, array(AppointmentStatus::Paid, AppointmentStatus::Completed));
         $this->sendResponse($dataList);
     }
 

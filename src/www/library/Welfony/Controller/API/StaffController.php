@@ -54,6 +54,15 @@ class StaffController extends AbstractAPIController
         $this->sendResponse(StaffService::getStaffDetail($staffId, $this->currentContext['UserId'], $this->currentContext['Location']));
     }
 
+    public function listClients($staffId)
+    {
+        $page = intval($this->app->request->get('page'));
+        $pageSize = intval($this->app->request->get('pageSize'));
+
+        $clientList = StaffService::listAllClients($page, $pageSize, $staffId);
+        $this->sendResponse($clientList);
+    }
+
     public function listWorks($userId)
     {
         $page = intval($this->app->request->get('page'));

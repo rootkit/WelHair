@@ -90,6 +90,41 @@ class StaffRepository extends AbstractRepository
         return $this->conn->fetchAll($strSql);
     }
 
+    public function getAllClientCount($staffId)
+    {
+         $strSql = "SELECT
+                       COUNT(DISTINCT A.UserId) `Total`
+                   FROM Appointment A
+                   WHERE A.Status > 0 AND A.StaffId = ?
+                   GROUP BY A.UserId
+                   LIMIT 1";
+
+        $row = $this->conn->fetchAssoc($strSql, array($staffId));
+
+        return $row['Total'];
+    }
+
+    public function getAllClient($staffId, $page, $pageSize)
+    {
+        $offset = ($page - 1) * $pageSize;
+        $strSql = "SELECT
+                       U.UserId,
+                       U.Nickname,
+                       U.Username,
+                       U.AvatarUrl,
+                       U.ProfileBackgroundUrl,
+
+                       COUNT(A.AppointmentId) AppointmentCount
+                   FROM Appointment A
+                   INNER JOIN Users U ON U.UserId = A.UserId
+                   WHERE A.Status > 0 AND A.StaffId = ?
+                   GROUP BY A.UserId
+                   ORDER BY A.AppointmentId DESC
+                   LIMIT $offset, $pageSize";
+
+        return $this->conn->fetchAll($strSql, array($staffId));
+    }
+
     public function findStaffDetailById($staffId, $currentUserId, $location)
     {
         $strSql = 'SELECT

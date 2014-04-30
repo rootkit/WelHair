@@ -112,6 +112,21 @@ class StaffService
         return array('total' => $total, 'staffes' => $staffes);
     }
 
+    public static function listAllClients($page, $pageSize, $staffId)
+    {
+        $page = $page <= 0 ? 1 : $page;
+        $pageSize = $pageSize <= 0 ? 20 : $pageSize;
+
+        $total = StaffRepository::getInstance()->getAllClientCount($staffId);
+        $clientList = StaffRepository::getInstance()->getAllClient($staffId, $page, $pageSize);
+        $clients = array();
+        foreach ($clientList as $client) {
+            $clients[] = $client;
+        }
+
+        return array('total' => $total, 'clients' => $clients);
+    }
+
     public static function seachByNameAndPhone($searchText, $includeClient)
     {
         $resultSet = StaffRepository::getInstance()->seachByNameAndPhoneAndEmail($searchText, $includeClient);

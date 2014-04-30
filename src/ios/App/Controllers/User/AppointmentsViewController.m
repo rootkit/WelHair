@@ -134,6 +134,8 @@
     [reqData setObject:[NSString stringWithFormat:@"%d", self.currentPage] forKey:@"page"];
     [reqData setObject:[NSString stringWithFormat:@"%d", TABLEVIEW_PAGESIZE_DEFAULT] forKey:@"pageSize"];
 
+    [reqData setObject:[NSString stringWithFormat:@"%d", self.userId] forKey:@"userId"];
+
     ASIHTTPRequest *request = [RequestUtil createGetRequestWithURL:[NSURL URLWithString:[NSString stringWithFormat:self.staffId > 0 ? API_STAFFS_APPOINTMENT : API_USERS_APPOINTMENT, [[UserManager SharedInstance] userLogined].id]]
                                                           andParam:reqData];
     [request setDelegate:self];

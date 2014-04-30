@@ -1,6 +1,6 @@
 // ==============================================================================
 //
-// This file is part of the WelHair
+// This file is part of the WelSpeak.
 //
 // Create by Welfony <support@welfony.com>
 // Copyright (c) 2013-2014 welfony.com
@@ -10,12 +10,8 @@
 //
 // ==============================================================================
 
-#import "Work.h"
+#import "StaffClient.h"
 
-@interface DoubleCoverCell : UITableViewCell
-
-- (void)setupWithLeftData:(Work *)leftData
-                rightData:(Work *)rightData
-               tapHandler:(CardTapHandler)tapHandler;
+@implementation StaffClient
 
 @end

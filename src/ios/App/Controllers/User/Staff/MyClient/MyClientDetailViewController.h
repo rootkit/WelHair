@@ -10,6 +10,10 @@
 //
 // ==============================================================================
 
+#import "StaffClient.h"
+
 @interface MyClientDetailViewController : BaseViewController
+
+@property (nonatomic, strong) StaffClient *client;
 
 @end

@@ -94,6 +94,8 @@
 		187638CC1910831C00846BB9 /* ProfileBackgroundDefault@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 187638CB1910831C00846BB9 /* ProfileBackgroundDefault@2x.png */; };
 		187638D01910BC1900846BB9 /* MyClientViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 187638CF1910BC1900846BB9 /* MyClientViewController.m */; };
 		187638D31910BC2B00846BB9 /* MyClientDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 187638D21910BC2B00846BB9 /* MyClientDetailViewController.m */; };
+		187638D61910D42E00846BB9 /* MyClientCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 187638D51910D42E00846BB9 /* MyClientCell.m */; };
+		187638D91910D7E900846BB9 /* StaffClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 187638D81910D7E900846BB9 /* StaffClient.m */; };
 		1882D2731901314200D59861 /* FeedbackViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1882D2721901314200D59861 /* FeedbackViewController.m */; };
 		18A3E61318DC0C280080DC0B /* RegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A3E61218DC0C280080DC0B /* RegisterViewController.m */; };
 		18A3E61618DC10050080DC0B /* NSString+WelKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A3E61518DC10050080DC0B /* NSString+WelKit.m */; };
@@ -456,6 +458,10 @@
 		187638CF1910BC1900846BB9 /* MyClientViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyClientViewController.m; sourceTree = "<group>"; };
 		187638D11910BC2B00846BB9 /* MyClientDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyClientDetailViewController.h; sourceTree = "<group>"; };
 		187638D21910BC2B00846BB9 /* MyClientDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyClientDetailViewController.m; sourceTree = "<group>"; };
+		187638D41910D42E00846BB9 /* MyClientCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyClientCell.h; sourceTree = "<group>"; };
+		187638D51910D42E00846BB9 /* MyClientCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyClientCell.m; sourceTree = "<group>"; };
+		187638D71910D7E900846BB9 /* StaffClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StaffClient.h; sourceTree = "<group>"; };
+		187638D81910D7E900846BB9 /* StaffClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StaffClient.m; sourceTree = "<group>"; };
 		1882D2711901314200D59861 /* FeedbackViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeedbackViewController.h; sourceTree = "<group>"; };
 		1882D2721901314200D59861 /* FeedbackViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeedbackViewController.m; sourceTree = "<group>"; };
 		18A3E61118DC0C280080DC0B /* RegisterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegisterViewController.h; sourceTree = "<group>"; };
@@ -1324,6 +1330,8 @@
 				4621AAE018EE9D3A00B8E18D /* Service.m */,
 				4630252F18C849FD000E0B51 /* Staff.h */,
 				4630253018C849FD000E0B51 /* Staff.m */,
+				187638D71910D7E900846BB9 /* StaffClient.h */,
+				187638D81910D7E900846BB9 /* StaffClient.m */,
 				18A912E018BB26B6006B9A04 /* User.h */,
 				18A912E118BB26B6006B9A04 /* User.m */,
 				4665FD8318BC801000E88C6B /* Work.h */,
@@ -2048,6 +2056,8 @@
 				466DF41F18FD73B600CB8A53 /* GroupRevenuCell.m */,
 				46F5865C18E1BB2B00F9BF51 /* GroupStaffCell.h */,
 				46F5865D18E1BB2B00F9BF51 /* GroupStaffCell.m */,
+				187638D41910D42E00846BB9 /* MyClientCell.h */,
+				187638D51910D42E00846BB9 /* MyClientCell.m */,
 				465A5C8918DB0B8D009B6D60 /* MyScoreCell.h */,
 				465A5C8A18DB0B8D009B6D60 /* MyScoreCell.m */,
 				46E84EE118C356B30004C146 /* OpitionButton.h */,
@@ -2635,6 +2645,7 @@
 				46AF945818F662FB00479158 /* OrderPaidTableView.m in Sources */,
 				181776AA18F3CC4300083C1E /* JoinGroupViewController.m in Sources */,
 				4673BB6A18D2F848000F64DE /* UploadWorkFormViewController.m in Sources */,
+				187638D61910D42E00846BB9 /* MyClientCell.m in Sources */,
 				184B82FC18DAC7F000177BAB /* UIImage+JSMessagesView.m in Sources */,
 				18502DA918F8E2B800CD4A0A /* StaffServiceTableViewCell.m in Sources */,
 				18A3E61318DC0C280080DC0B /* RegisterViewController.m in Sources */,
@@ -2700,6 +2711,7 @@
 				467F0EEF18CB4FCF009FFE08 /* UINavigationBar+WelKit.m in Sources */,
 				46BCD27318BC79E0005C4BD6 /* StaffsViewController.m in Sources */,
 				4631CEF218E315A800F39814 /* ProductOpitionPanel.m in Sources */,
+				187638D91910D7E900846BB9 /* StaffClient.m in Sources */,
 				184B82FD18DAC7F000177BAB /* UIView+AnimationOptionsForCurve.m in Sources */,
 				4631CF1C18E3284C00F39814 /* OrderDetailViewController.m in Sources */,
 				4651D97818DE7294004AC95A /* BaseManager.m in Sources */,

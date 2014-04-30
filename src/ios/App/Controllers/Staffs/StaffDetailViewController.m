@@ -459,6 +459,7 @@
 {
     self.workDatasource = self.staff.works;
     [self.tableView reloadData];
+
     float contentPadding = 10;
     float scrollViewOffsetY = MaxY(self.addressView);
     
@@ -585,6 +586,8 @@
                                                                WIDTH(self.view) -  2*contentPadding,
                                                                bioHeight + 10)];
     bioView.backgroundColor = [UIColor whiteColor];
+    bioView.layer.borderColor = [[UIColor colorWithHexString:@"e1e1e1"] CGColor];
+    bioView.layer.borderWidth = 1.0;
     bioView.layer.cornerRadius = 5;
     [self.tableViewHeaderView addSubview:bioView];
     UILabel *bioLbl = [[UILabel alloc] initWithFrame:CGRectMake(contentPadding,
@@ -643,16 +646,21 @@
     scrollViewOffsetY = MaxY(workTitleLbl);
     CGRect headerViewFrame = self.tableViewHeaderView.frame;
     headerViewFrame.size.height = scrollViewOffsetY;
+
     self.tableViewHeaderView.frame = headerViewFrame;
     self.tableView.tableHeaderView  = self.tableViewHeaderView;
 }
 
 #pragma mark UITableView delegate
 
+- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
+{
+    return [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 20)];
+}
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 150;
+    return 155;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -668,6 +676,7 @@
         cell = [[DoubleCoverCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
+
     cell.contentView.backgroundColor =  cell.backgroundColor = [UIColor clearColor];
     Work *left = [self.workDatasource objectAtIndex:2 * indexPath.row];
     Work *right;
@@ -680,6 +689,7 @@
         Work *work = (Work *)model;
         [selfDelegate pushToDetail:work];
     }];
+
     return cell;
 }
 
@@ -689,4 +699,5 @@
     vc.work = work;
     [self.navigationController pushViewController:vc animated:YES];
 }
+
 @end

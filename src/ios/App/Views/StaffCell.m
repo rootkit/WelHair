@@ -14,7 +14,6 @@
 
 #import "CircleImageView.h"
 #import "StaffCell.h"
-#import "UIImageView+WebCache.h"
 
 @interface StaffCell()
 
