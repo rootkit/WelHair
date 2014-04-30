@@ -13,6 +13,7 @@
 @interface RequestUtil : NSObject
 
 +(ASIHTTPRequest *)createGetRequestWithURL:(NSURL *)url andParam:(NSDictionary *)params;
++(ASIHTTPRequest *)createGetRequestWithURL:(NSURL *)url andCoordinate:(CLLocationCoordinate2D )coordinate andParam:(NSDictionary *)params;
 +(ASIFormDataRequest *)createPOSTRequestWithURL:(NSURL *)url andData:(NSDictionary *)data;
 +(ASIFormDataRequest *)createPUTRequestWithURL:(NSURL *)url andData:(NSDictionary *)data;
 

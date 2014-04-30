@@ -87,7 +87,8 @@
 @property (nonatomic, strong) UIButton *locateBtn;
 @property (nonatomic, strong) UIButton *aroundBtn;
 @property (nonatomic) CLLocationCoordinate2D currentLocation;
-@property (nonatomic, strong) NSArray *aroundGroups;
+@property (nonatomic, strong) BMKMapStatus *currentMapStatus;
+@property (nonatomic, strong) NSMutableArray *aroundGroups;
 @end
 
 @implementation MapViewController
@@ -108,6 +109,7 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         self.title = @"Map";
+        self.aroundGroups = [NSMutableArray array];
     }
     return self;
 }
@@ -252,6 +254,7 @@
     [_mapView addAnnotation:item];
     //将第一个点的坐标移到屏幕中央
     _mapView.centerCoordinate = item.coordinate;
+    self.currentMapStatus = [_mapView getMapStatus];
 }
 
 - (void)aroundClick
@@ -260,21 +263,42 @@
     [self.aroundBtn setTitleColor:[UIColor colorWithHexString:APP_NAVIGATIONBAR_COLOR] forState:UIControlStateNormal];
     // 清楚屏幕中所有的annotation
     
-    WHPointAnnotation* item = [[WHPointAnnotation alloc]init];
-    item.coordinate = CLLocationCoordinate2DMake(36.670277,117.149292);
-    item.title = self.modelInfo.name;
-    item.modelInfo = self.modelInfo;
-    [_mapView addAnnotation:item];
-    //将第一个点的坐标移到屏幕中央
-    _mapView.centerCoordinate = item.coordinate;
-	 
-    WHPointAnnotation* item1 = [[WHPointAnnotation alloc]init];
-    item1.coordinate = CLLocationCoordinate2DMake(36.970288,117.249292);
-    item1.title = self.modelInfo.name;
-    item1.modelInfo = self.modelInfo;
-    [_mapView addAnnotation:item1];
+    [self getAroundGroups:self.currentLocation];
+}
 
-    //[_search poiSearchNearBy:@"餐厅" center:_mapView.centerCoordinate radius:100 pageIndex:0];
+- (void)getAroundGroups:(CLLocationCoordinate2D )coordinate
+{
+    ASIHTTPRequest *request = [RequestUtil createGetRequestWithURL:[NSURL URLWithString:API_COMPANIES_NEARBY]
+                                                     andCoordinate:coordinate andParam:nil];
+    [self.requests addObject:request];
+    [request setDelegate:self];
+    [request setDidFinishSelector:@selector(finishgetAroundGroups:)];
+    [request setDidFailSelector:@selector(failgetAroundGroups:)];
+    [request startAsynchronous];
+}
+
+- (void)finishgetAroundGroups:(ASIHTTPRequest *)request
+{
+    NSArray *rst = [Util objectFromJson:request.responseString];
+    if (request.responseStatusCode == 200 && rst.count > 0) {
+        
+        for (NSDictionary *dic in rst) {
+            Group *g = [[Group alloc] initWithDic:dic];
+            if(![self hasGroupWithSameCoordinate:g.coordinate]){
+                WHPointAnnotation* item = [[WHPointAnnotation alloc]init];
+                item.coordinate = g.coordinate;
+                item.title = g.name;
+                item.modelInfo = g;
+                [_mapView addAnnotation:item];
+            }
+        }
+        return;
+    }
+}
+
+- (void)failgetAroundGroups:(ASIHTTPRequest *)request
+{
+    
 }
 
 
@@ -321,7 +345,7 @@
 }
 - (void)mapView:(BMKMapView *)mapView didAddAnnotationViews:(NSArray *)views
 {
-    debugLog(@"didAddAnnotationViews");
+//    debugLog(@"didAddAnnotationViews");
 }
 
 - (void)mapView:(BMKMapView *)mapView annotationViewForBubble:(BMKAnnotationView *)view
@@ -660,6 +684,20 @@
 }
 
 
+//- (void)mapView:(BMKMapView *)mapView regionDidChangeAnimated:(BOOL)animated
+//{
+//    NSLog(@"mapview did dragged %f,%f", mapView.centerCoordinate.latitude, mapView.centerCoordinate.longitude);
+//
+//}
+- (void)mapStatusDidChanged:(BMKMapView *)mapView
+{
+    BMKMapStatus *s =  [mapView getMapStatus];
+    if(s.fLevel <= 15){
+        [self getAroundGroups:mapView.centerCoordinate];
+        self.currentMapStatus = s;
+    }
+}
+
 /**
  *长按地图时会回调此接口
  *@param mapview 地图View
@@ -675,5 +713,15 @@
 //    [_mapView addAnnotation:item1];
 //    
 //}
+
+- (BOOL)hasGroupWithSameCoordinate:(CLLocationCoordinate2D )coordinate
+{
+    for (Group *g in self.aroundGroups) {
+        if(g.coordinate.latitude == coordinate.latitude && g.coordinate.longitude == coordinate.longitude){
+            return YES;
+        }
+    }
+    return NO;
+}
 
 @end

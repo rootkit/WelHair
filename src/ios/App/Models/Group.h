@@ -48,3 +48,4 @@ typedef enum {
 - (NSDictionary *)dictionaryFromGroup:(Group *)group;
 
 @end
+
