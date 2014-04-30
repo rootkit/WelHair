@@ -117,7 +117,7 @@
     self.groupLbl.text = staff.group.name;
     self.groupAddressLbl.text = staff.group.address;
     self.workCountLbl.text = [NSString stringWithFormat:@"%d件", staff.workCount];
-    self.distanceLbl.text = [NSString stringWithFormat:@"%.2f千米", staff.distance / 1000];
+    self.distanceLbl.text = [NSString stringWithFormat:@"%.1f千米", staff.distance / 1000];
 }
 
 @end

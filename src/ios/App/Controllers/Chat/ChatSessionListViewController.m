@@ -27,7 +27,7 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        self.title = @"我的私信";
+        self.title = @"私信";
 
 //        FAKIcon *rightIcon = [FAKIonIcons ios7PlusOutlineIconWithSize:NAV_BAR_ICON_SIZE];
 //        [rightIcon addAttribute:NSForegroundColorAttributeName value:[UIColor whiteColor]];

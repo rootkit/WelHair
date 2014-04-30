@@ -66,6 +66,7 @@
         commentComposorVc.companyId = self.companyId;
         commentComposorVc.workId = self.workId;
         commentComposorVc.goodsId = self.goodsId;
+
         [self.navigationController pushViewController:commentComposorVc animated:YES];
     }
 }
@@ -118,6 +119,14 @@
     self.tableView.showsInfiniteScrolling = NO;
 
     [self triggerTablePullToRefresh];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    if (self.goodsId > 0) {
+        self.rightNavItemImg = nil;
+    }
+    [super viewWillAppear:animated];
 }
 
 - (void)triggerTablePullToRefresh
@@ -266,28 +275,34 @@
 }
 #pragma mark - MWPhotoBrowserDelegate
 
-- (NSUInteger)numberOfPhotosInPhotoBrowser:(MWPhotoBrowser *)photoBrowser {
+- (NSUInteger)numberOfPhotosInPhotoBrowser:(MWPhotoBrowser *)photoBrowser
+{
     return self.workImgs.count;
 }
 
-- (id <MWPhoto>)photoBrowser:(MWPhotoBrowser *)photoBrowser photoAtIndex:(NSUInteger)index {
-    if (index < self.workImgs.count)
+- (id <MWPhoto>)photoBrowser:(MWPhotoBrowser *)photoBrowser photoAtIndex:(NSUInteger)index
+{
+    if (index < self.workImgs.count) {
         return [self.workImgs objectAtIndex:index];
+    }
+
     return nil;
 }
 
-- (MWCaptionView *)photoBrowser:(MWPhotoBrowser *)photoBrowser captionViewForPhotoAtIndex:(NSUInteger)index {
+- (MWCaptionView *)photoBrowser:(MWPhotoBrowser *)photoBrowser captionViewForPhotoAtIndex:(NSUInteger)index
+{
     MWPhoto *photo = [self.workImgs objectAtIndex:index];
     MWCaptionView *captionView = [[MWCaptionView alloc] initWithPhoto:photo];
+
     return captionView ;
 }
 
-- (void)photoBrowser:(MWPhotoBrowser *)photoBrowser actionButtonPressedForPhotoAtIndex:(NSUInteger)index {
-    NSLog(@"ACTION!");
+- (void)photoBrowser:(MWPhotoBrowser *)photoBrowser actionButtonPressedForPhotoAtIndex:(NSUInteger)index
+{
 }
 
-- (void)photoBrowser:(MWPhotoBrowser *)photoBrowser didDisplayPhotoAtIndex:(NSUInteger)index {
-    NSLog(@"Did start viewing photo at index %lu", (unsigned long)index);
+- (void)photoBrowser:(MWPhotoBrowser *)photoBrowser didDisplayPhotoAtIndex:(NSUInteger)index
+{
 }
 
 @end

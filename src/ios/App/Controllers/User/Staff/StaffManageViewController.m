@@ -15,6 +15,7 @@
 #import "AppointmentsViewController.h"
 #import "CreateGroupViewController.h"
 #import "GroupManageViewController.h"
+#import "MyClientViewController.h"
 #import "MyGroupStaffListViewController.h"
 #import "StaffWorksViewController.h"
 #import "StaffServicesViewController.h"
@@ -65,10 +66,10 @@
     serviceBtn.frame = CGRectMake(WIDTH(contentView)/2, 0, WIDTH(contentView)/2, WIDTH(contentView)/2);
     [contentView addSubview:serviceBtn];
     
-    UIButton *infoBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [infoBtn addTarget:self action:@selector(infoClick) forControlEvents:UIControlEventTouchUpInside];
-    infoBtn.frame = CGRectMake(0, MaxY(serviceBtn), WIDTH(contentView)/2, WIDTH(contentView)/2);
-    [contentView addSubview:infoBtn];
+    UIButton *myClientBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [myClientBtn addTarget:self action:@selector(clientClick) forControlEvents:UIControlEventTouchUpInside];
+    myClientBtn.frame = CGRectMake(0, MaxY(serviceBtn), WIDTH(contentView)/2, WIDTH(contentView)/2);
+    [contentView addSubview:myClientBtn];
     
     UIButton *appointmentBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [appointmentBtn addTarget:self action:@selector(appointmentClick) forControlEvents:UIControlEventTouchUpInside];
@@ -93,9 +94,9 @@
     [self.navigationController pushViewController:[StaffServicesViewController new] animated:YES];
 }
 
-- (void)infoClick
+- (void)clientClick
 {
-    UserProfileViewController *vc = [UserProfileViewController new];
+    MyClientViewController *vc = [MyClientViewController new];
     vc.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:vc animated:YES];
 }

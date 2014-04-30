@@ -37,6 +37,7 @@
 @property (nonatomic, strong) NSArray *workDatasource;
 @property (nonatomic, strong) UIView *bottomView;
 
+@property (nonatomic, strong) UIImageView *profileBackground;
 @property (nonatomic, strong) JOLImageSlider *imgSlider;
 @property (nonatomic, strong) CircleImageView *avatorImgView;
 @property (nonatomic, strong) UILabel *nameLbl;
@@ -86,7 +87,7 @@
     [super viewDidLoad];
     
     float addressViewHeight = 50;
-    float avatorSize = 50;
+    float avatorSize = 60;
     self.tableView = [[UITableView alloc] init];
     self.tableView.frame = CGRectMake(0,
                                       self.topBarOffset,
@@ -110,16 +111,16 @@
     headerView_.clipsToBounds = YES;
     [self.tableViewHeaderView addSubview:headerView_];
     
-    UIImageView *profileBackground = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, WIDTH(self.view), WIDTH(self.view))];
-    profileBackground.image = [UIImage imageNamed:@"ProfileBackgroundDefault"];
-    [headerView_ addSubview:profileBackground];
+    self.profileBackground = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, WIDTH(self.view), WIDTH(self.view))];
+    self.profileBackground.image = [UIImage imageNamed:@"ProfileBackgroundDefault"];
+    [headerView_ addSubview:self.profileBackground];
 
-    self.imgSlider = [[JOLImageSlider alloc] initWithFrame:profileBackground.frame];
+    self.imgSlider = [[JOLImageSlider alloc] initWithFrame:self.profileBackground.frame];
     [self.imgSlider setContentMode: UIViewContentModeScaleAspectFill];
     [headerView_ addSubview:self.imgSlider];
 
 #pragma topbar
-    self.addressView = [[UIView alloc] initWithFrame:CGRectMake(0, MaxY(profileBackground), WIDTH(headerView_), addressViewHeight)];
+    self.addressView = [[UIView alloc] initWithFrame:CGRectMake(0, MaxY(self.profileBackground), WIDTH(headerView_), addressViewHeight)];
     [headerView_ addSubview:self.addressView];
     
     self.addressView.backgroundColor = [UIColor whiteColor];
@@ -134,13 +135,13 @@
     
     self.avatorImgView = [[CircleImageView alloc] initWithFrame:CGRectMake(20, WIDTH(self.view) - avatorSize / 2, avatorSize, avatorSize)];
     self.avatorImgView.layer.borderColor = [[UIColor whiteColor] CGColor];
-    self.avatorImgView.layer.borderWidth = 3;
+    self.avatorImgView.layer.borderWidth = 1;
     self.avatorImgView.backgroundColor = [UIColor colorWithHexString:@"eeeeee"];
     self.avatorImgView.userInteractionEnabled = YES;
     [self.avatorImgView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(openAvator)]];
     [headerView_ addSubview:self.avatorImgView];
     
-    self.nameLbl = [[UILabel alloc] initWithFrame:CGRectMake(70 + 5, 0, WIDTH(self.addressView) - 10 - MaxX(self.avatorImgView)-60, 20)];
+    self.nameLbl = [[UILabel alloc] initWithFrame:CGRectMake(80 + 5, 0, WIDTH(self.addressView) - 10 - MaxX(self.avatorImgView)-60, 20)];
     self.nameLbl.backgroundColor = [UIColor clearColor];
     self.nameLbl.textColor = [UIColor blackColor];
     self.nameLbl.font = [UIFont boldSystemFontOfSize:14];
@@ -193,6 +194,8 @@
     [self.bottomView addSubview:self.submitBtn];
 
     [self getStaffDetail];
+
+    self.tableView.contentInset = UIEdgeInsetsMake(-160, 0, 0, 0);
 }
 
 - (void)didReceiveMemoryWarning
@@ -202,10 +205,17 @@
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
+    if (scrollView.contentOffset.y < 160 && scrollView.contentInset.top < 0) {
+        scrollView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);
+        return;
+    }
+
     if (scrollView.contentOffset.y > 0) {
         self.imgSlider.frame = CGRectMake(scrollView.contentOffset.x, scrollView.contentOffset.y * 0.5f, WIDTH(self.view), WIDTH(self.view));
+        self.profileBackground.frame = self.imgSlider.frame;
     } else {
         self.imgSlider.frame = CGRectMake(0, 0, WIDTH(self.view), WIDTH(self.view));
+        self.profileBackground.frame = self.imgSlider.frame;
     }
 }
 

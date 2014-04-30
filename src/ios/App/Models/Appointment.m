@@ -15,21 +15,30 @@
 @implementation Appointment
 
 - (Appointment *)initWithDic:(NSDictionary *)dictionary
-{self = [super init];
+{
+    self = [super init];
     if (self) {
         self.id = [[dictionary objectForKey:@"AppointmentId"] intValue];
         self.price = [[dictionary objectForKey:@"Price"] floatValue];
         self.status = [[dictionary objectForKey:@"Status"] intValue];
         self.paymentTransactionId = [[dictionary objectForKey:@"PaymentTransactionId"] intValue];
         self.date = [[NSDate dateFormatter] dateFromString:[dictionary objectForKey:@"AppointmentDate"]];
+
         self.staff = [Staff new];
         self.staff.id = [[dictionary objectForKey:@"StaffId"] intValue];
         self.staff.name = [dictionary objectForKey:@"StaffName"];
         self.staff.avatorUrl = [NSURL URLWithString:[dictionary objectForKey:@"StaffAvatarUrl"]];
+
         self.staff.group = [Group new];
         self.staff.group.id = [[dictionary objectForKey:@"CompanyId"] intValue];
         self.staff.group.name = [dictionary objectForKey:@"CompanyName"];
         self.staff.group.address = [dictionary objectForKey:@"CompanyAddress"];
+
+        self.client = [User new];
+        self.client.username = [dictionary objectForKey:@"Username"];
+        self.client.nickname = [dictionary objectForKey:@"Nickname"];
+        self.client.avatarUrl = [NSURL URLWithString:[dictionary objectForKey:@"AvatarUrl"]];
+
         self.service = [Service new];
         self.service.id = [[dictionary objectForKey:@"ServiceId"] intValue];
         self.service.name = [dictionary objectForKey:@"ServiceTitle"];

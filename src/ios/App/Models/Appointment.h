@@ -26,6 +26,7 @@ typedef enum {
 
 @interface Appointment : BaseModel
 
+@property (nonatomic, strong) User *client;
 @property (nonatomic, strong) Staff *staff;
 @property (nonatomic, strong) Service *service;
 

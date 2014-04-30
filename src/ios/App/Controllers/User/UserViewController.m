@@ -48,6 +48,7 @@ static const float profileViewHeight = 90;
 @property (nonatomic, strong) NSArray *tabTextDatasource;
 @property (nonatomic, strong) ABMGroupedTableView *tableView;
 
+@property (nonatomic, strong) UIImageView *profileBackground;
 @property (nonatomic, strong) JOLImageSlider *imgSlider;
 
 @end
@@ -101,6 +102,7 @@ static const float profileViewHeight = 90;
                                                           style:UITableViewStyleGrouped];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
+    self.tableView.contentOffset = CGPointMake(0, 160);
     self.tableView.backgroundView = [[UIView alloc] init];
     self.tableView.backgroundColor = [UIColor clearColor];
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
@@ -112,11 +114,11 @@ static const float profileViewHeight = 90;
     headerView_.clipsToBounds = YES;
     self.tableView.tableHeaderView = headerView_;
 
-    UIImageView *profileBackground = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, WIDTH(self.view), WIDTH(self.view))];
-    profileBackground.image = [UIImage imageNamed:@"ProfileBackgroundDefault"];
-    [headerView_ addSubview:profileBackground];
+    self.profileBackground = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, WIDTH(self.view), WIDTH(self.view))];
+    self.profileBackground.image = [UIImage imageNamed:@"ProfileBackgroundDefault"];
+    [headerView_ addSubview:self.profileBackground];
 
-    self.imgSlider = [[JOLImageSlider alloc] initWithFrame:profileBackground.frame];
+    self.imgSlider = [[JOLImageSlider alloc] initWithFrame:self.profileBackground.frame];
     [self.imgSlider setContentMode: UIViewContentModeScaleAspectFill];
     [headerView_ addSubview:self.imgSlider];
     
@@ -187,6 +189,8 @@ static const float profileViewHeight = 90;
         [tabView_ addSubview:btn];
     }
     [headerView_ addSubview:tabView_];
+
+    self.tableView.contentInset = UIEdgeInsetsMake(-160, 0, 0, 0);
 }
 
 - (void)viewDidLoad
@@ -437,10 +441,16 @@ static const float profileViewHeight = 90;
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
+    if (scrollView.contentOffset.y < 160 && scrollView.contentInset.top < 0) {
+        scrollView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);
+    }
+
     if (scrollView.contentOffset.y > 0) {
         self.imgSlider.frame = CGRectMake(scrollView.contentOffset.x, scrollView.contentOffset.y * 0.5f, WIDTH(self.view), WIDTH(self.view));
+        self.profileBackground.frame = self.imgSlider.frame;
     } else {
         self.imgSlider.frame = CGRectMake(0, 0, WIDTH(self.view), WIDTH(self.view));
+        self.profileBackground.frame = self.imgSlider.frame;
     }
 }
 

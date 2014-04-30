@@ -95,7 +95,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 100;
+    return 142;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -112,7 +112,7 @@
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
 
-    cell.backgroundColor = indexPath.row % 2 == 0 ? [UIColor whiteColor] : [UIColor colorWithHexString:@"f5f6f8"];
+    cell.backgroundColor = [UIColor clearColor];
 
     Appointment *apt = [self.datasource objectAtIndex:indexPath.row];
     [cell setup:apt];

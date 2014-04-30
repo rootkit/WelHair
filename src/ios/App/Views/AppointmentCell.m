@@ -25,6 +25,7 @@
 @property (nonatomic, strong) UILabel *groupNameLbl;
 @property (nonatomic, strong) UILabel *priceLbl;
 @property (nonatomic, strong) UILabel *statusLbl;
+@property (nonatomic, strong) UILabel *serviceLbl;
 @property (nonatomic, strong) UILabel *datetimeLbl;
 @property (nonatomic, strong) UIButton *actionBtn;
 
@@ -38,40 +39,48 @@
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
+        UIView *topBorder = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 1)];
+        topBorder.backgroundColor = [UIColor colorWithHexString:@"c8c8c8"];
+        [self.contentView addSubview:topBorder];
+
+        UIView *contentView = [[UIView alloc] initWithFrame:CGRectMake(0, 1, 320, 130)];
+        contentView.backgroundColor = [UIColor whiteColor];
+        [self.contentView addSubview:contentView];
+
         self.imgView = [[CircleImageView alloc] initWithFrame:CGRectMake(15, 10, 60, 60)];
-        self.imgView.layer.borderColor = [[UIColor colorWithHexString:@"e0e0de"] CGColor];
+        self.imgView.layer.borderColor = [[UIColor colorWithHexString:@"fafafa"] CGColor];
         self.imgView.layer.borderWidth = 2;
-        [self addSubview:self.imgView];
+        [contentView addSubview:self.imgView];
         
         self.staffNameLbl = [[UILabel alloc] initWithFrame:CGRectMake(MaxX(self.imgView) + 5,
                                                                       Y(self.imgView),
                                                                       120,
-                                                                      HEIGHT(self.imgView)/2)];
+                                                                      HEIGHT(self.imgView) / 3)];
         self.staffNameLbl.font = [UIFont boldSystemFontOfSize:16];
-        self.staffNameLbl.numberOfLines = 2;
+        self.staffNameLbl.numberOfLines = 1;
         self.staffNameLbl.backgroundColor = [UIColor clearColor];
-        self.staffNameLbl.textColor = [UIColor blackColor];
-        [self addSubview:self.staffNameLbl];
+        self.staffNameLbl.textColor = [UIColor colorWithHexString:@"333333"];
+        [contentView addSubview:self.staffNameLbl];
         
-        self.groupNameLbl = [[UILabel alloc] initWithFrame:CGRectMake(MaxX(self.imgView) + 5,
+        self.groupNameLbl = [[UILabel alloc] initWithFrame:CGRectMake(MinX(self.staffNameLbl),
                                                                       MaxY(self.staffNameLbl),
                                                                       WIDTH(self.staffNameLbl),
-                                                                      HEIGHT(self.imgView)/2)];
+                                                                      HEIGHT(self.imgView) / 3)];
         self.groupNameLbl.font = [UIFont boldSystemFontOfSize:12];
-        self.groupNameLbl.numberOfLines = 2;
+        self.groupNameLbl.numberOfLines = 1;
         self.groupNameLbl.backgroundColor = [UIColor clearColor];
-        self.groupNameLbl.textColor = [UIColor blackColor];
-        [self addSubview:self.groupNameLbl];
-        
-        self.addressLbl = [[UILabel alloc] initWithFrame:CGRectMake(X(self.imgView) ,
-                                                                    MaxY(self.imgView),
-                                                                    200,
-                                                                    HEIGHT(self.groupNameLbl))];
+        self.groupNameLbl.textColor = [UIColor colorWithHexString:@"ababab"];
+        [contentView addSubview:self.groupNameLbl];
+
+        self.addressLbl = [[UILabel alloc] initWithFrame:CGRectMake(MinX(self.staffNameLbl),
+                                                                    MaxY(self.groupNameLbl),
+                                                                    WIDTH(self.staffNameLbl),
+                                                                    HEIGHT(self.imgView) / 3)];
         self.addressLbl.font = [UIFont systemFontOfSize:12];
-        self.addressLbl.numberOfLines = 2;
+        self.addressLbl.numberOfLines = 1;
         self.addressLbl.backgroundColor = [UIColor clearColor];
-        self.addressLbl.textColor = [UIColor grayColor];
-        [self addSubview:self.addressLbl];
+        self.addressLbl.textColor = [UIColor colorWithHexString:@"ababab"];
+        [contentView addSubview:self.addressLbl];
         
       
         
@@ -79,26 +88,16 @@
                                                                     Y(self.staffNameLbl),
                                                                     100,
                                                                     HEIGHT(self.staffNameLbl))];
-        self.priceLbl.font = [UIFont systemFontOfSize:12];
-        self.priceLbl.numberOfLines = 2;
+        self.priceLbl.font = [UIFont boldSystemFontOfSize:12];
+        self.priceLbl.numberOfLines = 1;
         self.priceLbl.textAlignment = TextAlignmentRight;
         self.priceLbl.backgroundColor = [UIColor clearColor];
-        self.priceLbl.textColor = [UIColor blackColor];
-        [self addSubview:self.priceLbl];
-        
-        self.datetimeLbl = [[UILabel alloc] initWithFrame:CGRectMake(MaxX(self.groupNameLbl) + 5,
-                                                                     MaxY(self.priceLbl),
-                                                                     WIDTH(self.priceLbl),
-                                                                     HEIGHT(self.priceLbl))];
-        self.datetimeLbl.font = [UIFont systemFontOfSize:12];
-        self.datetimeLbl.textAlignment = TextAlignmentRight;
-        self.datetimeLbl.numberOfLines = 2;
-        self.datetimeLbl.backgroundColor = [UIColor clearColor];
-        self.datetimeLbl.textColor = [UIColor grayColor];
-        [self addSubview:self.datetimeLbl];
+        self.priceLbl.textColor = [UIColor colorWithHexString:@"206ba5"];
+        [contentView addSubview:self.priceLbl];
+
 
         self.statusLbl = [[UILabel alloc] initWithFrame:CGRectMake(MaxX(self.staffNameLbl) + 5,
-                                                                   Y(self.addressLbl),
+                                                                   MaxY(self.priceLbl),
                                                                    100,
                                                                    HEIGHT(self.staffNameLbl))];
         self.statusLbl.font = [UIFont boldSystemFontOfSize:12];
@@ -106,17 +105,48 @@
         self.statusLbl.textAlignment = TextAlignmentRight;
         self.statusLbl.backgroundColor = [UIColor clearColor];
         self.statusLbl.textColor = [UIColor colorWithHexString:@"4CD964"];
-        [self addSubview:self.statusLbl];
+        [contentView addSubview:self.statusLbl];
+
+        UIView *speBorder = [[UIView alloc] initWithFrame:CGRectMake(20, MaxY(self.addressLbl) + 10, 284, 1)];
+        speBorder.backgroundColor = [UIColor colorWithHexString:@"e7e6e4"];
+        [contentView addSubview:speBorder];
+
+        self.serviceLbl = [[UILabel alloc] initWithFrame:CGRectMake(20,
+                                                                    MaxY(speBorder) + 5,
+                                                                    200,
+                                                                    HEIGHT(self.priceLbl))];
+        self.serviceLbl.font = [UIFont boldSystemFontOfSize:12];
+        self.serviceLbl.textAlignment = TextAlignmentLeft;
+        self.serviceLbl.numberOfLines = 1;
+        self.serviceLbl.backgroundColor = [UIColor clearColor];
+        self.serviceLbl.textColor = [UIColor colorWithHexString:@"4b4b4b"];
+        [contentView addSubview:self.serviceLbl];
+
+        self.datetimeLbl = [[UILabel alloc] initWithFrame:CGRectMake(20,
+                                                                     MaxY(self.serviceLbl),
+                                                                     WIDTH(self.serviceLbl),
+                                                                     HEIGHT(self.serviceLbl))];
+        self.datetimeLbl.font = [UIFont boldSystemFontOfSize:12];
+        self.datetimeLbl.textAlignment = TextAlignmentLeft;
+        self.datetimeLbl.numberOfLines = 1;
+        self.datetimeLbl.backgroundColor = [UIColor clearColor];
+        self.datetimeLbl.textColor = [UIColor colorWithHexString:@"4b4b4b"];
+        [contentView addSubview:self.datetimeLbl];
 
 
-        self.actionBtn = [[UIButton alloc] initWithFrame:CGRectMake(245 , Y(self.addressLbl), 60, 25)];
+        self.actionBtn = [[UIButton alloc] initWithFrame:CGRectMake(245 , MaxY(speBorder) + 10, 60, 25)];
         self.actionBtn.titleLabel.font = [UIFont systemFontOfSize:12];
         self.actionBtn.tag = 0;
         [self.actionBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         [self.actionBtn setBackgroundColor:[UIColor colorWithHexString:@"e43a3d"]];
         [self.actionBtn addTarget:self action:@selector(actionClick:) forControlEvents:UIControlEventTouchUpInside];
-        [self addSubview:self.actionBtn];
+        [contentView addSubview:self.actionBtn];
+
+        UIView *bottomBorder = [[UIView alloc] initWithFrame:CGRectMake(0, HEIGHT(contentView) + 1, 320, 1)];
+        bottomBorder.backgroundColor = [UIColor colorWithHexString:@"c8c8c8"];
+        [self.contentView addSubview:bottomBorder];
     }
+
     return self;
 }
 
@@ -129,14 +159,22 @@
 {
     self.appointment = appointment;
 
-    self.staffNameLbl.text = appointment.staff.name;
-    self.addressLbl.text = appointment.staff.group.address;
-    self.groupNameLbl.text = appointment.staff.group.name;
-    self.datetimeLbl.text = [[NSDate dateWithHMFormatter] stringFromDate:appointment.date];
-    self.priceLbl.text = [NSString stringWithFormat:@"￥%.2f", appointment.price];
-    [self.imgView setImageWithURL:appointment.staff.avatorUrl];
-
     User *currentUser = [[UserManager SharedInstance] userLogined];
+
+    if (currentUser.role == WHStaff) {
+        self.staffNameLbl.text = appointment.client.nickname;
+        [self.imgView setImageWithURL:appointment.client.avatarUrl];
+    } else {
+        self.staffNameLbl.text = appointment.staff.name;
+        [self.imgView setImageWithURL:appointment.staff.avatorUrl];
+    }
+
+    self.groupNameLbl.text = appointment.staff.group.name;
+    self.addressLbl.text = appointment.staff.group.address;
+    self.serviceLbl.text = [NSString stringWithFormat:@"项目：%@", appointment.service.name];
+    self.datetimeLbl.text = [NSString stringWithFormat:@"时间：%@", [[NSDate dateWithHMFormatter] stringFromDate:appointment.date]];
+    self.priceLbl.text = [NSString stringWithFormat:@"￥%.2f", appointment.price];
+
 
     switch (appointment.status) {
         case WHApppointmentStatusPending: {

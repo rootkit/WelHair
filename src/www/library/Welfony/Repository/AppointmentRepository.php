@@ -68,10 +68,29 @@ class AppointmentRepository extends AbstractRepository
 
         $offset = ($page - 1) * $pageSize;
         $strSql = "SELECT
-                       A.*,
+                       A.AppointmentId,
+                       A.Status,
+                       A.AppointmentDate,
+                       A.LastModifiedBy,
+
+                       A.CompanyId,
+                       A.CompanyName,
+                       A.CompanyAddress,
+
+                       A.StaffId,
+                       IFNULL(S.Nickname, A.StaffName) StaffName,
                        S.AvatarUrl StaffAvatarUrl,
+
+                       U.UserId,
                        U.Nickname,
-                       U.Username
+                       U.Username,
+                       U.AvatarUrl,
+
+                       A.ServiceId,
+                       A.ServiceTitle,
+                       A.Price,
+
+                       A.PaymentTransactionId
                    FROM Appointment A
                    INNER JOIN Users U ON U.UserId = A.UserId
                    INNER JOIN Users S ON S.UserId = A.StaffId

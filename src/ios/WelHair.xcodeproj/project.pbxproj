@@ -91,7 +91,9 @@
 		184B82FD18DAC7F000177BAB /* UIView+AnimationOptionsForCurve.m in Sources */ = {isa = PBXBuildFile; fileRef = 184B82C318DAC7F000177BAB /* UIView+AnimationOptionsForCurve.m */; };
 		18502DA918F8E2B800CD4A0A /* StaffServiceTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18502DA818F8E2B800CD4A0A /* StaffServiceTableViewCell.m */; };
 		18502DAB18F93ED600CD4A0A /* AvatarDefault@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 18502DAA18F93ED600CD4A0A /* AvatarDefault@2x.jpg */; };
-		187638CA190F976A00846BB9 /* ProfileBackgroundDefault@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 187638C9190F976A00846BB9 /* ProfileBackgroundDefault@2x.png */; };
+		187638CC1910831C00846BB9 /* ProfileBackgroundDefault@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 187638CB1910831C00846BB9 /* ProfileBackgroundDefault@2x.png */; };
+		187638D01910BC1900846BB9 /* MyClientViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 187638CF1910BC1900846BB9 /* MyClientViewController.m */; };
+		187638D31910BC2B00846BB9 /* MyClientDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 187638D21910BC2B00846BB9 /* MyClientDetailViewController.m */; };
 		1882D2731901314200D59861 /* FeedbackViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1882D2721901314200D59861 /* FeedbackViewController.m */; };
 		18A3E61318DC0C280080DC0B /* RegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A3E61218DC0C280080DC0B /* RegisterViewController.m */; };
 		18A3E61618DC10050080DC0B /* NSString+WelKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A3E61518DC10050080DC0B /* NSString+WelKit.m */; };
@@ -150,7 +152,6 @@
 		461B0C5C18DC3BD700E0DAF5 /* RootBottomTab5Selected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 461B0C2018DC3BD700E0DAF5 /* RootBottomTab5Selected@2x.png */; };
 		461B0C5E18DC3BD700E0DAF5 /* AppointmentPreviewViewController_Bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 461B0C2418DC3BD700E0DAF5 /* AppointmentPreviewViewController_Bg@2x.png */; };
 		461B0C5F18DC3BD700E0DAF5 /* CouponDetailViewControl_Coupon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 461B0C2618DC3BD700E0DAF5 /* CouponDetailViewControl_Coupon@2x.png */; };
-		461B0C6018DC3BD700E0DAF5 /* Profile_Banner_Bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 461B0C2818DC3BD700E0DAF5 /* Profile_Banner_Bg@2x.png */; };
 		461B0C6418DC3BD700E0DAF5 /* GroupManageViewController_Bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 461B0C3018DC3BD700E0DAF5 /* GroupManageViewController_Bg@2x.png */; };
 		461B0C6518DC3BD700E0DAF5 /* MyGroupViewControl_ButtonBg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 461B0C3118DC3BD700E0DAF5 /* MyGroupViewControl_ButtonBg@2x.png */; };
 		461B0C6618DC3BD700E0DAF5 /* StaffManageViewControl_Bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 461B0C3318DC3BD700E0DAF5 /* StaffManageViewControl_Bg@2x.png */; };
@@ -163,7 +164,6 @@
 		461B0C6D18DC3BD700E0DAF5 /* UploadWorkViewControl_FaceStyleSquareNormal@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 461B0C3B18DC3BD700E0DAF5 /* UploadWorkViewControl_FaceStyleSquareNormal@2x.png */; };
 		461B0C6E18DC3BD700E0DAF5 /* UploadWorkViewControl_FaceStyleSquareSelected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 461B0C3C18DC3BD700E0DAF5 /* UploadWorkViewControl_FaceStyleSquareSelected@2x.png */; };
 		461B0C6F18DC3BD700E0DAF5 /* UploadWorkViewControl_UploadBg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 461B0C3D18DC3BD700E0DAF5 /* UploadWorkViewControl_UploadBg@2x.png */; };
-		461B0C7018DC3BD700E0DAF5 /* UserViewControl_TabBg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 461B0C3E18DC3BD700E0DAF5 /* UserViewControl_TabBg@2x.png */; };
 		461B0C7118DC3BD700E0DAF5 /* WD_AuthorLayerBg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 461B0C4018DC3BD700E0DAF5 /* WD_AuthorLayerBg@2x.png */; };
 		4621AAE118EE9D3A00B8E18D /* Service.m in Sources */ = {isa = PBXBuildFile; fileRef = 4621AAE018EE9D3A00B8E18D /* Service.m */; };
 		4630251518C76EF1000E0B51 /* CalendarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4630251418C76EF1000E0B51 /* CalendarViewController.m */; };
@@ -450,7 +450,11 @@
 		18502DA718F8E2B800CD4A0A /* StaffServiceTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StaffServiceTableViewCell.h; sourceTree = "<group>"; };
 		18502DA818F8E2B800CD4A0A /* StaffServiceTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StaffServiceTableViewCell.m; sourceTree = "<group>"; };
 		18502DAA18F93ED600CD4A0A /* AvatarDefault@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "AvatarDefault@2x.jpg"; sourceTree = "<group>"; };
-		187638C9190F976A00846BB9 /* ProfileBackgroundDefault@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "ProfileBackgroundDefault@2x.png"; path = "UserViewControl/ProfileBackgroundDefault@2x.png"; sourceTree = "<group>"; };
+		187638CB1910831C00846BB9 /* ProfileBackgroundDefault@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ProfileBackgroundDefault@2x.png"; sourceTree = "<group>"; };
+		187638CE1910BC1900846BB9 /* MyClientViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyClientViewController.h; sourceTree = "<group>"; };
+		187638CF1910BC1900846BB9 /* MyClientViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyClientViewController.m; sourceTree = "<group>"; };
+		187638D11910BC2B00846BB9 /* MyClientDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyClientDetailViewController.h; sourceTree = "<group>"; };
+		187638D21910BC2B00846BB9 /* MyClientDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyClientDetailViewController.m; sourceTree = "<group>"; };
 		1882D2711901314200D59861 /* FeedbackViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeedbackViewController.h; sourceTree = "<group>"; };
 		1882D2721901314200D59861 /* FeedbackViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeedbackViewController.m; sourceTree = "<group>"; };
 		18A3E61118DC0C280080DC0B /* RegisterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegisterViewController.h; sourceTree = "<group>"; };
@@ -536,7 +540,6 @@
 		461B0C2018DC3BD700E0DAF5 /* RootBottomTab5Selected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "RootBottomTab5Selected@2x.png"; sourceTree = "<group>"; };
 		461B0C2418DC3BD700E0DAF5 /* AppointmentPreviewViewController_Bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "AppointmentPreviewViewController_Bg@2x.png"; sourceTree = "<group>"; };
 		461B0C2618DC3BD700E0DAF5 /* CouponDetailViewControl_Coupon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "CouponDetailViewControl_Coupon@2x.png"; sourceTree = "<group>"; };
-		461B0C2818DC3BD700E0DAF5 /* Profile_Banner_Bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Profile_Banner_Bg@2x.png"; sourceTree = "<group>"; };
 		461B0C3018DC3BD700E0DAF5 /* GroupManageViewController_Bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "GroupManageViewController_Bg@2x.png"; sourceTree = "<group>"; };
 		461B0C3118DC3BD700E0DAF5 /* MyGroupViewControl_ButtonBg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "MyGroupViewControl_ButtonBg@2x.png"; sourceTree = "<group>"; };
 		461B0C3318DC3BD700E0DAF5 /* StaffManageViewControl_Bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "StaffManageViewControl_Bg@2x.png"; sourceTree = "<group>"; };
@@ -549,7 +552,6 @@
 		461B0C3B18DC3BD700E0DAF5 /* UploadWorkViewControl_FaceStyleSquareNormal@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "UploadWorkViewControl_FaceStyleSquareNormal@2x.png"; sourceTree = "<group>"; };
 		461B0C3C18DC3BD700E0DAF5 /* UploadWorkViewControl_FaceStyleSquareSelected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "UploadWorkViewControl_FaceStyleSquareSelected@2x.png"; sourceTree = "<group>"; };
 		461B0C3D18DC3BD700E0DAF5 /* UploadWorkViewControl_UploadBg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "UploadWorkViewControl_UploadBg@2x.png"; sourceTree = "<group>"; };
-		461B0C3E18DC3BD700E0DAF5 /* UserViewControl_TabBg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "UserViewControl_TabBg@2x.png"; sourceTree = "<group>"; };
 		461B0C4018DC3BD700E0DAF5 /* WD_AuthorLayerBg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "WD_AuthorLayerBg@2x.png"; sourceTree = "<group>"; };
 		4621AADF18EE9D3A00B8E18D /* Service.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Service.h; sourceTree = "<group>"; };
 		4621AAE018EE9D3A00B8E18D /* Service.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Service.m; sourceTree = "<group>"; };
@@ -1133,6 +1135,17 @@
 			path = Sounds;
 			sourceTree = "<group>";
 		};
+		187638CD1910BBFF00846BB9 /* MyClient */ = {
+			isa = PBXGroup;
+			children = (
+				187638D11910BC2B00846BB9 /* MyClientDetailViewController.h */,
+				187638D21910BC2B00846BB9 /* MyClientDetailViewController.m */,
+				187638CE1910BC1900846BB9 /* MyClientViewController.h */,
+				187638CF1910BC1900846BB9 /* MyClientViewController.m */,
+			);
+			path = MyClient;
+			sourceTree = "<group>";
+		};
 		18A9125618BB216E006B9A04 = {
 			isa = PBXGroup;
 			children = (
@@ -1452,8 +1465,7 @@
 				461B0C2A18DC3BD700E0DAF5 /* StaffDetailViewControl */,
 				461B0C2D18DC3BD700E0DAF5 /* UserViewControl */,
 				461B0C3F18DC3BD700E0DAF5 /* WorkDetail */,
-				461B0C2818DC3BD700E0DAF5 /* Profile_Banner_Bg@2x.png */,
-				187638C9190F976A00846BB9 /* ProfileBackgroundDefault@2x.png */,
+				187638CB1910831C00846BB9 /* ProfileBackgroundDefault@2x.png */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1496,7 +1508,6 @@
 				1825E1C218E183B60052AA9A /* Tab */,
 				461B0C2E18DC3BD700E0DAF5 /* MyGroupViewControl */,
 				461B0C3218DC3BD700E0DAF5 /* StaffManageViewControl */,
-				461B0C3E18DC3BD700E0DAF5 /* UserViewControl_TabBg@2x.png */,
 			);
 			path = UserViewControl;
 			sourceTree = "<group>";
@@ -1909,20 +1920,6 @@
 			path = Coupon;
 			sourceTree = "<group>";
 		};
-		4673BB9D18D41EDB000F64DE /* MyAppointment */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = MyAppointment;
-			sourceTree = "<group>";
-		};
-		4673BB9E18D41EDB000F64DE /* MyWork */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = MyWork;
-			sourceTree = "<group>";
-		};
 		4673BB9F18D41EDB000F64DE /* Service */ = {
 			isa = PBXGroup;
 			children = (
@@ -2189,8 +2186,7 @@
 		46BDF13618D1771E00999F50 /* Staff */ = {
 			isa = PBXGroup;
 			children = (
-				4673BB9D18D41EDB000F64DE /* MyAppointment */,
-				4673BB9E18D41EDB000F64DE /* MyWork */,
+				187638CD1910BBFF00846BB9 /* MyClient */,
 				4673BB9F18D41EDB000F64DE /* Service */,
 				4673BBA018D41EE9000F64DE /* StaffManageViewController.h */,
 				4673BBA118D41EE9000F64DE /* StaffManageViewController.m */,
@@ -2392,13 +2388,11 @@
 				461B0C4F18DC3BD700E0DAF5 /* SinaWeibo@2x.png in Resources */,
 				184B82E118DAC7F000177BAB /* bubble-flat-outgoing@2x.png in Resources */,
 				184B82F818DAC7F000177BAB /* messageReceived.aiff in Resources */,
-				187638CA190F976A00846BB9 /* ProfileBackgroundDefault@2x.png in Resources */,
 				461B0C5C18DC3BD700E0DAF5 /* RootBottomTab5Selected@2x.png in Resources */,
 				1825E1CD18E183B70052AA9A /* MeTab1.png in Resources */,
 				4659D27F18E7E8E2005648C0 /* AddressEditBtn.png in Resources */,
 				461B0C4518DC3BD700E0DAF5 /* GrayArrow@2x.png in Resources */,
 				466DF40C18FC111300CB8A53 /* UMSLoginViewController.xib in Resources */,
-				461B0C6018DC3BD700E0DAF5 /* Profile_Banner_Bg@2x.png in Resources */,
 				46AD849D18EFC907005B2C3C /* OrderPreviewViewController_BgBar@2x.png in Resources */,
 				466DF40518FC111300CB8A53 /* UMSocialLocalizable.strings in Resources */,
 				4631CEF518E319F600F39814 /* CountDownBtn@2x.png in Resources */,
@@ -2416,7 +2410,6 @@
 				461B0C4E18DC3BD700E0DAF5 /* SinaWeibo.png in Resources */,
 				1825E1D018E183B70052AA9A /* MeTab2@2x.png in Resources */,
 				18A9129D18BB2350006B9A04 /* Debug.xcconfig in Resources */,
-				461B0C7018DC3BD700E0DAF5 /* UserViewControl_TabBg@2x.png in Resources */,
 				4659D28318E7E8E2005648C0 /* AddressUnSelectedBtn.png in Resources */,
 				461B0C6918DC3BD700E0DAF5 /* UploadWorkViewControl_FaceStyleGuaZiNormal@2x.png in Resources */,
 				184B82E918DAC7F000177BAB /* bubble-square-outgoing@2x.png in Resources */,
@@ -2472,6 +2465,7 @@
 				18A9129F18BB2350006B9A04 /* Test.xcconfig in Resources */,
 				1825E1CF18E183B70052AA9A /* MeTab2.png in Resources */,
 				461B0C4218DC3BD700E0DAF5 /* AppointmentBtn.png in Resources */,
+				187638CC1910831C00846BB9 /* ProfileBackgroundDefault@2x.png in Resources */,
 				461B0C5918DC3BD700E0DAF5 /* RootBottomTab4@2x.png in Resources */,
 				461B0C5318DC3BD700E0DAF5 /* RootBottomTab1@2x.png in Resources */,
 				461B0C5B18DC3BD700E0DAF5 /* RootBottomTab5@2x.png in Resources */,
@@ -2604,6 +2598,7 @@
 				4665C84118F568410066753D /* FavoriteProductTableView.m in Sources */,
 				46BDF13918D1779100999F50 /* UserAuthorViewController.m in Sources */,
 				4631CF1F18E3284C00F39814 /* PayViewController.m in Sources */,
+				187638D01910BC1900846BB9 /* MyClientViewController.m in Sources */,
 				18FAFAB518EAA6C200EF6960 /* BrickView.m in Sources */,
 				184B82C818DAC7F000177BAB /* JSMessageSoundEffect.m in Sources */,
 				464BF44F18D576AC006EBCD9 /* CreateCouponViewController.m in Sources */,
@@ -2657,6 +2652,7 @@
 				46BDF13118D1516F00999F50 /* MyGroupViewController.m in Sources */,
 				46B25AF018C185290035F425 /* FakeDataHelper.m in Sources */,
 				46E84EDD18C338370004C146 /* OpitionCategory.m in Sources */,
+				187638D31910BC2B00846BB9 /* MyClientDetailViewController.m in Sources */,
 				4673BB9918D41BA1000F64DE /* WithDrawalViewController.m in Sources */,
 				467F0EFD18CB5A8C009FFE08 /* FavoritesViewController.m in Sources */,
 				4673BB9C18D41BBB000F64DE /* ApprovalViewController.m in Sources */,
