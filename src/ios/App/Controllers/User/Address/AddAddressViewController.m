@@ -55,11 +55,15 @@
 
     bool valid = (self.addressTxt.text.length > 0 &&
                   self.selectedCity.id > 0 &&
-                  self.nameTxt.text.length > 0 &&
-                  [Util validPhoneNum:self.phoneTxt.text]);
+                  self.nameTxt.text.length > 0);
 
     if (!valid) {
         [SVProgressHUD showSuccessWithStatus:@"请正确填写所有项目" duration:1];
+        return;
+    }
+
+    if (![Util validPhoneNum:self.phoneTxt.text]) {
+        [SVProgressHUD showSuccessWithStatus:@"手机号不合法" duration:1];
         return;
     }
 

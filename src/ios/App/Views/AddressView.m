@@ -30,7 +30,7 @@
     self = [super initWithFrame:frame];
     if (self) {
         self.backgroundColor = [UIColor whiteColor];
-        self.layer.borderColor = [[UIColor lightGrayColor] CGColor];
+        self.layer.borderColor = [[UIColor colorWithHexString:@"e1e1e1"] CGColor];
         self.layer.borderWidth = 1;
         self.layer.cornerRadius = 5;
 
