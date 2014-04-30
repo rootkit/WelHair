@@ -25,6 +25,60 @@ use Welfony\Utility\Util;
 class UserService
 {
 
+    public static function signUpWithMobile($mobile, $password, $nickname)
+    {
+        $result = array('success' => false, 'message' => '');
+
+        if (empty($mobile) || empty($password)) {
+            $result['message'] = '手机号和密码不能为空！';
+
+            return $result;
+        }
+
+        $user = UserRepository::getInstance()->findUserByMobile($mobile);
+        if ($user) {
+            $result['message'] = '手机号已被占用！';
+
+            return $result;
+        }
+
+        $data = array();
+        $data['Username'] = Util::genRandomUsername();
+        $data['Nickname'] = $nickname ? $nickname : $mobile;
+        $data['Role'] = UserRole::Client;
+        $data['Mobile'] = $mobile;
+        $data['Password'] = PassHash::hash($password);
+        $data['AvatarUrl'] = Util::baseAssetUrl('img/avatar-default.jpg');
+        $data['CreatedDate'] = date('Y-m-d H:i:s');
+
+        $newId = UserRepository::getInstance()->save($data);
+        if ($newId) {
+            $data['UserId'] = $newId;
+            $data['IsApproved'] = 1;
+            unset($data['Password']);
+
+            $result['success'] = true;
+            $result['user'] = $data;
+
+            $userPointData = array(
+                'Type' => UserPointType::NewRegister,
+                'UserId' => $newId
+            );
+            UserPointService::addPoint($userPointData);
+
+            return $result;
+        } else {
+            $result['message'] = '注册失败！';
+
+            return $result;
+        }
+
+        $result['success'] = true;
+        $result['user'] = $user;
+
+        return $result;
+    }
+
     public static function signUpWithEmail($email, $password, $nickname = null)
     {
         $result = array('success' => false, 'message' => '');
@@ -79,12 +133,58 @@ class UserService
         return $result;
     }
 
+    public static function signInWithMobile($mobile, $password)
+    {
+        $result = array('success' => false, 'message' => '');
+
+        if (empty($mobile) || empty($password)) {
+            $result['message'] = '手机号和密码不能为空！';
+
+            return $result;
+        }
+
+        $user = UserRepository::getInstance()->findUserByMobile($mobile);
+        if (!$user) {
+            $result['message'] = '用户不存在！';
+
+            return $result;
+        }
+
+        if (!PassHash::verify($password, $user['Password'])) {
+            $result['message'] = '密码不正确！';
+
+            return $result;
+        }
+
+        unset($user['Password']);
+
+        $companyUser = CompanyUserRepository::getInstance()->findByUser($user['UserId']);
+        if ($companyUser) {
+            $user['IsApproved'] = $companyUser['IsApproved'];
+        } else {
+            if ($user['Role'] == UserRole::Staff || $user['Role'] == UserRole::Manager) {
+                $smData = array(
+                    'UserId' => $user['UserId'],
+                    'Role' => UserRole::Client
+                );
+                UserRepository::getInstance()->update($user['UserId'], $smData);
+            }
+            $user['Role'] = $user['Role'] == UserRole::Admin ? UserRole::Admin : UserRole::Client;
+            $user['IsApproved'] = 1;
+        }
+
+        $result['success'] = true;
+        $result['user'] = $user;
+
+        return $result;
+    }
+
     public static function signInWithEmail($email, $password)
     {
         $result = array('success' => false, 'message' => '');
 
         if (empty($email) || empty($password)) {
-            $result['message'] = '用户名和密码不能为空！';
+            $result['message'] = '邮箱和密码不能为空！';
 
             return $result;
         }

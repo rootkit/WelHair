@@ -66,6 +66,14 @@
     return [emailTest evaluateWithObject:self];
 }
 
+- (BOOL)isValidMobile
+{
+    NSString *mobileRegex = @"^(13[0-9]|15[0|3|6|7|8|9]|18[8|9])[0-9]{8}$";
+    NSPredicate *mobileTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", mobileRegex];
+
+    return [mobileTest evaluateWithObject:self];
+}
+
 - (BOOL)isNilOrEmpty
 {
     return self == nil || [self isEqualToString:@""];

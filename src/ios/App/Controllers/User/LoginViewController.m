@@ -71,7 +71,7 @@ static const float kOffsetY = 50;
                                         leftPadding:5];
     self.emailTxt.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
     self.emailTxt.backgroundColor = [UIColor whiteColor];
-    self.emailTxt.placeholder = @"  邮箱";
+    self.emailTxt.placeholder = @"  邮箱或手机号";
     self.emailTxt.autocapitalizationType = UITextAutocapitalizationTypeNone;
     self.emailTxt.keyboardType = UIKeyboardTypeEmailAddress;
     self.emailTxt.delegate = self;
@@ -221,11 +221,19 @@ static const float kOffsetY = 50;
 
     [SVProgressHUD showWithMaskType:SVProgressHUDMaskTypeClear];
 
+    NSString *signinURL = API_USERS_SIGNIN_EMAIL;
+    NSString *signinKey = @"Email";
+
+    if (![self.emailTxt.text isValidEmailWithStricterFilter:NO]) {
+        signinURL = API_USERS_SIGNIN_MOBILE;
+        signinKey = @"Mobile";
+    }
+
     NSMutableDictionary *reqData = [[NSMutableDictionary alloc] initWithCapacity:1];
-    [reqData setObject:self.emailTxt.text forKey:@"Email"];
+    [reqData setObject:self.emailTxt.text forKey:signinKey];
     [reqData setObject:self.pwdTxt.text forKey:@"Password"];
 
-    ASIFormDataRequest *request = [RequestUtil createPOSTRequestWithURL:[NSURL URLWithString:API_USERS_SIGNIN_EMAIL]
+    ASIFormDataRequest *request = [RequestUtil createPOSTRequestWithURL:[NSURL URLWithString:signinURL]
                                                                 andData:reqData];
 
     [request setDelegate:self];

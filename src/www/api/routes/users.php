@@ -49,6 +49,16 @@ $app->post('/users/signup/email', function () use ($app) {
     $ctrl->signUpWithEmail();
 });
 
+$app->post('/users/signin/mobile', function () use ($app) {
+    $ctrl = new UserController();
+    $ctrl->signInWithMobile();
+});
+
+$app->post('/users/signup/mobile', function () use ($app) {
+    $ctrl = new UserController();
+    $ctrl->signUpWithMobile();
+});
+
 $app->post('/users/:userId/follow', function ($userId) use ($app) {
     $ctrl = new UserController();
     $ctrl->addFollow($userId);

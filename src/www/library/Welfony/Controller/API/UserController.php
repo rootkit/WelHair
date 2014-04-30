@@ -97,6 +97,35 @@ class UserController extends AbstractAPIController
         $this->sendResponse($response);
     }
 
+    public function signUpWithMobile()
+    {
+        $reqData = $this->getDataFromRequestWithJsonFormat();
+
+        $response = array('success' => false);
+
+        if (!isset($reqData['Nickname']) || empty($reqData['Nickname'])) {
+            $error = '请输入昵称！';
+        }
+        if (!isset($reqData['Mobile']) || empty($reqData['Mobile'])) {
+            $error = '请输入邮箱！';
+        }
+        if (!isset($reqData['Password']) || empty($reqData['Password'])) {
+            $error = '请输入密码！';
+        }
+
+        if (!empty($error)) {
+            $response['message'] = $error;
+        } else {
+            $nickname = htmlspecialchars($reqData['Nickname']);
+            $mobile = htmlspecialchars($reqData['Mobile']);
+            $password = $reqData['Password'];
+
+            $response = UserService::signUpWithMobile($mobile, $password, $nickname);
+        }
+
+        $this->sendResponse($response);
+    }
+
     public function signInWithSocial()
     {
         $reqData = $this->getDataFromRequestWithJsonFormat();
@@ -132,6 +161,31 @@ class UserController extends AbstractAPIController
             $password = $reqData['Password'];
 
             $response = UserService::signInWithEmail($email, $password);
+        }
+
+        $this->sendResponse($response);
+    }
+
+    public function signInWithMobile()
+    {
+        $reqData = $this->getDataFromRequestWithJsonFormat();
+
+        $response = array('success' => false);
+
+        if (!isset($reqData['Mobile']) || empty($reqData['Mobile'])) {
+            $error = '请输入手机号！';
+        }
+        if (!isset($reqData['Password']) || empty($reqData['Password'])) {
+            $error = '请输入密码！';
+        }
+
+        if (!empty($error)) {
+            $response['message'] = $error;
+        } else {
+            $mobile = htmlspecialchars($reqData['Mobile']);
+            $password = $reqData['Password'];
+
+            $response = UserService::signInWithMobile($mobile, $password);
         }
 
         $this->sendResponse($response);

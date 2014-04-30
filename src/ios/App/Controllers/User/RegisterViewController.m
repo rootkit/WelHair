@@ -81,7 +81,7 @@ static const float kOffsetY = 140;
                                      leftPadding:5];
     self.emailTxt.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
     self.emailTxt.backgroundColor = [UIColor whiteColor];
-    self.emailTxt.placeholder = @"  邮箱";
+    self.emailTxt.placeholder = @"  邮箱或手机号";
     self.emailTxt.autocapitalizationType = UITextAutocapitalizationTypeNone;
     self.emailTxt.keyboardType = UIKeyboardTypeEmailAddress;
     self.emailTxt.delegate = self;
@@ -195,12 +195,20 @@ static const float kOffsetY = 140;
 
     [SVProgressHUD showWithMaskType:SVProgressHUDMaskTypeClear];
 
+    NSString *signupURL = API_USERS_SIGNUP_EMAIL;
+    NSString *signupKey = @"Email";
+
+    if (![self.emailTxt.text isValidEmailWithStricterFilter:NO]) {
+        signupURL = API_USERS_SIGNUP_MOBILE;
+        signupKey = @"Mobile";
+    }
+
     NSMutableDictionary *reqData = [[NSMutableDictionary alloc] initWithCapacity:1];
     [reqData setObject:self.nicknameTxt.text forKey:@"Nickname"];
-    [reqData setObject:self.emailTxt.text forKey:@"Email"];
+    [reqData setObject:self.emailTxt.text forKey:signupKey];
     [reqData setObject:self.pwdTxt.text forKey:@"Password"];
 
-    ASIFormDataRequest *request = [RequestUtil createPOSTRequestWithURL:[NSURL URLWithString:API_USERS_SIGNUP_EMAIL]
+    ASIFormDataRequest *request = [RequestUtil createPOSTRequestWithURL:[NSURL URLWithString:signupURL]
                                                                 andData:reqData];
 
     [request setDelegate:self];
@@ -268,8 +276,8 @@ static const float kOffsetY = 140;
         return NO;
     }
 
-    if (![self.emailTxt.text isValidEmailWithStricterFilter:NO]) {
-        [SVProgressHUD showErrorWithStatus:@"邮箱格式不合法！"];
+    if (![self.emailTxt.text isValidEmailWithStricterFilter:NO] && ![self.emailTxt.text isValidMobile]) {
+        [SVProgressHUD showErrorWithStatus:@"邮箱或手机号格式不合法！"];
         return NO;
     }
 

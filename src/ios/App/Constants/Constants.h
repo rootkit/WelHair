@@ -34,6 +34,8 @@
 
 #define API_USERS_SIGNIN_EMAIL API_PATH(@"/users/signin/email")
 #define API_USERS_SIGNUP_EMAIL API_PATH(@"/users/signup/email")
+#define API_USERS_SIGNIN_MOBILE API_PATH(@"/users/signin/mobile")
+#define API_USERS_SIGNUP_MOBILE API_PATH(@"/users/signup/mobile")
 #define API_USERS_DETAIL API_PATH(@"/users/%d")
 #define API_USERS_UPDATE API_PATH(@"/users/%d")
 #define API_USERS_APPOINTMENT API_PATH(@"/users/%d/appointments")

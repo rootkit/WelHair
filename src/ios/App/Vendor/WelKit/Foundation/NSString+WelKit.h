@@ -19,6 +19,7 @@
 - (NSString*) SHA256;
 
 - (BOOL)isValidEmailWithStricterFilter:(BOOL)stricterFilter;
+- (BOOL)isValidMobile;
 - (BOOL)isNilOrEmpty;
 
 @end

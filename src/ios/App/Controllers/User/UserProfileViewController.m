@@ -480,6 +480,8 @@
 
 - (void)getUserDetail
 {
+    [SVProgressHUD showWithMaskType:SVProgressHUDMaskTypeClear];
+
     ASIHTTPRequest *request = [RequestUtil createGetRequestWithURL:[NSURL URLWithString:[NSString stringWithFormat:API_USERS_DETAIL, [UserManager SharedInstance].userLogined.id]]
                                                           andParam:nil];
     [self.requests addObject:request];
@@ -492,6 +494,8 @@
 
 - (void)finishGetUserDetail:(ASIHTTPRequest *)request
 {
+    [SVProgressHUD dismiss];
+
     NSDictionary *rst = [Util objectFromJson:request.responseString];
     if ([rst objectForKey:@"user"]) {
         User *user = [[User alloc] initWithDic:[rst objectForKey:@"user"]];
@@ -514,6 +518,7 @@
         textField.keyboardType = UIKeyboardTypePhonePad;
         textField.text = user.mobile;
 
+        self.uploadedPictures[0] = [user.avatarUrl absoluteString];
         [self.uploadLogo setImageWithURL:user.avatarUrl];
 
         for (int i =0 ; i < user.imgUrls.count; i++) {
@@ -533,6 +538,7 @@
 
 - (void)failGetUserDetail:(ASIHTTPRequest *)request
 {
+    [SVProgressHUD dismiss];
 }
 
 - (void)backgroundTapped
