@@ -259,11 +259,13 @@
 
 - (void)aroundClick
 {
-    [self.locateBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    [self.aroundBtn setTitleColor:[UIColor colorWithHexString:APP_NAVIGATIONBAR_COLOR] forState:UIControlStateNormal];
-    // 清楚屏幕中所有的annotation
-    
-    [self getAroundGroups:self.currentLocation];
+    if([self.locateBtn titleColorForState:UIControlStateNormal] != [UIColor blackColor]){
+        [self.locateBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        [self.aroundBtn setTitleColor:[UIColor colorWithHexString:APP_NAVIGATIONBAR_COLOR] forState:UIControlStateNormal];
+        // 清楚屏幕中所有的annotation
+        self.currentMapStatus = nil;
+        [self getAroundGroups:self.currentLocation];
+    }
 }
 
 - (void)getAroundGroups:(CLLocationCoordinate2D )coordinate
