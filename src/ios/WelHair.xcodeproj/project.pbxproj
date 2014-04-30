@@ -325,6 +325,7 @@
 		46BDF13118D1516F00999F50 /* MyGroupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 46BDF13018D1516F00999F50 /* MyGroupViewController.m */; };
 		46BDF13918D1779100999F50 /* UserAuthorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 46BDF13818D1779100999F50 /* UserAuthorViewController.m */; };
 		46BDF13C18D17AF300999F50 /* CreateGroupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 46BDF13B18D17AF300999F50 /* CreateGroupViewController.m */; };
+		46C3B9F31910D48800A53F3B /* PPiFlatSegmentedControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 46C3B9F21910D48800A53F3B /* PPiFlatSegmentedControl.m */; };
 		46E258701900E28E005DFBCE /* WFViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 46E2586F1900E28E005DFBCE /* WFViewController.m */; };
 		46E84EBF18C2C7040004C146 /* centerIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 46E84EBA18C2C7040004C146 /* centerIcon@2x.png */; };
 		46E84EC018C2C7040004C146 /* UIScrollView+UzysCircularProgressPullToRefresh.m in Sources */ = {isa = PBXBuildFile; fileRef = 46E84EBC18C2C7040004C146 /* UIScrollView+UzysCircularProgressPullToRefresh.m */; };
@@ -913,6 +914,8 @@
 		46BDF13818D1779100999F50 /* UserAuthorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserAuthorViewController.m; sourceTree = "<group>"; };
 		46BDF13A18D17AF300999F50 /* CreateGroupViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreateGroupViewController.h; sourceTree = "<group>"; };
 		46BDF13B18D17AF300999F50 /* CreateGroupViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CreateGroupViewController.m; sourceTree = "<group>"; };
+		46C3B9F11910D48800A53F3B /* PPiFlatSegmentedControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPiFlatSegmentedControl.h; sourceTree = "<group>"; };
+		46C3B9F21910D48800A53F3B /* PPiFlatSegmentedControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPiFlatSegmentedControl.m; sourceTree = "<group>"; };
 		46E2586E1900E28E005DFBCE /* WFViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WFViewController.h; sourceTree = "<group>"; };
 		46E2586F1900E28E005DFBCE /* WFViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WFViewController.m; sourceTree = "<group>"; };
 		46E84EBA18C2C7040004C146 /* centerIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "centerIcon@2x.png"; sourceTree = "<group>"; };
@@ -1332,6 +1335,7 @@
 		18A912E518BB2826006B9A04 /* Vendor */ = {
 			isa = PBXGroup;
 			children = (
+				46C3B9F01910D48800A53F3B /* PPiFlatSegmentedControl */,
 				466DF41518FD572500CB8A53 /* GCPlaceholderTextView */,
 				466DF3DD18FC111300CB8A53 /* UMSocial_Sdk_3.3.7 */,
 				183B03C718E110F500765116 /* ABMGroupedTableView */,
@@ -2196,6 +2200,15 @@
 			path = Staff;
 			sourceTree = "<group>";
 		};
+		46C3B9F01910D48800A53F3B /* PPiFlatSegmentedControl */ = {
+			isa = PBXGroup;
+			children = (
+				46C3B9F11910D48800A53F3B /* PPiFlatSegmentedControl.h */,
+				46C3B9F21910D48800A53F3B /* PPiFlatSegmentedControl.m */,
+			);
+			path = PPiFlatSegmentedControl;
+			sourceTree = "<group>";
+		};
 		46E84EB918C2C7040004C146 /* UzysCircularProgressPullToRefresh */ = {
 			isa = PBXGroup;
 			children = (
@@ -2584,6 +2597,7 @@
 				1882D2731901314200D59861 /* FeedbackViewController.m in Sources */,
 				4673BB6118D2ED4D000F64DE /* AppointmentsViewController.m in Sources */,
 				46BCD26918BC797B005C4BD6 /* GroupDetailViewController.m in Sources */,
+				46C3B9F31910D48800A53F3B /* PPiFlatSegmentedControl.m in Sources */,
 				4621AAE118EE9D3A00B8E18D /* Service.m in Sources */,
 				4631CF0D18E325C300F39814 /* OrderCell.m in Sources */,
 				18A3E61918DC11240080DC0B /* RequestUtil.m in Sources */,
