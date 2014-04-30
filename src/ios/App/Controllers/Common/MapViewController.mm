@@ -290,6 +290,7 @@
                 item.title = g.name;
                 item.modelInfo = g;
                 [_mapView addAnnotation:item];
+                [self.aroundGroups addObject:g];
             }
         }
         return;
@@ -691,10 +692,12 @@
 //}
 - (void)mapStatusDidChanged:(BMKMapView *)mapView
 {
-    BMKMapStatus *s =  [mapView getMapStatus];
-    if(s.fLevel <= 15){
-        [self getAroundGroups:mapView.centerCoordinate];
-        self.currentMapStatus = s;
+    if([self.locateBtn titleColorForState:UIControlStateNormal] == [UIColor blackColor]){
+        BMKMapStatus *s =  [mapView getMapStatus];
+        if(s.fLevel <= 15){
+            [self getAroundGroups:mapView.centerCoordinate];
+            self.currentMapStatus = s;
+        }
     }
 }
 
