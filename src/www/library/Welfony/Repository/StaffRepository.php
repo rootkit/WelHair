@@ -101,7 +101,7 @@ class StaffRepository extends AbstractRepository
 
         $row = $this->conn->fetchAssoc($strSql, array($staffId));
 
-        return $row['Total'];
+        return !$row['Total'] ? 0 : intval($row['Total']);
     }
 
     public function getAllClient($staffId, $page, $pageSize)
