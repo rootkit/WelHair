@@ -52,17 +52,17 @@ class AppointmentRepository extends AbstractRepository
     {
         $filter = '';
         if ($staffId > 0) {
-            $filter = "AND A.StaffId = $staffId";
+            $filter .= "AND A.StaffId = $staffId";
         }
         if ($userId > 0) {
-            $filter = "AND A.UserId = $userId";
+            $filter .= "AND A.UserId = $userId";
         }
         if (is_array($status)) {
             $inStatus = implode(',', $status);
-            $filter = "AND A.Status IN ($inStatus)";
+            $filter .= "AND A.Status IN ($inStatus)";
         } else {
           if ($status >= 0) {
-              $filter = "AND A.Status = $status";
+              $filter .= "AND A.Status = $status";
           }
         }
 
@@ -72,6 +72,7 @@ class AppointmentRepository extends AbstractRepository
                        A.Status,
                        A.AppointmentDate,
                        A.LastModifiedBy,
+                       A.CreatedDate,
 
                        A.CompanyId,
                        A.CompanyName,
