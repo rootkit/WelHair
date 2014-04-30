@@ -14,11 +14,28 @@
 
 namespace Welfony\Service;
 
+use Welfony\Repository\MessageConversationRepository;
 use Welfony\Repository\MessageRepository;
 use Welfony\Repository\MessageOfflineRepository;
 
 class MessageService
 {
+
+    public static function listMessages($fromId, $toId, $page, $pageSize)
+    {
+        $page = $page <= 0 ? 1 : $page;
+        $pageSize = $pageSize <= 0 ? 20 : $pageSize;
+
+        $total = MessageRepository::getInstance()->listMessagesCount($fromId, $toId);
+        $messageList = MessageRepository::getInstance()->listMessages($fromId, $toId, $page, $pageSize);
+
+        return array('total' => $total, 'messages' => $messageList);
+    }
+
+    public static function listConversationsByUser($userId)
+    {
+        return MessageConversationRepository::getInstance()->listByTo($userId);
+    }
 
     public static function save($data)
     {
@@ -27,6 +44,28 @@ class MessageService
         $newId = MessageRepository::getInstance()->save($data);
         if ($newId) {
             $data['MessageId'] = $newId;
+
+            $existedConversation = null;
+            if ($data['RoomId'] <= 0) {
+                $existedConversation = MessageConversationRepository::getInstance()->getByFromAndTo($data['FromId'], $data['ToId']);
+            } else {
+
+            }
+
+            if (!$existedConversation) {
+                $conversationData = array(
+                    'FromId' => $data['FromId'],
+                    'ToId' => $data['ToId'],
+                    'RoomId' => $data['RoomId'],
+                    'NewMessageCount' => 1,
+                    'LastMessageId' => $newId
+                );
+                MessageConversationRepository::getInstance()->save($conversationData);
+            } else {
+                $existedConversation['NewMessageCount'] += 1;
+                $existedConversation['LastMessageId'] = $newId;
+                MessageConversationRepository::getInstance()->updateByFromAndTo($data['FromId'], $data['ToId'], $existedConversation);
+            }
 
             $result['success'] = true;
             $result['message'] = $data;
