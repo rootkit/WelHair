@@ -49,7 +49,15 @@ class MessageOfflineRepository extends AbstractRepository
 
     public function remove($id)
     {
-        $this->conn->delete('MessageOffline', array('MessageOfflineId' => $id));
+        try {
+            $this->conn->delete('MessageOffline', array('MessageOfflineId' => $id));
+        } catch (\Exception $e) {
+            $this->logger->log($e, \Zend_Log::ERR);
+
+            return false;
+        }
+
+        return true;
     }
 
 }
