@@ -27,6 +27,7 @@ class MessageConversationRepository extends AbstractRepository
                        U.Nickname,
                        U.AvatarUrl,
 
+                       MC.MessageConversationId,
                        MC.NewMessageCount,
 
                        CASE
