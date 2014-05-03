@@ -272,7 +272,7 @@ class OrderRepository extends AbstractRepository
         }
     }
 
-    public function payOrder($orderId, $data, $log, $doc)
+    public function payOrder($orderId, $data, $log, $doc, $userbalancelog, $companybalancelog)
     {
 
         $conn = $this->conn;
@@ -290,6 +290,33 @@ class OrderRepository extends AbstractRepository
             if ($doc) {
 
                  $this->conn->insert('CollectionDoc', $doc);
+
+            }
+
+            if ($userbalancelog) {
+
+                 $amount = $userbalancelog['Amount'];
+                 $userId = $userbalancelog['UserId'];
+
+                 $this->conn->executeUpdate(" 
+                        UPDATE `Users` SET Balance = Balance + $amount WHERE UserId  = $userId; 
+                 ");
+
+                 $this->conn->insert('UserBalanceLog', $userbalancelog);
+
+            }
+
+            if ($companybalancelog) {
+
+                 $amount = $companybalancelog['Amount'];
+                 $companyId = $companybalancelog['CompanyId'];
+
+                 $this->conn->executeUpdate(" 
+                        UPDATE `Company` SET Balance = Balance + $amount WHERE CompanyId  = $companyId; 
+                 ");
+
+
+                 $this->conn->insert('CompanyBalanceLog', $companybalancelog);
 
             }
 
@@ -333,7 +360,7 @@ class OrderRepository extends AbstractRepository
         }
     }
 
-    public function refundOrder($orderId, $data, $log, $doc)
+    public function refundOrder($orderId, $data, $log, $doc, $userbalancelog, $companybalancelog)
     {
 
         $conn = $this->conn;
@@ -349,6 +376,33 @@ class OrderRepository extends AbstractRepository
             }
             if ($doc) {
                  $this->conn->insert('RefundmentDoc', $doc);
+            }
+
+            if ($userbalancelog) {
+
+                 $amount = $userbalancelog['Amount'];
+                 $userId = $userbalancelog['UserId'];
+
+                 $this->conn->executeUpdate(" 
+                        UPDATE `Users` SET Balance = Balance + $amount WHERE UserId  = $userId; 
+                 ");
+
+                 $this->conn->insert('UserBalanceLog', $userbalancelog);
+
+            }
+
+            if ($companybalancelog) {
+
+                 $amount = $companybalancelog['Amount'];
+                 $companyId = $companybalancelog['CompanyId'];
+
+                 $this->conn->executeUpdate(" 
+                        UPDATE `Company` SET Balance = Balance + $amount WHERE CompanyId  = $companyId; 
+                 ");
+
+
+                 $this->conn->insert('CompanyBalanceLog', $companybalancelog);
+
             }
 
             $conn->commit();

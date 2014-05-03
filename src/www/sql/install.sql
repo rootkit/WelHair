@@ -1241,3 +1241,48 @@ DELIMITER ;
 CALL sp_update_table_field();
 DROP PROCEDURE IF EXISTS `sp_update_table_field`;
 
+-- ==============================================================================
+-- Add Balanc Column on table Users
+-- ==============================================================================
+DELIMITER ;;
+CREATE PROCEDURE `sp_update_table_field`()
+BEGIN
+  IF NOT EXISTS (
+      SELECT 1
+      FROM information_schema.COLUMNS
+      WHERE lower(TABLE_SCHEMA) = 'welhair'
+        AND lower(TABLE_NAME) ='users'
+        AND lower(COLUMN_NAME) ='balance'
+  ) THEN
+    ALTER TABLE `Users` Add `Balance` decimal(15,2) NOT NULL DEFAULT '0.00' COMMENT '金额';
+  END IF;
+END;;
+
+DELIMITER ;
+CALL sp_update_table_field();
+DROP PROCEDURE IF EXISTS `sp_update_table_field`;
+
+
+
+CREATE TABLE IF NOT EXISTS `UserBalanceLog` (
+  `UserBalanceLogId` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `OrderId` int(11) unsigned NULL COMMENT '订单id',
+  `UserId` int(11) unsigned NOT NULL COMMENT '用户ID',
+  `Amount` decimal(15,2) NOT NULL DEFAULT '0.00' COMMENT '金额',
+  `CreateTime` datetime DEFAULT NULL COMMENT '时间',
+  `Status` tinyint(1) NOT NULL DEFAULT '1' COMMENT '状态，0失败,1成功',
+  `Description` text COMMENT '描述',
+  PRIMARY KEY (`UserBalanceLogId`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='用户账户记录';
+
+CREATE TABLE IF NOT EXISTS `CompanyBalanceLog` (
+  `CompanyBalanceLogId` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `OrderId` int(11) unsigned NULL COMMENT '订单id',
+  `CompanyId` int(11) unsigned NOT NULL COMMENT '沙龙ID',
+  `Amount` decimal(15,2) NOT NULL DEFAULT '0.00' COMMENT '金额',
+  `CreateTime` datetime DEFAULT NULL COMMENT '时间',
+  `Status` tinyint(1) NOT NULL DEFAULT '1' COMMENT '状态，0失败,1成功',
+  `Description` text COMMENT '描述',
+  PRIMARY KEY (`CompanyBalanceLogId`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='沙龙账户记录';
+
