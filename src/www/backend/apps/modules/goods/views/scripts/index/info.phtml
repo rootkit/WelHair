@@ -221,21 +221,44 @@ $this->headScript()
                 </div>
             </div>
 
-            <div class="formitm">
+           <div class="formitm">
                 <label class="lab">产品相册：</label>
                 <div class="ipt">
-                    <span class="u-img2">
-                        <a href="javascript:;">
-                            <img id="goods-image" src="<?php echo $this->goodsInfo['Img']? $this->goodsInfo['Img']:''; ?>"  alt="">
-                            <input id="goods-url" type="hidden" name="goods_url" value="<?php echo $this->goodsInfo['Img']? $this->goodsInfo['Img']:''; ?>" />
-                        </a>
-                    </span>
-                </div>
-            </div>
-            <div class="formitm">
-                <label class="lab"></label>
-                <div class="ipt">
-                    <div id="goods-uploader"></div>
+                    <ul class="formimglst clearfix">
+                        <?php 
+
+                        $goodsImg = array();
+                        if($this->goodsInfo['Img'])
+                        {
+                            if(strpos($this->goodsInfo['Img'], '[') === 0)
+                            {
+                                $goodsImg = json_decode($this->goodsInfo['Img'], true);
+                            }
+                            else
+                            {
+                                $goodsImg[] = $this->goodsInfo['Img'];
+                            }
+                        }
+                        ?>
+
+                        <?php foreach ($goodsImg  as $pic): ?>
+                        <li>
+                            <span class="u-img2">
+                                <a href="javascript:;">
+                                    <img class="company-picture" src="<?php echo $pic; ?>" />
+                                </a>
+                            </span>
+                            <input type="hidden" value="<?php echo $pic; ?>" name="goods_picture_url[]" />
+                            <a style="visibility: hidden;" href="#">调整缩略图</a>
+                            <a class="remove-thumb" href="#">移除</a>
+                        </li>
+                        <?php endforeach; ?>
+                        <li<?php echo count($goodsImg ) >= 3 ? ' style="display: none;"' : ''; ?>>
+                            <span class="u-img2">
+                                <a id="goods-image-uploader"></a>
+                            </span>
+                        </li>
+                    </ul>
                 </div>
             </div>
             <div class="formitm">
