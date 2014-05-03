@@ -299,10 +299,10 @@ class OrderService
         }
     }
 
-    public static function deliverOrder($orderId, $data, $log, $doc, $userbalancelog, $companybalancelog)
+    public static function deliverOrder($orderId, $data, $log, $doc)
     {
         $result = array('success' => false, 'message' => '');
-        $r = OrderRepository::getInstance()->deliverOrder($orderId,$data, $log, $doc, $userbalancelog, $companybalancelog);
+        $r = OrderRepository::getInstance()->deliverOrder($orderId,$data, $log, $doc);
         if ($r) {
 
             $result['success'] = true;
@@ -316,10 +316,10 @@ class OrderService
         }
     }
 
-    public static function refundOrder($orderId, $data, $log, $doc)
+    public static function refundOrder($orderId, $data, $log, $doc, $userbalancelog, $companybalancelog)
     {
         $result = array('success' => false, 'message' => '');
-        $r = OrderRepository::getInstance()->refundOrder($orderId,$data, $log, $doc);
+        $r = OrderRepository::getInstance()->refundOrder($orderId,$data, $log, $doc, $userbalancelog, $companybalancelog);
         if ($r) {
 
             $result['success'] = true;

@@ -360,7 +360,7 @@ class Order_IndexController extends AbstractAdminController
         $doc = array(
                 'OrderId' => $orderId,
                 'UserId' => $this->_request->getParam('userid'),
-                'Amount' => $this->_request->getParam('orderamount'),
+                'Amount' =>  $this->_request->getParam('orderamount'),
                 'CreateTime'=>date('Y-m-d H:i:s'),
                 'PaymentId'=> $this->_request->getParam('paymentid'),
                 'AdminId' => $currentUser["UserId"],
@@ -377,12 +377,41 @@ class Order_IndexController extends AbstractAdminController
             $userbalancelog = array(
                     'OrderId' => $orderId,
                     'UserId' => $this->_request->getParam('userid'),
+                    'Amount' => '-'.$this->_request->getParam('orderamount'),
+                    'CreateTime'=>date('Y-m-d H:i:s'),
+                    'Status'=> 1,
+                    'Description' => '订单【'.$orderNo.'】付款'.$this->_request->getParam('payamount')
+            );
+        }
+
+        $ordergoods = OrderGoodsService::listAllOrderGoodsByOrder($orderId);
+        $companyId = 0;
+        $goodsCompanyId = 0;
+        foreach($ordergoods as $goods)
+        {
+            if( $goods['CompanyId'])
+            {
+                $companyId = $goods['CompanyId'];
+                $goodsCompanyId = $goods['CompanyId'];
+            }
+            else
+            {
+                $goodsCompanyId = 0;
+            }
+        }
+
+        if( $companyId && $goodsCompanyId)
+        {
+            $companybalancelog = array(
+                    'OrderId' => $orderId,
+                    'CompanyId' => $companyId,
                     'Amount' => $this->_request->getParam('orderamount'),
                     'CreateTime'=>date('Y-m-d H:i:s'),
                     'Status'=> 1,
                     'Description' => '订单【'.$orderNo.'】付款'.$this->_request->getParam('payamount')
             );
         }
+
 
         $order = array('Status'=> 2, 'PayStatus'=> 1);
 
@@ -489,10 +518,38 @@ class Order_IndexController extends AbstractAdminController
             $userbalancelog = array(
                 'OrderId' => $orderId,
                 'UserId' => $this->_request->getParam('userid'),
-                'Amount' => '-'.$this->_request->getParam('orderamount'),
+                'Amount' => $this->_request->getParam('refundamount'),
                 'CreateTime'=>date('Y-m-d H:i:s'),
                 'Status'=> 1,
                 'Description' => '订单【'.$orderNo.'】退款'.$this->_request->getParam('refundamount')
+            );
+        }
+
+        $ordergoods = OrderGoodsService::listAllOrderGoodsByOrder($orderId);
+        $companyId = 0;
+        $goodsCompanyId = 0;
+        foreach($ordergoods as $goods)
+        {
+            if( $goods['CompanyId'])
+            {
+                $companyId = $goods['CompanyId'];
+                $goodsCompanyId = $goods['CompanyId'];
+            }
+            else
+            {
+                $goodsCompanyId = 0;
+            }
+        }
+
+        if( $companyId && $goodsCompanyId)
+        {
+            $companybalancelog = array(
+                    'OrderId' => $orderId,
+                    'CompanyId' => $companyId,
+                    'Amount' => '-'.$this->_request->getParam('refundamount'),
+                    'CreateTime'=>date('Y-m-d H:i:s'),
+                    'Status'=> 1,
+                    'Description' => '订单【'.$orderNo.'】退款'.$this->_request->getParam('refundamount')
             );
         }
 

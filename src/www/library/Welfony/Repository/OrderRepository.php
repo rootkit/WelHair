@@ -312,7 +312,7 @@ class OrderRepository extends AbstractRepository
                  $companyId = $companybalancelog['CompanyId'];
 
                  $this->conn->executeUpdate(" 
-                        UPDATE `Company` SET Balance = Balance + $amount WHERE CompanyId  = $companyId; 
+                        UPDATE `Company` SET Amount = Amount + $amount WHERE CompanyId  = $companyId; 
                  ");
 
 
@@ -397,7 +397,7 @@ class OrderRepository extends AbstractRepository
                  $companyId = $companybalancelog['CompanyId'];
 
                  $this->conn->executeUpdate(" 
-                        UPDATE `Company` SET Balance = Balance + $amount WHERE CompanyId  = $companyId; 
+                        UPDATE `Company` SET Amount = Amount + $amount WHERE CompanyId  = $companyId; 
                  ");
 
 
