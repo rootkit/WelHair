@@ -17,7 +17,7 @@
 #import "RootViewController.h"
 #import "BMapKit.h"
 #import "SettingManager.h"
-
+#import "UserManager.h"
 #import "WebSocketUtil.h"
 
 #import "WelTabBarController.h"
@@ -27,6 +27,7 @@
 #import "ProductsViewController.h"
 #import "UserViewController.h"
 #import "XGPush.h"
+
 
 @interface AppDelegate()
 {
@@ -60,7 +61,7 @@
     [UMSocialData setAppKey:CONFIG_UMSOCIAL_APPKEY];
     [UMSocialConfig setSupportSinaSSO:YES];
     [UMSocialQQHandler setQQWithAppId:CONFIG_QQ_APP_ID appKey:CONFIG_QQ_APP_KEY url:SITE_PATH(@"")];
-    [UMSocialWechatHandler setWXAppId:CONFIG_WECHAT_ID url:SITE_PATH(@"")];
+//    [UMSocialWechatHandler setWXAppId:CONFIG_WECHAT_ID url:SITE_PATH(@"")];
     //setup baidu map component
     _mapManager = [[BMKMapManager alloc]init];
     // 如果要关注网络及授权验证事件，请设定generalDelegate参数
@@ -68,27 +69,35 @@
         debugLog(@"manager start failed!");
 
     // xinge push
+    [XGPush startApp:CONFIG_XINGE_ACCESSID appKey:CONFIG_XINGE_ACCESSKEY];
+    [XGPush setAccount:@"cc"];
+    [XGPush setTag:@"d"];
+    [XGPush handleLaunching:launchOptions];
     [application setApplicationIconBadgeNumber:0];
     [application registerForRemoteNotificationTypes:
      UIRemoteNotificationTypeAlert
      | UIRemoteNotificationTypeBadge
      | UIRemoteNotificationTypeSound];
-    [XGPush startApp:2200022202 appKey:@"I967MSEC8Z3W"];
-    [XGPush handleLaunching:launchOptions];
-    
+
 }
 
 - (void)application:(UIApplication *)application
 didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
 {
+ 
      NSString * deviceTokenStr = [XGPush registerDevice: deviceToken];
+    [[SettingManager SharedInstance] setDeviceToken:deviceTokenStr];
     debugLog(@"device token %@", deviceTokenStr);
 }
 
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo
 {
-    [XGPush handleReceiveNotification:userInfo];
+    if([UserManager SharedInstance].userLogined){
+        
+        [XGPush handleReceiveNotification:userInfo];
+    }
+
     
 }
 

@@ -61,6 +61,7 @@
         NSString *findSettingValue =[NSString stringWithFormat:@"select * from Settings where SettingKey = '%@' ",settingKey];
         FMResultSet *set = [db executeQuery:findSettingValue];
         if([set next]){
+            NSLog(@"%@", [set stringForColumn:@"SettingValue"]);
             sql = @"update Settings set SettingValue = ? where SettingKey = ?";
         }else{
             sql = @"insert into Settings (SettingValue,SettingKey) values (?,?)";
@@ -138,6 +139,17 @@
     }else{
         return CLLocationCoordinate2DMake(0, 0);
     }
+}
+
+
+- (NSString *)deviceToken
+{
+    return [self getSettingBySettingKey:DB_TABLE_SETTING_DEVICE_TOKEN];
+}
+
+- (void)setDeviceToken:(NSString *)token
+{
+    [self setSettingValue:token forKey:DB_TABLE_SETTING_DEVICE_TOKEN];
 }
 
 #pragma data version

@@ -20,6 +20,7 @@
 #define DB_TABLE_SETTING_LOCATED_COORDINATE  @"DB_TABLE_SETTING_LOCATED_COORDINATE"
 #define DB_TABLE_SETTING_ONLINEUSERID @"DB_TABLE_SETTING_ONLINEUSERID"
 #define DB_TABLE_SETTING_CITY_VERSION @"DB_TABLE_SETTING_CITY_VERSION"
+#define DB_TABLE_SETTING_DEVICE_TOKEN  @"DB_TABLE_SETTING_DEVICE_TOKEN"
 
 @interface SettingManager : BaseManager
 +(id)SharedInstance;
@@ -41,4 +42,7 @@
 
 - (int)cityDataVersion;
 - (void)setCityDataVersion:(int)version;
+
+- (NSString *)deviceToken;
+- (void)setDeviceToken:(NSString *)token;
 @end
