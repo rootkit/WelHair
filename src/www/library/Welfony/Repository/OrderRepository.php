@@ -400,7 +400,6 @@ class OrderRepository extends AbstractRepository
                         UPDATE `Company` SET Amount = Amount + $amount WHERE CompanyId  = $companyId; 
                  ");
 
-
                  $this->conn->insert('CompanyBalanceLog', $companybalancelog);
 
             }
