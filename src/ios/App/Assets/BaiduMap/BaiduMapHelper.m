@@ -62,7 +62,6 @@
 {
     _locateCoordinateComplete = completion;
     if(![_locate isUpdating]){
-        _isNeedLocateCity = NO;
         [_locate startUserLocationService];
     }
 }
@@ -86,6 +85,7 @@
 
 - (void)onGetAddrResult:(BMKAddrInfo*)result errorCode:(int)error
 {
+    _isNeedLocateCity = NO;
 	if (error == 0) {
         NSString *cityName = result.addressComponent.city;
         City *locatedCity =  [[CityManager SharedInstance] getCityByName:cityName];
