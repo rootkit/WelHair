@@ -655,7 +655,32 @@
 
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
 {
-    return [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 20)];
+    if(self.workDatasource.count ==0){
+        UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 60)];
+        UILabel *footerLbl = [[UILabel alloc] initWithFrame:CGRectMake(10, 8, 300, 44)];
+        [footerView addSubview:footerLbl];
+        footerLbl.font = [UIFont systemFontOfSize:12];
+        footerLbl.numberOfLines = 0;
+        footerLbl.textAlignment = TextAlignmentCenter;
+        footerLbl.backgroundColor = [UIColor whiteColor];
+        footerLbl.layer.borderColor  =[[UIColor colorWithHexString:@"e1e1e1"] CGColor];
+        footerLbl.layer.borderWidth  =0.5;
+        footerLbl.layer.cornerRadius  =5;
+        footerLbl.textColor = [UIColor blackColor];
+        footerLbl.text = @"暂无作品";
+        return footerView;
+    }else{
+        return [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 20)];
+    }
+}
+
+- (float) tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
+{
+    if(self.workDatasource.count == 0){
+        return 60;
+    }else{
+        return 20;
+    }
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
