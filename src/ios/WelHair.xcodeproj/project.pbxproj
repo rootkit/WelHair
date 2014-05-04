@@ -327,6 +327,8 @@
 		46BDF13118D1516F00999F50 /* MyGroupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 46BDF13018D1516F00999F50 /* MyGroupViewController.m */; };
 		46BDF13918D1779100999F50 /* UserAuthorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 46BDF13818D1779100999F50 /* UserAuthorViewController.m */; };
 		46BDF13C18D17AF300999F50 /* CreateGroupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 46BDF13B18D17AF300999F50 /* CreateGroupViewController.m */; };
+		46C37A561915E7E7004070C8 /* libXG-SDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 46C37A541915E7E7004070C8 /* libXG-SDK.a */; };
+		46C37A581915E848004070C8 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46C37A571915E848004070C8 /* CFNetwork.framework */; };
 		46C3B9F31910D48800A53F3B /* PPiFlatSegmentedControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 46C3B9F21910D48800A53F3B /* PPiFlatSegmentedControl.m */; };
 		46E258701900E28E005DFBCE /* WFViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 46E2586F1900E28E005DFBCE /* WFViewController.m */; };
 		46E84EBF18C2C7040004C146 /* centerIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 46E84EBA18C2C7040004C146 /* centerIcon@2x.png */; };
@@ -920,6 +922,9 @@
 		46BDF13818D1779100999F50 /* UserAuthorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserAuthorViewController.m; sourceTree = "<group>"; };
 		46BDF13A18D17AF300999F50 /* CreateGroupViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreateGroupViewController.h; sourceTree = "<group>"; };
 		46BDF13B18D17AF300999F50 /* CreateGroupViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CreateGroupViewController.m; sourceTree = "<group>"; };
+		46C37A541915E7E7004070C8 /* libXG-SDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libXG-SDK.a"; sourceTree = "<group>"; };
+		46C37A551915E7E7004070C8 /* XGPush.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XGPush.h; sourceTree = "<group>"; };
+		46C37A571915E848004070C8 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		46C3B9F11910D48800A53F3B /* PPiFlatSegmentedControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPiFlatSegmentedControl.h; sourceTree = "<group>"; };
 		46C3B9F21910D48800A53F3B /* PPiFlatSegmentedControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPiFlatSegmentedControl.m; sourceTree = "<group>"; };
 		46E2586E1900E28E005DFBCE /* WFViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WFViewController.h; sourceTree = "<group>"; };
@@ -958,6 +963,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				46C37A581915E848004070C8 /* CFNetwork.framework in Frameworks */,
 				46A46FE918BE21280057F579 /* OpenGLES.framework in Frameworks */,
 				4659D27118E7D79B005648C0 /* libbaidumapapi.a in Frameworks */,
 				4659D27018E7D79B005648C0 /* libbaidumapapi.a in Frameworks */,
@@ -980,6 +986,7 @@
 				18A9126718BB216E006B9A04 /* UIKit.framework in Frameworks */,
 				8D253C7C0D2C41EC8279DF3F /* libPods.a in Frameworks */,
 				466DF40618FC111300CB8A53 /* libUMSocial_Sdk_3.3.7.a in Frameworks */,
+				46C37A561915E7E7004070C8 /* libXG-SDK.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1175,6 +1182,7 @@
 		18A9126118BB216E006B9A04 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				46C37A571915E848004070C8 /* CFNetwork.framework */,
 				18A9126418BB216E006B9A04 /* CoreGraphics.framework */,
 				46A46FE418BE21160057F579 /* CoreLocation.framework */,
 				46B233BE18BCE5A000CC27A3 /* CoreTelephony.framework */,
@@ -1228,6 +1236,7 @@
 		18A9129118BB2350006B9A04 /* Assets */ = {
 			isa = PBXGroup;
 			children = (
+				46C37A531915E7E7004070C8 /* XinGe */,
 				4659D21718E7D79B005648C0 /* BaiduMap */,
 				4651D97B18DE729D004AC95A /* DB */,
 				461B0C0118DC3BD700E0DAF5 /* Images */,
@@ -2210,6 +2219,15 @@
 			path = Staff;
 			sourceTree = "<group>";
 		};
+		46C37A531915E7E7004070C8 /* XinGe */ = {
+			isa = PBXGroup;
+			children = (
+				46C37A541915E7E7004070C8 /* libXG-SDK.a */,
+				46C37A551915E7E7004070C8 /* XGPush.h */,
+			);
+			path = XinGe;
+			sourceTree = "<group>";
+		};
 		46C3B9F01910D48800A53F3B /* PPiFlatSegmentedControl */ = {
 			isa = PBXGroup;
 			children = (
@@ -2858,8 +2876,8 @@
 				);
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer: larry lu (3LBN2U88Z3)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: larry lu (3LBN2U88Z3)";
+				CODE_SIGN_IDENTITY = "Apple Development IOS Push Services: com.welfony.welhair";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Apple Development IOS Push Services: com.welfony.welhair";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/App/Vendor/UMSocial_Sdk_3.3.7/UMSocial_Sdk_Extra_Frameworks/TencentOpenAPI",
@@ -2875,10 +2893,12 @@
 					"$(PROJECT_DIR)/App/Vendor/UMSocial_Sdk_3.3.7/UMSocial_Sdk_3.3.7",
 					"$(PROJECT_DIR)/App/Vendor/UMSocial_Sdk_3.3.7/UMSocial_Sdk_Extra_Frameworks/TencentOpenAPI",
 					"$(PROJECT_DIR)/App/Vendor/UMSocial_Sdk_3.3.7/UMSocial_Sdk_Extra_Frameworks/Wechat",
+					"$(PROJECT_DIR)/App/Assets/BaiduPush/lib",
+					"$(PROJECT_DIR)/App/Assets/XinGe",
 				);
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "51098E5B-F9A9-468E-A5C0-B376EA3D9913";
+				PROVISIONING_PROFILE = "E459E1E8-6432-4831-AFFA-3ECA8DC7F0F7";
 				SDKROOT = iphoneos;
 				VALID_ARCHS = "armv7 armv7s arm64";
 				WRAPPER_EXTENSION = app;
@@ -2895,8 +2915,8 @@
 				);
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer: larry lu (3LBN2U88Z3)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: larry lu (3LBN2U88Z3)";
+				CODE_SIGN_IDENTITY = "Apple Development IOS Push Services: com.welfony.welhair";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Apple Development IOS Push Services: com.welfony.welhair";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/App/Vendor/UMSocial_Sdk_3.3.7/UMSocial_Sdk_Extra_Frameworks/TencentOpenAPI",
@@ -2911,10 +2931,12 @@
 					"$(PROJECT_DIR)/App/Vendor/UMSocial_Sdk_3.3.7/UMSocial_Sdk_3.3.7",
 					"$(PROJECT_DIR)/App/Vendor/UMSocial_Sdk_3.3.7/UMSocial_Sdk_Extra_Frameworks/TencentOpenAPI",
 					"$(PROJECT_DIR)/App/Vendor/UMSocial_Sdk_3.3.7/UMSocial_Sdk_Extra_Frameworks/Wechat",
+					"$(PROJECT_DIR)/App/Assets/BaiduPush/lib",
+					"$(PROJECT_DIR)/App/Assets/XinGe",
 				);
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "51098E5B-F9A9-468E-A5C0-B376EA3D9913";
+				PROVISIONING_PROFILE = "E459E1E8-6432-4831-AFFA-3ECA8DC7F0F7";
 				SDKROOT = iphoneos;
 				VALID_ARCHS = "armv7 armv7s arm64";
 				WRAPPER_EXTENSION = app;

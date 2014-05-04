@@ -17,8 +17,6 @@
 #import "RootViewController.h"
 #import "BMapKit.h"
 #import "SettingManager.h"
-//#import <TencentOpenAPI/QQApiInterface.h> 
-//#import <TencentOpenAPI/TencentOAuth.h>
 
 #import "WebSocketUtil.h"
 
@@ -28,7 +26,7 @@
 #import "ChatSessionListViewController.h"
 #import "ProductsViewController.h"
 #import "UserViewController.h"
-
+#import "XGPush.h"
 
 @interface AppDelegate()
 {
@@ -44,7 +42,8 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     [[Util sharedInstance] prepareApplicationData];
-    [self initialServices];
+    [self initialServices:application options:launchOptions];
+    
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     self.window.backgroundColor = [UIColor whiteColor];
 
@@ -55,13 +54,10 @@
     return YES;
 }
 
-- (void)initialServices
+- (void)initialServices:(UIApplication *)application  options:(NSDictionary *)launchOptions
 {
     //setup social component
     [UMSocialData setAppKey:CONFIG_UMSOCIAL_APPKEY];
-    //设置微信AppId，url地址传nil，将默认使用友盟的网址
-//    [UMSocialConfig setWXAppId:CONFIG_WECHAT_ID url:nil];
-//    [UMSocialConfig setQQAppId:CONFIG_QQ_APP_ID url:nil importClasses:@[[QQApiInterface class],[TencentOAuth class]]];
     [UMSocialConfig setSupportSinaSSO:YES];
     [UMSocialQQHandler setQQWithAppId:CONFIG_QQ_APP_ID appKey:CONFIG_QQ_APP_KEY url:SITE_PATH(@"")];
     [UMSocialWechatHandler setWXAppId:CONFIG_WECHAT_ID url:SITE_PATH(@"")];
@@ -70,7 +66,32 @@
     // 如果要关注网络及授权验证事件，请设定generalDelegate参数
     if (![_mapManager start:CONFIG_BAIDU_MAP_KEY  generalDelegate:nil])
         debugLog(@"manager start failed!");
+
+    // xinge push
+    [application setApplicationIconBadgeNumber:0];
+    [application registerForRemoteNotificationTypes:
+     UIRemoteNotificationTypeAlert
+     | UIRemoteNotificationTypeBadge
+     | UIRemoteNotificationTypeSound];
+    [XGPush startApp:2200022202 appKey:@"I967MSEC8Z3W"];
+    [XGPush handleLaunching:launchOptions];
+    
 }
+
+- (void)application:(UIApplication *)application
+didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
+{
+     NSString * deviceTokenStr = [XGPush registerDevice: deviceToken];
+    debugLog(@"device token %@", deviceTokenStr);
+}
+
+
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo
+{
+    [XGPush handleReceiveNotification:userInfo];
+    
+}
+
 - (void)applicationWillResignActive:(UIApplication *)application
 {
 }
