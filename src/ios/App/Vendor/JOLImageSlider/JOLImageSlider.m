@@ -218,6 +218,14 @@
     [_scrollView setContentOffset: CGPointMake((_scrollView.contentOffset.x + _scrollView.frame.size.width), 0) animated:YES];
 }
 
+- (void)scrollToIndex:(int)index animationed:(BOOL)animationed
+{
+        int numSlides = _scrollView.contentSize.width / _scrollView.frame.size.width - 2;
+        if(index < numSlides && index >=0){
+            [_scrollView scrollRectToVisible:CGRectMake(_scrollView.frame.size.width * (index + 1), 0, _scrollView.frame.size.width, _scrollView.frame.size.height) animated:animationed];
+        }
+}
+
 /*
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.

@@ -54,6 +54,7 @@
 
 - (void)setSlides:(NSArray *)slideSet;
 - (void)initialize;
+- (void)scrollToIndex:(int)index animationed:(BOOL)animationed;
 
 @end
 
