@@ -374,14 +374,24 @@ class Order_IndexController extends AbstractAdminController
 
         if( $this->_request->getParam('userid') )
         {
-            $userbalancelog = array(
-                    'OrderId' => $orderId,
-                    'UserId' => $this->_request->getParam('userid'),
-                    'Amount' => '-'.$this->_request->getParam('orderamount'),
-                    'CreateTime'=>date('Y-m-d H:i:s'),
-                    'Status'=> 1,
-                    'Description' => '订单【'.$orderNo.'】付款'.$this->_request->getParam('payamount')
-            );
+            $user = UserService::getUserById($this->_request->getParam('userid'));
+            if( floatval($user['Balance']) > floatval($this->_request->getParam('orderamount')))
+            {
+                $userbalancelog = array(
+                        'OrderId' => $orderId,
+                        'UserId' => $this->_request->getParam('userid'),
+                        'Amount' => '-'.$this->_request->getParam('orderamount'),
+                        'CreateTime'=>date('Y-m-d H:i:s'),
+                        'Status'=> 1,
+                        'Description' => '订单【'.$orderNo.'】付款'.$this->_request->getParam('payamount')
+                );
+            }
+            else
+            {
+                $result = array('success' => false, 'message' => '余额不足！');
+                $this->_helper->json->sendJson($result);
+                return;
+            }
         }
 
         $ordergoods = OrderGoodsService::listAllOrderGoodsByOrder($orderId);

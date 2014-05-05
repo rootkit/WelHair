@@ -75,7 +75,8 @@ class Goods_IndexController extends AbstractAdminController
             'MarketPrice'=>0,
             'CostPrice'=>0,
             'Weight'=>0,
-            'Img'=>Util::baseAssetUrl('img/photo-default.png'),
+            'Img'=>'',
+            'DownTime'=>'',
             'IsDeleted' => 0,
             'Keywords' => '',
             'Content' => ''

@@ -72,8 +72,15 @@ $(function() {
                                                 'userid':$('#order_user').val()
                                              },
                                             success: function(data){
-                                                popin.dialog('close');
-                                                theButton.addClass('u-btn-disabled');
+                                                if( data.success)
+                                                {
+                                                    popin.dialog('close');
+                                                    theButton.addClass('u-btn-disabled');
+                                                }
+                                                else
+                                                {
+                                                    WF.showMessage('error', '错误', data.message);
+                                                }
                                             },
                                             error:function()
                                             {
@@ -94,6 +101,11 @@ $(function() {
         });
     });
     $('#to_deliver').click(function(){
+        if( $('#order_pay_status').val() != '1' )
+        {
+             WF.showMessage('error', '错误', "您需要支付。");
+            return;
+        }
         var theButton = $(this);
         $('#deliverpopin').dialog(
             {"modal": true,
@@ -130,8 +142,15 @@ $(function() {
                                                 'userid':$('#order_user').val()
                                              },
                                             success: function(data){
-                                                popin.dialog('close');
-                                                theButton.addClass('u-btn-disabled');
+                                                if( data.success)
+                                                {
+                                                    popin.dialog('close');
+                                                    theButton.addClass('u-btn-disabled');
+                                                }
+                                                else
+                                                {
+                                                    WF.showMessage('error', '错误', data.message);
+                                                }
                                             },
                                             error:function()
                                             {
@@ -180,10 +199,17 @@ $(function() {
                                                 'userid':$('#order_user').val()
                                              },
                                             success: function(data){
-                                                popin.dialog('close');
-                                                theButton.addClass('u-btn-disabled');
-                                                $('#ctrlButtonArea').find('button').addClass('u-btn-disabled');
-                                                $('#ctrlButtonArea').find('button').attr('disabled', 'disabled');
+                                                if( data.success)
+                                                {
+                                                    popin.dialog('close');
+                                                    theButton.addClass('u-btn-disabled');
+                                                    $('#ctrlButtonArea').find('button').addClass('u-btn-disabled');
+                                                    $('#ctrlButtonArea').find('button').attr('disabled', 'disabled');
+                                                }
+                                                else
+                                                {
+                                                    WF.showMessage('error', '错误', data.message);
+                                                }
                                             },
                                             error:function()
                                             {
