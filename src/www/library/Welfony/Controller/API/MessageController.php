@@ -33,7 +33,10 @@ class MessageController extends AbstractAPIController
     public function listConversationsByUserId($userId)
     {
         $rst = MessageService::listConversationsByUser($userId);
-        $this->sendResponse(!$rst ? array() : $rst);
+        $this->sendResponse(array(
+            'total' => count(!$rst ? array() : $rst),
+            'conversations' => !$rst ? array() : $rst
+        ));
     }
 
     public function create()

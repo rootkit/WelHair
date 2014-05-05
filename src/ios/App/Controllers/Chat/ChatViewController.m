@@ -12,12 +12,18 @@
 
 #import "CircleImageView.h"
 #import "ChatViewController.h"
+#import "Message.h"
+#import "Staff.h"
 
 @interface ChatViewController ()
 
-@property (strong, nonatomic) NSMutableArray *messageArray;
+@property (nonatomic, assign) NSInteger currentPage;
+@property (nonatomic, strong) NSMutableArray *datasource;
+
 @property (strong, nonatomic) UIImage *willSendImage;
-@property (strong, nonatomic) NSMutableArray *timestamps;
+
+@property (strong, nonatomic) UIImageView *incomingImageView;
+@property (strong, nonatomic) UIImageView *outgoingImageView;
 
 @end
 
@@ -32,13 +38,14 @@
         self.leftNavItemImg =[leftIcon imageWithSize:CGSizeMake(NAV_BAR_ICON_SIZE, NAV_BAR_ICON_SIZE)];
 
         self.title = @"聊天";
+        self.currentPage = 1;
 
         self.delegate = self;
         self.dataSource = self;
 
-        self.messageArray = [NSMutableArray array];
-        self.timestamps = [NSMutableArray array];
+        self.datasource = [NSMutableArray array];
     }
+
     return self;
 }
 
@@ -54,39 +61,98 @@
     [super viewDidLoad];
 
     [self setBackgroundColor:[UIColor whiteColor]];
+
+    __weak typeof(self) weakSelf = self;
+    [self.tableView addPullToRefreshActionHandler:^{
+        weakSelf.currentPage += 1;
+        [weakSelf getMessages];
+    }];
+
+    [self.tableView.pullToRefreshView setSize:CGSizeMake(25, 25)];
+    [self.tableView.pullToRefreshView setBorderWidth:2];
+    [self.tableView.pullToRefreshView setBorderColor:[UIColor whiteColor]];
+    [self.tableView.pullToRefreshView setImageIcon:[UIImage imageNamed:@"centerIcon"]];
+
+    [self.tableView triggerPullToRefresh];
+}
+
+- (void)setIncomingUser:(User *)incomingUser
+{
+    _incomingUser = incomingUser;
+
+    self.incomingImageView = [[UIImageView alloc] initWithImage:nil];
+    [self.incomingImageView setImageWithURL:incomingUser.avatarUrl placeholderImage:[UIImage imageNamed:@"AvatarDefault"]];
+}
+
+- (void)setOutgoingUser:(User *)outgoingUser
+{
+    _outgoingUser = outgoingUser;
+
+    self.outgoingImageView = [[UIImageView alloc] initWithImage:nil];
+    [self.outgoingImageView setImageWithURL:outgoingUser.avatarUrl placeholderImage:[UIImage imageNamed:@"AvatarDefault"]];
 }
 
 #pragma mark - Table view data source
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return self.messageArray.count;
+    return self.datasource.count;
 }
 
 #pragma mark - Messages view delegate
 - (void)sendPressed:(UIButton *)sender withText:(NSString *)text
 {
-    [self.messageArray addObject:[NSDictionary dictionaryWithObject:text forKey:@"Text"]];
+    NSMutableDictionary *reqData = [[NSMutableDictionary alloc] initWithCapacity:1];
+    [reqData setObject:[NSString stringWithFormat:@"%d", self.outgoingUser.id] forKey:@"FromId"];
+    [reqData setObject:[NSString stringWithFormat:@"%d", self.incomingUser.id] forKey:@"ToId"];
+    [reqData setObject:text forKey:@"Body"];
+    [reqData setObject:@"1" forKey:@"MediaType"];
 
-    [self.timestamps addObject:[NSDate date]];
+    ASIFormDataRequest *request = [RequestUtil createPOSTRequestWithURL:[NSURL URLWithString:API_MESSAGES_CREATE]
+                                                                andData:reqData];
 
-    if((self.messageArray.count - 1) % 2)
-        [JSMessageSoundEffect playMessageSentSound];
-    else
-        [JSMessageSoundEffect playMessageReceivedSound];
+    [self.requests addObject:request];
 
+    [request setDelegate:self];
+    [request setDidFinishSelector:@selector(sendMessageFinish:)];
+    [request setDidFailSelector:@selector(sendMessageFail:)];
+    [request startAsynchronous];
+
+    Message *msg = [Message new];
+    msg.body = text;
+    msg.from = self.outgoingUser;
+    msg.to = self.incomingUser;
+    msg.mediaType = WHMessageMediaTypeNone;
+    msg.date = [NSDate date];
+
+    [self.datasource addObject:msg];
+    [JSMessageSoundEffect playMessageSentSound];
+}
+
+- (void)sendMessageFinish:(ASIHTTPRequest *)request
+{
     [self finishSend];
 }
 
-- (void)cameraPressed:(id)sender{
+- (void)sendMessageFail:(ASIHTTPRequest *)request
+{
 
+}
+
+- (void)cameraPressed:(id)sender
+{
     [self.inputToolBarView.textView resignFirstResponder];
 
-    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"拍照",@"相册", nil];
+    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil
+                                                             delegate:self
+                                                    cancelButtonTitle:@"取消"
+                                               destructiveButtonTitle:nil
+                                                    otherButtonTitles:@"拍照",@"相册", nil];
     [actionSheet showInView:self.view];
 }
 
 #pragma mark -- UIActionSheet Delegate
--(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex{
+-(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+{
 
     UIImagePickerController *picker = [[UIImagePickerController alloc] init];
     picker.delegate = self;
@@ -105,7 +171,8 @@
 
 - (JSBubbleMessageType)messageTypeForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return (indexPath.row % 2) ? JSBubbleMessageTypeIncoming : JSBubbleMessageTypeOutgoing;
+    Message *msg = [self.datasource objectAtIndex:indexPath.row];
+    return (msg.to.id == self.incomingUser.id) ? JSBubbleMessageTypeOutgoing : JSBubbleMessageTypeIncoming;
 }
 
 - (JSBubbleMessageStyle)messageStyleForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -113,14 +180,10 @@
     return JSBubbleMessageStyleSquare;
 }
 
-- (JSBubbleMediaType)messageMediaTypeForRowAtIndexPath:(NSIndexPath *)indexPath{
-    if([((NSDictionary *)[self.messageArray objectAtIndex:indexPath.row]) objectForKey:@"Text"]){
-        return JSBubbleMediaTypeText;
-    }else if ([((NSDictionary *)[self.messageArray objectAtIndex:indexPath.row]) objectForKey:@"Image"]){
-        return JSBubbleMediaTypeImage;
-    }
-
-    return -1;
+- (JSBubbleMediaType)messageMediaTypeForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    Message *msg = [self.datasource objectAtIndex:indexPath.row];
+    return msg.mediaType == WHMessageMediaTypeNone ? JSBubbleMediaTypeText : JSBubbleMediaTypeImage;
 }
 
 - (UIButton *)sendButton
@@ -148,41 +211,33 @@
     return JSInputBarStyleFlat;
 }
 
-//  Optional delegate method
-//  Required if using `JSMessagesViewTimestampPolicyCustom`
-//
-//  - (BOOL)hasTimestampForRowAtIndexPath:(NSIndexPath *)indexPath
-//
-
 #pragma mark - Messages view data source
 - (NSString *)textForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if([((NSDictionary *)[self.messageArray objectAtIndex:indexPath.row]) objectForKey:@"Text"]){
-        return [((NSDictionary *)[self.messageArray objectAtIndex:indexPath.row]) objectForKey:@"Text"];
-    }
-    return nil;
+    Message *msg = [self.datasource objectAtIndex:indexPath.row];
+    return msg.body;
 }
 
 - (NSDate *)timestampForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return [self.timestamps objectAtIndex:indexPath.row];
+    Message *msg = [self.datasource objectAtIndex:indexPath.row];
+    return msg.date;
 }
 
 - (UIImage *)avatarImageForIncomingMessage
 {
-    return [UIImage imageNamed:@"avatar-placeholder"];
+    return self.incomingImageView.image;
 }
 
 - (UIImage *)avatarImageForOutgoingMessage
 {
-    return [UIImage imageNamed:@"avatar-placeholder"];
+    return self.outgoingImageView.image;
 }
 
-- (id)dataForRowAtIndexPath:(NSIndexPath *)indexPath{
-    if([((NSDictionary *)[self.messageArray objectAtIndex:indexPath.row]) objectForKey:@"Image"]){
-        return [((NSDictionary *)[self.messageArray objectAtIndex:indexPath.row]) objectForKey:@"Image"];
-    }
-    return nil;
+- (id)dataForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    Message *msg = [self.datasource objectAtIndex:indexPath.row];
+    return msg.mediaUrl;
 
 }
 
@@ -191,11 +246,8 @@
 #pragma mark - Image picker delegate
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
-	NSLog(@"Chose image!  Details:  %@", info);
-
     self.willSendImage = [info objectForKey:UIImagePickerControllerEditedImage];
-    [self.messageArray addObject:[NSDictionary dictionaryWithObject:self.willSendImage forKey:@"Image"]];
-    [self.timestamps addObject:[NSDate date]];
+    [self.datasource addObject:[NSDictionary dictionaryWithObject:self.willSendImage forKey:@"Image"]];
 
     NSInteger rows = [self.tableView numberOfRowsInSection:0];
     [self.tableView beginUpdates];
@@ -209,11 +261,78 @@
     [self dismissViewControllerAnimated:YES completion:NULL];
 }
 
-
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker
 {
     [self dismissViewControllerAnimated:YES completion:NULL];
+}
 
+#pragma mark Message List API
+
+- (void)getMessages
+{
+    NSMutableDictionary *reqData = [[NSMutableDictionary alloc] initWithCapacity:1];
+    [reqData setObject:[NSString stringWithFormat:@"%d", self.currentPage] forKey:@"page"];
+    [reqData setObject:[NSString stringWithFormat:@"%d", TABLEVIEW_PAGESIZE_DEFAULT] forKey:@"pageSize"];
+
+    ASIHTTPRequest *request = [RequestUtil createGetRequestWithURL:[NSURL URLWithString:[NSString stringWithFormat:API_MESSAGES_LIST, self.incomingUser.id, self.outgoingUser.id]] andParam:reqData];
+    [request setDelegate:self];
+    [request setDidFinishSelector:@selector(finishGetMessages:)];
+    [request setDidFailSelector:@selector(failGetMessages:)];
+    [request startAsynchronous];
+}
+
+- (void)finishGetMessages:(ASIHTTPRequest *)request
+{
+    NSDictionary *rst = [Util objectFromJson:request.responseString];
+    NSInteger total = [[rst objectForKey:@"total"] integerValue];
+    NSArray *dataList = [rst objectForKey:@"messages"];
+
+    NSMutableArray *arr = [NSMutableArray arrayWithArray:self.datasource];
+
+    if (self.currentPage == 1) {
+        [arr removeAllObjects];
+    } else {
+        if (self.currentPage % TABLEVIEW_PAGESIZE_DEFAULT > 0) {
+            int i;
+
+            for (i = 0; i < arr.count; i++) {
+                if (i >= (self.currentPage - 1) * 1) {
+                    [arr removeObjectAtIndex:i];
+                    i--;
+                }
+            }
+        }
+    }
+
+    for (NSDictionary *dicData in dataList) {
+        [arr insertObject:[[Message alloc] initWithDic:dicData] atIndex:0];
+    }
+
+    self.datasource = arr;
+
+    BOOL enableInfinite = total > self.datasource.count;
+    if (self.tableView.showsInfiniteScrolling != enableInfinite) {
+        self.tableView.showsInfiniteScrolling = enableInfinite;
+    }
+
+    if (self.currentPage == 1) {
+        [self.tableView stopRefreshAnimation];
+    } else {
+        [self.tableView.infiniteScrollingView stopAnimating];
+    }
+
+    [self checkEmpty];
+
+    [self.tableView reloadData];
+}
+
+- (void)failGetMessages:(ASIHTTPRequest *)request
+{
+}
+
+- (void)checkEmpty
+{
+    
 }
 
 @end

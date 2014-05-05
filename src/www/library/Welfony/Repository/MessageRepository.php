@@ -86,7 +86,7 @@ class MessageRepository extends AbstractRepository
                    ORDER BY MessageId DESC
                    LIMIT $offset, $pageSize
                    ) TBL
-                   ORDER BY TBL.MessageId ASC";
+                   ORDER BY TBL.MessageId DESC";
 
         return $this->conn->fetchAll($strSql, array($toId, $fromId, $fromId, $toId));
     }

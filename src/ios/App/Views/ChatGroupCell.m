@@ -67,16 +67,14 @@
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated
 {
     [super setSelected:selected animated:animated];
-
-    // Configure the view for the selected state
 }
 
-- (void)setup:(ChatSession *)session
+- (void)setup:(MessageConversation *)session
 {
-    [self.imgView setImageWithURL:[NSURL URLWithString:session.imgUrl]];
-    self.titleLbl.text = session.name;
-    self.descriptionLbl.text = session.description;
-    self.dateLbl.text = [[NSDate dateWithHMFormatter] stringFromDate:session.lastDate];
+    [self.imgView setImageWithURL:session.user.avatarUrl];
+    self.titleLbl.text = session.user.nickname;
+    self.descriptionLbl.text = session.messageSummary;
+    self.dateLbl.text = [[NSDate dateWithHMFormatter] stringFromDate:session.messageDate];
 }
 
 @end

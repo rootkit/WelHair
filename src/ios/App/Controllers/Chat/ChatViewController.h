@@ -11,9 +11,11 @@
 // ==============================================================================
 
 #import "JSMessagesViewController.h"
+#import "User.h"
 
 @interface ChatViewController : JSMessagesViewController <JSMessagesViewDataSource, JSMessagesViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIActionSheetDelegate>
 
-@property (nonatomic, strong) id sender;
+@property (nonatomic, strong) User *incomingUser;
+@property (nonatomic, strong) User *outgoingUser;
 
 @end

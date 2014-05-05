@@ -77,8 +77,19 @@
 
 - (void)rightNavItemClick
 {
+    if (![self checkLogin]) {
+        return;
+    }
+
     ChatViewController *chatVC= [ChatViewController new];
-    chatVC.sender = self.staff;
+
+    User *incomingUser = [User new];
+    incomingUser.id = self.staff.id;
+    incomingUser.avatarUrl = self.staff.avatorUrl;
+    incomingUser.nickname = self.staff.name;
+    chatVC.incomingUser = incomingUser;
+
+    chatVC.outgoingUser = [UserManager SharedInstance].userLogined;
     [self.navigationController pushViewController:chatVC animated:YES];
 }
 

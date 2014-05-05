@@ -11,8 +11,15 @@
 // ==============================================================================
 
 #import "BaseModel.h"
+#import "User.h"
 
-@interface ChatSession : BaseModel
-@property (nonatomic, strong) NSString *imgUrl;
-@property (nonatomic, strong) NSDate *lastDate;
+@interface MessageConversation : BaseModel
+
+@property (nonatomic, strong) User *user;
+@property (nonatomic, assign) int messageCount;
+@property (nonatomic, strong) NSString *messageSummary;
+@property (nonatomic, strong) NSDate *messageDate;
+
+- (MessageConversation *)initWithDic:(NSDictionary *)dictionary;
+
 @end

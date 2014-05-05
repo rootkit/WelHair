@@ -23,8 +23,8 @@
 
 #define DB_FILE_NAME   @"db.sqlite"
 
-#define DOMAIN_NAME @"115.28.208.165"
-//#define DOMAIN_NAME @"welhair.com"
+//#define DOMAIN_NAME @"115.28.208.165"
+#define DOMAIN_NAME @"welhair.com"
 
 #define WEBSOCKET_SERVER_URL [NSString stringWithFormat:@"ws://%@:8080", DOMAIN_NAME]
 #define SITE_PATH(path) [NSString stringWithFormat:@"http://%@%@", DOMAIN_NAME, path]
@@ -45,6 +45,12 @@
 #define API_USERS_UPDATE API_PATH(@"/users/%d")
 #define API_USERS_APPOINTMENT API_PATH(@"/users/%d/appointments")
 #define API_USERS_POINTS API_PATH(@"/users/%d/points")
+
+#define API_MESSAGES_CREATE API_PATH(@"/messages")
+#define API_MESSAGES_LIST API_PATH(@"/messages/to/%d/from/%d")
+#define API_MESSAGES_CONVERSATIONS_LIST API_PATH(@"/users/%d/messages/conversations")
+#define API_MESSAGES_CONVERSATIONS_UPDATE API_PATH(@"/messages/conversations/%d")
+#define API_MESSAGES_CONVERSATIONS_REOMVE API_PATH(@"/messages/conversations/%d")
 
 #define API_SERVICES_SEARCH API_PATH(@"/services")
 #define API_SERVICES_CREATE API_PATH(@"/services")

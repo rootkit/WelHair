@@ -10,10 +10,10 @@
 //
 // ==============================================================================
 
-#import <UIKit/UIKit.h>
-#import "ChatSession.h"
+#import "MessageConversation.h"
+
 @interface ChatGroupCell : UITableViewCell
 
-- (void)setup:(ChatSession *)session;
+- (void)setup:(MessageConversation *)session;
 
 @end

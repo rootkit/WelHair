@@ -15,12 +15,12 @@
 #import "Comment.h"
 #import "Group.h"
 #import "Product.h"
-#import "ChatSession.h"
 #import "Coupon.h"
 #import "Address.h"
 #import "Service.h"
 #import "Appointment.h"
 #import "Order.h"
+
 @implementation FakeDataHelper
 
 
@@ -111,20 +111,6 @@
         product.price = 87.9;
         product.imgUrlList = @[@"http://4.xiustatic.com/upload/goods20111107/65002396/650023960001/g1_600_600.1339481667492.jpg",@"http://d12.yihaodianimg.com/t1/2011/1117/506/180/3500538_600x600.jpg"];
         [ar addObject:product];
-    }
-    return ar;
-}
-
-+(NSArray *)getFakeChatGroupList
-{
-    NSMutableArray *ar = [NSMutableArray array];
-    for (int i = 0; i < 10 ; i++) {
-        ChatSession *session = [ChatSession new];
-        session.name = @"金三胖儿，奥巴马";
-        session.description = @"最近咋样，老哥?";
-        session.lastDate = [NSDate date];
-        session.imgUrl = @"http://i2.skinpp.com.cn/2013/09/11/20130911233809_195_w580.jpg";
-        [ar addObject:session];
     }
     return ar;
 }
