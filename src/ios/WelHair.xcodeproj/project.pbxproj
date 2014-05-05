@@ -119,6 +119,8 @@
 		18C20BE018F7DADA00870F38 /* StaffWorkCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C20BDF18F7DADA00870F38 /* StaffWorkCell.m */; };
 		18C20BE218F7E22100870F38 /* DateFlagBackground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18C20BE118F7E22100870F38 /* DateFlagBackground@2x.png */; };
 		18C86E0D18EE4E1F00800A55 /* AddImage@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18C86E0C18EE4E1F00800A55 /* AddImage@2x.png */; };
+		18CA327619171F4C001C20D3 /* Message.m in Sources */ = {isa = PBXBuildFile; fileRef = 18CA327319171F4C001C20D3 /* Message.m */; };
+		18CA327719171F4C001C20D3 /* MessageConversation.m in Sources */ = {isa = PBXBuildFile; fileRef = 18CA327519171F4C001C20D3 /* MessageConversation.m */; };
 		18F50A1518ED55DB00DC3167 /* CommentComposorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F50A1418ED55DB00DC3167 /* CommentComposorViewController.m */; };
 		18FAFAB518EAA6C200EF6960 /* BrickView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18FAFAB418EAA6C200EF6960 /* BrickView.m */; };
 		460C2F2A18C8BFFF00AD16E6 /* Comment.m in Sources */ = {isa = PBXBuildFile; fileRef = 460C2F2918C8BFFF00AD16E6 /* Comment.m */; };
@@ -264,7 +266,6 @@
 		467F0EB518CB1721009FFE08 /* Product.m in Sources */ = {isa = PBXBuildFile; fileRef = 467F0EB418CB1721009FFE08 /* Product.m */; };
 		467F0EB818CB2164009FFE08 /* ProductCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 467F0EB718CB2164009FFE08 /* ProductCell.m */; };
 		467F0EBB18CB3956009FFE08 /* ChatGroupCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 467F0EBA18CB3956009FFE08 /* ChatGroupCell.m */; };
-		467F0EBE18CB3CC3009FFE08 /* ChatSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 467F0EBD18CB3CC3009FFE08 /* ChatSession.m */; };
 		467F0EE718CB4FCF009FFE08 /* NSDate+WelKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 467F0ED218CB4FCF009FFE08 /* NSDate+WelKit.m */; };
 		467F0EE818CB4FCF009FFE08 /* flush.caf in Resources */ = {isa = PBXBuildFile; fileRef = 467F0ED618CB4FCF009FFE08 /* flush.caf */; };
 		467F0EE918CB4FCF009FFE08 /* line@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 467F0ED718CB4FCF009FFE08 /* line@2x.png */; };
@@ -509,6 +510,10 @@
 		18C20BDF18F7DADA00870F38 /* StaffWorkCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StaffWorkCell.m; sourceTree = "<group>"; };
 		18C20BE118F7E22100870F38 /* DateFlagBackground@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "DateFlagBackground@2x.png"; sourceTree = "<group>"; };
 		18C86E0C18EE4E1F00800A55 /* AddImage@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "AddImage@2x.png"; sourceTree = "<group>"; };
+		18CA327219171F4C001C20D3 /* Message.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Message.h; sourceTree = "<group>"; };
+		18CA327319171F4C001C20D3 /* Message.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Message.m; sourceTree = "<group>"; };
+		18CA327419171F4C001C20D3 /* MessageConversation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageConversation.h; sourceTree = "<group>"; };
+		18CA327519171F4C001C20D3 /* MessageConversation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageConversation.m; sourceTree = "<group>"; };
 		18F50A1318ED55DB00DC3167 /* CommentComposorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommentComposorViewController.h; sourceTree = "<group>"; };
 		18F50A1418ED55DB00DC3167 /* CommentComposorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommentComposorViewController.m; sourceTree = "<group>"; };
 		18FAFAB318EAA6C200EF6960 /* BrickView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BrickView.h; sourceTree = "<group>"; };
@@ -818,8 +823,6 @@
 		467F0EB718CB2164009FFE08 /* ProductCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProductCell.m; sourceTree = "<group>"; };
 		467F0EB918CB3956009FFE08 /* ChatGroupCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatGroupCell.h; sourceTree = "<group>"; };
 		467F0EBA18CB3956009FFE08 /* ChatGroupCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatGroupCell.m; sourceTree = "<group>"; };
-		467F0EBC18CB3CC3009FFE08 /* ChatSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatSession.h; sourceTree = "<group>"; };
-		467F0EBD18CB3CC3009FFE08 /* ChatSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatSession.m; sourceTree = "<group>"; };
 		467F0ED118CB4FCF009FFE08 /* NSDate+WelKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+WelKit.h"; sourceTree = "<group>"; };
 		467F0ED218CB4FCF009FFE08 /* NSDate+WelKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+WelKit.m"; sourceTree = "<group>"; };
 		467F0ED618CB4FCF009FFE08 /* flush.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = flush.caf; sourceTree = "<group>"; };
@@ -858,7 +861,7 @@
 		467F0F2A18CC95CA009FFE08 /* JOLImageSlider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JOLImageSlider.m; sourceTree = "<group>"; };
 		468BD8A618F243EB00B11209 /* Order.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Order.h; sourceTree = "<group>"; };
 		468BD8A718F243EB00B11209 /* Order.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Order.m; sourceTree = "<group>"; };
-		4693AAA618D8426100104F01 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		4693AAA618D8426100104F01 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = Assets/Images.xcassets; sourceTree = "<group>"; };
 		46A46FE418BE21160057F579 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		46A46FE618BE211F0057F579 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		46A46FE818BE21280057F579 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
@@ -1209,6 +1212,7 @@
 				18A9127118BB216E006B9A04 /* AppDelegate.h */,
 				18A9127218BB216E006B9A04 /* AppDelegate.m */,
 				18A9129118BB2350006B9A04 /* Assets */,
+				4693AAA618D8426100104F01 /* Images.xcassets */,
 				18AC388518CD683200328A78 /* Common */,
 				18A9129818BB2350006B9A04 /* Constants */,
 				18A912D918BB26B6006B9A04 /* Controllers */,
@@ -1236,11 +1240,10 @@
 		18A9129118BB2350006B9A04 /* Assets */ = {
 			isa = PBXGroup;
 			children = (
-				46C37A531915E7E7004070C8 /* XinGe */,
 				4659D21718E7D79B005648C0 /* BaiduMap */,
 				4651D97B18DE729D004AC95A /* DB */,
 				461B0C0118DC3BD700E0DAF5 /* Images */,
-				4693AAA618D8426100104F01 /* Images.xcassets */,
+				46C37A531915E7E7004070C8 /* XinGe */,
 			);
 			path = Assets;
 			sourceTree = "<group>";
@@ -1313,8 +1316,6 @@
 				4673BB6618D2F2B8000F64DE /* Appointment.m */,
 				467F0EAD18CB0F54009FFE08 /* BaseModel.h */,
 				467F0EAE18CB0F54009FFE08 /* BaseModel.m */,
-				467F0EBC18CB3CC3009FFE08 /* ChatSession.h */,
-				467F0EBD18CB3CC3009FFE08 /* ChatSession.m */,
 				4651D98118DE778F004AC95A /* City.h */,
 				4651D98218DE778F004AC95A /* City.m */,
 				460C2F2818C8BFFF00AD16E6 /* Comment.h */,
@@ -1325,6 +1326,10 @@
 				46B25AEF18C185290035F425 /* FakeDataHelper.m */,
 				460C2F4B18CAFEBF00AD16E6 /* Group.h */,
 				460C2F4C18CAFEBF00AD16E6 /* Group.m */,
+				18CA327219171F4C001C20D3 /* Message.h */,
+				18CA327319171F4C001C20D3 /* Message.m */,
+				18CA327419171F4C001C20D3 /* MessageConversation.h */,
+				18CA327519171F4C001C20D3 /* MessageConversation.m */,
 				46E84EDB18C338370004C146 /* OpitionCategory.h */,
 				46E84EDC18C338370004C146 /* OpitionCategory.m */,
 				46E84ED818C337D70004C146 /* OpitionItem.h */,
@@ -2621,6 +2626,7 @@
 				4651D98618DE7DBB004AC95A /* CityManager.m in Sources */,
 				4673BB9618D41B75000F64DE /* GroupRevenuViewController.m in Sources */,
 				46BDF12A18D0B53200999F50 /* CouponCell.m in Sources */,
+				18CA327619171F4C001C20D3 /* Message.m in Sources */,
 				184B82CA18DAC7F000177BAB /* JSMessageTextView.m in Sources */,
 				1882D2731901314200D59861 /* FeedbackViewController.m in Sources */,
 				4673BB6118D2ED4D000F64DE /* AppointmentsViewController.m in Sources */,
@@ -2669,6 +2675,7 @@
 				18A3E61318DC0C280080DC0B /* RegisterViewController.m in Sources */,
 				46E84ED718C2F0380004C146 /* OpitionSelectPanel.m in Sources */,
 				4665FD8518BC801000E88C6B /* Work.m in Sources */,
+				18CA327719171F4C001C20D3 /* MessageConversation.m in Sources */,
 				46B25AE618BF1CC60035F425 /* MapViewController.mm in Sources */,
 				467F0F1D18CC219B009FFE08 /* TripleCoverCell.m in Sources */,
 				4651D97A18DE7294004AC95A /* UserManager.m in Sources */,
@@ -2691,7 +2698,6 @@
 				184B82C518DAC7F000177BAB /* JSBubbleView.m in Sources */,
 				4651D98318DE778F004AC95A /* City.m in Sources */,
 				4665C83E18F568290066753D /* FavoriteStaffTableView.m in Sources */,
-				467F0EBE18CB3CC3009FFE08 /* ChatSession.m in Sources */,
 				46BDF13118D1516F00999F50 /* MyGroupViewController.m in Sources */,
 				46B25AF018C185290035F425 /* FakeDataHelper.m in Sources */,
 				46E84EDD18C338370004C146 /* OpitionCategory.m in Sources */,

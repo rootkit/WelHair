@@ -73,7 +73,7 @@
     [self.tableView.pullToRefreshView setBorderColor:[UIColor whiteColor]];
     [self.tableView.pullToRefreshView setImageIcon:[UIImage imageNamed:@"centerIcon"]];
 
-    [self.tableView triggerPullToRefresh];
+    [self getMessages];
 }
 
 - (void)setIncomingUser:(User *)incomingUser
@@ -292,14 +292,13 @@
     if (self.currentPage == 1) {
         [arr removeAllObjects];
     } else {
-        if (self.currentPage % TABLEVIEW_PAGESIZE_DEFAULT > 0) {
+        int more = self.datasource.count % TABLEVIEW_PAGESIZE_DEFAULT;
+        if (more > 0) {
             int i;
 
-            for (i = 0; i < arr.count; i++) {
-                if (i >= (self.currentPage - 1) * 1) {
-                    [arr removeObjectAtIndex:i];
-                    i--;
-                }
+            for (i = 0; i < more; i++) {
+                [arr removeObjectAtIndex:i];
+                i--;
             }
         }
     }
@@ -311,19 +310,19 @@
     self.datasource = arr;
 
     BOOL enableInfinite = total > self.datasource.count;
-    if (self.tableView.showsInfiniteScrolling != enableInfinite) {
-        self.tableView.showsInfiniteScrolling = enableInfinite;
+    if (self.tableView.showPullToRefresh != enableInfinite) {
+        self.tableView.showPullToRefresh = enableInfinite;
     }
 
-    if (self.currentPage == 1) {
-        [self.tableView stopRefreshAnimation];
-    } else {
-        [self.tableView.infiniteScrollingView stopAnimating];
-    }
+    [self.tableView stopRefreshAnimation];
 
     [self checkEmpty];
 
     [self.tableView reloadData];
+
+    if (self.currentPage == 1) {
+        [self scrollToBottomAnimated:YES];
+    }
 }
 
 - (void)failGetMessages:(ASIHTTPRequest *)request
