@@ -20,7 +20,8 @@
 @property (nonatomic, strong) UILabel *nameLbl;
 @property (nonatomic, strong) UILabel *addressLbl;
 @property (nonatomic, strong) UILabel *distanceLbl;
-@property (nonatomic, strong) AMRatingControl *rateControl;
+@property (nonatomic, strong) UIImageView *rateHandImageView;
+@property (nonatomic, strong) UILabel *rateLbl;
 
 @end
 
@@ -37,7 +38,7 @@
         
         self.nameLbl = [[UILabel alloc] initWithFrame:CGRectMake(MaxX(self.imgView) + 5,
                                                                      Y(self.imgView),
-                                                                     130,
+                                                                     160,
                                                                      HEIGHT(self.imgView)/2)];
         self.nameLbl.font = [UIFont boldSystemFontOfSize:14];
         self.nameLbl.numberOfLines = 2;
@@ -55,13 +56,20 @@
         self.addressLbl.textColor = [UIColor blackColor];
         [self addSubview:self.addressLbl];
         
-        self.rateControl = [[AMRatingControl alloc] initWithLocation:CGPointMake(MaxX(self.nameLbl) + 5, Y(self.nameLbl))
-                                                                      emptyColor:[UIColor colorWithHexString:@"ffc62a"]
-                                                                      solidColor:[UIColor colorWithHexString:@"ffc62a"]
-                                                                    andMaxRating:5];
+        self.rateHandImageView = [[UIImageView alloc] initWithFrame:CGRectMake(MaxX(self.nameLbl), Y(self.nameLbl)+10 , 15, 15)];
+        [self addSubview:self.rateHandImageView];
+        self.rateHandImageView.image = [UIImage imageNamed:@"RateHand"];
         
-        self.rateControl.enabled = NO;
-        [self addSubview:self.rateControl];
+        self.rateLbl = [[UILabel alloc] initWithFrame:CGRectMake(MaxX(self.rateHandImageView)+5,
+                                                                    Y(self.nameLbl)+10,
+                                                                    50,
+                                                                    15)];
+        self.rateLbl.font = [UIFont systemFontOfSize:12];
+        self.rateLbl.numberOfLines = 2;
+        self.rateLbl.text = TextAlignmentLeft;
+        self.rateLbl.backgroundColor = [UIColor clearColor];
+        self.rateLbl.textColor = [UIColor colorWithHexString:@"b7bcc2"];
+        [self addSubview:self.rateLbl];
         
         UIImageView *locationImg = [[UIImageView alloc] initWithFrame:CGRectMake(WIDTH(self) - 80, Y(self.addressLbl)    + 10,15,15)];
         FAKIcon *locationIcon = [FAKIonIcons locationIconWithSize:15];
@@ -91,7 +99,7 @@
 
     [self.imgView setImageWithURL:[NSURL URLWithString:group.logoUrl]];
     self.nameLbl.text = [NSString stringWithFormat:@"%@", group.name];
-    self.rateControl.rating = group.rating;
+    self.rateLbl.text = @"120";
     self.addressLbl.text = [NSString stringWithFormat:@"地址：%@", group.address];
     self.distanceLbl.text = [NSString stringWithFormat:@"%.0f千米", group.distance / 1000];
 }

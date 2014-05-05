@@ -170,6 +170,8 @@
 		461B0C6F18DC3BD700E0DAF5 /* UploadWorkViewControl_UploadBg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 461B0C3D18DC3BD700E0DAF5 /* UploadWorkViewControl_UploadBg@2x.png */; };
 		461B0C7118DC3BD700E0DAF5 /* WD_AuthorLayerBg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 461B0C4018DC3BD700E0DAF5 /* WD_AuthorLayerBg@2x.png */; };
 		4621AAE118EE9D3A00B8E18D /* Service.m in Sources */ = {isa = PBXBuildFile; fileRef = 4621AAE018EE9D3A00B8E18D /* Service.m */; };
+		462BE8D61917C49300D78D39 /* RateHand@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 462BE8D41917C49300D78D39 /* RateHand@2x.png */; };
+		462BE8D71917C49300D78D39 /* RateHand.png in Resources */ = {isa = PBXBuildFile; fileRef = 462BE8D51917C49300D78D39 /* RateHand.png */; };
 		4630251518C76EF1000E0B51 /* CalendarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4630251418C76EF1000E0B51 /* CalendarViewController.m */; };
 		4630252E18C848EB000E0B51 /* WorkCardView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4630252D18C848EB000E0B51 /* WorkCardView.m */; };
 		4630253118C849FD000E0B51 /* Staff.m in Sources */ = {isa = PBXBuildFile; fileRef = 4630253018C849FD000E0B51 /* Staff.m */; };
@@ -569,6 +571,8 @@
 		461B0C4018DC3BD700E0DAF5 /* WD_AuthorLayerBg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "WD_AuthorLayerBg@2x.png"; sourceTree = "<group>"; };
 		4621AADF18EE9D3A00B8E18D /* Service.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Service.h; sourceTree = "<group>"; };
 		4621AAE018EE9D3A00B8E18D /* Service.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Service.m; sourceTree = "<group>"; };
+		462BE8D41917C49300D78D39 /* RateHand@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "RateHand@2x.png"; sourceTree = "<group>"; };
+		462BE8D51917C49300D78D39 /* RateHand.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = RateHand.png; sourceTree = "<group>"; };
 		4630251318C76EF1000E0B51 /* CalendarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CalendarViewController.h; sourceTree = "<group>"; };
 		4630251418C76EF1000E0B51 /* CalendarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CalendarViewController.m; sourceTree = "<group>"; };
 		4630252C18C848EB000E0B51 /* WorkCardView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WorkCardView.h; sourceTree = "<group>"; };
@@ -1431,6 +1435,8 @@
 		461B0C0418DC3BD700E0DAF5 /* Buttons */ = {
 			isa = PBXGroup;
 			children = (
+				462BE8D41917C49300D78D39 /* RateHand@2x.png */,
+				462BE8D51917C49300D78D39 /* RateHand.png */,
 				18C86E0C18EE4E1F00800A55 /* AddImage@2x.png */,
 				4659D27918E7E8E2005648C0 /* AddressEditBtn.png */,
 				4659D27A18E7E8E2005648C0 /* AddressEditBtn@2x.png */,
@@ -2500,6 +2506,7 @@
 				1825E1CE18E183B70052AA9A /* MeTab1@2x.png in Resources */,
 				1825E1CC18E183B70052AA9A /* Juchi@2x.png in Resources */,
 				466DF40E18FC111300CB8A53 /* UMSShareListController.xib in Resources */,
+				462BE8D71917C49300D78D39 /* RateHand.png in Resources */,
 				466DF41A18FD6B0200CB8A53 /* GroupManageViewController_Bg.png in Resources */,
 				184B82DE18DAC7F000177BAB /* bubble-flat-outgoing-selected.png in Resources */,
 				184B82EF18DAC7F000177BAB /* input-bar@2x.png in Resources */,
@@ -2521,6 +2528,7 @@
 				466DF40A18FC111300CB8A53 /* UMShareEditViewController.xib in Resources */,
 				184B82E018DAC7F000177BAB /* bubble-flat-outgoing.png in Resources */,
 				184B82E618DAC7F000177BAB /* bubble-square-outgoing-selected.png in Resources */,
+				462BE8D61917C49300D78D39 /* RateHand@2x.png in Resources */,
 				461B0C6A18DC3BD700E0DAF5 /* UploadWorkViewControl_FaceStyleGuaZiSelected@2x.png in Resources */,
 				184B82F418DAC7F000177BAB /* send-highlighted.png in Resources */,
 				467F0EEA18CB4FCF009FFE08 /* pick_bg@2x.png in Resources */,

@@ -22,7 +22,7 @@
 @property (nonatomic, strong) UILabel *nameLbl;
 @property (nonatomic, strong) UILabel *groupLbl;
 @property (nonatomic, strong) UILabel *groupAddressLbl;
-@property (nonatomic, strong) UILabel *workCountLbl;
+@property (nonatomic, strong) UILabel *rateCoubtLbl;
 @property (nonatomic, strong) UILabel *distanceLbl;
 
 @end
@@ -69,19 +69,20 @@
         self.groupAddressLbl.textColor = [UIColor grayColor];
         [self addSubview:self.groupAddressLbl];
         
-        UIImageView *workImg = [[UIImageView alloc] initWithFrame:CGRectMake(MaxX(self.nameLbl), Y(self.nameLbl), HEIGHT(self.nameLbl),HEIGHT(self.nameLbl))];
-        workImg.image = [UIImage imageNamed:@"StaffCellI_WorkIcon"];
-        [self addSubview:workImg];
+        UIImageView *rateImageView = [[UIImageView alloc] initWithFrame:CGRectMake(MaxX(self.nameLbl), Y(self.nameLbl)+10 , 15, 15)];
+        [self addSubview:rateImageView];
+        rateImageView.image = [UIImage imageNamed:@"RateHand"];
         
-        self.workCountLbl = [[UILabel alloc] initWithFrame:CGRectMake(MaxX(workImg) + 5,
-                                                                         Y(self.nameLbl),
-                                                                         50,
-                                                                         HEIGHT(self.imgView)/3)];
-        self.workCountLbl.font = [UIFont systemFontOfSize:12];
-        self.workCountLbl.numberOfLines = 1;
-        self.workCountLbl.backgroundColor = [UIColor clearColor];
-        self.workCountLbl.textColor = [UIColor colorWithHexString:@"019dda"];
-        [self addSubview:self.workCountLbl];
+        self.rateCoubtLbl = [[UILabel alloc] initWithFrame:CGRectMake(MaxX(rateImageView) + 5,
+                                                                      Y(self.nameLbl)+10,
+                                                                      50,
+                                                                      HEIGHT(self.imgView)/3)];
+        self.rateCoubtLbl.font = [UIFont systemFontOfSize:12];
+        self.rateCoubtLbl.numberOfLines = 1;
+        self.rateCoubtLbl.text = TextAlignmentLeft;
+        self.rateCoubtLbl.backgroundColor = [UIColor clearColor];
+        self.rateCoubtLbl.textColor = [UIColor colorWithHexString:@"b7bcc2"];
+        [self addSubview:self.rateCoubtLbl];
         
         UIImageView *locationImg = [[UIImageView alloc] initWithFrame:CGRectMake(MaxX(self.groupAddressLbl), Y(self.groupAddressLbl), HEIGHT(self.groupAddressLbl),HEIGHT(self.groupAddressLbl))];
         FAKIcon *locationIcon = [FAKIonIcons locationIconWithSize:14];
@@ -115,7 +116,7 @@
     self.nameLbl.text = [NSString stringWithFormat:@"%@", staff.name];
     self.groupLbl.text = staff.group.name;
     self.groupAddressLbl.text = staff.group.address;
-    self.workCountLbl.text = [NSString stringWithFormat:@"%d件", staff.workCount];
+    self.rateCoubtLbl.text = [NSString stringWithFormat:@"%d", 100];
     self.distanceLbl.text = [NSString stringWithFormat:@"%.1f千米", staff.distance / 1000];
 }
 
