@@ -19,16 +19,6 @@ use Welfony\Repository\Base\AbstractRepository;
 class UserBalanceLogRepository extends AbstractRepository
 {
 
-    public function getAllUserBalanceLogCount()
-    {
-        $strSql = "SELECT
-                       COUNT(1) `Total`
-                   FROM UserBalanceLog";
-
-        $row = $this->conn->fetchAssoc($strSql);
-
-        return $row['Total'];
-    }
 
     public function getAllUserBalanceLog()
     {
@@ -40,12 +30,49 @@ class UserBalanceLogRepository extends AbstractRepository
         return $this->conn->fetchAll($strSql);
     }
 
+
+    public function getAllUserBalanceLogCount()
+    {
+        $strSql = "SELECT
+                       COUNT(1) `Total`
+                   FROM UserBalanceLog";
+
+        $row = $this->conn->fetchAssoc($strSql);
+
+        return $row['Total'];
+    }
+
     public function listUserBalanceLog($pageNumber, $pageSize)
     {
 
         $offset = ($pageNumber - 1) * $pageSize;
         $strSql = "SELECT *
                    FROM UserBalanceLog
+                   ORDER BY UserBalanceLogId
+                   LIMIT $offset, $pageSize ";
+
+        return $this->conn->fetchAll($strSql);
+    }
+
+    public function getAllUserBalanceLogCountByUser($userId)
+    {
+        $strSql = "SELECT
+                       COUNT(1) `Total`
+                   FROM UserBalanceLog
+                   WHERE UserId = $userId";
+
+        $row = $this->conn->fetchAssoc($strSql);
+
+        return $row['Total'];
+    }
+
+    public function listUserBalanceLogByUser($userId,$pageNumber, $pageSize)
+    {
+
+        $offset = ($pageNumber - 1) * $pageSize;
+        $strSql = "SELECT *
+                   FROM UserBalanceLog
+                   WHERE UserId = $userId
                    ORDER BY UserBalanceLogId
                    LIMIT $offset, $pageSize ";
 

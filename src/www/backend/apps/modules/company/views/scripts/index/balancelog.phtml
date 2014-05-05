@@ -1,0 +1,40 @@
+<?php
+use Welfony\Utility\Converter;
+use Welfony\Utility\Util;
+?>
+<div class="toolbar">
+    <ul class="clearfix">
+        <li>
+            <a href="<?php echo $this->baseUrl('company/index/search'); ?>">
+                <i class="iconfont">&#xf0112;</i>
+                返回
+            </a>
+        </li>
+</div>
+<table class="m-table">
+    <thead>
+        <tr>
+            <th class="col-chk"><input id="chk_all" type="checkbox" /></th>
+            <th class="cola">金额</th>
+            <th class="cola">时间</th>
+            <th class="cola">详情</th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php if (count($this->dataList) > 0): ?>
+        <?php foreach ($this->dataList as $data): ?>
+        <tr>
+            <td class="col-center"><input name="chk_ids[]" value="<?php echo $data['CompanyBalanceLogId']; ?>" type="checkbox" /></td>
+            <td><?php echo $data['Amount']; ?></td>            
+            <td><?php echo $data['CreateTime']; ?></td>
+            <td><?php echo $data['Description']; ?></td>
+        </tr>
+        <?php endforeach; ?>
+        <?php else: ?>
+        <tr>
+            <td class="col-center" colspan="4">您还没有添加任何记录</td>
+        </tr>
+        <?php endif; ?>
+    </tbody>
+</table>
+<?php echo $this->pager; ?>

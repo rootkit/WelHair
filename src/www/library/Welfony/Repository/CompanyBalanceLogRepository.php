@@ -19,6 +19,16 @@ use Welfony\Repository\Base\AbstractRepository;
 class CompanyBalanceLogRepository extends AbstractRepository
 {
 
+    public function getAllCompanyBalanceLog()
+    {
+        $strSql = 'SELECT
+                       *
+                   FROM CompanyBalanceLog
+                  ';
+
+        return $this->conn->fetchAll($strSql);
+    }
+
     public function getAllCompanyBalanceLogCount()
     {
         $strSql = "SELECT
@@ -30,16 +40,6 @@ class CompanyBalanceLogRepository extends AbstractRepository
         return $row['Total'];
     }
 
-    public function getAllCompanyBalanceLog()
-    {
-        $strSql = 'SELECT
-                       *
-                   FROM CompanyBalanceLog
-                  ';
-
-        return $this->conn->fetchAll($strSql);
-    }
-
     public function listCompanyBalanceLog($pageNumber, $pageSize)
     {
 
@@ -47,6 +47,33 @@ class CompanyBalanceLogRepository extends AbstractRepository
         $strSql = "SELECT *
                    FROM CompanyBalanceLog
                    ORDER BY CompanyBalanceLogId
+                   LIMIT $offset, $pageSize ";
+
+        return $this->conn->fetchAll($strSql);
+
+    }
+
+    public function getAllCompanyBalanceLogCountByCompany($companyId)
+    {
+        $strSql = "SELECT
+                       COUNT(1) `Total`
+                   FROM CompanyBalanceLog
+                   WHERE CompanyId = $companyId";
+
+        $row = $this->conn->fetchAssoc($strSql);
+
+        return $row['Total'];
+    }
+
+    public function listCompanyBalanceLogByCompany($companyId, $pageNumber, $pageSize)
+    {
+
+        $offset = ($pageNumber - 1) * $pageSize;
+        $strSql = "SELECT *
+                   FROM CompanyBalanceLog
+                   WHERE CompanyId = $companyId
+                   ORDER BY CompanyBalanceLogId
+
                    LIMIT $offset, $pageSize ";
 
         return $this->conn->fetchAll($strSql);

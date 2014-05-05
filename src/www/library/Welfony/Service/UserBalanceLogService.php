@@ -45,6 +45,27 @@ class UserBalanceLogService
         return $result;
     }
 
+    public static function listUserBalanceLogByUser($userId, $pageNumber, $pageSize)
+    {
+        $result = array(
+            'userbalancelogs' => array(),
+            'total' => 0
+        );
+
+        $totalCount = UserBalanceLogRepository::getInstance()->getAllUserBalanceLogCountByUser($userId);
+
+        if ($totalCount > 0 && $pageNumber <= ceil($totalCount / $pageSize)) {
+
+            $searchResult = UserBalanceLogRepository::getInstance()->listUserBalanceLogByUser($userId, $pageNumber, $pageSize);
+
+            $result['userbalancelogs']= $searchResult;
+        }
+
+        $result['total'] = $totalCount;
+
+        return $result;
+    }
+
     public static function listAllUserBalanceLog()
     {
         return $searchResult = UserBalanceLogRepository::getInstance()->getAllUserBalanceLog();

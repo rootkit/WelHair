@@ -16,6 +16,7 @@ use Welfony\Controller\Base\AbstractAdminController;
 use Welfony\Core\Enum\CompanyStatus;
 use Welfony\Service\AreaService;
 use Welfony\Service\CompanyService;
+use Welfony\Service\CompanyBalanceLogService;
 use Welfony\Service\GoodsService;
 
 class Company_IndexController extends AbstractAdminController
@@ -161,6 +162,22 @@ class Company_IndexController extends AbstractAdminController
         //                                        ceil($searchResult['total'] / $pageSize), $func);
 
         $this->view->pagerHTML = $this->renderPager($this->view->baseUrl('company/index/goods?s='),
+                                                $page,
+                                                ceil($searchResult['total'] / $pageSize));
+    }
+
+    public function balancelogAction()
+    {
+        $companyId = intval($this->_request->getParam('company_id'));
+        static $pageSize = 10;
+
+        $this->view->pageTitle = '余额历史记录';
+
+        $page = $this->_request->getParam('page')? intval($this->_request->getParam('page')) : 1;
+        $searchResult = CompanyBalanceLogService::listCompanyBalanceLogByCompany($companyId, $page, $pageSize);
+
+        $this->view->dataList = $searchResult['companybalancelogs'];
+        $this->view->pager = $this->renderPager($this->view->baseUrl('company/index/balancelog?s='),
                                                 $page,
                                                 ceil($searchResult['total'] / $pageSize));
     }

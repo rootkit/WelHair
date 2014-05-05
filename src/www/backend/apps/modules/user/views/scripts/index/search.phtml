@@ -28,6 +28,7 @@ use Welfony\Utility\Util;
             <th>邮箱</th>
             <th>手机</th>
             <th>创建时间</th>
+            <th>余额</th>
         </tr>
     </thead>
     <tbody>
@@ -47,6 +48,11 @@ use Welfony\Utility\Util;
             <td><?php echo $data['Email']; ?></td>
             <td><?php echo $data['Mobile']; ?></td>
             <td><?php echo $data['CreatedDate']; ?></td>
+            <td class="cola">
+                <a href="<?php echo $this->baseUrl('user/index/balancelog?user_id=' . $data['UserId']); ?>">
+                    <?php echo $data['Balance']; ?>
+                </a>
+            </td>
         </tr>
         <?php endforeach; ?>
         <?php else: ?>

@@ -15,6 +15,7 @@
 use Welfony\Controller\Base\AbstractAdminController;
 use Welfony\Core\Enum\UserRole;
 use Welfony\Service\UserService;
+use Welfony\Service\UserBalanceLogService;
 use Welfony\Utility\Util;
 
 class User_IndexController extends AbstractAdminController
@@ -95,6 +96,22 @@ class User_IndexController extends AbstractAdminController
         }
 
         $this->view->userInfo = $user;
+    }
+
+    public function balancelogAction()
+    {
+        $userId = intval($this->_request->getParam('user_id'));
+        static $pageSize = 10;
+
+        $this->view->pageTitle = '余额历史记录';
+
+        $page = $this->_request->getParam('page')? intval($this->_request->getParam('page')) : 1;
+        $searchResult = UserBalanceLogService::listUserBalanceLogByUser($userId, $page, $pageSize);
+
+        $this->view->dataList = $searchResult['userbalancelogs'];
+        $this->view->pager = $this->renderPager($this->view->baseUrl('user/index/balancelog?s='),
+                                                $page,
+                                                ceil($searchResult['total'] / $pageSize));
     }
 
 }

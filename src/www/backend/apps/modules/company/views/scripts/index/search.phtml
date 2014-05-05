@@ -24,6 +24,7 @@
             <th class="cola">手机</th>
             <th class="cola">验证</th>
             <th>创建时间</th>
+            <th>余额</th>
             <th class="cola"></th>
         </tr>
     </thead>
@@ -47,6 +48,11 @@
                 <?php echo $data['Status'] == 1 ? '通过' : '未通过'; ?>
             </td>
             <td><?php echo $data['CreatedDate']; ?></td>
+            <td>
+                <a href="<?php echo $this->baseUrl('company/index/balancelog?company_id=' . $data['CompanyId']); ?>">
+                    <?php echo $data['Amount']; ?>
+                </a>
+            </td>
             <td>
                 <a href="<?php echo $this->baseUrl('company/staff/search?company_id=' . $data['CompanyId']); ?>">
                     <i class="iconfont">&#xf00ec;</i>&nbsp;&nbsp;
