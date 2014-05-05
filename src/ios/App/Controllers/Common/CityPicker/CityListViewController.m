@@ -107,7 +107,13 @@
 
 - (NSArray *)sectionIndexTitlesForTableView:(UITableView *)tableView
 {
-    return self.cityKeys;
+    if(self.enableLocation){
+        NSMutableArray *array = [NSMutableArray arrayWithArray:self.cityKeys];
+        [array insertObject:@"#" atIndex:0];
+        return array;
+    }else{
+        return self.cityKeys;
+    }
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
