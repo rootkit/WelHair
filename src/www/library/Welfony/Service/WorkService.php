@@ -200,6 +200,17 @@ class WorkService
         $works = array();
         foreach ($workList as $work) {
             $work['PictureUrl'] = json_decode($work['PictureUrl'], true);
+
+            if (intval($work['UserId']) > 0) {
+                $work['Staff'] = array(
+                    'UserId' => $work['UserId'],
+                    'AvatarUrl' => $work['AvatarUrl'],
+                    'Nickname' => $work['Nickname']
+                );
+            } else {
+                $work['Staff'] = array();
+            }
+
             $works[] = $work;
         }
 

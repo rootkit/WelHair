@@ -68,7 +68,7 @@
     self.tableView.backgroundColor = [UIColor clearColor];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
-    self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.tableView.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:self.tableView];
 
@@ -101,7 +101,7 @@
 #pragma mark UITableView delegate
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 60;
+    return 80;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -116,8 +116,10 @@
     if (!cell) {
         cell = [[ChatGroupCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        cell.contentView.backgroundColor =  cell.backgroundColor = [UIColor clearColor];
     }
+
+    cell.contentView.backgroundColor = cell.contentView.backgroundColor = cell.backgroundColor = indexPath.row % 2 == 0 ?
+    [UIColor whiteColor] : [UIColor colorWithHexString:@"f5f6f8"];
 
     MessageConversation *data = [self.datasource objectAtIndex: indexPath.row];
     [cell setup:data];
@@ -128,6 +130,19 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [self pushToDetial:[self.datasource objectAtIndex:indexPath.row]];
+}
+
+- (void)tableView:(UITableView *)tableView didHighlightRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    ChatGroupCell * cell = (ChatGroupCell *)[tableView cellForRowAtIndexPath:indexPath];
+    cell.contentView.backgroundColor = cell.contentView.backgroundColor = cell.backgroundColor = [UIColor colorWithHexString:@"#eee"];
+}
+
+- (void)tableView:(UITableView *)tableView didUnhighlightRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    ChatGroupCell * cell = (ChatGroupCell *)[tableView cellForRowAtIndexPath:indexPath];
+    cell.contentView.backgroundColor = cell.contentView.backgroundColor = cell.backgroundColor = indexPath.row % 2 == 0 ?
+    [UIColor whiteColor] : [UIColor colorWithHexString:@"f5f6f8"];
 }
 
 - (void)pushToDetial:(MessageConversation *)conversation

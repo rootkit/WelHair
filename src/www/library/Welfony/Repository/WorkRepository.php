@@ -90,7 +90,8 @@ class WorkRepository extends AbstractRepository
         $offset = ($page - 1) * $pageSize;
         $strSql = "SELECT
                        W.*,
-                       U.Nickname
+                       U.Nickname,
+                       U.AvatarUrl
                    FROM Work W
                    INNER JOIN Users U ON U.UserId = W.UserId
                    WHERE W.UserId > 0 $filter

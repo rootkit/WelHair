@@ -59,8 +59,12 @@
         [self.removeButton addTarget:self action:@selector(cardTapped:) forControlEvents:UIControlEventTouchUpInside];
         [workContainer addSubview:self.removeButton];
 
-        self.workImage = [[UIImageView alloc] initWithFrame:CGRectMake(3, 3, 139, 139)];
-        [workContainer addSubview:self.workImage];
+        UIView *imgBg = [[UIView alloc] initWithFrame:CGRectMake(3, 3, 139, 139)];
+        imgBg.backgroundColor = [UIColor lightGrayColor];
+        [workContainer addSubview:imgBg];
+
+        self.workImage = [[UIImageView alloc] initWithFrame:imgBg.bounds];
+        [imgBg addSubview:self.workImage];
     }
 
     return self;

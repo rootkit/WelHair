@@ -42,7 +42,7 @@
 #import "UIButton+JSMessagesView.h"
 
 
-#define kAllowsMedia		YES
+#define kAllowsMedia		NO
 
 typedef enum {
     JSMessagesViewTimestampPolicyAll = 0,

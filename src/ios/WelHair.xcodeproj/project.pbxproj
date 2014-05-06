@@ -91,6 +91,7 @@
 		184B82FD18DAC7F000177BAB /* UIView+AnimationOptionsForCurve.m in Sources */ = {isa = PBXBuildFile; fileRef = 184B82C318DAC7F000177BAB /* UIView+AnimationOptionsForCurve.m */; };
 		18502DA918F8E2B800CD4A0A /* StaffServiceTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18502DA818F8E2B800CD4A0A /* StaffServiceTableViewCell.m */; };
 		18502DAB18F93ED600CD4A0A /* AvatarDefault@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 18502DAA18F93ED600CD4A0A /* AvatarDefault@2x.jpg */; };
+		1853F4181918E023005FFE90 /* M13BadgeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1853F4171918E023005FFE90 /* M13BadgeView.m */; };
 		187638CC1910831C00846BB9 /* ProfileBackgroundDefault@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 187638CB1910831C00846BB9 /* ProfileBackgroundDefault@2x.png */; };
 		187638D01910BC1900846BB9 /* MyClientViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 187638CF1910BC1900846BB9 /* MyClientViewController.m */; };
 		187638D31910BC2B00846BB9 /* MyClientDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 187638D21910BC2B00846BB9 /* MyClientDetailViewController.m */; };
@@ -458,6 +459,8 @@
 		18502DA718F8E2B800CD4A0A /* StaffServiceTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StaffServiceTableViewCell.h; sourceTree = "<group>"; };
 		18502DA818F8E2B800CD4A0A /* StaffServiceTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StaffServiceTableViewCell.m; sourceTree = "<group>"; };
 		18502DAA18F93ED600CD4A0A /* AvatarDefault@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "AvatarDefault@2x.jpg"; sourceTree = "<group>"; };
+		1853F4161918E023005FFE90 /* M13BadgeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = M13BadgeView.h; sourceTree = "<group>"; };
+		1853F4171918E023005FFE90 /* M13BadgeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = M13BadgeView.m; sourceTree = "<group>"; };
 		187638CB1910831C00846BB9 /* ProfileBackgroundDefault@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ProfileBackgroundDefault@2x.png"; sourceTree = "<group>"; };
 		187638CE1910BC1900846BB9 /* MyClientViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyClientViewController.h; sourceTree = "<group>"; };
 		187638CF1910BC1900846BB9 /* MyClientViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyClientViewController.m; sourceTree = "<group>"; };
@@ -1158,6 +1161,15 @@
 			path = Sounds;
 			sourceTree = "<group>";
 		};
+		1853F4151918E023005FFE90 /* M13BadgeView */ = {
+			isa = PBXGroup;
+			children = (
+				1853F4161918E023005FFE90 /* M13BadgeView.h */,
+				1853F4171918E023005FFE90 /* M13BadgeView.m */,
+			);
+			path = M13BadgeView;
+			sourceTree = "<group>";
+		};
 		187638CD1910BBFF00846BB9 /* MyClient */ = {
 			isa = PBXGroup;
 			children = (
@@ -1361,17 +1373,18 @@
 		18A912E518BB2826006B9A04 /* Vendor */ = {
 			isa = PBXGroup;
 			children = (
-				46C3B9F01910D48800A53F3B /* PPiFlatSegmentedControl */,
-				466DF41518FD572500CB8A53 /* GCPlaceholderTextView */,
-				466DF3DD18FC111300CB8A53 /* UMSocial_Sdk_3.3.7 */,
 				183B03C718E110F500765116 /* ABMGroupedTableView */,
 				18FAFAB218EAA6C200EF6960 /* BrickView */,
 				4630D13718C603B000DA7CAD /* CircleView */,
+				466DF41518FD572500CB8A53 /* GCPlaceholderTextView */,
 				467F0F2618CC95CA009FFE08 /* JOLImageSlider */,
 				46E84ECB18C2DB930004C146 /* KNSemiModalViewController */,
+				1853F4151918E023005FFE90 /* M13BadgeView */,
 				184B827A18DAC7F000177BAB /* MessagesTableViewController */,
+				46C3B9F01910D48800A53F3B /* PPiFlatSegmentedControl */,
 				46BCD24E18BC3B4F005C4BD6 /* SVProgressHUD */,
 				182F9F5C18E976D2001AF49D /* SVPullToRefresh */,
+				466DF3DD18FC111300CB8A53 /* UMSocial_Sdk_3.3.7 */,
 				46E84EB918C2C7040004C146 /* UzysCircularProgressPullToRefresh */,
 				18A912E618BB2826006B9A04 /* WelKit */,
 			);
@@ -2645,6 +2658,7 @@
 				18A3E61918DC11240080DC0B /* RequestUtil.m in Sources */,
 				465A5C8B18DB0B8D009B6D60 /* MyScoreCell.m in Sources */,
 				46EAF98A18D18D0D00D4C624 /* CityListViewController.m in Sources */,
+				1853F4181918E023005FFE90 /* M13BadgeView.m in Sources */,
 				467F0EF018CB4FCF009FFE08 /* UITextField+WelKit.m in Sources */,
 				4665C83818F542440066753D /* FavoriteWorkTableView.m in Sources */,
 				46F5865E18E1BB2B00F9BF51 /* GroupStaffCell.m in Sources */,
