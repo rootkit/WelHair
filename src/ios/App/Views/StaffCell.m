@@ -34,14 +34,14 @@
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         self.backgroundColor = [UIColor clearColor];
+
         self.imgView = [[CircleImageView alloc] initWithFrame:CGRectMake(15, 10, 60, 60)];
+        self.imgView.layer.borderWidth = 0;
         [self addSubview:self.imgView];
-        self.imgView.layer.borderColor = [[UIColor colorWithHexString:@"e0e0de"] CGColor];
-        self.imgView.layer.borderWidth = 2;
         
         self.nameLbl = [[UILabel alloc] initWithFrame:CGRectMake(MaxX(self.imgView) + 5,
                                                                  Y(self.imgView),
-                                                                 160,
+                                                                 154,
                                                                  HEIGHT(self.imgView)/3)];
         self.nameLbl.font = [UIFont boldSystemFontOfSize:16];
         self.nameLbl.numberOfLines = 1;
@@ -52,7 +52,7 @@
         self.groupLbl = [[UILabel alloc] initWithFrame:CGRectMake(MaxX(self.imgView) + 5,
                                                                     MaxY(self.nameLbl),
                                                                     WIDTH(self.nameLbl),
-                                                                    HEIGHT(self.imgView)/3)];
+                                                                    HEIGHT(self.imgView) / 3)];
         self.groupLbl.font = [UIFont systemFontOfSize:12];
         self.groupLbl.numberOfLines = 1;
         self.groupLbl.backgroundColor = [UIColor clearColor];
@@ -69,7 +69,7 @@
         self.groupAddressLbl.textColor = [UIColor grayColor];
         [self addSubview:self.groupAddressLbl];
         
-        UIImageView *rateImageView = [[UIImageView alloc] initWithFrame:CGRectMake(MaxX(self.nameLbl), Y(self.nameLbl)+10 , 15, 15)];
+        UIImageView *rateImageView = [[UIImageView alloc] initWithFrame:CGRectMake(MaxX(self.nameLbl), Y(self.nameLbl) + 10 , 15, 15)];
         [self addSubview:rateImageView];
         rateImageView.image = [UIImage imageNamed:@"RateHand"];
         
@@ -81,25 +81,25 @@
         self.rateCoubtLbl.numberOfLines = 1;
         self.rateCoubtLbl.text = TextAlignmentLeft;
         self.rateCoubtLbl.backgroundColor = [UIColor clearColor];
-        self.rateCoubtLbl.textColor = [UIColor colorWithHexString:@"b7bcc2"];
+        self.rateCoubtLbl.textColor = [UIColor colorWithHexString:@"b7bac1"];
         [self addSubview:self.rateCoubtLbl];
         
-        UIImageView *locationImg = [[UIImageView alloc] initWithFrame:CGRectMake(MaxX(self.groupAddressLbl), Y(self.groupAddressLbl), HEIGHT(self.groupAddressLbl),HEIGHT(self.groupAddressLbl))];
-        FAKIcon *locationIcon = [FAKIonIcons locationIconWithSize:14];
-        [locationIcon addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithHexString:@"b7bcc2"]];
-        locationImg.image = [locationIcon imageWithSize:CGSizeMake(14, 14)];
+        UIImageView *locationImg = [[UIImageView alloc] initWithFrame:CGRectMake(MaxX(self.groupAddressLbl), Y(self.groupAddressLbl) - 1, 20, 20)];
+        FAKIcon *locationIcon = [FAKIonIcons locationIconWithSize:20];
+        [locationIcon addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithHexString:@"b7bac1"]];
+        locationImg.image = [locationIcon imageWithSize:CGSizeMake(20, 20)];
         [self addSubview:locationImg];
         
-        self.distanceLbl = [[UILabel alloc] initWithFrame:CGRectMake(MaxX(locationImg) + 5,
-                                                                      Y(self.groupAddressLbl),
-                                                                      50,
-                                                                      HEIGHT(self.imgView)/3)];
+        self.distanceLbl = [[UILabel alloc] initWithFrame:CGRectMake(MaxX(locationImg) + 2, Y(self.groupAddressLbl), 50, HEIGHT(self.groupAddressLbl))];
         self.distanceLbl.font = [UIFont systemFontOfSize:12];
         self.distanceLbl.numberOfLines = 1;
         self.distanceLbl.backgroundColor = [UIColor clearColor];
-        self.distanceLbl.textColor = [UIColor colorWithHexString:@"b7bcc2"];
+        self.distanceLbl.textColor = [UIColor colorWithHexString:@"b7bac1"];
         [self addSubview:self.distanceLbl];
-        
+
+        UIView *border = [[UIView alloc] initWithFrame:CGRectMake(0, 79, 320, 1)];
+        border.backgroundColor = [UIColor colorWithHexString:@"ddd"];
+        [self addSubview:border];
     }
     return self;
 }
@@ -116,8 +116,8 @@
     self.nameLbl.text = [NSString stringWithFormat:@"%@", staff.name];
     self.groupLbl.text = staff.group.name;
     self.groupAddressLbl.text = staff.group.address;
-    self.rateCoubtLbl.text = [NSString stringWithFormat:@"%d", 100];
-    self.distanceLbl.text = [NSString stringWithFormat:@"%.1f千米", staff.distance / 1000];
+    self.rateCoubtLbl.text = [NSString stringWithFormat:@"%d", staff.ratingCount];
+    self.distanceLbl.text = [NSString stringWithFormat:@"%.1fkm", staff.distance / 1000];
 }
 
 @end

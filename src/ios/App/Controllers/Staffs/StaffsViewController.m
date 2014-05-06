@@ -18,12 +18,13 @@
 #import "StaffDetailViewController.h"
 #import "StaffsViewController.h"
 
-@interface StaffsViewController () <UITableViewDataSource, UITableViewDelegate, DropDownDelegate, CityPickViewDelegate>
+@interface StaffsViewController () <UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate, UISearchDisplayDelegate, DropDownDelegate, CityPickViewDelegate>
 
 @property (nonatomic, assign) NSInteger currentPage;
 
 @property (nonatomic, strong) NSMutableArray *datasource;
 @property (nonatomic, strong) UITableView *tableView;
+@property (nonatomic, strong) UISearchBar * searchBar;
 
 @property (nonatomic, strong) UIButton *areaBtn;
 @property (nonatomic, strong) UIButton *sortBtn;
@@ -103,6 +104,18 @@
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.tableView.backgroundColor = [UIColor clearColor];
     [self.view addSubview:self.tableView];
+
+    self.searchBar = [[UISearchBar alloc] init];
+    self.searchBar.frame = CGRectMake(0, 0, self.tableView.bounds.size.width, 0);
+    self.searchBar.delegate = self;
+    self.searchBar.showsCancelButton = NO;
+    self.searchBar.showsBookmarkButton = NO;
+    self.searchBar.placeholder = @"搜索";
+    self.searchBar.tintColor = [UIColor whiteColor];
+    [self.searchBar sizeToFit];
+    self.tableView.tableHeaderView = self.searchBar;
+
+    [self.tableView.panGestureRecognizer addTarget:self action:@selector(panHandler:)];
 
     __weak typeof(self) weakSelf = self;
     [self.tableView addPullToRefreshActionHandler:^{
@@ -194,7 +207,9 @@
 
 - (void)dropDownBtnClick:(id)sender
 {
+    [self.searchBar resignFirstResponder];
     [self.dropDownPicker hide];
+
     UIButton *btn = (UIButton *)sender;
     switch (btn.tag) {
         case 0:
@@ -228,6 +243,31 @@
     [self.tableView triggerPullToRefresh];
 }
 
+- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
+{
+    [searchBar resignFirstResponder];
+
+    self.currentPage = 1;
+    [self.tableView triggerPullToRefresh];
+}
+
+
+- (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar
+{
+    searchBar.text = @"";
+    [searchBar resignFirstResponder];
+}
+
+- (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText
+{
+
+}
+
+- (void)panHandler:(UIPanGestureRecognizer *)pan
+{
+    [self.searchBar resignFirstResponder];
+}
+
 #pragma mark UITableView delegate
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -248,11 +288,12 @@
         cell = [[StaffCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
-    cell.contentView.backgroundColor =  cell.backgroundColor = indexPath.row % 2 == 0?
+    cell.contentView.backgroundColor = cell.backgroundColor = indexPath.row % 2 == 0 ?
     [UIColor whiteColor] : [UIColor colorWithHexString:@"f5f6f8"];
     
     Staff *data = [self.datasource objectAtIndex:indexPath.row];
     [cell setup:data];
+
     return cell;
 }
 
@@ -264,6 +305,19 @@
     [self.navigationController pushViewController:vc animated:YES];
 }
 
+- (void)tableView:(UITableView *)tableView didHighlightRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    StaffCell * cell = (StaffCell *)[tableView cellForRowAtIndexPath:indexPath];
+    cell.contentView.backgroundColor = cell.contentView.backgroundColor = cell.backgroundColor = [UIColor colorWithHexString:@"#eee"];
+}
+
+- (void)tableView:(UITableView *)tableView didUnhighlightRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    StaffCell * cell = (StaffCell *)[tableView cellForRowAtIndexPath:indexPath];
+    cell.contentView.backgroundColor = cell.contentView.backgroundColor = cell.backgroundColor = indexPath.row % 2 == 0 ?
+    [UIColor whiteColor] : [UIColor colorWithHexString:@"f5f6f8"];
+}
+
 #pragma mark Staff Search API
 
 - (void)getStaffs
@@ -271,6 +325,7 @@
     NSMutableDictionary *reqData = [[NSMutableDictionary alloc] initWithCapacity:1];
     [reqData setObject:[NSString stringWithFormat:@"%d", self.currentPage] forKey:@"page"];
     [reqData setObject:[NSString stringWithFormat:@"%d", TABLEVIEW_PAGESIZE_DEFAULT] forKey:@"pageSize"];
+    [reqData setObject:self.searchBar.text forKey:@"searchText"];
     [reqData setObject:[NSString stringWithFormat:@"%d", [[CityManager SharedInstance] getSelectedCity].id] forKey:@"city"];
     [reqData setObject:[NSString stringWithFormat:@"%d", self.areaSelectedIndex] forKey:@"district"];
     [reqData setObject:[NSString stringWithFormat:@"%d", self.sortSelectedIndex] forKey:@"sort"];

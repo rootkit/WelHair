@@ -21,6 +21,8 @@ class IndexController extends AbstractAPIController
 
     public function index()
     {
+        \Welfony\Notification\Apple::send('b5383bb452d332707501baeddd6c438a344e74bb000981438707a6177b0829c6', array('alert' => '欢迎使用打扮吧'));
+
         $this->sendResponse(array(
             'message' => sprintf('%s API service', $this->app->config->app->name)
         ));

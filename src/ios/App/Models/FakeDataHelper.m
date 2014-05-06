@@ -135,7 +135,7 @@
         staff.name = @"高级总监";
         staff.group = [Group new];
         staff.group.name = @"上海永琪";
-        staff.rating = 0.5;
+        staff.ratingCount = 0;
         staff.description = @"最近咋样，老哥?";
         staff.distance = 1.2;
         staff.works =[FakeDataHelper getFakeWorkList];

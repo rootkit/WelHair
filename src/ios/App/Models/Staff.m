@@ -24,8 +24,8 @@
         self.name = [dictionary objectForKey:@"Nickname"];
         self.avatorUrl = [NSURL URLWithString:[dictionary objectForKey:@"AvatarUrl"]];
 
-        if ([dictionary objectForKey:@"Rate"]) {
-            self.rating = [[dictionary objectForKey:@"Rate"] intValue];
+        if ([dictionary objectForKey:@"RateCount"]) {
+            self.ratingCount = [[dictionary objectForKey:@"RateCount"] intValue];
         }
         if ([dictionary objectForKey:@"WorkCount"]) {
             self.workCount = [[dictionary objectForKey:@"WorkCount"] intValue];

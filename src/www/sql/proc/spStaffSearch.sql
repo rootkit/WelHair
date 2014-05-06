@@ -13,7 +13,7 @@ DROP PROCEDURE IF EXISTS `spStaffSearch`;
 
 DELIMITER $$
 
-CREATE PROCEDURE `spStaffSearch` (IN currentUserId INT, IN coupanyId INT, IN city INT, IN district INT, IN sort INT, IN latitude DOUBLE, IN longitude DOUBLE, IN page INT, IN pageSize INT)
+CREATE PROCEDURE `spStaffSearch` (IN currentUserId INT, IN searchText VARCHAR(255), IN companyId INT, IN city INT, IN district INT, IN sort INT, IN latitude DOUBLE, IN longitude DOUBLE, IN page INT, IN pageSize INT)
 BEGIN
 
 DECLARE offset INT;
@@ -60,7 +60,7 @@ FROM (
       FROM Comment CMW
       INNER JOIN Work W ON W.WorkId = CMW.WorkId
     ) AS TBLRate ON TBLRate.UserId = U.UserId
-    WHERE U.Role = 3 AND (coupanyId = 0 || CU.CompanyId = coupanyId) AND (city = 0 || C.City = city) AND (district = 0 || C.District = district)
+    WHERE U.Role = 3 AND (searchText = '' || U.Nickname LIKE CONCAT('%', searchText, '%') || U.Username LIKE CONCAT('%', searchText, '%')) AND (companyId = 0 || CU.CompanyId = companyId) AND (city = 0 || C.City = city) AND (district = 0 || C.District = district)
     GROUP BY U.UserId
     ORDER BY CASE WHEN sort = 0 THEN MaxWorkId END DESC,
              CASE WHEN sort = 1 THEN Distance END ASC,

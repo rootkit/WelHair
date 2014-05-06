@@ -38,7 +38,7 @@ typedef enum {
 
 @property (nonatomic) WHGroupStatus status;
 
-@property (nonatomic) int rating;
+@property (nonatomic) int ratingCount;
 @property (nonatomic) int staffCount;
 @property (nonatomic) int commentCount;
 @property (nonatomic) BOOL isLiked;

@@ -23,7 +23,7 @@
 @property (nonatomic, strong) NSArray *works;
 @property (nonatomic, strong) NSArray *services;
 
-@property (nonatomic) int rating;
+@property (nonatomic) int ratingCount;
 @property (nonatomic) int workCount;
 @property (nonatomic) BOOL isLiked;
 

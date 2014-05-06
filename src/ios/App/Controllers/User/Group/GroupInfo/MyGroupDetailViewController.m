@@ -95,7 +95,7 @@
                                                  andMaxRating:5];
     [self.headerView addSubview:self.rateCtrl];
     self.rateCtrl.enabled = NO;
-    [self.rateCtrl setRating:self.group.rating];
+    [self.rateCtrl setRating:self.group.ratingCount];
 
     UIImageView *phoneImg = [[UIImageView alloc] initWithFrame:CGRectMake(MaxX(self.groupAvatorImg) + 10, MaxY(self.nameLbl) + 35, 20, 20)];
     FAKIcon *phoneIcon = [FAKIonIcons ios7TelephoneIconWithSize:30];

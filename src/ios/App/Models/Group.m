@@ -31,8 +31,8 @@
         if ([dictionary objectForKey:@"City"]) {
             self.city = [[CityManager SharedInstance] getCityById:[[dictionary objectForKey:@"City"] intValue]];
         }
-        if ([dictionary objectForKey:@"Rate"]) {
-            self.rating = [[dictionary objectForKey:@"Rate"] intValue];
+        if ([dictionary objectForKey:@"RateCount"]) {
+            self.ratingCount = [[dictionary objectForKey:@"RateCount"] intValue];
         }
         if ([dictionary objectForKey:@"StaffCount"]) {
             self.staffCount = [[dictionary objectForKey:@"StaffCount"] intValue];
