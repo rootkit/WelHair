@@ -49,7 +49,6 @@
         [leftIcon addAttribute:NSForegroundColorAttributeName value:[UIColor whiteColor]];
         self.leftNavItemImg  =[leftIcon imageWithSize:CGSizeMake(NAV_BAR_ICON_SIZE, NAV_BAR_ICON_SIZE)];
         
-        self.rightNavItemImg = [UIImage imageNamed:@"ShareIcon"];
     }
 
     return self;
@@ -60,7 +59,7 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 
-- (void)rightNavItemClick
+- (void)shareClick
 {
     NSString *shareText = @"打扮吧，美里从这里开始";
     UIImageView *v = [[UIImageView alloc] init];
@@ -111,9 +110,40 @@
     [self.imgSlider setContentMode: UIViewContentModeScaleAspectFill];
     [self.headerView addSubview:self.imgSlider];
     
+#pragma action section
+    UIView *actionView = [[UIView alloc] initWithFrame:CGRectMake(10, MaxY(self.imgSlider), 300, 35)];
+    actionView.layer.borderColor = [[UIColor colorWithHexString:@"e1e1e1"] CGColor];
+    actionView.layer.borderWidth = 1;
+    actionView.layer.cornerRadius = 5;
+    actionView.backgroundColor = [UIColor whiteColor];
+    [self.headerView addSubview:actionView];
     
+    FAKIcon *heartIconOn = [FAKIonIcons ios7HeartIconWithSize:25];
+    [heartIconOn addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithHexString:@"e43a3d"]];
+    FAKIcon *heartIconOff = [FAKIonIcons ios7HeartOutlineIconWithSize:25];
+    [heartIconOff addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithHexString:@"e43a3d"]];
+    self.heartBtn = [ToggleButton buttonWithType:UIButtonTypeCustom];
+    __weak WorkDetailViewController *selfDelegate = self;
+    [self.heartBtn setToggleButtonOnImage:[heartIconOn imageWithSize:CGSizeMake(25, 25)]
+                                   offImg:[heartIconOff imageWithSize:CGSizeMake(25, 25)]
+                       toggleEventHandler:^(BOOL isOn){
+                           return [selfDelegate favClick:isOn];
+                       }];
+    self.heartBtn.frame = CGRectMake((150 - 25)/2, 5, 25, 25);
+    [actionView addSubview:self.heartBtn];
+    
+    UIView *actionLinerView = [[UIView alloc] initWithFrame:CGRectMake(150, 5, 1, 25)];
+    actionLinerView.backgroundColor = [UIColor lightGrayColor];
+    [actionView addSubview:actionLinerView];
+    
+    UIButton *shareBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [shareBtn addTarget:self action:@selector(shareClick) forControlEvents:UIControlEventTouchDown];
+    shareBtn.frame = CGRectMake(150 + (150 -25)/2, 5, 25, 25);
+    [shareBtn setImage:[UIImage imageNamed:@"ShareIcon"] forState:UIControlStateNormal];
+    [actionView addSubview:shareBtn];
+
 #pragma works list
-    UIView *workView = [[UIView alloc] initWithFrame:CGRectMake(10, MaxY(self.imgSlider) + 10, 300, 70)];
+    UIView *workView = [[UIView alloc] initWithFrame:CGRectMake(10, MaxY(actionView) + 10, 300, 70)];
     workView.layer.borderColor = [[UIColor colorWithHexString:@"e1e1e1"] CGColor];
     workView.layer.borderWidth = 1;
     workView.layer.cornerRadius = 5;
@@ -175,19 +205,7 @@
     self.staffAddressLbl.font = [UIFont systemFontOfSize:12];
     [staffView addSubview:self.staffAddressLbl];
     
-    FAKIcon *heartIconOn = [FAKIonIcons ios7HeartIconWithSize:25];
-    [heartIconOn addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithHexString:@"e43a3d"]];
-    FAKIcon *heartIconOff = [FAKIonIcons ios7HeartOutlineIconWithSize:25];
-    [heartIconOff addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithHexString:@"e43a3d"]];
-    self.heartBtn = [ToggleButton buttonWithType:UIButtonTypeCustom];
-    __weak WorkDetailViewController *selfDelegate = self;
-    [self.heartBtn setToggleButtonOnImage:[heartIconOn imageWithSize:CGSizeMake(25, 25)]
-                                   offImg:[heartIconOff imageWithSize:CGSizeMake(25, 25)]
-                       toggleEventHandler:^(BOOL isOn){
-                          return [selfDelegate favClick:isOn];
-                       }];
-    self.heartBtn.frame = CGRectMake(MaxX(self.staffNameLbl) + 15, 45, 30, 30);
-    [staffView addSubview:self.heartBtn];
+    
 
     
 #pragma people  view
