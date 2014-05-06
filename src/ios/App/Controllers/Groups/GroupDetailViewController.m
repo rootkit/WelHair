@@ -28,10 +28,13 @@
 
 static const float profileViewHeight = 320;
 
-@interface GroupDetailViewController()<MapPickViewDelegate,UMSocialUIDelegate,JOLImageSliderDelegate,MWPhotoBrowserDelegate>
+@interface GroupDetailViewController()<MapPickViewDelegate,UMSocialUIDelegate,JOLImageSliderDelegate,MWPhotoBrowserDelegate, UITableViewDataSource, UITableViewDelegate>
 
-@property (nonatomic, strong) UIScrollView *scrollView;
+@property (nonatomic, strong) UITableView *tableView;
+@property (nonatomic, strong) NSArray *datasource;
+@property (nonatomic, strong) UIView *headerView;
 
+@property (nonatomic, strong) UIView *groupView;
 @property (nonatomic, strong) NSMutableArray *groupImgs;
 @property (nonatomic, strong) MWPhotoBrowser *groupImagesBrowser;
 
@@ -56,8 +59,12 @@ static const float profileViewHeight = 320;
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
+        FAKIcon *leftIcon = [FAKIonIcons ios7ArrowBackIconWithSize:NAV_BAR_ICON_SIZE];
+        [leftIcon addAttribute:NSForegroundColorAttributeName value:[UIColor whiteColor]];
+        self.leftNavItemImg  =[leftIcon imageWithSize:CGSizeMake(NAV_BAR_ICON_SIZE, NAV_BAR_ICON_SIZE)];
     }
     return self;
+
 }
 
 - (void)leftBtnClick
@@ -65,7 +72,7 @@ static const float profileViewHeight = 320;
     [self.navigationController popViewControllerAnimated:YES];
 }
 
-- (void)rightBtnClick
+- (void)shareClick
 {
     NSString *shareText = @"快来这里看看吧";
     UIImageView *v = [[UIImageView alloc] init];
@@ -83,100 +90,44 @@ static const float profileViewHeight = 320;
                                        delegate:self];
 }
 
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    [self.navigationController setNavigationBarHidden:YES animated:YES];
-}
-
-- (void)viewWillDisappear:(BOOL)animated
-{
-    NSArray *viewControllers = self.navigationController.viewControllers;
-    if([viewControllers objectAtIndex:viewControllers.count - 1] == self){
-        // navigationController is presenting viewcontrolls
-    }else{
-        // navigationController is pushing or poping viewcontrolls
-        [self.navigationController setNavigationBarHidden:NO animated:YES];
-    }
-}
-
 
 - (void)loadView
 {
     [super loadView];
 
-    self.scrollView = [[UIScrollView alloc] initWithFrame:self.view.bounds];
-    self.scrollView.showsVerticalScrollIndicator = NO;
-    [self.view addSubview:self.scrollView];
+    self.tableView = [[UITableView alloc] init];
+    self.tableView.frame = CGRectMake(0,
+                                      self.topBarOffset,
+                                      WIDTH(self.view) ,
+                                      [self contentHeightWithNavgationBar:YES withBottomBar:NO]);
+    self.tableView.backgroundColor = [UIColor clearColor];
+    self.tableView.delegate = self;
+    self.tableView.dataSource = self;
+    self.tableView.backgroundColor = [UIColor colorWithHexString:@"f2f2f2"];
+    [self.view addSubview:self.tableView];
 
-    float addressViewHeight = 50;
-    float tabButtonViewHeight = 50;
-    float avatorSize = 50;
-    float tabButtonWidth = 300 / 3;
+    [self.tableView addInfiniteScrollingWithActionHandler:^{
+    }];
+    self.tableView.showsInfiniteScrolling = NO;
     
-    float topViewHeight = isIOS7 ? kStatusBarHeight + kTopBarHeight : kTopBarHeight;
-    UIView *topNavView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, WIDTH(self.view), topViewHeight)];
-    topNavView.backgroundColor = [UIColor clearColor];
-    [self.view addSubview:topNavView];
     
-    UIView *topNavbgView = [[UIView alloc] initWithFrame:topNavView.bounds];
-    topNavbgView.backgroundColor = [UIColor lightGrayColor];
-    topNavbgView.alpha = 0.4;
-    [topNavView addSubview:topNavbgView];
-
-    // top left button
-    FAKIcon *leftIcon = [FAKIonIcons ios7ArrowBackIconWithSize:NAV_BAR_ICON_SIZE];
-    [leftIcon addAttribute:NSForegroundColorAttributeName value:[UIColor whiteColor]];
-    UIImage *leftImg =[leftIcon imageWithSize:CGSizeMake(NAV_BAR_ICON_SIZE, NAV_BAR_ICON_SIZE)];
-    UIButton *leftBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    leftBtn.frame = CGRectMake(10, topViewHeight - 35, NAV_BAR_ICON_SIZE, NAV_BAR_ICON_SIZE);
-    [leftBtn addTarget:self action:@selector(leftBtnClick) forControlEvents:UIControlEventTouchUpInside];
-    [leftBtn setImage:leftImg forState:UIControlStateNormal];
-    [topNavView addSubview:leftBtn];
-
-    // top right button
-    UIImage *rightImg = [UIImage imageNamed:@"ShareIcon"];
-    UIButton *rightBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    rightBtn.frame = CGRectMake(WIDTH(topNavView) - 40 , topViewHeight - 35, NAV_BAR_ICON_SIZE, NAV_BAR_ICON_SIZE);
-    [rightBtn addTarget:self action:@selector(rightBtnClick) forControlEvents:UIControlEventTouchUpInside];
-    [rightBtn setImage:rightImg forState:UIControlStateNormal];
-    [topNavView addSubview:rightBtn];
-    
-    [self.view bringSubviewToFront:topNavView];
-    
-    UIView *headerView_ = [[UIView alloc] initWithFrame:CGRectMake(0, 0, WIDTH(self.view), profileViewHeight + addressViewHeight + tabButtonViewHeight)];
-    headerView_.backgroundColor = [UIColor clearColor];
-    [self.scrollView addSubview:headerView_];
+    self.headerView = [[UIView alloc] init];
+    self.headerView.backgroundColor = [UIColor colorWithHexString:APP_CONTENT_BG_COLOR];
 
 #pragma topbar
     self.imgSlider = [[JOLImageSlider alloc] initWithFrame:CGRectMake(0, 0, WIDTH(self.view), WIDTH(self.view))];
     self.imgSlider.delegate = self;
     [self.imgSlider setContentMode: UIViewContentModeScaleAspectFill];
-    [headerView_ addSubview:self.imgSlider];
+    [self.headerView addSubview:self.imgSlider];
 
-    UIView *addressView = [[UIView alloc] initWithFrame:CGRectMake(0, profileViewHeight, WIDTH(headerView_), tabButtonViewHeight)];
-    [headerView_ addSubview:addressView];
+#pragma action section
+    UIView *actionView = [[UIView alloc] initWithFrame:CGRectMake(10, MaxY(self.imgSlider), 300, 35)];
+    actionView.layer.borderColor = [[UIColor colorWithHexString:@"e1e1e1"] CGColor];
+    actionView.layer.borderWidth = 1;
+    actionView.layer.cornerRadius = 5;
+    actionView.backgroundColor = [UIColor whiteColor];
+    [self.headerView addSubview:actionView];
     
-    addressView.backgroundColor = [UIColor whiteColor];
-    UIView *addressFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, MaxY(addressView), WIDTH(addressView), 7)];
-    addressFooterView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"Juchi"]];
-    [headerView_ addSubview:addressFooterView];
-    
-    self.avatorImgView = [[UIImageView alloc] initWithFrame:CGRectMake(20, 300, avatorSize, avatorSize)];
-    self.avatorImgView.layer.borderColor = [[UIColor whiteColor] CGColor];
-    self.avatorImgView.layer.borderWidth = 1;
-    self.avatorImgView.userInteractionEnabled = YES;
-    [self.avatorImgView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(openAvator)]];
-    
-    [headerView_ addSubview:self.avatorImgView];
-
-    self.groupNameLbl = [[UILabel alloc] initWithFrame:CGRectMake(70 + 5, 0, 200, 40)];
-    self.groupNameLbl.backgroundColor = [UIColor clearColor];
-    self.groupNameLbl.textColor = [UIColor blackColor];
-    self.groupNameLbl.font = [UIFont boldSystemFontOfSize:14];
-    self.groupNameLbl.textAlignment = NSTextAlignmentLeft;;
-    [addressView addSubview:self.groupNameLbl];
-
     FAKIcon *heartIconOn = [FAKIonIcons ios7HeartIconWithSize:25];
     [heartIconOn addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithHexString:@"e43a3d"]];
     FAKIcon *heartIconOff = [FAKIonIcons ios7HeartOutlineIconWithSize:25];
@@ -185,21 +136,62 @@ static const float profileViewHeight = 320;
     __weak GroupDetailViewController *selfDelegate = self;
     [self.heartBtn setToggleButtonOnImage:[heartIconOn imageWithSize:CGSizeMake(25, 25)]
                                    offImg:[heartIconOff imageWithSize:CGSizeMake(25, 25)]
-                       toggleEventHandler:^(BOOL isOn) {
+                       toggleEventHandler:^(BOOL isOn){
                            return [selfDelegate favClick:isOn];
                        }];
-    self.heartBtn.frame = CGRectMake(MaxX(self.groupNameLbl), 10, 30, 30);
-    [addressView addSubview:self.heartBtn];
-
+    self.heartBtn.frame = CGRectMake((150 - 25)/2, 5, 25, 25);
+    [actionView addSubview:self.heartBtn];
+    
+    UIView *actionLinerView = [[UIView alloc] initWithFrame:CGRectMake(150, 5, 1, 25)];
+    actionLinerView.backgroundColor = [UIColor lightGrayColor];
+    [actionView addSubview:actionLinerView];
+    
+    UIButton *shareBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [shareBtn addTarget:self action:@selector(shareClick) forControlEvents:UIControlEventTouchDown];
+    shareBtn.frame = CGRectMake(150 + (150 -25)/2, 5, 25, 25);
+    [shareBtn setImage:[UIImage imageNamed:@"ShareIcon"] forState:UIControlStateNormal];
+    [actionView addSubview:shareBtn];
+    
+#pragma staffView
+    self.groupView = [[UIView alloc] initWithFrame:CGRectMake(10, MaxY(actionView) + 10, 300, 90)];
+    self.groupView.backgroundColor = [UIColor whiteColor];
+    self.groupView.layer.borderColor = [[UIColor colorWithHexString:@"e1e1e1"] CGColor];
+    self.groupView.layer.borderWidth = 1;
+    self.groupView.layer.cornerRadius = 5;
+    [self.headerView addSubview:self.groupView];
+    
+    UILabel *staffTitleLbl =[[UILabel alloc] initWithFrame:CGRectMake(10, 5, 100,20)];
+    staffTitleLbl.font = [UIFont systemFontOfSize:14];
+    staffTitleLbl.textAlignment = TextAlignmentLeft;
+    staffTitleLbl.backgroundColor = [UIColor clearColor];
+    staffTitleLbl.textColor = [UIColor blackColor];
+    staffTitleLbl.text = @"发型师";
+    [self.groupView addSubview:staffTitleLbl];
+    
+    UIView *staffLinerView = [[UIView alloc] initWithFrame:CGRectMake(0, MaxY(staffTitleLbl) +5, WIDTH(self.groupView), 1)];
+    staffLinerView.backgroundColor = [UIColor colorWithHexString:@"e1e1e1"];
+    [self.groupView addSubview:staffLinerView];
+    
+    self.avatorImgView = [[UIImageView alloc] initWithFrame:CGRectMake(10, MaxY(staffLinerView) + 5, 50, 50)];
+    [self.groupView addSubview:self.avatorImgView];
+    
+    self.groupNameLbl = [[UILabel alloc] initWithFrame:CGRectMake(MaxX(self.avatorImgView)+10,Y(self.avatorImgView), 150, 50)];
+    self.groupNameLbl.textAlignment = NSTextAlignmentLeft;
+    self.groupNameLbl.textColor = [UIColor blackColor];
+    self.groupNameLbl.backgroundColor = [UIColor clearColor];
+    self.groupNameLbl.font = [UIFont systemFontOfSize:14];
+    [self.groupView addSubview:self.groupNameLbl];
+    
+#pragma tabview
     UIColor *tabViewColor =[UIColor colorWithHexString:APP_NAVIGATIONBAR_COLOR];
-
-    UIView *tabView = [[UIView alloc] initWithFrame:CGRectMake(10, MaxY(addressView) + 10, WIDTH(headerView_) - 20, 30)];
+    UIView *tabView = [[UIView alloc] initWithFrame:CGRectMake(10, MaxY(self.groupView) + 10, WIDTH(self.view) - 20, 30)];
     tabView.backgroundColor = [UIColor clearColor];
     tabView.layer.borderColor = [tabViewColor CGColor];
     tabView.layer.borderWidth = 1;
     tabView.layer.cornerRadius = 5;
-    [headerView_ addSubview:tabView];
-    
+    [self.headerView addSubview:tabView];
+
+    float tabButtonWidth = 100;
     self.staffTabBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     self.staffTabBtn.tag = 0;
     self.staffTabBtn.frame = CGRectMake(0, 0, tabButtonWidth, 30);
@@ -240,7 +232,7 @@ static const float profileViewHeight = 320;
     detainInfoView.layer.borderWidth = 0.5;
     detainInfoView.layer.borderColor = [[UIColor colorWithHexString:@"cccccc"] CGColor];
     detainInfoView.layer.cornerRadius = 5;
-    [self.scrollView addSubview:detainInfoView];
+    [self.headerView addSubview:detainInfoView];
     
     UIView *addressCellView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 300, 44)];
     addressCellView.backgroundColor = [UIColor clearColor];
@@ -299,10 +291,9 @@ static const float profileViewHeight = 320;
     phoneImg.image = [phoneIcon imageWithSize:CGSizeMake(30, 30)];
     phoneImg.userInteractionEnabled = YES;
     [phoneCellView addSubview:phoneImg];
-
-    float scrollViewContentHeight = MAX(MaxY(detainInfoView), self.view.bounds.size.height) + 40;
-    self.scrollView.scrollEnabled = YES;
-    self.scrollView.contentSize = CGSizeMake(WIDTH(self.view), scrollViewContentHeight);
+    
+    self.headerView.frame = CGRectMake(0, 0, WIDTH(self.view), MaxY(detainInfoView));
+    self.tableView.tableHeaderView  = self.headerView;
 }
 
 - (void)viewDidLoad
@@ -525,6 +516,39 @@ static const float profileViewHeight = 320;
 
 - (void)failGetGroupDetail:(ASIHTTPRequest *)request
 {
+}
+#pragma mark UITableView delegate
+
+- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
+{
+    UIView *footer = [[UIView alloc] initWithFrame:CGRectMake(0, 0, WIDTH(self.view), 20)];
+    return footer;
+}
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+  
+    return 44;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return  self.datasource.count;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    static NSString * cellIdentifier = @"cellIden";
+    UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+    if (!cell) {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    }
+    return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    
 }
 
 @end
