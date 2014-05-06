@@ -192,6 +192,7 @@
 		4631CF1D18E3284C00F39814 /* OrderListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4631CF1618E3284C00F39814 /* OrderListViewController.m */; };
 		4631CF1E18E3284C00F39814 /* OrderPreviewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4631CF1818E3284C00F39814 /* OrderPreviewViewController.m */; };
 		4631CF1F18E3284C00F39814 /* PayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4631CF1A18E3284C00F39814 /* PayViewController.m */; };
+		46426760191914C200DFB7D5 /* CommentNarrowCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4642675F191914C200DFB7D5 /* CommentNarrowCell.m */; };
 		46439C9118C763EF00F01691 /* MapPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 46439C9018C763EF00F01691 /* MapPickerViewController.m */; };
 		464BF44C18D56F0F006EBCD9 /* StaffAddServiceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 464BF44B18D56F0F006EBCD9 /* StaffAddServiceViewController.m */; };
 		464BF44F18D576AC006EBCD9 /* CreateCouponViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 464BF44E18D576AC006EBCD9 /* CreateCouponViewController.m */; };
@@ -608,6 +609,8 @@
 		4631CF1818E3284C00F39814 /* OrderPreviewViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderPreviewViewController.m; sourceTree = "<group>"; };
 		4631CF1918E3284C00F39814 /* PayViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PayViewController.h; sourceTree = "<group>"; };
 		4631CF1A18E3284C00F39814 /* PayViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PayViewController.m; sourceTree = "<group>"; };
+		4642675E191914C200DFB7D5 /* CommentNarrowCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommentNarrowCell.h; sourceTree = "<group>"; };
+		4642675F191914C200DFB7D5 /* CommentNarrowCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommentNarrowCell.m; sourceTree = "<group>"; };
 		46439C8F18C763EF00F01691 /* MapPickerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapPickerViewController.h; sourceTree = "<group>"; };
 		46439C9018C763EF00F01691 /* MapPickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapPickerViewController.m; sourceTree = "<group>"; };
 		464BF44A18D56F0F006EBCD9 /* StaffAddServiceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StaffAddServiceViewController.h; sourceTree = "<group>"; };
@@ -2069,6 +2072,8 @@
 				467F0EBA18CB3956009FFE08 /* ChatGroupCell.m */,
 				467F0F2318CC8FFB009FFE08 /* CommentCell.h */,
 				467F0F2418CC8FFB009FFE08 /* CommentCell.m */,
+				4642675E191914C200DFB7D5 /* CommentNarrowCell.h */,
+				4642675F191914C200DFB7D5 /* CommentNarrowCell.m */,
 				46BDF12818D0B53200999F50 /* CouponCell.h */,
 				46BDF12918D0B53200999F50 /* CouponCell.m */,
 				467F0F1218CC1EAE009FFE08 /* DoubleCoverCell.h */,
@@ -2751,6 +2756,7 @@
 				465D2E3B18EAA60B009E4CD8 /* GroupStaffListViewController.m in Sources */,
 				4673BB8C18D417EE000F64DE /* GroupManageViewController.m in Sources */,
 				467F0EAF18CB0F54009FFE08 /* BaseModel.m in Sources */,
+				46426760191914C200DFB7D5 /* CommentNarrowCell.m in Sources */,
 				465D2E3218EA8B68009E4CD8 /* ToggleButton.m in Sources */,
 				467F0F1F18CC2386009FFE08 /* WorksViewController.m in Sources */,
 				467F0F2518CC8FFB009FFE08 /* CommentCell.m in Sources */,

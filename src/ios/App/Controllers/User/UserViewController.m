@@ -93,6 +93,14 @@ static const float profileViewHeight = 90;
 {
     [super loadView];
     
+    self.profileBackground = [[UIImageView alloc] initWithFrame:CGRectMake(0, self.topBarOffset, WIDTH(self.view), WIDTH(self.view))];
+    self.profileBackground.image = [UIImage imageNamed:@"ProfileBackgroundDefault"];
+    [self.view addSubview:self.profileBackground];
+    
+    self.imgSlider = [[JOLImageSlider alloc] initWithFrame:self.profileBackground.frame];
+    [self.imgSlider setContentMode: UIViewContentModeScaleAspectFill];
+    [self.view addSubview:self.imgSlider];
+    
     float tabButtonViewHeight = 56;
     float avatorSize = 50;
 
@@ -113,14 +121,6 @@ static const float profileViewHeight = 90;
     headerView_.backgroundColor = [UIColor clearColor];
     headerView_.clipsToBounds = YES;
     self.tableView.tableHeaderView = headerView_;
-
-    self.profileBackground = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, WIDTH(self.view), WIDTH(self.view))];
-    self.profileBackground.image = [UIImage imageNamed:@"ProfileBackgroundDefault"];
-    [headerView_ addSubview:self.profileBackground];
-
-    self.imgSlider = [[JOLImageSlider alloc] initWithFrame:self.profileBackground.frame];
-    [self.imgSlider setContentMode: UIViewContentModeScaleAspectFill];
-    [headerView_ addSubview:self.imgSlider];
     
     UIView *profileIconView_ = [[UIView alloc] initWithFrame:CGRectMake(0, 320 - profileViewHeight, WIDTH(self.view), profileViewHeight)];
     profileIconView_.backgroundColor = [UIColor clearColor];
@@ -189,8 +189,6 @@ static const float profileViewHeight = 90;
         [tabView_ addSubview:btn];
     }
     [headerView_ addSubview:tabView_];
-
-    self.tableView.contentInset = UIEdgeInsetsMake(-160, 0, 0, 0);
 }
 
 - (void)viewDidLoad
@@ -440,16 +438,15 @@ static const float profileViewHeight = 90;
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
-    if (scrollView.contentOffset.y < 160 && scrollView.contentInset.top < 0) {
-        scrollView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);
-    }
-
-    if (scrollView.contentOffset.y > 0) {
-        self.imgSlider.frame = CGRectMake(scrollView.contentOffset.x, scrollView.contentOffset.y * 0.5f, WIDTH(self.view), WIDTH(self.view));
-        self.profileBackground.frame = self.imgSlider.frame;
-    } else {
-        self.imgSlider.frame = CGRectMake(0, 0, WIDTH(self.view), WIDTH(self.view));
-        self.profileBackground.frame = self.imgSlider.frame;
+    if (scrollView.contentOffset.y < 0) {
+        CGRect frame  = self.profileBackground.frame;
+        frame.origin.y = scrollView.contentOffset.y;
+        self.profileBackground.frame = frame;
+        self.imgSlider.frame = frame;
+    }else{
+        CGRect frame  = CGRectMake(0, self.topBarOffset, WIDTH(self.view), WIDTH(self.view));
+        self.profileBackground.frame = frame;
+        self.imgSlider.frame = frame;
     }
 }
 

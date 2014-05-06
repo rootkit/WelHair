@@ -19,6 +19,7 @@
 #import "UMSocial.h"
 #import "UserManager.h"
 #import "WorkDetailViewController.h"
+#import "CommentNarrowCell.h"
 
 @interface WorkDetailViewController () <UMSocialUIDelegate, JOLImageSliderDelegate, MWPhotoBrowserDelegate, UITableViewDataSource, UITableViewDelegate>
 
@@ -30,7 +31,8 @@
 @property (nonatomic, strong) JOLImageSlider *imgSlider;
 @property (nonatomic, strong) UIImageView *staffImgView;
 @property (nonatomic, strong) UILabel *staffNameLbl;
-@property (nonatomic, strong) UILabel *distanceLbl;
+@property (nonatomic, strong) UILabel *staffAddressLbl;
+@property (nonatomic, strong) UILabel *commentCountLbl;
 @property (nonatomic, strong) NSMutableArray *workImgs;
 @property (nonatomic, strong) ToggleButton *heartBtn;
 
@@ -111,7 +113,7 @@
     
     
 #pragma works list
-    UIView *workView = [[UIView alloc] initWithFrame:CGRectMake(20, MaxY(self.imgSlider) + 10, 280, 70)];
+    UIView *workView = [[UIView alloc] initWithFrame:CGRectMake(10, MaxY(self.imgSlider) + 10, 300, 70)];
     workView.layer.borderColor = [[UIColor colorWithHexString:@"e1e1e1"] CGColor];
     workView.layer.borderWidth = 1;
     workView.layer.cornerRadius = 5;
@@ -135,25 +137,43 @@
         }
 
 #pragma staffView
-    UIView *staffView = [[UIView alloc] initWithFrame:CGRectMake(0, MaxY(self.imgSlider) - 80, 200, 80)];
-    staffView.backgroundColor = [UIColor clearColor];
+    UIView *staffView = [[UIView alloc] initWithFrame:CGRectMake(10, MaxY(workView) + 10, 300, 90)];
+    staffView.backgroundColor = [UIColor whiteColor];
+    staffView.layer.borderColor = [[UIColor colorWithHexString:@"e1e1e1"] CGColor];
+    staffView.layer.borderWidth = 1;
+    staffView.layer.cornerRadius = 5;
     [self.headerView addSubview:staffView];
-
-    UIImageView *staffOverlayview = [[UIImageView alloc] initWithFrame:CGRectMake(-60, 20, WIDTH(staffView), HEIGHT(staffView) - 20)];
-    staffOverlayview.image = [UIImage imageNamed:@"WD_AuthorLayerBg@2x"];
-    [staffView addSubview:staffOverlayview];
     
-    self.staffImgView = [[CircleImageView alloc] initWithFrame:CGRectMake(15, 0, 50, 50)];
+    UILabel *staffTitleLbl =[[UILabel alloc] initWithFrame:CGRectMake(10, 5, 100,20)];
+    staffTitleLbl.font = [UIFont systemFontOfSize:14];
+    staffTitleLbl.textAlignment = TextAlignmentLeft;
+    staffTitleLbl.backgroundColor = [UIColor clearColor];
+    staffTitleLbl.textColor = [UIColor blackColor];
+    staffTitleLbl.text = @"发型师";
+    [staffView addSubview:staffTitleLbl];
+    
+    UIView *staffLinerView = [[UIView alloc] initWithFrame:CGRectMake(0, MaxY(staffTitleLbl) +5, WIDTH(staffView), 1)];
+    staffLinerView.backgroundColor = [UIColor colorWithHexString:@"e1e1e1"];
+    [staffView addSubview:staffLinerView];
+    
+    self.staffImgView = [[CircleImageView alloc] initWithFrame:CGRectMake(10, MaxY(staffLinerView) + 5, 50, 50)];
     self.staffImgView.userInteractionEnabled = YES;
     [self.staffImgView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(staffTapped)]];
     [staffView addSubview:self.staffImgView];
 
-    self.staffNameLbl = [[UILabel alloc] initWithFrame:CGRectMake(10, MaxY(self.staffImgView) + 2, 150, 20)];
+    self.staffNameLbl = [[UILabel alloc] initWithFrame:CGRectMake(MaxX(self.staffImgView)+5,Y(self.staffImgView), 150, 25)];
     self.staffNameLbl.textAlignment = NSTextAlignmentLeft;
-    self.staffNameLbl.textColor = [UIColor whiteColor];
+    self.staffNameLbl.textColor = [UIColor blackColor];
     self.staffNameLbl.backgroundColor = [UIColor clearColor];
     self.staffNameLbl.font = [UIFont systemFontOfSize:14];
     [staffView addSubview:self.staffNameLbl];
+    
+    self.staffAddressLbl = [[UILabel alloc] initWithFrame:CGRectMake(MaxX(self.staffImgView)+5,MaxY(self.staffNameLbl), 150, 25)];
+    self.staffAddressLbl.textAlignment = NSTextAlignmentLeft;
+    self.staffAddressLbl.textColor = [UIColor blackColor];
+    self.staffAddressLbl.backgroundColor = [UIColor clearColor];
+    self.staffAddressLbl.font = [UIFont systemFontOfSize:12];
+    [staffView addSubview:self.staffAddressLbl];
     
     FAKIcon *heartIconOn = [FAKIonIcons ios7HeartIconWithSize:25];
     [heartIconOn addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithHexString:@"e43a3d"]];
@@ -166,19 +186,19 @@
                        toggleEventHandler:^(BOOL isOn){
                           return [selfDelegate favClick:isOn];
                        }];
-    self.heartBtn.frame = CGRectMake(MaxX(self.staffImgView) + 30, 35, 30, 30);
+    self.heartBtn.frame = CGRectMake(MaxX(self.staffNameLbl) + 15, 45, 30, 30);
     [staffView addSubview:self.heartBtn];
 
     
 #pragma people  view
-    UIView *peopleView = [[UIView alloc] initWithFrame:CGRectMake(20, MaxY(workView)+ 20, 280, 160)];
+    UIView *peopleView = [[UIView alloc] initWithFrame:CGRectMake(10, MaxY(staffView)+ 10, 300, 140)];
     peopleView.layer.borderColor = [[UIColor colorWithHexString:@"e1e1e1"] CGColor];
     peopleView.layer.borderWidth = 1;
     peopleView.layer.cornerRadius = 5;
     peopleView.backgroundColor = [UIColor whiteColor];
     [self.headerView addSubview:peopleView];
 
-    UILabel *peopleTitleLbl =[[UILabel alloc] initWithFrame:CGRectMake(10, 15, 100,20)];
+    UILabel *peopleTitleLbl =[[UILabel alloc] initWithFrame:CGRectMake(10, 5, 100,20)];
     peopleTitleLbl.font = [UIFont systemFontOfSize:14];
     peopleTitleLbl.textAlignment = TextAlignmentLeft;
     peopleTitleLbl.backgroundColor = [UIColor clearColor];
@@ -186,7 +206,7 @@
     peopleTitleLbl.text = @"适合人群";
     [peopleView addSubview:peopleTitleLbl];
 
-    UIView *peopleLinerView = [[UIView alloc] initWithFrame:CGRectMake(0, MaxY(peopleTitleLbl) + 15, WIDTH(peopleView), 1)];
+    UIView *peopleLinerView = [[UIView alloc] initWithFrame:CGRectMake(0, MaxY(peopleTitleLbl) + 5, WIDTH(peopleView), 1)];
     peopleLinerView.backgroundColor = [UIColor colorWithHexString:@"e1e1e1"];
     [peopleView addSubview:peopleLinerView];
     
@@ -314,28 +334,18 @@
 
 
 #pragma comment view
-    UIView *commentCellView = [[UIView alloc] initWithFrame:CGRectMake(15, MaxY(peopleView) + 20, WIDTH(peopleView), 40)];
+    UIView *commentCellView = [[UIView alloc] initWithFrame:CGRectMake(10, MaxY(peopleView) + 20, WIDTH(peopleView), 30)];
     commentCellView.layer.borderColor = [[UIColor colorWithHexString:@"e1e1e1"] CGColor];
     commentCellView.layer.borderWidth = 1;
-    commentCellView.layer.cornerRadius = 5;
     commentCellView.backgroundColor = [UIColor whiteColor];
-    [commentCellView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(commentsTapped)]];
+
+    self.commentCountLbl =[[UILabel alloc] initWithFrame:CGRectMake(10, 5, 100,20)];
+    self.commentCountLbl.font = [UIFont systemFontOfSize:14];
+    self.commentCountLbl.textAlignment = NSTextAlignmentLeft;
+    self.commentCountLbl.backgroundColor = [UIColor clearColor];
+    self.commentCountLbl.textColor = [UIColor grayColor];
+    [commentCellView addSubview:self.commentCountLbl];
     [self.headerView addSubview:commentCellView];
-
-    UILabel *commentLbl =[[UILabel alloc] initWithFrame:CGRectMake(20, 10, 100,20)];
-    commentLbl.font = [UIFont systemFontOfSize:14];
-    commentLbl.textAlignment = NSTextAlignmentLeft;
-    commentLbl.backgroundColor = [UIColor clearColor];
-    commentLbl.textColor = [UIColor grayColor];
-    commentLbl.text = @"评论信息";
-    [commentCellView addSubview:commentLbl];
-
-    FAKIcon *commentIcon = [FAKIonIcons ios7ArrowForwardIconWithSize:20];
-    [commentIcon addAttribute:NSForegroundColorAttributeName value:[UIColor grayColor]];
-    UIImageView *commentImgView = [[UIImageView alloc] initWithFrame:CGRectMake(WIDTH(commentCellView) - 40, 10, 20, 20)];
-    commentImgView.image = [commentIcon imageWithSize:CGSizeMake(20, 20)];
-    [commentCellView addSubview:commentImgView];
-
     self.headerView.frame = CGRectMake(0, 0, WIDTH(self.view), MaxY(commentCellView));
     self.tableView.tableHeaderView  = self.headerView;
 }
@@ -356,13 +366,14 @@
         [sliderArray addObject:slideImg];
     }
     [self.imgSlider setSlides:sliderArray];
-    
+    self.commentCountLbl.text = [NSString stringWithFormat:@"作品评论(%d)",self.work.commentCount];
     self.workImgs = [NSMutableArray array];
     for (NSString *item in self.work.imgUrlList) {
         [self.workImgs addObject:[MWPhoto photoWithURL:[NSURL URLWithString:item]]];
     }
 
     [self getWorkDetail];
+    [self getComments];
 }
 
 - (void)didReceiveMemoryWarning
@@ -502,6 +513,8 @@
     self.work = [[Work alloc] initWithDic:rst];
 
     self.staffNameLbl.text = self.work.creator.name;
+    self.staffAddressLbl.text = self.work.creator.group.address; // TODO:need pass from API
+        self.staffAddressLbl.text = @"需要发型师地址"; // TODO:need pass from API
     [self.staffImgView setImageWithURL:self.work.creator.avatorUrl];
     self.heartBtn.on = [[rst objectForKey:@"IsLiked"] intValue] == 1;
 }
@@ -511,9 +524,97 @@
 }
 
 
+- (void)getComments
+{
+    NSMutableDictionary *reqData = [[NSMutableDictionary alloc] initWithCapacity:1];
+    [reqData setObject:[NSString stringWithFormat:@"%d", self.currentPage] forKey:@"page"];
+    [reqData setObject:[NSString stringWithFormat:@"%d", TABLEVIEW_PAGESIZE_DEFAULT] forKey:@"pageSize"];
+    
+    ASIHTTPRequest *request = [RequestUtil createGetRequestWithURL:[NSURL URLWithString:[NSString stringWithFormat: API_WORKS_COMMENT_CREATE,self.work.id]] andParam:reqData];
+    [request setDelegate:self];
+    [request setDidFinishSelector:@selector(finishGetComments:)];
+    [request setDidFailSelector:@selector(failGetComments:)];
+    [request startAsynchronous];
+}
+
+- (void)finishGetComments:(ASIHTTPRequest *)request
+{
+    NSDictionary *rst = [Util objectFromJson:request.responseString];
+    NSInteger total = [[rst objectForKey:@"total"] integerValue];
+    NSArray *dataList = [rst objectForKey:@"comments"];
+    
+    NSMutableArray *arr = [NSMutableArray arrayWithArray:self.datasource];
+    
+    if (self.currentPage == 1) {
+        [arr removeAllObjects];
+    } else {
+        if (self.currentPage % TABLEVIEW_PAGESIZE_DEFAULT > 0) {
+            int i;
+            
+            for (i = 0; i < arr.count; i++) {
+                if (i >= (self.currentPage - 1) * TABLEVIEW_PAGESIZE_DEFAULT) {
+                    [arr removeObjectAtIndex:i];
+                    i--;
+                }
+            }
+        }
+    }
+    
+    for (NSDictionary *dicData in dataList) {
+        [arr addObject:[[Comment alloc] initWithDic:dicData]];
+    }
+    
+    self.datasource = arr;
+    
+    BOOL enableInfinite = total > self.datasource.count;
+    if (self.tableView.showsInfiniteScrolling != enableInfinite) {
+        self.tableView.showsInfiniteScrolling = enableInfinite;
+    }
+    
+    if (self.currentPage == 1) {
+        [self.tableView stopRefreshAnimation];
+    } else {
+        [self.tableView.infiniteScrollingView stopAnimating];
+    }
+    
+    [self checkEmpty];
+    
+    [self.tableView reloadData];
+}
+
+- (void)failGetComments:(ASIHTTPRequest *)request
+{
+}
+
+- (void)checkEmpty
+{
+    
+}
+
+
+
+#pragma mark UITableView delegate
+
+- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
+{
+    UIView *footer = [[UIView alloc] initWithFrame:CGRectMake(0, 0, WIDTH(self.view), 20)];
+    return footer;
+}
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 80;
+    Comment *comm = [self.datasource objectAtIndex:indexPath.row];
+    CGSize textSize = [Util textSizeForText:comm.description withFont:[UIFont systemFontOfSize:12] andLineHeight:20];
+    
+    CGFloat containerHeight = textSize.height + 44;
+    if (containerHeight < 60) {
+        containerHeight = 60;
+    }
+    
+    if (comm.imgUrlList.count > 0) {
+        containerHeight += 46;
+    }
+    
+    return containerHeight;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -523,22 +624,45 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString * cellIdentifier = @"StaffCellIdentifier";
-    UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+    static NSString * cellIdentifier = @"CommentCellIdentifier";
+    CommentNarrowCell * cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
     if (!cell) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
+        cell = [[CommentNarrowCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
-    cell.contentView.backgroundColor =  cell.backgroundColor = indexPath.row % 2 == 0?
-    [UIColor whiteColor] : [UIColor colorWithHexString:@"f5f6f8"];
     
-    Staff *data = [self.datasource objectAtIndex:indexPath.row];
-//    [cell setup:data];
+    Comment *data = [self.datasource objectAtIndex: indexPath.row];
+    [cell setup:data tapHandler:^(NSArray *imgArr, int currentIndex) {
+        self.workImgs = [NSMutableArray array];
+        for (UIImageView *item in imgArr) {
+            if (!item.image) {
+                continue;
+            }
+            [self.workImgs addObject:[MWPhoto photoWithImage:item.image]];
+        }
+        
+        MWPhotoBrowser *browser = [[MWPhotoBrowser alloc] initWithDelegate:self];
+        browser.displayActionButton = NO;
+        browser.displayNavArrows = YES;
+        browser.displaySelectionButtons = NO;
+        browser.alwaysShowControls = NO;
+        browser.wantsFullScreenLayout = YES;
+        browser.zoomPhotosToFill = YES;
+        browser.enableGrid = NO;
+        browser.startOnGrid = NO;
+        [browser setCurrentPhotoIndex:currentIndex];
+        
+        UINavigationController *nc = [[UINavigationController alloc] initWithRootViewController:browser];
+        nc.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+        [self.navigationController presentViewController:nc animated:YES completion:Nil];
+    }];
+    
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    
 }
 
 
