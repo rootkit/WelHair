@@ -55,7 +55,7 @@
     return YES;
 }
 
-- (void)initialServices:(UIApplication *)application  options:(NSDictionary *)launchOptions
+- (void)initialServices:(UIApplication *)application options:(NSDictionary *)launchOptions
 {
     //setup social component
     [UMSocialData setAppKey:CONFIG_UMSOCIAL_APPKEY];
@@ -81,8 +81,7 @@
 
 }
 
-- (void)application:(UIApplication *)application
-didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
+- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
 {
  
      NSString * deviceTokenStr = [XGPush registerDevice: deviceToken];
@@ -93,12 +92,9 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo
 {
-    if([UserManager SharedInstance].userLogined){
-        
+    if ([UserManager SharedInstance].userLogined) {
         [XGPush handleReceiveNotification:userInfo];
     }
-
-    
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application
@@ -116,18 +112,16 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
     [UMSocialSnsService  applicationDidBecomeActive];
-//    [[WebSocketUtil sharedInstance] reconnect];
-    [[BaiduMapHelper SharedInstance] locateCoordinateWithCompletion:^(BDLocation *locatioin)
-    {
+    [[WebSocketUtil sharedInstance] reconnect];
+    [[BaiduMapHelper SharedInstance] locateCoordinateWithCompletion:^(BDLocation *locatioin) {
         [[SettingManager SharedInstance] setLocatedCoordinate:locatioin.coordinate];
     }];
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application
 {
-//    [[WebSocketUtil sharedInstance] close];
+    [[WebSocketUtil sharedInstance] close];
 }
-
 
 - (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url
 {

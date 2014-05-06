@@ -37,12 +37,19 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
+        __weak WorkCardView *selfDelegate = self;
+
         self.backgroundColor = [UIColor whiteColor];
 
         float width = frame.size.width;
 
-        self.hairImgView = [[UIImageView alloc] initWithFrame:CGRectMake(2, 2, width - 4, width - 4)];
+        UIView *imgBG = [[UIView alloc] initWithFrame:CGRectMake(2, 2, width - 4, width - 4)];
+        imgBG.backgroundColor = [UIColor lightGrayColor];
+        [self addSubview:imgBG];
+
+        self.hairImgView = [[UIImageView alloc] initWithFrame:imgBG.bounds];
         [self addSubview:self.hairImgView];
+        [imgBG addSubview:self.hairImgView];
         
         
        
@@ -52,29 +59,29 @@
                                                                               MaxY(self.hairImgView)+ 5,
                                                                               30,
                                                                               30)];
-        self.commentorImgView.borderWidth = 2;
+        self.commentorImgView.borderWidth = 0;
         [self addSubview:self.commentorImgView];
         
         // comment
         self.commentorNameLbl =
         [[UILabel alloc] initWithFrame:CGRectMake(MaxX(self.commentorImgView) + 5,
-                                                  Y(self.commentorImgView),
+                                                  Y(self.commentorImgView) + 3,
                                                   WIDTH(self) - (MaxX(self.commentorImgView) + 10),
                                                   12)];
         self.commentorNameLbl.font = [UIFont systemFontOfSize:12];
         self.commentorNameLbl.backgroundColor = [UIColor clearColor];
-        self.commentorNameLbl.textColor = [UIColor colorWithHexString:@"ba725a"];
+        self.commentorNameLbl.textColor = [UIColor colorWithHexString:@"1f6ba7"];
         
 
         [self addSubview:self.commentorNameLbl];
         
         self.commentContentLbl =
         [[UILabel alloc] initWithFrame:CGRectMake(X(self.commentorNameLbl),
-                                                  MaxY(self.commentorNameLbl)+4,
+                                                  MaxY(self.commentorNameLbl) + 3,
                                                   WIDTH(self.commentorNameLbl),
-                                                  12)];
+                                                  10)];
         self.commentContentLbl.numberOfLines = 0;
-        self.commentContentLbl.font = [UIFont systemFontOfSize:12];
+        self.commentContentLbl.font = [UIFont systemFontOfSize:10];
         self.commentContentLbl.backgroundColor = [UIColor clearColor];
         self.commentContentLbl.textColor = [UIColor grayColor];
 
@@ -83,43 +90,41 @@
         UIView *linerView = [[UIView alloc] initWithFrame:CGRectMake(0, MaxY(self.commentContentLbl) + 5, WIDTH(self), 1)];
         linerView.backgroundColor = [UIColor colorWithHexString:@"dfdfdf"];
         [self addSubview:linerView];
+
+        float iconSize = 20;
+
+        FAKIcon *commentIcon = [FAKIonIcons ios7ChatbubbleOutlineIconWithSize:iconSize];
+        [commentIcon addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithHexString:@"ccc"]];
+        UIImageView *commentIconView = [[UIImageView alloc] initWithFrame:CGRectMake(10, MaxY(linerView) + 3, iconSize, iconSize)];
+        commentIconView.image = [commentIcon imageWithSize:CGSizeMake(iconSize, iconSize)];
+        [self addSubview:commentIconView];
         
-        
-        self.commentCountLbl = [[UILabel alloc] initWithFrame:CGRectMake(10, MaxY(linerView) + 5, width/2 ,20)];
-        self.commentCountLbl.font = [UIFont systemFontOfSize:14];
+        self.commentCountLbl = [[UILabel alloc] initWithFrame:CGRectMake(MaxX(commentIconView), Y(commentIconView), width / 2 - iconSize , iconSize)];
+        self.commentCountLbl.font = [UIFont systemFontOfSize:12];
         self.commentCountLbl.backgroundColor = [UIColor clearColor];
-        self.commentCountLbl.textColor = [UIColor colorWithHexString:@"1f6ba7"];
+        self.commentCountLbl.textColor = [UIColor colorWithHexString:@"ddd"];
         [self addSubview:self.commentCountLbl];
-        
-        // heart
-        FAKIcon *heartIconOn = [FAKIonIcons ios7HeartIconWithSize:25];
-        [heartIconOn addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithHexString:@"e43a3d"]];
-        FAKIcon *heartIconOff = [FAKIonIcons ios7HeartOutlineIconWithSize:25];
-        [heartIconOff addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithHexString:@"e43a3d"]];
+
+        FAKIcon *heartIconOn = [FAKIonIcons ios7HeartIconWithSize:iconSize];
+        [heartIconOn addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithHexString:@"ccc"]];
+        FAKIcon *heartIconOff = [FAKIonIcons ios7HeartOutlineIconWithSize:iconSize];
+        [heartIconOff addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithHexString:@"ccc"]];
         self.heartBtn = [ToggleButton buttonWithType:UIButtonTypeCustom];
-        __weak WorkCardView *selfDelegate = self;
-        [self.heartBtn setToggleButtonOnImage:[heartIconOn imageWithSize:CGSizeMake(25, 25)]
-                                       offImg:[heartIconOff imageWithSize:CGSizeMake(25, 25)]
+        [self.heartBtn setToggleButtonOnImage:[heartIconOn imageWithSize:CGSizeMake(iconSize, iconSize)]
+                                       offImg:[heartIconOff imageWithSize:CGSizeMake(iconSize, iconSize)]
                            toggleEventHandler:^(BOOL isOn){
                                return [selfDelegate favClick:isOn];
                            }];
-        self.heartBtn.frame = CGRectMake(WIDTH(self) - 25 - 15-20, Y(self.commentCountLbl),25, 25);
+        self.heartBtn.frame = CGRectMake(width / 2, Y(commentIconView), iconSize, iconSize);
         [self addSubview:self.heartBtn];
         
-        self.heartCountLbl =
-        [[UILabel alloc] initWithFrame:CGRectMake(MaxX(self.heartBtn),
-                                                  Y(self.commentCountLbl)+6,
-                                                  30,
-                                                  12)];
+        self.heartCountLbl = [[UILabel alloc] initWithFrame:CGRectMake(MaxX(self.heartBtn), Y(commentIconView), width / 2 - iconSize, iconSize)];
         self.heartCountLbl.numberOfLines = 0;
         self.heartCountLbl.textAlignment = NSTextAlignmentLeft;
         self.heartCountLbl.font = [UIFont systemFontOfSize:12];
         self.heartCountLbl.backgroundColor = [UIColor clearColor];
-        self.heartCountLbl.textColor = [UIColor grayColor];
+        self.heartCountLbl.textColor = [UIColor colorWithHexString:@"ccc"];
         [self addSubview:self.heartCountLbl];
-        
-
-
     }
 
     return self;
@@ -131,9 +136,9 @@
 
     [self.hairImgView setImageWithURL:[NSURL URLWithString:workData.imgUrlList[0]]];
 
-    self.commentCountLbl.text = [NSString stringWithFormat:@"评论(%d)", workData.commentCount];
+    self.commentCountLbl.text = [NSString stringWithFormat:@"(%d)", workData.commentCount];
     self.heartBtn.on = workData.isfav;
-    self.heartCountLbl.text = [NSString stringWithFormat:@"(%d)", 111];
+    self.heartCountLbl.text = [NSString stringWithFormat:@"(%d)", workData.favCount];
 
 
     [self.commentorImgView setImageWithURL:workData.creator.avatorUrl];

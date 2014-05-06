@@ -244,7 +244,7 @@
 
 - (CGFloat)brickView:(BrickView *)brickView heightForCellAtIndex:(NSInteger)index
 {
-    return 215;
+    return 206;
 }
 
 - (NSInteger)numberOfColumnsInBrickView:(BrickView *)brickView

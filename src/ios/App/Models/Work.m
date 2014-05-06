@@ -59,6 +59,10 @@
             self.isfav = [[dictionary objectForKey:@"IsLiked"] intValue] == 1;
         }
 
+        if ([dictionary objectForKey:@"WorkLikeCount"]) {
+            self.favCount = [[dictionary objectForKey:@"WorkLikeCount"] intValue];
+        }
+
         if ([dictionary objectForKey:@"Face"]) {
             NSArray *faceArr = [[dictionary objectForKey:@"Face"] componentsSeparatedByString:@","];
             for (NSString *f in faceArr) {

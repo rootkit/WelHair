@@ -38,6 +38,8 @@ typedef NS_ENUM(int, GenderEnum) {
 @property (nonatomic, strong) NSArray *imgUrlList;
 
 @property (nonatomic) BOOL isfav;
+@property (nonatomic) int favCount;
+
 @property (nonatomic, strong) Staff *creator;
 
 @property (nonatomic, strong) Comment *lastComment;
