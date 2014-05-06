@@ -36,7 +36,7 @@
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) NSArray *workDatasource;
 @property (nonatomic, strong) UIView *bottomView;
-
+@property (nonatomic, strong) UIView *staffView;
 @property (nonatomic, strong) UIImageView *profileBackground;
 @property (nonatomic, strong) JOLImageSlider *imgSlider;
 @property (nonatomic, strong) CircleImageView *avatorImgView;
@@ -44,7 +44,7 @@
 @property (nonatomic, strong) UILabel *groupNameLbl;
 @property (nonatomic, strong) UILabel *distanceLbl;
 @property (nonatomic, strong) UIImage *foImg;
-@property (nonatomic, strong) ToggleButton *foBtn;
+@property (nonatomic, strong) ToggleButton *heartBtn;
 @property (nonatomic, strong) UIView *addressView;
 @property (nonatomic, strong) UIButton *submitBtn;
 
@@ -63,8 +63,6 @@
         FAKIcon *leftIcon = [FAKIonIcons ios7ArrowBackIconWithSize:NAV_BAR_ICON_SIZE];
         [leftIcon addAttribute:NSForegroundColorAttributeName value:[UIColor whiteColor]];
         self.leftNavItemImg =[leftIcon imageWithSize:CGSizeMake(NAV_BAR_ICON_SIZE, NAV_BAR_ICON_SIZE)];
-
-        self.rightNavItemTitle = @"私信";
     }
 
     return self;
@@ -75,7 +73,7 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 
-- (void)rightNavItemClick
+- (void)messageClick
 {
     if (![self checkLogin]) {
         return;
@@ -97,8 +95,6 @@
 {
     [super viewDidLoad];
     
-    float addressViewHeight = 50;
-    float avatorSize = 60;
     self.tableView = [[UITableView alloc] init];
     self.tableView.frame = CGRectMake(0,
                                       self.topBarOffset,
@@ -117,72 +113,89 @@
     [self.view addSubview:self.tableViewHeaderView];
     
    
-    UIView *headerView_ = [[UIView alloc] initWithFrame:CGRectMake(0, 0, WIDTH(self.view), WIDTH(self.view) + addressViewHeight )];
-    headerView_.backgroundColor = [UIColor clearColor];
-    headerView_.clipsToBounds = YES;
-    [self.tableViewHeaderView addSubview:headerView_];
     
     self.profileBackground = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, WIDTH(self.view), WIDTH(self.view))];
     self.profileBackground.image = [UIImage imageNamed:@"ProfileBackgroundDefault"];
-    [headerView_ addSubview:self.profileBackground];
+    [self.tableViewHeaderView addSubview:self.profileBackground];
 
     self.imgSlider = [[JOLImageSlider alloc] initWithFrame:self.profileBackground.frame];
     [self.imgSlider setContentMode: UIViewContentModeScaleAspectFill];
-    [headerView_ addSubview:self.imgSlider];
-
-#pragma topbar
-    self.addressView = [[UIView alloc] initWithFrame:CGRectMake(0, MaxY(self.profileBackground), WIDTH(headerView_), addressViewHeight)];
-    [headerView_ addSubview:self.addressView];
+    [self.tableViewHeaderView addSubview:self.imgSlider];
     
-    self.addressView.backgroundColor = [UIColor whiteColor];
-
-    UIView *tabFooterBgView_ = [[UIView alloc] initWithFrame:CGRectMake(0, MaxY(self.addressView), WIDTH(self.addressView), 67)];
-    tabFooterBgView_.backgroundColor = [UIColor colorWithHexString:APP_CONTENT_BG_COLOR];
-    [headerView_ addSubview:tabFooterBgView_];
-
-    UIView *addressFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, MaxY(self.addressView), WIDTH(self.addressView), 7)];
-    addressFooterView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"Juchi"]];
-    [headerView_ addSubview:addressFooterView];
+#pragma action section
+    UIView *actionView = [[UIView alloc] initWithFrame:CGRectMake(10, MaxY(self.imgSlider), 300, 35)];
+    actionView.layer.borderColor = [[UIColor colorWithHexString:@"e1e1e1"] CGColor];
+    actionView.layer.borderWidth = 1;
+    actionView.layer.cornerRadius = 5;
+    actionView.backgroundColor = [UIColor whiteColor];
+    [self.tableViewHeaderView addSubview:actionView];
     
-    self.avatorImgView = [[CircleImageView alloc] initWithFrame:CGRectMake(20, WIDTH(self.view) - avatorSize / 2, avatorSize, avatorSize)];
-    self.avatorImgView.layer.borderColor = [[UIColor whiteColor] CGColor];
-    self.avatorImgView.layer.borderWidth = 1;
-    self.avatorImgView.backgroundColor = [UIColor colorWithHexString:@"eeeeee"];
+    FAKIcon *heartIconOn = [FAKIonIcons ios7HeartIconWithSize:25];
+    [heartIconOn addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithHexString:@"e43a3d"]];
+    FAKIcon *heartIconOff = [FAKIonIcons ios7HeartOutlineIconWithSize:25];
+    [heartIconOff addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithHexString:@"e43a3d"]];
+    self.heartBtn = [ToggleButton buttonWithType:UIButtonTypeCustom];
+    __weak StaffDetailViewController *selfDelegate = self;
+    [self.heartBtn setToggleButtonOnImage:[heartIconOn imageWithSize:CGSizeMake(25, 25)]
+                                   offImg:[heartIconOff imageWithSize:CGSizeMake(25, 25)]
+                       toggleEventHandler:^(BOOL isOn){
+                           return [selfDelegate foClick:isOn];
+                       }];
+    self.heartBtn.frame = CGRectMake((150 - 25)/2, 5, 25, 25);
+    [actionView addSubview:self.heartBtn];
+    
+    UIView *actionLinerView = [[UIView alloc] initWithFrame:CGRectMake(150, 5, 1, 25)];
+    actionLinerView.backgroundColor = [UIColor lightGrayColor];
+    [actionView addSubview:actionLinerView];
+    
+    UIButton *shareBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [shareBtn addTarget:self action:@selector(messageClick) forControlEvents:UIControlEventTouchDown];
+    shareBtn.frame = CGRectMake(151, 5, 149, 25);
+    [shareBtn setTitle:@"私信" forState:UIControlStateNormal];
+    [shareBtn setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
+    [actionView addSubview:shareBtn];
+    
+#pragma staffView
+    self.staffView = [[UIView alloc] initWithFrame:CGRectMake(10, MaxY(actionView) + 10, 300, 90)];
+    self.staffView.backgroundColor = [UIColor whiteColor];
+    self.staffView.layer.borderColor = [[UIColor colorWithHexString:@"e1e1e1"] CGColor];
+    self.staffView.layer.borderWidth = 1;
+    self.staffView.layer.cornerRadius = 5;
+    [self.tableViewHeaderView addSubview:self.staffView];
+    
+    UILabel *staffTitleLbl =[[UILabel alloc] initWithFrame:CGRectMake(10, 5, 100,20)];
+    staffTitleLbl.font = [UIFont systemFontOfSize:14];
+    staffTitleLbl.textAlignment = TextAlignmentLeft;
+    staffTitleLbl.backgroundColor = [UIColor clearColor];
+    staffTitleLbl.textColor = [UIColor blackColor];
+    staffTitleLbl.text = @"发型师";
+    [self.staffView addSubview:staffTitleLbl];
+    
+    UIView *staffLinerView = [[UIView alloc] initWithFrame:CGRectMake(0, MaxY(staffTitleLbl) +5, WIDTH(self.staffView), 1)];
+    staffLinerView.backgroundColor = [UIColor colorWithHexString:@"e1e1e1"];
+    [self.staffView addSubview:staffLinerView];
+    
+    self.avatorImgView = [[CircleImageView alloc] initWithFrame:CGRectMake(10, MaxY(staffLinerView) + 5, 50, 50)];
     self.avatorImgView.userInteractionEnabled = YES;
     [self.avatorImgView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(openAvator)]];
-    [headerView_ addSubview:self.avatorImgView];
+    [self.staffView addSubview:self.avatorImgView];
     
-    self.nameLbl = [[UILabel alloc] initWithFrame:CGRectMake(80 + 5, 0, WIDTH(self.addressView) - 10 - MaxX(self.avatorImgView)-60, 20)];
-    self.nameLbl.backgroundColor = [UIColor clearColor];
+    self.nameLbl = [[UILabel alloc] initWithFrame:CGRectMake(MaxX(self.avatorImgView),Y(self.avatorImgView), 100, 50)];
+    self.nameLbl.textAlignment = NSTextAlignmentLeft;
     self.nameLbl.textColor = [UIColor blackColor];
-    self.nameLbl.font = [UIFont boldSystemFontOfSize:14];
-    self.nameLbl.textAlignment = TextAlignmentLeft;
-    [self.addressView addSubview:self.nameLbl];
-
-    self.groupNameLbl = [[UILabel alloc] initWithFrame:CGRectMake(X(self.nameLbl), MaxY(self.nameLbl), WIDTH(self.addressView) - 10 - MaxX(self.avatorImgView) - 80, 20)];
+    self.nameLbl.backgroundColor = [UIColor clearColor];
+    self.nameLbl.font = [UIFont systemFontOfSize:14];
+    [self.staffView addSubview:self.nameLbl];
+    
+    self.groupNameLbl = [[UILabel alloc] initWithFrame:CGRectMake(MaxX(self.nameLbl)+5,Y(self.avatorImgView), 100, 50)];
+    self.groupNameLbl.textAlignment = NSTextAlignmentRight;
+    self.groupNameLbl.textColor = [UIColor blackColor];
     self.groupNameLbl.backgroundColor = [UIColor clearColor];
-    self.groupNameLbl.textColor = [UIColor grayColor];
     self.groupNameLbl.font = [UIFont systemFontOfSize:14];
-    self.groupNameLbl.textAlignment = TextAlignmentLeft;
-    [self.addressView addSubview:self.groupNameLbl];
     self.groupNameLbl.userInteractionEnabled = YES;
     [self.groupNameLbl addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(groupTapped)]];
+    [self.staffView addSubview:self.groupNameLbl];
 
-    float heartIconSize = 30;
-    FAKIcon *heartIconOn = [FAKIonIcons ios7HeartIconWithSize:heartIconSize];
-    [heartIconOn addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithHexString:@"e43a3d"]];
-    FAKIcon *heartIconOff = [FAKIonIcons ios7HeartOutlineIconWithSize:heartIconSize];
-    [heartIconOff addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithHexString:@"e43a3d"]];
-    self.foBtn = [ToggleButton buttonWithType:UIButtonTypeCustom];
-    __weak StaffDetailViewController *selfDelegate = self;
-    [self.foBtn setToggleButtonOnImage:[heartIconOn imageWithSize:CGSizeMake(heartIconSize, heartIconSize)]
-                                offImg:[heartIconOff imageWithSize:CGSizeMake(heartIconSize, heartIconSize)]
-                    toggleEventHandler:^(BOOL isOn){
-                       return [selfDelegate foClick:isOn];
-                    }];
-    self.foBtn.frame = CGRectMake(MaxX(self.nameLbl), 5, heartIconSize, heartIconSize);
-    [self.addressView addSubview:self.foBtn];
-    
     
     self.bottomView = [[UIView alloc] initWithFrame:CGRectMake(0,
                                                                          MaxY(self.tableView) - kBottomBarHeight,
@@ -205,8 +218,6 @@
     [self.bottomView addSubview:self.submitBtn];
 
     [self getStaffDetail];
-
-    self.tableView.contentInset = UIEdgeInsetsMake(-160, 0, 0, 0);
 }
 
 - (void)didReceiveMemoryWarning
@@ -214,21 +225,21 @@
     [super didReceiveMemoryWarning];
 }
 
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView
-{
-    if (scrollView.contentOffset.y < 160 && scrollView.contentInset.top < 0) {
-        scrollView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);
-        return;
-    }
-
-    if (scrollView.contentOffset.y > 0) {
-        self.imgSlider.frame = CGRectMake(scrollView.contentOffset.x, scrollView.contentOffset.y * 0.5f, WIDTH(self.view), WIDTH(self.view));
-        self.profileBackground.frame = self.imgSlider.frame;
-    } else {
-        self.imgSlider.frame = CGRectMake(0, 0, WIDTH(self.view), WIDTH(self.view));
-        self.profileBackground.frame = self.imgSlider.frame;
-    }
-}
+//- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+//{
+//    if (scrollView.contentOffset.y < 160 && scrollView.contentInset.top < 0) {
+//        scrollView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);
+//        return;
+//    }
+//
+//    if (scrollView.contentOffset.y > 0) {
+//        self.imgSlider.frame = CGRectMake(scrollView.contentOffset.x, scrollView.contentOffset.y * 0.5f, WIDTH(self.view), WIDTH(self.view));
+//        self.profileBackground.frame = self.imgSlider.frame;
+//    } else {
+//        self.imgSlider.frame = CGRectMake(0, 0, WIDTH(self.view), WIDTH(self.view));
+//        self.profileBackground.frame = self.imgSlider.frame;
+//    }
+//}
 
 - (void)openAvator
 {
@@ -438,7 +449,7 @@
     self.nameLbl.text = self.staff.name;
     self.groupNameLbl.text = self.staff.group.name;
     self.distanceLbl.text = [NSString stringWithFormat:@"%.2f 千米", self.staff.distance / 1000];
-    self.foBtn.on = self.staff.isLiked;
+    self.heartBtn.on = self.staff.isLiked;
     [self.avatorImgView setImageWithURL:self.staff.avatorUrl];
 
     User *usr = [[User alloc] initWithDic:rst];
@@ -478,7 +489,7 @@
         NSMutableArray *services =[NSMutableArray arrayWithArray:self.staff.services];
         [services insertObject:[Service new] atIndex:0];
         
-        UIScrollView *serviceScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(contentPadding, MaxY(self.addressView) + contentPadding, 300, 0)];
+        UIScrollView *serviceScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(contentPadding, MaxY(self.staffView) + contentPadding, 300, 0)];
         [self.tableViewHeaderView addSubview:serviceScrollView];
         
         float serviceOffsetY = 0;
