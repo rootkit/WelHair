@@ -53,15 +53,6 @@ class ChatServer implements MessageComponentInterface
                 $this->clients[$conn->resourceId]['User'] = array(
                     'UserId' => $message['UserId']
                 );
-
-                $offlineMessages = MessageService::getAllOfflineMessages($message['UserId']);
-                foreach ($offlineMessages as $msg) {
-                    $messageOfflineId = $msg['MessageOfflineId'];
-                    unset($msg['MessageOfflineId']);
-                    $this->clients[$conn->resourceId]['Connection']->send(json_encode($msg));
-
-                    MessageService::removeOfflineMessage($messageOfflineId);
-                }
             }
         }
 
@@ -85,7 +76,7 @@ class ChatServer implements MessageComponentInterface
                         if ($toClient) {
                             $toClient['Connection']->send(json_encode($rst['message']));
                         } else {
-                            MessageService::saveOfflineMessage(array('MessageId' => $rst['message']['MessageId'], 'UserId' => $toUser['UserId']));
+                            // send notification
                         }
                     }
                 }
@@ -107,7 +98,7 @@ class ChatServer implements MessageComponentInterface
                     $toClient['Connection']->send(json_encode($rst['message']));
                 } else {
                     if ($rst['success']) {
-                        MessageService::saveOfflineMessage(array('MessageId' => $rst['message']['MessageId'], 'UserId' => $message['ToId']));
+                        // send notification
                     }
                 }
             }
