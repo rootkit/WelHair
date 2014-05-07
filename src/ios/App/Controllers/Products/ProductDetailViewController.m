@@ -63,6 +63,9 @@
     if (self) {
         self.order = [Order new];
         self.title = @"商品";
+        FAKIcon *leftIcon = [FAKIonIcons ios7ArrowBackIconWithSize:NAV_BAR_ICON_SIZE];
+        [leftIcon addAttribute:NSForegroundColorAttributeName value:[UIColor whiteColor]];
+        self.leftNavItemImg =[leftIcon imageWithSize:CGSizeMake(NAV_BAR_ICON_SIZE, NAV_BAR_ICON_SIZE)];
     }
 
     return self;
@@ -78,26 +81,11 @@
     [super loadView];
 }
 
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    [self.navigationController setNavigationBarHidden:YES animated:YES];
-}
-
-- (void)viewWillDisappear:(BOOL)animated
-{
-    NSArray *viewControllers = self.navigationController.viewControllers;
-    if ([viewControllers objectAtIndex:viewControllers.count - 1] == self) {
-    } else {
-        [self.navigationController setNavigationBarHidden:NO animated:YES];
-    }
-}
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
 
-    self.scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, WIDTH(self.view), self.view.bounds.size.height - kBottomBarHeight)];
+    self.scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, self.topBarOffset, WIDTH(self.view), [self contentHeightWithNavgationBar:YES withBottomBar:YES])];
     [self.view addSubview:self.scrollView];
 
 #pragma bottom bar
@@ -150,35 +138,6 @@
     [submitBtn addTarget:self action:@selector(submitClick) forControlEvents:UIControlEventTouchUpInside];
     [bottomView addSubview:submitBtn];
     [self.view addSubview:bottomView];
-    
-#pragma topbar
-    float topViewHeight = isIOS7 ? kStatusBarHeight + kTopBarHeight : kTopBarHeight;
-    UIView *topNavView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, WIDTH(self.view), topViewHeight)];
-    topNavView.backgroundColor = [UIColor clearColor];
-    [self.view addSubview:topNavView];
-    
-    UIView *topNavbgView = [[UIView alloc] initWithFrame:topNavView.bounds];
-    topNavbgView.backgroundColor = [UIColor lightGrayColor];
-    topNavbgView.alpha = 0.4;
-    [topNavView addSubview:topNavbgView];
-
-    // top left button
-    FAKIcon *leftIcon = [FAKIonIcons ios7ArrowBackIconWithSize:NAV_BAR_ICON_SIZE];
-    [leftIcon addAttribute:NSForegroundColorAttributeName value:[UIColor whiteColor]];
-    UIImage *leftImg =[leftIcon imageWithSize:CGSizeMake(NAV_BAR_ICON_SIZE, NAV_BAR_ICON_SIZE)];
-    UIButton *leftBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    leftBtn.frame = CGRectMake(10, topViewHeight - 35, NAV_BAR_ICON_SIZE, NAV_BAR_ICON_SIZE);
-    [leftBtn addTarget:self action:@selector(leftBtnClick) forControlEvents:UIControlEventTouchUpInside];
-    [leftBtn setImage:leftImg forState:UIControlStateNormal];
-    [topNavView addSubview:leftBtn];
-
-    // top right button
-    UIImage *rightImg = [UIImage imageNamed:@"ShareIcon"];
-    UIButton *rightBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    rightBtn.frame = CGRectMake(WIDTH(topNavView) - 40 , topViewHeight - 35, NAV_BAR_ICON_SIZE, NAV_BAR_ICON_SIZE);
-    [rightBtn addTarget:self action:@selector(rightBtnClick) forControlEvents:UIControlEventTouchUpInside];
-    [rightBtn setImage:rightImg forState:UIControlStateNormal];
-    [topNavView addSubview:rightBtn];
 
 #pragma image slider
     self.scrollView.backgroundColor = [UIColor clearColor];
@@ -195,27 +154,49 @@
     }
     [self.imgSlider setSlides:sliderArray];
 
-#pragma product name & price
-    self.productNameLbl = [[UILabel alloc] initWithFrame:CGRectMake(10, MaxY(self.imgSlider) + 5,220,40)];
-    self.productNameLbl.textAlignment = NSTextAlignmentLeft;
-    self.productNameLbl.textColor = [UIColor blackColor];
-    self.productNameLbl.font = [UIFont systemFontOfSize:18];
-    self.productNameLbl.backgroundColor = [UIColor clearColor];
-    [self.scrollView addSubview:self.productNameLbl];
+#pragma action section
+    UIView *actionView = [[UIView alloc] initWithFrame:CGRectMake(10, MaxY(self.imgSlider), 300, 35)];
+    actionView.layer.borderColor = [[UIColor colorWithHexString:@"e1e1e1"] CGColor];
+    actionView.layer.borderWidth = 1;
+    actionView.layer.cornerRadius = 5;
+    actionView.backgroundColor = [UIColor whiteColor];
+    [self.scrollView addSubview:actionView];
     
     FAKIcon *heartIconOn = [FAKIonIcons ios7HeartIconWithSize:25];
     [heartIconOn addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithHexString:@"e43a3d"]];
     FAKIcon *heartIconOff = [FAKIonIcons ios7HeartOutlineIconWithSize:25];
     [heartIconOff addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithHexString:@"e43a3d"]];
     self.heartBtn = [ToggleButton buttonWithType:UIButtonTypeCustom];
-    self.heartBtn.frame = CGRectMake(260, Y(self.productNameLbl) + 5,30,30);
     __weak ProductDetailViewController *weakSelf = self;
     [self.heartBtn setToggleButtonOnImage:[heartIconOn imageWithSize:CGSizeMake(25, 25)]
                                    offImg:[heartIconOff imageWithSize:CGSizeMake(25, 25)]
-                       toggleEventHandler:^(BOOL isOn) {
+                       toggleEventHandler:^(BOOL isOn){
                            return [weakSelf favClick:isOn];
                        }];
-    [self.scrollView addSubview:self.heartBtn];
+    self.heartBtn.frame = CGRectMake((150 - 25)/2, 5, 25, 25);
+    [actionView addSubview:self.heartBtn];
+    
+    UIView *actionLinerView = [[UIView alloc] initWithFrame:CGRectMake(150, 5, 1, 25)];
+    actionLinerView.backgroundColor = [UIColor lightGrayColor];
+    [actionView addSubview:actionLinerView];
+    
+    
+    
+    UIButton *shareBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    FAKIcon *shareIcon = [FAKIonIcons androidShareIconWithSize:25];
+    [shareIcon addAttribute:NSForegroundColorAttributeName value:[UIColor lightGrayColor]];
+    [shareBtn setImage:[shareIcon imageWithSize:CGSizeMake(25, 25)] forState:UIControlStateNormal ];
+    [shareBtn addTarget:self action:@selector(shareClick) forControlEvents:UIControlEventTouchDown];
+    shareBtn.frame = CGRectMake(150 + (150 -25)/2, 5, 25, 25);
+    [actionView addSubview:shareBtn];
+    
+#pragma product name & price
+    self.productNameLbl = [[UILabel alloc] initWithFrame:CGRectMake(10, MaxY(actionView) + 5,220,40)];
+    self.productNameLbl.textAlignment = NSTextAlignmentLeft;
+    self.productNameLbl.textColor = [UIColor blackColor];
+    self.productNameLbl.font = [UIFont systemFontOfSize:18];
+    self.productNameLbl.backgroundColor = [UIColor clearColor];
+    [self.scrollView addSubview:self.productNameLbl];
     
     // add kvo for product count
     [self observeProperty:@keypath(self.order.count) withBlock:
@@ -265,7 +246,7 @@
     [self OpenImageGallery];
 }
 
-- (void)rightBtnClick
+- (void)shareClick
 {
     NSString *shareText = self.product.name;
     UIImageView *v = [[UIImageView alloc] init];
