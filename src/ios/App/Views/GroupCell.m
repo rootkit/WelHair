@@ -47,10 +47,10 @@
                                                                      Y(outerImageView),
                                                                      154,
                                                                      HEIGHT(self.imgView)/2)];
-        self.nameLbl.font = [UIFont boldSystemFontOfSize:14];
+        self.nameLbl.font = [UIFont systemFontOfSize:14];
         self.nameLbl.numberOfLines = 2;
         self.nameLbl.backgroundColor = [UIColor clearColor];
-        self.nameLbl.textColor = [UIColor blackColor];
+        self.nameLbl.textColor = [UIColor colorWithHexString:@"777"];
         [self addSubview:self.nameLbl];
         
         self.addressLbl = [[UILabel alloc] initWithFrame:CGRectMake(MaxX(outerImageView) + 5,
@@ -60,7 +60,7 @@
         self.addressLbl.font = [UIFont systemFontOfSize:12];
         self.addressLbl.numberOfLines = 2;
         self.addressLbl.backgroundColor = [UIColor clearColor];
-        self.addressLbl.textColor = [UIColor colorWithHexString:@"b7bac1"];
+        self.addressLbl.textColor = [UIColor colorWithHexString:@"777"];
         [self addSubview:self.addressLbl];
         
         self.rateHandImageView = [[UIImageView alloc] initWithFrame:CGRectMake(MaxX(self.nameLbl) + 2, Y(self.nameLbl) + 7, 15, 15)];
@@ -109,7 +109,7 @@
     self.groupData = group;
 
     [self.imgView setImageWithURL:[NSURL URLWithString:group.logoUrl]];
-    self.nameLbl.text = [NSString stringWithFormat:@"%@", group.name];
+    self.nameLbl.text = @"吉米造型（大悦城店）";//[NSString stringWithFormat:@"%@", group.name];
     self.rateLbl.text = [NSString stringWithFormat:@"%d", group.ratingCount];
     self.addressLbl.text = [NSString stringWithFormat:@"地址：%@", group.address];
     self.distanceLbl.text = [NSString stringWithFormat:@"%.1fkm", group.distance / 1000];

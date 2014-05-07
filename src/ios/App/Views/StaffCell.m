@@ -42,34 +42,34 @@
         self.nameLbl = [[UILabel alloc] initWithFrame:CGRectMake(MaxX(self.imgView) + 5,
                                                                  Y(self.imgView),
                                                                  154,
-                                                                 HEIGHT(self.imgView)/3)];
-        self.nameLbl.font = [UIFont boldSystemFontOfSize:16];
+                                                                 HEIGHT(self.imgView) / 3)];
+        self.nameLbl.font = [UIFont systemFontOfSize:16];
         self.nameLbl.numberOfLines = 1;
         self.nameLbl.backgroundColor = [UIColor clearColor];
-        self.nameLbl.textColor = [UIColor blackColor];
+        self.nameLbl.textColor = [UIColor colorWithHexString:@"1f6ba7"];
         [self addSubview:self.nameLbl];
     
         self.groupLbl = [[UILabel alloc] initWithFrame:CGRectMake(MaxX(self.imgView) + 5,
                                                                     MaxY(self.nameLbl),
                                                                     WIDTH(self.nameLbl),
                                                                     HEIGHT(self.imgView) / 3)];
-        self.groupLbl.font = [UIFont systemFontOfSize:12];
+        self.groupLbl.font = [UIFont systemFontOfSize:13];
         self.groupLbl.numberOfLines = 1;
         self.groupLbl.backgroundColor = [UIColor clearColor];
-        self.groupLbl.textColor = [UIColor blackColor];
+        self.groupLbl.textColor = [UIColor colorWithHexString:@"666"];
         [self addSubview:self.groupLbl];
 
         self.groupAddressLbl = [[UILabel alloc] initWithFrame:CGRectMake(MaxX(self.imgView) + 5,
                                                                   MaxY(self.groupLbl),
                                                                   WIDTH(self.nameLbl),
-                                                                  HEIGHT(self.imgView)/3)];
+                                                                  HEIGHT(self.imgView) / 3)];
         self.groupAddressLbl.font = [UIFont systemFontOfSize:12];
         self.groupAddressLbl.numberOfLines = 1;
         self.groupAddressLbl.backgroundColor = [UIColor clearColor];
         self.groupAddressLbl.textColor = [UIColor grayColor];
         [self addSubview:self.groupAddressLbl];
         
-        UIImageView *rateImageView = [[UIImageView alloc] initWithFrame:CGRectMake(MaxX(self.nameLbl), Y(self.nameLbl) + 10 , 15, 15)];
+        UIImageView *rateImageView = [[UIImageView alloc] initWithFrame:CGRectMake(MaxX(self.nameLbl) + 2, Y(self.nameLbl) + 10 , 15, 15)];
         [self addSubview:rateImageView];
         rateImageView.image = [UIImage imageNamed:@"RateHand"];
         

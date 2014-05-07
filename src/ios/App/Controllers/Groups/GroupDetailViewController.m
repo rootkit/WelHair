@@ -26,8 +26,6 @@
 #import "UMSocial.h"
 #import "UserManager.h"
 
-static const float profileViewHeight = 320;
-
 @interface GroupDetailViewController()<MapPickViewDelegate,UMSocialUIDelegate,JOLImageSliderDelegate,MWPhotoBrowserDelegate, UITableViewDataSource, UITableViewDelegate>
 
 @property (nonatomic, strong) UITableView *tableView;
@@ -63,11 +61,11 @@ static const float profileViewHeight = 320;
         [leftIcon addAttribute:NSForegroundColorAttributeName value:[UIColor whiteColor]];
         self.leftNavItemImg  =[leftIcon imageWithSize:CGSizeMake(NAV_BAR_ICON_SIZE, NAV_BAR_ICON_SIZE)];
     }
-    return self;
 
+    return self;
 }
 
-- (void)leftBtnClick
+- (void)leftNavItemClick
 {
     [self.navigationController popViewControllerAnimated:YES];
 }
@@ -299,6 +297,8 @@ static const float profileViewHeight = 320;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+
+    self.title = self.group.name;
 
     NSMutableArray *sliderArray = [NSMutableArray array];
     for (NSString *item in self.group.imgUrls) {
