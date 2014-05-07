@@ -143,7 +143,7 @@
     [shareIcon addAttribute:NSForegroundColorAttributeName value:[UIColor lightGrayColor]];
     [shareBtn setImage:[shareIcon imageWithSize:CGSizeMake(25, 25)] forState:UIControlStateNormal ];
     [shareBtn addTarget:self action:@selector(shareClick) forControlEvents:UIControlEventTouchDown];
-    shareBtn.frame = CGRectMake(150 + (150 -25)/2, 5, 25, 25);
+    shareBtn.frame = CGRectMake(150 + (150 -25)/2, 7, 20, 20);
     [actionView addSubview:shareBtn];
 
 #pragma works list
