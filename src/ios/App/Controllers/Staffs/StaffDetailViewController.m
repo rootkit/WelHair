@@ -483,7 +483,7 @@
     [self.tableView reloadData];
 
     float contentPadding = 10;
-    float scrollViewOffsetY = MaxY(self.addressView);
+    float scrollViewOffsetY = MaxY(self.staffView);
     
     if (self.staff.services.count > 0) {
         NSMutableArray *services =[NSMutableArray arrayWithArray:self.staff.services];
