@@ -25,8 +25,10 @@
 #import "UIImageView+WebCache.h"
 #import "UMSocial.h"
 #import "UserManager.h"
+#import "StaffNarrowCell.h"
 
 @interface GroupDetailViewController()<MapPickViewDelegate,UMSocialUIDelegate,JOLImageSliderDelegate,MWPhotoBrowserDelegate, UITableViewDataSource, UITableViewDelegate>
+@property (nonatomic, assign) NSInteger currentPage;
 
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) NSArray *datasource;
@@ -60,6 +62,12 @@
         FAKIcon *leftIcon = [FAKIonIcons ios7ArrowBackIconWithSize:NAV_BAR_ICON_SIZE];
         [leftIcon addAttribute:NSForegroundColorAttributeName value:[UIColor whiteColor]];
         self.leftNavItemImg  =[leftIcon imageWithSize:CGSizeMake(NAV_BAR_ICON_SIZE, NAV_BAR_ICON_SIZE)];
+        
+        FAKIcon *rightIcon = [FAKIonIcons androidShareIconWithSize:20];
+        [rightIcon addAttribute:NSForegroundColorAttributeName value:[UIColor whiteColor]];
+        self.rightNavItemImg =[rightIcon imageWithSize:CGSizeMake(20,20)];
+        
+        self.currentPage = 1;
     }
 
     return self;
@@ -70,7 +78,7 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 
-- (void)shareClick
+- (void)rightNavItemClick
 {
     NSString *shareText = @"快来这里看看吧";
     UIImageView *v = [[UIImageView alloc] init];
@@ -104,7 +112,10 @@
     self.tableView.backgroundColor = [UIColor colorWithHexString:@"f2f2f2"];
     [self.view addSubview:self.tableView];
 
+    __weak typeof(self) weakSelf = self;
     [self.tableView addInfiniteScrollingWithActionHandler:^{
+        weakSelf.currentPage += 1;
+        [weakSelf getStaffs];
     }];
     self.tableView.showsInfiniteScrolling = NO;
     
@@ -117,62 +128,16 @@
     self.imgSlider.delegate = self;
     [self.imgSlider setContentMode: UIViewContentModeScaleAspectFill];
     [self.headerView addSubview:self.imgSlider];
-
-#pragma action section
-    UIView *actionView = [[UIView alloc] initWithFrame:CGRectMake(10, MaxY(self.imgSlider), 300, 35)];
-    actionView.layer.borderColor = [[UIColor colorWithHexString:@"e1e1e1"] CGColor];
-    actionView.layer.borderWidth = 1;
-    actionView.layer.cornerRadius = 5;
-    actionView.backgroundColor = [UIColor whiteColor];
-    [self.headerView addSubview:actionView];
-    
-    FAKIcon *heartIconOn = [FAKIonIcons ios7HeartIconWithSize:25];
-    [heartIconOn addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithHexString:@"e43a3d"]];
-    FAKIcon *heartIconOff = [FAKIonIcons ios7HeartOutlineIconWithSize:25];
-    [heartIconOff addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithHexString:@"e43a3d"]];
-    self.heartBtn = [ToggleButton buttonWithType:UIButtonTypeCustom];
-    __weak GroupDetailViewController *selfDelegate = self;
-    [self.heartBtn setToggleButtonOnImage:[heartIconOn imageWithSize:CGSizeMake(25, 25)]
-                                   offImg:[heartIconOff imageWithSize:CGSizeMake(25, 25)]
-                       toggleEventHandler:^(BOOL isOn){
-                           return [selfDelegate favClick:isOn];
-                       }];
-    self.heartBtn.frame = CGRectMake((150 - 25)/2, 5, 25, 25);
-    [actionView addSubview:self.heartBtn];
-    
-    UIView *actionLinerView = [[UIView alloc] initWithFrame:CGRectMake(150, 5, 1, 25)];
-    actionLinerView.backgroundColor = [UIColor lightGrayColor];
-    [actionView addSubview:actionLinerView];
-    
-    UIButton *shareBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    FAKIcon *shareIcon = [FAKIonIcons androidShareIconWithSize:25];
-    [shareIcon addAttribute:NSForegroundColorAttributeName value:[UIColor lightGrayColor]];
-    [shareBtn setImage:[shareIcon imageWithSize:CGSizeMake(25, 25)] forState:UIControlStateNormal ];
-    [shareBtn addTarget:self action:@selector(shareClick) forControlEvents:UIControlEventTouchDown];
-    shareBtn.frame = CGRectMake(150 + (150 -25)/2, 7, 20, 20);
-    [actionView addSubview:shareBtn];
     
 #pragma staffView
-    self.groupView = [[UIView alloc] initWithFrame:CGRectMake(10, MaxY(actionView) + 10, 300, 90)];
+    self.groupView = [[UIView alloc] initWithFrame:CGRectMake(10, MaxY(self.imgSlider) +10, 300, 60)];
     self.groupView.backgroundColor = [UIColor whiteColor];
     self.groupView.layer.borderColor = [[UIColor colorWithHexString:@"e1e1e1"] CGColor];
     self.groupView.layer.borderWidth = 1;
     self.groupView.layer.cornerRadius = 5;
     [self.headerView addSubview:self.groupView];
     
-    UILabel *staffTitleLbl =[[UILabel alloc] initWithFrame:CGRectMake(10, 5, 100,20)];
-    staffTitleLbl.font = [UIFont systemFontOfSize:14];
-    staffTitleLbl.textAlignment = TextAlignmentLeft;
-    staffTitleLbl.backgroundColor = [UIColor clearColor];
-    staffTitleLbl.textColor = [UIColor blackColor];
-    staffTitleLbl.text = @"发型师";
-    [self.groupView addSubview:staffTitleLbl];
-    
-    UIView *staffLinerView = [[UIView alloc] initWithFrame:CGRectMake(0, MaxY(staffTitleLbl) +5, WIDTH(self.groupView), 1)];
-    staffLinerView.backgroundColor = [UIColor colorWithHexString:@"e1e1e1"];
-    [self.groupView addSubview:staffLinerView];
-    
-    self.avatorImgView = [[UIImageView alloc] initWithFrame:CGRectMake(10, MaxY(staffLinerView) + 5, 50, 50)];
+    self.avatorImgView = [[UIImageView alloc] initWithFrame:CGRectMake(10,  5, 50, 50)];
     [self.groupView addSubview:self.avatorImgView];
     
     self.groupNameLbl = [[UILabel alloc] initWithFrame:CGRectMake(MaxX(self.avatorImgView)+10,Y(self.avatorImgView), 150, 50)];
@@ -182,52 +147,23 @@
     self.groupNameLbl.font = [UIFont systemFontOfSize:14];
     [self.groupView addSubview:self.groupNameLbl];
     
-#pragma tabview
-    UIColor *tabViewColor =[UIColor colorWithHexString:APP_NAVIGATIONBAR_COLOR];
-    UIView *tabView = [[UIView alloc] initWithFrame:CGRectMake(10, MaxY(self.groupView) + 10, WIDTH(self.view) - 20, 30)];
-    tabView.backgroundColor = [UIColor clearColor];
-    tabView.layer.borderColor = [tabViewColor CGColor];
-    tabView.layer.borderWidth = 1;
-    tabView.layer.cornerRadius = 5;
-    [self.headerView addSubview:tabView];
+    FAKIcon *heartIconOn = [FAKIonIcons ios7HeartIconWithSize:25];
+    [heartIconOn addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithHexString:@"e43a3d"]];
+    FAKIcon *heartIconOff = [FAKIonIcons ios7HeartOutlineIconWithSize:25];
+    [heartIconOff addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithHexString:@"e43a3d"]];
+    self.heartBtn = [ToggleButton buttonWithType:UIButtonTypeCustom];
+    __weak typeof(self) selfDelegate = self;
+    [self.heartBtn setToggleButtonOnImage:[heartIconOn imageWithSize:CGSizeMake(25, 25)]
+                                   offImg:[heartIconOff imageWithSize:CGSizeMake(25, 25)]
+                       toggleEventHandler:^(BOOL isOn){
+                           return [selfDelegate favClick:isOn];
+                       }];
+    self.heartBtn.frame = CGRectMake(275, 17, 25, 25);
+    [self.groupView addSubview:self.heartBtn];
 
-    float tabButtonWidth = 100;
-    self.staffTabBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    self.staffTabBtn.tag = 0;
-    self.staffTabBtn.frame = CGRectMake(0, 0, tabButtonWidth, 30);
-    self.staffTabBtn.titleLabel.font = [UIFont systemFontOfSize:12];
-    self.staffTabBtn.titleLabel.textColor = tabViewColor;
-    [self.staffTabBtn setTitleColor:tabViewColor forState:UIControlStateNormal];
-    [self.staffTabBtn addTarget:self action:@selector(tabClicked:) forControlEvents:UIControlEventTouchUpInside];
-    [tabView addSubview:self.staffTabBtn];
     
-    UIView *separatorView1 = [[UIView alloc] initWithFrame:CGRectMake(MaxX(self.staffTabBtn),0, 1, HEIGHT(tabView))];
-    separatorView1.backgroundColor = tabViewColor;
-    [tabView addSubview:separatorView1];
-    
-    self.productTabBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    self.productTabBtn.tag = 1;
-    self.productTabBtn.frame = CGRectMake(MaxX(self.staffTabBtn) +1, 0, tabButtonWidth, 30);
-    self.productTabBtn.titleLabel.font = [UIFont systemFontOfSize:12];
-    self.productTabBtn.titleLabel.textColor = tabViewColor;
-    [self.productTabBtn setTitleColor:tabViewColor forState:UIControlStateNormal];
-    [self.productTabBtn addTarget:self action:@selector(tabClicked:) forControlEvents:UIControlEventTouchUpInside];
-    [tabView addSubview:self.productTabBtn];
 
-    UIView *separatorView2 = [[UIView alloc] initWithFrame:CGRectMake(MaxX(self.productTabBtn),0, 1, HEIGHT(tabView))];
-    separatorView2.backgroundColor = tabViewColor;
-    [tabView addSubview:separatorView2];
-    
-    self.commentTabBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    self.commentTabBtn.tag = 2;
-    self.commentTabBtn.frame = CGRectMake(MaxX(self.productTabBtn) + 1,0, tabButtonWidth, 30);
-    self.commentTabBtn.titleLabel.font = [UIFont systemFontOfSize:12];
-    self.commentTabBtn.titleLabel.textColor = tabViewColor;
-    [self.commentTabBtn setTitleColor:tabViewColor forState:UIControlStateNormal];
-    [self.commentTabBtn addTarget:self action:@selector(tabClicked:) forControlEvents:UIControlEventTouchUpInside];
-    [tabView addSubview:self.commentTabBtn];
-
-    UIView *detainInfoView = [[UIView alloc] initWithFrame:CGRectMake(10, MaxY(tabView) + 10, 300, 88)];
+    UIView *detainInfoView = [[UIView alloc] initWithFrame:CGRectMake(10, MaxY(self.groupView) + 10, 300, 88)];
     detainInfoView.backgroundColor = [UIColor whiteColor];
     detainInfoView.layer.borderWidth = 0.5;
     detainInfoView.layer.borderColor = [[UIColor colorWithHexString:@"cccccc"] CGColor];
@@ -261,9 +197,9 @@
     locationImg.userInteractionEnabled = YES;
     [addressCellView addSubview:locationImg];
     
-    UIView *tabContentLiner = [[UIView alloc] initWithFrame:CGRectMake(0, MaxY(addressCellView) -1, WIDTH(tabView), .5)];
-    tabContentLiner.backgroundColor = [UIColor colorWithHexString:@"dddddd"];
-    [detainInfoView addSubview:tabContentLiner];
+    UIView *infoLiner = [[UIView alloc] initWithFrame:CGRectMake(0, MaxY(addressCellView) -1, 300, .5)];
+    infoLiner.backgroundColor = [UIColor colorWithHexString:@"dddddd"];
+    [detainInfoView addSubview:infoLiner];
     
     UIView *phoneCellView = [[UIView alloc] initWithFrame:CGRectMake(0, 44, 300, 44)];
     phoneCellView.backgroundColor = [UIColor clearColor];
@@ -292,8 +228,56 @@
     phoneImg.userInteractionEnabled = YES;
     [phoneCellView addSubview:phoneImg];
     
-    self.headerView.frame = CGRectMake(0, 0, WIDTH(self.view), MaxY(detainInfoView));
+#pragma tabview
+    UIColor *tabViewColor =[UIColor colorWithHexString:APP_NAVIGATIONBAR_COLOR];
+    UIView *tabView = [[UIView alloc] initWithFrame:CGRectMake(10, MaxY(detainInfoView) + 10, WIDTH(self.view) - 20, 30)];
+    tabView.backgroundColor = [UIColor clearColor];
+    tabView.layer.borderColor = [tabViewColor CGColor];
+    tabView.layer.borderWidth = 1;
+    tabView.layer.cornerRadius = 5;
+    [self.headerView addSubview:tabView];
+    
+    float tabButtonWidth = 100;
+    self.staffTabBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    self.staffTabBtn.tag = 0;
+    self.staffTabBtn.frame = CGRectMake(0, 0, tabButtonWidth, 30);
+    self.staffTabBtn.titleLabel.font = [UIFont systemFontOfSize:12];
+    self.staffTabBtn.titleLabel.textColor = tabViewColor;
+    [self.staffTabBtn setTitleColor:tabViewColor forState:UIControlStateNormal];
+    [self.staffTabBtn addTarget:self action:@selector(tabClicked:) forControlEvents:UIControlEventTouchUpInside];
+    [tabView addSubview:self.staffTabBtn];
+    
+    UIView *separatorView1 = [[UIView alloc] initWithFrame:CGRectMake(MaxX(self.staffTabBtn),0, 1, HEIGHT(tabView))];
+    separatorView1.backgroundColor = tabViewColor;
+    [tabView addSubview:separatorView1];
+    
+    self.productTabBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    self.productTabBtn.tag = 1;
+    self.productTabBtn.frame = CGRectMake(MaxX(self.staffTabBtn) +1, 0, tabButtonWidth, 30);
+    self.productTabBtn.titleLabel.font = [UIFont systemFontOfSize:12];
+    self.productTabBtn.titleLabel.textColor = tabViewColor;
+    [self.productTabBtn setTitleColor:tabViewColor forState:UIControlStateNormal];
+    [self.productTabBtn addTarget:self action:@selector(tabClicked:) forControlEvents:UIControlEventTouchUpInside];
+    [tabView addSubview:self.productTabBtn];
+    
+    UIView *separatorView2 = [[UIView alloc] initWithFrame:CGRectMake(MaxX(self.productTabBtn),0, 1, HEIGHT(tabView))];
+    separatorView2.backgroundColor = tabViewColor;
+    [tabView addSubview:separatorView2];
+    
+    self.commentTabBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    self.commentTabBtn.tag = 2;
+    self.commentTabBtn.frame = CGRectMake(MaxX(self.productTabBtn) + 1,0, tabButtonWidth, 30);
+    self.commentTabBtn.titleLabel.font = [UIFont systemFontOfSize:12];
+    self.commentTabBtn.titleLabel.textColor = tabViewColor;
+    [self.commentTabBtn setTitleColor:tabViewColor forState:UIControlStateNormal];
+    [self.commentTabBtn addTarget:self action:@selector(tabClicked:) forControlEvents:UIControlEventTouchUpInside];
+    [tabView addSubview:self.commentTabBtn];
+
+    
+    self.headerView.frame = CGRectMake(0, 0, WIDTH(self.view), MaxY(tabView));
     self.tableView.tableHeaderView  = self.headerView;
+
+    [self getStaffs];
 }
 
 - (void)viewDidLoad
@@ -519,17 +503,74 @@
 - (void)failGetGroupDetail:(ASIHTTPRequest *)request
 {
 }
+
+- (void)getStaffs
+{
+    ASIHTTPRequest *request = [RequestUtil createGetRequestWithURL:[NSURL URLWithString:[NSString stringWithFormat:API_COMPANIES_STAFFS, @(self.group.id)]] andParam:nil];
+    [request setDelegate:self];
+    [request setDidFinishSelector:@selector(finishGetStaffs:)];
+    [request setDidFailSelector:@selector(failGetStaffs:)];
+    [request startAsynchronous];
+}
+
+- (void)finishGetStaffs:(ASIHTTPRequest *)request
+{
+    NSDictionary *rst = [Util objectFromJson:request.responseString];
+    NSInteger total = [[rst objectForKey:@"total"] integerValue];
+    NSArray *dataList = [rst objectForKey:@"staffes"];
+    
+    NSMutableArray *arr = [NSMutableArray arrayWithArray:self.datasource];
+    
+    if (self.currentPage == 1) {
+        [arr removeAllObjects];
+    } else {
+        if (self.currentPage % TABLEVIEW_PAGESIZE_DEFAULT > 0) {
+            int i;
+            
+            for (i = 0; i < arr.count; i++) {
+                if (i >= (self.currentPage - 1) * TABLEVIEW_PAGESIZE_DEFAULT) {
+                    [arr removeObjectAtIndex:i];
+                    i--;
+                }
+            }
+        }
+    }
+    
+    for (NSDictionary *dicData in dataList) {
+        [arr addObject:[[Staff alloc] initWithDic:dicData]];
+    }
+    
+    self.datasource = arr;
+    
+    BOOL enableInfinite = total > self.datasource.count;
+    if (self.tableView.showsInfiniteScrolling != enableInfinite) {
+        self.tableView.showsInfiniteScrolling = enableInfinite;
+    }
+    
+    if (self.currentPage == 1) {
+        [self.tableView stopRefreshAnimation];
+    } else {
+        [self.tableView.infiniteScrollingView stopAnimating];
+    }
+    
+    [self checkEmpty];
+    
+    [self.tableView reloadData];
+}
+
+- (void)failGetStaffs:(ASIHTTPRequest *)request
+{
+}
+
+- (void)checkEmpty
+{
+    
+}
 #pragma mark UITableView delegate
 
-- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
-{
-    UIView *footer = [[UIView alloc] initWithFrame:CGRectMake(0, 0, WIDTH(self.view), 20)];
-    return footer;
-}
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-  
-    return 44;
+    return 80;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -539,18 +580,47 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString * cellIdentifier = @"cellIden";
-    UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+    static NSString * cellIdentifier = @"StaffCellIdentifier";
+    StaffNarrowCell * cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
     if (!cell) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
+        cell = [[StaffNarrowCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
+    cell.contentView.backgroundColor = cell.backgroundColor = indexPath.row % 2 == 0 ?
+    [UIColor whiteColor] : [UIColor colorWithHexString:@"f5f6f8"];
+    
+    Staff *data = [self.datasource objectAtIndex:indexPath.row];
+    [cell setup:data];
+    
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    
+    StaffDetailViewController *vc = [StaffDetailViewController new];
+    vc.staff = [self.datasource objectAtIndex:indexPath.row];
+    vc.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:vc animated:YES];
 }
+
+- (void)tableView:(UITableView *)tableView didHighlightRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    StaffNarrowCell * cell = (StaffNarrowCell *)[tableView cellForRowAtIndexPath:indexPath];
+    cell.contentView.backgroundColor = cell.contentView.backgroundColor = cell.backgroundColor = [UIColor colorWithHexString:@"#eee"];
+}
+
+- (void)tableView:(UITableView *)tableView didUnhighlightRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    StaffNarrowCell * cell = (StaffNarrowCell *)[tableView cellForRowAtIndexPath:indexPath];
+    cell.contentView.backgroundColor = cell.contentView.backgroundColor = cell.backgroundColor = indexPath.row % 2 == 0 ?
+    [UIColor whiteColor] : [UIColor colorWithHexString:@"f5f6f8"];
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
+{
+    UIView *footer = [[UIView alloc] initWithFrame:CGRectMake(0, 0, WIDTH(self.view), 20)];
+    return footer;
+}
+
 
 @end

@@ -194,6 +194,7 @@
 		46439C9118C763EF00F01691 /* MapPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 46439C9018C763EF00F01691 /* MapPickerViewController.m */; };
 		464BF44C18D56F0F006EBCD9 /* StaffAddServiceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 464BF44B18D56F0F006EBCD9 /* StaffAddServiceViewController.m */; };
 		464BF44F18D576AC006EBCD9 /* CreateCouponViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 464BF44E18D576AC006EBCD9 /* CreateCouponViewController.m */; };
+		464EAF5F191BBF600013F345 /* StaffNarrowCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 464EAF5E191BBF600013F345 /* StaffNarrowCell.m */; };
 		4651D97818DE7294004AC95A /* BaseManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 4651D97318DE7294004AC95A /* BaseManager.m */; };
 		4651D97918DE7294004AC95A /* SettingManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 4651D97518DE7294004AC95A /* SettingManager.m */; };
 		4651D97A18DE7294004AC95A /* UserManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 4651D97718DE7294004AC95A /* UserManager.m */; };
@@ -613,6 +614,8 @@
 		464BF44B18D56F0F006EBCD9 /* StaffAddServiceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StaffAddServiceViewController.m; sourceTree = "<group>"; };
 		464BF44D18D576AC006EBCD9 /* CreateCouponViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreateCouponViewController.h; sourceTree = "<group>"; };
 		464BF44E18D576AC006EBCD9 /* CreateCouponViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CreateCouponViewController.m; sourceTree = "<group>"; };
+		464EAF5D191BBF600013F345 /* StaffNarrowCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StaffNarrowCell.h; sourceTree = "<group>"; };
+		464EAF5E191BBF600013F345 /* StaffNarrowCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StaffNarrowCell.m; sourceTree = "<group>"; };
 		4651D97218DE7294004AC95A /* BaseManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseManager.h; sourceTree = "<group>"; };
 		4651D97318DE7294004AC95A /* BaseManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseManager.m; sourceTree = "<group>"; };
 		4651D97418DE7294004AC95A /* SettingManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingManager.h; sourceTree = "<group>"; };
@@ -2110,6 +2113,8 @@
 				4631CEF118E315A800F39814 /* ProductOpitionPanel.m */,
 				46BDF11318D08B9D00999F50 /* StaffCell.h */,
 				46BDF11418D08B9D00999F50 /* StaffCell.m */,
+				464EAF5D191BBF600013F345 /* StaffNarrowCell.h */,
+				464EAF5E191BBF600013F345 /* StaffNarrowCell.m */,
 				18502DA718F8E2B800CD4A0A /* StaffServiceTableViewCell.h */,
 				18502DA818F8E2B800CD4A0A /* StaffServiceTableViewCell.m */,
 				18C20BDE18F7DADA00870F38 /* StaffWorkCell.h */,
@@ -2664,6 +2669,7 @@
 				18AC388818CD685C00328A78 /* WebSocketUtil.m in Sources */,
 				4665C84118F568410066753D /* FavoriteProductTableView.m in Sources */,
 				46BDF13918D1779100999F50 /* UserAuthorViewController.m in Sources */,
+				464EAF5F191BBF600013F345 /* StaffNarrowCell.m in Sources */,
 				4631CF1F18E3284C00F39814 /* PayViewController.m in Sources */,
 				187638D01910BC1900846BB9 /* MyClientViewController.m in Sources */,
 				18FAFAB518EAA6C200EF6960 /* BrickView.m in Sources */,

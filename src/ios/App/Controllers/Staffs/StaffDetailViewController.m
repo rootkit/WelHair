@@ -42,6 +42,7 @@
 @property (nonatomic, strong) CircleImageView *avatorImgView;
 @property (nonatomic, strong) UILabel *nameLbl;
 @property (nonatomic, strong) UILabel *groupNameLbl;
+@property (nonatomic, strong) UILabel *locationLbl;
 @property (nonatomic, strong) UILabel *distanceLbl;
 @property (nonatomic, strong) UIImage *foImg;
 @property (nonatomic, strong) ToggleButton *heartBtn;
@@ -60,9 +61,14 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
+        self.title = @"发型师";
         FAKIcon *leftIcon = [FAKIonIcons ios7ArrowBackIconWithSize:NAV_BAR_ICON_SIZE];
         [leftIcon addAttribute:NSForegroundColorAttributeName value:[UIColor whiteColor]];
         self.leftNavItemImg =[leftIcon imageWithSize:CGSizeMake(NAV_BAR_ICON_SIZE, NAV_BAR_ICON_SIZE)];
+        
+        FAKIcon *rightIcon = [FAKIonIcons ios7EmailOutlineIconWithSize:NAV_BAR_ICON_SIZE];
+        [rightIcon addAttribute:NSForegroundColorAttributeName value:[UIColor whiteColor]];
+        self.rightNavItemImg =[rightIcon imageWithSize:CGSizeMake(NAV_BAR_ICON_SIZE, NAV_BAR_ICON_SIZE)];
     }
 
     return self;
@@ -73,7 +79,8 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 
-- (void)messageClick
+
+- (void)rightNavItemClick
 {
     if (![self checkLogin]) {
         return;
@@ -122,14 +129,40 @@
     [self.imgSlider setContentMode: UIViewContentModeScaleAspectFill];
     [self.tableViewHeaderView addSubview:self.imgSlider];
     
-#pragma action section
-    UIView *actionView = [[UIView alloc] initWithFrame:CGRectMake(10, MaxY(self.imgSlider), 300, 35)];
-    actionView.layer.borderColor = [[UIColor colorWithHexString:@"e1e1e1"] CGColor];
-    actionView.layer.borderWidth = 1;
-    actionView.layer.cornerRadius = 5;
-    actionView.backgroundColor = [UIColor whiteColor];
-    [self.tableViewHeaderView addSubview:actionView];
+#pragma staffView
+    self.staffView = [[UIView alloc] initWithFrame:CGRectMake(10, MaxY(self.imgSlider) + 10, 300, 100)];
+    self.staffView.backgroundColor = [UIColor whiteColor];
+    self.staffView.layer.borderColor = [[UIColor colorWithHexString:@"e1e1e1"] CGColor];
+    self.staffView.layer.borderWidth = 1;
+    self.staffView.layer.cornerRadius = 5;
+    [self.tableViewHeaderView addSubview:self.staffView];
     
+    self.avatorImgView = [[CircleImageView alloc] initWithFrame:CGRectMake(10, 5, 60, 60)];
+    self.avatorImgView.userInteractionEnabled = YES;
+    [self.avatorImgView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(openAvator)]];
+    [self.staffView addSubview:self.avatorImgView];
+    
+    self.nameLbl = [[UILabel alloc] initWithFrame:CGRectMake(MaxX(self.avatorImgView),Y(self.avatorImgView), 150, 20)];
+    self.nameLbl.textAlignment = NSTextAlignmentLeft;
+    self.nameLbl.textColor = [UIColor blackColor];
+    self.nameLbl.backgroundColor = [UIColor clearColor];
+    self.nameLbl.font = [UIFont systemFontOfSize:14];
+    [self.staffView addSubview:self.nameLbl];
+    
+    self.groupNameLbl = [[UILabel alloc] initWithFrame:CGRectMake(MaxX(self.avatorImgView),MaxY(self.nameLbl), 150, 20)];
+    self.groupNameLbl.textAlignment = NSTextAlignmentLeft;
+    self.groupNameLbl.textColor = [UIColor blackColor];
+    self.groupNameLbl.backgroundColor = [UIColor clearColor];
+    self.groupNameLbl.font = [UIFont systemFontOfSize:12];
+    [self.staffView addSubview:self.groupNameLbl];
+    
+    self.locationLbl = [[UILabel alloc] initWithFrame:CGRectMake(MaxX(self.avatorImgView),MaxY(self.groupNameLbl), 150, 20)];
+    self.locationLbl.textAlignment = NSTextAlignmentLeft;
+    self.locationLbl.textColor = [UIColor blackColor];
+    self.locationLbl.backgroundColor = [UIColor clearColor];
+    self.locationLbl.font = [UIFont systemFontOfSize:12];
+    [self.staffView addSubview:self.locationLbl];
+
     FAKIcon *heartIconOn = [FAKIonIcons ios7HeartIconWithSize:25];
     [heartIconOn addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithHexString:@"e43a3d"]];
     FAKIcon *heartIconOff = [FAKIonIcons ios7HeartOutlineIconWithSize:25];
@@ -141,61 +174,27 @@
                        toggleEventHandler:^(BOOL isOn){
                            return [selfDelegate foClick:isOn];
                        }];
-    self.heartBtn.frame = CGRectMake((150 - 25)/2, 5, 25, 25);
-    [actionView addSubview:self.heartBtn];
+    self.heartBtn.frame = CGRectMake( MaxX(self.nameLbl)+20, 17, 25, 25);
+    [self.staffView addSubview:self.heartBtn];
     
-    UIView *actionLinerView = [[UIView alloc] initWithFrame:CGRectMake(150, 5, 1, 25)];
-    actionLinerView.backgroundColor = [UIColor lightGrayColor];
-    [actionView addSubview:actionLinerView];
-    
-    UIButton *shareBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [shareBtn addTarget:self action:@selector(messageClick) forControlEvents:UIControlEventTouchDown];
-    shareBtn.frame = CGRectMake(151, 5, 149, 25);
-    [shareBtn setTitle:@"私信" forState:UIControlStateNormal];
-    [shareBtn setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
-    [actionView addSubview:shareBtn];
-    
-#pragma staffView
-    self.staffView = [[UIView alloc] initWithFrame:CGRectMake(10, MaxY(actionView) + 10, 300, 90)];
-    self.staffView.backgroundColor = [UIColor whiteColor];
-    self.staffView.layer.borderColor = [[UIColor colorWithHexString:@"e1e1e1"] CGColor];
-    self.staffView.layer.borderWidth = 1;
-    self.staffView.layer.cornerRadius = 5;
-    [self.tableViewHeaderView addSubview:self.staffView];
-    
-    UILabel *staffTitleLbl =[[UILabel alloc] initWithFrame:CGRectMake(10, 5, 100,20)];
-    staffTitleLbl.font = [UIFont systemFontOfSize:14];
-    staffTitleLbl.textAlignment = TextAlignmentLeft;
-    staffTitleLbl.backgroundColor = [UIColor clearColor];
-    staffTitleLbl.textColor = [UIColor blackColor];
-    staffTitleLbl.text = @"发型师";
-    [self.staffView addSubview:staffTitleLbl];
-    
-    UIView *staffLinerView = [[UIView alloc] initWithFrame:CGRectMake(0, MaxY(staffTitleLbl) +5, WIDTH(self.staffView), 1)];
+    UIView *staffLinerView = [[UIView alloc] initWithFrame:CGRectMake(0, 70, WIDTH(self.staffView), 1)];
     staffLinerView.backgroundColor = [UIColor colorWithHexString:@"e1e1e1"];
     [self.staffView addSubview:staffLinerView];
     
-    self.avatorImgView = [[CircleImageView alloc] initWithFrame:CGRectMake(10, MaxY(staffLinerView) + 5, 50, 50)];
-    self.avatorImgView.userInteractionEnabled = YES;
-    [self.avatorImgView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(openAvator)]];
-    [self.staffView addSubview:self.avatorImgView];
-    
-    self.nameLbl = [[UILabel alloc] initWithFrame:CGRectMake(MaxX(self.avatorImgView),Y(self.avatorImgView), 100, 50)];
-    self.nameLbl.textAlignment = NSTextAlignmentLeft;
-    self.nameLbl.textColor = [UIColor blackColor];
-    self.nameLbl.backgroundColor = [UIColor clearColor];
-    self.nameLbl.font = [UIFont systemFontOfSize:14];
-    [self.staffView addSubview:self.nameLbl];
-    
-    self.groupNameLbl = [[UILabel alloc] initWithFrame:CGRectMake(MaxX(self.nameLbl)+5,Y(self.avatorImgView), 100, 50)];
-    self.groupNameLbl.textAlignment = NSTextAlignmentRight;
-    self.groupNameLbl.textColor = [UIColor blackColor];
-    self.groupNameLbl.backgroundColor = [UIColor clearColor];
-    self.groupNameLbl.font = [UIFont systemFontOfSize:14];
-    self.groupNameLbl.userInteractionEnabled = YES;
-    [self.groupNameLbl addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(groupTapped)]];
-    [self.staffView addSubview:self.groupNameLbl];
-
+    UILabel *groupInfoLbl =[[UILabel alloc] initWithFrame:CGRectMake(10, MaxY(staffLinerView), 290, 30)];
+    groupInfoLbl.font = [UIFont systemFontOfSize:14];
+    groupInfoLbl.textAlignment = NSTextAlignmentLeft;
+    groupInfoLbl.backgroundColor = [UIColor clearColor];
+    groupInfoLbl.textColor = [UIColor colorWithHexString:@"333"];
+    groupInfoLbl.text = @"TA的沙龙";
+    [self.staffView addSubview:groupInfoLbl];
+    groupInfoLbl.userInteractionEnabled = YES;
+    [groupInfoLbl addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(gotoGroupVC)]];
+    FAKIcon *groupInfoIcon = [FAKIonIcons ios7ArrowForwardIconWithSize:20];
+    [groupInfoIcon addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithHexString:@"cccccc"]];
+    UIImageView *groupInfoImg = [[UIImageView alloc] initWithFrame:CGRectMake(WIDTH(self.staffView) - 40, MaxY(staffLinerView) + 5, 20, 20)];
+    groupInfoImg.image = [groupInfoIcon imageWithSize:CGSizeMake(20, 20)];
+    [self.staffView addSubview:groupInfoImg];
     
     self.bottomView = [[UIView alloc] initWithFrame:CGRectMake(0,
                                                                          MaxY(self.tableView) - kBottomBarHeight,
@@ -225,21 +224,12 @@
     [super didReceiveMemoryWarning];
 }
 
-//- (void)scrollViewDidScroll:(UIScrollView *)scrollView
-//{
-//    if (scrollView.contentOffset.y < 160 && scrollView.contentInset.top < 0) {
-//        scrollView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);
-//        return;
-//    }
-//
-//    if (scrollView.contentOffset.y > 0) {
-//        self.imgSlider.frame = CGRectMake(scrollView.contentOffset.x, scrollView.contentOffset.y * 0.5f, WIDTH(self.view), WIDTH(self.view));
-//        self.profileBackground.frame = self.imgSlider.frame;
-//    } else {
-//        self.imgSlider.frame = CGRectMake(0, 0, WIDTH(self.view), WIDTH(self.view));
-//        self.profileBackground.frame = self.imgSlider.frame;
-//    }
-//}
+- (void) gotoGroupVC
+{
+    GroupDetailViewController *vc = [GroupDetailViewController new];
+    vc.group = self.staff.group;
+    [self.navigationController pushViewController:vc animated:YES];
+}
 
 - (void)openAvator
 {
@@ -284,13 +274,6 @@
 
 - (void)photoBrowser:(MWPhotoBrowser *)photoBrowser didDisplayPhotoAtIndex:(NSUInteger)index
 {
-}
-
-- (void)groupTapped
-{
-    GroupDetailViewController *vc = [GroupDetailViewController new];
-    vc.group = self.staff.group;
-    [self.navigationController pushViewController:vc animated:YES];
 }
 
 - (BOOL)foClick:(BOOL)isFo
@@ -445,9 +428,9 @@
 
     self.staff = [[Staff alloc] initWithDic:rst];
 
-    self.title = self.staff.name;
     self.nameLbl.text = self.staff.name;
     self.groupNameLbl.text = self.staff.group.name;
+    self.locationLbl.text = self.staff.group.address;
     self.distanceLbl.text = [NSString stringWithFormat:@"%.2f 千米", self.staff.distance / 1000];
     self.heartBtn.on = self.staff.isLiked;
     [self.avatorImgView setImageWithURL:self.staff.avatorUrl];
