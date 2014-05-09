@@ -175,7 +175,7 @@
 
     self.scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, self.topBarOffset, WIDTH(self.view), [self contentHeightWithNavgationBar:YES withBottomBar:NO])];
     self.scrollView.delegate = self;
-    self.scrollView.contentSize = CGSizeMake(WIDTH(self.view), 340);
+    self.scrollView.contentSize = CGSizeMake(WIDTH(self.view), HEIGHT(self.view) + 50);
     [self.view addSubview:self.scrollView];
 
     [self.scrollView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self
@@ -236,7 +236,7 @@
     info1lbl.backgroundColor = [UIColor clearColor];
     info1lbl.textColor = [UIColor blackColor];
     info1lbl.font = [UIFont boldSystemFontOfSize:14];
-    info1lbl.text = @"多角度展示作品";
+    info1lbl.text = @"个人秀";
     info1lbl.textAlignment = NSTextAlignmentLeft;;
     [self.scrollView addSubview:info1lbl];
 

@@ -161,7 +161,7 @@
 
     User *currentUser = [[UserManager SharedInstance] userLogined];
 
-    if (currentUser.role == WHStaff) {
+    if (currentUser.role == WHStaff && appointment.staff.id == currentUser.id) {
         self.staffNameLbl.text = appointment.client.nickname;
         [self.imgView setImageWithURL:appointment.client.avatarUrl];
     } else {
