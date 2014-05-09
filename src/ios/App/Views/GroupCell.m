@@ -109,7 +109,7 @@
     self.groupData = group;
 
     [self.imgView setImageWithURL:[NSURL URLWithString:group.logoUrl]];
-    self.nameLbl.text = @"吉米造型（大悦城店）";//[NSString stringWithFormat:@"%@", group.name];
+    self.nameLbl.text = [NSString stringWithFormat:@"%@", group.name];
     self.rateLbl.text = [NSString stringWithFormat:@"%d", group.ratingCount];
     self.addressLbl.text = [NSString stringWithFormat:@"地址：%@", group.address];
     self.distanceLbl.text = [NSString stringWithFormat:@"%.1fkm", group.distance / 1000];

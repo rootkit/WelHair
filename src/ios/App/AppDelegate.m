@@ -52,6 +52,7 @@
     rootNav.navigationBarHidden = YES;
     self.window.rootViewController = rootNav;
     [self.window makeKeyAndVisible];
+
     return YES;
 }
 
@@ -83,8 +84,7 @@
 
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
 {
- 
-     NSString * deviceTokenStr = [XGPush registerDevice: deviceToken];
+    NSString * deviceTokenStr = [XGPush registerDevice: deviceToken];
     [[SettingManager SharedInstance] setDeviceToken:deviceTokenStr];
     debugLog(@"device token %@", deviceTokenStr);
 }
@@ -112,10 +112,11 @@
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
     [UMSocialSnsService  applicationDidBecomeActive];
-    [[WebSocketUtil sharedInstance] reconnect];
     [[BaiduMapHelper SharedInstance] locateCoordinateWithCompletion:^(BDLocation *locatioin) {
         [[SettingManager SharedInstance] setLocatedCoordinate:locatioin.coordinate];
     }];
+
+    [[WebSocketUtil sharedInstance] reconnect];
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application
@@ -125,7 +126,7 @@
 
 - (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url
 {
-    return  [UMSocialSnsService handleOpenURL:url wxApiDelegate:nil];
+    return [UMSocialSnsService handleOpenURL:url wxApiDelegate:nil];
 }
 
 
