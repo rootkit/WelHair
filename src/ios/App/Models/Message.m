@@ -19,7 +19,7 @@
     self = [super init];
     if (self) {
         self.id = [[dictionary objectForKey:@"MessageId"] intValue];
-        self.mediaType = [[dictionary objectForKey:@"MediaType"] intValue];
+        self.mediaType = WHMessageMediaTypeNone;// [[dictionary objectForKey:@"MediaType"] intValue];
         self.mediaUrl = [NSURL URLWithString:@"MediaUrl"];
         self.body = [dictionary objectForKey:@"Body"];
         self.date = [[NSDate dateFormatter] dateFromString:[dictionary objectForKey:@"CreatedDate"]];

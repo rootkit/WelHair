@@ -10,7 +10,9 @@
 //
 // ==============================================================================
 
+#import "Message.h"
 #import "WebSocketUtil.h"
+#import "UserManager.h"
 
 @interface WebSocketUtil () <SRWebSocketDelegate>
 
@@ -62,6 +64,17 @@
 - (void)webSocketDidOpen:(SRWebSocket *)webSocket;
 {
     _isOpen = YES;
+
+    if (![UserManager SharedInstance].userLogined) {
+        return;
+    }
+
+    NSMutableDictionary *dicData = [[NSMutableDictionary alloc] initWithCapacity:1];
+    [dicData setObject:[NSNumber numberWithInt:[UserManager SharedInstance].userLogined.id] forKey:@"UserId"];
+    [dicData setObject:[NSNumber numberWithInt:WHMessageTypeUpdateUser] forKey:@"Type"];
+
+    NSString *message = [Util parseJsonFromObject:dicData];
+    [_webSocket send:message];
 }
 
 - (void)webSocket:(SRWebSocket *)webSocket didFailWithError:(NSError *)error;
@@ -72,6 +85,10 @@
 
 - (void)webSocket:(SRWebSocket *)webSocket didReceiveMessage:(id)message;
 {
+    NSDictionary *rst = [Util objectFromJson:message];
+    if ([[rst objectForKey:@"ToId"] intValue] == [UserManager SharedInstance].userLogined.id) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_NEW_MESSAGE_RECEIVED object:rst];
+    }
 }
 
 - (void)webSocket:(SRWebSocket *)webSocket didCloseWithCode:(NSInteger)code reason:(NSString *)reason wasClean:(BOOL)wasClean;

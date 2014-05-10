@@ -11,9 +11,11 @@
 // ==============================================================================
 
 #import "LoginViewController.h"
+#import "Message.h"
 #import "RegisterViewController.h"
 #import "UMSocial.h"
 #import "UserManager.h"
+#import "WebSocketUtil.h"
 
 static const float kOffsetY = 50;
 
@@ -258,6 +260,13 @@ static const float kOffsetY = 50;
 
             [UserManager SharedInstance].userLogined = [[User alloc] initWithDic:[responseMessage objectForKey:@"user"]];
             [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_USER_STATUS_CHANGE object:nil];
+
+            NSMutableDictionary *dicData = [[NSMutableDictionary alloc] initWithCapacity:1];
+            [dicData setObject:[NSNumber numberWithInt:[UserManager SharedInstance].userLogined.id] forKey:@"UserId"];
+            [dicData setObject:[NSNumber numberWithInt:WHMessageTypeUpdateUser] forKey:@"Type"];
+
+            NSString *message = [Util parseJsonFromObject:dicData];
+            [[WebSocketUtil sharedInstance].webSocket send:message];
 
             [self dismissViewControllerAnimated:YES completion:nil];
 

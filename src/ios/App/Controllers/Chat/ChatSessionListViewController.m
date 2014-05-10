@@ -59,6 +59,11 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(newMessageReceived:)
+                                                 name:NOTIFICATION_NEW_MESSAGE_RECEIVED
+                                               object:nil];
     
     self.tableView = [[UITableView alloc] init];
     self.tableView.frame = CGRectMake(0,
@@ -88,14 +93,23 @@
         [weakSelf getMessageConversations];
     }];
     self.tableView.showsInfiniteScrolling = NO;
+}
 
-    [self.tableView triggerPullToRefresh];
-    
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [self getMessageConversations];
 }
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
+}
+
+- (void)newMessageReceived:(NSNotification *)notification
+{
+    [JSMessageSoundEffect playMessageReceivedSound];
+    [self getMessageConversations];
 }
 
 #pragma mark UITableView delegate

@@ -14,6 +14,7 @@
 #import "ChatViewController.h"
 #import "Message.h"
 #import "Staff.h"
+#import "WebSocketUtil.h"
 
 @interface ChatViewController ()
 
@@ -60,6 +61,12 @@
 {
     [super viewDidLoad];
 
+
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(newMessageReceived:)
+                                                 name:NOTIFICATION_NEW_MESSAGE_RECEIVED
+                                               object:nil];
+
     [self setBackgroundColor:[UIColor whiteColor]];
 
     __weak typeof(self) weakSelf = self;
@@ -73,7 +80,21 @@
     [self.tableView.pullToRefreshView setBorderColor:[UIColor whiteColor]];
     [self.tableView.pullToRefreshView setImageIcon:[UIImage imageNamed:@"centerIcon"]];
 
+    [self updateMessageConversation];
     [self getMessages];
+}
+
+- (void)newMessageReceived:(NSNotification *)notification
+{
+    NSDictionary *newMessage = (NSDictionary *)notification.object;
+    if ([[newMessage objectForKey:@"FromId"] intValue] == self.incomingUser.id) {
+        [self.datasource addObject:[[Message alloc] initWithDic:newMessage]];
+        [self.tableView reloadData];
+
+        [JSMessageSoundEffect playMessageReceivedSound];
+
+        [self scrollToBottomAnimated:YES];
+    }
 }
 
 - (void)setIncomingUser:(User *)incomingUser
@@ -106,16 +127,10 @@
     [reqData setObject:[NSString stringWithFormat:@"%d", self.incomingUser.id] forKey:@"ToId"];
     [reqData setObject:text forKey:@"Body"];
     [reqData setObject:@"1" forKey:@"MediaType"];
+    [reqData setObject:[NSNumber numberWithInt:WHMessageTypeNewMessage] forKey:@"Type"];
 
-    ASIFormDataRequest *request = [RequestUtil createPOSTRequestWithURL:[NSURL URLWithString:API_MESSAGES_CREATE]
-                                                                andData:reqData];
-
-    [self.requests addObject:request];
-
-    [request setDelegate:self];
-    [request setDidFinishSelector:@selector(sendMessageFinish:)];
-    [request setDidFailSelector:@selector(sendMessageFail:)];
-    [request startAsynchronous];
+    NSString *message = [Util parseJsonFromObject:reqData];
+    [[WebSocketUtil sharedInstance].webSocket send:message];
 
     Message *msg = [Message new];
     msg.body = text;
@@ -126,16 +141,8 @@
 
     [self.datasource addObject:msg];
     [JSMessageSoundEffect playMessageSentSound];
-}
 
-- (void)sendMessageFinish:(ASIHTTPRequest *)request
-{
     [self finishSend];
-}
-
-- (void)sendMessageFail:(ASIHTTPRequest *)request
-{
-
 }
 
 - (void)cameraPressed:(id)sender
@@ -332,6 +339,22 @@
 - (void)checkEmpty
 {
     
+}
+
+- (void)updateMessageConversation
+{
+
+    NSMutableDictionary *reqData = [[NSMutableDictionary alloc] initWithCapacity:1];
+    [reqData setObject:@(self.incomingUser.id) forKey:@"FromId"];
+    [reqData setObject:@(self.outgoingUser.id) forKey:@"ToId"];
+    [reqData setObject:@"0" forKey:@"NewMessageCount"];
+    [reqData setObject:@"0" forKey:@"LastMessageId"];
+
+    ASIFormDataRequest *request = [RequestUtil createPUTRequestWithURL:[NSURL URLWithString:API_MESSAGES_CONVERSATIONS_UPDATE]
+                                                               andData:reqData];
+    [self.requests addObject:request];
+
+    [request startAsynchronous];
 }
 
 @end
