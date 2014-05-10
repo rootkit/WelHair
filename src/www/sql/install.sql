@@ -1286,3 +1286,144 @@ CREATE TABLE IF NOT EXISTS `CompanyBalanceLog` (
   PRIMARY KEY (`CompanyBalanceLogId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='沙龙账户记录';
 
+CREATE TABLE IF NOT EXISTS `Withdrawal` (
+  `WithdrawalId` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `UserId` int(11) unsigned NOT NULL COMMENT '提现ID',
+  `Amount` decimal(15,2) NOT NULL DEFAULT '0.00' COMMENT '金额',
+  `CreateTime` datetime DEFAULT NULL COMMENT '时间',
+  `Status` tinyint(1) NOT NULL DEFAULT '1' COMMENT '状态，0新建,1批准,2拒绝',
+  `Description` text COMMENT '描述',
+  PRIMARY KEY (`WithdrawalId`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='用户提现请求';
+
+CREATE TABLE IF NOT EXISTS `WithdrawalLog` (
+  `WithdrawalLogId` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `WithdrawId` int(11) unsigned NOT NULL COMMENT '提现ID',
+  `CreateTime` datetime DEFAULT NULL COMMENT '时间',
+  `Action` varchar(100) COMMENT '操作：新建,批准,拒绝',
+  `Reason` varchar(500) COMMENT '原因描述',
+  PRIMARY KEY (`WithdrawalLogId`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='用户提现操作记录';
+
+CREATE TABLE IF NOT EXISTS `IncomeSrc` (
+  `IncomeSrcId` int unsigned NOT NULL,
+  `Name` varchar(100) COMMENT '收入来源名称',
+  `Description` varchar(500) COMMENT '原因描述',
+  PRIMARY KEY (`IncomeSrcId`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='收入来源1商品2预约3其他';
+
+DELIMITER ;;
+CREATE PROCEDURE `sp_update_table_data`()
+  BEGIN
+  IF NOT EXISTS(
+      SELECT 1
+      FROM `IncomeSrc`
+      WHERE `Name` = '商品' AND `IncomeSrcId` = 1
+  ) THEN
+    INSERT INTO `IncomeSrc` (`IncomeSrcId`, `Name`, `Description`)
+    VALUES (1, '商品', '商品');
+  END IF;
+    IF NOT EXISTS(
+      SELECT 2
+      FROM `IncomeSrc`
+      WHERE `Name` = '预约' AND `IncomeSrcId` = 2
+  ) THEN
+    INSERT INTO `IncomeSrc` (`IncomeSrcId`, `Name`, `Description`)
+    VALUES (2, '预约', '预约');
+  END IF;
+END;;
+
+DELIMITER ;
+CALL sp_update_table_data();
+DROP PROCEDURE IF EXISTS `sp_update_table_data`;
+
+
+-- ==============================================================================
+-- Add IncomeSrc to PaymentTransaction table
+-- ==============================================================================
+DELIMITER ;;
+
+CREATE PROCEDURE `sp_update_table_field`()
+BEGIN
+  IF NOT EXISTS (
+      SELECT 1
+      FROM information_schema.COLUMNS
+      WHERE lower(TABLE_SCHEMA) = 'welhair'
+        AND lower(TABLE_NAME) ='paymenttransaction'
+        AND lower(COLUMN_NAME) ='incomesrc'
+  ) THEN
+    ALTER TABLE `PaymentTransaction` ADD `IncomeSrc` tinyint(1) NOT NULL DEFAULT '1' COMMENT '收入来源1商品2预约';
+  END IF;
+END;;
+
+DELIMITER ;
+CALL sp_update_table_field();
+DROP PROCEDURE IF EXISTS `sp_update_table_field`;
+
+-- ==============================================================================
+-- Add IncomeSrc to CompanyBalanceLog table
+-- ==============================================================================
+DELIMITER ;;
+
+CREATE PROCEDURE `sp_update_table_field`()
+BEGIN
+  IF NOT EXISTS (
+      SELECT 1
+      FROM information_schema.COLUMNS
+      WHERE lower(TABLE_SCHEMA) = 'welhair'
+        AND lower(TABLE_NAME) ='companybalancelog'
+        AND lower(COLUMN_NAME) ='incomesrc'
+  ) THEN
+    ALTER TABLE `CompanyBalanceLog` ADD `IncomeSrc` tinyint(1) NOT NULL DEFAULT '1' COMMENT '收入来源1商品2预约';
+  END IF;
+END;;
+
+DELIMITER ;
+CALL sp_update_table_field();
+DROP PROCEDURE IF EXISTS `sp_update_table_field`;
+
+-- ==============================================================================
+-- Add ExternalId to CompanyBalanceLog table
+-- ==============================================================================
+DELIMITER ;;
+
+CREATE PROCEDURE `sp_update_table_field`()
+BEGIN
+  IF NOT EXISTS (
+      SELECT 1
+      FROM information_schema.COLUMNS
+      WHERE lower(TABLE_SCHEMA) = 'welhair'
+        AND lower(TABLE_NAME) ='companybalancelog'
+        AND lower(COLUMN_NAME) ='externalid'
+  ) THEN
+    ALTER TABLE `CompanyBalanceLog` ADD `ExternalId` VARCHAR(255) NOT NULL COMMENT '订单号或者预约号';
+  END IF;
+END;;
+
+DELIMITER ;
+CALL sp_update_table_field();
+DROP PROCEDURE IF EXISTS `sp_update_table_field`;
+
+-- ==============================================================================
+-- Add AppointmentNo to Appointment table
+-- ==============================================================================
+DELIMITER ;;
+
+CREATE PROCEDURE `sp_update_table_field`()
+BEGIN
+  IF NOT EXISTS (
+      SELECT 1
+      FROM information_schema.COLUMNS
+      WHERE lower(TABLE_SCHEMA) = 'welhair'
+        AND lower(TABLE_NAME) = 'appointment'
+        AND lower(COLUMN_NAME) ='appointmentno'
+  ) THEN
+    ALTER TABLE `Appointment` ADD `AppointmentNo` varchar(20) NOT NULL COMMENT '预约唯一号';
+  END IF;
+END;;
+
+DELIMITER ;
+CALL sp_update_table_field();
+DROP PROCEDURE IF EXISTS `sp_update_table_field`;
+
+
