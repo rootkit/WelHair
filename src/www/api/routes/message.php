@@ -34,7 +34,7 @@ $app->post('/messages/conversations/:conversationId/remove', function ($conversa
     $ctrl->removeConversationsById($conversationId);
 })->conditions(array('conversationId' => '\d{1,10}'));
 
-$app->put('/messages/conversations/:conversationId', function ($conversationId) use ($app) {
+$app->put('/messages/conversations', function () use ($app) {
     $ctrl = new MessageController();
-    $ctrl->updateConversation($conversationId);
-})->conditions(array('conversationId' => '\d{1,10}'));
+    $ctrl->updateConversation();
+});

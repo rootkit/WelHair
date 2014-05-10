@@ -81,13 +81,7 @@ class MessageService
     public static function updateConversation($data)
     {
         $result = array('success' => false, 'message' => '');
-        if (!isset($data['MessageConversationId']) || intval($data['MessageConversationId']) <= 0) {
-            $result['message'] = '不合法的回话';
-
-            return $result;
-        }
-
-        $result['success'] = MessageConversationRepository::getInstance()->update($data['MessageConversationId'], $data);
+        $result['success'] = MessageConversationRepository::getInstance()->updateByFromAndTo($data['FromId'], $data['ToId'], $data);
 
         return $result;
     }

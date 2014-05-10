@@ -57,10 +57,10 @@ class MessageController extends AbstractAPIController
         $this->sendResponse($rst);
     }
 
-    public function updateConversation($conversationId)
+    public function updateConversation()
     {
-        $message = $this->getDataFromRequestWithJsonFormat();
-        $result['success'] = MessageService::updateConversation($message);
+        $messageConversation = $this->getDataFromRequestWithJsonFormat();
+        $result['success'] = MessageService::updateConversation($messageConversation);
         $this->sendResponse($result);
     }
 
