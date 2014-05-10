@@ -1262,8 +1262,6 @@ DELIMITER ;
 CALL sp_update_table_field();
 DROP PROCEDURE IF EXISTS `sp_update_table_field`;
 
-
-
 CREATE TABLE IF NOT EXISTS `UserBalanceLog` (
   `UserBalanceLogId` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `OrderId` int(11) unsigned NULL COMMENT '订单id',
@@ -1285,4 +1283,26 @@ CREATE TABLE IF NOT EXISTS `CompanyBalanceLog` (
   `Description` text COMMENT '描述',
   PRIMARY KEY (`CompanyBalanceLogId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='沙龙账户记录';
+
+
+-- ==============================================================================
+-- Add DeviceInfo Column on table Users
+-- ==============================================================================
+DELIMITER ;;
+CREATE PROCEDURE `sp_update_table_field`()
+BEGIN
+  IF NOT EXISTS (
+      SELECT 1
+      FROM information_schema.COLUMNS
+      WHERE lower(TABLE_SCHEMA) = 'welhair'
+        AND lower(TABLE_NAME) ='users'
+        AND lower(COLUMN_NAME) ='deviceinfo'
+  ) THEN
+    ALTER TABLE `Users` Add `DeviceInfo` VARCHAR(255) NOT NULL DEFAULT '';
+  END IF;
+END;;
+
+DELIMITER ;
+CALL sp_update_table_field();
+DROP PROCEDURE IF EXISTS `sp_update_table_field`;
 
