@@ -10,8 +10,11 @@
 //
 // ==============================================================================
 
+#import "Message.h"
 #import "RegisterViewController.h"
 #import "UserManager.h"
+#import "WebSocketUtil.h"
+
 static const float kOffsetY = 140;
 
 @interface RegisterViewController ()<UITextFieldDelegate, UIGestureRecognizerDelegate>
@@ -232,6 +235,14 @@ static const float kOffsetY = 140;
             [SVProgressHUD dismiss];
 
             [UserManager SharedInstance].userLogined = [[User alloc] initWithDic:[responseMessage objectForKey:@"user"]];
+
+            NSMutableDictionary *dicData = [[NSMutableDictionary alloc] initWithCapacity:1];
+            [dicData setObject:[NSNumber numberWithInt:[UserManager SharedInstance].userLogined.id] forKey:@"UserId"];
+            [dicData setObject:[NSNumber numberWithInt:WHMessageTypeUpdateUser] forKey:@"Type"];
+
+            NSString *message = [Util parseJsonFromObject:dicData];
+            [[WebSocketUtil sharedInstance].webSocket send:message];
+
             [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_USER_STATUS_CHANGE object:nil];
             [self dismissViewControllerAnimated:YES completion:nil];
 

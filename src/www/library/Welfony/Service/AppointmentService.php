@@ -80,6 +80,7 @@ class AppointmentService
 
         if ($data['AppointmentId'] == 0) {
             $data['CreatedDate'] = date('Y-m-d H:i:s');
+            $data['AppointmentNo'] = date('YmdHis').rand(100000,999999);
 
             $newId = AppointmentRepository::getInstance()->save($data);
             if ($newId) {

@@ -19,6 +19,11 @@ typedef enum {
     WHMessageMediaTypeAudio = 3
 } WHMessageMediaType;
 
+typedef enum {
+    WHMessageTypeUpdateUser = 1,
+    WHMessageTypeNewMessage = 2
+} WHMessageType;
+
 @interface Message : BaseModel
 
 @property (nonatomic, assign) WHMessageMediaType mediaType;

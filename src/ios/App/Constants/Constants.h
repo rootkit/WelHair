@@ -49,7 +49,7 @@
 #define API_MESSAGES_CREATE API_PATH(@"/messages")
 #define API_MESSAGES_LIST API_PATH(@"/messages/to/%d/from/%d")
 #define API_MESSAGES_CONVERSATIONS_LIST API_PATH(@"/users/%d/messages/conversations")
-#define API_MESSAGES_CONVERSATIONS_UPDATE API_PATH(@"/messages/conversations/%d")
+#define API_MESSAGES_CONVERSATIONS_UPDATE API_PATH(@"/messages/conversations")
 #define API_MESSAGES_CONVERSATIONS_REOMVE API_PATH(@"/messages/conversations/%d")
 
 #define API_SERVICES_SEARCH API_PATH(@"/services")
@@ -121,6 +121,7 @@
 #define NOTIFICATION_REFRESH_COMMENTLIST @"Notification_RefreshCommentList"
 #define NOTIFICATION_REFRESH_ADDRESSLIST @"Notification_RefreshAddressList"
 #define NOTIFICATION_SHOW_LOGIN_VIEW  @"Notification_ShowLoginView"
+#define NOTIFICATION_NEW_MESSAGE_RECEIVED @"NewMessageReceived"
 
 #define HAIR_STYLE_FACE_CICLE   0
 #define HAIR_STYLE_FACE_OVAL    1
