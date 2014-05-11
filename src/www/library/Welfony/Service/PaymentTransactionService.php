@@ -114,4 +114,31 @@ class PaymentTransactionService
         return $result;
     }
 
+    public static function listPaymentTransaction($pageNumber, $pageSize)
+    {
+        $result = array(
+            'paymenttransactions' => array(),
+            'total' => 0
+        );
+
+        $totalCount = PaymentTransactionRepository::getInstance()->getAllPaymentTransactionCount();
+
+        if ($totalCount > 0 && $pageNumber <= ceil($totalCount / $pageSize)) {
+
+            $searchResult = PaymentTransactionRepository::getInstance()->listPaymentTransaction( $pageNumber, $pageSize);
+
+            $result['paymenttransaction']= $searchResult;
+        }
+
+        $result['total'] = $totalCount;
+
+        return $result;
+    }
+
+    public static function getPaymentTransactionSum()
+    {
+    
+        return PaymentTransactionRepository::getInstance()->getPaymentTransactionSum();
+    }
+
 }

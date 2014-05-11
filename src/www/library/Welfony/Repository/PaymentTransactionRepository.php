@@ -56,4 +56,41 @@ class PaymentTransactionRepository extends AbstractRepository
         }
     }
 
+     public function getAllPaymentTransactionCount()
+    {
+        $strSql = "SELECT
+                       COUNT(1) `Total`
+                   FROM PaymentTransaction";
+
+        $row = $this->conn->fetchAssoc($strSql);
+
+        return $row['Total'];
+    }
+
+    public function listPaymentTransaction($pageNumber, $pageSize)
+    {
+
+        $offset = ($pageNumber - 1) * $pageSize;
+        $strSql = "SELECT PT.*
+                   FROM PaymentTransaction PT
+                   ORDER BY PT.PaymentTransactionId DESC
+                   LIMIT $offset, $pageSize ";
+
+        return $this->conn->fetchAll($strSql);
+    }
+
+
+    public function getPaymentTransactionSum()
+    {
+        $strSql = "SELECT
+                       SUM(Amount) `Total`
+                   FROM PaymentTransaction
+                   ";
+
+        $row = $this->conn->fetchAssoc($strSql);
+
+        return $row['Total'];
+    }
+
+
 }

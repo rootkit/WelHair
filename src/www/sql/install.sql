@@ -1450,7 +1450,7 @@ CALL sp_update_table_field();
 DROP PROCEDURE IF EXISTS `sp_update_table_field`;
 
 -- ==============================================================================
--- Add IncomeSrcId to PaymentTransaction table
+-- Add IncomeSrcId, Description to PaymentTransaction table
 -- ==============================================================================
 DELIMITER ;;
 
@@ -1465,6 +1465,17 @@ BEGIN
   ) THEN
     ALTER TABLE `PaymentTransaction` ADD `IncomeSrcId` VARCHAR(255) NOT NULL COMMENT '订单号或者预约号';
   END IF;
+  
+   IF NOT EXISTS (
+      SELECT 1
+      FROM information_schema.COLUMNS
+      WHERE lower(TABLE_SCHEMA) = 'welhair'
+        AND lower(TABLE_NAME) ='paymenttransaction'
+        AND lower(COLUMN_NAME) ='description'
+  ) THEN
+    ALTER TABLE `PaymentTransaction` ADD `Description` VARCHAR(500) NULL COMMENT '描述';
+  END IF;
+  
 END;;
 
 DELIMITER ;
