@@ -334,6 +334,8 @@
 		46C37A561915E7E7004070C8 /* libXG-SDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 46C37A541915E7E7004070C8 /* libXG-SDK.a */; };
 		46C37A581915E848004070C8 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46C37A571915E848004070C8 /* CFNetwork.framework */; };
 		46C3B9F31910D48800A53F3B /* PPiFlatSegmentedControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 46C3B9F21910D48800A53F3B /* PPiFlatSegmentedControl.m */; };
+		46DB8CDD191F29E900B3AB40 /* MyStaffViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 46DB8CDC191F29E900B3AB40 /* MyStaffViewController.m */; };
+		46DB8CE0191F2A0100B3AB40 /* MyCustomViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 46DB8CDF191F2A0100B3AB40 /* MyCustomViewController.m */; };
 		46E258701900E28E005DFBCE /* WFViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 46E2586F1900E28E005DFBCE /* WFViewController.m */; };
 		46E84EBF18C2C7040004C146 /* centerIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 46E84EBA18C2C7040004C146 /* centerIcon@2x.png */; };
 		46E84EC018C2C7040004C146 /* UIScrollView+UzysCircularProgressPullToRefresh.m in Sources */ = {isa = PBXBuildFile; fileRef = 46E84EBC18C2C7040004C146 /* UIScrollView+UzysCircularProgressPullToRefresh.m */; };
@@ -939,6 +941,10 @@
 		46C37A571915E848004070C8 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		46C3B9F11910D48800A53F3B /* PPiFlatSegmentedControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPiFlatSegmentedControl.h; sourceTree = "<group>"; };
 		46C3B9F21910D48800A53F3B /* PPiFlatSegmentedControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPiFlatSegmentedControl.m; sourceTree = "<group>"; };
+		46DB8CDB191F29E900B3AB40 /* MyStaffViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyStaffViewController.h; sourceTree = "<group>"; };
+		46DB8CDC191F29E900B3AB40 /* MyStaffViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyStaffViewController.m; sourceTree = "<group>"; };
+		46DB8CDE191F2A0100B3AB40 /* MyCustomViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyCustomViewController.h; sourceTree = "<group>"; };
+		46DB8CDF191F2A0100B3AB40 /* MyCustomViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyCustomViewController.m; sourceTree = "<group>"; };
 		46E2586E1900E28E005DFBCE /* WFViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WFViewController.h; sourceTree = "<group>"; };
 		46E2586F1900E28E005DFBCE /* WFViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WFViewController.m; sourceTree = "<group>"; };
 		46E84EBA18C2C7040004C146 /* centerIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "centerIcon@2x.png"; sourceTree = "<group>"; };
@@ -1855,6 +1861,10 @@
 				4673BB8218D3FA54000F64DE /* UserProfileViewController.m */,
 				4660E69418BB73FF005B3C7D /* UserViewController.h */,
 				4660E69518BB73FF005B3C7D /* UserViewController.m */,
+				46DB8CDB191F29E900B3AB40 /* MyStaffViewController.h */,
+				46DB8CDC191F29E900B3AB40 /* MyStaffViewController.m */,
+				46DB8CDE191F2A0100B3AB40 /* MyCustomViewController.h */,
+				46DB8CDF191F2A0100B3AB40 /* MyCustomViewController.m */,
 			);
 			path = User;
 			sourceTree = "<group>";
@@ -2763,7 +2773,9 @@
 				4631CEF218E315A800F39814 /* ProductOpitionPanel.m in Sources */,
 				187638D91910D7E900846BB9 /* StaffClient.m in Sources */,
 				184B82FD18DAC7F000177BAB /* UIView+AnimationOptionsForCurve.m in Sources */,
+				46DB8CE0191F2A0100B3AB40 /* MyCustomViewController.m in Sources */,
 				4631CF1C18E3284C00F39814 /* OrderDetailViewController.m in Sources */,
+				46DB8CDD191F29E900B3AB40 /* MyStaffViewController.m in Sources */,
 				4651D97818DE7294004AC95A /* BaseManager.m in Sources */,
 				465D2E3818EAA5FE009E4CD8 /* GroupProductListViewController.m in Sources */,
 				184B82C718DAC7F000177BAB /* JSMessageInputView.m in Sources */,

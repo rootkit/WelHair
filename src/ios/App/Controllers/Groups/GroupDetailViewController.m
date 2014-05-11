@@ -158,7 +158,7 @@
                        toggleEventHandler:^(BOOL isOn){
                            return [selfDelegate favClick:isOn];
                        }];
-    self.heartBtn.frame = CGRectMake(275, 17, 25, 25);
+    self.heartBtn.frame = CGRectMake(260, 17, 25, 25);
     [self.groupView addSubview:self.heartBtn];
 
     
@@ -506,7 +506,11 @@
 
 - (void)getStaffs
 {
-    ASIHTTPRequest *request = [RequestUtil createGetRequestWithURL:[NSURL URLWithString:[NSString stringWithFormat:API_COMPANIES_STAFFS, @(self.group.id)]] andParam:nil];
+    NSMutableDictionary *reqData = [[NSMutableDictionary alloc] initWithCapacity:1];
+    [reqData setObject:[NSString stringWithFormat:@"%d", self.currentPage] forKey:@"page"];
+    [reqData setObject:[NSString stringWithFormat:@"%d", TABLEVIEW_PAGESIZE_DEFAULT] forKey:@"pageSize"];
+    [reqData setObject:@"1" forKey:@"isApproved"];
+    ASIHTTPRequest *request = [RequestUtil createGetRequestWithURL:[NSURL URLWithString:[NSString stringWithFormat:API_COMPANIES_STAFFS, self.group.id]] andParam:nil];
     [request setDelegate:self];
     [request setDidFinishSelector:@selector(finishGetStaffs:)];
     [request setDidFailSelector:@selector(failGetStaffs:)];
