@@ -2,56 +2,39 @@
 use Welfony\Utility\Converter;
 use Welfony\Utility\Util;
 ?>
-<div class="toolbar">
-    <ul class="clearfix">
-        <li>
-            <a href="<?php echo $this->baseUrl('user/index/info'); ?>">
-                <i class="iconfont">&#xf0175;</i>
-                添加
-            </a>
-        </li>
-        <li>
-            <a id="user-batch-remove" href="#">
-                <i class="iconfont">&#xf013f;</i>
-                删除
-            </a>
-        </li>
-    </ul>
-</div>
 <table class="m-table">
     <thead>
         <tr>
             <th class="col-chk"><input id="chk_all" type="checkbox" /></th>
-            <th class="cola">账号</th>
-            <th class="cola">角色</th>
-            <th>昵称</th>
-            <th>邮箱</th>
-            <th>手机</th>
-            <th>创建时间</th>
-            <th>余额</th>
+            <th class="cola">用户名</th>
+            <th>数量</th>
+            <th>请求时间</th>
+            <th>状态</th>
+            <th>描述</th>
+            <th>操作</th>
         </tr>
     </thead>
     <tbody>
         <?php if (count($this->dataList) > 0): ?>
         <?php foreach ($this->dataList as $data): ?>
         <tr>
-            <td class="col-center"><input name="chk_ids[]" value="<?php echo $data['UserId']; ?>" type="checkbox" /></td>
+            <td class="col-center"><input name="chk_ids[]" value="<?php echo $data['WithdrawalId']; ?>" type="checkbox" /></td>
             <td class="cola">
-                <a href="<?php echo $this->baseUrl('user/index/info?user_id=' . $data['UserId']); ?>">
-                    <?php echo $data['Username']; ?>
-                </a>
+                <?php echo $data['Username']; ?>
             </td>
-            <td class="cola">
-                <?php echo Converter::userRoleFromEnumToString($data['Role']); ?>
-            </td>
-            <td><?php echo $data['Nickname']; ?></td>
-            <td><?php echo $data['Email']; ?></td>
-            <td><?php echo $data['Mobile']; ?></td>
-            <td><?php echo $data['CreatedDate']; ?></td>
-            <td class="cola">
-                <a href="<?php echo $this->baseUrl('user/index/balancelog?user_id=' . $data['UserId']); ?>">
-                    <?php echo $data['Balance']; ?>
+            <td><?php echo $data['Amount']; ?></td>
+            <td><?php echo $data['CreateTime']; ?></td>
+            <td class="statusrow"><?php echo $data['Status'] =='0' ? '新建' :($data['Status'] =='1'? '已批准': '已拒绝'); ?></td>
+            <td><?php echo $data['Description']; ?></td>
+            <td class="cola actionrow">
+            <?php if($data['Status'] == '0'): ?>
+                <a href="#" data-id="<?php echo $data['WithdrawalId']; ?>" class="btnApprove">
+                    <i class="iconfont">&#xf00b2;</i>批准
                 </a>
+                <a href="#" data-id="<?php echo $data['WithdrawalId']; ?>" class="btnReject">
+                     <i class="iconfont">&#xf00b3;</i>拒绝
+                </a>
+            <?php endif; ?>
             </td>
         </tr>
         <?php endforeach; ?>

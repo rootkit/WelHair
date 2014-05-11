@@ -1516,6 +1516,51 @@ DELIMITER ;
 CALL sp_update_table_field();
 DROP PROCEDURE IF EXISTS `sp_update_table_field`;
 
+-- ==============================================================================
+-- Drop WithdrawId from WithdrawalLog table
+-- ==============================================================================
+DELIMITER ;;
+
+CREATE PROCEDURE `sp_update_table_field`()
+BEGIN
+  IF EXISTS (
+      SELECT 1
+      FROM information_schema.COLUMNS
+      WHERE lower(TABLE_SCHEMA) = 'welhair'
+        AND lower(TABLE_NAME) ='withdrawallog'
+        AND lower(COLUMN_NAME) ='withdrawid'
+  ) THEN
+    ALTER TABLE `WithdrawalLog` DROP COLUMN `WithdrawId`;
+  END IF;
+END;;
+
+DELIMITER ;
+CALL sp_update_table_field();
+DROP PROCEDURE IF EXISTS `sp_update_table_field`;
+
+
+-- ==============================================================================
+-- Add WithdrawalId to WithdrawalLog table
+-- ==============================================================================
+DELIMITER ;;
+
+CREATE PROCEDURE `sp_update_table_field`()
+BEGIN
+  IF NOT EXISTS (
+      SELECT 1
+      FROM information_schema.COLUMNS
+      WHERE lower(TABLE_SCHEMA) = 'welhair'
+        AND lower(TABLE_NAME) ='withdrawallog'
+        AND lower(COLUMN_NAME) ='withdrawalid'
+  ) THEN
+    ALTER TABLE `WithdrawalLog` ADD `WithdrawalId` INT NOT NULL COMMENT 'Withdrawal外键';
+  END IF;
+END;;
+
+DELIMITER ;
+CALL sp_update_table_field();
+DROP PROCEDURE IF EXISTS `sp_update_table_field`;
+
 
 
 

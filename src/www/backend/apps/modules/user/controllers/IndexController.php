@@ -115,7 +115,7 @@ class User_IndexController extends AbstractAdminController
                                                 ceil($searchResult['total'] / $pageSize));
     }
 
-    public function withdrawalAction()
+    public function withdrawalsearchAction()
     {
         
         //$userId = intval($this->_request->getParam('user_id'));
@@ -124,12 +124,56 @@ class User_IndexController extends AbstractAdminController
         $this->view->pageTitle = '提现请求';
 
         $page = $this->_request->getParam('page')? intval($this->_request->getParam('page')) : 1;
-        $searchResult = WithrawalService::listWithdrawal($page, $pageSize);
+        $searchResult = WithdrawalService::listWithdrawal($page, $pageSize);
 
         $this->view->dataList = $searchResult['withdrawals'];
         $this->view->pager = $this->renderPager($this->view->baseUrl('user/index/withdrawal?s='),
                                                 $page,
                                                 ceil($searchResult['total'] / $pageSize));
+    }
+
+    public function withdrawalapproveAction()
+    {
+        $this->_helper->viewRenderer->setNoRender(true);
+        $this->_helper->layout->disableLayout();
+
+        $currentUser = $this->getCurrentUser();
+        if( !$currentUser )
+        {
+            $this->_helper->json->sendJson(array('success' => false, 'message' => 'Need login' ));
+            return;
+        }
+
+        $withdrawalId =  intval($this->_request->getParam('withdrawal_id')) ;
+        
+
+        if ($this->_request->isPost()) {
+
+            $result = WithdrawalService::approveWithdrawal(array('WithdrawalId'=> $withdrawalId));
+            $this->_helper->json->sendJson($result);
+        }
+    }
+
+    public function withdrawalrejectAction()
+    {
+        $this->_helper->viewRenderer->setNoRender(true);
+        $this->_helper->layout->disableLayout();
+
+        $currentUser = $this->getCurrentUser();
+        if( !$currentUser )
+        {
+            $this->_helper->json->sendJson(array('success' => false, 'message' => 'Need login' ));
+            return;
+        }
+
+        $withdrawalId =  intval($this->_request->getParam('withdrawal_id')) ;
+        
+
+        if ($this->_request->isPost()) {
+
+            $result = WithdrawalService::rejectWithdrawal(array('WithdrawalId'=> $withdrawalId));
+            $this->_helper->json->sendJson($result);
+        }
     }
 
 }

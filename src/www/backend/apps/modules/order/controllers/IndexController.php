@@ -41,7 +41,7 @@ class Order_IndexController extends AbstractAdminController
 
         $this->view->rows = $result['orders'];
 
-        $this->view->pagerHTML = $this->renderPager($this->view->baseUrl('/order/index/search'),
+        $this->view->pagerHTML = $this->renderPager($this->view->baseUrl('/order/index/search?'),
                                                     $page,
                                                     ceil($result['total'] / $pageSize));
     }

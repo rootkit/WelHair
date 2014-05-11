@@ -46,9 +46,10 @@ class WithdrawalRepository extends AbstractRepository
     {
 
         $offset = ($pageNumber - 1) * $pageSize;
-        $strSql = "SELECT *
-                   FROM Withdrawal
-                   ORDER BY WithdrawalId
+        $strSql = "SELECT W.*, U.Username AS Username
+                   FROM Withdrawal W
+                   LEFT JOIN Users U ON U.UserId = W.UserId
+                   ORDER BY W.WithdrawalId
                    LIMIT $offset, $pageSize ";
 
         return $this->conn->fetchAll($strSql);
@@ -130,6 +131,90 @@ class WithdrawalRepository extends AbstractRepository
             return false;
         }
     }
+
+    public function approve($withdrawalId)
+    {
+
+        $conn = $this->conn;
+        $conn->beginTransaction();
+        try {
+
+            $strSql = 'SELECT
+                       *
+                   FROM Withdrawal
+                   WHERE WithdrawalId = ?
+                   LIMIT 1';
+
+            $withdrawal = $this->conn->fetchAssoc($strSql, array($withdrawalId));
+
+            $amount = $withdrawal['Amount'];
+            $userId = $withdrawal['UserId'];
+
+            $this->conn->update('Withdrawal', array('Status'=>1), array('WithdrawalId' => $withdrawalId));
+            $this->conn->insert('WithdrawalLog', array('WithdrawalId'=>$withdrawalId, 
+                                                      'Action'=>'批准',
+                                                      'Reason'=>'批准',
+                                                      'CreateTime'=> date('Y-m-d H:i:s')));
+            $this->conn->executeUpdate(" 
+                        UPDATE `Users` SET Balance = Balance - $amount WHERE UserId  = $userId; 
+                 ");
+
+            $this->conn->insert('UserBalanceLog', array('UserId' => $userId, 
+                                                       'Amount' => -$amount,
+                                                       'Status' => 1,
+                                                       'CreateTime'=> date('Y-m-d H:i:s'),
+                                                       'Description'=>'提现'.$amount.' 【'.$withdrawalId.'】'
+              ));
+            $conn->commit();
+
+            return true;
+        } catch (\Exception $e) {
+            $conn->rollback();
+            $this->logger->log($e, \Zend_Log::ERR);
+
+            return false;
+        }
+
+        return true;
+    }
+
+    public function reject($withdrawalId)
+    {
+
+        $conn = $this->conn;
+        $conn->beginTransaction();
+        try {
+
+            $strSql = 'SELECT
+                       *
+                   FROM Withdrawal
+                   WHERE WithdrawalId = ?
+                   LIMIT 1';
+
+            $withdrawal = $this->conn->fetchAssoc($strSql, array($withdrawalId));
+
+            $amount = $withdrawal['Amount'];
+            $userId = $withdrawal['UserId'];
+
+            $this->conn->update('Withdrawal', array('Status'=>2), array('WithdrawalId' => $withdrawalId));
+            $this->conn->insert('WithdrawalLog', array('WithdrawalId'=>$withdrawalId, 
+                                                      'Action'=>'拒绝',
+                                                      'Reason'=>'拒绝',
+                                                      'CreateTime'=> date('Y-m-d H:i:s')));
+  
+            $conn->commit();
+
+            return true;
+        } catch (\Exception $e) {
+            $conn->rollback();
+            $this->logger->log($e, \Zend_Log::ERR);
+
+            return false;
+        }
+
+        return true;
+    }
+
 
 
 }

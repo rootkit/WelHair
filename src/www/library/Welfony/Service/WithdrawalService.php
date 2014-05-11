@@ -14,7 +14,7 @@
 
 namespace Welfony\Service;
 
-use Welfony\Repository\UserBalanceLogRepository;
+use Welfony\Repository\WithdrawalRepository;
 
 class WithdrawalService
 {
@@ -127,5 +127,40 @@ class WithdrawalService
             return $result;
         }
     }
+
+    public static function approveWithdrawal($data)
+    {
+        $result = array('success' => false, 'message' => '');
+        $r = WithdrawalRepository::getInstance()->approve($data['WithdrawalId']);
+        if ($r) {
+
+            $result['success'] = true;
+            $result['message'] = '批准成功！';
+
+            return $result;
+        } else {
+            $result['message'] = '批准失败！';
+
+            return $result;
+        }
+    }
+
+    public static function rejectWithdrawal($data)
+    {
+        $result = array('success' => false, 'message' => '');
+        $r = WithdrawalRepository::getInstance()->reject($data['WithdrawalId']);
+        if ($r) {
+
+            $result['success'] = true;
+            $result['message'] = '拒绝成功！';
+
+            return $result;
+        } else {
+            $result['message'] = '拒绝失败！';
+
+            return $result;
+        }
+    }
+
 
 }

@@ -55,7 +55,7 @@ class OrderRepository extends AbstractRepository
                      LEFT JOIN Users U ON U.UserId = O.UserId
                      LEFT JOIN Delivery D ON O.Distribution = D.DeliveryId
                      LEFT JOIN Payment P ON P.PaymentId = O.PayType
-                     ORDER BY O.OrderId
+                     ORDER BY O.OrderId DESC
                      LIMIT $offset, $pageSize ";
 
         return $this->conn->fetchAll($strSql);
