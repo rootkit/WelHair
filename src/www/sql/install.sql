@@ -1427,3 +1427,95 @@ CALL sp_update_table_field();
 DROP PROCEDURE IF EXISTS `sp_update_table_field`;
 
 
+-- ==============================================================================
+-- Add IncomeSrcId to CompanyBalanceLog table
+-- ==============================================================================
+DELIMITER ;;
+
+CREATE PROCEDURE `sp_update_table_field`()
+BEGIN
+  IF NOT EXISTS (
+      SELECT 1
+      FROM information_schema.COLUMNS
+      WHERE lower(TABLE_SCHEMA) = 'welhair'
+        AND lower(TABLE_NAME) ='companybalancelog'
+        AND lower(COLUMN_NAME) ='incomesrcid'
+  ) THEN
+    ALTER TABLE `CompanyBalanceLog` ADD `IncomeSrcId` VARCHAR(255) NOT NULL COMMENT '订单号或者预约号';
+  END IF;
+END;;
+
+DELIMITER ;
+CALL sp_update_table_field();
+DROP PROCEDURE IF EXISTS `sp_update_table_field`;
+
+-- ==============================================================================
+-- Add IncomeSrcId to PaymentTransaction table
+-- ==============================================================================
+DELIMITER ;;
+
+CREATE PROCEDURE `sp_update_table_field`()
+BEGIN
+  IF NOT EXISTS (
+      SELECT 1
+      FROM information_schema.COLUMNS
+      WHERE lower(TABLE_SCHEMA) = 'welhair'
+        AND lower(TABLE_NAME) ='paymenttransaction'
+        AND lower(COLUMN_NAME) ='incomesrcid'
+  ) THEN
+    ALTER TABLE `PaymentTransaction` ADD `IncomeSrcId` VARCHAR(255) NOT NULL COMMENT '订单号或者预约号';
+  END IF;
+END;;
+
+DELIMITER ;
+CALL sp_update_table_field();
+DROP PROCEDURE IF EXISTS `sp_update_table_field`;
+
+
+-- ==============================================================================
+-- Drop ExternalId from CompanyBalanceLog table
+-- ==============================================================================
+DELIMITER ;;
+
+CREATE PROCEDURE `sp_update_table_field`()
+BEGIN
+  IF EXISTS (
+      SELECT 1
+      FROM information_schema.COLUMNS
+      WHERE lower(TABLE_SCHEMA) = 'welhair'
+        AND lower(TABLE_NAME) ='companybalancelog'
+        AND lower(COLUMN_NAME) ='externalid'
+  ) THEN
+    ALTER TABLE `CompanyBalanceLog` DROP COLUMN `ExternalId`;
+  END IF;
+END;;
+
+DELIMITER ;
+CALL sp_update_table_field();
+DROP PROCEDURE IF EXISTS `sp_update_table_field`;
+
+-- ==============================================================================
+-- Drop PaymentTransactionId from Appointment table
+-- ==============================================================================
+DELIMITER ;;
+
+CREATE PROCEDURE `sp_update_table_field`()
+BEGIN
+  IF EXISTS (
+      SELECT 1
+      FROM information_schema.COLUMNS
+      WHERE lower(TABLE_SCHEMA) = 'welhair'
+        AND lower(TABLE_NAME) ='appointment'
+        AND lower(COLUMN_NAME) ='paymenttransactionid'
+  ) THEN
+    ALTER TABLE `Appointment` DROP COLUMN `PaymentTransactionId`;
+  END IF;
+END;;
+
+DELIMITER ;
+CALL sp_update_table_field();
+DROP PROCEDURE IF EXISTS `sp_update_table_field`;
+
+
+
+

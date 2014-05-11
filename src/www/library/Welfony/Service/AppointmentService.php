@@ -65,7 +65,6 @@ class AppointmentService
         $data = array(
             'AppointmentId' => $data['AppointmentId'],
             'UserId' => $data['UserId'],
-            'PaymentTransactionId' => $data['PaymentTransactionId'],
             'CompanyId' => $staff['Company']['CompanyId'],
             'CompanyName' => $staff['Company']['Name'],
             'CompanyAddress' => $staff['Company']['Address'],

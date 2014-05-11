@@ -16,6 +16,7 @@ use Welfony\Controller\Base\AbstractAdminController;
 use Welfony\Core\Enum\UserRole;
 use Welfony\Service\UserService;
 use Welfony\Service\UserBalanceLogService;
+use Welfony\Service\WithdrawalService;
 use Welfony\Utility\Util;
 
 class User_IndexController extends AbstractAdminController
@@ -110,6 +111,23 @@ class User_IndexController extends AbstractAdminController
 
         $this->view->dataList = $searchResult['userbalancelogs'];
         $this->view->pager = $this->renderPager($this->view->baseUrl('user/index/balancelog?s='),
+                                                $page,
+                                                ceil($searchResult['total'] / $pageSize));
+    }
+
+    public function withdrawalAction()
+    {
+        
+        //$userId = intval($this->_request->getParam('user_id'));
+        static $pageSize = 10;
+
+        $this->view->pageTitle = '提现请求';
+
+        $page = $this->_request->getParam('page')? intval($this->_request->getParam('page')) : 1;
+        $searchResult = WithrawalService::listWithdrawal($page, $pageSize);
+
+        $this->view->dataList = $searchResult['withdrawals'];
+        $this->view->pager = $this->renderPager($this->view->baseUrl('user/index/withdrawal?s='),
                                                 $page,
                                                 ceil($searchResult['total'] / $pageSize));
     }

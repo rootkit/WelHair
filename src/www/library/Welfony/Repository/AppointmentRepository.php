@@ -89,9 +89,7 @@ class AppointmentRepository extends AbstractRepository
 
                        A.ServiceId,
                        A.ServiceTitle,
-                       A.Price,
-
-                       A.PaymentTransactionId
+                       A.Price
                    FROM Appointment A
                    INNER JOIN Users U ON U.UserId = A.UserId
                    INNER JOIN Users S ON S.UserId = A.StaffId
