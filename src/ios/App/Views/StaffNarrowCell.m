@@ -34,7 +34,6 @@
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         self.backgroundColor = [UIColor clearColor];
-        
         self.contentView.backgroundColor = [UIColor whiteColor];
         self.contentView.layer.borderColor = [[UIColor colorWithHexString:@"e1e1e1"] CGColor];
         self.contentView.layer.borderWidth = 1;
@@ -124,6 +123,17 @@
     self.rateCoubtLbl.text = [NSString stringWithFormat:@"%d", staff.ratingCount];
     self.distanceLbl.text = [NSString stringWithFormat:@"%.1fkm", staff.distance / 1000];
 }
+
+
+- (void)layoutSubviews
+{
+    [super layoutSubviews];
+    CGRect frame = self.frame;
+    frame.origin.x = 10;
+    frame.size.width = 300;
+    self.frame = frame;
+}
+
 
 @end
 

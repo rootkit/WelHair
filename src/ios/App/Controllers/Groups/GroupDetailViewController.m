@@ -509,8 +509,14 @@
     NSMutableDictionary *reqData = [[NSMutableDictionary alloc] initWithCapacity:1];
     [reqData setObject:[NSString stringWithFormat:@"%d", self.currentPage] forKey:@"page"];
     [reqData setObject:[NSString stringWithFormat:@"%d", TABLEVIEW_PAGESIZE_DEFAULT] forKey:@"pageSize"];
-    [reqData setObject:@"1" forKey:@"isApproved"];
-    ASIHTTPRequest *request = [RequestUtil createGetRequestWithURL:[NSURL URLWithString:[NSString stringWithFormat:API_COMPANIES_STAFFS, self.group.id]] andParam:nil];
+    [reqData setObject:[NSString stringWithFormat:@"%d", self.group.id] forKey:@"companyId"];
+    [reqData setObject:@"0" forKey:@"city"];
+    [reqData setObject:@"0" forKey:@"district"];
+    [reqData setObject:@"4" forKey:@"sort"];
+    
+    ASIHTTPRequest *request = [RequestUtil createGetRequestWithURL:[NSURL URLWithString:API_STAFFS_SEARCH] andParam:reqData];
+    [self.requests addObject:request];
+    
     [request setDelegate:self];
     [request setDidFinishSelector:@selector(finishGetStaffs:)];
     [request setDidFailSelector:@selector(failGetStaffs:)];
@@ -521,7 +527,7 @@
 {
     NSDictionary *rst = [Util objectFromJson:request.responseString];
     NSInteger total = [[rst objectForKey:@"total"] integerValue];
-    NSArray *dataList = [rst objectForKey:@"staffes"];
+    NSArray *dataList = [rst objectForKey:@"staffs"];
     
     NSMutableArray *arr = [NSMutableArray arrayWithArray:self.datasource];
     
@@ -570,6 +576,7 @@
 {
     
 }
+
 #pragma mark UITableView delegate
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
