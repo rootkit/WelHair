@@ -178,6 +178,7 @@
     [reqData setObject:[NSString stringWithFormat:@"%d", TABLEVIEW_PAGESIZE_DEFAULT] forKey:@"pageSize"];
 
     ASIHTTPRequest *request = [RequestUtil createGetRequestWithURL:[NSURL URLWithString:[NSString stringWithFormat:API_MESSAGES_CONVERSATIONS_LIST, [UserManager SharedInstance].userLogined.id]] andParam:reqData];
+    [self.requests addObject:request];
     [request setDelegate:self];
     [request setDidFinishSelector:@selector(finishGetMessageConversations:)];
     [request setDidFailSelector:@selector(failGetMessageConversations:)];

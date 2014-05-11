@@ -32,7 +32,8 @@
 #import "UserManager.h"
 #import "UserViewController.h"
 #import "OrderListViewController.h"
-
+#import "MyCustomViewController.h"
+#import "MyStaffViewController.h"
 
 @interface UserViewController ()<UITableViewDataSource, UITableViewDelegate, UIActionSheetDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 
@@ -67,7 +68,7 @@
         self.datasource = menuList;
 
         NSMutableArray *menuIconList = [[NSMutableArray alloc] initWithCapacity:5];
-        [menuIconList addObject:@[[FAKIonIcons ios7ChatboxesOutlineIconWithSize:NAV_BAR_ICON_SIZE], [FAKIonIcons ios7FilingOutlineIconWithSize:NAV_BAR_ICON_SIZE]]];
+        [menuIconList addObject:@[[FAKIonIcons ios7ChatboxesOutlineIconWithSize:NAV_BAR_ICON_SIZE], [FAKIonIcons ios7PeopleOutlineIconWithSize:NAV_BAR_ICON_SIZE]]];
         self.iconDatasource = menuIconList;
     }
     return self;
@@ -146,14 +147,9 @@
 {
     [super viewDidLoad];
     [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(navigateToGroupPanel)
-                                                 name:NOTIFICATION_USER_CREATE_GROUP_SUCCESS
-                                               object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(refreshUserInfo)
                                                  name:NOTIFICATION_USER_STATUS_CHANGE
                                                object:nil];
-    [self refreshUserInfo];
 }
 
 - (void)didReceiveMemoryWarning
@@ -161,22 +157,6 @@
     [super didReceiveMemoryWarning];
 }
 
-- (void)navigateToGroupPanel
-{
-    [self.navigationController popToViewController:self animated:NO];
-    [self getStaffDetail];
-    if([UserManager SharedInstance].userLogined.role == WHManager){
-        MyGroupViewController *myGroupVc = [MyGroupViewController new];
-        myGroupVc.hidesBottomBarWhenPushed = YES;
-        [self.navigationController pushViewController:myGroupVc animated:NO];
-    } else if ([UserManager SharedInstance].userLogined.role == WHStaff) {
-        StaffManageViewController *vc = [StaffManageViewController new];
-        vc.hidesBottomBarWhenPushed = YES;
-        [self.navigationController pushViewController:vc animated:NO];
-    } else {
-        [SVProgressHUD showErrorWithStatus:@"正在审核中，请耐心等待。" duration:1];
-    }
-}
 
 - (void) tabClick:(id)sender
 {
@@ -219,68 +199,7 @@
             
 }
 
-- (void)getStaffDetail
-{
-    ASIHTTPRequest *request = [RequestUtil createGetRequestWithURL:[NSURL URLWithString:[NSString stringWithFormat:API_STAFFS_DETAIL, [UserManager SharedInstance].userLogined.id]]
-                                                          andParam:nil];
-
-    [request setDelegate:self];
-    [request setDidFinishSelector:@selector(finishGetStaffDetail:)];
-    [request setDidFailSelector:@selector(failGetStaffDetail:)];
-    [request startAsynchronous];
-}
-
-- (void)finishGetStaffDetail:(ASIHTTPRequest *)request
-{
-    NSDictionary *rst = [Util objectFromJson:request.responseString];
-    id companyDic = [rst objectForKey:@"Company"];
-    if (companyDic == [NSNull null]) {
-        return;
-    }
-
-    User *usr = [[User alloc] initWithDic:rst];
-    if ([[rst objectForKey:@"IsApproved"] isEqualToString:@"0"] || [[(NSDictionary *)companyDic objectForKey:@"Status"] intValue] == Requested) {
-        usr.isApproving = true;
-        [UserManager SharedInstance].userLogined = usr;
-        
-        return;
-    }
-
-    if ([[rst objectForKey:@"IsApproved"] isEqualToString:@"1"] && [[(NSDictionary *)companyDic objectForKey:@"Status"] intValue] == Valid) {
-        usr.isApproving = false;
-        usr.role = [[rst objectForKey:@"Role"] intValue];
-        [UserManager SharedInstance].userLogined = usr;
-    }
-}
-
-- (void)failGetStaffDetail:(ASIHTTPRequest *)request
-{
-}
-
-- (void)getUserDetail
-{
-    ASIHTTPRequest *request = [RequestUtil createGetRequestWithURL:[NSURL URLWithString:[NSString stringWithFormat:API_USERS_DETAIL, [UserManager SharedInstance].userLogined.id]] andParam:nil];
-
-    [request setDelegate:self];
-    [request setDidFinishSelector:@selector(finishGetUserDetail:)];
-    [request setDidFailSelector:@selector(failGetUserDetail:)];
-    [request startAsynchronous];
-}
-
-- (void)finishGetUserDetail:(ASIHTTPRequest *)request
-{
-    NSDictionary *rst = [Util objectFromJson:request.responseString];
-    if ([rst objectForKey:@"user"]) {
-        [UserManager SharedInstance].userLogined = [[User alloc] initWithDic:[rst objectForKey:@"user"]];
-    }
-}
-
-
-- (void)failGetUserDetail:(ASIHTTPRequest *)request
-{
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+ - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     return 44;
 }
@@ -328,16 +247,16 @@
 					withColor:nil
 				  atIndexPath:indexPath];
 
+    FAKIcon *itemIcon = [[self.iconDatasource objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
+    [itemIcon addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithHexString:@"666666"]];
+    [cell.imageView setImage:[itemIcon imageWithSize:CGSizeMake(NAV_BAR_ICON_SIZE, NAV_BAR_ICON_SIZE)]];
     if(indexPath.section == 0 && indexPath.row == 1){
-        [cell.imageView setImage:[UIImage imageNamed:@"MeTab3"]];
+        cell.label.text = ([UserManager SharedInstance].userLogined.role == WHClient
+                        || [UserManager SharedInstance].userLogined == nil) ? @"我的发型师" : @"我的客户";
 
     }else{
-        FAKIcon *itemIcon = [[self.iconDatasource objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
-        [itemIcon addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithHexString:@"666666"]];
-        [cell.imageView setImage:[itemIcon imageWithSize:CGSizeMake(NAV_BAR_ICON_SIZE, NAV_BAR_ICON_SIZE)]];
+        cell.label.text = [[self.datasource objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
     }
-    cell.label.text = [[self.datasource objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
-
     return cell;
 }
 
@@ -360,23 +279,12 @@
                 break;
             }
             case 1: {
-                [self getStaffDetail];
-                if ([UserManager SharedInstance].userLogined.isApproving) {
-                    [SVProgressHUD showErrorWithStatus:@"正在审核中，请耐心等待。" duration:1];
-                    [self getStaffDetail];
-                    return;
-                }
-                
-                if([UserManager SharedInstance].userLogined.role == WHManager){
-                    MyGroupViewController *vc = [MyGroupViewController new];
+                if ([UserManager SharedInstance].userLogined.role == WHClient){
+                    MyStaffViewController *vc = [MyStaffViewController new];
                     vc.hidesBottomBarWhenPushed = YES;
                     [self.navigationController pushViewController:vc animated:YES];
-                } else if ([UserManager SharedInstance].userLogined.role == WHStaff) {
-                    StaffManageViewController *vc = [StaffManageViewController new];
-                    vc.hidesBottomBarWhenPushed = YES;
-                    [self.navigationController pushViewController:vc animated:YES];
-                } else {
-                    UserAuthorViewController *vc = [UserAuthorViewController new];
+                }else{
+                    MyCustomViewController *vc = [MyCustomViewController new];
                     vc.hidesBottomBarWhenPushed = YES;
                     [self.navigationController pushViewController:vc animated:YES];
                 }
@@ -389,23 +297,9 @@
     }
 }
 
-- (void)loginClick
-{
-    [self.navigationController presentViewController:[[UINavigationController alloc] initWithRootViewController:[LoginViewController new]]
-                                            animated:YES
-                                          completion:nil];
-}
-
 - (void)refreshUserInfo
 {
-    User *userLogined = [[UserManager SharedInstance] userLogined];
-    if (userLogined) {
-        if (userLogined.role == WHStaff || userLogined.role == WHManager) {
-            [self getStaffDetail];
-        } else {
-            [self getUserDetail];
-        }
-    }
+    [self.tableView reloadData];
 }
 
 @end
