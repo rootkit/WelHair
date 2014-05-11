@@ -32,7 +32,7 @@
 #import "UserManager.h"
 #import "UserViewController.h"
 #import "OrderListViewController.h"
-#import "MyCustomViewController.h"
+#import "MyClientViewController.h"
 #import "MyStaffViewController.h"
 
 @interface UserViewController ()<UITableViewDataSource, UITableViewDelegate, UIActionSheetDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
@@ -284,7 +284,7 @@
                     vc.hidesBottomBarWhenPushed = YES;
                     [self.navigationController pushViewController:vc animated:YES];
                 }else{
-                    MyCustomViewController *vc = [MyCustomViewController new];
+                    MyClientViewController *vc = [MyClientViewController new];
                     vc.hidesBottomBarWhenPushed = YES;
                     [self.navigationController pushViewController:vc animated:YES];
                 }

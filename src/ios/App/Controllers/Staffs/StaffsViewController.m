@@ -331,6 +331,7 @@
     [reqData setObject:[NSString stringWithFormat:@"%d", self.sortSelectedIndex] forKey:@"sort"];
 
     ASIHTTPRequest *request = [RequestUtil createGetRequestWithURL:[NSURL URLWithString:API_STAFFS_SEARCH] andParam:reqData];
+    [self.requests addObject:request];
     [request setDelegate:self];
     [request setDidFinishSelector:@selector(finishGetStaffs:)];
     [request setDidFailSelector:@selector(failGetStaffs:)];

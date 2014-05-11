@@ -71,10 +71,6 @@ static const float profileViewHeight = 90;
         FAKIcon *leftIcon = [FAKIonIcons ios7ArrowBackIconWithSize:NAV_BAR_ICON_SIZE];
         [leftIcon addAttribute:NSForegroundColorAttributeName value:[UIColor whiteColor]];
         self.leftNavItemImg =[leftIcon imageWithSize:CGSizeMake(NAV_BAR_ICON_SIZE, NAV_BAR_ICON_SIZE)];
-        
-        FAKIcon *rightIcon = [FAKIonIcons ios7GearOutlineIconWithSize:NAV_BAR_ICON_SIZE];
-        [rightIcon addAttribute:NSForegroundColorAttributeName value:[UIColor whiteColor]];
-        self.rightNavItemImg =[rightIcon imageWithSize:CGSizeMake(NAV_BAR_ICON_SIZE, NAV_BAR_ICON_SIZE)];
     }
     return self;
 }
@@ -104,12 +100,6 @@ static const float profileViewHeight = 90;
     [self.navigationController popViewControllerAnimated:YES];
 }
 
-- (void) rightNavItemClick
-{
-    SettingViewController *vc = [SettingViewController new];
-    vc.hidesBottomBarWhenPushed = YES;
-    [self.navigationController pushViewController:vc animated:YES];
-}
 
 - (void)loadView
 {
