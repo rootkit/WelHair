@@ -113,11 +113,29 @@ class AppointmentRepository extends AbstractRepository
 
     public function save($data)
     {
+        $conn = $this->conn;
+        $conn->beginTransaction();
         try {
-            if ($this->conn->insert('Appointment', $data)) {
-                return $this->conn->lastInsertId();
+            if ($conn->insert('Appointment', $data)) {
+
+                  $newId = $conn->lastInsertId();
+                  if( $data['Status'] ==  '1')
+                  {
+                     $conn->insert('PaymentTransaction', array(
+                        'Amount' => $data['Price'],
+                        'IncomeSrc' => 2,
+                        'IncomeSrcId' => $data['AppointmentNo'],
+                        'CreatedDate'=> date('Y-m-d H:i:s'),
+                        'LastModifiedDate' =>date('Y-m-d H:i:s'),
+                        'Description' => '预约【'.$data['AppointmentNo'].'】付款'.$data['Price']
+                      ));
+                  }
+                  $conn->commit();
+                  return $newId;
+
             }
         } catch (\Exception $e) {
+            $conn->rollback();
             $this->logger->log($e, \Zend_Log::ERR);
 
             return false;
@@ -128,11 +146,36 @@ class AppointmentRepository extends AbstractRepository
 
     public function update($appointmentId, $data)
     {
+        $conn = $this->conn;
+        $conn->beginTransaction();
         try {
-            return $this->conn->update('Appointment', $data, array('AppointmentId' => $appointmentId));
-        } catch (\Exception $e) {
-            $this->logger->log($e, \Zend_Log::ERR);
+            $strSql = 'SELECT
+                       A.*
+                   FROM Appointment A
+                   WHERE A.AppointmentId = ?
+                   LIMIT 1';
 
+            $existing = $this->conn->fetchAssoc($strSql, array($appointmentId));
+
+            $ret =  $this->conn->update('Appointment', $data, array('AppointmentId' => $appointmentId));
+            if( $existing['Status'] == '0' && $existing['Status'] == '1')
+            {
+                 $conn->insert('PaymentTransaction', array(
+                        'Amount' => $existing['Price'],
+                        'IncomeSrc' => 2,
+                        'IncomeSrcId' => $existing['AppointmentNo'],
+                        'CreatedDate'=> date('Y-m-d H:i:s'),
+                        'LastModifiedDate' =>date('Y-m-d H:i:s'),
+                        'Description' => '预约【'.$existing['AppointmentNo'].'】付款'.$existing['Price']
+                      ));
+            }
+
+            $conn->commit();
+            return $ret;
+        } catch (\Exception $e) {
+            $conn->rollback();
+            $this->logger->log($e, \Zend_Log::ERR);
+         
             return false;
         }
     }

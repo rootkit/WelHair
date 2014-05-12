@@ -127,7 +127,7 @@ class PaymentTransactionService
 
             $searchResult = PaymentTransactionRepository::getInstance()->listPaymentTransaction( $pageNumber, $pageSize);
 
-            $result['paymenttransaction']= $searchResult;
+            $result['paymenttransactions']= $searchResult;
         }
 
         $result['total'] = $totalCount;
