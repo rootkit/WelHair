@@ -322,7 +322,7 @@
         self.datasource = menuList;
         NSMutableArray *menuIconList = [[NSMutableArray alloc] initWithCapacity:5];
         [menuIconList addObject:@[[FAKIonIcons ios7ChatboxesOutlineIconWithSize:NAV_BAR_ICON_SIZE], [FAKIonIcons ios7PeopleOutlineIconWithSize:NAV_BAR_ICON_SIZE]]];
-        [menuIconList addObject:@[[FAKIonIcons ios7ChatboxesOutlineIconWithSize:NAV_BAR_ICON_SIZE]]];
+        [menuIconList addObject:@[[FAKIonIcons ios7TimerOutlineIconWithSize:NAV_BAR_ICON_SIZE]]];
         self.iconDatasource = menuIconList;
     }
     [self.tableView reloadData];
