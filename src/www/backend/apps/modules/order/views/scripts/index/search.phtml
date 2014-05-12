@@ -28,14 +28,8 @@ use \Welfony\Utility\Util;
     <tbody>
       <?php foreach( $this->rows as $order) : ?>
         <tr>
-            <td>
-                <?php if($order['IsDeleted'] || $order['Status'] == '4' || $order['Status'] == '5' ): ?>
-                    <?php echo $order['OrderNo']; ?>
-                <?php else: ?>
-                <a href="<?php echo $this->baseUrl('order/index/info?order_id=' .  $order['OrderId']); ?>">
-                    <?php echo $order['OrderNo']; ?>
-                </a>
-                <?php endif;?>
+            <td>                    
+                <?php echo $order['OrderNo']; ?>
             </td>
             <td> <?php echo $order['AcceptName']; ?></td>
             <td> <?php echo $order['PayStatus']? ( $order['PayStatus']== '1' ? '已支付': '退款'):'未支付'; ?></td>

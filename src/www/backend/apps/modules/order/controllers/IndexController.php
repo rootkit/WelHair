@@ -418,7 +418,9 @@ class Order_IndexController extends AbstractAdminController
                     'Amount' => $this->_request->getParam('orderamount'),
                     'CreateTime'=>date('Y-m-d H:i:s'),
                     'Status'=> 1,
-                    'Description' => '订单【'.$orderNo.'】付款'.$this->_request->getParam('payamount')
+                    'Description' => '订单【'.$orderNo.'】付款'.$this->_request->getParam('payamount'),
+                    'IncomeSrc' =>1,
+                    'IncomeSrcId' =>$orderNo
             );
         }
 
@@ -559,7 +561,9 @@ class Order_IndexController extends AbstractAdminController
                     'Amount' => '-'.$this->_request->getParam('refundamount'),
                     'CreateTime'=>date('Y-m-d H:i:s'),
                     'Status'=> 1,
-                    'Description' => '订单【'.$orderNo.'】退款'.$this->_request->getParam('refundamount')
+                    'Description' => '订单【'.$orderNo.'】退款'.$this->_request->getParam('refundamount'),
+                    'IncomeSrc' =>1,
+                    'IncomeSrcId' =>$orderNo
             );
         }
 
