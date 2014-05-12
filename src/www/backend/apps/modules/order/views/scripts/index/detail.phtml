@@ -25,6 +25,7 @@ use \Welfony\Utility\Util;
                             <thead>
                                 <tr>
                                     <th>商品名称</th>
+                                    <th>沙龙</th>
                                     <th>商品原价</th>
                                     <th>实际价格</th>
                                     <th>商品数量</th>
@@ -44,6 +45,7 @@ use \Welfony\Utility\Util;
                                             echo $goodName["Name"]. '&nbsp;&nbsp;'.$goodName['Value'];
                                         ?>
                                     </td>
+                                    <td><?php   echo $ordergoods['CompanyName'] ?></td>
                                     <td><?php   echo $ordergoods['GoodsPrice'] ?></td>
                                     <td><?php   echo $ordergoods['RealPrice'] ?></td>
                                     <td><?php   echo $ordergoods['GoodsNums'] ?></td>
