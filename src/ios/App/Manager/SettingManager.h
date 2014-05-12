@@ -21,6 +21,7 @@
 #define DB_TABLE_SETTING_ONLINEUSERID @"DB_TABLE_SETTING_ONLINEUSERID"
 #define DB_TABLE_SETTING_CITY_VERSION @"DB_TABLE_SETTING_CITY_VERSION"
 #define DB_TABLE_SETTING_DEVICE_TOKEN  @"DB_TABLE_SETTING_DEVICE_TOKEN"
+#define DB_TABLE_SETTING_NOTIFICATION_STAFF_APPOINTTMENT  @"DB_TABLE_SETTING_NOTIFICATION_STAFF_APPOINTTMENT"
 
 @interface SettingManager : BaseManager
 +(id)SharedInstance;
@@ -45,4 +46,8 @@
 
 - (NSString *)deviceToken;
 - (void)setDeviceToken:(NSString *)token;
+
+- (void)setNotificationCount:(int)count;
+- (int)notificationCount;
+
 @end

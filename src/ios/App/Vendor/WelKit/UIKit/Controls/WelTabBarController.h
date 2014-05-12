@@ -22,5 +22,6 @@
 
 - (void)hideTabBarAnimation:(BOOL)animation;
 - (void)showTabBarAnimation:(BOOL)animation;
-
+- (void)setBadge:(int)number
+         atIndex:(int)index;
 @end

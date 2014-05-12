@@ -41,5 +41,6 @@
 #import "BaiduMapHelper.h"
 #import "SettingManager.h"
 
+#import "JSBadgeView.h"
 
 #endif

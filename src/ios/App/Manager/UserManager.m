@@ -143,7 +143,7 @@
     [dicData setObject:[NSNumber numberWithInt:WHMessageTypeUpdateUser] forKey:@"Type"];
 
     NSString *message = [Util parseJsonFromObject:dicData];
-    [[WebSocketUtil sharedInstance].webSocket send:message];
+   // [[WebSocketUtil sharedInstance].webSocket send:message];
 
     [[SettingManager SharedInstance] setLoginedUserId:0];
     _userLogined = nil;

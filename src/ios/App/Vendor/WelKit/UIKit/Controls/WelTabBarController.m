@@ -11,12 +11,13 @@
 // ==============================================================================
 
 #import "WelTabBarController.h"
-
+#import "JSBadgeView.h"
 @interface WelTabBarController ()
 @property (nonatomic, strong) UIView *tabView;
 @property (nonatomic, strong) NSArray *normalTabImages;
 @property (nonatomic, strong) NSArray *selectedTabImages;
 @property (nonatomic, strong) NSMutableArray *tabButtons;
+@property (nonatomic, strong) NSMutableArray *badgeViews;
 
 @end
 
@@ -34,6 +35,7 @@
 {
     [super viewDidLoad];
     self.tabButtons = [NSMutableArray array];
+    self.badgeViews = [NSMutableArray array];
 }
 
 - (void)didReceiveMemoryWarning
@@ -91,6 +93,13 @@
         [tabButton setBackgroundImage:tabSelectedImg forState:UIControlStateSelected];
         [self.tabButtons addObject:tabButton];
         [self.tabView addSubview:tabButton];
+        
+        UIView *badgeView = [[UIView alloc] initWithFrame:CGRectMake(tabButton.frame.origin.x + 44,
+                                                                    tabButton.frame.origin.y + 10,
+                                                                    1, 1)];
+        badgeView.backgroundColor = [UIColor clearColor];
+        [self.tabView addSubview:badgeView];
+        [self.badgeViews addObject:badgeView];
     }
 }
 
@@ -144,5 +153,20 @@
     
 }
 
+- (void)setBadge:(int)number
+         atIndex:(int)index
+{
+    if(number > 0){
+        JSBadgeView *badgeView = [[JSBadgeView alloc] initWithParentView:[self.badgeViews objectAtIndex:index] alignment:JSBadgeViewAlignmentCenterRight];
+        badgeView.badgeText = [NSString stringWithFormat:@"%d", number];
+        [badgeView setNeedsDisplay];
+    }else{
+        for (UIView *view  in ((UIView *)[self.badgeViews objectAtIndex:index]).subviews) {
+            if([view isKindOfClass:[JSBadgeView class]]){
+                [view removeFromSuperview];
+            }
+        }
+    }
+}
 
 @end

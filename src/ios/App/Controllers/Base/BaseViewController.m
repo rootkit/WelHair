@@ -224,4 +224,10 @@
         return YES;
     }
 }
+
+- (void)showLeftBadge:(int)number
+{
+    
+}
+
 @end

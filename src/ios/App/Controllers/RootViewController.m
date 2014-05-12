@@ -18,7 +18,7 @@
 #import "UserViewController.h"
 #import "LoginViewController.h"
 #import <FontAwesomeKit.h>
-
+#import "JSBadgeView.h"
 @interface RootViewController ()<UINavigationControllerDelegate>
 
 @end
@@ -33,6 +33,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showBadge) name:NOTIFICATION_STAFF_GET_APPOINMENT object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showLoginView) name:NOTIFICATION_SHOW_LOGIN_VIEW object:nil];
     WorksViewController *worksVc = [WorksViewController new];
     UINavigationController *workNav = [[UINavigationController alloc] initWithRootViewController:worksVc];
@@ -65,6 +66,7 @@
                            tabHeight:CUSTOME_BOTTOMBAR_HEIGHT
                      tabNormalImages:tabNormalImages
                    tabSelectedImages:tabSelectedImages];
+    [self showBadge];
 }
 
 - (void)showLoginView
@@ -100,5 +102,11 @@
     }
 }
 
+- (void)showBadge
+{
+    int count = [[SettingManager SharedInstance] notificationCount];
+    [self setBadge:count atIndex:4];
+
+}
 
 @end

@@ -263,7 +263,7 @@ static const float profileViewHeight = 90;
 {
     ASIHTTPRequest *request = [RequestUtil createGetRequestWithURL:[NSURL URLWithString:[NSString stringWithFormat:API_STAFFS_DETAIL, [UserManager SharedInstance].userLogined.id]]
                                                           andParam:nil];
-    
+    [self.requests addObject:request];
     [request setDelegate:self];
     [request setDidFinishSelector:@selector(finishGetStaffDetail:)];
     [request setDidFailSelector:@selector(failGetStaffDetail:)];
@@ -321,6 +321,7 @@ static const float profileViewHeight = 90;
     ASIHTTPRequest *request = [RequestUtil createGetRequestWithURL:[NSURL URLWithString:[NSString stringWithFormat:API_USERS_DETAIL, [UserManager SharedInstance].userLogined.id]]
                                                           andParam:nil];
     
+    [self.requests addObject:request];
     [request setDelegate:self];
     [request setDidFinishSelector:@selector(finishGetUserDetail:)];
     [request setDidFailSelector:@selector(failGetUserDetail:)];

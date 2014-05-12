@@ -29,6 +29,7 @@
 #define WEBSOCKET_SERVER_URL [NSString stringWithFormat:@"ws://%@:8080", DOMAIN_NAME]
 #define SITE_PATH(path) [NSString stringWithFormat:@"http://%@%@", DOMAIN_NAME, path]
 #define API_PATH(path) [NSString stringWithFormat:@"http://%@/api%@", DOMAIN_NAME, path]
+//#define API_PATH(path) [NSString stringWithFormat:@"http://api.welhair.com%@" , path]
 
 #define SITE_GOODS_CONTENT SITE_PATH(@"/goods/index/content?goods_id=%d")
 
@@ -71,6 +72,7 @@
 #define API_WORKS_REMOVE API_PATH(@"/works/%d/remove")
 
 #define API_STAFFS_SEARCH API_PATH(@"/staffs")
+#define API_STAFFS_MINE API_PATH(@"/staffs/mine")
 #define API_STAFFS_LIKED API_PATH(@"/staffs/liked")
 #define API_STAFFS_LIKE API_PATH(@"/staffs/%d/likes")
 #define API_STAFFS_DETAIL API_PATH(@"/staffs/%d")
@@ -122,6 +124,9 @@
 #define NOTIFICATION_REFRESH_ADDRESSLIST @"Notification_RefreshAddressList"
 #define NOTIFICATION_SHOW_LOGIN_VIEW  @"Notification_ShowLoginView"
 #define NOTIFICATION_NEW_MESSAGE_RECEIVED @"NewMessageReceived"
+#define NOTIFICATION_STAFF_GET_APPOINMENT @"StaffGetAppointment"
+
+#define REMOTE_NOTIFICATION_TYPE_STAFF_GET_APPOINTMENT  1
 
 #define HAIR_STYLE_FACE_CICLE   0
 #define HAIR_STYLE_FACE_OVAL    1

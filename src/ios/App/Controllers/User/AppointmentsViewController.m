@@ -47,6 +47,12 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [[SettingManager SharedInstance] setNotificationCount:0];
+    [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_STAFF_GET_APPOINMENT object:nil userInfo:nil];
+}
 - (void)viewDidLoad
 {
     [super viewDidLoad];

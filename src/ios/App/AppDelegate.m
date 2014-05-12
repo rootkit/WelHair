@@ -26,12 +26,13 @@
 #import "ChatSessionListViewController.h"
 #import "ProductsViewController.h"
 #import "UserViewController.h"
-#import "XGPush.h"
+#import "AppointmentsViewController.h"
 
 
-@interface AppDelegate()
+@interface AppDelegate()<UIAlertViewDelegate>
 {
      BMKMapManager* _mapManager;
+    UINavigationController *_rootNav;
 }
 
 @end
@@ -48,11 +49,14 @@
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     self.window.backgroundColor = [UIColor whiteColor];
 
-    UINavigationController *rootNav = [[UINavigationController alloc]  initWithRootViewController:[RootViewController new]];
-    rootNav.navigationBarHidden = YES;
-    self.window.rootViewController = rootNav;
+    _rootNav = [[UINavigationController alloc]  initWithRootViewController:[RootViewController new]];
+    _rootNav.navigationBarHidden = YES;
+    self.window.rootViewController = _rootNav;
     [self.window makeKeyAndVisible];
 
+    NSDictionary *remoteNotif = [launchOptions objectForKey: UIApplicationLaunchOptionsRemoteNotificationKey];
+    [self handleRemoteNotification:remoteNotif];
+    
     return YES;
 }
 
@@ -69,12 +73,6 @@
     if (![_mapManager start:CONFIG_BAIDU_MAP_KEY  generalDelegate:nil])
         debugLog(@"manager start failed!");
 
-    // xinge push
-    [XGPush startApp:CONFIG_XINGE_ACCESSID appKey:CONFIG_XINGE_ACCESSKEY];
-    [XGPush setAccount:@"cc"];
-    [XGPush setTag:@"d"];
-    [XGPush handleLaunching:launchOptions];
-    [application setApplicationIconBadgeNumber:0];
     [application registerForRemoteNotificationTypes:
      UIRemoteNotificationTypeAlert
      | UIRemoteNotificationTypeBadge
@@ -84,16 +82,34 @@
 
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
 {
-    NSString * deviceTokenStr = [XGPush registerDevice: deviceToken];
-    [[SettingManager SharedInstance] setDeviceToken:deviceTokenStr];
-    debugLog(@"device token %@", deviceTokenStr);
+    NSString *token = [[deviceToken description] stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"<>"]];
+    token = [token stringByReplacingOccurrencesOfString:@" " withString:@""];
+    [[SettingManager SharedInstance] setDeviceToken:token];
+    debugLog(@"device token %@", token);
 }
 
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo
 {
-    if ([UserManager SharedInstance].userLogined) {
-        [XGPush handleReceiveNotification:userInfo];
+    [self handleRemoteNotification:userInfo];
+}
+
+- (void)handleRemoteNotification:(NSDictionary *)userInfo
+{
+    NSDictionary *info = [userInfo objectForKey:@"aps"];
+    int type = [[info objectForKey:@"type"] intValue];
+    switch (type) {
+        case REMOTE_NOTIFICATION_TYPE_STAFF_GET_APPOINTMENT:
+        {
+            if([UserManager SharedInstance].userLogined.role == WHStaff){
+                [[SettingManager SharedInstance] setNotificationCount:1];
+                [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_STAFF_GET_APPOINMENT object:nil userInfo:nil];
+            }
+        }
+            break;
+            
+        default:
+            break;
     }
 }
 

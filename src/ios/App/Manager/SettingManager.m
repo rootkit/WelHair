@@ -167,4 +167,20 @@
 {
     [self setSettingValue:[NSString stringWithFormat:@"%d",version] forKey:DB_TABLE_SETTING_CITY_VERSION];
 }
+
+#pragma data version
+- (int)notificationCount
+{
+    int count = 0;
+    NSString *value = [self getSettingBySettingKey:DB_TABLE_SETTING_NOTIFICATION_STAFF_APPOINTTMENT];
+    if(value.length >0){
+        count = [value intValue];
+    }
+    return count;
+}
+
+- (void)setNotificationCount:(int)count
+{
+    [self setSettingValue:[NSString stringWithFormat:@"%d",count] forKey:DB_TABLE_SETTING_NOTIFICATION_STAFF_APPOINTTMENT];
+}
 @end

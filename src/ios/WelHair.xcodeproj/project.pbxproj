@@ -335,6 +335,7 @@
 		46C3B9F31910D48800A53F3B /* PPiFlatSegmentedControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 46C3B9F21910D48800A53F3B /* PPiFlatSegmentedControl.m */; };
 		46DB8CDD191F29E900B3AB40 /* MyStaffViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 46DB8CDC191F29E900B3AB40 /* MyStaffViewController.m */; };
 		46DB8CE8191F949700B3AB40 /* MyClientViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 46DB8CE7191F949700B3AB40 /* MyClientViewController.m */; };
+		46DB8CEC192100C900B3AB40 /* JSBadgeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 46DB8CEB192100C900B3AB40 /* JSBadgeView.m */; };
 		46E258701900E28E005DFBCE /* WFViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 46E2586F1900E28E005DFBCE /* WFViewController.m */; };
 		46E84EBF18C2C7040004C146 /* centerIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 46E84EBA18C2C7040004C146 /* centerIcon@2x.png */; };
 		46E84EC018C2C7040004C146 /* UIScrollView+UzysCircularProgressPullToRefresh.m in Sources */ = {isa = PBXBuildFile; fileRef = 46E84EBC18C2C7040004C146 /* UIScrollView+UzysCircularProgressPullToRefresh.m */; };
@@ -942,6 +943,8 @@
 		46DB8CDB191F29E900B3AB40 /* MyStaffViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyStaffViewController.h; sourceTree = "<group>"; };
 		46DB8CDC191F29E900B3AB40 /* MyStaffViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyStaffViewController.m; sourceTree = "<group>"; };
 		46DB8CE7191F949700B3AB40 /* MyClientViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyClientViewController.m; sourceTree = "<group>"; };
+		46DB8CEA192100C900B3AB40 /* JSBadgeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSBadgeView.h; sourceTree = "<group>"; };
+		46DB8CEB192100C900B3AB40 /* JSBadgeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSBadgeView.m; sourceTree = "<group>"; };
 		46E2586E1900E28E005DFBCE /* WFViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WFViewController.h; sourceTree = "<group>"; };
 		46E2586F1900E28E005DFBCE /* WFViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WFViewController.m; sourceTree = "<group>"; };
 		46E84EBA18C2C7040004C146 /* centerIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "centerIcon@2x.png"; sourceTree = "<group>"; };
@@ -1378,6 +1381,7 @@
 		18A912E518BB2826006B9A04 /* Vendor */ = {
 			isa = PBXGroup;
 			children = (
+				46DB8CE9192100C900B3AB40 /* JSBadgeView */,
 				183B03C718E110F500765116 /* ABMGroupedTableView */,
 				18FAFAB218EAA6C200EF6960 /* BrickView */,
 				4630D13718C603B000DA7CAD /* CircleView */,
@@ -2270,6 +2274,15 @@
 			path = PPiFlatSegmentedControl;
 			sourceTree = "<group>";
 		};
+		46DB8CE9192100C900B3AB40 /* JSBadgeView */ = {
+			isa = PBXGroup;
+			children = (
+				46DB8CEA192100C900B3AB40 /* JSBadgeView.h */,
+				46DB8CEB192100C900B3AB40 /* JSBadgeView.m */,
+			);
+			path = JSBadgeView;
+			sourceTree = "<group>";
+		};
 		46E84EB918C2C7040004C146 /* UzysCircularProgressPullToRefresh */ = {
 			isa = PBXGroup;
 			children = (
@@ -2686,6 +2699,7 @@
 				467F0EEC18CB4FCF009FFE08 /* WelQRReaderViewController.m in Sources */,
 				466DF42618FD7F6B00CB8A53 /* MyGroupDetailViewController.m in Sources */,
 				4665FD7C18BC7D4700E88C6B /* CommentsViewController.m in Sources */,
+				46DB8CEC192100C900B3AB40 /* JSBadgeView.m in Sources */,
 				46B25AED18C086D30035F425 /* WorkCell.m in Sources */,
 				183B03CD18E110F500765116 /* ABMGroupedTableView.m in Sources */,
 				182F9F6318E976D2001AF49D /* UIScrollView+SVPullToRefresh.m in Sources */,

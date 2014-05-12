@@ -55,24 +55,20 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showBadge) name:NOTIFICATION_STAFF_GET_APPOINMENT object:nil];
         self.title =  NSLocalizedString(@"UserViewController.Title", nil);
         
         FAKIcon *rightIcon = [FAKIonIcons ios7GearOutlineIconWithSize:NAV_BAR_ICON_SIZE];
         [rightIcon addAttribute:NSForegroundColorAttributeName value:[UIColor whiteColor]];
         self.rightNavItemImg =[rightIcon imageWithSize:CGSizeMake(NAV_BAR_ICON_SIZE, NAV_BAR_ICON_SIZE)];
 
-        self.tabTextDatasource = @[@"预约", @"订单", @"积分", @"收藏"];
+        self.tabTextDatasource = @[@"我的预约", @"订单", @"积分", @"收藏"];
 
-        NSMutableArray *menuList = [[NSMutableArray alloc] initWithCapacity:5];
-        [menuList addObject:@[@"我的消息", @"我的发型师"]];
-        self.datasource = menuList;
-
-        NSMutableArray *menuIconList = [[NSMutableArray alloc] initWithCapacity:5];
-        [menuIconList addObject:@[[FAKIonIcons ios7ChatboxesOutlineIconWithSize:NAV_BAR_ICON_SIZE], [FAKIonIcons ios7PeopleOutlineIconWithSize:NAV_BAR_ICON_SIZE]]];
-        self.iconDatasource = menuIconList;
+        [self refreshUserInfo];
     }
     return self;
 }
+
 
 - (void) rightNavItemClick
 {
@@ -150,6 +146,13 @@
                                              selector:@selector(refreshUserInfo)
                                                  name:NOTIFICATION_USER_STATUS_CHANGE
                                                object:nil];
+    
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    [self showBadge];
 }
 
 - (void)didReceiveMemoryWarning
@@ -250,13 +253,7 @@
     FAKIcon *itemIcon = [[self.iconDatasource objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
     [itemIcon addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithHexString:@"666666"]];
     [cell.imageView setImage:[itemIcon imageWithSize:CGSizeMake(NAV_BAR_ICON_SIZE, NAV_BAR_ICON_SIZE)]];
-    if(indexPath.section == 0 && indexPath.row == 1){
-        cell.label.text = ([UserManager SharedInstance].userLogined.role == WHClient
-                        || [UserManager SharedInstance].userLogined == nil) ? @"我的发型师" : @"我的客户";
-
-    }else{
-        cell.label.text = [[self.datasource objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
-    }
+    cell.label.text = [[self.datasource objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
     return cell;
 }
 
@@ -295,11 +292,59 @@
             }
         }
     }
+    if(indexPath.section == 1) {
+        switch (indexPath.row) {
+            case 0:
+            {
+                AppointmentsViewController *vc = [AppointmentsViewController new];
+                vc.hidesBottomBarWhenPushed = YES;
+                vc.staffId = [[UserManager SharedInstance] userLogined].id;
+                [self.navigationController pushViewController:vc animated:YES];
+                break;
+            }
+        }
+    }
 }
 
 - (void)refreshUserInfo
 {
+    NSMutableArray *menuList = [[NSMutableArray alloc] initWithCapacity:5];
+    if(([UserManager SharedInstance].userLogined.role == WHClient
+        || [UserManager SharedInstance].userLogined == nil)){
+        [menuList addObject:@[@"我的消息", @"我的发型师"]];
+        self.datasource = menuList;
+        NSMutableArray *menuIconList = [[NSMutableArray alloc] initWithCapacity:5];
+        [menuIconList addObject:@[[FAKIonIcons ios7ChatboxesOutlineIconWithSize:NAV_BAR_ICON_SIZE], [FAKIonIcons ios7PeopleOutlineIconWithSize:NAV_BAR_ICON_SIZE]]];
+        self.iconDatasource = menuIconList;
+    }else{
+        [menuList addObject:@[@"我的消息", @"我的客户"]];
+        [menuList addObject:@[@"客户预约"]];
+        self.datasource = menuList;
+        NSMutableArray *menuIconList = [[NSMutableArray alloc] initWithCapacity:5];
+        [menuIconList addObject:@[[FAKIonIcons ios7ChatboxesOutlineIconWithSize:NAV_BAR_ICON_SIZE], [FAKIonIcons ios7PeopleOutlineIconWithSize:NAV_BAR_ICON_SIZE]]];
+        [menuIconList addObject:@[[FAKIonIcons ios7ChatboxesOutlineIconWithSize:NAV_BAR_ICON_SIZE]]];
+        self.iconDatasource = menuIconList;
+    }
     [self.tableView reloadData];
+}
+
+- (void)showBadge
+{
+    int count = [[SettingManager SharedInstance] notificationCount];
+    if([UserManager SharedInstance].userLogined && [UserManager SharedInstance].userLogined.role != WHClient){
+        UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:1]];
+        if(count > 0){
+            JSBadgeView *badgeView = [[JSBadgeView alloc] initWithParentView:cell.imageView alignment:JSBadgeViewAlignmentTopLeft];
+            badgeView.badgeText = [NSString stringWithFormat:@"%d", count];
+            [badgeView setNeedsDisplay];
+        }else{
+            for (UIView *view  in cell.imageView .subviews) {
+                if([view isKindOfClass:[JSBadgeView class]]){
+                    [view removeFromSuperview];
+                }
+            }
+        }
+    }
 }
 
 @end
