@@ -107,6 +107,16 @@ class Order_IndexController extends AbstractAdminController
                 {
                     $order['UserId'] = $user['UserId'];
                 }
+                else
+                {
+                    $this->_helper->json->sendJson(array('success'=> false, 'message'=>'用户不存在。'));
+                    return;
+                }
+            }
+            else
+            {
+                $this->_helper->json->sendJson(array('success'=> false, 'message'=>'请输入用户名。'));
+                return;
             }
 
 

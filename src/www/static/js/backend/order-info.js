@@ -151,6 +151,10 @@ $(function() {
                 window.location = globalSetting.baseUrl + '/order/index/search';
                 return;
               }
+              else
+              {
+                  WF.showMessage('error', '错误', data.message);
+              } 
 
           });
 
