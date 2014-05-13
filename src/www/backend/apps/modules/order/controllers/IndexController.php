@@ -359,6 +359,11 @@ class Order_IndexController extends AbstractAdminController
         $orderId =  intval($this->_request->getParam('order_id')) ;
         $orderNo =  $this->_request->getParam('order_no') ;
         $payNote =  $this->_request->getParam('note') ;
+        if( floatval($this->_request->getParam('payamount')) > floatval($this->_request->getParam('orderamount')))
+        {
+            $this->_helper->json->sendJson(array('success'=>false, 'message'=>'付款额大于订单总金额'));
+            return;
+        }
         $log= array(
                 'OrderId' => $orderId,
                 'User' => $currentUser["Username"],
@@ -370,7 +375,7 @@ class Order_IndexController extends AbstractAdminController
         $doc = array(
                 'OrderId' => $orderId,
                 'UserId' => $this->_request->getParam('userid'),
-                'Amount' =>  $this->_request->getParam('orderamount'),
+                'Amount' =>  $this->_request->getParam('payamount'),
                 'CreateTime'=>date('Y-m-d H:i:s'),
                 'PaymentId'=> $this->_request->getParam('paymentid'),
                 'AdminId' => $currentUser["UserId"],
@@ -385,12 +390,12 @@ class Order_IndexController extends AbstractAdminController
         if( $this->_request->getParam('userid') )
         {
             $user = UserService::getUserById($this->_request->getParam('userid'));
-            if( floatval($user['Balance']) > floatval($this->_request->getParam('orderamount')))
+            if( floatval($user['Balance']) > floatval($this->_request->getParam('payamount')))
             {
                 $userbalancelog = array(
                         'OrderId' => $orderId,
                         'UserId' => $this->_request->getParam('userid'),
-                        'Amount' => '-'.$this->_request->getParam('orderamount'),
+                        'Amount' => '-'.$this->_request->getParam('payamount'),
                         'CreateTime'=>date('Y-m-d H:i:s'),
                         'Status'=> 1,
                         'Description' => '订单【'.$orderNo.'】付款'.$this->_request->getParam('payamount')
@@ -425,13 +430,17 @@ class Order_IndexController extends AbstractAdminController
             $companybalancelog = array(
                     'OrderId' => $orderId,
                     'CompanyId' => $companyId,
-                    'Amount' => $this->_request->getParam('orderamount'),
+                    'Amount' => $this->_request->getParam('payamount'),
                     'CreateTime'=>date('Y-m-d H:i:s'),
                     'Status'=> 1,
                     'Description' => '订单【'.$orderNo.'】付款'.$this->_request->getParam('payamount'),
                     'IncomeSrc' =>1,
                     'IncomeSrcId' =>$orderNo
             );
+        }
+        else
+        {
+            
         }
 
 
