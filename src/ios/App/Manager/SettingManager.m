@@ -144,7 +144,11 @@
 
 - (NSString *)deviceToken
 {
+    #if TARGET_IPHONE_SIMULATOR
+    return @"3c945e41b76d3a853a54c8ac0ed34be12396ec7ca4410d26f42b7c65f078b1d5";
+    #else
     return [self getSettingBySettingKey:DB_TABLE_SETTING_DEVICE_TOKEN];
+    #endif
 }
 
 - (void)setDeviceToken:(NSString *)token

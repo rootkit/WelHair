@@ -23,6 +23,7 @@ typedef enum {
 @interface User : BaseModel
 
 @property (nonatomic, assign) int id;
+@property (nonatomic, assign) int groupId;
 @property (nonatomic, assign) WHUserRole role;
 @property (nonatomic, strong) NSString *username;
 @property (nonatomic, strong) NSString *nickname;

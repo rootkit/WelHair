@@ -35,6 +35,8 @@
 #import "FeedbackViewController.h"
 #define  DefaultAvatorImage @"AvatarDefault.jpg"
 #define  SettingMyGroup      @"我的沙龙"
+#define  SettingJoinGroup    @"加入沙龙"
+#define  SettingGroupPending      @"审核中"
 #define  SettingMyAddress    @"收货地址"
 #define  SettingMyScore    @"积分兑换"
 #define  SettingFeedback    @"意见反馈"
@@ -79,11 +81,16 @@ static const float profileViewHeight = 90;
 {
     NSMutableArray *menuList = [[NSMutableArray alloc] initWithCapacity:5];
      NSMutableArray *menuIconList = [[NSMutableArray alloc] initWithCapacity:5];
-    if([UserManager SharedInstance].userLogined.role == WHStaff ||
-       [UserManager SharedInstance].userLogined.role == WHManager){
+    User *user = [UserManager SharedInstance].userLogined;
+    if(user.role != WHClient && user.groupId <= 0 && user.isApproving == NO){
+        [menuList addObject:@[SettingJoinGroup]];
+    }else if(user.isApproving && user.groupId < 0){
+        [menuList addObject:@[SettingGroupPending]];
+    }else{
         [menuList addObject:@[SettingMyGroup]];
-        [menuIconList addObject:@[[FAKIonIcons ios7ChatboxesOutlineIconWithSize:NAV_BAR_ICON_SIZE]]];
     }
+    
+    [menuIconList addObject:@[[FAKIonIcons ios7ChatboxesOutlineIconWithSize:NAV_BAR_ICON_SIZE]]];
     [menuList addObject:@[SettingMyAddress,SettingMyScore ]];
     [menuList addObject:@[SettingFeedback, SettingCheckVersion, SettingRate]];
     self.datasource = menuList;
@@ -265,6 +272,7 @@ static const float profileViewHeight = 90;
 
 - (void)getStaffDetail
 {
+    [SVProgressHUD show];
     ASIHTTPRequest *request = [RequestUtil createGetRequestWithURL:[NSURL URLWithString:[NSString stringWithFormat:API_STAFFS_DETAIL, [UserManager SharedInstance].userLogined.id]]
                                                           andParam:nil];
     [self.requests addObject:request];
@@ -276,16 +284,17 @@ static const float profileViewHeight = 90;
 
 - (void)finishGetStaffDetail:(ASIHTTPRequest *)request
 {
+    [SVProgressHUD dismiss];
     NSDictionary *rst = [Util objectFromJson:request.responseString];
+    User *usr = [[User alloc] initWithDic:rst];
+    [UserManager SharedInstance].userLogined = usr;
+    
     id companyDic = [rst objectForKey:@"Company"];
     if (companyDic == [NSNull null]) {
+        [self refreshTableView];
         return;
     }
-    
     self.addressLbl.text = [(NSDictionary *)companyDic objectForKey:@"Address"];
-    
-    User *usr = [[User alloc] initWithDic:rst];
-    
     [self.avatorImgView setImageWithURL:usr.avatarUrl];
     self.nameLbl.text = usr.nickname;
     
@@ -318,10 +327,12 @@ static const float profileViewHeight = 90;
 
 - (void)failGetStaffDetail:(ASIHTTPRequest *)request
 {
+    [SVProgressHUD dismiss];
 }
 
 - (void)getUserDetail
 {
+    [SVProgressHUD show];
     ASIHTTPRequest *request = [RequestUtil createGetRequestWithURL:[NSURL URLWithString:[NSString stringWithFormat:API_USERS_DETAIL, [UserManager SharedInstance].userLogined.id]]
                                                           andParam:nil];
     
@@ -334,6 +345,7 @@ static const float profileViewHeight = 90;
 
 - (void)finishGetUserDetail:(ASIHTTPRequest *)request
 {
+    [SVProgressHUD dismiss];
     NSDictionary *rst = [Util objectFromJson:request.responseString];
     if ([rst objectForKey:@"user"]) {
         [UserManager SharedInstance].userLogined = [[User alloc] initWithDic:[rst objectForKey:@"user"]];
@@ -378,6 +390,7 @@ static const float profileViewHeight = 90;
 
 - (void)failGetUserDetail:(ASIHTTPRequest *)request
 {
+    [SVProgressHUD dismiss];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -464,23 +477,25 @@ static const float profileViewHeight = 90;
         return;
     }
     NSString *title = [[self.datasource objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
-    if([title isEqual:SettingMyGroup]){
+    
+    if([title isEqual:SettingJoinGroup]){
+        UserAuthorViewController *vc = [UserAuthorViewController new];
+        vc.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:vc animated:YES];
+    }else if([title isEqual:SettingGroupPending]){
         [self getStaffDetail];
         if ([UserManager SharedInstance].userLogined.isApproving) {
             [SVProgressHUD showErrorWithStatus:@"正在审核中，请耐心等待。" duration:1];
             [self getStaffDetail];
             return;
         }
+    }else if([title isEqual:SettingMyGroup]){
         if([UserManager SharedInstance].userLogined.role == WHManager){
             MyGroupViewController *vc = [MyGroupViewController new];
             vc.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:vc animated:YES];
         } else if ([UserManager SharedInstance].userLogined.role == WHStaff) {
             StaffManageViewController *vc = [StaffManageViewController new];
-            vc.hidesBottomBarWhenPushed = YES;
-            [self.navigationController pushViewController:vc animated:YES];
-        } else {
-            UserAuthorViewController *vc = [UserAuthorViewController new];
             vc.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:vc animated:YES];
         }

@@ -25,7 +25,7 @@ use Welfony\Utility\Util;
 class UserService
 {
 
-    public static function signUpWithMobile($mobile, $password, $nickname)
+    public static function signUpWithMobile($mobile, $password, $role, $nickname)
     {
         $result = array('success' => false, 'message' => '');
 
@@ -45,7 +45,7 @@ class UserService
         $data = array();
         $data['Username'] = Util::genRandomUsername();
         $data['Nickname'] = $nickname ? $nickname : $mobile;
-        $data['Role'] = UserRole::Client;
+        $data['Role'] = empty($role) ? UserRole::Client : $role;
         $data['Mobile'] = $mobile;
         $data['Password'] = PassHash::hash($password);
         $data['AvatarUrl'] = Util::baseAssetUrl('img/avatar-default.jpg');
@@ -79,7 +79,7 @@ class UserService
         return $result;
     }
 
-    public static function signUpWithEmail($email, $password, $nickname = null)
+    public static function signUpWithEmail($email, $password, $role, $nickname = null)
     {
         $result = array('success' => false, 'message' => '');
 
@@ -99,7 +99,7 @@ class UserService
         $data = array();
         $data['Username'] = Util::genRandomUsername();
         $data['Nickname'] = $nickname ? $nickname : $email;
-        $data['Role'] = UserRole::Client;
+        $data['Role'] = empty($role) ? UserRole::Client : $role;
         $data['Email'] = $email;
         $data['Password'] = PassHash::hash($password);
         $data['AvatarUrl'] = Util::baseAssetUrl('img/avatar-default.jpg');

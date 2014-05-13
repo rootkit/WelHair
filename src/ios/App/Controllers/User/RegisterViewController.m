@@ -114,14 +114,23 @@ static const float kOffsetY = 140;
     self.repeatePwdTxt.delegate = self;
     [self.viewContainer addSubview:self.repeatePwdTxt];
 
-    UIButton *registerBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    registerBtn.backgroundColor = [UIColor colorWithHexString:@"e4393c"];
-    registerBtn.frame = CGRectMake(margin, MaxY(self.repeatePwdTxt) + 20, WIDTH(self.emailTxt), 40);
-    registerBtn.titleLabel.font = [UIFont systemFontOfSize:18];
-    [registerBtn setTitle:@"注册" forState:UIControlStateNormal];
-    [registerBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [registerBtn addTarget:self action:@selector(registerClick) forControlEvents:UIControlEventTouchUpInside];
-    [self.viewContainer addSubview:registerBtn];
+    UIButton *customRegisterBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    customRegisterBtn.backgroundColor = [UIColor colorWithHexString:@"e4393c"];
+    customRegisterBtn.frame = CGRectMake(margin, MaxY(self.repeatePwdTxt) + 20, 100, 40);
+    customRegisterBtn.titleLabel.font = [UIFont systemFontOfSize:18];
+    [customRegisterBtn setTitle:@"顾客" forState:UIControlStateNormal];
+    [customRegisterBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [customRegisterBtn addTarget:self action:@selector(customerRegisterClick) forControlEvents:UIControlEventTouchUpInside];
+    [self.viewContainer addSubview:customRegisterBtn];
+    
+    UIButton *staffRegisterbtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    staffRegisterbtn.backgroundColor = [UIColor colorWithHexString:@"e4393c"];
+    staffRegisterbtn.frame = CGRectMake(MaxX(customRegisterBtn) + 40, MaxY(self.repeatePwdTxt) + 20, 100, 40);
+    staffRegisterbtn.titleLabel.font = [UIFont systemFontOfSize:18];
+    [staffRegisterbtn setTitle:@"发型师" forState:UIControlStateNormal];
+    [staffRegisterbtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [staffRegisterbtn addTarget:self action:@selector(staffRegisterClick) forControlEvents:UIControlEventTouchUpInside];
+    [self.viewContainer addSubview:staffRegisterbtn];
 }
 
 - (void)viewDidLoad
@@ -190,7 +199,7 @@ static const float kOffsetY = 140;
                      completion:nil];
 }
 
-- (void)registerClick
+- (void)customerRegisterClick
 {
     if (![self validInput]) {
         return;
@@ -210,10 +219,41 @@ static const float kOffsetY = 140;
     [reqData setObject:self.nicknameTxt.text forKey:@"Nickname"];
     [reqData setObject:self.emailTxt.text forKey:signupKey];
     [reqData setObject:self.pwdTxt.text forKey:@"Password"];
+    [reqData setObject:@(WHClient) forKey:@"Role"];
 
     ASIFormDataRequest *request = [RequestUtil createPOSTRequestWithURL:[NSURL URLWithString:signupURL]
                                                                 andData:reqData];
 
+    [request setDelegate:self];
+    [request setDidFinishSelector:@selector(signUpWithEmailFinish:)];
+    [request setDidFailSelector:@selector(signUpWithEmailFail:)];
+    [request startAsynchronous];
+}
+
+- (void)staffRegisterClick{
+    if (![self validInput]) {
+        return;
+    }
+    
+    [SVProgressHUD showWithMaskType:SVProgressHUDMaskTypeClear];
+    
+    NSString *signupURL = API_USERS_SIGNUP_EMAIL;
+    NSString *signupKey = @"Email";
+    
+    if (![self.emailTxt.text isValidEmailWithStricterFilter:NO]) {
+        signupURL = API_USERS_SIGNUP_MOBILE;
+        signupKey = @"Mobile";
+    }
+    
+    NSMutableDictionary *reqData = [[NSMutableDictionary alloc] initWithCapacity:1];
+    [reqData setObject:self.nicknameTxt.text forKey:@"Nickname"];
+    [reqData setObject:self.emailTxt.text forKey:signupKey];
+    [reqData setObject:self.pwdTxt.text forKey:@"Password"];
+    [reqData setObject:@(WHStaff) forKey:@"Role"];
+    
+    ASIFormDataRequest *request = [RequestUtil createPOSTRequestWithURL:[NSURL URLWithString:signupURL]
+                                                                andData:reqData];
+    
     [request setDelegate:self];
     [request setDidFinishSelector:@selector(signUpWithEmailFinish:)];
     [request setDidFailSelector:@selector(signUpWithEmailFail:)];

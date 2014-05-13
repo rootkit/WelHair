@@ -44,6 +44,7 @@
                 while ([set next]) {
                     user = [[User alloc] init];
                     user.id = [set intForColumn:@"UserId"];
+                    user.groupId = [set intForColumn:@"GroupId"];
                     user.email = [set stringForColumn:@"Email"];
                     user.username = [set stringForColumn:@"UserName"];
                     user.nickname = [set stringForColumn:@"NickName"];
@@ -79,8 +80,9 @@
             NSString *userSql;
             BOOL runSqlSuccess = NO;
             if ([set next]) {
-                userSql = @"update User set  UserName = ?, Email = ?,AvatorUrl = ?,NickName = ?, Role = ?, Followed = ?, IsApproving = ? where UserId = ?";
+                userSql = @"update User set GroupId = ?, UserName = ?, Email = ?,AvatorUrl = ?,NickName = ?, Role = ?, Followed = ?, IsApproving = ? where UserId = ?";
                runSqlSuccess  = [db executeUpdate:userSql,
+                                 userLogined.groupId,
                                    userLogined.username,
                                    userLogined.email,
                                    userLogined.avatarUrl,
@@ -90,8 +92,9 @@
                                    @(userLogined.isApproving),
                                  @(userLogined.id)];
             }else{
-                userSql = @"insert into User (UserId, UserName, Email,AvatorUrl,NickName, Role, Followed, IsApproving) values(?,?,?,?,?,?,?,?) ";
+                userSql = @"insert into User (UserId, GroupId, UserName, Email,AvatorUrl,NickName, Role, Followed, IsApproving) values(?,?,?,?,?,?,?,?) ";
                 runSqlSuccess  = [db executeUpdate:userSql,
+                                  @(userLogined.groupId),
                                    @(userLogined.id),
                                   userLogined.username,
                                   userLogined.email,

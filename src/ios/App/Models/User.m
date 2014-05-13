@@ -46,6 +46,10 @@
         } else {
             self.imgUrls = @[];
         }
+        id groupDic = [dictionary objectForKey:@"Company"];
+        if(groupDic && groupDic != [NSNull null]){
+            self.groupId = [[((NSDictionary *)groupDic) objectForKey:@"CompanyId"] intValue];
+        }
     }
 
     return self;
