@@ -272,7 +272,7 @@ class OrderRepository extends AbstractRepository
         }
     }
 
-    public function payOrder($orderId, $data, $log, $doc, $userbalancelog, $companybalancelog)
+    public function payOrder($orderId, $data, $log, $doc, $userbalancelog, $companybalancelog, $paymentTransaction )
     {
 
         $conn = $this->conn;
@@ -320,6 +320,11 @@ class OrderRepository extends AbstractRepository
 
             }
 
+            if( $paymentTransaction )
+            {
+                $this->conn->insert('paymentTransaction',$paymentTransaction );
+            }
+
             $conn->commit();
 
             return $orderId;
@@ -360,7 +365,7 @@ class OrderRepository extends AbstractRepository
         }
     }
 
-    public function refundOrder($orderId, $data, $log, $doc, $userbalancelog, $companybalancelog)
+    public function refundOrder($orderId, $data, $log, $doc, $userbalancelog, $companybalancelog, $paymentTransaction )
     {
 
         $conn = $this->conn;
@@ -402,6 +407,11 @@ class OrderRepository extends AbstractRepository
 
                  $this->conn->insert('CompanyBalanceLog', $companybalancelog);
 
+            }
+
+            if( $paymentTransaction )
+            {
+                $this->conn->insert('paymentTransaction',$paymentTransaction );
             }
 
             $conn->commit();

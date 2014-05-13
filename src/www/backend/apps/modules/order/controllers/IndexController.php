@@ -385,6 +385,7 @@ class Order_IndexController extends AbstractAdminController
 
         $userbalancelog = null;
         $companybalancelog = null;
+        $paymentTransaction = null;
 
 
         if( $this->_request->getParam('userid') )
@@ -440,7 +441,14 @@ class Order_IndexController extends AbstractAdminController
         }
         else
         {
-            
+            $paymentTransaction =  array(
+                        'Amount' => $this->_request->getParam('payamount'),
+                        'IncomeSrc' => 1,
+                        'IncomeSrcId' => $orderNo,
+                        'CreatedDate'=> date('Y-m-d H:i:s'),
+                        'LastModifiedDate' =>date('Y-m-d H:i:s'),
+                        'Description' => '商品【'.$orderNo.'】付款'.$this->_request->getParam('payamount')
+                      );
         }
 
 
@@ -448,7 +456,7 @@ class Order_IndexController extends AbstractAdminController
 
         if ($this->_request->isPost()) {
 
-            $result = OrderService::payOrder($orderId, $order, $log, $doc, $userbalancelog, $companybalancelog);
+            $result = OrderService::payOrder($orderId, $order, $log, $doc, $userbalancelog, $companybalancelog, $paymentTransaction );
             $this->_helper->json->sendJson($result);
         }
     }
@@ -543,6 +551,7 @@ class Order_IndexController extends AbstractAdminController
         
         $userbalancelog = null;
         $companybalancelog = null;
+        $paymentTransaction = null;
 
         if( $this->_request->getParam('userid') )
         {
@@ -585,12 +594,23 @@ class Order_IndexController extends AbstractAdminController
                     'IncomeSrcId' =>$orderNo
             );
         }
+        else
+        {
+            $paymentTransaction =  array(
+                        'Amount' => '-'.$this->_request->getParam('refundamount'),
+                        'IncomeSrc' => 1,
+                        'IncomeSrcId' => $orderNo,
+                        'CreatedDate'=> date('Y-m-d H:i:s'),
+                        'LastModifiedDate' =>date('Y-m-d H:i:s'),
+                        'Description' => '商品【'.$orderNo.'】退款'.'-'.$this->_request->getParam('refundamount')
+                      );
+        }
 
         $order = array('Status'=> 5, 'PayStatus'=> 2);
 
         if ($this->_request->isPost()) {
 
-            $result = OrderService::refundOrder($orderId, $order, $log, $doc, $userbalancelog, $companybalancelog);
+            $result = OrderService::refundOrder($orderId, $order, $log, $doc, $userbalancelog, $companybalancelog, $paymentTransaction );
             $this->_helper->json->sendJson($result);
         }
     }
