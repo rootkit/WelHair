@@ -82,7 +82,7 @@
             if ([set next]) {
                 userSql = @"update User set GroupId = ?, UserName = ?, Email = ?,AvatorUrl = ?,NickName = ?, Role = ?, Followed = ?, IsApproving = ? where UserId = ?";
                runSqlSuccess  = [db executeUpdate:userSql,
-                                 userLogined.groupId,
+                                 @(userLogined.groupId),
                                    userLogined.username,
                                    userLogined.email,
                                    userLogined.avatarUrl,
@@ -92,10 +92,10 @@
                                    @(userLogined.isApproving),
                                  @(userLogined.id)];
             }else{
-                userSql = @"insert into User (UserId, GroupId, UserName, Email,AvatorUrl,NickName, Role, Followed, IsApproving) values(?,?,?,?,?,?,?,?) ";
+                userSql = @"insert into User (UserId, GroupId, UserName, Email,AvatorUrl,NickName, Role, Followed, IsApproving) values(?,?,?,?,?,?,?,?,?) ";
                 runSqlSuccess  = [db executeUpdate:userSql,
-                                  @(userLogined.groupId),
                                    @(userLogined.id),
+                                    @(userLogined.groupId),
                                   userLogined.username,
                                   userLogined.email,
                                   userLogined.avatarUrl,

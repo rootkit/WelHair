@@ -129,17 +129,20 @@
         [request startAsynchronous];
     }else{
         // remove
-        int notiUserId = [noti.object intValue];;
-        NSMutableDictionary *reqData = [[NSMutableDictionary alloc] initWithCapacity:2];
-        [reqData setObject: [[SettingManager SharedInstance] deviceToken] forKey:@"deviceToken"];
-//        [reqData setObject:@"3c945e41b76d3a853a54c8ac0ed34be12396ec7ca4410d26f42b7c65f078b1d5" forKey:@"deviceToken"];
-        [reqData setObject: [NSString stringWithFormat:@"%d",notiUserId] forKey:@"userId"];
-        ASIFormDataRequest *request = [RequestUtil createPOSTRequestWithURL:[NSURL URLWithString:API_USERDEVICE_REMOVE]
-                                                                    andData:reqData];
-        [request setDelegate:self];
-        [request setDidFinishSelector:@selector(finishRemove:)];
-        [request setDidFailSelector:@selector(failRemove:)];
-        [request startAsynchronous];
+        int notiUserId = [noti.object intValue];
+        if(notiUserId > 0){
+            NSMutableDictionary *reqData = [[NSMutableDictionary alloc] initWithCapacity:2];
+            [reqData setObject: [[SettingManager SharedInstance] deviceToken] forKey:@"deviceToken"];
+            //        [reqData setObject:@"3c945e41b76d3a853a54c8ac0ed34be12396ec7ca4410d26f42b7c65f078b1d5" forKey:@"deviceToken"];
+            [reqData setObject: [NSString stringWithFormat:@"%d",notiUserId] forKey:@"userId"];
+            ASIFormDataRequest *request = [RequestUtil createPOSTRequestWithURL:[NSURL URLWithString:API_USERDEVICE_REMOVE]
+                                                                        andData:reqData];
+            [request setDelegate:self];
+            [request setDidFinishSelector:@selector(finishRemove:)];
+            [request setDidFailSelector:@selector(failRemove:)];
+            [request startAsynchronous];
+   
+        }
     }
 }
 

@@ -82,15 +82,19 @@ static const float profileViewHeight = 90;
     NSMutableArray *menuList = [[NSMutableArray alloc] initWithCapacity:5];
      NSMutableArray *menuIconList = [[NSMutableArray alloc] initWithCapacity:5];
     User *user = [UserManager SharedInstance].userLogined;
-    if(user.role != WHClient && user.groupId <= 0 && user.isApproving == NO){
+    if(user == nil){
+        
+    }else if(user.role != WHClient && user.groupId <= 0 && user.isApproving == NO){
         [menuList addObject:@[SettingJoinGroup]];
+        [menuIconList addObject:@[[FAKIonIcons ios7ChatboxesOutlineIconWithSize:NAV_BAR_ICON_SIZE]]];
     }else if(user.isApproving && user.groupId < 0){
         [menuList addObject:@[SettingGroupPending]];
-    }else{
+        [menuIconList addObject:@[[FAKIonIcons ios7ChatboxesOutlineIconWithSize:NAV_BAR_ICON_SIZE]]];
+    }else if(user.role == WHStaff || user.role == WHManager){
         [menuList addObject:@[SettingMyGroup]];
+        [menuIconList addObject:@[[FAKIonIcons ios7ChatboxesOutlineIconWithSize:NAV_BAR_ICON_SIZE]]];
     }
     
-    [menuIconList addObject:@[[FAKIonIcons ios7ChatboxesOutlineIconWithSize:NAV_BAR_ICON_SIZE]]];
     [menuList addObject:@[SettingMyAddress,SettingMyScore ]];
     [menuList addObject:@[SettingFeedback, SettingCheckVersion, SettingRate]];
     self.datasource = menuList;
@@ -118,6 +122,10 @@ static const float profileViewHeight = 90;
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(refreshUserInfo)
                                                  name:NOTIFICATION_USER_PROFILE_CHANGE
+                                               object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(navigateToGroupPanel)
+                                                 name:NOTIFICATION_USER_CREATE_GROUP_SUCCESS
                                                object:nil];
     
     float avatorSize = 50;
@@ -191,10 +199,6 @@ static const float profileViewHeight = 90;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(navigateToGroupPanel)
-                                                 name:NOTIFICATION_USER_CREATE_GROUP_SUCCESS
-                                               object:nil];
     [self refreshUserInfo];
 }
 
@@ -287,12 +291,10 @@ static const float profileViewHeight = 90;
     [SVProgressHUD dismiss];
     NSDictionary *rst = [Util objectFromJson:request.responseString];
     User *usr = [[User alloc] initWithDic:rst];
-    [UserManager SharedInstance].userLogined = usr;
     
     id companyDic = [rst objectForKey:@"Company"];
     if (companyDic == [NSNull null]) {
-        [self refreshTableView];
-        return;
+        companyDic = nil;
     }
     self.addressLbl.text = [(NSDictionary *)companyDic objectForKey:@"Address"];
     [self.avatorImgView setImageWithURL:usr.avatarUrl];
@@ -315,13 +317,12 @@ static const float profileViewHeight = 90;
     
     if ([[rst objectForKey:@"IsApproved"] isEqualToString:@"0"] || [[(NSDictionary *)companyDic objectForKey:@"Status"] intValue] == Requested) {
         usr.isApproving = true;
-        [UserManager SharedInstance].userLogined = usr;
         
     }else if ([[rst objectForKey:@"IsApproved"] isEqualToString:@"1"] && [[(NSDictionary *)companyDic objectForKey:@"Status"] intValue] == Valid) {
         usr.isApproving = false;
         usr.role = [[rst objectForKey:@"Role"] intValue];
-        [UserManager SharedInstance].userLogined = usr;
     }
+    [UserManager SharedInstance].userLogined = usr;
     [self refreshTableView];
 }
 
