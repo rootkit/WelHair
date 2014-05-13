@@ -19,6 +19,7 @@
 #import "LoginViewController.h"
 #import <FontAwesomeKit.h>
 #import "JSBadgeView.h"
+#import "UserManager.h"
 @interface RootViewController ()<UINavigationControllerDelegate>
 
 @end
@@ -35,6 +36,7 @@
     [super viewDidLoad];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showBadge) name:NOTIFICATION_STAFF_GET_APPOINMENT object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showLoginView) name:NOTIFICATION_SHOW_LOGIN_VIEW object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(registerDeviceToken:) name:NOTIFICATION_USER_STATUS_CHANGE object:nil];
     WorksViewController *worksVc = [WorksViewController new];
     UINavigationController *workNav = [[UINavigationController alloc] initWithRootViewController:worksVc];
     workNav.delegate = self;
@@ -107,6 +109,58 @@
     int count = [[SettingManager SharedInstance] notificationCount];
     [self setBadge:count atIndex:4];
 
+}
+
+- (void)registerDeviceToken:(NSNotification *)noti
+{
+    // register
+    if([UserManager SharedInstance].userLogined.id > 0)
+    {
+        NSMutableDictionary *reqData = [[NSMutableDictionary alloc] initWithCapacity:1];
+        [reqData setObject: [[SettingManager SharedInstance] deviceToken] forKey:@"deviceToken"];
+//                [reqData setObject:@"3c945e41b76d3a853a54c8ac0ed34be12396ec7ca4410d26f42b7c65f078b1d5" forKey:@"deviceToken"];
+        
+        
+        ASIFormDataRequest *request = [RequestUtil createPOSTRequestWithURL:[NSURL URLWithString:API_USERDEVICE_REGISTER]
+                                                                    andData:reqData];
+        [request setDelegate:self];
+        [request setDidFinishSelector:@selector(finishRegister:)];
+        [request setDidFailSelector:@selector(failRegister:)];
+        [request startAsynchronous];
+    }else{
+        // remove
+        int notiUserId = [noti.object intValue];;
+        NSMutableDictionary *reqData = [[NSMutableDictionary alloc] initWithCapacity:2];
+        [reqData setObject: [[SettingManager SharedInstance] deviceToken] forKey:@"deviceToken"];
+//        [reqData setObject:@"3c945e41b76d3a853a54c8ac0ed34be12396ec7ca4410d26f42b7c65f078b1d5" forKey:@"deviceToken"];
+        [reqData setObject: [NSString stringWithFormat:@"%d",notiUserId] forKey:@"userId"];
+        ASIFormDataRequest *request = [RequestUtil createPOSTRequestWithURL:[NSURL URLWithString:API_USERDEVICE_REMOVE]
+                                                                    andData:reqData];
+        [request setDelegate:self];
+        [request setDidFinishSelector:@selector(finishRemove:)];
+        [request setDidFailSelector:@selector(failRemove:)];
+        [request startAsynchronous];
+    }
+}
+
+- (void)finishRegister:(ASIHTTPRequest *)request
+{
+    debugLog(@"%@",request.responseString);
+}
+
+- (void)failRegister:(ASIHTTPRequest *)request
+{
+    debugLog(@"%@",request.responseString);
+}
+
+- (void)finishRemove:(ASIHTTPRequest *)request
+{
+    debugLog(@"%@",request.responseString);
+}
+
+- (void)failRemove:(ASIHTTPRequest *)request
+{
+    debugLog(@"%@",request.responseString);
 }
 
 @end

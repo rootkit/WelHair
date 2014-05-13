@@ -47,6 +47,10 @@
 #define API_USERS_APPOINTMENT API_PATH(@"/users/%d/appointments")
 #define API_USERS_POINTS API_PATH(@"/users/%d/points")
 
+#define API_USERDEVICE_REGISTER API_PATH(@"/user/registerDevice")
+#define API_USERDEVICE_REMOVE API_PATH(@"/user/removeDevice")
+
+
 #define API_MESSAGES_CREATE API_PATH(@"/messages")
 #define API_MESSAGES_LIST API_PATH(@"/messages/to/%d/from/%d")
 #define API_MESSAGES_CONVERSATIONS_LIST API_PATH(@"/users/%d/messages/conversations")
@@ -119,6 +123,7 @@
 #define NOTIFICATION_USER_REFRESH_GROUP_INFO  @"Notification_RefreshGroupInfo"
 #define NOTIFICATION_USER_CREATE_GROUP_SUCCESS  @"Notification_CreateGroupSuccessfully"
 #define NOTIFICATION_USER_STATUS_CHANGE  @"Notification_UserStatusChanged"
+#define NOTIFICATION_USER_PROFILE_CHANGE  @"Notification_UserProfileChanged"
 #define NOTIFICATION_REFRESH_APPOINTMENT @"Notification_RefreshAppintmentList"
 #define NOTIFICATION_REFRESH_COMMENTLIST @"Notification_RefreshCommentList"
 #define NOTIFICATION_REFRESH_ADDRESSLIST @"Notification_RefreshAddressList"

@@ -108,6 +108,10 @@ static const float profileViewHeight = 90;
                                              selector:@selector(refreshUserInfo)
                                                  name:NOTIFICATION_USER_STATUS_CHANGE
                                                object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(refreshUserInfo)
+                                                 name:NOTIFICATION_USER_PROFILE_CHANGE
+                                               object:nil];
     
     float avatorSize = 50;
     
@@ -525,10 +529,11 @@ static const float profileViewHeight = 90;
 
 - (void)logout
 {
+    int userId = [ UserManager SharedInstance].userLogined.id;
     [SVProgressHUD showSuccessWithStatus:@"注销成功" duration:1];
     [[UserManager SharedInstance] signout];
     
-    [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_USER_STATUS_CHANGE object:nil];
+    [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_USER_STATUS_CHANGE object:@(userId)];
 }
 
 @end

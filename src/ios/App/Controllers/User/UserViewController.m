@@ -146,6 +146,10 @@
                                              selector:@selector(refreshUserInfo)
                                                  name:NOTIFICATION_USER_STATUS_CHANGE
                                                object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(refreshUserInfo)
+                                                 name:NOTIFICATION_USER_PROFILE_CHANGE
+                                               object:nil];
     
 }
 

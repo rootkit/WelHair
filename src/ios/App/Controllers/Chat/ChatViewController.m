@@ -130,7 +130,7 @@
     [reqData setObject:[NSNumber numberWithInt:WHMessageTypeNewMessage] forKey:@"Type"];
 
     NSString *message = [Util parseJsonFromObject:reqData];
-    [[WebSocketUtil sharedInstance].webSocket send:message];
+    //[[WebSocketUtil sharedInstance].webSocket send:message];
 
     Message *msg = [Message new];
     msg.body = text;

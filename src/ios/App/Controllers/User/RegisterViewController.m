@@ -241,7 +241,7 @@ static const float kOffsetY = 140;
             [dicData setObject:[NSNumber numberWithInt:WHMessageTypeUpdateUser] forKey:@"Type"];
 
             NSString *message = [Util parseJsonFromObject:dicData];
-            [[WebSocketUtil sharedInstance].webSocket send:message];
+           // [[WebSocketUtil sharedInstance].webSocket send:message];
 
             [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_USER_STATUS_CHANGE object:nil];
             [self dismissViewControllerAnimated:YES completion:nil];

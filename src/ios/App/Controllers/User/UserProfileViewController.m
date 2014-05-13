@@ -140,7 +140,7 @@
             }
 
             [SVProgressHUD dismiss];
-            [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_USER_STATUS_CHANGE object:nil];
+            [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_USER_PROFILE_CHANGE object:nil];
             [SVProgressHUD showSuccessWithStatus:@"更新信息成功！"];
 
             return;
