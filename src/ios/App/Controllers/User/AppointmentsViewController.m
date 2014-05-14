@@ -15,7 +15,7 @@
 #import "AppointmentCell.h"
 #import "Staff.h"
 #import "UserManager.h"
-
+#import "UserHairViewController.h"
 @interface AppointmentsViewController ()<UITableViewDataSource, UITableViewDelegate>
 
 @property (nonatomic, strong) NSArray *datasource;
@@ -33,7 +33,7 @@
     if (self) {
         self.title = @"预约";
         self.currentPage = 1;
-
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(navigateToUserHairRecordView:) name:NOTIFICATION_GOTO_HAIR_RECORD_VIEW object:nil];
         FAKIcon *leftIcon = [FAKIonIcons ios7ArrowBackIconWithSize:NAV_BAR_ICON_SIZE];
         [leftIcon addAttribute:NSForegroundColorAttributeName value:[UIColor whiteColor]];
         self.leftNavItemImg =[leftIcon imageWithSize:CGSizeMake(NAV_BAR_ICON_SIZE, NAV_BAR_ICON_SIZE)];
@@ -54,6 +54,14 @@
         [[SettingManager SharedInstance] setNotificationCount:0];
         [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_STAFF_GET_APPOINMENT object:nil userInfo:nil];
     }
+}
+
+- (void)navigateToUserHairRecordView:(NSNotification *)noti
+{
+    Appointment *appointment = noti.object;
+    UserHairViewController *vc = [UserHairViewController new];
+    vc.appointment = appointment;
+    [self.navigationController pushViewController:vc animated:YES];
 }
 - (void)viewDidLoad
 {

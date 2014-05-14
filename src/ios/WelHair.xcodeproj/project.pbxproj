@@ -330,6 +330,7 @@
 		46BDF13118D1516F00999F50 /* MyGroupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 46BDF13018D1516F00999F50 /* MyGroupViewController.m */; };
 		46BDF13918D1779100999F50 /* UserAuthorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 46BDF13818D1779100999F50 /* UserAuthorViewController.m */; };
 		46BDF13C18D17AF300999F50 /* CreateGroupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 46BDF13B18D17AF300999F50 /* CreateGroupViewController.m */; };
+		46C1DFBE1923362A0038ECBF /* UserHairViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 46C1DFBD1923362A0038ECBF /* UserHairViewController.m */; };
 		46C37A561915E7E7004070C8 /* libXG-SDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 46C37A541915E7E7004070C8 /* libXG-SDK.a */; };
 		46C37A581915E848004070C8 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46C37A571915E848004070C8 /* CFNetwork.framework */; };
 		46C3B9F31910D48800A53F3B /* PPiFlatSegmentedControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 46C3B9F21910D48800A53F3B /* PPiFlatSegmentedControl.m */; };
@@ -337,6 +338,7 @@
 		46DB8CE8191F949700B3AB40 /* MyClientViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 46DB8CE7191F949700B3AB40 /* MyClientViewController.m */; };
 		46DB8CEC192100C900B3AB40 /* JSBadgeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 46DB8CEB192100C900B3AB40 /* JSBadgeView.m */; };
 		46DB8EDD1922535B00B3AB40 /* AppointmentRecordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 46DB8EDC1922535B00B3AB40 /* AppointmentRecordViewController.m */; };
+		46DB8EE319230A1700B3AB40 /* UserHairRecordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 46DB8EE219230A1700B3AB40 /* UserHairRecordViewController.m */; };
 		46E258701900E28E005DFBCE /* WFViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 46E2586F1900E28E005DFBCE /* WFViewController.m */; };
 		46E84EBF18C2C7040004C146 /* centerIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 46E84EBA18C2C7040004C146 /* centerIcon@2x.png */; };
 		46E84EC018C2C7040004C146 /* UIScrollView+UzysCircularProgressPullToRefresh.m in Sources */ = {isa = PBXBuildFile; fileRef = 46E84EBC18C2C7040004C146 /* UIScrollView+UzysCircularProgressPullToRefresh.m */; };
@@ -936,6 +938,8 @@
 		46BDF13818D1779100999F50 /* UserAuthorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserAuthorViewController.m; sourceTree = "<group>"; };
 		46BDF13A18D17AF300999F50 /* CreateGroupViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreateGroupViewController.h; sourceTree = "<group>"; };
 		46BDF13B18D17AF300999F50 /* CreateGroupViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CreateGroupViewController.m; sourceTree = "<group>"; };
+		46C1DFBC1923362A0038ECBF /* UserHairViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UserHairViewController.h; path = Staff/UserHairViewController.h; sourceTree = "<group>"; };
+		46C1DFBD1923362A0038ECBF /* UserHairViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UserHairViewController.m; path = Staff/UserHairViewController.m; sourceTree = "<group>"; };
 		46C37A541915E7E7004070C8 /* libXG-SDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libXG-SDK.a"; sourceTree = "<group>"; };
 		46C37A551915E7E7004070C8 /* XGPush.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XGPush.h; sourceTree = "<group>"; };
 		46C37A571915E848004070C8 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
@@ -948,6 +952,8 @@
 		46DB8CEB192100C900B3AB40 /* JSBadgeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSBadgeView.m; sourceTree = "<group>"; };
 		46DB8EDB1922535B00B3AB40 /* AppointmentRecordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppointmentRecordViewController.h; sourceTree = "<group>"; };
 		46DB8EDC1922535B00B3AB40 /* AppointmentRecordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppointmentRecordViewController.m; sourceTree = "<group>"; };
+		46DB8EE119230A1700B3AB40 /* UserHairRecordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserHairRecordViewController.h; sourceTree = "<group>"; };
+		46DB8EE219230A1700B3AB40 /* UserHairRecordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserHairRecordViewController.m; sourceTree = "<group>"; };
 		46E2586E1900E28E005DFBCE /* WFViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WFViewController.h; sourceTree = "<group>"; };
 		46E2586F1900E28E005DFBCE /* WFViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WFViewController.m; sourceTree = "<group>"; };
 		46E84EBA18C2C7040004C146 /* centerIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "centerIcon@2x.png"; sourceTree = "<group>"; };
@@ -1869,6 +1875,10 @@
 				4660E69518BB73FF005B3C7D /* UserViewController.m */,
 				46DB8CDB191F29E900B3AB40 /* MyStaffViewController.h */,
 				46DB8CDC191F29E900B3AB40 /* MyStaffViewController.m */,
+				46DB8EE119230A1700B3AB40 /* UserHairRecordViewController.h */,
+				46DB8EE219230A1700B3AB40 /* UserHairRecordViewController.m */,
+				46C1DFBC1923362A0038ECBF /* UserHairViewController.h */,
+				46C1DFBD1923362A0038ECBF /* UserHairViewController.m */,
 			);
 			path = User;
 			sourceTree = "<group>";
@@ -2672,6 +2682,7 @@
 				4651D98618DE7DBB004AC95A /* CityManager.m in Sources */,
 				4673BB9618D41B75000F64DE /* GroupRevenuViewController.m in Sources */,
 				46BDF12A18D0B53200999F50 /* CouponCell.m in Sources */,
+				46DB8EE319230A1700B3AB40 /* UserHairRecordViewController.m in Sources */,
 				18CA327619171F4C001C20D3 /* Message.m in Sources */,
 				184B82CA18DAC7F000177BAB /* JSMessageTextView.m in Sources */,
 				1882D2731901314200D59861 /* FeedbackViewController.m in Sources */,
@@ -2705,6 +2716,7 @@
 				466DF42618FD7F6B00CB8A53 /* MyGroupDetailViewController.m in Sources */,
 				4665FD7C18BC7D4700E88C6B /* CommentsViewController.m in Sources */,
 				46DB8CEC192100C900B3AB40 /* JSBadgeView.m in Sources */,
+				46C1DFBE1923362A0038ECBF /* UserHairViewController.m in Sources */,
 				46B25AED18C086D30035F425 /* WorkCell.m in Sources */,
 				183B03CD18E110F500765116 /* ABMGroupedTableView.m in Sources */,
 				182F9F6318E976D2001AF49D /* UIScrollView+SVPullToRefresh.m in Sources */,

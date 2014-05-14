@@ -76,7 +76,7 @@
 #define API_WORKS_REMOVE API_PATH(@"/works/%d/remove")
 
 #define API_STAFFS_SEARCH API_PATH(@"/staffs")
-#define API_STAFFS_MINE API_PATH(@"/staffs/mine")
+#define API_STAFFS_MINE API_PATH(@"/staffs/mystaffs")
 #define API_STAFFS_LIKED API_PATH(@"/staffs/liked")
 #define API_STAFFS_LIKE API_PATH(@"/staffs/%d/likes")
 #define API_STAFFS_DETAIL API_PATH(@"/staffs/%d")
@@ -130,6 +130,7 @@
 #define NOTIFICATION_SHOW_LOGIN_VIEW  @"Notification_ShowLoginView"
 #define NOTIFICATION_NEW_MESSAGE_RECEIVED @"NewMessageReceived"
 #define NOTIFICATION_STAFF_GET_APPOINMENT @"StaffGetAppointment"
+#define NOTIFICATION_GOTO_HAIR_RECORD_VIEW @"GotoHairRecordView"
 
 #define REMOTE_NOTIFICATION_TYPE_STAFF_GET_APPOINTMENT  1
 

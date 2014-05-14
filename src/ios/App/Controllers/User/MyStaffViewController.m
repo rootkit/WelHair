@@ -13,6 +13,7 @@
 #import "Staff.h"
 #import "StaffCell.h"
 #import "StaffDetailViewController.h"
+#import "CommentComposorViewController.h"
 
 @interface MyStaffViewController () <UITableViewDataSource, UITableViewDelegate >
 
@@ -51,7 +52,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
     self.tableView = [[UITableView alloc] init];
     self.tableView.frame = CGRectMake(0,
                                       self.topBarOffset ,
@@ -127,9 +127,9 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    StaffDetailViewController *vc = [StaffDetailViewController new];
-    vc.staff = [self.datasource objectAtIndex:indexPath.row];
-    vc.hidesBottomBarWhenPushed = YES;
+    Staff *data = [self.datasource objectAtIndex:indexPath.row];
+    CommentComposorViewController *vc = [CommentComposorViewController new];
+    vc.userId =data.id;
     [self.navigationController pushViewController:vc animated:YES];
 }
 

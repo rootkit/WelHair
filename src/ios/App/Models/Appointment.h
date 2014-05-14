@@ -35,6 +35,7 @@ typedef enum {
 @property (nonatomic) int paymentTransactionId;
 
 @property (nonatomic, strong) NSDate *date;
+@property (nonatomic, strong) NSArray *imgUrlList;
 
 - (Appointment *)initWithDic:(NSDictionary *)dictionary;
 - (NSDictionary *)dictionaryFromAppointment:(Appointment *)appointment;

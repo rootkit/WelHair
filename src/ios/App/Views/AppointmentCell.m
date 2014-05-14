@@ -199,7 +199,8 @@
         }
         case WHApppointmentStatusCompleted: {
             self.statusLbl.hidden = NO;
-            self.actionBtn.hidden = YES;
+            self.actionBtn.tag = 3;
+            [self.actionBtn setTitle:@"效果图" forState:UIControlStateNormal];
             self.statusLbl.text = @"已完成";
             break;
         }
@@ -219,7 +220,6 @@
 - (void)actionClick:(UIButton *)sender
 {
     [SVProgressHUD showWithMaskType:SVProgressHUDMaskTypeClear];
-
     if (sender.tag == 1) {
         [SVProgressHUD showSuccessWithStatus:@"去支付宝了"];
     }
@@ -235,6 +235,10 @@
         [request setDidFinishSelector:@selector(updateAppointmentFinish:)];
         [request setDidFailSelector:@selector(updateAppointmentFail:)];
         [request startAsynchronous];
+    }
+    if(sender.tag ==3 ){
+        [SVProgressHUD dismiss];;
+        [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_GOTO_HAIR_RECORD_VIEW object:self.appointment userInfo:nil];
     }
 }
 

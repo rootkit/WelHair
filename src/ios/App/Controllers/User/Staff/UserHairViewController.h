@@ -7,7 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
-
-@interface UserHairViewController : UIViewController
+#import "BaseViewController.h"
+#import "Appointment.h"
+@interface UserHairViewController : BaseViewController
+@property (nonatomic, strong) Appointment *appointment;
 
 @end
