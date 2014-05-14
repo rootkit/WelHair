@@ -336,6 +336,7 @@
 		46DB8CDD191F29E900B3AB40 /* MyStaffViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 46DB8CDC191F29E900B3AB40 /* MyStaffViewController.m */; };
 		46DB8CE8191F949700B3AB40 /* MyClientViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 46DB8CE7191F949700B3AB40 /* MyClientViewController.m */; };
 		46DB8CEC192100C900B3AB40 /* JSBadgeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 46DB8CEB192100C900B3AB40 /* JSBadgeView.m */; };
+		46DB8EDD1922535B00B3AB40 /* AppointmentRecordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 46DB8EDC1922535B00B3AB40 /* AppointmentRecordViewController.m */; };
 		46E258701900E28E005DFBCE /* WFViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 46E2586F1900E28E005DFBCE /* WFViewController.m */; };
 		46E84EBF18C2C7040004C146 /* centerIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 46E84EBA18C2C7040004C146 /* centerIcon@2x.png */; };
 		46E84EC018C2C7040004C146 /* UIScrollView+UzysCircularProgressPullToRefresh.m in Sources */ = {isa = PBXBuildFile; fileRef = 46E84EBC18C2C7040004C146 /* UIScrollView+UzysCircularProgressPullToRefresh.m */; };
@@ -945,6 +946,8 @@
 		46DB8CE7191F949700B3AB40 /* MyClientViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyClientViewController.m; sourceTree = "<group>"; };
 		46DB8CEA192100C900B3AB40 /* JSBadgeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSBadgeView.h; sourceTree = "<group>"; };
 		46DB8CEB192100C900B3AB40 /* JSBadgeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSBadgeView.m; sourceTree = "<group>"; };
+		46DB8EDB1922535B00B3AB40 /* AppointmentRecordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppointmentRecordViewController.h; sourceTree = "<group>"; };
+		46DB8EDC1922535B00B3AB40 /* AppointmentRecordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppointmentRecordViewController.m; sourceTree = "<group>"; };
 		46E2586E1900E28E005DFBCE /* WFViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WFViewController.h; sourceTree = "<group>"; };
 		46E2586F1900E28E005DFBCE /* WFViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WFViewController.m; sourceTree = "<group>"; };
 		46E84EBA18C2C7040004C146 /* centerIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "centerIcon@2x.png"; sourceTree = "<group>"; };
@@ -1181,10 +1184,10 @@
 		187638CD1910BBFF00846BB9 /* MyClient */ = {
 			isa = PBXGroup;
 			children = (
-				46DB8CE7191F949700B3AB40 /* MyClientViewController.m */,
 				187638D11910BC2B00846BB9 /* MyClientDetailViewController.h */,
 				187638D21910BC2B00846BB9 /* MyClientDetailViewController.m */,
 				187638CE1910BC1900846BB9 /* MyClientViewController.h */,
+				46DB8CE7191F949700B3AB40 /* MyClientViewController.m */,
 			);
 			path = MyClient;
 			sourceTree = "<group>";
@@ -1848,6 +1851,8 @@
 				46BDF13618D1771E00999F50 /* Staff */,
 				4673BB5F18D2ED4D000F64DE /* AppointmentsViewController.h */,
 				4673BB6018D2ED4D000F64DE /* AppointmentsViewController.m */,
+				46DB8EDB1922535B00B3AB40 /* AppointmentRecordViewController.h */,
+				46DB8EDC1922535B00B3AB40 /* AppointmentRecordViewController.m */,
 				467F0EFB18CB5A8C009FFE08 /* FavoritesViewController.h */,
 				467F0EFC18CB5A8C009FFE08 /* FavoritesViewController.m */,
 				46B233B518BCDC4200CC27A3 /* LoginViewController.h */,
@@ -2748,6 +2753,7 @@
 				187638D31910BC2B00846BB9 /* MyClientDetailViewController.m in Sources */,
 				4673BB9918D41BA1000F64DE /* WithDrawalViewController.m in Sources */,
 				467F0EFD18CB5A8C009FFE08 /* FavoritesViewController.m in Sources */,
+				46DB8EDD1922535B00B3AB40 /* AppointmentRecordViewController.m in Sources */,
 				4673BB9C18D41BBB000F64DE /* ApprovalViewController.m in Sources */,
 				464BF44C18D56F0F006EBCD9 /* StaffAddServiceViewController.m in Sources */,
 				4673BBA218D41EE9000F64DE /* StaffManageViewController.m in Sources */,

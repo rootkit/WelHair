@@ -51,7 +51,7 @@
                     user.avatarUrl = [NSURL URLWithString:[set stringForColumn:@"AvatorUrl"]];
                     user.role = [set intForColumn:@"Role"];
                     user.followed = [set boolForColumn:@"Followed"];
-                    user.isApproving = [set boolForColumn:@"IsApproving"];
+                    user.approveStatus = [set intForColumn:@"ApproveStatus"];
                     _userLogined = user;
                     break;
                 }
@@ -80,7 +80,7 @@
             NSString *userSql;
             BOOL runSqlSuccess = NO;
             if ([set next]) {
-                userSql = @"update User set GroupId = ?, UserName = ?, Email = ?,AvatorUrl = ?,NickName = ?, Role = ?, Followed = ?, IsApproving = ? where UserId = ?";
+                userSql = @"update User set GroupId = ?, UserName = ?, Email = ?,AvatorUrl = ?,NickName = ?, Role = ?, Followed = ?, ApproveStatus = ? where UserId = ?";
                runSqlSuccess  = [db executeUpdate:userSql,
                                  @(userLogined.groupId),
                                    userLogined.username,
@@ -89,10 +89,10 @@
                                    userLogined.nickname,
                                    @(userLogined.role),
                                    @(userLogined.followed),
-                                   @(userLogined.isApproving),
+                                   @(userLogined.approveStatus),
                                  @(userLogined.id)];
             }else{
-                userSql = @"insert into User (UserId, GroupId, UserName, Email,AvatorUrl,NickName, Role, Followed, IsApproving) values(?,?,?,?,?,?,?,?,?) ";
+                userSql = @"insert into User (UserId, GroupId, UserName, Email,AvatorUrl,NickName, Role, Followed, ApproveStatus) values(?,?,?,?,?,?,?,?,?) ";
                 runSqlSuccess  = [db executeUpdate:userSql,
                                    @(userLogined.id),
                                     @(userLogined.groupId),
@@ -102,7 +102,7 @@
                                   userLogined.nickname,
                                   @(userLogined.role),
                                   @(userLogined.followed),
-                                  @(userLogined.isApproving)];
+                                  @(userLogined.approveStatus)];
             }
             [set close];
   

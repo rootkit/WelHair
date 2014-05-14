@@ -31,11 +31,22 @@
         if ([dictionary objectForKey:@"Followed"] && [dictionary objectForKey:@"Followed"] != [NSNull null]) {
             self.followed = [[dictionary objectForKey:@"Followed"] intValue] == 1;
         }
-
-        if ([dictionary objectForKey:@"IsApproved"] && [dictionary objectForKey:@"IsApproved"] != [NSNull null]) {
-            self.isApproving = [[dictionary objectForKey:@"IsApproved"] intValue] == 0;
+        
+        id groupDic = [dictionary objectForKey:@"Company"];
+        WHGroupStatus groupStatus = Invalid;
+        if(groupDic && groupDic != [NSNull null]){
+            self.groupId = [[((NSDictionary *)groupDic) objectForKey:@"CompanyId"] intValue];
+            groupStatus = [[(NSDictionary *)groupDic objectForKey:@"Status"] intValue];
         }
-
+        // approve status
+        if(self.role == WHClient){
+            self.approveStatus = WHApproveStatusApproved;
+        }else{
+            self.approveStatus = groupStatus == Invalid ? WHApproveStatusUnknow :
+                            groupStatus == Requested ? WHApproveStatusApproving :
+                            WHApproveStatusApproved;
+        }
+        
         if ([dictionary objectForKey:@"Mobile"] && [dictionary objectForKey:@"Mobile"] != [NSNull null]) {
             self.mobile = [dictionary objectForKey:@"Mobile"];
         }
@@ -45,10 +56,6 @@
             self.imgUrls = [dictionary objectForKey:@"ProfileBackgroundUrl"];
         } else {
             self.imgUrls = @[];
-        }
-        id groupDic = [dictionary objectForKey:@"Company"];
-        if(groupDic && groupDic != [NSNull null]){
-            self.groupId = [[((NSDictionary *)groupDic) objectForKey:@"CompanyId"] intValue];
         }
     }
 

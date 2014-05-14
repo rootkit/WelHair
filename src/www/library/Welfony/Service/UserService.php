@@ -54,7 +54,7 @@ class UserService
         $newId = UserRepository::getInstance()->save($data);
         if ($newId) {
             $data['UserId'] = $newId;
-            $data['IsApproved'] = 1;
+            $data['IsApproved'] = $data['Role'] == UserRole::Client ? 1 : 0;
             unset($data['Password']);
 
             $result['success'] = true;
@@ -108,7 +108,7 @@ class UserService
         $newId = UserRepository::getInstance()->save($data);
         if ($newId) {
             $data['UserId'] = $newId;
-            $data['IsApproved'] = 1;
+            $data['IsApproved'] = $data['Role'] == UserRole::Client ? 1 : 0;
             unset($data['Password']);
 
             $result['success'] = true;
@@ -208,14 +208,14 @@ class UserService
         if ($companyUser) {
             $user['IsApproved'] = $companyUser['IsApproved'];
         } else {
-            if ($user['Role'] == UserRole::Staff || $user['Role'] == UserRole::Manager) {
-                $smData = array(
-                    'UserId' => $user['UserId'],
-                    'Role' => UserRole::Client
-                );
-                UserRepository::getInstance()->update($user['UserId'], $smData);
-            }
-            $user['Role'] = $user['Role'] == UserRole::Admin ? UserRole::Admin : UserRole::Client;
+            // if ($user['Role'] == UserRole::Staff || $user['Role'] == UserRole::Manager) {
+            //     $smData = array(
+            //         'UserId' => $user['UserId'],
+            //         'Role' => UserRole::Client
+            //     );
+            //     UserRepository::getInstance()->update($user['UserId'], $smData);
+            // }
+            // $user['Role'] = $user['Role'] == UserRole::Admin ? UserRole::Admin : UserRole::Client;
             $user['IsApproved'] = 1;
         }
 

@@ -84,10 +84,10 @@ static const float profileViewHeight = 90;
     User *user = [UserManager SharedInstance].userLogined;
     if(user == nil){
         
-    }else if(user.role != WHClient && user.groupId <= 0 && user.isApproving == NO){
+    }else if(user.role != WHClient && user.groupId <= 0 && user.approveStatus == WHApproveStatusUnknow){
         [menuList addObject:@[SettingJoinGroup]];
         [menuIconList addObject:@[[FAKIonIcons ios7ChatboxesOutlineIconWithSize:NAV_BAR_ICON_SIZE]]];
-    }else if(user.isApproving && user.groupId < 0){
+    }else if(user.approveStatus == WHApproveStatusApproving && user.groupId > 0){
         [menuList addObject:@[SettingGroupPending]];
         [menuIconList addObject:@[[FAKIonIcons ios7ChatboxesOutlineIconWithSize:NAV_BAR_ICON_SIZE]]];
     }else if(user.role == WHStaff || user.role == WHManager){
@@ -315,13 +315,6 @@ static const float profileViewHeight = 90;
         self.imgSlider.hidden = YES;
     }
     
-    if ([[rst objectForKey:@"IsApproved"] isEqualToString:@"0"] || [[(NSDictionary *)companyDic objectForKey:@"Status"] intValue] == Requested) {
-        usr.isApproving = true;
-        
-    }else if ([[rst objectForKey:@"IsApproved"] isEqualToString:@"1"] && [[(NSDictionary *)companyDic objectForKey:@"Status"] intValue] == Valid) {
-        usr.isApproving = false;
-        usr.role = [[rst objectForKey:@"Role"] intValue];
-    }
     [UserManager SharedInstance].userLogined = usr;
     [self refreshTableView];
 }
@@ -485,7 +478,7 @@ static const float profileViewHeight = 90;
         [self.navigationController pushViewController:vc animated:YES];
     }else if([title isEqual:SettingGroupPending]){
         [self getStaffDetail];
-        if ([UserManager SharedInstance].userLogined.isApproving) {
+        if ([UserManager SharedInstance].userLogined.approveStatus == WHApproveStatusApproving) {
             [SVProgressHUD showErrorWithStatus:@"正在审核中，请耐心等待。" duration:1];
             [self getStaffDetail];
             return;

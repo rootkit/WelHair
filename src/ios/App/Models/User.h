@@ -20,6 +20,12 @@ typedef enum {
     WHClient = 4
 } WHUserRole;
 
+typedef enum {
+    WHApproveStatusUnknow = 0,
+    WHApproveStatusApproving = 1,
+    WHApproveStatusApproved = 2
+} WHUserApproveStatus;
+
 @interface User : BaseModel
 
 @property (nonatomic, assign) int id;
@@ -34,7 +40,7 @@ typedef enum {
 @property (nonatomic, strong) NSArray *imgUrls;
 @property (nonatomic, strong) NSDate *createdDate;
 @property (nonatomic, assign) BOOL followed;
-@property (nonatomic, assign) BOOL isApproving;
+@property (nonatomic, assign) WHUserApproveStatus approveStatus;
 
 - (User *)initWithDic:(NSDictionary *)dictionary;
 - (NSDictionary *)dictionaryFromUser:(User *)user;
