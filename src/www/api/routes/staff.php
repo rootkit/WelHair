@@ -39,6 +39,11 @@ $app->get('/staffs/:staffId/clients', function ($staffId) use ($app) {
     $ctrl->listClients($staffId);
 })->conditions(array('staffId' => '\d{1,10}'));
 
+$app->get('/staffs/mystaffs', function () use ($app) {
+    $ctrl = new StaffController();
+    $ctrl->listMyStaffs();
+});
+
 $app->get('/staffs/:staffId/works', function ($staffId) use ($app) {
     $ctrl = new StaffController();
     $ctrl->listWorks($staffId);
