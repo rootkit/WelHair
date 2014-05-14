@@ -63,9 +63,9 @@
         [leftIcon addAttribute:NSForegroundColorAttributeName value:[UIColor whiteColor]];
         self.leftNavItemImg  =[leftIcon imageWithSize:CGSizeMake(NAV_BAR_ICON_SIZE, NAV_BAR_ICON_SIZE)];
         
-        FAKIcon *rightIcon = [FAKIonIcons androidShareIconWithSize:25];
+        FAKIcon *rightIcon = [FAKIonIcons androidShareIconWithSize:20];
         [rightIcon addAttribute:NSForegroundColorAttributeName value:[UIColor whiteColor]];
-        self.rightNavItemImg =[rightIcon imageWithSize:CGSizeMake(25,25)];
+        self.rightNavItemImg =[rightIcon imageWithSize:CGSizeMake(20,20)];
         
         self.currentPage = 1;
     }

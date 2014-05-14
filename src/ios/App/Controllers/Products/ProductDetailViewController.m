@@ -66,14 +66,34 @@
         FAKIcon *leftIcon = [FAKIonIcons ios7ArrowBackIconWithSize:NAV_BAR_ICON_SIZE];
         [leftIcon addAttribute:NSForegroundColorAttributeName value:[UIColor whiteColor]];
         self.leftNavItemImg =[leftIcon imageWithSize:CGSizeMake(NAV_BAR_ICON_SIZE, NAV_BAR_ICON_SIZE)];
+        FAKIcon *rightIcon = [FAKIonIcons androidShareIconWithSize:20];
+        [rightIcon addAttribute:NSForegroundColorAttributeName value:[UIColor whiteColor]];
+        self.rightNavItemImg =[rightIcon imageWithSize:CGSizeMake(20, 20)];
     }
-
     return self;
 }
 
 - (void)leftNavItemClick
 {
     [self.navigationController popViewControllerAnimated:YES];
+}
+
+- (void)rightNavItemClick
+{
+    NSString *shareText = self.product.name;
+    UIImageView *v = [[UIImageView alloc] init];
+    [v setImageWithURL:self.product.imgUrlList[0]];
+    UIImage *img = v.image;
+    [UMSocialSnsService presentSnsIconSheetView:self
+                                         appKey:CONFIG_UMSOCIAL_APPKEY
+                                      shareText:shareText
+                                     shareImage:img
+                                shareToSnsNames:[NSArray arrayWithObjects:
+                                                 UMShareToSina,
+                                                 UMShareToTencent,
+                                                 UMShareToQQ,
+                                                 UMShareToWechatSession,nil]
+                                       delegate:self];
 }
 
 - (void)loadView
@@ -153,14 +173,15 @@
         [sliderArray addObject:slideImg];
     }
     [self.imgSlider setSlides:sliderArray];
-
-#pragma action section
-    UIView *actionView = [[UIView alloc] initWithFrame:CGRectMake(10, MaxY(self.imgSlider), 300, 35)];
-    actionView.layer.borderColor = [[UIColor colorWithHexString:@"e1e1e1"] CGColor];
-    actionView.layer.borderWidth = 1;
-    actionView.layer.cornerRadius = 5;
-    actionView.backgroundColor = [UIColor whiteColor];
-    [self.scrollView addSubview:actionView];
+    
+#pragma product name & price
+    self.productNameLbl = [[UILabel alloc] initWithFrame:CGRectMake(10, MaxY(self.imgSlider) + 5,220,40)];
+    self.productNameLbl.textAlignment = NSTextAlignmentLeft;
+    self.productNameLbl.textColor = [UIColor blackColor];
+    self.productNameLbl.font = [UIFont systemFontOfSize:18];
+    self.productNameLbl.backgroundColor = [UIColor clearColor];
+    [self.scrollView addSubview:self.productNameLbl];
+    
     
     FAKIcon *heartIconOn = [FAKIonIcons ios7HeartIconWithSize:25];
     [heartIconOn addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithHexString:@"e43a3d"]];
@@ -173,30 +194,9 @@
                        toggleEventHandler:^(BOOL isOn){
                            return [weakSelf favClick:isOn];
                        }];
-    self.heartBtn.frame = CGRectMake((150 - 25)/2, 5, 25, 25);
-    [actionView addSubview:self.heartBtn];
-    
-    UIView *actionLinerView = [[UIView alloc] initWithFrame:CGRectMake(150, 5, 1, 25)];
-    actionLinerView.backgroundColor = [UIColor lightGrayColor];
-    [actionView addSubview:actionLinerView];
-    
-    
-    
-    UIButton *shareBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    FAKIcon *shareIcon = [FAKIonIcons androidShareIconWithSize:25];
-    [shareIcon addAttribute:NSForegroundColorAttributeName value:[UIColor lightGrayColor]];
-    [shareBtn setImage:[shareIcon imageWithSize:CGSizeMake(25, 25)] forState:UIControlStateNormal ];
-    [shareBtn addTarget:self action:@selector(shareClick) forControlEvents:UIControlEventTouchDown];
-    shareBtn.frame = CGRectMake(150 + (150 -25)/2, 7, 20, 20);
-    [actionView addSubview:shareBtn];
-    
-#pragma product name & price
-    self.productNameLbl = [[UILabel alloc] initWithFrame:CGRectMake(10, MaxY(actionView) + 5,220,40)];
-    self.productNameLbl.textAlignment = NSTextAlignmentLeft;
-    self.productNameLbl.textColor = [UIColor blackColor];
-    self.productNameLbl.font = [UIFont systemFontOfSize:18];
-    self.productNameLbl.backgroundColor = [UIColor clearColor];
-    [self.scrollView addSubview:self.productNameLbl];
+    self.heartBtn.frame = CGRectMake(270, Y(self.productNameLbl)+7, 25, 25);
+    [self.scrollView addSubview:self.heartBtn];
+
     
     // add kvo for product count
     [self observeProperty:@keypath(self.order.count) withBlock:
@@ -205,7 +205,7 @@
      }];
     [self observeProperty:@keypath(self.order.price) withBlock:
      ^(__weak typeof(self) selfDelegate, NSNumber *oldPrice, NSNumber *newPrice) {
-         if(newPrice > 0){
+         if([newPrice floatValue] > 0){
              selfDelegate.priceLbl.text =[NSString stringWithFormat:@"￥%.2f",[newPrice floatValue]];
          }else{
              selfDelegate.priceLbl.text = nil;
@@ -246,23 +246,7 @@
     [self OpenImageGallery];
 }
 
-- (void)shareClick
-{
-    NSString *shareText = self.product.name;
-    UIImageView *v = [[UIImageView alloc] init];
-    [v setImageWithURL:self.product.imgUrlList[0]];
-    UIImage *img = v.image;
-    [UMSocialSnsService presentSnsIconSheetView:self
-                                         appKey:CONFIG_UMSOCIAL_APPKEY
-                                      shareText:shareText
-                                     shareImage:img
-                                shareToSnsNames:[NSArray arrayWithObjects:
-                                                 UMShareToSina,
-                                                 UMShareToTencent,
-                                                 UMShareToQQ,
-                                                 UMShareToWechatSession,nil]
-                                       delegate:self];
-}
+
 
 
 - (BOOL)favClick:(BOOL)markFav
