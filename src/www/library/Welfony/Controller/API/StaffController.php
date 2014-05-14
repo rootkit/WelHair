@@ -70,8 +70,8 @@ class StaffController extends AbstractAPIController
         $page = intval($this->app->request->get('page'));
         $pageSize = intval($this->app->request->get('pageSize'));
 
-        $staffList = StaffService::listMyStaffs($page, $pageSize, 1002);
-        $this->sendResponse($staffList);
+        $staffList = StaffService::listMyStaffs($page, $pageSize, $this->currentContext['UserId']);
+        $this->sendResponse($$staffList);
     }
 
 
