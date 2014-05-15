@@ -129,8 +129,10 @@
     [reqData setObject:@"1" forKey:@"MediaType"];
     [reqData setObject:[NSNumber numberWithInt:WHMessageTypeNewMessage] forKey:@"Type"];
 
-    NSString *message = [Util parseJsonFromObject:reqData];
-    //[[WebSocketUtil sharedInstance].webSocket send:message];
+    if ([WebSocketUtil sharedInstance].isOpen) {
+        NSString *message = [Util parseJsonFromObject:reqData];
+        [[WebSocketUtil sharedInstance].webSocket send:message];
+    }
 
     Message *msg = [Message new];
     msg.body = text;

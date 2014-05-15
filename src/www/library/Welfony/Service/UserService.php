@@ -45,7 +45,7 @@ class UserService
         $data = array();
         $data['Username'] = Util::genRandomUsername();
         $data['Nickname'] = $nickname ? $nickname : $mobile;
-        $data['Role'] = empty($role) ? UserRole::Client : $role;
+        $data['Role'] = $role;
         $data['Mobile'] = $mobile;
         $data['Password'] = PassHash::hash($password);
         $data['AvatarUrl'] = Util::baseAssetUrl('img/avatar-default.jpg');

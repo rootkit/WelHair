@@ -92,9 +92,10 @@ static const float kOffsetY = 50;
     [self.viewContainer addSubview:self.pwdTxt];
     
     UIButton *loginBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    loginBtn.backgroundColor = [UIColor colorWithHexString:@"e4393c"];
     loginBtn.frame = CGRectMake(margin, MaxY(self.pwdTxt) + 20, WIDTH(self.emailTxt), 40);
     loginBtn.titleLabel.font = [UIFont systemFontOfSize:18];
+
+    [loginBtn setBackgroundImage:[UIImage imageWithColor:[UIColor colorWithHexString:@"4CD964"] cornerRadius:0] forState:UIControlStateNormal];
     [loginBtn setTitle:@"登录" forState:UIControlStateNormal];
     [loginBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [loginBtn addTarget:self action:@selector(loginClick) forControlEvents:UIControlEventTouchUpInside];
@@ -265,8 +266,10 @@ static const float kOffsetY = 50;
             [dicData setObject:[NSNumber numberWithInt:[UserManager SharedInstance].userLogined.id] forKey:@"UserId"];
             [dicData setObject:[NSNumber numberWithInt:WHMessageTypeUpdateUser] forKey:@"Type"];
 
-            NSString *message = [Util parseJsonFromObject:dicData];
-//            [[WebSocketUtil sharedInstance].webSocket send:message];
+            if ([WebSocketUtil sharedInstance].isOpen) {
+                NSString *message = [Util parseJsonFromObject:dicData];
+                [[WebSocketUtil sharedInstance].webSocket send:message];
+            }
 
             [self dismissViewControllerAnimated:YES completion:nil];
 

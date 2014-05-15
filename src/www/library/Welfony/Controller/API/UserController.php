@@ -14,6 +14,7 @@
 
 namespace Welfony\Controller\API;
 
+use Welfony\Core\Enum\UserRole;
 use Welfony\Controller\Base\AbstractAPIController;
 use Welfony\Service\UserLikeService;
 use Welfony\Service\UserPointService;
@@ -90,7 +91,7 @@ class UserController extends AbstractAPIController
             $nickname = htmlspecialchars($reqData['Nickname']);
             $email = htmlspecialchars($reqData['Email']);
             $password = $reqData['Password'];
-            $role = $reqData['Role'];
+            $role = !isset($reqData['Role']) ? UserRole::Client : $reqData['Role'];
             $response = UserService::signUpWithEmail($email, $password, $role, $nickname);
         }
 
@@ -119,7 +120,7 @@ class UserController extends AbstractAPIController
             $nickname = htmlspecialchars($reqData['Nickname']);
             $mobile = htmlspecialchars($reqData['Mobile']);
             $password = $reqData['Password'];
-            $role = $reqData['Role'];
+            $role = !isset($reqData['Role']) ? UserRole::Client : $reqData['Role'];
             $response = UserService::signUpWithMobile($mobile, $password, $role, $nickname);
         }
 

@@ -115,18 +115,20 @@ static const float kOffsetY = 140;
     [self.viewContainer addSubview:self.repeatePwdTxt];
 
     UIButton *customRegisterBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    customRegisterBtn.backgroundColor = [UIColor colorWithHexString:@"e4393c"];
-    customRegisterBtn.frame = CGRectMake(margin, MaxY(self.repeatePwdTxt) + 20, 100, 40);
+    customRegisterBtn.frame = CGRectMake(margin, MaxY(self.repeatePwdTxt) + 20, 110, 40);
     customRegisterBtn.titleLabel.font = [UIFont systemFontOfSize:18];
+
+    [customRegisterBtn setBackgroundImage:[UIImage imageWithColor:[UIColor colorWithHexString:@"4CD964"] cornerRadius:0] forState:UIControlStateNormal];
     [customRegisterBtn setTitle:@"顾客" forState:UIControlStateNormal];
     [customRegisterBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [customRegisterBtn addTarget:self action:@selector(customerRegisterClick) forControlEvents:UIControlEventTouchUpInside];
     [self.viewContainer addSubview:customRegisterBtn];
     
     UIButton *staffRegisterbtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    staffRegisterbtn.backgroundColor = [UIColor colorWithHexString:@"e4393c"];
-    staffRegisterbtn.frame = CGRectMake(MaxX(customRegisterBtn) + 40, MaxY(self.repeatePwdTxt) + 20, 100, 40);
+    staffRegisterbtn.frame = CGRectMake(MaxX(customRegisterBtn) + 20, MaxY(self.repeatePwdTxt) + 20, 110, 40);
     staffRegisterbtn.titleLabel.font = [UIFont systemFontOfSize:18];
+
+    [staffRegisterbtn setBackgroundImage:[UIImage imageWithColor:[UIColor colorWithHexString:@"C7C7CC"] cornerRadius:0] forState:UIControlStateNormal];
     [staffRegisterbtn setTitle:@"发型师" forState:UIControlStateNormal];
     [staffRegisterbtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [staffRegisterbtn addTarget:self action:@selector(staffRegisterClick) forControlEvents:UIControlEventTouchUpInside];
@@ -230,7 +232,8 @@ static const float kOffsetY = 140;
     [request startAsynchronous];
 }
 
-- (void)staffRegisterClick{
+- (void)staffRegisterClick
+{
     if (![self validInput]) {
         return;
     }
@@ -280,8 +283,10 @@ static const float kOffsetY = 140;
             [dicData setObject:[NSNumber numberWithInt:[UserManager SharedInstance].userLogined.id] forKey:@"UserId"];
             [dicData setObject:[NSNumber numberWithInt:WHMessageTypeUpdateUser] forKey:@"Type"];
 
-            NSString *message = [Util parseJsonFromObject:dicData];
-           // [[WebSocketUtil sharedInstance].webSocket send:message];
+            if ([WebSocketUtil sharedInstance].isOpen) {
+                NSString *message = [Util parseJsonFromObject:dicData];
+                [[WebSocketUtil sharedInstance].webSocket send:message];
+            }
 
             [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_USER_STATUS_CHANGE object:nil];
             [self dismissViewControllerAnimated:YES completion:nil];
