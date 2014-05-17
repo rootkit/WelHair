@@ -152,5 +152,6 @@
 #define CHARACTER_ARRAY  @[@'A',@'B',@'C',@'D',@'E',@'F',@'G',@'H',@'I',@'J',@'K',@'L',@'M',@'N',@'O',@'P',@'Q',@'R',@'S',@'T',@'U',@'V',@'W',@'X',@'Y',@'Z']
 
 
+#define  DefaultAvatorImage @"AvatarDefault.jpg"
 #define  JINAN_CENTER_COORDINATE  CLLocationCoordinate2DMake(36.670266,117.149292);
 

@@ -33,7 +33,6 @@
 #import "UserViewController.h"
 #import "OrderListViewController.h"
 #import "FeedbackViewController.h"
-#define  DefaultAvatorImage @"AvatarDefault.jpg"
 #define  SettingMyGroup      @"我的沙龙"
 #define  SettingJoinGroup    @"加入沙龙"
 #define  SettingGroupPending      @"审核中"
@@ -297,7 +296,7 @@ static const float profileViewHeight = 90;
         companyDic = nil;
     }
     self.addressLbl.text = [(NSDictionary *)companyDic objectForKey:@"Address"];
-    [self.avatorImgView setImageWithURL:usr.avatarUrl];
+    [self.avatorImgView setImageWithURL:usr.avatarUrl  placeholderImage:[UIImage imageNamed:DefaultAvatorImage]];
     self.nameLbl.text = usr.nickname;
     
     if (usr.imgUrls.count > 0) {
@@ -347,7 +346,7 @@ static const float profileViewHeight = 90;
     
     User *usr = [UserManager SharedInstance].userLogined;
     
-    [self.avatorImgView setImageWithURL:usr.avatarUrl];
+    [self.avatorImgView setImageWithURL:usr.avatarUrl placeholderImage:[UIImage imageNamed:DefaultAvatorImage]];
     self.nameLbl.text = usr.nickname;
     
     if (usr.imgUrls.count > 0) {

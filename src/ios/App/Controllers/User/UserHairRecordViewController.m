@@ -137,7 +137,6 @@
     [self.view addSubview:self.scrollView];
     CGColorRef borderColor = [[UIColor colorWithHexString:@"e1e1e1"] CGColor];
     float margin = 10;
-    float viewHeight = 44;
     
     UILabel *info1lbl = [[UILabel alloc] initWithFrame:CGRectMake(margin, margin, 100, 20)];
     info1lbl.backgroundColor = [UIColor clearColor];
