@@ -17,8 +17,8 @@ namespace Welfony\Service;
 use Welfony\Core\Enum\CompanyStatus;
 use Welfony\Core\Enum\NotificationType;
 use Welfony\Repository\AppointmentRepository;
-use Welfony\Repository\NotificationService;
 use Welfony\Repository\ServiceRepository;
+use Welfony\Service\NotificationService;
 
 class AppointmentService
 {
