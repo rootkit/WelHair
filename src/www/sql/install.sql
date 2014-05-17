@@ -1291,7 +1291,7 @@ CREATE TABLE IF NOT EXISTS `Withdrawal` (
   `UserId` int(11) unsigned NOT NULL COMMENT '提现ID',
   `Amount` decimal(15,2) NOT NULL DEFAULT '0.00' COMMENT '金额',
   `CreateTime` datetime DEFAULT NULL COMMENT '时间',
-  `Status` tinyint(1) NOT NULL DEFAULT '1' COMMENT '状态，0新建,1批准,2拒绝',
+  `Status` tinyint(1) NOT NULL DEFAULT '0' COMMENT '状态，0新建,1批准,2拒绝',
   `Description` text COMMENT '描述',
   PRIMARY KEY (`WithdrawalId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='用户提现请求';
@@ -1565,6 +1565,126 @@ BEGIN
         AND lower(COLUMN_NAME) ='withdrawalid'
   ) THEN
     ALTER TABLE `WithdrawalLog` ADD `WithdrawalId` INT NOT NULL COMMENT 'Withdrawal外键';
+  END IF;
+END;;
+
+DELIMITER ;
+CALL sp_update_table_field();
+DROP PROCEDURE IF EXISTS `sp_update_table_field`;
+
+-- ==============================================================================
+-- Change UserId to NULL on table Withdrawal
+-- ==============================================================================
+DELIMITER ;;
+CREATE PROCEDURE `sp_update_table_field`()
+BEGIN
+  IF EXISTS (
+      SELECT 1
+      FROM information_schema.COLUMNS
+      WHERE lower(TABLE_SCHEMA) = 'welhair'
+        AND lower(TABLE_NAME) ='withdrawal'
+        AND lower(COLUMN_NAME) ='userid'
+  ) THEN
+    ALTER TABLE `Withdrawal` CHANGE COLUMN `UserId` `UserId` int(11) unsigned NULL COMMENT '提现用户ID' ;
+  END IF;
+END;;
+
+DELIMITER ;
+CALL sp_update_table_field();
+DROP PROCEDURE IF EXISTS `sp_update_table_field`;
+
+
+-- ==============================================================================
+-- Change Status default to 0 on table Withdrawal
+-- ==============================================================================
+DELIMITER ;;
+CREATE PROCEDURE `sp_update_table_field`()
+BEGIN
+  IF EXISTS (
+      SELECT 1
+      FROM information_schema.COLUMNS
+      WHERE lower(TABLE_SCHEMA) = 'welhair'
+        AND lower(TABLE_NAME) ='withdrawal'
+        AND lower(COLUMN_NAME) ='status'
+  ) THEN
+    ALTER TABLE `Withdrawal` CHANGE COLUMN `Status` `Status` tinyint(1) NOT NULL DEFAULT '0' COMMENT '状态，0新建,1批准,2拒绝' ;
+  END IF;
+END;;
+
+DELIMITER ;
+CALL sp_update_table_field();
+DROP PROCEDURE IF EXISTS `sp_update_table_field`;
+
+
+-- ==============================================================================
+-- Add CompanyId, Bank, OpenAccountBank, AccountNo, AccountName to Withdrawal table
+-- ==============================================================================
+DELIMITER ;;
+
+CREATE PROCEDURE `sp_update_table_field`()
+BEGIN
+  IF NOT EXISTS (
+      SELECT 1
+      FROM information_schema.COLUMNS
+      WHERE lower(TABLE_SCHEMA) = 'welhair'
+        AND lower(TABLE_NAME) ='withdrawal'
+        AND lower(COLUMN_NAME) ='companyid'
+  ) THEN
+    ALTER TABLE `Withdrawal` ADD `CompanyId` INT NULL COMMENT '提现类型沙龙Id';
+  END IF;
+  IF NOT EXISTS (
+      SELECT 1
+      FROM information_schema.COLUMNS
+      WHERE lower(TABLE_SCHEMA) = 'welhair'
+        AND lower(TABLE_NAME) ='withdrawal'
+        AND lower(COLUMN_NAME) ='bank'
+  ) THEN
+    ALTER TABLE `Withdrawal` ADD `Bank` VARCHAR(255) NULL COMMENT '银行名称';
+  END IF;
+  IF NOT EXISTS (
+      SELECT 1
+      FROM information_schema.COLUMNS
+      WHERE lower(TABLE_SCHEMA) = 'welhair'
+        AND lower(TABLE_NAME) ='withdrawal'
+        AND lower(COLUMN_NAME) ='openaccountbank'
+  ) THEN
+    ALTER TABLE `Withdrawal` ADD `OpenAccountBank` VARCHAR(500) NULL COMMENT '开户行名称';
+  END IF;
+  IF NOT EXISTS (
+      SELECT 1
+      FROM information_schema.COLUMNS
+      WHERE lower(TABLE_SCHEMA) = 'welhair'
+        AND lower(TABLE_NAME) ='withdrawal'
+        AND lower(COLUMN_NAME) ='accountno'
+  ) THEN
+    ALTER TABLE `Withdrawal` ADD `AccountNo` VARCHAR(100) NULL COMMENT '账号';
+  END IF;
+  IF NOT EXISTS (
+      SELECT 1
+      FROM information_schema.COLUMNS
+      WHERE lower(TABLE_SCHEMA) = 'welhair'
+        AND lower(TABLE_NAME) ='withdrawal'
+        AND lower(COLUMN_NAME) ='accountname'
+  ) THEN
+    ALTER TABLE `Withdrawal` ADD `AccountName` VARCHAR(100) NULL COMMENT '账户名称';
+  END IF;
+  IF NOT EXISTS (
+      SELECT 1
+      FROM information_schema.COLUMNS
+      WHERE lower(TABLE_SCHEMA) = 'welhair'
+        AND lower(TABLE_NAME) ='withdrawal'
+        AND lower(COLUMN_NAME) ='comments'
+  ) THEN
+    ALTER TABLE `Withdrawal` ADD `Comments` VARCHAR(500) NULL COMMENT '备注：拒绝原因';
+  END IF;
+   IF NOT EXISTS (
+      SELECT 1
+      FROM information_schema.COLUMNS
+      WHERE lower(TABLE_SCHEMA) = 'welhair'
+        AND lower(TABLE_NAME) ='withdrawal'
+        AND lower(COLUMN_NAME) ='lastupdatedate'
+  ) THEN
+    ALTER TABLE `Withdrawal` ADD `LastUpdateDate` datetime DEFAULT NULL COMMENT '更新时间';
   END IF;
 END;;
 

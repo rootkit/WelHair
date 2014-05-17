@@ -124,7 +124,7 @@ class User_IndexController extends AbstractAdminController
         $this->view->pageTitle = '提现请求';
 
         $page = $this->_request->getParam('page')? intval($this->_request->getParam('page')) : 1;
-        $searchResult = WithdrawalService::listWithdrawal($page, $pageSize);
+        $searchResult = WithdrawalService::listUserWithdrawal($page, $pageSize);
 
         $this->view->dataList = $searchResult['withdrawals'];
         $this->view->pager = $this->renderPager($this->view->baseUrl('user/index/withdrawal?s='),

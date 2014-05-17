@@ -55,6 +55,58 @@ class WithdrawalRepository extends AbstractRepository
         return $this->conn->fetchAll($strSql);
     }
 
+    public function getAllUserWithdrawalCount()
+    {
+        $strSql = "SELECT
+                       COUNT(1) `Total`
+                   FROM Withdrawal
+                   WHERE UserId IS NOT NULL";
+
+        $row = $this->conn->fetchAssoc($strSql);
+
+        return $row['Total'];
+    }
+
+    public function listUserWithdrawal($pageNumber, $pageSize)
+    {
+
+        $offset = ($pageNumber - 1) * $pageSize;
+        $strSql = "SELECT W.*, U.Username AS Username, U.Nickname, U.Email
+                   FROM Withdrawal W
+                   LEFT JOIN Users U ON U.UserId = W.UserId
+                   WHERE W.UserId IS NOT NULL
+                   ORDER BY W.WithdrawalId
+                   LIMIT $offset, $pageSize ";
+
+        return $this->conn->fetchAll($strSql);
+    }
+
+    public function getAllCompanyWithdrawalCount()
+    {
+        $strSql = "SELECT
+                       COUNT(1) `Total`
+                   FROM Withdrawal
+                   WHERE CompanyId IS NOT NULL";
+
+        $row = $this->conn->fetchAssoc($strSql);
+
+        return $row['Total'];
+    }
+
+    public function listCompanyWithdrawal($pageNumber, $pageSize)
+    {
+
+        $offset = ($pageNumber - 1) * $pageSize;
+        $strSql = "SELECT W.*, C.Name AS Name
+                   FROM Withdrawal W
+                   LEFT JOIN Company C ON C.CompanyId = W.CompanyId
+                   WHERE W.CompanyId IS NOT NULL
+                   ORDER BY W.WithdrawalId
+                   LIMIT $offset, $pageSize ";
+
+        return $this->conn->fetchAll($strSql);
+    }
+
     public function getAllWithdrawalCountByUser($userId)
     {
         $strSql = "SELECT
@@ -74,6 +126,32 @@ class WithdrawalRepository extends AbstractRepository
         $strSql = "SELECT *
                    FROM Withdrawal
                    WHERE UserId = $userId
+                   ORDER BY WithdrawalId
+                   LIMIT $offset, $pageSize ";
+
+        return $this->conn->fetchAll($strSql);
+
+    }
+
+    public function getAllWithdrawalCountByCompany($companyId)
+    {
+        $strSql = "SELECT
+                       COUNT(1) `Total`
+                   FROM Withdrawal
+                   WHERE CompanyId = $companyId";
+
+        $row = $this->conn->fetchAssoc($strSql);
+
+        return $row['Total'];
+    }
+
+    public function listWithdrawalByCompany($companyId,$pageNumber, $pageSize)
+    {
+
+        $offset = ($pageNumber - 1) * $pageSize;
+        $strSql = "SELECT *
+                   FROM Withdrawal
+                   WHERE CompanyId = $companyId
                    ORDER BY WithdrawalId
                    LIMIT $offset, $pageSize ";
 

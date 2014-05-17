@@ -24,18 +24,39 @@ class WithdrawalService
         return  WithdrawalRepository::getInstance()->findWithdrawalById( $id);
 
     }
-    public static function listWithdrawal($pageNumber, $pageSize)
+    public static function listUserWithdrawal($pageNumber, $pageSize)
     {
         $result = array(
             'withdrawals' => array(),
             'total' => 0
         );
 
-        $totalCount = WithdrawalRepository::getInstance()->getAllWithdrawalCount();
+        $totalCount = WithdrawalRepository::getInstance()->getAllUserWithdrawalCount();
 
         if ($totalCount > 0 && $pageNumber <= ceil($totalCount / $pageSize)) {
 
-            $searchResult = WithdrawalRepository::getInstance()->listWithdrawal( $pageNumber, $pageSize);
+            $searchResult = WithdrawalRepository::getInstance()->listUserWithdrawal( $pageNumber, $pageSize);
+
+            $result['withdrawals']= $searchResult;
+        }
+
+        $result['total'] = $totalCount;
+
+        return $result;
+    }
+
+    public static function listCompanyWithdrawal($pageNumber, $pageSize)
+    {
+        $result = array(
+            'withdrawals' => array(),
+            'total' => 0
+        );
+
+        $totalCount = WithdrawalRepository::getInstance()->getAllCompanyWithdrawalCount();
+
+        if ($totalCount > 0 && $pageNumber <= ceil($totalCount / $pageSize)) {
+
+            $searchResult = WithdrawalRepository::getInstance()->listCompanyWithdrawal( $pageNumber, $pageSize);
 
             $result['withdrawals']= $searchResult;
         }
