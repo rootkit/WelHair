@@ -121,12 +121,13 @@ class AppointmentRepository extends AbstractRepository
                   $newId = $conn->lastInsertId();
                   if( $data['Status'] ==  '1')
                   {
-                     $conn->insert('PaymentTransaction', array(
+                     $conn->insert('CompanyBalanceLog', array(
+                        'CompanyId' => $data['CompanyId'],
                         'Amount' => $data['Price'],
                         'IncomeSrc' => 2,
                         'IncomeSrcId' => $data['AppointmentNo'],
-                        'CreatedDate'=> date('Y-m-d H:i:s'),
-                        'LastModifiedDate' =>date('Y-m-d H:i:s'),
+                        'CreateTime'=> date('Y-m-d H:i:s'),
+                        'Status' => 1,
                         'Description' => '预约【'.$data['AppointmentNo'].'】付款'.$data['Price']
                       ));
                   }
@@ -158,15 +159,16 @@ class AppointmentRepository extends AbstractRepository
             $existing = $this->conn->fetchAssoc($strSql, array($appointmentId));
 
             $ret =  $this->conn->update('Appointment', $data, array('AppointmentId' => $appointmentId));
-            if( $existing['Status'] == '0' && $existing['Status'] == '1')
+            if( $existing['Status'] == '0' && isset($data['Status']) && $data['Status'] == '1')
             {
-                 $conn->insert('PaymentTransaction', array(
-                        'Amount' => $existing['Price'],
+                 $conn->insert('CompanyBalanceLog', array(
+                        'CompanyId' => isset($data['CompanyId'])?$data['CompanyId']:$existing['CompanyId'],
+                        'Amount' => isset($data['Price'])?$data['Price']:$existing['Price'],
                         'IncomeSrc' => 2,
                         'IncomeSrcId' => $existing['AppointmentNo'],
-                        'CreatedDate'=> date('Y-m-d H:i:s'),
-                        'LastModifiedDate' =>date('Y-m-d H:i:s'),
-                        'Description' => '预约【'.$existing['AppointmentNo'].'】付款'.$existing['Price']
+                        'CreateTime'=> date('Y-m-d H:i:s'),
+                        'Status' => 1,
+                        'Description' => '预约【'.$existing['AppointmentNo'].'】付款'.(isset($data['Price'])?$data['Price']:$existing['Price'])
                       ));
             }
 
