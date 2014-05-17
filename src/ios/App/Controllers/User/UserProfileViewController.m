@@ -215,7 +215,7 @@
             [cellView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(viewTapped:)]];
 
             self.uploadLogo = [[UIImageView alloc] initWithFrame:CGRectMake(WIDTH(cellView) - 40, 4, 36, 36)];
-            [self.uploadLogo setImageWithURL:userLogined.avatarUrl];
+            [self.uploadLogo setImageWithURL:userLogined.avatarUrl placeholderImage:[UIImage imageNamed:DefaultAvatorImage]];
             [cellView addSubview:self.uploadLogo];
         } else {
             UITextField *txtField = [UITextField plainTextField:CGRectMake(MaxX(cellInfoLbl) + 10, 0, 190, HEIGHT(cellView))
@@ -519,7 +519,7 @@
         textField.text = user.mobile;
 
         self.uploadedPictures[0] = [user.avatarUrl absoluteString];
-        [self.uploadLogo setImageWithURL:user.avatarUrl];
+        [self.uploadLogo setImageWithURL:user.avatarUrl  placeholderImage:[UIImage imageNamed:DefaultAvatorImage]];
 
         for (int i =0 ; i < user.imgUrls.count; i++) {
             self.uploadedPictures[i + 1] = user.imgUrls[i];
