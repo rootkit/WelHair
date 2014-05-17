@@ -63,3 +63,13 @@ $app->post('/users/:userId/follow', function ($userId) use ($app) {
     $ctrl = new UserController();
     $ctrl->addFollow($userId);
 })->conditions(array('userId' => '\d{1,10}'));
+
+$app->post('/users/device', function () use ($app) {
+    $ctrl = new UserController();
+    $ctrl->addDevice();
+});
+
+$app->post('/users/device/remove', function () use ($app) {
+    $ctrl = new UserController();
+    $ctrl->removeDevice();
+});

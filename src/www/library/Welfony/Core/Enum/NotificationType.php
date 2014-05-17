@@ -18,5 +18,9 @@ use Welfony\Core\Enum;
 
 class NotificationType extends Enum
 {
-    const NotificationTypeStaffGetAppointment = 1;
+
+    const AppointmentNew = 1;
+    const AppointmentRefund = 2;
+    const AppointmentCancelled = 3;
+
 }

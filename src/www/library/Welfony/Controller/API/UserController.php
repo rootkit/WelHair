@@ -14,8 +14,10 @@
 
 namespace Welfony\Controller\API;
 
+use Welfony\Core\Enum\DeviceType;
 use Welfony\Core\Enum\UserRole;
 use Welfony\Controller\Base\AbstractAPIController;
+use Welfony\Service\UserDeviceService;
 use Welfony\Service\UserLikeService;
 use Welfony\Service\UserPointService;
 use Welfony\Service\UserService;
@@ -204,6 +206,46 @@ class UserController extends AbstractAPIController
     public function listPointsByUser($userId)
     {
         $this->sendResponse(UserPointService::listAllPointsByUserAndType($userId));
+    }
+
+    public function addDevice()
+    {
+        $reqData = $this->getDataFromRequestWithJsonFormat();
+
+        if (!isset($reqData['Type']) || empty($reqData['Type'])) {
+            $result = array('success' => false, 'message' => '请确定设备类型');
+            $this->sendResponse($result);
+        }
+        $type = intval($reqData['Type']);
+
+        if (!isset($reqData['Token']) || empty($reqData['Token'])) {
+            $result = array('success' => false, 'message' => '请确定设备Token');
+            $this->sendResponse($result);
+        }
+        $deviceToken = trim(htmlspecialchars($reqData['Token']));
+
+        $result = UserDeviceService::add($this->currentContext['UserId'], $type, $deviceToken);
+        $this->sendResponse($result);
+    }
+
+    public function removeDevice()
+    {
+        $reqData = $this->getDataFromRequestWithJsonFormat();
+
+        if (!isset($reqData['Type']) || empty($reqData['Type'])) {
+            $result = array('success' => false, 'message' => '请确定设备类型');
+            $this->sendResponse($result);
+        }
+        $type = intval($reqData['Type']);
+
+        if (!isset($reqData['Token']) || empty($reqData['Token'])) {
+            $result = array('success' => false, 'message' => '请确定设备Token');
+            $this->sendResponse($result);
+        }
+        $deviceToken = trim(htmlspecialchars($reqData['Token']));
+
+        $result = UserDeviceService::remove($this->currentContext['UserId'], $type, $deviceToken);
+        $this->sendResponse($result);
     }
 
 }

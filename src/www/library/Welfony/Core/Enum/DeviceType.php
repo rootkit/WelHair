@@ -12,14 +12,15 @@
 //
 // ==============================================================================
 
-use Welfony\Controller\API\NotificationController;
+namespace Welfony\Core\Enum;
 
-$app->post('/user/registerDevice', function () use ($app) {
-    $ctrl = new NotificationController();
-    $ctrl->registerDeivceToken();
-});
+use Welfony\Core\Enum;
 
-$app->post('/user/removeDevice', function () use ($app) {
-    $ctrl = new NotificationController();
-    $ctrl->removeDeivceToken();
-});
+class DeviceType extends Enum
+{
+
+    const Unknown = 0;
+    const iOS = 1;
+    const Android = 2;
+
+}

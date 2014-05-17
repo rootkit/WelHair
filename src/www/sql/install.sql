@@ -1262,8 +1262,6 @@ DELIMITER ;
 CALL sp_update_table_field();
 DROP PROCEDURE IF EXISTS `sp_update_table_field`;
 
-
-
 CREATE TABLE IF NOT EXISTS `UserBalanceLog` (
   `UserBalanceLogId` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `OrderId` int(11) unsigned NULL COMMENT '订单id',
@@ -1465,7 +1463,7 @@ BEGIN
   ) THEN
     ALTER TABLE `PaymentTransaction` ADD `IncomeSrcId` VARCHAR(255) NOT NULL COMMENT '订单号或者预约号';
   END IF;
-  
+
    IF NOT EXISTS (
       SELECT 1
       FROM information_schema.COLUMNS
@@ -1475,7 +1473,7 @@ BEGIN
   ) THEN
     ALTER TABLE `PaymentTransaction` ADD `Description` VARCHAR(500) NULL COMMENT '描述';
   END IF;
-  
+
 END;;
 
 DELIMITER ;
@@ -1615,6 +1613,16 @@ DELIMITER ;
 CALL sp_update_table_field();
 DROP PROCEDURE IF EXISTS `sp_update_table_field`;
 
+-- ==============================================================================
+-- Add UserDevice table
+-- ==============================================================================
+CREATE TABLE IF NOT EXISTS `UserDevice` (
+  `UserDeviceId` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `UserId` INT UNSIGNED NOT NULL DEFAULT 0,
+  `Type` SMALLINT(1) NOT NULL DEFAULT 0,
+  `DeviceToken` VARCHAR(255) NOT NULL DEFAULT '',
+  PRIMARY KEY (`UserDeviceId`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ==============================================================================
 -- Add CompanyId, Bank, OpenAccountBank, AccountNo, AccountName to Withdrawal table

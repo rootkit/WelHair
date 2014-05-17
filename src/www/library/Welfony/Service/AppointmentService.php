@@ -15,7 +15,9 @@
 namespace Welfony\Service;
 
 use Welfony\Core\Enum\CompanyStatus;
+use Welfony\Core\Enum\NotificationType;
 use Welfony\Repository\AppointmentRepository;
+use Welfony\Repository\NotificationService;
 use Welfony\Repository\ServiceRepository;
 
 class AppointmentService
@@ -84,6 +86,8 @@ class AppointmentService
             $newId = AppointmentRepository::getInstance()->save($data);
             if ($newId) {
                 $data['AppointmentId'] = $newId;
+
+                NotificationService::send(NotificationType::AppointmentNew, $data['StaffId']);
 
                 $result['success'] = true;
                 $result['appointment'] = $data;

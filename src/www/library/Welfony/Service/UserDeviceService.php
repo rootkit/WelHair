@@ -19,32 +19,36 @@ use Welfony\Repository\UserDeviceRepository;
 class UserDeviceService
 {
 
-    public static function add($userId, $deviceToken)
+    public static function add($userId, $type, $deviceToken)
     {
         $result = array('success' => false, 'message' => '');
 
-        if (!$userId || !$deviceToken) {
-            $result['message'] = '不合法用户或设备号';
+        if (!$deviceToken) {
+            $result['message'] = '不合法设备号';
+
             return $result;
         }
-        if(UserDeviceRepository::getInstance()->exists($userId, $deviceToken)){
-            $result['success'] = false;
-            $result['message'] = '用户设备已存在';
-        }else{
-            $result['success'] =  UserDeviceRepository::getInstance()->add($userId, $deviceToken);    
+
+        if ($userId > 0 && !UserDeviceRepository::getInstance()->exists($userId, $type, $deviceToken)) {
+            $result['success'] = UserDeviceRepository::getInstance()->add($userId, $type, $deviceToken) > 0;
+        } else {
+            $result['success'] = true;
         }
+
         return $result;
     }
 
-    public static function remove($userId, $deviceToken)
+    public static function remove($userId, $type, $deviceToken)
     {
         $result = array('success' => false, 'message' => '');
 
-        if (!$userId || !$deviceToken) {
-            $result['message'] = '不合法用户或设备号';
+        if (!$deviceToken) {
+            $result['message'] = '不合法设备号';
+
             return $result;
         }
-        $result['success'] =  UserDeviceRepository::getInstance()->remove($userId, $deviceToken);
+        $result['success'] = $userId <= 0 ? true : UserDeviceRepository::getInstance()->remove($userId, $type, $deviceToken);
+
         return $result;
     }
 
@@ -54,6 +58,7 @@ class UserDeviceService
         if ($userId ) {
             $result = UserDeviceRepository::getInstance()->getUserDeviceToken($userId);
         }
+
         return $result;
     }
 }

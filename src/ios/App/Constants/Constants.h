@@ -47,8 +47,8 @@
 #define API_USERS_APPOINTMENT API_PATH(@"/users/%d/appointments")
 #define API_USERS_POINTS API_PATH(@"/users/%d/points")
 
-#define API_USERDEVICE_REGISTER API_PATH(@"/user/registerDevice")
-#define API_USERDEVICE_REMOVE API_PATH(@"/user/removeDevice")
+#define API_USERDEVICE_REGISTER API_PATH(@"/users/device")
+#define API_USERDEVICE_REMOVE API_PATH(@"/users/device/remove")
 
 
 #define API_MESSAGES_CREATE API_PATH(@"/messages")
