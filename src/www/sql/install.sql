@@ -1329,6 +1329,22 @@ CREATE PROCEDURE `sp_update_table_data`()
     INSERT INTO `IncomeSrc` (`IncomeSrcId`, `Name`, `Description`)
     VALUES (2, '预约', '预约');
   END IF;
+  IF NOT EXISTS(
+      SELECT 3
+      FROM `IncomeSrc`
+      WHERE `Name` = '提现' AND `IncomeSrcId` = 3
+  ) THEN
+    INSERT INTO `IncomeSrc` (`IncomeSrcId`, `Name`, `Description`)
+    VALUES (3, '提现', '提现');
+  END IF;
+   IF NOT EXISTS(
+      SELECT 4
+      FROM `IncomeSrc`
+      WHERE `Name` = '充值' AND `IncomeSrcId` = 4
+  ) THEN
+    INSERT INTO `IncomeSrc` (`IncomeSrcId`, `Name`, `Description`)
+    VALUES (4, '充值', '充值');
+  END IF;
 END;;
 
 DELIMITER ;
@@ -1699,6 +1715,7 @@ END;;
 DELIMITER ;
 CALL sp_update_table_field();
 DROP PROCEDURE IF EXISTS `sp_update_table_field`;
+
 
 
 

@@ -19,9 +19,7 @@ use Welfony\Utility\Util;
         <tr>
             <td class="col-center"><input name="chk_ids[]" value="<?php echo $data['WithdrawalId']; ?>" type="checkbox" /></td>
             <td class="cola">
-                <a href="<?php echo $this->baseUrl('user/index/withdrawalinfo?withdrawal_id=' . $data['WithdrawalId']); ?>">
-                    <?php echo $data['Nickname']; ?>
-                </a>
+                <?php echo $data['Nickname']; ?>
             </td>
             <td><?php echo $data['Amount']; ?></td>
             <td><?php echo $data['CreateTime']; ?></td>

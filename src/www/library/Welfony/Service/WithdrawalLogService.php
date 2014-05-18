@@ -14,7 +14,7 @@
 
 namespace Welfony\Service;
 
-use Welfony\Repository\UserBalanceLogRepository;
+use Welfony\Repository\WithdrawalLogRepository;
 
 class WithdrawalLogService
 {

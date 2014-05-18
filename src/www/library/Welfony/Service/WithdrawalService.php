@@ -166,10 +166,10 @@ class WithdrawalService
         }
     }
 
-    public static function rejectWithdrawal($data)
+    public static function rejectWithdrawal($data, $reason)
     {
         $result = array('success' => false, 'message' => '');
-        $r = WithdrawalRepository::getInstance()->reject($data['WithdrawalId']);
+        $r = WithdrawalRepository::getInstance()->reject($data['WithdrawalId'], $reason);
         if ($r) {
 
             $result['success'] = true;

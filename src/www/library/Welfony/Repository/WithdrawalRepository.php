@@ -162,8 +162,13 @@ class WithdrawalRepository extends AbstractRepository
     public function findWithdrawalById($id)
     {
         $strSql = 'SELECT
-                       *
-                   FROM Withdrawal
+                       W.*, 
+                       U.Nickname,
+                       U.Username,
+                       C.Name
+                   FROM Withdrawal W
+                   LEFT JOIN Users U ON W.UserId = U.UserId
+                   LEFT JOIN Company C ON C.CompanyId = W.CompanyId
                    WHERE WithdrawalId = ?
                    LIMIT 1';
 
@@ -227,22 +232,43 @@ class WithdrawalRepository extends AbstractRepository
 
             $amount = $withdrawal['Amount'];
             $userId = $withdrawal['UserId'];
+            $companyId = $withdrawal['CompanyId'];
 
             $this->conn->update('Withdrawal', array('Status'=>1), array('WithdrawalId' => $withdrawalId));
             $this->conn->insert('WithdrawalLog', array('WithdrawalId'=>$withdrawalId, 
                                                       'Action'=>'批准',
                                                       'Reason'=>'批准',
                                                       'CreateTime'=> date('Y-m-d H:i:s')));
-            $this->conn->executeUpdate(" 
-                        UPDATE `Users` SET Balance = Balance - $amount WHERE UserId  = $userId; 
-                 ");
 
-            $this->conn->insert('UserBalanceLog', array('UserId' => $userId, 
-                                                       'Amount' => -$amount,
-                                                       'Status' => 1,
-                                                       'CreateTime'=> date('Y-m-d H:i:s'),
-                                                       'Description'=>'提现'.$amount.' 【'.$withdrawalId.'】'
-              ));
+            if($userId)
+            {
+              $this->conn->executeUpdate(" 
+                          UPDATE `Users` SET Balance = Balance - $amount WHERE UserId  = $userId; 
+                   ");
+
+              $this->conn->insert('UserBalanceLog', array('UserId' => $userId, 
+                                                         'Amount' => -$amount,
+                                                         'Status' => 1,
+                                                         'CreateTime'=> date('Y-m-d H:i:s'),
+                                                         'Description'=>'提现'.$amount.' 【'.$withdrawalId.'】'
+                ));
+            }
+            else if($companyId)
+            {
+                 $this->conn->executeUpdate(" 
+                          UPDATE `Company` SET Amount = Amount - $amount WHERE CompanyId  = $companyId; 
+                   ");
+
+                $this->conn->insert('CompanyBalanceLog', array(
+                                                         'CompanyId' => $companyId, 
+                                                         'Amount' => -$amount,
+                                                         'Status' => 1,
+                                                         'IncomeSrc' => 3,
+                                                         'IncomeSrcId' =>$withdrawalId,
+                                                         'CreateTime'=> date('Y-m-d H:i:s'),
+                                                         'Description'=>'提现'.$amount.' 【'.$withdrawalId.'】'
+                ));
+            }
             $conn->commit();
 
             return true;
@@ -256,7 +282,7 @@ class WithdrawalRepository extends AbstractRepository
         return true;
     }
 
-    public function reject($withdrawalId)
+    public function reject($withdrawalId, $reason)
     {
 
         $conn = $this->conn;
@@ -277,7 +303,7 @@ class WithdrawalRepository extends AbstractRepository
             $this->conn->update('Withdrawal', array('Status'=>2), array('WithdrawalId' => $withdrawalId));
             $this->conn->insert('WithdrawalLog', array('WithdrawalId'=>$withdrawalId, 
                                                       'Action'=>'拒绝',
-                                                      'Reason'=>'拒绝',
+                                                      'Reason'=>$reason,
                                                       'CreateTime'=> date('Y-m-d H:i:s')));
   
             $conn->commit();

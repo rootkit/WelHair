@@ -17,6 +17,7 @@ use Welfony\Core\Enum\UserRole;
 use Welfony\Service\UserService;
 use Welfony\Service\UserBalanceLogService;
 use Welfony\Service\WithdrawalService;
+use Welfony\Service\WithdrawalLogService;
 use Welfony\Utility\Util;
 
 class User_IndexController extends AbstractAdminController
@@ -132,6 +133,18 @@ class User_IndexController extends AbstractAdminController
                                                 ceil($searchResult['total'] / $pageSize));
     }
 
+    public function withdrawalinfoAction()
+    {
+        $this->view->pageTitle = '提现详情';
+        $withdrawalid = intval($this->_request->getParam('withdrawal_id'));
+        if ($withdrawalid) {
+            $withdrawal = WithdrawalService::getWithdrawalById($withdrawalid);
+            $this->view->withdrawalInfo= $withdrawal;
+            $logs = WithdrawalLogService::listWithdrawalLogByWithdrawal($withdrawalid, 1, 1000);
+            $this->view->logs = $logs['withdrawallogs'];
+        }
+    }
+
     public function withdrawalapproveAction()
     {
         $this->_helper->viewRenderer->setNoRender(true);
@@ -167,11 +180,12 @@ class User_IndexController extends AbstractAdminController
         }
 
         $withdrawalId =  intval($this->_request->getParam('withdrawal_id')) ;
+        $reason =  intval($this->_request->getParam('reason')) ;
         
 
         if ($this->_request->isPost()) {
 
-            $result = WithdrawalService::rejectWithdrawal(array('WithdrawalId'=> $withdrawalId));
+            $result = WithdrawalService::rejectWithdrawal(array('WithdrawalId'=> $withdrawalId, $reason));
             $this->_helper->json->sendJson($result);
         }
     }

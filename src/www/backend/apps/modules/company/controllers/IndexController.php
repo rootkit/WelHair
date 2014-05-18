@@ -18,6 +18,8 @@ use Welfony\Service\AreaService;
 use Welfony\Service\CompanyService;
 use Welfony\Service\CompanyBalanceLogService;
 use Welfony\Service\GoodsService;
+use Welfony\Service\WithdrawalService;
+use Welfony\Service\WithdrawalLogService;
 
 class Company_IndexController extends AbstractAdminController
 {
@@ -180,6 +182,35 @@ class Company_IndexController extends AbstractAdminController
         $this->view->pager = $this->renderPager($this->view->baseUrl('company/index/balancelog?s='),
                                                 $page,
                                                 ceil($searchResult['total'] / $pageSize));
+    }
+
+    public function withdrawalsearchAction()
+    {
+        
+        //$userId = intval($this->_request->getParam('user_id'));
+        static $pageSize = 10;
+
+        $this->view->pageTitle = '提现请求';
+
+        $page = $this->_request->getParam('page')? intval($this->_request->getParam('page')) : 1;
+        $searchResult = WithdrawalService::listCompanyWithdrawal($page, $pageSize);
+
+        $this->view->dataList = $searchResult['withdrawals'];
+        $this->view->pager = $this->renderPager($this->view->baseUrl('company/index/withdrawal?s='),
+                                                $page,
+                                                ceil($searchResult['total'] / $pageSize));
+    }
+
+    public function withdrawalinfoAction()
+    {
+        $this->view->pageTitle = '提现详情';
+        $withdrawalid = intval($this->_request->getParam('withdrawal_id'));
+        if ($withdrawalid) {
+            $withdrawal = WithdrawalService::getWithdrawalById($withdrawalid);
+            $this->view->withdrawalInfo= $withdrawal;
+            $logs = WithdrawalLogService::listWithdrawalLogByWithdrawal($withdrawalid, 1, 1000);
+            $this->view->logs = $logs['withdrawallogs'];
+        }
     }
 
 }
