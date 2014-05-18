@@ -15,6 +15,7 @@
 namespace Welfony\Service;
 
 use Welfony\Core\Enum\UserRole;
+use Welfony\Core\Enum\StaffStatus;
 use Welfony\Repository\CompanyRepository;
 use Welfony\Repository\CompanyUserRepository;
 use Welfony\Repository\StaffRepository;
@@ -153,10 +154,6 @@ class StaffService
     {
         $companyUser = CompanyUserRepository::getInstance()->findById($companyUserId);
         $result = CompanyUserRepository::getInstance()->remove($companyUserId);
-        if ($result) {
-            $staff = array('UserId' => $companyUser['UserId'], 'Role' => UserRole::Client);
-            UserRepository::getInstance()->update($staff['UserId'], $staff);
-        }
 
         return $result;
     }
@@ -164,10 +161,6 @@ class StaffService
     public static function removeCompanyStaffByCompanyAndUser($companyId, $userId)
     {
         $result = CompanyUserRepository::getInstance()->removeByCompanyAndUser($companyId, $userId);
-        if ($result) {
-            $staff = array('UserId' => $userId, 'Role' => UserRole::Client);
-            UserRepository::getInstance()->update($staff['UserId'], $staff);
-        }
 
         return $result;
     }
@@ -177,47 +170,50 @@ class StaffService
         return CompanyUserRepository::getInstance()->findByUserAndCompany($userId, $companyId);
     }
 
-    public static function saveCompanyStaffByCompanyUser($companyUserId, $isApproved = false)
+    public static function saveCompanyStaffByCompanyUser($companyUserId, $status)
     {
         $data = array();
-        $data['IsApproved'] = $isApproved;
+        $data['Status'] = $status;
         $data['LastModifiedDate'] = date('Y-m-d H:i:s');
-        if (CompanyUserRepository::getInstance()->update($companyUserId, $data)) {
-            $role = UserRole::Client;
 
+        if (CompanyUserRepository::getInstance()->update($companyUserId, $data)) {
             $companyUser = CompanyUserRepository::getInstance()->findById($companyUserId);
 
-            if ($isApproved) {
-                if ($companyUser) {
-                    $company = CompanyRepository::getInstance()->findCompanyById($companyUser['CompanyId']);
-                    if ($company && $company['CreatedBy'] == $companyUser['UserId']) {
-                        $role = UserRole::Manager;
-                    } else {
-                        $role = UserRole::Staff;
-                    }
-                } else {
-                    $role = UserRole::Staff;
-                }
-            }
+            if ($status == StaffStatus::Valid && $companyUser) {
+                $role = UserRole::Staff;
 
-            $staff = array('UserId' => $companyUser['UserId'], 'Role' => $role);
-            UserRepository::getInstance()->update($staff['UserId'], $staff);
+                $company = CompanyRepository::getInstance()->findCompanyById($companyUser['CompanyId']);
+                if ($company && $company['CreatedBy'] == $companyUser['UserId']) {
+                    $role = UserRole::Manager;
+                }
+
+                $staff = array('UserId' => $companyUser['UserId'], 'Role' => $role);
+                UserRepository::getInstance()->update($staff['UserId'], $staff);
+            }
         }
 
         return true;
     }
 
-    public static function saveCompanyStaff($staffId, $companyId, $isApproved = false, $role = UserRole::Staff)
+    public static function saveCompanyStaff($staffId, $companyId, $status = StaffStatus::Requested)
     {
-        $staff = array('UserId' => $staffId, 'Role' => $isApproved ? $role : UserRole::Client);
-
         $existedItem = CompanyUserRepository::getInstance()->findByUserAndCompany($staffId, $companyId);
         if ($existedItem) {
-            $existedItem['IsApproved'] = $isApproved;
+            $existedItem['Status'] = $status;
             $existedItem['LastModifiedDate'] = date('Y-m-d H:i:s');
 
             if (CompanyUserRepository::getInstance()->update($existedItem['CompanyUserId'], $existedItem)) {
-                UserRepository::getInstance()->update($staff['UserId'], $staff);
+                if ($status = StaffStatus::Valid) {
+                    $role = UserRole::Staff;
+
+                    $company = CompanyRepository::getInstance()->findCompanyById($companyId);
+                    if ($company && $company['CreatedBy'] == $staffId) {
+                        $role = UserRole::Manager;
+                    }
+
+                    $staff = array('UserId' => $staffId, 'Role' => $role);
+                    UserRepository::getInstance()->update($staff['UserId'], $staff);
+                }
 
                 return $existedItem;
             }
@@ -225,15 +221,25 @@ class StaffService
             $data = array(
                 'UserId' => $staffId,
                 'CompanyId' => $companyId,
-                'IsApproved' => $isApproved,
+                'Status' => $status,
                 'CreatedDate' => date('Y-m-d H:i:s')
             );
 
             $saveResult = CompanyUserRepository::getInstance()->save($data);
             if ($saveResult) {
-                UserRepository::getInstance()->update($staff['UserId'], $staff);
-
                 $data['CompanyUserId'] = $saveResult;
+
+                if ($status = StaffStatus::Valid) {
+                    $role = UserRole::Staff;
+
+                    $company = CompanyRepository::getInstance()->findCompanyById($companyId);
+                    if ($company && $company['CreatedBy'] == $staffId) {
+                        $role = UserRole::Manager;
+                    }
+
+                    $staff = array('UserId' => $staffId, 'Role' => $role);
+                    UserRepository::getInstance()->update($staff['UserId'], $staff);
+                }
 
                 return $data;
             }
@@ -268,7 +274,7 @@ class StaffService
             $staffDetail['EmailVerified'] = $row['EmailVerified'];
             $staffDetail['MobileVerified'] = $row['MobileVerified'];
             $staffDetail['Role'] = $row['Role'];
-            $staffDetail['IsApproved'] = $row['IsApproved'];
+            $staffDetail['Status'] = $row['Status'];
             $staffDetail['IsLiked'] = isset($row['IsLiked']) ? $row['IsLiked'] : 0;
 
             if (isset($row['ProfileBackgroundUrl'])) {

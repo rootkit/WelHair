@@ -13,6 +13,7 @@
 // ==============================================================================
 
 use Welfony\Controller\Base\AbstractAdminController;
+use Welfony\Core\Enum\StaffStatus;
 use Welfony\Service\StaffService;
 
 class Ajax_StaffController extends AbstractAdminController
@@ -55,13 +56,13 @@ class Ajax_StaffController extends AbstractAdminController
             }
             case 'approve': {
                 foreach ($idList as $id) {
-                    StaffService::saveCompanyStaffByCompanyUser($id, true);
+                    StaffService::saveCompanyStaffByCompanyUser($id, StaffStatus::Valid);
                 }
                 break;
             }
             case 'unapprove': {
                 foreach ($idList as $id) {
-                    StaffService::saveCompanyStaffByCompanyUser($id, false);
+                    StaffService::saveCompanyStaffByCompanyUser($id, StaffStatus::Invalid);
                 }
                 break;
             }

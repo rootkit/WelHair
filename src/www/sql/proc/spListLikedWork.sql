@@ -51,8 +51,8 @@ FROM (
       (SELECT COUNT(1) FROM Comment CM WHERE CM.WorkId = W.WorkId) WorkCommentCount,
       (SELECT COUNT(1) FROM UserLike UL WHERE UL.WorkId = W.WorkId) WorkLikeCount
     FROM Work W
-    INNER JOIN Users U ON U.UserId = W.UserId
-    INNER JOIN CompanyUser CU ON CU.UserId = U.UserId
+    INNER JOIN Users U ON U.UserId = W.UserId AND U.Role = 3
+    INNER JOIN CompanyUser CU ON CU.UserId = U.UserId AND CU.Status = 1
     INNER JOIN Company C ON C.CompanyId = CU.CompanyId
     INNER JOIN UserLike UL ON UL.WorkId = W.WorkId
     WHERE UL.CreatedBy = currentUserId

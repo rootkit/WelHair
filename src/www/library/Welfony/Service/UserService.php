@@ -15,6 +15,7 @@
 namespace Welfony\Service;
 
 use PHPassLib\Hash\PBKDF2 as PassHash;
+use Welfony\Core\Enum\StaffStatus;
 use Welfony\Core\Enum\UserPointType;
 use Welfony\Core\Enum\UserRole;
 use Welfony\Repository\CompanyUserRepository;
@@ -160,17 +161,9 @@ class UserService
 
         $companyUser = CompanyUserRepository::getInstance()->findByUser($user['UserId']);
         if ($companyUser) {
-            $user['IsApproved'] = $companyUser['IsApproved'];
+            $user['IsApproved'] = $companyUser['Status'] == StaffStatus::Valid;
         } else {
-            if ($user['Role'] == UserRole::Staff || $user['Role'] == UserRole::Manager) {
-                $smData = array(
-                    'UserId' => $user['UserId'],
-                    'Role' => UserRole::Client
-                );
-                UserRepository::getInstance()->update($user['UserId'], $smData);
-            }
-            $user['Role'] = $user['Role'] == UserRole::Admin ? UserRole::Admin : UserRole::Client;
-            $user['IsApproved'] = 1;
+            $user['IsApproved'] = $user['Role'] == UserRole::Client ? 1 : 0;
         }
 
         $result['success'] = true;
@@ -206,17 +199,9 @@ class UserService
 
         $companyUser = CompanyUserRepository::getInstance()->findByUser($user['UserId']);
         if ($companyUser) {
-            $user['IsApproved'] = $companyUser['IsApproved'];
+            $user['IsApproved'] = $companyUser['Status'] == StaffStatus::Valid;
         } else {
-            // if ($user['Role'] == UserRole::Staff || $user['Role'] == UserRole::Manager) {
-            //     $smData = array(
-            //         'UserId' => $user['UserId'],
-            //         'Role' => UserRole::Client
-            //     );
-            //     UserRepository::getInstance()->update($user['UserId'], $smData);
-            // }
-            // $user['Role'] = $user['Role'] == UserRole::Admin ? UserRole::Admin : UserRole::Client;
-            $user['IsApproved'] = 1;
+            $user['IsApproved'] = $user['Role'] == UserRole::Client ? 1 : 0;
         }
 
         $result['success'] = true;

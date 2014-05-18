@@ -16,6 +16,7 @@ namespace Welfony\Controller\API;
 
 use Welfony\Controller\Base\AbstractAPIController;
 use Welfony\Core\Enum\CompanyStatus;
+use Welfony\Core\Enum\StaffStatus;
 use Welfony\Service\AreaService;
 use Welfony\Service\CommentService;
 use Welfony\Service\CompanyService;
@@ -47,7 +48,7 @@ class CompanyController extends AbstractAPIController
 
         $result = CompanyService::save($reqData);
         if ($result['success']) {
-            StaffService::saveCompanyStaff($this->currentContext['UserId'], $result['company']['CompanyId'], 0);
+            StaffService::saveCompanyStaff($this->currentContext['UserId'], $result['company']['CompanyId'], StaffStatus::Requested);
         }
         $this->sendResponse($result);
     }
@@ -57,13 +58,15 @@ class CompanyController extends AbstractAPIController
         $result = array('success' => false, 'message' => '');
         $staff = StaffService::getStaffDetail($this->currentContext['UserId']);
         if ($staff && $staff['Company']) {
-            if (!$staff['IsApproved']) {
+            if ($staff['Status'] == StaffStatus::Requested) {
                 $result['message'] = '您的请求正在审核中，请耐心等待。';
+            } else if ($staff['Status'] == StaffStatus::Invalid) {
+                $result['message'] = '您的请求被拒绝了，请联系管理员。';
             } else {
                 $result['message'] = '您已经在一个沙龙中了。';
             }
         } else {
-            $saveRst = StaffService::saveCompanyStaff($this->currentContext['UserId'], $companyId, 0);
+            $saveRst = StaffService::saveCompanyStaff($this->currentContext['UserId'], $companyId, StaffStatus::Requested);
             if (!$saveRst) {
                 $result['message'] = '操作失败请重试。';
             } else {
@@ -176,8 +179,8 @@ class CompanyController extends AbstractAPIController
             $this->sendResponse($result);
         }
 
-        if (isset($reqData['IsApproved']) && intval($reqData['IsApproved']) > 0) {
-            $result['success'] = StaffService::saveCompanyStaffByCompanyUser($staff['CompanyUserId'], true);
+        if (isset($reqData['IsApproved'])) {
+            $result['success'] = StaffService::saveCompanyStaffByCompanyUser($staff['CompanyUserId'], intval($reqData['IsApproved']) > 0 ? StaffStatus::Valid : StaffStatus::Invalid);
         }
         $result['message'] = $result['success'] ? '更新成功。' : '更新失败。';
 
@@ -194,7 +197,7 @@ class CompanyController extends AbstractAPIController
             $this->sendResponse($result);
         }
 
-        $result['success'] = StaffService::removeCompanyStaffByCompanyUser($staff['CompanyUserId'], true);
+        $result['success'] = StaffService::removeCompanyStaffByCompanyUser($staff['CompanyUserId']);
         $result['message'] = $result['success'] ? '操作成功。' : '操作失败。';
 
         $this->sendResponse($result);

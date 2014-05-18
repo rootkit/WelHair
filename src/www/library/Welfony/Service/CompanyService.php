@@ -15,6 +15,7 @@
 namespace Welfony\Service;
 
 use Welfony\Core\Enum\CompanyStatus;
+use Welfony\Core\Enum\StaffStatus;
 use Welfony\Core\Enum\UserRole;
 use Welfony\Repository\CompanyRepository;
 use Welfony\Repository\UserLikeRepository;
@@ -168,7 +169,7 @@ class CompanyService
                         'Role' => UserRole::Manager
                     );
                     UserRepository::getInstance()->update($companyManagerData['UserId'], $companyManagerData);
-                    StaffService::saveCompanyStaff($companyManagerData['UserId'], $data['CompanyId'], 1, UserRole::Manager);
+                    StaffService::saveCompanyStaff($companyManagerData['UserId'], $data['CompanyId'], StaffStatus::Valid);
                 }
             }
 

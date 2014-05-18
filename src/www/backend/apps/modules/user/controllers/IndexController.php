@@ -31,7 +31,7 @@ class User_IndexController extends AbstractAdminController
         $this->view->pageTitle = '会员列表';
 
         $page = intval($this->_request->getParam('page'));
-        $searchResult = UserService::listAllUsers(UserRole::Client, $page, $pageSize);
+        $searchResult = UserService::listAllUsers(0, $page, $pageSize);
 
         $this->view->dataList = $searchResult['users'];
         $this->view->pager = $this->renderPager($this->view->baseUrl('user/index/search?s='),
@@ -250,7 +250,7 @@ class User_IndexController extends AbstractAdminController
         }
 
         $withdrawalId =  intval($this->_request->getParam('withdrawal_id')) ;
-        
+
 
         if ($this->_request->isPost()) {
 
@@ -273,7 +273,7 @@ class User_IndexController extends AbstractAdminController
 
         $withdrawalId =  intval($this->_request->getParam('withdrawal_id')) ;
         $reason =  $this->_request->getParam('reason') ;
-        
+
 
         if ($this->_request->isPost()) {
 

@@ -77,7 +77,7 @@ class StaffRepository extends AbstractRepository
                        W.Title WorkTitle,
                        W.PictureUrl WorkPictureUrl,
 
-                       CU.IsApproved
+                       IFNULL(CU.Status, 0) Status
 
                    FROM Users U
                    LEFT OUTER JOIN CompanyUser CU ON CU.UserId = U.UserId
@@ -220,7 +220,7 @@ class StaffRepository extends AbstractRepository
                        W.Title WorkTitle,
                        W.PictureUrl WorkPictureUrl,
 
-                       IFNULL(CU.IsApproved, 0) IsApproved,
+                       IFNULL(CU.Status, 0) Status,
 
                        (SELECT COUNT(1) FROM UserLike UL WHERE ? > 0 AND ? = UL.CreatedBy AND UL.UserId = U.UserId) IsLiked,
                        getDistance(C.Latitude, C.Longitude, ?, ?) Distance
@@ -230,7 +230,7 @@ class StaffRepository extends AbstractRepository
                    LEFT OUTER JOIN Company C ON C.CompanyId = CU.CompanyId
                    LEFT OUTER JOIN Service S ON S.UserId = U.UserId
                    LEFT OUTER JOIN Work W ON W.UserId = U.UserId
-                   WHERE U.UserId = ?';
+                   WHERE U.Role IN (2, 3) AND U.UserId = ?';
 
         return $this->conn->fetchAll($strSql, array($currentUserId, $currentUserId, $location ? $location['Latitude'] : 0, $location ? $location['Longitude'] : 0, $staffId));
     }

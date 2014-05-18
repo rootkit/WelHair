@@ -1,4 +1,5 @@
 <?php
+use Welfony\Core\Enum\StaffStatus;
 use Welfony\Utility\Converter;
 use Welfony\Utility\Util;
 ?>
@@ -58,7 +59,7 @@ use Welfony\Utility\Util;
                 </a>
             </td>
             <td><?php echo $data['Nickname']; ?></td>
-            <td class="col-center"><?php echo $data['IsApproved'] == 1 ? '通过' : '未通过'; ?></td>
+            <td class="col-center"><?php echo $data['Status'] == StaffStatus::Valid ? '通过' : '未通过'; ?></td>
             <td><?php echo date('Y-m-d', strtotime($data['StaffCreatedDate'])); ?></td>
             <td>
                 <a href="<?php echo $this->baseUrl('company/staff/work?staff_id=' . $data['UserId']); ?>">

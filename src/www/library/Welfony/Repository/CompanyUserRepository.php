@@ -26,7 +26,11 @@ class CompanyUserRepository extends AbstractRepository
             $filter .= " AND CU.CompanyId = $companyId";
         }
         if ($status !== null) {
-            $filter .= " AND CU.IsApproved = '$status'";
+            if (is_array($status)) {
+                $filter .= " AND CU.Status IN (" . implode(',', $status) . ")";
+            } else {
+                $filter .= " AND CU.Status = '$status'";
+            }
         }
 
         $strSql = "SELECT
@@ -47,7 +51,11 @@ class CompanyUserRepository extends AbstractRepository
             $filter .= " AND CU.CompanyId = $companyId";
         }
         if ($status !== null) {
-            $filter .= " AND CU.IsApproved = '$status'";
+            if (is_array($status)) {
+                $filter .= " AND CU.Status IN (" . implode(',', $status) . ")";
+            } else {
+                $filter .= " AND CU.Status = '$status'";
+            }
         }
 
         $offset = ($page - 1) * $pageSize;
@@ -55,12 +63,12 @@ class CompanyUserRepository extends AbstractRepository
                        U.*,
                        C.Name CompanyName,
                        CU.CompanyUserId,
-                       CU.IsApproved,
+                       CU.Status,
                        CU.CreatedDate StaffCreatedDate
                    FROM CompanyUser CU
                    INNER JOIN Company C ON C.CompanyId = CU.CompanyId
                    INNER JOIN Users U ON U.UserId = CU.UserId
-                   WHERE CU.UserId > 0 > 0 $filter
+                   WHERE CU.UserId > 0 $filter
                    ORDER BY CU.CompanyUserId DESC
                    LIMIT $offset, $pageSize";
 

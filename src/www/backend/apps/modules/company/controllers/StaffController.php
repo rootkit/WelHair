@@ -17,6 +17,7 @@ use Welfony\Core\Enum\Face;
 use Welfony\Core\Enum\Gender;
 use Welfony\Core\Enum\HairAmount;
 use Welfony\Core\Enum\HairStyle;
+use Welfony\Core\Enum\StaffStatus;
 use Welfony\Service\CompanyService;
 use Welfony\Service\ServiceService;
 use Welfony\Service\StaffService;
@@ -45,7 +46,7 @@ class Company_StaffController extends AbstractAdminController
         $this->view->companyInfo = $company;
 
         $page = intval($this->_request->getParam('page'));
-        $searchResult = StaffService::listAllStaff($companyId, null, $page, $pageSize);
+        $searchResult = StaffService::listAllStaff($companyId, array(StaffStatus::Valid, StaffStatus::Invalid), $page, $pageSize);
 
         $this->view->dataList = $searchResult['staffes'];
         $this->view->pager = $this->renderPager($this->view->baseUrl('company/staff/search?s=' . ($companyId > 0 ? '&company_id=' . $companyId : '')),
@@ -80,7 +81,7 @@ class Company_StaffController extends AbstractAdminController
                 return;
             }
 
-            $result = StaffService::saveCompanyStaff($staffId, $companyId, 1);
+            $result = StaffService::saveCompanyStaff($staffId, $companyId, StaffStatus::Valid);
             if ($result) {
                 $this->getResponse()->setRedirect($this->view->baseUrl('company/staff/search?company_id=' . $companyId));
             } else {
@@ -109,7 +110,7 @@ class Company_StaffController extends AbstractAdminController
         $this->view->companyInfo = $company;
 
         $page = intval($this->_request->getParam('page'));
-        $searchResult = StaffService::listAllStaff($companyId, 0, $page, $pageSize);
+        $searchResult = StaffService::listAllStaff($companyId, StaffStatus::Requested, $page, $pageSize);
 
         $this->view->dataList = $searchResult['staffes'];
         $this->view->pager = $this->renderPager($this->view->baseUrl('company/staff/authentication?s=' . ($companyId > 0 ? '&company_id=' . $companyId : '')),

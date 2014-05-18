@@ -15,6 +15,7 @@
 namespace Welfony\Service;
 
 use Welfony\Core\Enum\CompanyStatus;
+use Welfony\Core\Enum\StaffStatus;
 use Welfony\Core\Enum\NotificationType;
 use Welfony\Repository\AppointmentRepository;
 use Welfony\Repository\ServiceRepository;
@@ -52,7 +53,7 @@ class AppointmentService
         }
 
         $staff = StaffService::getStaffDetail($data['StaffId']);
-        if (!$staff['IsApproved'] || $staff['Company']['Status'] != CompanyStatus::Valid) {
+        if (!$staff['Status'] != StaffStatus::Valid || $staff['Company']['Status'] != CompanyStatus::Valid) {
             $result['message'] = '该发型师暂时不可预约。';
 
             return $result;

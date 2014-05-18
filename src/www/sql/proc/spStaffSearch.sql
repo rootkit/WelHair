@@ -44,7 +44,7 @@ FROM (
       AVG(IFNULL(TBLRate.Rate, 0)) Rate,
       getDistance(C.Latitude, C.Longitude, latitude, longitude) Distance
     FROM Users U
-    INNER JOIN CompanyUser CU ON CU.UserId = U.UserId
+    INNER JOIN CompanyUser CU ON CU.UserId = U.UserId AND CU.Status = 1
     INNER JOIN Company C ON CU.CompanyId = C.CompanyId
     LEFT OUTER JOIN (
       SELECT
