@@ -81,15 +81,15 @@ static const float profileViewHeight = 90;
     NSMutableArray *menuList = [[NSMutableArray alloc] initWithCapacity:5];
      NSMutableArray *menuIconList = [[NSMutableArray alloc] initWithCapacity:5];
     User *user = [UserManager SharedInstance].userLogined;
-    if(user == nil){
+    if (user == nil) {
         
-    }else if(user.role != WHClient && user.groupId <= 0 && user.approveStatus == WHApproveStatusUnknow){
+    } else if (user.role != WHClient && user.groupId <= 0 && user.approveStatus == WHApproveStatusUnknow){
         [menuList addObject:@[SettingJoinGroup]];
         [menuIconList addObject:@[[FAKIonIcons ios7ChatboxesOutlineIconWithSize:NAV_BAR_ICON_SIZE]]];
-    }else if(user.approveStatus == WHApproveStatusApproving && user.groupId > 0){
+    } else if (user.approveStatus == WHApproveStatusRequested && user.groupId > 0) {
         [menuList addObject:@[SettingGroupPending]];
         [menuIconList addObject:@[[FAKIonIcons ios7ChatboxesOutlineIconWithSize:NAV_BAR_ICON_SIZE]]];
-    }else if(user.role == WHStaff || user.role == WHManager){
+    } else if (user.role == WHStaff || user.role == WHManager) {
         [menuList addObject:@[SettingMyGroup]];
         [menuIconList addObject:@[[FAKIonIcons ios7ChatboxesOutlineIconWithSize:NAV_BAR_ICON_SIZE]]];
     }
@@ -97,6 +97,7 @@ static const float profileViewHeight = 90;
     [menuList addObject:@[SettingMyAddress,SettingMyScore ]];
     [menuList addObject:@[SettingFeedback, SettingCheckVersion, SettingRate]];
     self.datasource = menuList;
+
     [menuIconList addObject:@[[FAKIonIcons ios7FilingOutlineIconWithSize:NAV_BAR_ICON_SIZE], [FAKIonIcons ios7BookmarksOutlineIconWithSize:NAV_BAR_ICON_SIZE]]];
     [menuIconList addObject:@[[FAKIonIcons ios7ComposeOutlineIconWithSize:NAV_BAR_ICON_SIZE],
                               [FAKIonIcons ios7RefreshEmptyIconWithSize:NAV_BAR_ICON_SIZE],
@@ -477,7 +478,7 @@ static const float profileViewHeight = 90;
         [self.navigationController pushViewController:vc animated:YES];
     }else if([title isEqual:SettingGroupPending]){
         [self getStaffDetail];
-        if ([UserManager SharedInstance].userLogined.approveStatus == WHApproveStatusApproving) {
+        if ([UserManager SharedInstance].userLogined.approveStatus == WHApproveStatusRequested) {
             [SVProgressHUD showErrorWithStatus:@"正在审核中，请耐心等待。" duration:1];
             [self getStaffDetail];
             return;

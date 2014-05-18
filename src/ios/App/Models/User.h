@@ -22,8 +22,9 @@ typedef enum {
 
 typedef enum {
     WHApproveStatusUnknow = 0,
-    WHApproveStatusApproving = 1,
-    WHApproveStatusApproved = 2
+    WHApproveStatusValid = 1,
+    WHApproveStatusInvalid = 2,
+    WHApproveStatusRequested = 3
 } WHUserApproveStatus;
 
 @interface User : BaseModel

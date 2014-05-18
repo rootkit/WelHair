@@ -39,12 +39,10 @@
             groupStatus = [[(NSDictionary *)groupDic objectForKey:@"Status"] intValue];
         }
         // approve status
-        if(self.role == WHClient){
-            self.approveStatus = WHApproveStatusApproved;
-        }else{
-            self.approveStatus = groupStatus == Invalid ? WHApproveStatusUnknow :
-                            groupStatus == Requested ? WHApproveStatusApproving :
-                            WHApproveStatusApproved;
+        if (self.role == WHClient) {
+            self.approveStatus = WHApproveStatusValid;
+        } else {
+            self.approveStatus = [[dictionary objectForKey:@"Status"] intValue];
         }
         
         if ([dictionary objectForKey:@"Mobile"] && [dictionary objectForKey:@"Mobile"] != [NSNull null]) {
