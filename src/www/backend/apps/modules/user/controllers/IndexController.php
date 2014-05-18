@@ -118,7 +118,16 @@ class User_IndexController extends AbstractAdminController
 
     public function withdrawalsearchAction()
     {
-        
+        //print_r(WithdrawalService::save(array(
+        //    'WithdrawalId' => 0,
+            //'UserId' => 1,
+        //    'CompanyId'=>1,
+        //    'Amount' => 0.1,
+        //    'Description' => '提现',
+        //    'Bank'=> '民生银行',
+         //   'AccountNo' => '1113l'
+        //)));
+        //die();
         //$userId = intval($this->_request->getParam('user_id'));
         static $pageSize = 10;
 
@@ -180,12 +189,12 @@ class User_IndexController extends AbstractAdminController
         }
 
         $withdrawalId =  intval($this->_request->getParam('withdrawal_id')) ;
-        $reason =  intval($this->_request->getParam('reason')) ;
+        $reason =  $this->_request->getParam('reason') ;
         
 
         if ($this->_request->isPost()) {
 
-            $result = WithdrawalService::rejectWithdrawal(array('WithdrawalId'=> $withdrawalId, $reason));
+            $result = WithdrawalService::rejectWithdrawal(array('WithdrawalId'=> $withdrawalId), $reason);
             $this->_helper->json->sendJson($result);
         }
     }

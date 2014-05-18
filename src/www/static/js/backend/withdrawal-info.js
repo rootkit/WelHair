@@ -41,8 +41,7 @@ $(function() {
                                                         dataType: 'json',
                                                         url:  globalSetting.baseUrl + '/user/index/withdrawalapprove',
                                                         data: {
-                                                            'withdrawal_id':$('#withdrawal_id').val(),
-                                                            'reason': $('#txtrejectreason').val()
+                                                            'withdrawal_id':$('#withdrawal_id').val()
                                                          },
                                                         success: function(data){
                                                             if( data.success)
@@ -81,11 +80,11 @@ $(function() {
                         {"modal": true,
                          "width":500,
                          "height":240,
-                         "title":"决绝",
+                         "title":"拒绝",
                           buttons:
                                 [
                                     {
-                                        text: "批准",
+                                        text: "拒绝",
                                         class:"u-btn",
                                         click: function()
                                         {
@@ -95,7 +94,8 @@ $(function() {
                                                         dataType: 'json',
                                                         url:  globalSetting.baseUrl + '/user/index/withdrawalreject',
                                                         data: {
-                                                            'withdrawal_id':$('#withdrawal_id').val()
+                                                            'withdrawal_id':$('#withdrawal_id').val(),
+                                                            'reason': $('#txtrejectreason').val()
                                                          },
                                                         success: function(data){
                                                             if( data.success)

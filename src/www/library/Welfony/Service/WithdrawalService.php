@@ -15,6 +15,8 @@
 namespace Welfony\Service;
 
 use Welfony\Repository\WithdrawalRepository;
+use Welfony\Repository\UserRepository;
+use Welfony\Repository\CompanyRepository;
 
 class WithdrawalService
 {
@@ -98,6 +100,60 @@ class WithdrawalService
         $result = array('success' => false, 'message' => '');
 
         if ($data['WithdrawalId'] == 0) {
+
+
+            if( isset($data['Amount']) && floatval($data['Amount']) > 0 )
+            {
+                if(isset($data['UserId']) || isset($data['CompanyId']))
+                {
+                    if( isset($data['UserId']) )
+                    {
+                        $u= UserRepository::getInstance()->findUserById($data['UserId']);
+                        if( floatval($data['Amount']) > floatval($u['Balance']))
+                        {
+                            $result = array('success' => false, 'message' => '用户余额不足！');
+                            return $result;
+                        }
+                        else
+                        {
+                            $userWithdrawalTotal = WithdrawalRepository::getInstance()->getUserWithrawalTotal($data['UserId']);
+                            if( floatval($data['Amount']) > floatval($u['Balance']) + floatval($userWithdrawalTotal ))
+                            {
+                                $result = array('success' => false, 'message' => '用户余额不足！');
+                                return $result;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        $c =CompanyRepository::getInstance()->findCompanyById($data['CompanyId']);
+                        if( floatval($data['Amount']) > floatval($c['Amount']))
+                        {
+                            $result = array('success' => false, 'message' => '沙龙余额不足！');
+                            return $result;
+                        }
+                        else
+                        {
+                            $companyWithdrawalTotal = WithdrawalRepository::getInstance()->getCompanyWithrawalTotal($data['CompanyId']);
+                            if( floatval($data['Amount']) > floatval($c['Amount']) + floatval($companyWithdrawalTotal))
+                            {
+                                $result = array('success' => false, 'message' => '沙龙余额不足！');
+                                return $result;
+                            }
+                        }
+                    }
+                } 
+                else
+                {
+                    $result = array('success' => false, 'message' => '请设置提现对象！');
+                    return $result;
+                }
+            }
+            else
+            {
+                $result = array('success' => false, 'message' => '请设置正确的金额！');
+                return $result;
+            }
 
             $newId = WithdrawalRepository::getInstance()->save($data);
             if ($newId) {

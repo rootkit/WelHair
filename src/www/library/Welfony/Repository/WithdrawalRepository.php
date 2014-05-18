@@ -42,6 +42,30 @@ class WithdrawalRepository extends AbstractRepository
         return $row['Total'];
     }
 
+    public function getUserWithrawalTotal($userId)
+    {
+        $strSql = "SELECT
+                       SUM(Amount) `Total`
+                   FROM Withdrawal
+                   WHERE UserId = $userId AND Status = 0 ";
+
+        $row = $this->conn->fetchAssoc($strSql);
+
+        return $row['Total'];
+    }
+
+    public function getCompanyWithrawalTotal($companyId)
+    {
+        $strSql = "SELECT
+                       SUM(Amount) `Total`
+                   FROM Withdrawal
+                   WHERE CompanyId = $companyId AND Status = 0 ";
+
+        $row = $this->conn->fetchAssoc($strSql);
+
+        return $row['Total'];
+    }
+
     public function listWithdrawal($pageNumber, $pageSize)
     {
 
