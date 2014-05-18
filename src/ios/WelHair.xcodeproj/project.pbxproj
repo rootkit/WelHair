@@ -259,7 +259,6 @@
 		4673BB8C18D417EE000F64DE /* GroupManageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4673BB8B18D417EE000F64DE /* GroupManageViewController.m */; };
 		4673BB9318D41B37000F64DE /* CouponManagerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4673BB9218D41B37000F64DE /* CouponManagerViewController.m */; };
 		4673BB9618D41B75000F64DE /* GroupRevenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4673BB9518D41B75000F64DE /* GroupRevenuViewController.m */; };
-		4673BB9918D41BA1000F64DE /* WithDrawalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4673BB9818D41BA1000F64DE /* WithDrawalViewController.m */; };
 		4673BB9C18D41BBB000F64DE /* ApprovalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4673BB9B18D41BBB000F64DE /* ApprovalViewController.m */; };
 		4673BBA218D41EE9000F64DE /* StaffManageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4673BBA118D41EE9000F64DE /* StaffManageViewController.m */; };
 		4673BBC418D420AB000F64DE /* StaffServicesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4673BBC318D420AB000F64DE /* StaffServicesViewController.m */; };
@@ -339,6 +338,9 @@
 		46DB8CEC192100C900B3AB40 /* JSBadgeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 46DB8CEB192100C900B3AB40 /* JSBadgeView.m */; };
 		46DB8EDD1922535B00B3AB40 /* AppointmentRecordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 46DB8EDC1922535B00B3AB40 /* AppointmentRecordViewController.m */; };
 		46DB8EE319230A1700B3AB40 /* UserHairRecordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 46DB8EE219230A1700B3AB40 /* UserHairRecordViewController.m */; };
+		46DFBEA21928B72E00CFA6B5 /* WithdrawViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 46DFBEA11928B72E00CFA6B5 /* WithdrawViewController.m */; };
+		46DFBEA51928B88D00CFA6B5 /* AddWithdrawViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 46DFBEA41928B88D00CFA6B5 /* AddWithdrawViewController.m */; };
+		46DFBEA81928B8E400CFA6B5 /* WithdrawCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 46DFBEA71928B8E400CFA6B5 /* WithdrawCell.m */; };
 		46E258701900E28E005DFBCE /* WFViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 46E2586F1900E28E005DFBCE /* WFViewController.m */; };
 		46E84EBF18C2C7040004C146 /* centerIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 46E84EBA18C2C7040004C146 /* centerIcon@2x.png */; };
 		46E84EC018C2C7040004C146 /* UIScrollView+UzysCircularProgressPullToRefresh.m in Sources */ = {isa = PBXBuildFile; fileRef = 46E84EBC18C2C7040004C146 /* UIScrollView+UzysCircularProgressPullToRefresh.m */; };
@@ -818,8 +820,6 @@
 		4673BB9218D41B37000F64DE /* CouponManagerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CouponManagerViewController.m; sourceTree = "<group>"; };
 		4673BB9418D41B75000F64DE /* GroupRevenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroupRevenuViewController.h; sourceTree = "<group>"; };
 		4673BB9518D41B75000F64DE /* GroupRevenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GroupRevenuViewController.m; sourceTree = "<group>"; };
-		4673BB9718D41BA1000F64DE /* WithDrawalViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WithDrawalViewController.h; sourceTree = "<group>"; };
-		4673BB9818D41BA1000F64DE /* WithDrawalViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WithDrawalViewController.m; sourceTree = "<group>"; };
 		4673BB9A18D41BBB000F64DE /* ApprovalViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ApprovalViewController.h; sourceTree = "<group>"; };
 		4673BB9B18D41BBB000F64DE /* ApprovalViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ApprovalViewController.m; sourceTree = "<group>"; };
 		4673BBA018D41EE9000F64DE /* StaffManageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StaffManageViewController.h; sourceTree = "<group>"; };
@@ -954,6 +954,12 @@
 		46DB8EDC1922535B00B3AB40 /* AppointmentRecordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppointmentRecordViewController.m; sourceTree = "<group>"; };
 		46DB8EE119230A1700B3AB40 /* UserHairRecordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserHairRecordViewController.h; sourceTree = "<group>"; };
 		46DB8EE219230A1700B3AB40 /* UserHairRecordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserHairRecordViewController.m; sourceTree = "<group>"; };
+		46DFBEA01928B72E00CFA6B5 /* WithdrawViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WithdrawViewController.h; sourceTree = "<group>"; };
+		46DFBEA11928B72E00CFA6B5 /* WithdrawViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WithdrawViewController.m; sourceTree = "<group>"; };
+		46DFBEA31928B88D00CFA6B5 /* AddWithdrawViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddWithdrawViewController.h; sourceTree = "<group>"; };
+		46DFBEA41928B88D00CFA6B5 /* AddWithdrawViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddWithdrawViewController.m; sourceTree = "<group>"; };
+		46DFBEA61928B8E400CFA6B5 /* WithdrawCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WithdrawCell.h; sourceTree = "<group>"; };
+		46DFBEA71928B8E400CFA6B5 /* WithdrawCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WithdrawCell.m; sourceTree = "<group>"; };
 		46E2586E1900E28E005DFBCE /* WFViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WFViewController.h; sourceTree = "<group>"; };
 		46E2586F1900E28E005DFBCE /* WFViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WFViewController.m; sourceTree = "<group>"; };
 		46E84EBA18C2C7040004C146 /* centerIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "centerIcon@2x.png"; sourceTree = "<group>"; };
@@ -2149,6 +2155,8 @@
 				4630252D18C848EB000E0B51 /* WorkCardView.m */,
 				46B25AEB18C086D30035F425 /* WorkCell.h */,
 				46B25AEC18C086D30035F425 /* WorkCell.m */,
+				46DFBEA61928B8E400CFA6B5 /* WithdrawCell.h */,
+				46DFBEA71928B8E400CFA6B5 /* WithdrawCell.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -2348,8 +2356,10 @@
 				4673BB8B18D417EE000F64DE /* GroupManageViewController.m */,
 				4673BB9418D41B75000F64DE /* GroupRevenuViewController.h */,
 				4673BB9518D41B75000F64DE /* GroupRevenuViewController.m */,
-				4673BB9718D41BA1000F64DE /* WithDrawalViewController.h */,
-				4673BB9818D41BA1000F64DE /* WithDrawalViewController.m */,
+				46DFBEA01928B72E00CFA6B5 /* WithdrawViewController.h */,
+				46DFBEA11928B72E00CFA6B5 /* WithdrawViewController.m */,
+				46DFBEA31928B88D00CFA6B5 /* AddWithdrawViewController.h */,
+				46DFBEA41928B88D00CFA6B5 /* AddWithdrawViewController.m */,
 			);
 			path = GroupManage;
 			sourceTree = "<group>";
@@ -2715,6 +2725,7 @@
 				467F0EEC18CB4FCF009FFE08 /* WelQRReaderViewController.m in Sources */,
 				466DF42618FD7F6B00CB8A53 /* MyGroupDetailViewController.m in Sources */,
 				4665FD7C18BC7D4700E88C6B /* CommentsViewController.m in Sources */,
+				46DFBEA81928B8E400CFA6B5 /* WithdrawCell.m in Sources */,
 				46DB8CEC192100C900B3AB40 /* JSBadgeView.m in Sources */,
 				46C1DFBE1923362A0038ECBF /* UserHairViewController.m in Sources */,
 				46B25AED18C086D30035F425 /* WorkCell.m in Sources */,
@@ -2730,6 +2741,7 @@
 				46AF945818F662FB00479158 /* OrderPaidTableView.m in Sources */,
 				181776AA18F3CC4300083C1E /* JoinGroupViewController.m in Sources */,
 				4673BB6A18D2F848000F64DE /* UploadWorkFormViewController.m in Sources */,
+				46DFBEA51928B88D00CFA6B5 /* AddWithdrawViewController.m in Sources */,
 				187638D61910D42E00846BB9 /* MyClientCell.m in Sources */,
 				184B82FC18DAC7F000177BAB /* UIImage+JSMessagesView.m in Sources */,
 				18502DA918F8E2B800CD4A0A /* StaffServiceTableViewCell.m in Sources */,
@@ -2763,7 +2775,6 @@
 				46B25AF018C185290035F425 /* FakeDataHelper.m in Sources */,
 				46E84EDD18C338370004C146 /* OpitionCategory.m in Sources */,
 				187638D31910BC2B00846BB9 /* MyClientDetailViewController.m in Sources */,
-				4673BB9918D41BA1000F64DE /* WithDrawalViewController.m in Sources */,
 				467F0EFD18CB5A8C009FFE08 /* FavoritesViewController.m in Sources */,
 				46DB8EDD1922535B00B3AB40 /* AppointmentRecordViewController.m in Sources */,
 				4673BB9C18D41BBB000F64DE /* ApprovalViewController.m in Sources */,
@@ -2808,6 +2819,7 @@
 				467F0EEE18CB4FCF009FFE08 /* UIImage+WelKit.m in Sources */,
 				18A3E61618DC10050080DC0B /* NSString+WelKit.m in Sources */,
 				184B82C418DAC7F000177BAB /* JSBubbleMessageCell.m in Sources */,
+				46DFBEA21928B72E00CFA6B5 /* WithdrawViewController.m in Sources */,
 				467F0F0318CB610F009FFE08 /* SettingViewController.m in Sources */,
 				183B03CE18E110F500765116 /* ABMGroupedTableViewCell.m in Sources */,
 			);

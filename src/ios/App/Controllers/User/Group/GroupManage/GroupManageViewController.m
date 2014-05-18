@@ -14,7 +14,7 @@
 #import "GroupManageViewController.h"
 #import "CouponManagerViewController.h"
 #import "GroupRevenuViewController.h"
-#import "WithDrawalViewController.h"
+#import "WithdrawViewController.h"
 
 @interface GroupManageViewController ()
 
@@ -93,7 +93,7 @@
 
 - (void)withDrawalClick
 {
-     [self.navigationController pushViewController:[WithDrawalViewController new] animated:YES];
+     [self.navigationController pushViewController:[WithdrawViewController new] animated:YES];
 }
 
 - (void)approvalClick

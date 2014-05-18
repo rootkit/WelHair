@@ -36,6 +36,10 @@
 #define API_APPOINTMENTS_CREATE API_PATH(@"/appointments")
 #define API_APPOINTMENTS_UPDATE API_PATH(@"/appointments/%d")
 
+#define API_WITHDRAW_CREATE API_PATH(@"/withdraw")
+#define API_WITHDRAW_CANCEL API_PATH(@"/withdraw/cancel/%d")
+#define API_WITHDRAW_LIST API_PATH(@"/withdraws/%d")
+
 #define API_SOCIAL_LOGIN API_PATH(@"/users/signin/social")
 
 #define API_USERS_SIGNIN_EMAIL API_PATH(@"/users/signin/email")
@@ -107,6 +111,7 @@
 #define API_COMPANIES_JOIN API_PATH(@"/companies/%d/join")
 #define API_COMPANIES_LIKE API_PATH(@"/companies/%d/likes")
 #define API_COMPANIES_COMMENT_CREATE API_PATH(@"/companies/%d/comments")
+#define API_COMPANY_BALANCE API_PATH(@"/company/%d/balance")
 
 #define API_UPLOAD_PICTURE API_PATH(@"/upload/image")
 
@@ -131,6 +136,7 @@
 #define NOTIFICATION_NEW_MESSAGE_RECEIVED @"NewMessageReceived"
 #define NOTIFICATION_STAFF_GET_APPOINMENT @"StaffGetAppointment"
 #define NOTIFICATION_GOTO_HAIR_RECORD_VIEW @"GotoHairRecordView"
+#define NOTIFICATION_CANCEL_REQUEST_WITHDRAW @"Notification_CancelRequestWithdras"
 
 #define REMOTE_NOTIFICATION_TYPE_STAFF_GET_APPOINTMENT  1
 
