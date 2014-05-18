@@ -28,6 +28,7 @@ static const float kMargin = 10;
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
+        self.title = @"提现申请";
         FAKIcon *leftIcon = [FAKIonIcons ios7ArrowBackIconWithSize:NAV_BAR_ICON_SIZE];
         [leftIcon addAttribute:NSForegroundColorAttributeName value:[UIColor whiteColor]];
         self.leftNavItemImg =[leftIcon imageWithSize:CGSizeMake(NAV_BAR_ICON_SIZE, NAV_BAR_ICON_SIZE)];
@@ -115,7 +116,7 @@ static const float kMargin = 10;
     self.balanceLbl.textColor = [UIColor redColor];
     self.balanceLbl.font = [UIFont systemFontOfSize:16];
     self.balanceLbl.textAlignment = TextAlignmentLeft;
-    self.balanceLbl.text=  [NSString stringWithFormat:@"%2f",self.balance];
+    self.balanceLbl.text=  [NSString stringWithFormat:@"%.2f",self.balance];
     [self.view addSubview:self.balanceLbl];
     
 
@@ -129,7 +130,7 @@ static const float kMargin = 10;
     self.amountTxt.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
     self.amountTxt.backgroundColor = [UIColor whiteColor];
     self.amountTxt.placeholder = @"提现金额";
-    self.amountTxt.keyboardType = UIKeyboardTypeNumberPad;
+    self.amountTxt.keyboardType = UIKeyboardTypeDecimalPad;
     [self.view addSubview:self.amountTxt];
     [self.amountTxt becomeFirstResponder];
 }
