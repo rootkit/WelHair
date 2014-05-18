@@ -161,7 +161,7 @@ class UserService
 
         $companyUser = CompanyUserRepository::getInstance()->findByUser($user['UserId']);
         if ($companyUser) {
-            $user['IsApproved'] = $companyUser['Status'] == StaffStatus::Valid;
+            $user['IsApproved'] = $companyUser['Status'] == StaffStatus::Valid ? 1 : 0;
         } else {
             $user['IsApproved'] = $user['Role'] == UserRole::Client ? 1 : 0;
         }
