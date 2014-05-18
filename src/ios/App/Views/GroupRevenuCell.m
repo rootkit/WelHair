@@ -38,6 +38,9 @@
         self.clientAvatorImg = [[CircleImageView alloc] initWithFrame:CGRectMake(10, 10, 60, 60)];
         [self addSubview:self.clientAvatorImg];
         self.clientAvatorImg.layer.borderColor = [[UIColor colorWithHexString:@"e0e0de"] CGColor];
+        [self.clientAvatorImg addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self
+                                                                                          action:@selector(staffTapped)]];
+        self.clientAvatorImg.userInteractionEnabled = YES;
         self.clientAvatorImg.layer.borderWidth = 2;
         self.clientNameLbl = [[UILabel alloc] initWithFrame:CGRectMake(10,
                                                                  MaxY(self.clientAvatorImg),
@@ -130,6 +133,11 @@
     self.statusLbl.text= @"交易成功";
     self.datetimeLbl.text = @"2014-1-1";
     
+}
+
+- (void)staffTapped
+{
+    [self.delegate didTapStaff:[[self.dataDic objectForKey:@"staffId"] intValue]];
 }
 
 @end

@@ -13,7 +13,7 @@
 #import "GroupRevenuViewController.h"
 #import "GroupRevenuCell.h"
 #import "StaffRevenuViewController.h"
-@interface GroupRevenuViewController ()<UITableViewDataSource, UITableViewDelegate>
+@interface GroupRevenuViewController ()<UITableViewDataSource, UITableViewDelegate, GroupRevenuCellDelegate>
 @property (nonatomic, strong) NSMutableArray *datasource;
 @property (nonatomic, strong) UITableView *tableView;
 @end
@@ -136,14 +136,14 @@
     if (!cell) {
         cell = [[GroupRevenuCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        cell.delegate = self;
     }
     [cell setup:nil];
     return cell;
 }
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+- (void)didTapStaff:(int)staffId
 {
-    int staffId = [[(NSDictionary *)[self.datasource objectAtIndex:indexPath.row] objectForKey:@"staffId"] intValue];
     StaffRevenuViewController *vc= [StaffRevenuViewController new];
     vc.staffId = staffId;
     [self.navigationController pushViewController:vc animated:YES];

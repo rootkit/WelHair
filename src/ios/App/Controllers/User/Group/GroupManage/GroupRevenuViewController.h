@@ -11,7 +11,6 @@
 // ==============================================================================
 
 #import "BaseViewController.h"
-
 @interface GroupRevenuViewController : BaseViewController
 
 @end
