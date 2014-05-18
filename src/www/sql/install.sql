@@ -1641,6 +1641,27 @@ CREATE TABLE IF NOT EXISTS `UserDevice` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ==============================================================================
+-- Change IsApproved to Status on table CompanyUser
+-- ==============================================================================
+DELIMITER ;;
+CREATE PROCEDURE `sp_update_table_field`()
+BEGIN
+  IF EXISTS (
+      SELECT 1
+      FROM information_schema.COLUMNS
+      WHERE lower(TABLE_SCHEMA) = 'welhair'
+        AND lower(TABLE_NAME) ='companyuser'
+        AND lower(COLUMN_NAME) ='isapproved'
+  ) THEN
+    ALTER TABLE `CompanyUser` CHANGE COLUMN `IsApproved` `Status` SMALLINT(1) UNSIGNED NOT NULL DEFAULT 0;
+  END IF;
+END;;
+
+DELIMITER ;
+CALL sp_update_table_field();
+DROP PROCEDURE IF EXISTS `sp_update_table_field`;
+
+-- ==============================================================================
 -- Add CompanyId, Bank, OpenAccountBank, AccountNo, AccountName to Withdrawal table
 -- ==============================================================================
 DELIMITER ;;
