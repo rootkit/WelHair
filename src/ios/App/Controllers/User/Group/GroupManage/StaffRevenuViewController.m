@@ -10,21 +10,20 @@
 //
 // ==============================================================================
 
-#import "GroupRevenuViewController.h"
-#import "GroupRevenuCell.h"
 #import "StaffRevenuViewController.h"
-@interface GroupRevenuViewController ()<UITableViewDataSource, UITableViewDelegate>
+#import "StaffRevenuCell.h"
+@interface StaffRevenuViewController ()<UITableViewDataSource, UITableViewDelegate>
 @property (nonatomic, strong) NSMutableArray *datasource;
 @property (nonatomic, strong) UITableView *tableView;
 @end
 
-@implementation GroupRevenuViewController
+@implementation StaffRevenuViewController
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        self.title = @"沙龙收益";
+        self.title = @"发型师收益";
         FAKIcon *leftIcon = [FAKIonIcons ios7ArrowBackIconWithSize:NAV_BAR_ICON_SIZE];
         [leftIcon addAttribute:NSForegroundColorAttributeName value:[UIColor whiteColor]];
         self.leftNavItemImg =[leftIcon imageWithSize:CGSizeMake(NAV_BAR_ICON_SIZE, NAV_BAR_ICON_SIZE)];
@@ -131,22 +130,15 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString * cellIdentifier = @"GroupRevenuCellIdentifier";
-    GroupRevenuCell * cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+    static NSString * cellIdentifier = @"staffRevenuCellIdentifier";
+    StaffRevenuCell * cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
     if (!cell) {
-        cell = [[GroupRevenuCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
+        cell = [[StaffRevenuCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
     [cell setup:nil];
     return cell;
 }
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    int staffId = [[(NSDictionary *)[self.datasource objectAtIndex:indexPath.row] objectForKey:@"staffId"] intValue];
-    StaffRevenuViewController *vc= [StaffRevenuViewController new];
-    vc.staffId = staffId;
-    [self.navigationController pushViewController:vc animated:YES];
-}
 
 @end

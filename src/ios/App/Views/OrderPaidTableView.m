@@ -46,7 +46,7 @@
         [self.tableView.pullToRefreshView setBorderWidth:2];
         [self.tableView.pullToRefreshView setBorderColor:[UIColor whiteColor]];
         [self.tableView.pullToRefreshView setImageIcon:[UIImage imageNamed:@"centerIcon"]];
-        self.datasource = [NSMutableArray arrayWithArray:[FakeDataHelper getFakeOrderList:YES]];
+        self.datasource = nil;//[NSMutableArray arrayWithArray:[FakeDataHelper getFakeOrderList:YES]];
     }
     return self;
 }
@@ -68,7 +68,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return  10;
+    return  self.datasource.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
