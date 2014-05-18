@@ -1,0 +1,94 @@
+<?php
+use \Welfony\Utility\Util;
+?>
+<div class="m-form">
+    <form id="frm-deposit-info" method="post">
+        <fieldset>
+            <div class="formitm">
+                <label class="lab">用户：</label>
+                <div class="ipt">
+                   <?php echo isset($this->depositInfo['Nickname'])? $this->depositInfo['Nickname']: $this->userInfo['Nickname']; ?> &nbsp;
+                   <input type="hidden" id="user_id" value="<?php echo $this->depositInfo['UserId']; ?>" >
+                </div>
+            </div>     
+            <div class="formitm">
+                <label class="lab">金额：</label>
+                <div class="ipt">
+                <?php if($this->depositInfo['DepositId']):?>
+                    <?php echo $this->depositInfo['Amount']; ?> &nbsp;
+                    <input id="amount" type="hidden" value="<?php echo $this->depositInfo['Amount']; ?>"/> 
+                  
+                <?php else: ?>
+                   <input id="amount" type="text" value="<?php echo $this->depositInfo['Amount']; ?>" datatype="n" errormsg="请输入数字" class="u-ipt"/> &nbsp;
+                <?php endif; ?>
+                </div>
+            </div>
+            <div class="formitm">
+                <label class="lab">描述：</label>
+                <div class="ipt">
+                    <input id="description" type="text" value="<?php echo $this->depositInfo['Description']; ?>"  class="u-ipt"/>
+                </div>
+            </div>
+            <?php if($this->depositInfo['DepositId']):?>
+            <div class="formitm">
+                <label class="lab">时间：</label>
+                <div class="ipt">
+                    <?php echo $this->withdrawalInfo['CreateTime']; ?>&nbsp;
+                </div>
+            </div>
+            <?php endif; ?>
+
+            <div class="formitm">
+                <label class="lab">账号：</label>
+                <div class="ipt">
+                    <input id="accountno" type="text" value="<?php echo $this->depositInfo['Description']; ?>"  class="u-ipt"/>
+                </div>
+            </div>
+            <div class="formitm">
+                <label class="lab">账户名：</label>
+                <div class="ipt">
+                    <input id="accountname" type="text" value="<?php echo $this->depositInfo['Description']; ?>"  class="u-ipt"/>
+                </div>
+            </div>
+            <div class="formitm">
+                <label class="lab">状态：</label>
+                <div class="ipt">
+                   <?php if( $this->depositInfo['Status'] == 0 ) :?>
+                    <span class="u-btns" data-type="radio">
+                        <span class="u-btn u-btn-c<?php echo $this->depositInfo['Status'] == 0 ? '3' : '4'; ?>" data-value="0">新建</span>
+                        <span class="u-btn u-btn-c<?php echo $this->depositInfo['Status'] == 1 ? '3' : '4'; ?>" data-value="1">成功</span>
+                    </span>
+                    <?php else :?>
+                        成功
+                    <?php endif;?>
+                </div>
+            </div>
+            <div class="formitm">
+                <label class="lab">备注：</label>
+                <div class="ipt">
+                    <input id="comments" type="text" value="<?php echo $this->depositInfo['Comments']; ?>"  class="u-ipt"/>
+                </div>
+            </div>
+            <div class="formitm formitm-1">
+                <input type="hidden" id="deposit_id" value="<?php echo intval($this->depositInfo['DepositId']); ?>" />
+                <?php if( $this->depositInfo['Status'] == 0 ) :?>
+                <button id="btnSave" class="u-btn" type="button">确定</button>
+                <?php endif;?>
+            </div>
+            
+        </fieldset>
+    </form>
+</div>
+
+<div id="approvepopin" style="display:none;">
+    <table width="95%" style="margin:10px auto" class="m-table">
+       <tbody>
+
+            <tr>
+                <th>说明：</th>
+                <td align="left" colspan="3">如果是状态成功，将直接充值到用户的余额中。</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<script src="<?php echo Util::baseAssetUrl('js/backend/deposit-info.js'); ?>"></script>

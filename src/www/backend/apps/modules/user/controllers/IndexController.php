@@ -19,6 +19,7 @@ use Welfony\Service\UserBalanceLogService;
 use Welfony\Service\WithdrawalService;
 use Welfony\Service\WithdrawalLogService;
 use Welfony\Utility\Util;
+use Welfony\Service\DepositService;
 
 class User_IndexController extends AbstractAdminController
 {
@@ -104,6 +105,7 @@ class User_IndexController extends AbstractAdminController
     {
         $userId = intval($this->_request->getParam('user_id'));
         static $pageSize = 10;
+        $this->view->userId = $userId;
 
         $this->view->pageTitle = '余额历史记录';
 
@@ -116,9 +118,99 @@ class User_IndexController extends AbstractAdminController
                                                 ceil($searchResult['total'] / $pageSize));
     }
 
+    public function depositsearchAction()
+    {
+        //print_r(WithdrawalService::save(array(
+        //    'WithdrawalId' => 0,
+            //'UserId' => 1,
+        //    'CompanyId'=>1,
+        //    'Amount' => 0.1,
+        //    'Description' => '提现',
+        //    'Bank'=> '民生银行',
+         //   'AccountNo' => '1113l'
+        //)));
+        //die();
+        //$userId = intval($this->_request->getParam('user_id'));
+        static $pageSize = 10;
+
+        $this->view->pageTitle = '充值列表';
+
+        $page = $this->_request->getParam('page')? intval($this->_request->getParam('page')) : 1;
+        $searchResult = DepositService::listDeposit($page, $pageSize);
+
+        $this->view->dataList = $searchResult['deposits'];
+        $this->view->pager = $this->renderPager($this->view->baseUrl('user/index/deposit?s='),
+                                                $page,
+                                                ceil($searchResult['total'] / $pageSize));
+    }
+
+    public function depositinfoAction()
+    {
+        $this->view->pageTitle = '充值详情';
+        $depositid = intval($this->_request->getParam('deposit_id'));
+        //if ($depositid) {
+        //    $deposit = DepositService::getWithdrawalById($withdrawalid);
+        //    $this->view->depositInfo= $deposit;
+        //}
+        $userid = intval($this->_request->getParam('user_id'));
+        if($userid)
+        {
+            $user = UserService::getUserById($userid);
+            $this->view->userInfo = $user;
+        }
+
+        $deposit = array(
+            'DepositId' => $depositid ,
+            'UserId' => $userid,
+            'Amount' => 0,
+            'Status' => 0,
+            'Description' =>'',
+            'AccountNo' => '',
+            'AccountName' => '',
+            'Comments' =>''
+        );
+
+        $staffId = intval($this->_request->getParam('staff_id'));
+
+        if ($this->_request->isPost()) {
+            $status = intval($this->_request->getParam('status'));
+            $deposit['Description'] = $this->_request->getParam('description');
+            $deposit['Comments'] = $this->_request->getParam('comments');
+            $deposit['Amount'] = $this->_request->getParam('amount');
+            $deposit['AccountNo'] = $this->_request->getParam('accountno');
+            $deposit['AccountName'] = $this->_request->getParam('accountname');
+            $deposit['Status'] = $status;
+
+            $result = DepositService::save($deposit);
+            $this->_helper->viewRenderer->setNoRender(true);
+            $this->_helper->layout->disableLayout();
+            $this->_helper->json->sendJson($result);
+            //if ($result['success']) {
+            //    $this->getResponse()->setRedirect($this->view->baseUrl('user/index/depositsearch'));
+            //} else {
+            //    $this->view->errorMessage = $result['message'];
+            //}
+        } else {
+            if ($deposit['DepositId'] > 0) {
+                $deposit = DepositService::getDepositById($deposit['DepositId']);
+            }
+        }
+
+        $this->view->depositInfo = $deposit;
+    }
+
     public function withdrawalsearchAction()
     {
-        
+        //print_r(WithdrawalService::save(array(
+        //    'WithdrawalId' => 0,
+            //'UserId' => 1,
+        //    'CompanyId'=>1,
+        //    'Amount' => 0.1,
+        //    'Description' => '提现',
+        //    'Bank'=> '民生银行',
+         //   'AccountNo' => '1113l'
+        //)));
+        //die();
         //$userId = intval($this->_request->getParam('user_id'));
         static $pageSize = 10;
 
@@ -180,12 +272,12 @@ class User_IndexController extends AbstractAdminController
         }
 
         $withdrawalId =  intval($this->_request->getParam('withdrawal_id')) ;
-        $reason =  intval($this->_request->getParam('reason')) ;
+        $reason =  $this->_request->getParam('reason') ;
         
 
         if ($this->_request->isPost()) {
 
-            $result = WithdrawalService::rejectWithdrawal(array('WithdrawalId'=> $withdrawalId, $reason));
+            $result = WithdrawalService::rejectWithdrawal(array('WithdrawalId'=> $withdrawalId), $reason);
             $this->_helper->json->sendJson($result);
         }
     }
