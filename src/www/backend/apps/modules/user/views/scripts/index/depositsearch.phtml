@@ -1,0 +1,45 @@
+<?php
+use Welfony\Utility\Converter;
+use Welfony\Utility\Util;
+?>
+<table class="m-table">
+    <thead>
+        <tr>
+            <th class="col-chk"><input id="chk_all" type="checkbox" /></th>
+            <th class="cola">用户名</th>
+            <th>金额</th>
+            <th>时间</th>
+            <th>状态</th>
+            <th>充值账号</th>
+            <th>充值账户名</th>
+            <th>描述</th>
+            <th>备注</th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php if (count($this->dataList) > 0): ?>
+        <?php foreach ($this->dataList as $data): ?>
+        <tr>
+            <td class="col-center"><input name="chk_ids[]" value="<?php echo $data['DepositId']; ?>" type="checkbox" /></td>
+            <td class="cola">
+                <a href="<?php echo $this->baseUrl('user/index/depositinfo?deposit_id=' . $data['DepositId']); ?>">
+                    <?php echo $data['Nickname']; ?>
+                </a>
+            </td>
+            <td><?php echo $data['Amount']; ?></td>
+            <td><?php echo $data['CreateTime']; ?></td>
+            <td class="statusrow"><?php echo $data['Status'] =='0' ? '新建' : '成功'; ?></td>
+            <td><?php echo $data['AccountNo']; ?></td>
+            <td><?php echo $data['AccountName']; ?></td>
+            <td><?php echo $data['Description']; ?></td>
+            <td><?php echo $data['Comments']; ?></td>
+        </tr>
+        <?php endforeach; ?>
+        <?php else: ?>
+        <tr>
+            <td class="col-center" colspan="9">您还没有添加任何记录</td>
+        </tr>
+        <?php endif; ?>
+    </tbody>
+</table>
+<?php echo $this->pager; ?>

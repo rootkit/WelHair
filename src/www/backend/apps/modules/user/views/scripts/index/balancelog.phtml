@@ -4,6 +4,14 @@ use Welfony\Utility\Util;
 ?>
 <div class="toolbar">
     <ul class="clearfix">
+
+        <li>
+            <a href="<?php echo $this->baseUrl('user/index/depositinfo?user_id='.$this->userId ); ?>">
+                <i class="iconfont">&#xf0150;</i>
+                充值
+            </a>
+        </li>
+
         <li>
             <a href="<?php echo $this->baseUrl('user/index/search'); ?>">
                 <i class="iconfont">&#xf0112;</i>

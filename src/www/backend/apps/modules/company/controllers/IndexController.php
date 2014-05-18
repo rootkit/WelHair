@@ -20,6 +20,7 @@ use Welfony\Service\CompanyBalanceLogService;
 use Welfony\Service\GoodsService;
 use Welfony\Service\WithdrawalService;
 use Welfony\Service\WithdrawalLogService;
+use Welfony\Service\DepositService;
 
 class Company_IndexController extends AbstractAdminController
 {

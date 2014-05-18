@@ -1717,6 +1717,21 @@ CALL sp_update_table_field();
 DROP PROCEDURE IF EXISTS `sp_update_table_field`;
 
 
+CREATE TABLE IF NOT EXISTS `Deposit` (
+  `DepositId` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `UserId` int(11) unsigned DEFAULT NULL COMMENT '充值用户ID',
+  `Amount` decimal(15,2) NOT NULL DEFAULT '0.00' COMMENT '金额',
+  `CreateTime` datetime DEFAULT NULL COMMENT '时间',
+  `Status` tinyint(1) NOT NULL DEFAULT '0' COMMENT '状态，0新建,1成功',
+  `Description` text COMMENT '描述',
+  `AccountNo` varchar(100) DEFAULT NULL COMMENT '账号',
+  `AccountName` varchar(100) DEFAULT NULL COMMENT '账户名称',
+  `Comments` varchar(500) DEFAULT NULL COMMENT '备注：',
+  `LastUpdateDate` datetime DEFAULT NULL COMMENT '更新时间',
+  PRIMARY KEY (`DepositId`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='用户提现请求';
+
+
 
 
 

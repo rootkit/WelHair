@@ -61,6 +61,13 @@
                 提现列表
             </a>
         </li>
+        <li<?php echo ($this->controller == 'index' && $this->action == 'depositsearch') ? ' class="active"' : ''; ?>>
+            <a href="<?php echo $this->baseUrl('user/index/depositsearch'); ?>">
+                <i class="iconfont">&#x344a;</i>
+                充值列表
+            </a>
+        </li>
+
     </ul>
     <?php endif; ?>
 
