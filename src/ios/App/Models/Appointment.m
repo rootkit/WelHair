@@ -42,6 +42,10 @@
         self.service = [Service new];
         self.service.id = [[dictionary objectForKey:@"ServiceId"] intValue];
         self.service.name = [dictionary objectForKey:@"ServiceTitle"];
+
+        if ([dictionary objectForKey:@"IsLiked"]) {
+            self.isLiked = [[dictionary objectForKey:@"IsLiked"] intValue] == 1;
+        }
     }
     
     return self;

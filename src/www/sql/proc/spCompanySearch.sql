@@ -38,6 +38,10 @@ FROM (
       C.Longitude,
 
       AVG(IFNULL(TBLRate.Rate, 0)) Rate,
+      (SELECT
+          COUNT(1)
+      FROM Appointment A
+      WHERE A.StaffId IN (SELECT UserId FROM CompanyUser CU WHERE CU.CompanyId = C.CompanyId AND CU.Status = 1) AND A.Status = 2 AND A.IsLiked = 1) RateCount,
       getDistance(C.Latitude, C.Longitude, latitude, longitude) Distance
     FROM Company C
     LEFT OUTER JOIN ( SELECT

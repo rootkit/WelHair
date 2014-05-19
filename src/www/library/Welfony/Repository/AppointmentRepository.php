@@ -89,7 +89,8 @@ class AppointmentRepository extends AbstractRepository
 
                        A.ServiceId,
                        A.ServiceTitle,
-                       A.Price
+                       A.Price,
+                       A.IsLiked
                    FROM Appointment A
                    INNER JOIN Users U ON U.UserId = A.UserId
                    INNER JOIN Users S ON S.UserId = A.StaffId
@@ -177,7 +178,7 @@ class AppointmentRepository extends AbstractRepository
         } catch (\Exception $e) {
             $conn->rollback();
             $this->logger->log($e, \Zend_Log::ERR);
-         
+
             return false;
         }
     }

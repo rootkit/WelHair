@@ -34,6 +34,8 @@ typedef enum {
 @property (nonatomic) WHApppointmentStatus status;
 @property (nonatomic) int paymentTransactionId;
 
+@property (nonatomic) BOOL isLiked;
+
 @property (nonatomic, strong) NSDate *date;
 @property (nonatomic, strong) NSArray *imgUrlList;
 

@@ -277,6 +277,10 @@ class StaffService
             $staffDetail['Status'] = $row['Status'];
             $staffDetail['IsLiked'] = isset($row['IsLiked']) ? $row['IsLiked'] : 0;
 
+            if (isset($row['RateCount'])) {
+                $staffDetail['RateCount'] = $row['RateCount'];
+            }
+
             if (isset($row['ProfileBackgroundUrl'])) {
                 $staffDetail['ProfileBackgroundUrl'] = json_decode($row['ProfileBackgroundUrl'], true);
             }

@@ -1662,6 +1662,28 @@ CALL sp_update_table_field();
 DROP PROCEDURE IF EXISTS `sp_update_table_field`;
 
 -- ==============================================================================
+-- Add IsLiked to Appointment table
+-- ==============================================================================
+DELIMITER ;;
+
+CREATE PROCEDURE `sp_update_table_field`()
+BEGIN
+  IF NOT EXISTS (
+      SELECT 1
+      FROM information_schema.COLUMNS
+      WHERE lower(TABLE_SCHEMA) = 'welhair'
+        AND lower(TABLE_NAME) ='appointment'
+        AND lower(COLUMN_NAME) ='isliked'
+  ) THEN
+    ALTER TABLE `Appointment` ADD `IsLiked` SMALLINT(1) NOT NULL DEFAULT 0;
+  END IF;
+END;;
+
+DELIMITER ;
+CALL sp_update_table_field();
+DROP PROCEDURE IF EXISTS `sp_update_table_field`;
+
+-- ==============================================================================
 -- Add CompanyId, Bank, OpenAccountBank, AccountNo, AccountName to Withdrawal table
 -- ==============================================================================
 DELIMITER ;;

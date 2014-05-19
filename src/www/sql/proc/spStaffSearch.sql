@@ -42,6 +42,10 @@ FROM (
       (SELECT MAX(W.WorkId) FROM Work W WHERE W.UserId = U.UserId) MaxWorkId,
       (SELECT COUNT(1) FROM Work W WHERE W.UserId = U.UserId) WorkCount,
       AVG(IFNULL(TBLRate.Rate, 0)) Rate,
+      (SELECT
+          COUNT(1)
+      FROM Appointment A
+      WHERE A.StaffId = U.UserId AND A.Status = 2 AND A.IsLiked = 1) RateCount,
       getDistance(C.Latitude, C.Longitude, latitude, longitude) Distance
     FROM Users U
     INNER JOIN CompanyUser CU ON CU.UserId = U.UserId AND CU.Status = 1

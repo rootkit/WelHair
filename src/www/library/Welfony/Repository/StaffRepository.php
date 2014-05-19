@@ -211,6 +211,11 @@ class StaffRepository extends AbstractRepository
                         WHERE TBLRate.CompanyId = C.CompanyId
                        ) CompanyRate,
 
+                       (SELECT
+                            COUNT(1)
+                        FROM Appointment A
+                        WHERE A.StaffId = U.UserId AND A.Status = 2 AND A.IsLiked = 1) RateCount,
+
                        S.ServiceId,
                        S.Title ServiceTitle,
                        S.OldPrice,

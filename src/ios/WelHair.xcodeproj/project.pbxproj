@@ -2358,18 +2358,18 @@
 			isa = PBXGroup;
 			children = (
 				4673BB9018D41B26000F64DE /* Coupon */,
+				46DFBEA31928B88D00CFA6B5 /* AddWithdrawViewController.h */,
+				46DFBEA41928B88D00CFA6B5 /* AddWithdrawViewController.m */,
 				4673BB9A18D41BBB000F64DE /* ApprovalViewController.h */,
 				4673BB9B18D41BBB000F64DE /* ApprovalViewController.m */,
 				4673BB8A18D417EE000F64DE /* GroupManageViewController.h */,
 				4673BB8B18D417EE000F64DE /* GroupManageViewController.m */,
 				4673BB9418D41B75000F64DE /* GroupRevenuViewController.h */,
 				4673BB9518D41B75000F64DE /* GroupRevenuViewController.m */,
-				46DFBEA01928B72E00CFA6B5 /* WithdrawViewController.h */,
-				46DFBEA11928B72E00CFA6B5 /* WithdrawViewController.m */,
-				46DFBEA31928B88D00CFA6B5 /* AddWithdrawViewController.h */,
-				46DFBEA41928B88D00CFA6B5 /* AddWithdrawViewController.m */,
 				46DFBEA91928EF5D00CFA6B5 /* StaffRevenuViewController.h */,
 				46DFBEAA1928EF5D00CFA6B5 /* StaffRevenuViewController.m */,
+				46DFBEA01928B72E00CFA6B5 /* WithdrawViewController.h */,
+				46DFBEA11928B72E00CFA6B5 /* WithdrawViewController.m */,
 			);
 			path = GroupManage;
 			sourceTree = "<group>";

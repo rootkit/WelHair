@@ -83,7 +83,7 @@ static const float profileViewHeight = 90;
     User *user = [UserManager SharedInstance].userLogined;
     if (user == nil) {
         
-    } else if (user.role != WHClient && user.groupId <= 0 && user.approveStatus == WHApproveStatusUnknow){
+    } else if (user.role != WHClient && (user.approveStatus == WHApproveStatusUnknow || user.approveStatus == WHApproveStatusInvalid )) {
         [menuList addObject:@[SettingJoinGroup]];
         [menuIconList addObject:@[[FAKIonIcons ios7ChatboxesOutlineIconWithSize:NAV_BAR_ICON_SIZE]]];
     } else if (user.approveStatus == WHApproveStatusRequested && user.groupId > 0) {
@@ -94,7 +94,7 @@ static const float profileViewHeight = 90;
         [menuIconList addObject:@[[FAKIonIcons ios7ChatboxesOutlineIconWithSize:NAV_BAR_ICON_SIZE]]];
     }
     
-    [menuList addObject:@[SettingMyAddress,SettingMyScore ]];
+    [menuList addObject:@[SettingMyAddress, SettingMyScore]];
     [menuList addObject:@[SettingFeedback, SettingCheckVersion, SettingRate]];
     self.datasource = menuList;
 
@@ -211,17 +211,17 @@ static const float profileViewHeight = 90;
 {
     [self.navigationController popToViewController:self animated:NO];
     [self getStaffDetail];
-    if([UserManager SharedInstance].userLogined.role == WHManager){
-        MyGroupViewController *myGroupVc = [MyGroupViewController new];
-        myGroupVc.hidesBottomBarWhenPushed = YES;
-        [self.navigationController pushViewController:myGroupVc animated:NO];
-    } else if ([UserManager SharedInstance].userLogined.role == WHStaff) {
-        StaffManageViewController *vc = [StaffManageViewController new];
-        vc.hidesBottomBarWhenPushed = YES;
-        [self.navigationController pushViewController:vc animated:NO];
-    } else {
+//    if([UserManager SharedInstance].userLogined.role == WHManager){
+//        MyGroupViewController *myGroupVc = [MyGroupViewController new];
+//        myGroupVc.hidesBottomBarWhenPushed = YES;
+//        [self.navigationController pushViewController:myGroupVc animated:NO];
+//    } else if ([UserManager SharedInstance].userLogined.role == WHStaff) {
+//        StaffManageViewController *vc = [StaffManageViewController new];
+//        vc.hidesBottomBarWhenPushed = YES;
+//        [self.navigationController pushViewController:vc animated:NO];
+//    } else {
         [SVProgressHUD showErrorWithStatus:@"正在审核中，请耐心等待。" duration:1];
-    }
+//    }
 }
 
 - (void)avatorClicked

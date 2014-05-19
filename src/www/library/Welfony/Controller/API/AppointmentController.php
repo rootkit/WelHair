@@ -36,7 +36,7 @@ class AppointmentController extends AbstractAPIController
 
         $userId = intval($this->app->request->get('userId'));
 
-        $dataList = AppointmentService::listAllAppointments($page, $pageSize, $staffId, $userId, array(AppointmentStatus::Paid, AppointmentStatus::Completed));
+        $dataList = AppointmentService::listAllAppointments($page, $pageSize, $staffId, $userId, array(AppointmentStatus::Paid, AppointmentStatus::Cancelled, AppointmentStatus::Completed));
         $this->sendResponse($dataList);
     }
 

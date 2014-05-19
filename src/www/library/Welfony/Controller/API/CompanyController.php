@@ -61,7 +61,13 @@ class CompanyController extends AbstractAPIController
             if ($staff['Status'] == StaffStatus::Requested) {
                 $result['message'] = '您的请求正在审核中，请耐心等待。';
             } else if ($staff['Status'] == StaffStatus::Invalid) {
-                $result['message'] = '您的请求被拒绝了，请联系管理员。';
+                $saveRst = StaffService::saveCompanyStaff($this->currentContext['UserId'], $companyId, StaffStatus::Requested);
+                if (!$saveRst) {
+                    $result['message'] = '操作失败请重试。';
+                } else {
+                    $result['success'] = true;
+                    $result['message'] = '您的请求正在审核中，请耐心等待。';
+                }
             } else {
                 $result['message'] = '您已经在一个沙龙中了。';
             }
@@ -84,7 +90,7 @@ class CompanyController extends AbstractAPIController
         $pageSize = intval($this->app->request->get('pageSize'));
         $isApproved = intval($this->app->request->get('isApproved'));
 
-        $staffList = StaffService::listAllStaff($companyId, $isApproved, $page, $pageSize);
+        $staffList = StaffService::listAllStaff($companyId, $isApproved ? StaffStatus::Valid : StaffStatus::Requested, $page, $pageSize);
         $this->sendResponse($staffList);
     }
 
