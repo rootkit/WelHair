@@ -22,6 +22,7 @@ use Welfony\Service\CommentService;
 use Welfony\Service\CompanyService;
 use Welfony\Service\StaffService;
 use Welfony\Service\UserLikeService;
+use Welfony\Service\CompanyBalanceLogService;
 
 class CompanyController extends AbstractAPIController
 {
@@ -209,4 +210,16 @@ class CompanyController extends AbstractAPIController
         $this->sendResponse($result);
     }
 
+    public function listCompanyWithdraw()
+    {
+        $companyId = intval($this->app->request->get('companyId'));
+        $balanceType = 3;
+        $page = intval($this->app->request->get('page'));
+        $pageSize = intval($this->app->request->get('pageSize'));
+
+        $result = CompanyBalanceLogService::listBalanceLogByCompanyAndType($companyId, $balanceType,$page, $pageSize);
+        $balance = CompanyService::getCompanyBalance($companyId);
+        $result['balance'] = $balance;
+        $this->sendResponse($result);
+    }
 }

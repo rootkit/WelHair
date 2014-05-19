@@ -40,6 +40,30 @@ class CompanyBalanceLogRepository extends AbstractRepository
         return $row['Total'];
     }
 
+    public function getBalanceLogByCompanyAndTypeCount($companyId, $balanceType)
+    {
+        $strSql = "SELECT
+                       COUNT(1) `Total`
+                   FROM CompanyBalanceLog WHERE IncomeSrc = ? and CompanyId = ?";
+
+        $row = $this->conn->fetchAssoc($strSql,array($companyId, $balanceType));
+
+        return $row['Total'];
+    }
+
+   public function listBalanceLogByCompanyAndType($companyId, $balanceType, $pageNumber, $pageSize)
+    {
+
+        $offset = ($pageNumber - 1) * $pageSize;
+        $strSql = "SELECT *
+                   FROM CompanyBalanceLog WHERE IncomeSrc = ? and CompanyId = ?
+                   ORDER BY CompanyBalanceLogId
+                   LIMIT $offset, $pageSize ";
+
+        return $this->conn->fetchAll($strSql,array($companyId, $balanceType));
+
+    }
+
     public function listCompanyBalanceLog($pageNumber, $pageSize)
     {
 

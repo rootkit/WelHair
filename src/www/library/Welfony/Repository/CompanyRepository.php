@@ -169,6 +169,15 @@ class CompanyRepository extends AbstractRepository
         return $this->conn->fetchAll($strSql, array($currentUserId, $currentUserId, $location ? $location['Latitude'] : 0, $location ? $location['Longitude'] : 0, $companyId));
     }
 
+    public  function getCompanyBalance($companyId)
+    {
+       $strSql = 'SELECT Amount as `Amount` FROM Company 
+                   WHERE CompanyId = ?';
+        $result = $this->conn->fetchAssoc($strSql, array($companyId));
+        return $result['Amount'];
+    }
+
+
     public function save($data)
     {
         try {
@@ -183,6 +192,7 @@ class CompanyRepository extends AbstractRepository
 
         return false;
     }
+
 
     public function update($companyId, $data)
     {

@@ -24,6 +24,7 @@
 @property (nonatomic, strong) UITableView *tableView;
 
 @property (nonatomic, strong) UILabel *balanceLbl;
+@property (nonatomic) float currentBalance;
 @end
 
 @implementation WithdrawViewController
@@ -55,13 +56,15 @@
 
 - (void)rightNavItemClick
 {
-    [self.navigationController pushViewController:[AddWithdrawViewController new] animated:YES];
+    AddWithdrawViewController *vc = [AddWithdrawViewController new];
+    vc.balance = self.currentBalance;
+    vc.groupId = self.groupId;
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [self getBalance];
     [self.tableView triggerPullToRefresh];
 }
 - (void)viewDidLoad
@@ -164,36 +167,18 @@
 
 - (void)loadData
 {
-    [self getBalance];
     [self getWithdraws];
 }
 
-- (void)getBalance
-{
-    ASIHTTPRequest *request = [RequestUtil createGetRequestWithURL:[NSURL URLWithString:[NSString stringWithFormat:API_COMPANY_BALANCE, [[UserManager SharedInstance] userLogined].groupId]]
-                                                          andParam:nil];
-    [request setDelegate:self];
-    [request setDidFinishSelector:@selector(finishGetBalance:)];
-    [request setDidFailSelector:@selector(failGetBalance:)];
-    [request startAsynchronous];
-}
-
-- (void)finishGetBalance:(ASIHTTPRequest *)request
-{
-    NSDictionary *rst = [Util objectFromJson:request.responseString];
-    float total = [[rst objectForKey:@"total"] floatValue];
-    self.balanceLbl.text = [NSString stringWithFormat:@"%.2f", total];
-}
-
-- (void)failGetBalance:(ASIHTTPRequest *)request
-{
-}
-
-
 - (void)getWithdraws
 {
+    NSMutableDictionary *reqData = [[NSMutableDictionary alloc] initWithCapacity:1];
+    [reqData setObject:[NSString stringWithFormat:@"%d", self.currentPage] forKey:@"page"];
+    [reqData setObject:[NSString stringWithFormat:@"%d", TABLEVIEW_PAGESIZE_DEFAULT] forKey:@"pageSize"];
+    [reqData setObject:[NSString stringWithFormat:@"%d", self.groupId] forKey:@"companyId"];
+    
     ASIHTTPRequest *request = [RequestUtil createGetRequestWithURL:[NSURL URLWithString:[NSString stringWithFormat:API_WITHDRAW_LIST, [[UserManager SharedInstance] userLogined].groupId]]
-                                                          andParam:nil];
+                                                          andParam:reqData];
     [request setDelegate:self];
     [request setDidFinishSelector:@selector(finishGetWithdraws:)];
     [request setDidFailSelector:@selector(failGetWithdraws:)];
@@ -204,7 +189,9 @@
 {
     NSDictionary *rst = [Util objectFromJson:request.responseString];
     NSInteger total = [[rst objectForKey:@"total"] integerValue];
-    NSArray *dataList = [rst objectForKey:@"withdraws"];
+    self.currentBalance  = [[rst objectForKey:@"balance"] floatValue];
+    self.balanceLbl.text = [NSString stringWithFormat:@"%.2f", self.currentBalance];
+    NSArray *dataList = [rst objectForKey:@"companybalancelogs"];
     
     NSMutableArray *arr = [NSMutableArray arrayWithArray:self.datasource];
     

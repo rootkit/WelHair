@@ -232,4 +232,12 @@ class CompanyService
         return $company;
     }
 
+
+    public static function getCompanyBalance($companyId)
+    {
+        return CompanyRepository::getInstance()->getCompanyBalance($companyId);
+    }
+
+    
+
 }

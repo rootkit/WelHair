@@ -29,16 +29,17 @@
 #define WEBSOCKET_SERVER_URL [NSString stringWithFormat:@"ws://%@:8080", DOMAIN_NAME]
 #define SITE_PATH(path) [NSString stringWithFormat:@"http://%@%@", DOMAIN_NAME, path]
 #define API_PATH(path) [NSString stringWithFormat:@"http://%@/api%@", DOMAIN_NAME, path]
-//#define API_PATH(path) [NSString stringWithFormat:@"http://api.welhair.com%@" , path]
+//#define API_PATH(path) [NSString stringWithFormat:@"http://welhair.com/api%@" , path]
+//#define API_PATH(path) [NSString stringWithFormat:@"http://api.welhair.com/%@" , path]
 
 #define SITE_GOODS_CONTENT SITE_PATH(@"/goods/index/content?goods_id=%d")
 
 #define API_APPOINTMENTS_CREATE API_PATH(@"/appointments")
 #define API_APPOINTMENTS_UPDATE API_PATH(@"/appointments/%d")
 
-#define API_WITHDRAW_CREATE API_PATH(@"/withdraw")
-#define API_WITHDRAW_CANCEL API_PATH(@"/withdraw/cancel/%d")
-#define API_WITHDRAW_LIST API_PATH(@"/withdraws/%d")
+#define API_WITHDRAW_CREATE API_PATH(@"/companies/withdraw")
+#define API_WITHDRAW_CANCEL API_PATH(@"/companies/withdraw/cancel/%d")
+#define API_WITHDRAW_LIST API_PATH(@"/companies/withdraws")
 
 #define API_SOCIAL_LOGIN API_PATH(@"/users/signin/social")
 

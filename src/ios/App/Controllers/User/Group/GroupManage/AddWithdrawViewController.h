@@ -11,4 +11,5 @@
 @interface AddWithdrawViewController : BaseViewController
 
 @property (nonatomic) float balance;
+@property (nonatomic) int groupId;
 @end

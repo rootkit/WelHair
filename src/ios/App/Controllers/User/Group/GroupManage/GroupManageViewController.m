@@ -93,7 +93,9 @@
 
 - (void)withDrawalClick
 {
-     [self.navigationController pushViewController:[WithdrawViewController new] animated:YES];
+    WithdrawViewController *vc = [WithdrawViewController new];
+    vc.groupId = self.group.id;
+     [self.navigationController pushViewController:vc animated:YES];
 }
 
 - (void)approvalClick

@@ -78,3 +78,8 @@ $app->put('/companies/:companyId', function ($companyId) use ($app) {
     $ctrl = new CompanyController();
     $ctrl->update($companyId);
 })->conditions(array('companyId' => '\d{1,10}'));
+
+$app->get('/companies/withdraws', function () use ($app) {
+    $ctrl = new CompanyController();
+    $ctrl->listCompanyWithdraw();
+});

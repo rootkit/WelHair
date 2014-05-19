@@ -10,4 +10,5 @@
 
 @interface WithdrawViewController : BaseViewController
 
+@property (nonatomic) int groupId;
 @end
