@@ -92,18 +92,12 @@
         FAKIcon *locationIcon = [FAKIonIcons locationIconWithSize:20];
         [locationIcon addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithHexString:@"b7bac1"]];
         locationImg.image = [locationIcon imageWithSize:CGSizeMake(20, 20)];
-        [self.contentView addSubview:locationImg];
         
         self.distanceLbl = [[UILabel alloc] initWithFrame:CGRectMake(MaxX(locationImg) + 2, Y(self.groupAddressLbl), 50, HEIGHT(self.groupAddressLbl))];
         self.distanceLbl.font = [UIFont systemFontOfSize:12];
         self.distanceLbl.numberOfLines = 1;
         self.distanceLbl.backgroundColor = [UIColor clearColor];
         self.distanceLbl.textColor = [UIColor colorWithHexString:@"b7bac1"];
-        [self.contentView addSubview:self.distanceLbl];
-        
-        UIView *border = [[UIView alloc] initWithFrame:CGRectMake(0, 79, 320, 1)];
-        border.backgroundColor = [UIColor colorWithHexString:@"ddd"];
-        [self.contentView addSubview:border];
     }
     return self;
 }

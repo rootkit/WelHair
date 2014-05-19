@@ -143,7 +143,7 @@ class CompanyRepository extends AbstractRepository
 
     public function findCompanyDetailById($companyId, $currentUserId, $location)
     {
-        $strSql = 'SELECT
+        $strSql = "SELECT
                        C.CompanyId,
                        C.Name CompanyName,
                        C.Address CompanyAddress,
@@ -155,11 +155,16 @@ class CompanyRepository extends AbstractRepository
                        C.Latitude,
                        C.Longitude,
 
+                       CONCAT(PA.Name, ' ', PC.Name, ' ', IFNULL(PD.Name, '')) Region,
+
                        (SELECT COUNT(1) FROM UserLike UL WHERE ? > 0 AND ? = UL.CreatedBy AND UL.CompanyId = C.CompanyId) IsLiked,
                        getDistance(C.Latitude, C.Longitude, ?, ?) Distance
 
                    FROM Company C
-                   WHERE C.CompanyId = ?';
+                   INNER JOIN Area PA ON PA.AreaId = C.Province
+                   INNER JOIN Area PC ON PC.AreaId = C.City
+                   LEFT OUTER JOIN Area PD ON PD.AreaId = C.District
+                   WHERE C.CompanyId = ?";
 
         return $this->conn->fetchAll($strSql, array($currentUserId, $currentUserId, $location ? $location['Latitude'] : 0, $location ? $location['Longitude'] : 0, $companyId));
     }

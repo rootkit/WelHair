@@ -24,6 +24,7 @@ typedef enum {
 @property (nonatomic, strong) NSString *tel;
 @property (nonatomic, strong) NSString *mobile;
 
+@property (nonatomic, strong) NSString *region;
 @property (nonatomic, strong) City *city;
 @property (nonatomic, strong) NSString *address;
 

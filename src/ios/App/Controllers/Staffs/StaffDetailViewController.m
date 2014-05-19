@@ -139,26 +139,27 @@
     
     self.avatorImgView = [[CircleImageView alloc] initWithFrame:CGRectMake(10, 5, 60, 60)];
     self.avatorImgView.userInteractionEnabled = YES;
+    self.avatorImgView.borderWidth = 0;
     [self.avatorImgView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(openAvator)]];
     [self.staffView addSubview:self.avatorImgView];
     
-    self.nameLbl = [[UILabel alloc] initWithFrame:CGRectMake(MaxX(self.avatorImgView),Y(self.avatorImgView), 150, 20)];
+    self.nameLbl = [[UILabel alloc] initWithFrame:CGRectMake(MaxX(self.avatorImgView) + 5,Y(self.avatorImgView), 150, 20)];
     self.nameLbl.textAlignment = NSTextAlignmentLeft;
-    self.nameLbl.textColor = [UIColor blackColor];
+    self.nameLbl.textColor = [UIColor colorWithHexString:@"1f6ba7"];
     self.nameLbl.backgroundColor = [UIColor clearColor];
     self.nameLbl.font = [UIFont systemFontOfSize:14];
     [self.staffView addSubview:self.nameLbl];
     
-    self.groupNameLbl = [[UILabel alloc] initWithFrame:CGRectMake(MaxX(self.avatorImgView),MaxY(self.nameLbl), 150, 20)];
+    self.groupNameLbl = [[UILabel alloc] initWithFrame:CGRectMake(MaxX(self.avatorImgView) + 5,MaxY(self.nameLbl), 150, 20)];
     self.groupNameLbl.textAlignment = NSTextAlignmentLeft;
-    self.groupNameLbl.textColor = [UIColor blackColor];
+    self.groupNameLbl.textColor = [UIColor colorWithHexString:@"777"];
     self.groupNameLbl.backgroundColor = [UIColor clearColor];
     self.groupNameLbl.font = [UIFont systemFontOfSize:12];
     [self.staffView addSubview:self.groupNameLbl];
     
-    self.locationLbl = [[UILabel alloc] initWithFrame:CGRectMake(MaxX(self.avatorImgView),MaxY(self.groupNameLbl), 150, 20)];
+    self.locationLbl = [[UILabel alloc] initWithFrame:CGRectMake(MaxX(self.avatorImgView) + 5,MaxY(self.groupNameLbl), 150, 20)];
     self.locationLbl.textAlignment = NSTextAlignmentLeft;
-    self.locationLbl.textColor = [UIColor blackColor];
+    self.locationLbl.textColor = [UIColor grayColor];
     self.locationLbl.backgroundColor = [UIColor clearColor];
     self.locationLbl.font = [UIFont systemFontOfSize:12];
     [self.staffView addSubview:self.locationLbl];
@@ -609,30 +610,30 @@
     bioLbl.text = self.staff.bio;
     
     scrollViewOffsetY = MaxY(bioView);
-    
-    UIView *commentCellView = [[UIView alloc] initWithFrame:CGRectMake(10, scrollViewOffsetY + 20, 300, 44)];
-    commentCellView.backgroundColor = [UIColor whiteColor];
-    commentCellView.layer.borderColor = [[UIColor colorWithHexString:@"e1e1e1"] CGColor];
-    commentCellView.layer.borderWidth = 1.0;
-    commentCellView.layer.cornerRadius = 5;
-    [commentCellView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(commentsTapped)]];
-    [self.tableViewHeaderView addSubview:commentCellView];
-    
-    UILabel *commentLbl =[[UILabel alloc] initWithFrame:CGRectMake(20, 12, 100, 20)];
-    commentLbl.font = [UIFont systemFontOfSize:14];
-    commentLbl.textAlignment = NSTextAlignmentLeft;
-    commentLbl.backgroundColor = [UIColor clearColor];
-    commentLbl.textColor = [UIColor colorWithHexString:@"333"];
-    commentLbl.text = @"评论信息";
-    [commentCellView addSubview:commentLbl];
-    
-    FAKIcon *commentIcon = [FAKIonIcons ios7ArrowForwardIconWithSize:20];
-    [commentIcon addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithHexString:@"cccccc"]];
-    UIImageView *commentImgView = [[UIImageView alloc] initWithFrame:CGRectMake(WIDTH(commentCellView) - 40, 12, 20, 20)];
-    commentImgView.image = [commentIcon imageWithSize:CGSizeMake(20, 20)];
-    [commentCellView addSubview:commentImgView];
-    
-    UIImageView *workTitleImg = [[UIImageView alloc] initWithFrame:CGRectMake(contentPadding, MaxY(commentCellView) + contentPadding, 20, 20)];
+//    
+//    UIView *commentCellView = [[UIView alloc] initWithFrame:CGRectMake(10, scrollViewOffsetY + 20, 300, 44)];
+//    commentCellView.backgroundColor = [UIColor whiteColor];
+//    commentCellView.layer.borderColor = [[UIColor colorWithHexString:@"e1e1e1"] CGColor];
+//    commentCellView.layer.borderWidth = 1.0;
+//    commentCellView.layer.cornerRadius = 5;
+//    [commentCellView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(commentsTapped)]];
+//    [self.tableViewHeaderView addSubview:commentCellView];
+//    
+//    UILabel *commentLbl =[[UILabel alloc] initWithFrame:CGRectMake(20, 12, 100, 20)];
+//    commentLbl.font = [UIFont systemFontOfSize:14];
+//    commentLbl.textAlignment = NSTextAlignmentLeft;
+//    commentLbl.backgroundColor = [UIColor clearColor];
+//    commentLbl.textColor = [UIColor colorWithHexString:@"333"];
+//    commentLbl.text = @"评论信息";
+//    [commentCellView addSubview:commentLbl];
+//    
+//    FAKIcon *commentIcon = [FAKIonIcons ios7ArrowForwardIconWithSize:20];
+//    [commentIcon addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithHexString:@"cccccc"]];
+//    UIImageView *commentImgView = [[UIImageView alloc] initWithFrame:CGRectMake(WIDTH(commentCellView) - 40, 12, 20, 20)];
+//    commentImgView.image = [commentIcon imageWithSize:CGSizeMake(20, 20)];
+//    [commentCellView addSubview:commentImgView];
+
+    UIImageView *workTitleImg = [[UIImageView alloc] initWithFrame:CGRectMake(contentPadding, scrollViewOffsetY + contentPadding, 20, 20)];
     workTitleImg.image = [UIImage imageNamed:@"StaffCellI_WorkIcon"];
     [self.tableViewHeaderView addSubview:workTitleImg];
     

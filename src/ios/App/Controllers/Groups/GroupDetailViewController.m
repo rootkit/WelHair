@@ -42,8 +42,10 @@
 @property (nonatomic, strong) JOLImageSlider *imgSlider;
 @property (nonatomic, strong) UIImageView *avatorImgView;
 @property (nonatomic, strong) UILabel *groupNameLbl;
+@property (nonatomic, strong) UILabel *distanceLbl;
 @property (nonatomic, strong) ToggleButton *heartBtn;
 
+@property (nonatomic, strong) UILabel *regionLbl;
 @property (nonatomic, strong) UILabel *addressLbl;
 @property (nonatomic, strong) UILabel *phoneLbl;
 
@@ -109,6 +111,7 @@
     self.tableView.backgroundColor = [UIColor clearColor];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.tableView.backgroundColor = [UIColor colorWithHexString:@"f2f2f2"];
     [self.view addSubview:self.tableView];
 
@@ -130,22 +133,29 @@
     [self.headerView addSubview:self.imgSlider];
     
 #pragma staffView
-    self.groupView = [[UIView alloc] initWithFrame:CGRectMake(10, MaxY(self.imgSlider) +10, 300, 60)];
+    self.groupView = [[UIView alloc] initWithFrame:CGRectMake(10, MaxY(self.imgSlider) +10, 300, 70)];
     self.groupView.backgroundColor = [UIColor whiteColor];
     self.groupView.layer.borderColor = [[UIColor colorWithHexString:@"e1e1e1"] CGColor];
     self.groupView.layer.borderWidth = 1;
     self.groupView.layer.cornerRadius = 5;
     [self.headerView addSubview:self.groupView];
     
-    self.avatorImgView = [[UIImageView alloc] initWithFrame:CGRectMake(10,  5, 50, 50)];
+    self.avatorImgView = [[UIImageView alloc] initWithFrame:CGRectMake(10, 10, 50, 50)];
     [self.groupView addSubview:self.avatorImgView];
     
-    self.groupNameLbl = [[UILabel alloc] initWithFrame:CGRectMake(MaxX(self.avatorImgView)+10,Y(self.avatorImgView), 150, 50)];
+    self.groupNameLbl = [[UILabel alloc] initWithFrame:CGRectMake(MaxX(self.avatorImgView)+10, Y(self.avatorImgView), 150, 30)];
     self.groupNameLbl.textAlignment = NSTextAlignmentLeft;
-    self.groupNameLbl.textColor = [UIColor blackColor];
+    self.groupNameLbl.textColor = [UIColor colorWithHexString:@"777"];
     self.groupNameLbl.backgroundColor = [UIColor clearColor];
     self.groupNameLbl.font = [UIFont systemFontOfSize:14];
     [self.groupView addSubview:self.groupNameLbl];
+
+    self.distanceLbl = [[UILabel alloc] initWithFrame:CGRectMake(X(self.groupNameLbl), MaxY(self.groupNameLbl), 150, 12 * 1.5)];
+    self.distanceLbl.backgroundColor = [UIColor clearColor];
+    self.distanceLbl.textColor = [UIColor grayColor];
+    self.distanceLbl.font = [UIFont systemFontOfSize:12];
+    self.distanceLbl.textAlignment = TextAlignmentLeft;
+    [self.groupView addSubview:self.distanceLbl];
     
     FAKIcon *heartIconOn = [FAKIonIcons ios7HeartIconWithSize:25];
     [heartIconOn addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithHexString:@"e43a3d"]];
@@ -163,14 +173,37 @@
 
     
 
-    UIView *detainInfoView = [[UIView alloc] initWithFrame:CGRectMake(10, MaxY(self.groupView) + 10, 300, 88)];
+    UIView *detainInfoView = [[UIView alloc] initWithFrame:CGRectMake(10, MaxY(self.groupView) + 10, 300, 132)];
     detainInfoView.backgroundColor = [UIColor whiteColor];
     detainInfoView.layer.borderWidth = 0.5;
     detainInfoView.layer.borderColor = [[UIColor colorWithHexString:@"cccccc"] CGColor];
     detainInfoView.layer.cornerRadius = 5;
     [self.headerView addSubview:detainInfoView];
+
+    UIView *regionCellView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 300, 44)];
+    regionCellView.backgroundColor = [UIColor clearColor];
+    [detainInfoView addSubview:regionCellView];
+
+    UILabel *regionTitleLbl = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, 44, 44)];
+    regionTitleLbl.textAlignment = TextAlignmentLeft;
+    regionTitleLbl.textColor = [UIColor grayColor];
+    regionTitleLbl.font = [UIFont systemFontOfSize:12];
+    regionTitleLbl.backgroundColor = [UIColor clearColor];
+    regionTitleLbl.text = @"地区:";
+    [regionCellView addSubview:regionTitleLbl];
+
+    self.regionLbl = [[UILabel alloc] initWithFrame:CGRectMake(MaxX(regionTitleLbl), Y(regionTitleLbl), 190, 44)];
+    self.regionLbl.backgroundColor = [UIColor clearColor];
+    self.regionLbl.textColor = [UIColor grayColor];
+    self.regionLbl.font = [UIFont systemFontOfSize:12];
+    self.regionLbl.textAlignment = TextAlignmentLeft;
+    [regionCellView addSubview:self.regionLbl];
+
+    UIView *infoLiner = [[UIView alloc] initWithFrame:CGRectMake(0, MaxY(regionCellView) -1, 300, .5)];
+    infoLiner.backgroundColor = [UIColor colorWithHexString:@"dddddd"];
+    [detainInfoView addSubview:infoLiner];
     
-    UIView *addressCellView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 300, 44)];
+    UIView *addressCellView = [[UIView alloc] initWithFrame:CGRectMake(0, 44, 300, 44)];
     addressCellView.backgroundColor = [UIColor clearColor];
     [detainInfoView addSubview:addressCellView];
     [addressCellView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(mapClick)]];
@@ -197,11 +230,11 @@
     locationImg.userInteractionEnabled = YES;
     [addressCellView addSubview:locationImg];
     
-    UIView *infoLiner = [[UIView alloc] initWithFrame:CGRectMake(0, MaxY(addressCellView) -1, 300, .5)];
+    infoLiner = [[UIView alloc] initWithFrame:CGRectMake(0, MaxY(addressCellView) -1, 300, .5)];
     infoLiner.backgroundColor = [UIColor colorWithHexString:@"dddddd"];
     [detainInfoView addSubview:infoLiner];
     
-    UIView *phoneCellView = [[UIView alloc] initWithFrame:CGRectMake(0, 44, 300, 44)];
+    UIView *phoneCellView = [[UIView alloc] initWithFrame:CGRectMake(0, 88, 300, 44)];
     phoneCellView.backgroundColor = [UIColor clearColor];
     [detainInfoView addSubview:phoneCellView];
     [phoneCellView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(phoneClick)]];
@@ -274,7 +307,7 @@
     [tabView addSubview:self.commentTabBtn];
 
     
-    self.headerView.frame = CGRectMake(0, 0, WIDTH(self.view), MaxY(tabView));
+    self.headerView.frame = CGRectMake(0, 0, WIDTH(self.view), MaxY(tabView) + 10);
     self.tableView.tableHeaderView  = self.headerView;
 
     [self getStaffs];
@@ -497,6 +530,8 @@
         return;
     }
 
+    self.distanceLbl.text = [NSString stringWithFormat:@"距您：%.1f m", [[rst objectForKey:@"Distance"] floatValue] / 1000];
+    self.regionLbl.text = [rst objectForKey:@"Region"];
     self.heartBtn.on = [[rst objectForKey:@"IsLiked"] intValue] == 1;
 }
 
@@ -586,7 +621,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return  self.datasource.count;
+    return self.datasource.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath

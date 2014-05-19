@@ -28,6 +28,10 @@ class WorkRepository extends AbstractRepository
                        U.AvatarUrl StaffAvatarUrl,
                        U.Nickname StaffNickname,
 
+                       C.CompanyId,
+                       C.Name CompanyName,
+                       C.Address CompanyAddress,
+
                        (SELECT COUNT(1) FROM UserLike UL WHERE ? > 0 AND ? = UL.CreatedBy AND UL.WorkId = W.WorkId) IsLiked,
                        getDistance(C.Latitude, C.Longitude, ?, ?) Distance
                    FROM Work W

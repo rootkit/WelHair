@@ -11,6 +11,7 @@
 // ==============================================================================
 
 #import "CircleImageView.h"
+#import "CommentNarrowCell.h"
 #import "CommentsViewController.h"
 #import "JOLImageSlider.h"
 #import "MapViewController.h"
@@ -19,7 +20,6 @@
 #import "UMSocial.h"
 #import "UserManager.h"
 #import "WorkDetailViewController.h"
-#import "CommentNarrowCell.h"
 
 @interface WorkDetailViewController () <UMSocialUIDelegate, JOLImageSliderDelegate, MWPhotoBrowserDelegate, UITableViewDataSource, UITableViewDelegate>
 
@@ -162,14 +162,14 @@
 
     self.staffNameLbl = [[UILabel alloc] initWithFrame:CGRectMake(MaxX(self.staffImgView)+5,Y(self.staffImgView), 150, 25)];
     self.staffNameLbl.textAlignment = NSTextAlignmentLeft;
-    self.staffNameLbl.textColor = [UIColor blackColor];
+    self.staffNameLbl.textColor = [UIColor colorWithHexString:@"1f6ba7"];
     self.staffNameLbl.backgroundColor = [UIColor clearColor];
     self.staffNameLbl.font = [UIFont systemFontOfSize:14];
     [staffView addSubview:self.staffNameLbl];
     
     self.staffAddressLbl = [[UILabel alloc] initWithFrame:CGRectMake(MaxX(self.staffImgView)+5,MaxY(self.staffNameLbl), 150, 25)];
     self.staffAddressLbl.textAlignment = NSTextAlignmentLeft;
-    self.staffAddressLbl.textColor = [UIColor blackColor];
+    self.staffAddressLbl.textColor = [UIColor colorWithHexString:@"666"];
     self.staffAddressLbl.backgroundColor = [UIColor clearColor];
     self.staffAddressLbl.font = [UIFont systemFontOfSize:12];
     [staffView addSubview:self.staffAddressLbl];
@@ -343,7 +343,7 @@
     self.commentCountLbl.font = [UIFont systemFontOfSize:14];
     self.commentCountLbl.textAlignment = NSTextAlignmentLeft;
     self.commentCountLbl.backgroundColor = [UIColor clearColor];
-    self.commentCountLbl.textColor = [UIColor grayColor];
+    self.commentCountLbl.textColor = [UIColor blackColor];
     [commentCellView addSubview:self.commentCountLbl];
     
     self.allCommentLbl  =[[UILabel alloc] initWithFrame:CGRectMake(120, 5, 160,20)];
@@ -532,8 +532,7 @@
     self.work = [[Work alloc] initWithDic:rst];
 
     self.staffNameLbl.text = self.work.creator.name;
-    self.staffAddressLbl.text = self.work.creator.group.address; // TODO:need pass from API
-        self.staffAddressLbl.text = @"需要发型师地址"; // TODO:need pass from API
+    self.staffAddressLbl.text = self.work.creator.group.address;
     [self.staffImgView setImageWithURL:self.work.creator.avatorUrl];
     self.heartBtn.on = [[rst objectForKey:@"IsLiked"] intValue] == 1;
 }

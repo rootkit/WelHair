@@ -73,7 +73,7 @@ static const float kDateLblWidth = 100;
         self.dateLbl.backgroundColor = [UIColor clearColor];
         self.dateLbl.textColor = [UIColor colorWithHexString:@"89bae3"];
         [self.contentView addSubview:self.dateLbl];
-        
+
         self.border = [[UIView alloc] initWithFrame:CGRectMake(0, 0, WIDTH(self.contentView), 1)];
         self.border.backgroundColor = [UIColor colorWithHexString:@"EEEEEE"];
         [self.contentView addSubview:self.border];
@@ -88,6 +88,7 @@ static const float kDateLblWidth = 100;
             [self.picList addObject:commentPicture];
         }
     }
+
     return self;
 }
 

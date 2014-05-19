@@ -234,7 +234,12 @@ class WorkService
             $work['Staff'] = array(
                 'UserId' => $work['StaffUserId'],
                 'AvatarUrl' => $work['StaffAvatarUrl'],
-                'Nickname' => $work['StaffNickname']
+                'Nickname' => $work['StaffNickname'],
+                'Company' => array(
+                    'CompanyId' => $work['StaffNickname'],
+                    'Name' => $work['CompanyName'],
+                    'Address' => $work['CompanyAddress']
+                )
             );
         } else {
             $work['Staff'] = array();
