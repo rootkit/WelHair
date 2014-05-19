@@ -16,6 +16,7 @@ namespace Welfony\Controller\API;
 
 use Welfony\Controller\Base\AbstractAPIController;
 use Welfony\Core\Enum\AppointmentStatus;
+use Welfony\Service\AppointmentNoteService;
 use Welfony\Service\AppointmentService;
 
 class AppointmentController extends AbstractAPIController
@@ -58,6 +59,24 @@ class AppointmentController extends AbstractAPIController
 
         $result = AppointmentService::update($appointmentId, $reqData);
         $this->sendResponse($result);
+    }
+
+    public function addNote($appointmentId)
+    {
+        $reqData = $this->getDataFromRequestWithJsonFormat();
+        $reqData['AppointmentId'] = $appointmentId;
+
+        $result = AppointmentNoteService::save($reqData);
+        $this->sendResponse($result);
+    }
+
+    public function listNote($appointmentId)
+    {
+        $page = intval($this->app->request->get('page'));
+        $pageSize = intval($this->app->request->get('pageSize'));
+
+        $dataList = AppointmentNoteService::listAppointmentNote($appointmentId, $page, $pageSize);
+        $this->sendResponse($dataList);
     }
 
 }

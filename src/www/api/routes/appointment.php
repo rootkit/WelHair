@@ -33,3 +33,14 @@ $app->put('/appointments/:appointmentId', function ($appointmentId) use ($app) {
     $ctrl = new AppointmentController();
     $ctrl->update($appointmentId);
 })->conditions(array('appointmentId' => '\d{1,10}'));
+
+
+$app->get('/appointments/:appointmentId/note', function ($appointmentId) use ($app) {
+    $ctrl = new AppointmentController();
+    $ctrl->listNote($appointmentId);
+})->conditions(array('appointmentId' => '\d{1,10}'));
+
+$app->post('/appointments/:appointmentId/note', function ($appointmentId) use ($app) {
+    $ctrl = new AppointmentController();
+    $ctrl->addNote($appointmentId);
+})->conditions(array('appointmentId' => '\d{1,10}'));

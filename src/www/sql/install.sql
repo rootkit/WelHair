@@ -1684,6 +1684,17 @@ CALL sp_update_table_field();
 DROP PROCEDURE IF EXISTS `sp_update_table_field`;
 
 -- ==============================================================================
+
+CREATE TABLE IF NOT EXISTS `AppointmentNote` (
+  `AppointmentNoteId` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `Body` TEXT NOT NULL,
+  `AppointmentId` INT UNSIGNED NOT NULL DEFAULT 0,
+  `PictureUrl` TEXT NULL,
+  `CreatedDate` DATETIME NOT NULL,
+  PRIMARY KEY (`AppointmentNoteId`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ==============================================================================
 -- Add CompanyId, Bank, OpenAccountBank, AccountNo, AccountName to Withdrawal table
 -- ==============================================================================
 DELIMITER ;;
@@ -1773,8 +1784,3 @@ CREATE TABLE IF NOT EXISTS `Deposit` (
   `LastUpdateDate` datetime DEFAULT NULL COMMENT '更新时间',
   PRIMARY KEY (`DepositId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='用户提现请求';
-
-
-
-
-
