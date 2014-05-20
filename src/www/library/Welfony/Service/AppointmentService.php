@@ -53,7 +53,7 @@ class AppointmentService
         }
 
         $staff = StaffService::getStaffDetail($data['StaffId']);
-        if (!$staff['Status'] != StaffStatus::Valid || $staff['Company']['Status'] != CompanyStatus::Valid) {
+        if ($staff['Status'] != StaffStatus::Valid || $staff['Company']['Status'] != CompanyStatus::Valid) {
             $result['message'] = '该发型师暂时不可预约。';
 
             return $result;
