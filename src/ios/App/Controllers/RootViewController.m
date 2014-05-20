@@ -114,10 +114,12 @@
 - (void)registerDeviceToken:(NSNotification *)noti
 {
     // register
+    User *u = [UserManager SharedInstance].userLogined;
     if([UserManager SharedInstance].userLogined.id > 0)
     {
         NSMutableDictionary *reqData = [[NSMutableDictionary alloc] initWithCapacity:1];
-        [reqData setObject: [[SettingManager SharedInstance] deviceToken] forKey:@"deviceToken"];
+        [reqData setObject: [[SettingManager SharedInstance] deviceToken] forKey:@"Token"];
+        [reqData setObject: @(1) forKey:@"Type"];
 //                [reqData setObject:@"3c945e41b76d3a853a54c8ac0ed34be12396ec7ca4410d26f42b7c65f078b1d5" forKey:@"deviceToken"];
         
         
@@ -132,9 +134,9 @@
         int notiUserId = [noti.object intValue];
         if(notiUserId > 0){
             NSMutableDictionary *reqData = [[NSMutableDictionary alloc] initWithCapacity:2];
-            [reqData setObject: [[SettingManager SharedInstance] deviceToken] forKey:@"deviceToken"];
-            //        [reqData setObject:@"3c945e41b76d3a853a54c8ac0ed34be12396ec7ca4410d26f42b7c65f078b1d5" forKey:@"deviceToken"];
-            [reqData setObject: [NSString stringWithFormat:@"%d",notiUserId] forKey:@"userId"];
+            [reqData setObject: [[SettingManager SharedInstance] deviceToken] forKey:@"Token"];
+            [reqData setObject: @(1) forKey:@"Type"];
+            [reqData setObject: [NSString stringWithFormat:@"%d",notiUserId] forKey:@"UserId"];
             ASIFormDataRequest *request = [RequestUtil createPOSTRequestWithURL:[NSURL URLWithString:API_USERDEVICE_REMOVE]
                                                                         andData:reqData];
             [request setDelegate:self];
