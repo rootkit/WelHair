@@ -16,7 +16,7 @@ namespace Welfony\Service;
 
 use Welfony\Core\Enum\DeviceType;
 use Welfony\Core\Enum\NotificationType;
-use welfony\Notification\Apple;
+use Welfony\Notification\Apple;
 use Welfony\Service\UserDeviceService;
 
 class NotificationService
