@@ -114,7 +114,6 @@
 - (void)registerDeviceToken:(NSNotification *)noti
 {
     // register
-    User *u = [UserManager SharedInstance].userLogined;
     if([UserManager SharedInstance].userLogined.id > 0)
     {
         NSMutableDictionary *reqData = [[NSMutableDictionary alloc] initWithCapacity:1];
