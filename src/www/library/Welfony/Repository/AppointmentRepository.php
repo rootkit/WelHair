@@ -23,33 +23,36 @@ class AppointmentRepository extends AbstractRepository
     {
         $filter = '';
         if ($staffId > 0) {
-            $filter = "AND A.StaffId = $staffId";
+            $filter .= " AND A.StaffId = $staffId";
         }
         if ($userId > 0) {
-            $filter = "AND A.UserId = $userId";
+            $filter .= " AND A.UserId = $userId";
         }
         if (is_array($status)) {
             $inStatus = implode(',', $status);
-            $filter = "AND A.Status IN ($inStatus)";
+            $filter .= " AND A.Status IN ($inStatus)";
         } else {
           if ($status >= 0) {
-              $filter = "AND A.Status = $status";
+              $filter .= " AND A.Status = $status";
           }
         }
 
         $strSql = "SELECT
                        COUNT(1) `Total`
                    FROM Appointment A
+                   INNER JOIN Users U ON U.UserId = A.UserId
+                   INNER JOIN Users S ON S.UserId = A.StaffId
                    WHERE A.UserId > 0 $filter
                    LIMIT 1";
 
-        $row = $this->conn->fetchAssoc($strSql);
 
+        $row = $this->conn->fetchAssoc($strSql);
         return $row['Total'];
     }
 
     public function getAllAppointments($page, $pageSize, $staffId, $userId, $status)
     {
+      
         $filter = '';
         if ($staffId > 0) {
             $filter .= " AND A.StaffId = $staffId";
@@ -65,7 +68,6 @@ class AppointmentRepository extends AbstractRepository
               $filter .= " AND A.Status = $status";
           }
         }
-
         $offset = ($page - 1) * $pageSize;
         $strSql = "SELECT
                        A.AppointmentId,

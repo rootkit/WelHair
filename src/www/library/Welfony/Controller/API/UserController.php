@@ -242,9 +242,13 @@ class UserController extends AbstractAPIController
             $result = array('success' => false, 'message' => '请确定设备Token');
             $this->sendResponse($result);
         }
+        if (!isset($reqData['UserId']) || empty($reqData['UserId'])) {
+            $result = array('success' => false, 'message' => '无效的用户');
+            $this->sendResponse($result);
+        }
         $deviceToken = trim(htmlspecialchars($reqData['Token']));
 
-        $result = UserDeviceService::remove($this->currentContext['UserId'], $type, $deviceToken);
+        $result = UserDeviceService::remove($reqData['UserId'], $type, $deviceToken);
         $this->sendResponse($result);
     }
 
