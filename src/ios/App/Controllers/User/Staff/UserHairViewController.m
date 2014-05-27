@@ -66,7 +66,6 @@
 - (void)loadView
 {
     [super loadView];
-    
 }
 
 - (void)fillControl
@@ -146,8 +145,6 @@
 {
     [super didReceiveMemoryWarning];
 }
-
-
 
 - (void) imagePager:(JOLImageSlider *)imagePager didSelectImageAtIndex:(NSUInteger)index
 {

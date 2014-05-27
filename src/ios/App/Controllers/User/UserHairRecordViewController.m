@@ -10,8 +10,6 @@
 //
 // ==============================================================================
 
-#import "User.h"
-#import "UserManager.h"
 #import "UserHairRecordViewController.h"
 
 @interface UserHairRecordViewController () <UIActionSheetDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIScrollViewDelegate>
@@ -20,8 +18,7 @@
 
 @property (nonatomic) int uploadIndex;
 @property (nonatomic) int uploadRemoveIndex;
-@property (nonatomic, strong) UIImageView *uploadLogo;
-@property (nonatomic, strong) UIActivityIndicatorView *uploadLogoActivityIndicator;
+
 @property (nonatomic, strong) UIImageView *uploadPic1;
 @property (nonatomic, strong) UIActivityIndicatorView *uploadPictureActivityIndicator1;
 @property (nonatomic, strong) UIImageView *uploadPic2;
@@ -33,6 +30,8 @@
 
 @property (nonatomic, strong) NSMutableArray *uploadedPictures;
 
+@property (nonatomic, strong) UITextView *commentBodyView;
+
 @end
 
 @implementation UserHairRecordViewController
@@ -41,7 +40,7 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        self.title = @"个人信息";
+        self.title = @"客户资料";
         
         FAKIcon *leftIcon = [FAKIonIcons ios7ArrowBackIconWithSize:NAV_BAR_ICON_SIZE];
         [leftIcon addAttribute:NSForegroundColorAttributeName value:[UIColor whiteColor]];
@@ -53,7 +52,7 @@
         self.uploadRemoveIndex = -1;
         
         self.uploadedPictures = [[NSMutableArray alloc] initWithCapacity:5];
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < 4; i++) {
             self.uploadedPictures[i] = @"";
         }
     }
@@ -68,8 +67,6 @@
 
 - (void)rightNavItemClick
 {
-    
-    // call save function
     NSMutableDictionary *reqData = [[NSMutableDictionary alloc] initWithCapacity:1];
 
     NSMutableArray *uploadPictures = [[NSMutableArray alloc] initWithCapacity:4];
@@ -80,20 +77,21 @@
         
         [uploadPictures addObject:pictureURL];
     }
-    [uploadPictures removeObjectAtIndex:0];
-    [reqData setObject:uploadPictures forKey:@"ProfileBackgroundUrl"];
+
+    [reqData setObject:uploadPictures forKey:@"PictureUrl"];
+    [reqData setObject:self.commentBodyView.text forKey:@"Body"];
     
-    ASIFormDataRequest *request = [RequestUtil createPUTRequestWithURL:[NSURL URLWithString:[NSString stringWithFormat:API_USERS_UPDATE, [UserManager SharedInstance].userLogined.id]]
+    ASIFormDataRequest *request = [RequestUtil createPOSTRequestWithURL:[NSURL URLWithString:[NSString stringWithFormat:API_APPOINTMENTS_NOTE, self.appointment.id]]
                                                                andData:reqData];
     [self.requests addObject:request];
     
     [request setDelegate:self];
-    [request setDidFinishSelector:@selector(updateUserFinish:)];
-    [request setDidFailSelector:@selector(updateUserFail:)];
+    [request setDidFinishSelector:@selector(addNoteToAppointmentFinish:)];
+    [request setDidFailSelector:@selector(addNoteToAppointmentFail:)];
     [request startAsynchronous];
 }
 
-- (void)updateUserFinish:(ASIHTTPRequest *)request
+- (void)addNoteToAppointmentFinish:(ASIHTTPRequest *)request
 {
     [SVProgressHUD dismiss];
     
@@ -104,27 +102,24 @@
                 [SVProgressHUD showErrorWithStatus:[responseMessage objectForKey:@"message"]];
                 return;
             }
-            
-            [SVProgressHUD dismiss];
-            [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_USER_PROFILE_CHANGE object:nil];
-            [SVProgressHUD showSuccessWithStatus:@"更新信息成功！"];
-            
+
+            [SVProgressHUD showSuccessWithStatus:@"添加用户资料成功！"];
+
             return;
         }
     }
     
-    [SVProgressHUD showErrorWithStatus:@"更新信息失败，请重试！"];
+    [SVProgressHUD showErrorWithStatus:@"添加用户资料失败，请重试！"];
 }
 
-- (void)updateUserFail:(ASIHTTPRequest *)request
+- (void)addNoteToAppointmentFail:(ASIHTTPRequest *)request
 {
-    [SVProgressHUD showErrorWithStatus:@"更新信息失败，请重试！"];
+    [SVProgressHUD showErrorWithStatus:@"添加用户资料失败，请重试！"];
 }
 
 - (void)loadView
 {
     [super loadView];
-    
 }
 
 - (void)viewDidLoad
@@ -135,6 +130,7 @@
     self.scrollView.delegate = self;
     self.scrollView.contentSize = self.scrollView.frame.size;
     [self.view addSubview:self.scrollView];
+
     CGColorRef borderColor = [[UIColor colorWithHexString:@"e1e1e1"] CGColor];
     float margin = 10;
     
@@ -145,7 +141,7 @@
     info1lbl.text = @"秀美发";
     info1lbl.textAlignment = NSTextAlignmentLeft;;
     [self.scrollView addSubview:info1lbl];
-    
+
     UIView *uploadPictureView = [[UIView alloc] initWithFrame:CGRectMake(margin, MaxY(info1lbl) + 5, WIDTH(self.view) - 2 * margin, 80)];
     uploadPictureView.backgroundColor = [UIColor whiteColor];
     uploadPictureView.layer.borderColor = borderColor;
@@ -225,17 +221,17 @@
     self.uploadPictureActivityIndicator4.activityIndicatorViewStyle = UIActivityIndicatorViewStyleGray;
     [uploadPictureView addSubview:self.uploadPictureActivityIndicator4];
     
-    for (int i =0 ; i < self.appointment.imgUrlList.count; i++) {
-        if (i == 0) {
-            [self.uploadPic1 setImageWithURL:[NSURL URLWithString:self.appointment.imgUrlList[i]]];
-        } else if (i== 1) {
-            [self.uploadPic2 setImageWithURL:[NSURL URLWithString:self.appointment.imgUrlList[i]]];
-        } else if (i== 2) {
-            [self.uploadPic3 setImageWithURL:[NSURL URLWithString:self.appointment.imgUrlList[i]]];
-        } else if (i== 3) {
-            [self.uploadPic4 setImageWithURL:[NSURL URLWithString:self.appointment.imgUrlList[i]]];
-        }
-    }
+    UILabel *commentBodyLabel = [[UILabel alloc] initWithFrame:CGRectMake(margin, MaxY(uploadPictureView) + margin, 100, 20)];
+    commentBodyLabel.backgroundColor = [UIColor clearColor];
+    commentBodyLabel.textColor = [UIColor blackColor];
+    commentBodyLabel.font = [UIFont boldSystemFontOfSize:14];
+    commentBodyLabel.text = @"评论内容：";
+    commentBodyLabel.textAlignment = NSTextAlignmentLeft;;
+    [self.scrollView addSubview:commentBodyLabel];
+
+    self.commentBodyView = [[UITextView alloc] initWithFrame: CGRectMake(margin, MaxY(commentBodyLabel) + 2, 300, 80)];
+    self.commentBodyView.layer.cornerRadius = 5;
+    [self.scrollView addSubview:self.commentBodyView];
 }
 
 - (void)didReceiveMemoryWarning
@@ -252,7 +248,7 @@
                                       delegate:self
                                       cancelButtonTitle:NSLocalizedString(@"Cancel", nil)
                                       destructiveButtonTitle:nil
-                                      otherButtonTitles:NSLocalizedString(@"Camera", nil),NSLocalizedString(@"Album", nil), nil];
+                                      otherButtonTitles:NSLocalizedString(@"Camera", nil), NSLocalizedString(@"Album", nil), nil];
         [actionSheet showInView:self.view];
     }
     
@@ -281,10 +277,6 @@
                            animated:YES
                          completion:nil];
     } else if ([buttonTitle isEqualToString:NSLocalizedString(@"Remove", nil)]) {
-        if (self.uploadRemoveIndex == 0) {
-            self.uploadLogo.image  = [UIImage imageNamed:@"AddImage"];
-        }
-        
         if (self.uploadRemoveIndex == 1) {
             self.uploadPic1.image  = [UIImage imageNamed:@"AddImage"];
         }
@@ -298,7 +290,7 @@
             self.uploadPic4.image  = [UIImage imageNamed:@"AddImage"];
         }
         
-        self.uploadedPictures[self.uploadRemoveIndex] = @"";
+        self.uploadedPictures[self.uploadRemoveIndex - 1] = @"";
         self.uploadRemoveIndex = -1;
     }
 }
@@ -309,11 +301,6 @@
     
     UIImage *pickedImg = [info objectForKey:UIImagePickerControllerEditedImage];
     pickedImg = [pickedImg createThumbnailWithWidth:pickedImg.size.width];
-    
-    if (self.uploadIndex == 0) {
-        self.uploadLogo.image  = pickedImg;
-        [self.uploadLogoActivityIndicator startAnimating];
-    }
     
     if (self.uploadIndex == 1) {
         self.uploadPic1.image  = pickedImg;
@@ -354,7 +341,7 @@
         NSDictionary *responseMessage = [Util objectFromJson:request.responseString];
         if ([responseMessage objectForKey:@"Thumb480Url"] && [responseMessage objectForKey:@"Thumb480Url"] != [NSNull null]) {
             NSString *picUrl = [responseMessage objectForKey:@"Thumb480Url"];
-            self.uploadedPictures[self.uploadIndex] = picUrl;
+            self.uploadedPictures[self.uploadIndex - 1] = picUrl;
         } else {
             [SVProgressHUD showErrorWithStatus:@"上传图片失败，请重试！"];
         }
@@ -375,9 +362,6 @@
 
 - (void)stopUploadActivityIndicator
 {
-    if (self.uploadIndex == 0) {
-        [self.uploadLogoActivityIndicator stopAnimating];
-    }
     if (self.uploadIndex == 1) {
         [self.uploadPictureActivityIndicator1 stopAnimating];
     }
@@ -394,77 +378,12 @@
     self.uploadIndex = -1;
 }
 
-- (void)getAppointmentImages
-{
-    [SVProgressHUD showWithMaskType:SVProgressHUDMaskTypeClear];
-    
-    ASIHTTPRequest *request = [RequestUtil createGetRequestWithURL:[NSURL URLWithString:[NSString stringWithFormat:API_USERS_DETAIL, [UserManager SharedInstance].userLogined.id]]
-                                                          andParam:nil];
-    [self.requests addObject:request];
-    
-    [request setDelegate:self];
-    [request setDidFinishSelector:@selector(finishAppointment:)];
-    [request setDidFailSelector:@selector(failAppointment:)];
-    [request startAsynchronous];
-}
-
-- (void)finishAppointment:(ASIHTTPRequest *)request
-{
-    [SVProgressHUD dismiss];
-    
-    NSDictionary *rst = [Util objectFromJson:request.responseString];
-    if ([rst objectForKey:@"user"]) {
-        User *user = [[User alloc] initWithDic:[rst objectForKey:@"user"]];
-        
-        UITextField *textField = (UITextField *)[self.view viewWithTag:1000];
-        textField.keyboardType = UIKeyboardTypeNamePhonePad;
-        textField.text = user.username;
-        textField.enabled = user.username.length == 0;
-        textField.textColor = textField.enabled ? [UIColor blackColor] : [UIColor lightGrayColor];
-        textField = (UITextField *)[self.view viewWithTag:1001];
-        textField.keyboardType = UIKeyboardTypeNamePhonePad;
-        textField.text = user.nickname;
-        textField = (UITextField *)[self.view viewWithTag:1002];
-        textField.keyboardType = UIKeyboardTypeEmailAddress;
-        textField.autocapitalizationType = UITextAutocapitalizationTypeNone;
-        textField.text = user.email;
-        textField.enabled = user.email.length == 0;
-        textField.textColor = textField.enabled ? [UIColor blackColor] : [UIColor lightGrayColor];
-        textField = (UITextField *)[self.view viewWithTag:1004];
-        textField.keyboardType = UIKeyboardTypePhonePad;
-        textField.text = user.mobile;
-        
-        self.uploadedPictures[0] = [user.avatarUrl absoluteString];
-        [self.uploadLogo setImageWithURL:user.avatarUrl];
-        
-        for (int i =0 ; i < user.imgUrls.count; i++) {
-            self.uploadedPictures[i + 1] = user.imgUrls[i];
-            if (i == 0) {
-                [self.uploadPic1 setImageWithURL:[NSURL URLWithString:user.imgUrls[i]]];
-            } else if (i== 1) {
-                [self.uploadPic2 setImageWithURL:[NSURL URLWithString:user.imgUrls[i]]];
-            } else if (i== 2) {
-                [self.uploadPic3 setImageWithURL:[NSURL URLWithString:user.imgUrls[i]]];
-            } else if (i== 3) {
-                [self.uploadPic4 setImageWithURL:[NSURL URLWithString:user.imgUrls[i]]];
-            }
-        }
-    }
-}
-
-- (void)failAppointment:(ASIHTTPRequest *)request
-{
-    [SVProgressHUD dismiss];
-}
-
-
 - (void)uploadPictureLongPress:(UILongPressGestureRecognizer *)gesture
 {
-    
     if (gesture.state == UIGestureRecognizerStateEnded) {
         self.uploadRemoveIndex = gesture.view.tag;
         
-        if ([self.uploadedPictures[self.uploadRemoveIndex] isEqualToString:@""]) {
+        if ([self.uploadedPictures[self.uploadRemoveIndex - 1] isEqualToString:@""]) {
             return;
         }
         
@@ -480,7 +399,6 @@
 
 - (void)uploadPictureTapped:(UIButton *)sender
 {
-    
     self.uploadIndex = sender.tag;
     
     UIActionSheet *actionSheet = [[UIActionSheet alloc]

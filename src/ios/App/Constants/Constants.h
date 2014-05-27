@@ -36,6 +36,8 @@
 
 #define API_APPOINTMENTS_CREATE API_PATH(@"/appointments")
 #define API_APPOINTMENTS_UPDATE API_PATH(@"/appointments/%d")
+#define API_APPOINTMENTS_NOTE API_PATH(@"/appointments/%d/note")
+#define API_APPOINTMENTS_DETAIL API_PATH(@"/appointments/%d")
 
 #define API_WITHDRAW_CREATE API_PATH(@"/companies/withdraw")
 #define API_WITHDRAW_CANCEL API_PATH(@"/companies/withdraw/cancel/%d")
