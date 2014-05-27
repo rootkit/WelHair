@@ -27,7 +27,7 @@ pod 'ZXingObjC', '2.2.2'
 pod 'Block-KVO', '~> 2.2.1'
 pod "PPiAwesomeButton", :git=> 'https://github.com/pepibumur/PPiAwesomeButton.git', :commit => '1f11e43b34109cb8f64f2e923db061275e756e55'
 pod 'SVWebViewController', '~> 1.0'
-pod 'iVersion', '~> 1.10.6'
+#pod 'iVersion', '~> 1.10.6'
 pod 'iRate', '~> 1.10.2'
 pod 'CTAssetsPickerController',  '~> 1.5.0'
 

@@ -35,5 +35,6 @@
 
 + (void)phoneCall:(NSString *)phoneNumStr;
 
++ (BOOL)compareOnlineVersion:(NSString *)onlineVersion withLocalVersion:(NSString *)localVersion;
 
 @end

@@ -44,7 +44,7 @@
 
 static const float profileViewHeight = 90;
 
-@interface SettingViewController ()<UITableViewDataSource, UITableViewDelegate, UIActionSheetDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
+@interface SettingViewController ()<UITableViewDataSource, UITableViewDelegate, UIActionSheetDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIAlertViewDelegate>
 
 
 @property (nonatomic, strong) CircleImageView *avatorImgView;
@@ -466,11 +466,20 @@ static const float profileViewHeight = 90;
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    NSString *title = [[self.datasource objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
+    
+    if ([title isEqual:SettingCheckVersion]){
+        [self getVersion];
+        return;
+    }else if ([title isEqual:SettingRate]){
+        //[[UIApplication sharedApplication] openURL:[NSURL URLWithString:AppStoreRateLink]];
+        return;
+    }
     
     if(![self checkLogin]){
         return;
     }
-    NSString *title = [[self.datasource objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
+
     
     if([title isEqual:SettingJoinGroup]){
         UserAuthorViewController *vc = [UserAuthorViewController new];
@@ -501,10 +510,6 @@ static const float profileViewHeight = 90;
          [SVProgressHUD showSuccessWithStatus:@"敬请期待"];
     }else if ([title isEqual:SettingFeedback]){
         [self.navigationController pushViewController:[FeedbackViewController new] animated:YES];
-    }else if ([title isEqual:SettingCheckVersion]){
-        [SVProgressHUD showSuccessWithStatus:@"您已经使用的是最新版本" duration:1];
-    }else if ([title isEqual:SettingRate]){
-        //[[UIApplication sharedApplication] openURL:[NSURL URLWithString:AppStoreRateLink]];
     }
 }
 
@@ -543,6 +548,53 @@ static const float profileViewHeight = 90;
     [[UserManager SharedInstance] signout];
     
     [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_USER_STATUS_CHANGE object:@(userId)];
+}
+
+
+- (void)getVersion
+{
+    [SVProgressHUD showWithMaskType:SVProgressHUDMaskTypeClear];
+    ASIHTTPRequest *request= [ASIHTTPRequest requestWithURL:[NSURL URLWithString:@"https://itunes.apple.com/lookup?id=781353439"]];
+    [request setRequestMethod:@"GET"];
+    request.delegate = self;
+    [request setDidFinishSelector:@selector(finishGetVersion:)];
+    [request setDidFailSelector:@selector(failGetVersion:)];
+    [request startAsynchronous];
+}
+
+- (void)finishGetVersion:(ASIHTTPRequest *)request
+{
+    [SVProgressHUD dismiss];
+    NSDictionary *rst = [Util objectFromJson:request.responseString];
+    NSArray *results = [rst objectForKey:@"results"];
+    if(results.count > 0){
+        NSDictionary *result = results[0];
+        NSString *onlinerVersion = [result objectForKey:@"version"];
+        NSDictionary* infoDict = [[NSBundle mainBundle] infoDictionary];
+        NSString* localVersion = [infoDict objectForKey:@"CFBundleVersion"];
+        if([Util compareOnlineVersion:onlinerVersion withLocalVersion:localVersion]){
+            [[[UIAlertView alloc] initWithTitle:@"" message:@"有新版本" delegate:self cancelButtonTitle:@"暂不升级" otherButtonTitles:@"升级", nil] show];
+        }else{
+            [SVProgressHUD showSuccessWithStatus:@"当前已是最新版本" duration:1];
+        }
+    }
+}
+
+- (void)failGetVersion:(ASIHTTPRequest *)request
+{
+    [SVProgressHUD dismiss];
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    switch ( buttonIndex) {
+        case 1:
+            //[[UIApplication sharedApplication] openURL:[NSURL URLWithString:AppStoreRateLink]];
+            break;
+            
+        default:
+            break;
+    }
 }
 
 @end

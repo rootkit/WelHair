@@ -148,4 +148,23 @@
     }
 }
 
++ (BOOL)compareOnlineVersion:(NSString *)onlineVersion withLocalVersion:(NSString *)localVersion
+{
+    if(onlineVersion.length == 0){
+        return NO;
+    }
+    NSArray *local = [localVersion componentsSeparatedByString:@"."];
+    NSArray *online= [onlineVersion componentsSeparatedByString:@"."];
+    int localNumber = [local[local.count-1] intValue];
+    for (int i = local.count -1; i >=0 ; i--) {
+        localNumber += [local[i] intValue] * 10 ^i;
+    }
+    int onlineNumber = [online[online.count-1] intValue];
+    for (int i = online.count -1; i >=0 ; i--) {
+        onlineNumber += [online[i] intValue] * 10 ^i;
+    }
+    
+    return onlineNumber > localNumber;
+}
+
 @end
