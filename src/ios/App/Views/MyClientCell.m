@@ -32,7 +32,7 @@
 
         self.imgView = [[CircleImageView alloc] initWithFrame:CGRectMake(15, 10, 60, 60)];
         self.imgView.layer.borderColor = [[UIColor colorWithHexString:@"e0e0de"] CGColor];
-        self.imgView.layer.borderWidth = 2;
+        self.imgView.layer.borderWidth = 0;
         [self.contentView addSubview:self.imgView];
 
         self.nameLbl = [[UILabel alloc] initWithFrame:CGRectMake(MaxX(self.imgView) + 5,

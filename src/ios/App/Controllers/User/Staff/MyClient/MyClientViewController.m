@@ -23,6 +23,9 @@
 @property (nonatomic, strong) NSMutableArray *datasource;
 @property (nonatomic, strong) UITableView *tableView;
 
+@property (nonatomic, strong) NSMutableArray *sec1Datasource;
+@property (nonatomic, strong) NSMutableArray *sec2Datasource;
+
 @end
 
 @implementation MyClientViewController
@@ -37,7 +40,12 @@
         FAKIcon *leftIcon = [FAKIonIcons ios7ArrowBackIconWithSize:NAV_BAR_ICON_SIZE];
         [leftIcon addAttribute:NSForegroundColorAttributeName value:[UIColor whiteColor]];
         self.leftNavItemImg =[leftIcon imageWithSize:CGSizeMake(NAV_BAR_ICON_SIZE, NAV_BAR_ICON_SIZE)];
+
+
+        self.sec1Datasource = [NSMutableArray array];
+        self.sec2Datasource = [NSMutableArray array];
     }
+
     return self;
 }
 
@@ -95,9 +103,34 @@
     return 80;
 }
 
+-(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+    UIView *bgView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 30)];
+    bgView.backgroundColor = [UIColor colorWithHexString:@"EEE"];
+
+    UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(13, 0, 250, 24)];
+    titleLabel.backgroundColor = [UIColor clearColor];
+    titleLabel.textColor = [UIColor blackColor];
+    titleLabel.font = [UIFont systemFontOfSize:12];
+    [bgView addSubview:titleLabel];
+
+    if (section == 0) {
+        titleLabel.text = @"正在预约客户";
+    } else {
+        titleLabel.text = @"历史预约客户";
+    }
+
+    return bgView;
+}
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return 2;
+}
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return  self.datasource.count;
+    return section == 0 ? self.sec1Datasource.count : self.sec2Datasource.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -110,8 +143,13 @@
     }
     cell.contentView.backgroundColor =  cell.backgroundColor = indexPath.row % 2 == 0 ? [UIColor whiteColor] : [UIColor colorWithHexString:@"f5f6f8"];
 
-    StaffClient *data = [self.datasource objectAtIndex:indexPath.row];
-    [cell setup:data];
+    if (indexPath.section == 0) {
+        StaffClient *data = [self.sec1Datasource objectAtIndex:indexPath.row];
+        [cell setup:data];
+    } else {
+        StaffClient *data = [self.sec2Datasource objectAtIndex:indexPath.row];
+        [cell setup:data];
+    }
 
     return cell;
 }
@@ -119,7 +157,12 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     MyClientDetailViewController *vc = [MyClientDetailViewController new];
-    vc.client = [self.datasource objectAtIndex:indexPath.row];
+    if (indexPath.section == 0) {
+        vc.client = [self.sec1Datasource objectAtIndex:indexPath.row];
+    } else {
+        vc.client = [self.sec2Datasource objectAtIndex:indexPath.row];
+    }
+
     [self.navigationController pushViewController:vc animated:YES];
 }
 
@@ -166,10 +209,22 @@
         StaffClient *client = [StaffClient new];
         client.user = [[User alloc] initWithDic:dicData];
         client.appointmentCount = [[dicData objectForKey:@"AppointmentCount"] intValue];
+        client.completedAppointmentCount = [[dicData objectForKey:@"CompletedAppointmentCount"] intValue];
         [arr addObject:client];
     }
 
     self.datasource = arr;
+
+    self.sec1Datasource = [NSMutableArray array];
+    self.sec2Datasource = [NSMutableArray array];
+
+    for (StaffClient *client in self.datasource) {
+        if (client.completedAppointmentCount > 0) {
+            [self.sec1Datasource addObject:client];
+        } else {
+            [self.sec2Datasource addObject:client];
+        }
+    }
 
     BOOL enableInfinite = total > self.datasource.count;
     if (self.tableView.showsInfiniteScrolling != enableInfinite) {

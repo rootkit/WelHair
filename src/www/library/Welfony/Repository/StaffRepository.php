@@ -114,12 +114,13 @@ class StaffRepository extends AbstractRepository
                        U.AvatarUrl,
                        U.ProfileBackgroundUrl,
 
+                       (SELECT COUNT(1) FROM Appointment AA WHERE AA.Status = 1 AND AA.UserId = A.UserId AND AA.StaffId = A.StaffId) CompletedAppointmentCount,
                        COUNT(A.AppointmentId) AppointmentCount
                    FROM Appointment A
                    INNER JOIN Users U ON U.UserId = A.UserId
                    WHERE A.Status > 0 AND A.StaffId = ?
                    GROUP BY A.UserId
-                   ORDER BY A.AppointmentId DESC
+                   ORDER BY CompletedAppointmentCount DESC, A.AppointmentId DESC
                    LIMIT $offset, $pageSize";
 
         return $this->conn->fetchAll($strSql, array($staffId));

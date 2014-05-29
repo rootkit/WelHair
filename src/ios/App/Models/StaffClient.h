@@ -17,5 +17,6 @@
 
 @property (nonatomic, strong) User *user;
 @property (nonatomic, assign) int appointmentCount;
+@property (nonatomic, assign) int completedAppointmentCount;
 
 @end
