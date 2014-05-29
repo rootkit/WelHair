@@ -10,20 +10,21 @@
 //
 // ==============================================================================
 
-#import "JOLImageSlider.h"
+#import "AppointmentNote.h"
 #import "MWPhotoBrowser.h"
-#import "UserManager.h"
+#import "UserHairCell.h"
 #import "UserHairViewController.h"
 #import "UserHairRecordViewController.h"
 
-@interface UserHairViewController () <JOLImageSliderDelegate, MWPhotoBrowserDelegate>
+@interface UserHairViewController () <UITableViewDataSource, UITableViewDelegate, MWPhotoBrowserDelegate>
 
-@property (nonatomic, strong) UIView  *headerView;
-@property (nonatomic, strong) UITableView *tableView;
-@property (nonatomic, assign) NSInteger currentPage;
 @property (nonatomic, strong) NSMutableArray *datasource;
+@property (nonatomic, strong) UITableView *tableView;
+
+@property (nonatomic, assign) NSInteger currentPage;
+@property (nonatomic, strong) NSString *requestString;
+
 @property (nonatomic, strong) NSMutableArray *workImgs;
-@property (nonatomic, strong) JOLImageSlider *imgSlider;
 
 @end
 
@@ -41,7 +42,10 @@
         FAKIcon *rightIcon = [FAKIonIcons ios7ComposeOutlineIconWithSize:NAV_BAR_ICON_SIZE];
         [rightIcon addAttribute:NSForegroundColorAttributeName value:[UIColor whiteColor]];
         self.rightNavItemImg  =[rightIcon imageWithSize:CGSizeMake(NAV_BAR_ICON_SIZE, NAV_BAR_ICON_SIZE)];
+
+        self.currentPage = 1;
     }
+
     return self;
 }
 
@@ -57,88 +61,46 @@
     [self.navigationController pushViewController:vc animated:YES];
 }
 
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    [self fillControl];
-}
-
-- (void)loadView
-{
-    [super loadView];
-}
-
-- (void)fillControl
-{
-    [self.headerView removeFromSuperview];
-    self.headerView = [[UIView alloc] initWithFrame:CGRectMake(0,
-                                                               self.topBarOffset,
-                                                               WIDTH(self.view) ,
-                                                               [self contentHeightWithNavgationBar:YES withBottomBar:NO])];
-    self.headerView.backgroundColor = [UIColor colorWithHexString:APP_CONTENT_BG_COLOR];
-    [self.view addSubview:self.headerView];
-    if(self.appointment.imgUrlList.count == 0){
-        UILabel *noDataLbl =[[UILabel alloc] initWithFrame:self.headerView.bounds];
-        noDataLbl.font = [UIFont systemFontOfSize:16];
-        noDataLbl.numberOfLines = 1;
-        noDataLbl.textAlignment = NSTextAlignmentCenter;
-        noDataLbl.backgroundColor = [UIColor clearColor];
-        noDataLbl.textColor = [UIColor grayColor];
-        noDataLbl.text = @"暂无图片,添加几张作品图吧";
-        [self.view addSubview:noDataLbl];
-        return;
-    }
-#pragma topbar
-    self.imgSlider = [[JOLImageSlider alloc] initWithFrame:CGRectMake(0, 0, WIDTH(self.view), WIDTH(self.view))];
-    self.imgSlider.delegate = self;
-    [self.imgSlider setContentMode: UIViewContentModeScaleAspectFill];
-    [self.headerView addSubview:self.imgSlider];
-    
-#pragma works list
-    UIView *workView = [[UIView alloc] initWithFrame:CGRectMake(10, MaxY(self.imgSlider), 300, 70)];
-    workView.layer.borderColor = [[UIColor colorWithHexString:@"e1e1e1"] CGColor];
-    workView.layer.borderWidth = 1;
-    workView.layer.cornerRadius = 5;
-    workView.backgroundColor = [UIColor whiteColor];
-    [self.headerView addSubview:workView];
-    
-    float imgHorizontalPadding = 8;
-    float imgVeritalPadding = 5;
-    float imgSize = 60;
-    
-    int count = MIN(self.appointment.imgUrlList.count, 4);
-    for (int i = 0; i < count; i++) {
-        NSString *imageUrl  =self.appointment.imgUrlList[i];
-        UIImageView *img = [[UIImageView alloc] initWithFrame:CGRectMake(imgHorizontalPadding + i *(imgHorizontalPadding + imgSize), imgVeritalPadding, imgSize, imgSize)];
-        img.layer.cornerRadius = 3;
-        img.userInteractionEnabled = YES;
-        img.tag = i;
-        [img addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(workImgTapped:)]];
-        [img setImageWithURL:[NSURL URLWithString:imageUrl]];
-        [workView addSubview:img];
-    }
-}
-
-- (void)workImgTapped:(UITapGestureRecognizer *)tapped
-{
-    [self.imgSlider scrollToIndex:tapped.view.tag animationed:YES];
-}
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    NSMutableArray *sliderArray = [NSMutableArray array];
-    for (NSString *item in self.appointment.imgUrlList) {
-        JOLImageSlide * slideImg= [[JOLImageSlide alloc] init];
-        slideImg.image = item;
-        [sliderArray addObject:slideImg];
+
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(triggerTablePullToRefresh) name:NOTIFICATION_REFRESH_APPOINTMENT_NOTE object:nil];
+
+    if (self.appointment.id > 0) {
+        self.requestString = [NSString stringWithFormat:API_APPOINTMENTS_NOTE, self.appointment.id];
     }
-    [self.imgSlider setSlides:sliderArray];
-    self.workImgs = [NSMutableArray array];
-    for (NSString *item in self.appointment.imgUrlList) {
-        [self.workImgs addObject:[MWPhoto photoWithURL:[NSURL URLWithString:item]]];
-    }
+
+    self.tableView = [[UITableView alloc] init];
+    self.tableView.frame = CGRectMake(0,
+                                      self.topBarOffset,
+                                      WIDTH(self.view) ,
+                                      [self contentHeightWithNavgationBar:YES withBottomBar:NO]);
+    self.tableView.backgroundColor = [UIColor clearColor];
+    self.tableView.delegate = self;
+    self.tableView.dataSource = self;
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    self.tableView.backgroundColor = [UIColor clearColor];
+    [self.view addSubview:self.tableView];
+
+    __weak typeof(self) weakSelf = self;
+    [self.tableView addPullToRefreshActionHandler:^{
+        weakSelf.currentPage = 1;
+        [weakSelf getAppointmentNotes];
+    }];
+
+    [self.tableView.pullToRefreshView setSize:CGSizeMake(25, 25)];
+    [self.tableView.pullToRefreshView setBorderWidth:2];
+    [self.tableView.pullToRefreshView setBorderColor:[UIColor whiteColor]];
+    [self.tableView.pullToRefreshView setImageIcon:[UIImage imageNamed:@"centerIcon"]];
+
+    [self.tableView addInfiniteScrollingWithActionHandler:^{
+        weakSelf.currentPage += 1;
+        [weakSelf getAppointmentNotes];
+    }];
+    self.tableView.showsInfiniteScrolling = NO;
+
+    [self triggerTablePullToRefresh];
 }
 
 - (void)didReceiveMemoryWarning
@@ -146,32 +108,144 @@
     [super didReceiveMemoryWarning];
 }
 
-- (void) imagePager:(JOLImageSlider *)imagePager didSelectImageAtIndex:(NSUInteger)index
+- (void)triggerTablePullToRefresh
 {
-    [self OpenImageGallery];
+    [self.tableView triggerPullToRefresh];
 }
 
-- (void)OpenImageGallery
+#pragma mark UITableView delegate
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    MWPhotoBrowser *browser = [[MWPhotoBrowser alloc] initWithDelegate:self];
-    browser.displayActionButton = NO;
-    browser.displayNavArrows = YES;
-    browser.displaySelectionButtons = NO;
-    browser.alwaysShowControls = NO;
-    browser.wantsFullScreenLayout = YES;
-    browser.zoomPhotosToFill = YES;
-    browser.enableGrid = NO;
-    browser.startOnGrid = NO;
-    [browser setCurrentPhotoIndex:0];
-    
-    UINavigationController *nc = [[UINavigationController alloc] initWithRootViewController:browser];
-    nc.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
-    [self.navigationController presentViewController:nc animated:YES completion:Nil];
+    AppointmentNote *note = [self.datasource objectAtIndex:indexPath.row];
+    CGSize textSize = [Util textSizeForText:note.body withFont:[UIFont systemFontOfSize:12] andLineHeight:20];
+
+    CGFloat containerHeight = textSize.height + 20;
+
+    if (note.pictureUrl.count > 0) {
+        containerHeight += 67.5 + 10;
+    }
+
+    return containerHeight;
 }
 
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return  self.datasource.count;
+}
 
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    static NSString * cellIdentifier = @"UserHairCellIdentifier";
+    UserHairCell * cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+    if (!cell) {
+        cell = [[UserHairCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    }
 
+    AppointmentNote *data = [self.datasource objectAtIndex: indexPath.row];
+    [cell setup:data tapHandler:^(NSArray *imgArr, int currentIndex) {
+        self.workImgs = [NSMutableArray array];
+        for (UIImageView *item in imgArr) {
+            if (!item.image) {
+                continue;
+            }
+            [self.workImgs addObject:[MWPhoto photoWithImage:item.image]];
+        }
+
+        MWPhotoBrowser *browser = [[MWPhotoBrowser alloc] initWithDelegate:self];
+        browser.displayActionButton = NO;
+        browser.displayNavArrows = YES;
+        browser.displaySelectionButtons = NO;
+        browser.alwaysShowControls = NO;
+        browser.wantsFullScreenLayout = YES;
+        browser.zoomPhotosToFill = YES;
+        browser.enableGrid = NO;
+        browser.startOnGrid = NO;
+        [browser setCurrentPhotoIndex:currentIndex];
+
+        UINavigationController *nc = [[UINavigationController alloc] initWithRootViewController:browser];
+        nc.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+        [self.navigationController presentViewController:nc animated:YES completion:Nil];
+    }];
+
+    return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+
+}
+
+#pragma mark Group Search API
+
+- (void)getAppointmentNotes
+{
+    NSMutableDictionary *reqData = [[NSMutableDictionary alloc] initWithCapacity:1];
+    [reqData setObject:[NSString stringWithFormat:@"%d", self.currentPage] forKey:@"page"];
+    [reqData setObject:[NSString stringWithFormat:@"%d", TABLEVIEW_PAGESIZE_DEFAULT] forKey:@"pageSize"];
+
+    ASIHTTPRequest *request = [RequestUtil createGetRequestWithURL:[NSURL URLWithString:self.requestString] andParam:reqData];
+    [request setDelegate:self];
+    [request setDidFinishSelector:@selector(finishGetAppointmentNotes:)];
+    [request setDidFailSelector:@selector(failGetAppointmentNotes:)];
+    [request startAsynchronous];
+}
+
+- (void)finishGetAppointmentNotes:(ASIHTTPRequest *)request
+{
+    NSDictionary *rst = [Util objectFromJson:request.responseString];
+    NSInteger total = [[rst objectForKey:@"total"] integerValue];
+    NSArray *dataList = [rst objectForKey:@"appointmentNotes"];
+
+    NSMutableArray *arr = [NSMutableArray arrayWithArray:self.datasource];
+
+    if (self.currentPage == 1) {
+        [arr removeAllObjects];
+    } else {
+        if (self.currentPage % TABLEVIEW_PAGESIZE_DEFAULT > 0) {
+            int i;
+
+            for (i = 0; i < arr.count; i++) {
+                if (i >= (self.currentPage - 1) * TABLEVIEW_PAGESIZE_DEFAULT) {
+                    [arr removeObjectAtIndex:i];
+                    i--;
+                }
+            }
+        }
+    }
+
+    for (NSDictionary *dicData in dataList) {
+        [arr addObject:[[AppointmentNote alloc] initWithDic:dicData]];
+    }
+
+    self.datasource = arr;
+
+    BOOL enableInfinite = total > self.datasource.count;
+    if (self.tableView.showsInfiniteScrolling != enableInfinite) {
+        self.tableView.showsInfiniteScrolling = enableInfinite;
+    }
+
+    if (self.currentPage == 1) {
+        [self.tableView stopRefreshAnimation];
+    } else {
+        [self.tableView.infiniteScrollingView stopAnimating];
+    }
+
+    [self checkEmpty];
+
+    [self.tableView reloadData];
+}
+
+- (void)failGetAppointmentNotes:(ASIHTTPRequest *)request
+{
+}
+
+- (void)checkEmpty
+{
+
+}
 #pragma mark - MWPhotoBrowserDelegate
+
 - (NSUInteger)numberOfPhotosInPhotoBrowser:(MWPhotoBrowser *)photoBrowser
 {
     return self.workImgs.count;
@@ -182,7 +256,7 @@
     if (index < self.workImgs.count) {
         return [self.workImgs objectAtIndex:index];
     }
-    
+
     return nil;
 }
 
@@ -190,7 +264,7 @@
 {
     MWPhoto *photo = [self.workImgs objectAtIndex:index];
     MWCaptionView *captionView = [[MWCaptionView alloc] initWithPhoto:photo];
-    
+
     return captionView ;
 }
 
@@ -201,8 +275,5 @@
 - (void)photoBrowser:(MWPhotoBrowser *)photoBrowser didDisplayPhotoAtIndex:(NSUInteger)index
 {
 }
-
-
-
 
 @end

@@ -80,6 +80,15 @@
 
     [reqData setObject:uploadPictures forKey:@"PictureUrl"];
     [reqData setObject:self.commentBodyView.text forKey:@"Body"];
+
+    if (self.commentBodyView.text.length <= 0) {
+        [SVProgressHUD showSuccessWithStatus:@"请输入点心得吧 :)" duration:1];
+        return;
+    }
+    if (uploadPictures.count <= 0) {
+        [SVProgressHUD showSuccessWithStatus:@"难道您就不想加点儿图片增强记忆么？" duration:1];
+        return;
+    }
     
     ASIFormDataRequest *request = [RequestUtil createPOSTRequestWithURL:[NSURL URLWithString:[NSString stringWithFormat:API_APPOINTMENTS_NOTE, self.appointment.id]]
                                                                andData:reqData];
@@ -104,6 +113,9 @@
             }
 
             [SVProgressHUD showSuccessWithStatus:@"添加用户资料成功！"];
+
+            [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_REFRESH_APPOINTMENT_NOTE object:nil];
+            [self.navigationController popViewControllerAnimated:YES];
 
             return;
         }

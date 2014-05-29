@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		18076DC61936C94300F4E086 /* UserHairCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18076DC51936C94300F4E086 /* UserHairCell.m */; };
+		18076DC91936C99200F4E086 /* AppointmentNote.m in Sources */ = {isa = PBXBuildFile; fileRef = 18076DC81936C99200F4E086 /* AppointmentNote.m */; };
 		181776AA18F3CC4300083C1E /* JoinGroupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 181776A918F3CC4300083C1E /* JoinGroupViewController.m */; };
 		1825E1CC18E183B70052AA9A /* Juchi@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1825E1C318E183B70052AA9A /* Juchi@2x.png */; };
 		1825E1CD18E183B70052AA9A /* MeTab1.png in Resources */ = {isa = PBXBuildFile; fileRef = 1825E1C418E183B70052AA9A /* MeTab1.png */; };
@@ -364,6 +366,10 @@
 
 /* Begin PBXFileReference section */
 		0DEE8FDE44A64A6986F93371 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		18076DC41936C94300F4E086 /* UserHairCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserHairCell.h; sourceTree = "<group>"; };
+		18076DC51936C94300F4E086 /* UserHairCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserHairCell.m; sourceTree = "<group>"; };
+		18076DC71936C99200F4E086 /* AppointmentNote.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppointmentNote.h; sourceTree = "<group>"; };
+		18076DC81936C99200F4E086 /* AppointmentNote.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppointmentNote.m; sourceTree = "<group>"; };
 		181776A818F3CC4300083C1E /* JoinGroupViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JoinGroupViewController.h; sourceTree = "<group>"; };
 		181776A918F3CC4300083C1E /* JoinGroupViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JoinGroupViewController.m; sourceTree = "<group>"; };
 		1825E1C318E183B70052AA9A /* Juchi@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Juchi@2x.png"; sourceTree = "<group>"; };
@@ -1359,6 +1365,8 @@
 				4659D27718E7E220005648C0 /* Address.m */,
 				4673BB6518D2F2B8000F64DE /* Appointment.h */,
 				4673BB6618D2F2B8000F64DE /* Appointment.m */,
+				18076DC71936C99200F4E086 /* AppointmentNote.h */,
+				18076DC81936C99200F4E086 /* AppointmentNote.m */,
 				467F0EAD18CB0F54009FFE08 /* BaseModel.h */,
 				467F0EAE18CB0F54009FFE08 /* BaseModel.m */,
 				4651D98118DE778F004AC95A /* City.h */,
@@ -2159,6 +2167,8 @@
 				18C20BDF18F7DADA00870F38 /* StaffWorkCell.m */,
 				467F0F1B18CC219B009FFE08 /* TripleCoverCell.h */,
 				467F0F1C18CC219B009FFE08 /* TripleCoverCell.m */,
+				18076DC41936C94300F4E086 /* UserHairCell.h */,
+				18076DC51936C94300F4E086 /* UserHairCell.m */,
 				46DFBEA61928B8E400CFA6B5 /* WithdrawCell.h */,
 				46DFBEA71928B8E400CFA6B5 /* WithdrawCell.m */,
 				4630252C18C848EB000E0B51 /* WorkCardView.h */,
@@ -2763,6 +2773,7 @@
 				467F0F1D18CC219B009FFE08 /* TripleCoverCell.m in Sources */,
 				4651D97A18DE7294004AC95A /* UserManager.m in Sources */,
 				4673BB8918D41260000F64DE /* MyGroupAddStaffViewController.m in Sources */,
+				18076DC61936C94300F4E086 /* UserHairCell.m in Sources */,
 				4630D13A18C603B000DA7CAD /* CircleImageView.m in Sources */,
 				46AF945B18F6630A00479158 /* OrderUnpaidTableView.m in Sources */,
 				4673BB6718D2F2B8000F64DE /* Appointment.m in Sources */,
@@ -2796,6 +2807,7 @@
 				4673BB5B18D2E2A9000F64DE /* StaffWorksViewController.m in Sources */,
 				46439C9118C763EF00F01691 /* MapPickerViewController.m in Sources */,
 				46BDF12118D0B3C300999F50 /* CouponsViewController.m in Sources */,
+				18076DC91936C99200F4E086 /* AppointmentNote.m in Sources */,
 				46BCD27618BC79EB005C4BD6 /* StaffDetailViewController.m in Sources */,
 				184B82C618DAC7F000177BAB /* JSDismissiveTextView.m in Sources */,
 				467F0EED18CB4FCF009FFE08 /* WelTabBarController.m in Sources */,

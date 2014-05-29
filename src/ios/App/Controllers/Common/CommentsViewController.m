@@ -74,6 +74,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(triggerTablePullToRefresh) name:NOTIFICATION_REFRESH_COMMENTLIST object:nil];
     
     if (self.goodsId > 0) {

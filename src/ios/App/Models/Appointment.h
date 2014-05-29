@@ -37,7 +37,6 @@ typedef enum {
 @property (nonatomic) BOOL isLiked;
 
 @property (nonatomic, strong) NSDate *date;
-@property (nonatomic, strong) NSArray *imgUrlList;
 
 - (Appointment *)initWithDic:(NSDictionary *)dictionary;
 - (NSDictionary *)dictionaryFromAppointment:(Appointment *)appointment;
