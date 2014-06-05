@@ -11,29 +11,29 @@
 // ==============================================================================
 
 #import "AppointmentsViewController.h"
+#import "AppointmentNotePictureCell.h"
+#import "BrickView.h"
 #import "ChatViewController.h"
 #import "CircleImageView.h"
+#import "MWPhotoBrowser.h"
 #import "MyClientDetailViewController.h"
-#import "JOLImageSlider.h"
 #import "UserManager.h"
 
 #define  DefaultAvatorImage @"AvatarDefault.jpg"
-static const float profileViewHeight = 90;
-static const float tabButtonViewHeight = 56;
 static const float avatorSize = 50;
 
-@interface MyClientDetailViewController () <UIScrollViewDelegate>
+@interface MyClientDetailViewController () <BrickViewDelegate, BrickViewDataSource, MWPhotoBrowserDelegate>
+
+@property (nonatomic, strong) AppointmentNote *openedNote;
 
 @property (nonatomic, strong) CircleImageView *avatorImgView;
 @property (nonatomic, strong) UILabel *nameLbl;
+@property (nonatomic, strong) UILabel *appointCountLbl;
 
-@property (nonatomic, strong) UIImageView *profileBackground;
-@property (nonatomic, strong) JOLImageSlider *imgSlider;
+@property (nonatomic, assign) NSInteger currentPage;
 
-@property (nonatomic, strong) NSArray *tabIconDatasource;
-@property (nonatomic, strong) NSArray *tabTextDatasource;
-
-@property (nonatomic, strong) UIScrollView *scrollView;
+@property (nonatomic, strong) NSMutableArray *datasource;
+@property (nonatomic, strong) BrickView *tableView;
 
 @end
 
@@ -47,12 +47,9 @@ static const float avatorSize = 50;
         [leftIcon addAttribute:NSForegroundColorAttributeName value:[UIColor whiteColor]];
         self.leftNavItemImg = [leftIcon imageWithSize:CGSizeMake(NAV_BAR_ICON_SIZE, NAV_BAR_ICON_SIZE)];
 
-
-        FAKIcon *chatIcon = [FAKIonIcons ios7ChatboxesOutlineIconWithSize:NAV_BAR_ICON_SIZE];
-        [chatIcon addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithHexString:@"303030"]];
-
-        self.tabIconDatasource = @[[UIImage imageNamed:@"MeTab1"], [chatIcon imageWithSize:CGSizeMake(NAV_BAR_ICON_SIZE, NAV_BAR_ICON_SIZE)]];
-        self.tabTextDatasource = @[@"预约", @"私信"];
+        FAKIcon *rightIcon = [FAKIonIcons ios7EmailOutlineIconWithSize:NAV_BAR_ICON_SIZE];
+        [rightIcon addAttribute:NSForegroundColorAttributeName value:[UIColor whiteColor]];
+        self.rightNavItemImg = [rightIcon imageWithSize:CGSizeMake(NAV_BAR_ICON_SIZE, NAV_BAR_ICON_SIZE)];
     }
 
     return self;
@@ -65,98 +62,95 @@ static const float avatorSize = 50;
 
 - (void)rightNavItemClick
 {
+    if(![self checkLogin]){
+        return;
+    }
+
+    ChatViewController *vc = [ChatViewController new];
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
 
-    self.scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, self.topBarOffset, WIDTH(self.view), [self contentHeightWithNavgationBar:YES
-                                                                                                                                            withBottomBar:NO])];
-    self.scrollView.backgroundColor = [UIColor colorWithHexString:APP_CONTENT_BG_COLOR];
-    self.scrollView.contentSize = CGSizeMake(WIDTH(self.view), HEIGHT(self.view) + 160);
-    self.scrollView.delegate = self;
-    [self.view addSubview:self.scrollView];
+    self.title = self.client.user.nickname;
 
-    UIView *headerView_ = [[UIView alloc] initWithFrame:CGRectMake(0, 0, WIDTH(self.view), WIDTH(self.view) + tabButtonViewHeight)];
+    UIView *headerView_ = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 70)];
     headerView_.backgroundColor = [UIColor clearColor];
     headerView_.clipsToBounds = YES;
-    [self.scrollView addSubview:headerView_];
 
-    self.profileBackground = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, WIDTH(self.view), WIDTH(self.view))];
-    self.profileBackground.image = [UIImage imageNamed:@"ProfileBackgroundDefault"];
-    [headerView_ addSubview:self.profileBackground];
-
-    self.imgSlider = [[JOLImageSlider alloc] initWithFrame:self.profileBackground.frame];
-    [self.imgSlider setContentMode: UIViewContentModeScaleAspectFill];
-    [headerView_ addSubview:self.imgSlider];
-
-    UIView *profileIconView_ = [[UIView alloc] initWithFrame:CGRectMake(0, 320 - profileViewHeight, WIDTH(self.view), profileViewHeight)];
-    profileIconView_.backgroundColor = [UIColor clearColor];
+    UIView *profileIconView_ = [[UIView alloc] initWithFrame:CGRectMake(10, 0, WIDTH(headerView_) - 20, HEIGHT(headerView_))];
+    profileIconView_.backgroundColor = [UIColor whiteColor];
+    profileIconView_.layer.borderWidth = 1;
+    profileIconView_.layer.borderColor = [UIColor colorWithHexString:@"ddd"].CGColor;
     [headerView_ addSubview:profileIconView_];
 
-    self.avatorImgView = [[CircleImageView alloc] initWithFrame:CGRectMake(20, 20, avatorSize, avatorSize)];
+    [profileIconView_ addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(openUsersAppointment)]];
+
+    self.avatorImgView = [[CircleImageView alloc] initWithFrame:CGRectMake(10, 10, avatorSize, avatorSize)];
     self.avatorImgView.image = [UIImage imageNamed:DefaultAvatorImage];
     self.avatorImgView.borderColor = [UIColor whiteColor];
-    self.avatorImgView.borderWidth = 1;
+    self.avatorImgView.borderWidth = 0;
     [self.avatorImgView setImageWithURL:self.client.user.avatarUrl];
     [profileIconView_ addSubview:self.avatorImgView];
 
-    self.nameLbl = [[UILabel alloc] initWithFrame:CGRectMake(MaxX(self.avatorImgView) + 5, 25, WIDTH(self.view) - 10 - MaxX(self.avatorImgView), 20)];
+    self.nameLbl = [[UILabel alloc] initWithFrame:CGRectMake(MaxX(self.avatorImgView) + 10, 15, WIDTH(self.view) - 10 - MaxX(self.avatorImgView), 20)];
     self.nameLbl.backgroundColor = [UIColor clearColor];
-    self.nameLbl.textColor = [UIColor whiteColor];
+    self.nameLbl.textColor = [UIColor colorWithHexString:@"1f6ba7"];
     self.nameLbl.font = [UIFont systemFontOfSize:16];
     self.nameLbl.textAlignment = NSTextAlignmentLeft;
     self.nameLbl.text = self.client.user.nickname;
     [profileIconView_ addSubview:self.nameLbl];
 
-    UIView *tabView_ = [[UIView alloc] initWithFrame:CGRectMake(0, MaxY(profileIconView_), WIDTH(profileIconView_), tabButtonViewHeight)];
-    UIView *tabContentView_ = [[UIView alloc] initWithFrame:CGRectMake(0, 0, WIDTH(profileIconView_), tabButtonViewHeight - 7)];
-    tabContentView_.backgroundColor = [UIColor whiteColor];
-    [tabView_ addSubview:tabContentView_];
 
-    UIView *tabFooterBgView_ = [[UIView alloc] initWithFrame:CGRectMake(0, MaxY(tabContentView_), WIDTH(profileIconView_), 7)];
-    tabFooterBgView_.backgroundColor = [UIColor colorWithHexString:APP_CONTENT_BG_COLOR];
-    [tabView_ addSubview:tabFooterBgView_];
-    UIView *tabFooterView_ = [[UIView alloc] initWithFrame:CGRectMake(0, MaxY(tabContentView_), WIDTH(profileIconView_), 7)];
-    tabFooterView_.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"Juchi"]];
-    [tabView_ addSubview:tabFooterView_];
+    self.appointCountLbl = [[UILabel alloc] initWithFrame:CGRectMake(MinX(self.nameLbl), MaxY(self.nameLbl), WIDTH(self.view) - 10 - MaxX(self.avatorImgView), 20)];
+    self.appointCountLbl.backgroundColor = [UIColor clearColor];
+    self.appointCountLbl.textColor = [UIColor colorWithHexString:@"777"];
+    self.appointCountLbl.font = [UIFont systemFontOfSize:12];
+    self.appointCountLbl.textAlignment = NSTextAlignmentLeft;
+    self.appointCountLbl.text = [NSString stringWithFormat:@"累计预约%d次", self.client.appointmentCount];
+    [profileIconView_ addSubview:self.appointCountLbl];
 
-    int tabCount = 2;
-    float tabWidth = WIDTH(tabView_) / tabCount;
-    for (int i = 0; i < tabCount; i++) {
-        UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(i * tabWidth, 0, tabWidth, tabButtonViewHeight)];
-        btn.tag = i;
-        btn.titleLabel.font = [UIFont systemFontOfSize:12];
-        btn.titleLabel.textAlignment = TextAlignmentCenter;
-        btn.imageEdgeInsets = UIEdgeInsetsMake(0, tabWidth / 2 - 53, tabButtonViewHeight - 32 , 0);
-        btn.titleEdgeInsets = UIEdgeInsetsMake(20, -18, 0, 0);
 
-        [btn addTarget:self action:@selector(tabClick:) forControlEvents:UIControlEventTouchUpInside];
-        [btn setTitle:[self.tabTextDatasource objectAtIndex:i] forState:UIControlStateNormal];
-        [btn setTitleColor:[UIColor colorWithHexString:@"333333"] forState:UIControlStateNormal];
-        [btn setTitleColor:[UIColor colorWithHexString:@"666666"] forState:UIControlStateHighlighted];
-        [btn setImage:[self.tabIconDatasource objectAtIndex:i] forState:UIControlStateNormal];
-        [tabView_ addSubview:btn];
-    }
-    [headerView_ addSubview:tabView_];
+    FAKIcon *arrowIcon = [FAKIonIcons ios7ArrowForwardIconWithSize:NAV_BAR_ICON_SIZE];
+    [arrowIcon addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithHexString:@"777"]];
+    UIImageView *arrowImg = [[UIImageView alloc] initWithImage:[arrowIcon imageWithSize:CGSizeMake(NAV_BAR_ICON_SIZE, NAV_BAR_ICON_SIZE)]];
+    arrowImg.frame = CGRectMake(WIDTH(profileIconView_) - NAV_BAR_ICON_SIZE - 10, (HEIGHT(profileIconView_) - NAV_BAR_ICON_SIZE) / 2, NAV_BAR_ICON_SIZE, NAV_BAR_ICON_SIZE);
+    [profileIconView_ addSubview:arrowImg];
 
-    if (self.client.user.imgUrls.count > 0) {
-        NSMutableArray *sliderArray = [NSMutableArray array];
-        for (NSString *item in self.client.user.imgUrls) {
-            JOLImageSlide * slideImg= [[JOLImageSlide alloc] init];
-            slideImg.image = item;
-            [sliderArray addObject:slideImg];
-        }
+    self.tableView = [[BrickView alloc] init];
+    self.tableView.frame = CGRectMake(0,
+                                      self.topBarOffset,
+                                      WIDTH(self.view) ,
+                                      [self contentHeightWithNavgationBar:YES withBottomBar:NO]);
+    self.tableView.backgroundColor = [UIColor clearColor];
+    self.tableView.padding = 10;
+    self.tableView.delegate = self;
+    self.tableView.dataSource = self;
+    self.tableView.backgroundColor = [UIColor colorWithHexString:@"f2f2f2"];
+    [self.view addSubview:self.tableView];
 
-        [self.imgSlider setSlides:sliderArray];
-        [self.imgSlider initialize];
-        self.imgSlider.hidden = NO;
-    } else {
-        self.imgSlider.hidden = YES;
-    }
+    self.tableView.headerView = headerView_;
 
-    self.scrollView.contentInset = UIEdgeInsetsMake(-160, 0, 0, 0);
+    __weak typeof(self) weakSelf = self;
+    [self.tableView addPullToRefreshActionHandler:^{
+        weakSelf.currentPage = 1;
+        [weakSelf getAppointmentNotes];
+    }];
+
+    [self.tableView.pullToRefreshView setSize:CGSizeMake(25, 25)];
+    [self.tableView.pullToRefreshView setBorderWidth:2];
+    [self.tableView.pullToRefreshView setBorderColor:[UIColor whiteColor]];
+    [self.tableView.pullToRefreshView setImageIcon:[UIImage imageNamed:@"centerIcon"]];
+
+    [self.tableView addInfiniteScrollingWithActionHandler:^{
+        weakSelf.currentPage += 1;
+        [weakSelf getAppointmentNotes];
+    }];
+    self.tableView.showsInfiniteScrolling = NO;
+
+    [self.tableView triggerPullToRefresh];
 }
 
 - (void)didReceiveMemoryWarning
@@ -164,47 +158,166 @@ static const float avatorSize = 50;
     [super didReceiveMemoryWarning];
 }
 
-- (void) tabClick:(id)sender
+#pragma mark UITableView delegate
+
+- (CGFloat)brickView:(BrickView *)brickView heightForCellAtIndex:(NSInteger)index
+{
+    return 145 + 28;
+}
+
+- (NSInteger)numberOfColumnsInBrickView:(BrickView *)brickView
+{
+    return 2;
+}
+
+- (NSInteger)numberOfCellsInBrickView:(BrickView *)brickView
+{
+    return self.datasource.count;
+}
+
+- (BrickViewCell *)brickView:(BrickView *)brickView cellAtIndex:(NSInteger)index
+{
+    static NSString * cellIdentifier = @"AppointmentNotePictureCellIdentifier";
+
+    AppointmentNotePictureCell * cell = [self.tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+    if (!cell) {
+        cell = [[AppointmentNotePictureCell alloc] initWithReuseIdentifier:cellIdentifier];
+    }
+
+    [cell setup:[self.datasource objectAtIndex:index] withPictureIndex:0];
+
+    return cell;
+}
+
+- (void)brickView:(BrickView *)brickView didSelectCell:(BrickViewCell *)cell AtIndex:(NSInteger)index;
+{
+    self.openedNote = [self.datasource objectAtIndex:index];
+
+    MWPhotoBrowser *browser = [[MWPhotoBrowser alloc] initWithDelegate:self];
+    browser.displayActionButton = NO;
+    browser.displayNavArrows = NO;
+    browser.displaySelectionButtons = NO;
+    browser.alwaysShowControls = YES;
+    browser.wantsFullScreenLayout = YES;
+    browser.zoomPhotosToFill = YES;
+    browser.enableGrid = NO;
+    browser.startOnGrid = NO;
+    [browser setCurrentPhotoIndex:0];
+
+    UINavigationController *nc = [[UINavigationController alloc] initWithRootViewController:browser];
+    nc.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+    [self.navigationController presentViewController:nc animated:YES completion:Nil];
+}
+
+- (void)getAppointmentNotes
+{
+    NSMutableDictionary *reqData = [[NSMutableDictionary alloc] initWithCapacity:1];
+    [reqData setObject:[NSString stringWithFormat:@"%d", self.currentPage] forKey:@"page"];
+    [reqData setObject:[NSString stringWithFormat:@"%d", 1000] forKey:@"pageSize"];
+
+    ASIHTTPRequest *request = [RequestUtil createGetRequestWithURL:[NSURL URLWithString:[NSString stringWithFormat:API_APPOINTMENTS_LIST_BY_USER_AND_STAFF, [UserManager SharedInstance].userLogined.id, self.client.user.id]]
+                                                                               andParam:reqData];
+    [self.requests addObject:request];
+
+    [request setDelegate:self];
+    [request setDidFinishSelector:@selector(finishGetAppointmentNotes:)];
+    [request setDidFailSelector:@selector(failGetAppointmentNotes:)];
+    [request startAsynchronous];
+}
+
+- (void)finishGetAppointmentNotes:(ASIHTTPRequest *)request
+{
+    NSDictionary *rst = [Util objectFromJson:request.responseString];
+    NSInteger total = [[rst objectForKey:@"total"] integerValue];
+    NSArray *dataList = [rst objectForKey:@"appointmentNotes"];
+
+    NSMutableArray *arr = [NSMutableArray arrayWithArray:self.datasource];
+
+    if (self.currentPage == 1) {
+        [arr removeAllObjects];
+    } else {
+        if (self.currentPage % TABLEVIEW_PAGESIZE_DEFAULT > 0) {
+            int i;
+
+            for (i = 0; i < arr.count; i++) {
+                if (i >= (self.currentPage - 1) * TABLEVIEW_PAGESIZE_DEFAULT) {
+                    [arr removeObjectAtIndex:i];
+                    i--;
+                }
+            }
+        }
+    }
+
+    for (NSDictionary *dicData in dataList) {
+        [arr addObject:[[AppointmentNote alloc] initWithDic:dicData]];
+    }
+
+    self.datasource = arr;
+
+    BOOL enableInfinite = total > self.datasource.count;
+    if (self.tableView.showsInfiniteScrolling != enableInfinite) {
+        self.tableView.showsInfiniteScrolling = enableInfinite;
+    }
+
+    if (self.currentPage == 1) {
+        [self.tableView stopRefreshAnimation];
+    } else {
+        [self.tableView.infiniteScrollingView stopAnimating];
+    }
+
+    [self checkEmpty];
+
+    [self.tableView reloadData];
+}
+
+- (void)failGetAppointmentNotes:(ASIHTTPRequest *)request
+{
+}
+
+- (void)checkEmpty
+{
+    
+}
+
+- (void)openUsersAppointment
 {
     if(![self checkLogin]){
         return;
     }
 
-    UIButton *btn = (UIButton *)sender;
-    switch (btn.tag) {
-        case 0: {
-            AppointmentsViewController *vc = [AppointmentsViewController new];
-            vc.userId = self.client.user.id;
-            vc.staffId = [[UserManager SharedInstance] userLogined].id;
-            [self.navigationController pushViewController:vc animated:YES];
-
-            break;
-        }
-        case 1: {
-            ChatViewController *vc = [ChatViewController new];
-            [self.navigationController pushViewController:vc animated:YES];
-
-            break;
-        }
-        default:
-            break;
-    }
-    
+    AppointmentsViewController *vc = [AppointmentsViewController new];
+    vc.userId = self.client.user.id;
+    vc.staffId = [[UserManager SharedInstance] userLogined].id;
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView
-{
-    if (scrollView.contentOffset.y < 160 && scrollView.contentInset.top < 0) {
-        scrollView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);
-    }
 
-    if (scrollView.contentOffset.y > 0) {
-        self.imgSlider.frame = CGRectMake(scrollView.contentOffset.x, scrollView.contentOffset.y * 0.5f, WIDTH(self.view), WIDTH(self.view));
-        self.profileBackground.frame = self.imgSlider.frame;
-    } else {
-        self.imgSlider.frame = CGRectMake(0, 0, WIDTH(self.view), WIDTH(self.view));
-        self.profileBackground.frame = self.imgSlider.frame;
-    }
+#pragma mark - MWPhotoBrowserDelegate
+- (NSUInteger)numberOfPhotosInPhotoBrowser:(MWPhotoBrowser *)photoBrowser
+{
+    return self.openedNote.pictureUrl.count;
+}
+
+- (id <MWPhoto>)photoBrowser:(MWPhotoBrowser *)photoBrowser photoAtIndex:(NSUInteger)index
+{
+    return [MWPhoto photoWithURL:[NSURL URLWithString:[self.openedNote.pictureUrl objectAtIndex:index]]];
+}
+
+- (MWCaptionView *)photoBrowser:(MWPhotoBrowser *)photoBrowser captionViewForPhotoAtIndex:(NSUInteger)index
+{
+    MWPhoto *photo = [MWPhoto photoWithURL:[NSURL URLWithString:[self.openedNote.pictureUrl objectAtIndex:index]]];
+    photo.caption = self.openedNote.body;
+    MWCaptionView *captionView = [[MWCaptionView alloc] initWithPhoto:photo];
+
+    return captionView ;
+}
+
+- (void)photoBrowser:(MWPhotoBrowser *)photoBrowser actionButtonPressedForPhotoAtIndex:(NSUInteger)index
+{
+}
+
+- (void)photoBrowser:(MWPhotoBrowser *)photoBrowser didDisplayPhotoAtIndex:(NSUInteger)index
+{
 }
 
 @end

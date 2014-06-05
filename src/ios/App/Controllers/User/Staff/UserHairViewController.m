@@ -154,9 +154,9 @@
 
         MWPhotoBrowser *browser = [[MWPhotoBrowser alloc] initWithDelegate:self];
         browser.displayActionButton = NO;
-        browser.displayNavArrows = YES;
+        browser.displayNavArrows = NO;
         browser.displaySelectionButtons = NO;
-        browser.alwaysShowControls = NO;
+        browser.alwaysShowControls = YES;
         browser.wantsFullScreenLayout = YES;
         browser.zoomPhotosToFill = YES;
         browser.enableGrid = NO;
@@ -185,6 +185,8 @@
     [reqData setObject:[NSString stringWithFormat:@"%d", TABLEVIEW_PAGESIZE_DEFAULT] forKey:@"pageSize"];
 
     ASIHTTPRequest *request = [RequestUtil createGetRequestWithURL:[NSURL URLWithString:self.requestString] andParam:reqData];
+    [self.requests addObject:request];
+
     [request setDelegate:self];
     [request setDidFinishSelector:@selector(finishGetAppointmentNotes:)];
     [request setDidFailSelector:@selector(failGetAppointmentNotes:)];

@@ -237,8 +237,9 @@
 - (void)layoutSubviews
 {
     [super layoutSubviews];
+
     if([self.dataSource numberOfCellsInBrickView:self] == 0){
-        [self bringSubviewToFront:self.emptyView];
+//        [self bringSubviewToFront:self.emptyView];
         self.emptyView.hidden = NO;
     }else{
         self.emptyView.hidden = YES;

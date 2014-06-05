@@ -125,6 +125,7 @@
 		18CA327719171F4C001C20D3 /* MessageConversation.m in Sources */ = {isa = PBXBuildFile; fileRef = 18CA327519171F4C001C20D3 /* MessageConversation.m */; };
 		18F50A1518ED55DB00DC3167 /* CommentComposorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F50A1418ED55DB00DC3167 /* CommentComposorViewController.m */; };
 		18FAFAB518EAA6C200EF6960 /* BrickView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18FAFAB418EAA6C200EF6960 /* BrickView.m */; };
+		18FE0B3D194006B3009128D9 /* AppointmentNotePictureCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18FE0B3C194006B3009128D9 /* AppointmentNotePictureCell.m */; };
 		460C2F2A18C8BFFF00AD16E6 /* Comment.m in Sources */ = {isa = PBXBuildFile; fileRef = 460C2F2918C8BFFF00AD16E6 /* Comment.m */; };
 		460C2F4A18CAFDB200AD16E6 /* GroupCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 460C2F4918CAFDB200AD16E6 /* GroupCell.m */; };
 		460C2F4D18CAFEBF00AD16E6 /* Group.m in Sources */ = {isa = PBXBuildFile; fileRef = 460C2F4C18CAFEBF00AD16E6 /* Group.m */; };
@@ -537,6 +538,8 @@
 		18F50A1418ED55DB00DC3167 /* CommentComposorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommentComposorViewController.m; sourceTree = "<group>"; };
 		18FAFAB318EAA6C200EF6960 /* BrickView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BrickView.h; sourceTree = "<group>"; };
 		18FAFAB418EAA6C200EF6960 /* BrickView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BrickView.m; sourceTree = "<group>"; };
+		18FE0B3B194006B3009128D9 /* AppointmentNotePictureCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppointmentNotePictureCell.h; sourceTree = "<group>"; };
+		18FE0B3C194006B3009128D9 /* AppointmentNotePictureCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppointmentNotePictureCell.m; sourceTree = "<group>"; };
 		460C2F2818C8BFFF00AD16E6 /* Comment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Comment.h; sourceTree = "<group>"; };
 		460C2F2918C8BFFF00AD16E6 /* Comment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Comment.m; sourceTree = "<group>"; };
 		460C2F4818CAFDB200AD16E6 /* GroupCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroupCell.h; sourceTree = "<group>"; };
@@ -1410,12 +1413,12 @@
 		18A912E518BB2826006B9A04 /* Vendor */ = {
 			isa = PBXGroup;
 			children = (
-				46DB8CE9192100C900B3AB40 /* JSBadgeView */,
 				183B03C718E110F500765116 /* ABMGroupedTableView */,
 				18FAFAB218EAA6C200EF6960 /* BrickView */,
 				4630D13718C603B000DA7CAD /* CircleView */,
 				466DF41518FD572500CB8A53 /* GCPlaceholderTextView */,
 				467F0F2618CC95CA009FFE08 /* JOLImageSlider */,
+				46DB8CE9192100C900B3AB40 /* JSBadgeView */,
 				46E84ECB18C2DB930004C146 /* KNSemiModalViewController */,
 				1853F4151918E023005FFE90 /* M13BadgeView */,
 				184B827A18DAC7F000177BAB /* MessagesTableViewController */,
@@ -2107,6 +2110,8 @@
 				4659D27418E7E100005648C0 /* AddressView.m */,
 				4673BB6218D2ED61000F64DE /* AppointmentCell.h */,
 				4673BB6318D2ED61000F64DE /* AppointmentCell.m */,
+				18FE0B3B194006B3009128D9 /* AppointmentNotePictureCell.h */,
+				18FE0B3C194006B3009128D9 /* AppointmentNotePictureCell.m */,
 				466DF41B18FD6C7600CB8A53 /* ApprovalCell.h */,
 				466DF41C18FD6C7600CB8A53 /* ApprovalCell.m */,
 				467F0EB918CB3956009FFE08 /* ChatGroupCell.h */,
@@ -2723,6 +2728,7 @@
 				4631CF0D18E325C300F39814 /* OrderCell.m in Sources */,
 				18A3E61918DC11240080DC0B /* RequestUtil.m in Sources */,
 				465A5C8B18DB0B8D009B6D60 /* MyScoreCell.m in Sources */,
+				18FE0B3D194006B3009128D9 /* AppointmentNotePictureCell.m in Sources */,
 				46EAF98A18D18D0D00D4C624 /* CityListViewController.m in Sources */,
 				1853F4181918E023005FFE90 /* M13BadgeView.m in Sources */,
 				467F0EF018CB4FCF009FFE08 /* UITextField+WelKit.m in Sources */,

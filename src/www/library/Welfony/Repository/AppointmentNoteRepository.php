@@ -19,6 +19,66 @@ use Welfony\Repository\Base\AbstractRepository;
 class AppointmentNoteRepository extends AbstractRepository
 {
 
+    public function getAllAppointmentNoteByStaffAndUserCount($staffId, $userId)
+    {
+        $filter = '';
+        $paramArr = array();
+        if ($staffId !== null) {
+            $filter .= ' AND A.StaffId = ?';
+            $paramArr[] = $staffId;
+        }
+        if ($userId !== null) {
+            $filter .= ' AND A.UserId = ?';
+            $paramArr[] = $userId;
+        }
+
+        $strSql = "SELECT
+                       COUNT(1) `Total`
+                   FROM AppointmentNote AN
+                   INNER JOIN Appointment A ON A.AppointmentId = AN.AppointmentId
+                   WHERE AN.AppointmentNoteId > 0 $filter
+                   LIMIT 1";
+
+        $row = $this->conn->fetchAssoc($strSql, $paramArr);
+
+        return $row['Total'];
+    }
+
+    public function getAllAppointmentNoteByStaffAndUser($staffId, $userId, $page, $pageSize)
+    {
+        $filter = '';
+        $paramArr = array();
+        if ($staffId !== null) {
+            $filter .= ' AND A.StaffId = ?';
+            $paramArr[] = $staffId;
+        }
+        if ($userId !== null) {
+            $filter .= ' AND A.UserId = ?';
+            $paramArr[] = $userId;
+        }
+
+        $offset = ($page - 1) * $pageSize;
+        $strSql = "SELECT
+                       AN.AppointmentNoteId,
+                       AN.Body,
+                       AN.PictureUrl,
+                       AN.CreatedDate,
+
+                       U.UserId,
+                       U.Username,
+                       U.Nickname,
+                       U.Email,
+                       U.AvatarUrl
+                   FROM AppointmentNote AN
+                   INNER JOIN Appointment A ON A.AppointmentId = AN.AppointmentId
+                   INNER JOIN Users U ON U.UserId = A.UserId
+                   WHERE AN.AppointmentNoteId > 0 $filter
+                   ORDER BY AN.AppointmentNoteId DESC
+                   LIMIT $offset, $pageSize";
+
+        return $this->conn->fetchAll($strSql, $paramArr);
+    }
+
     public function getAllAppointmentNoteCount($appointmentId)
     {
         $filter = '';

@@ -434,9 +434,9 @@
 {
     MWPhotoBrowser *browser = [[MWPhotoBrowser alloc] initWithDelegate:self];
     browser.displayActionButton = NO;
-    browser.displayNavArrows = YES;
+    browser.displayNavArrows = NO;
     browser.displaySelectionButtons = NO;
-    browser.alwaysShowControls = NO;
+    browser.alwaysShowControls = YES;
     browser.wantsFullScreenLayout = YES;
     browser.zoomPhotosToFill = YES;
     browser.enableGrid = NO;
@@ -452,7 +452,7 @@
 {
     self.groupImagesBrowser = [[MWPhotoBrowser alloc] initWithDelegate:self];
     self.groupImagesBrowser.displayActionButton = NO;
-    self.groupImagesBrowser.displayNavArrows = YES;
+    self.groupImagesBrowser.displayNavArrows = NO;
     self.groupImagesBrowser.displaySelectionButtons = NO;
     self.groupImagesBrowser.alwaysShowControls = NO;
     self.groupImagesBrowser.wantsFullScreenLayout = YES;

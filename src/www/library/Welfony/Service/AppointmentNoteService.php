@@ -19,6 +19,20 @@ use Welfony\Repository\AppointmentNoteRepository;
 class AppointmentNoteService
 {
 
+    public static function listNoteByStaffAndUser($staffId, $userId, $page, $pageSize)
+    {
+        $page = $page <= 0 ? 1 : $page;
+        $pageSize = $pageSize <= 0 ? 20 : $pageSize;
+        $result = array('');
+
+        $total = AppointmentNoteRepository::getInstance()->getAllAppointmentNoteByStaffAndUserCount($staffId, $userId);
+
+        $tempRst = AppointmentNoteRepository::getInstance()->getAllAppointmentNoteByStaffAndUser($staffId, $userId, $page, $pageSize);
+        $appointmentNotes = self::assembleAppointmentNoteList($tempRst);
+
+        return array('total' => $total, 'appointmentNotes' => $appointmentNotes);
+    }
+
     public static function listAppointmentNote($appointmentId, $page, $pageSize)
     {
         $page = $page <= 0 ? 1 : $page;

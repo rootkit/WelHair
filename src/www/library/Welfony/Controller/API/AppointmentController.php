@@ -79,4 +79,13 @@ class AppointmentController extends AbstractAPIController
         $this->sendResponse($dataList);
     }
 
+    public function listNoteByStaffAndUser($staffId, $userId)
+    {
+        $page = intval($this->app->request->get('page'));
+        $pageSize = intval($this->app->request->get('pageSize'));
+
+        $dataList = AppointmentNoteService::listNoteByStaffAndUser($staffId, $userId, $page, $pageSize);
+        $this->sendResponse($dataList);
+    }
+
 }
