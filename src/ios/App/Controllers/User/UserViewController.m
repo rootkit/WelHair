@@ -12,6 +12,7 @@
 
 #import "ABMGroupedTableView.h"
 #import "ABMGroupedTableViewCell.h"
+#import "AccountViewController.h"
 #import "AddressListViewController.h"
 #import "AppointmentsViewController.h"
 #import "ChatSessionListViewController.h"
@@ -131,11 +132,11 @@
             [btn setImage:img forState:UIControlStateNormal];
         }else{
             [btn setImage:[UIImage imageNamed:[NSString stringWithFormat:@"MeTab%d", i + 1]] forState:UIControlStateNormal];
-  }
-  
-  
+        }
+
         [tabView_ addSubview:btn];
     }
+
     [headerView_ addSubview:tabView_];
 }
 
@@ -206,7 +207,7 @@
             
 }
 
- - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     return 44;
 }
@@ -258,6 +259,7 @@
     [itemIcon addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithHexString:@"666666"]];
     [cell.imageView setImage:[itemIcon imageWithSize:CGSizeMake(NAV_BAR_ICON_SIZE, NAV_BAR_ICON_SIZE)]];
     cell.label.text = [[self.datasource objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
+
     return cell;
 }
 
@@ -270,6 +272,19 @@
     }
 
     if(indexPath.section == 0) {
+        switch (indexPath.row) {
+            case 0:
+            {
+                AccountViewController *vc = [AccountViewController new];
+                vc.hidesBottomBarWhenPushed = YES;
+                [self.navigationController pushViewController:vc animated:YES];
+
+                break;
+            }
+        }
+    }
+
+    if(indexPath.section == 1) {
         switch (indexPath.row) {
             case 0:
             {
@@ -296,7 +311,8 @@
             }
         }
     }
-    if(indexPath.section == 1) {
+
+    if(indexPath.section == 2) {
         switch (indexPath.row) {
             case 0:
             {
@@ -313,18 +329,23 @@
 - (void)refreshUserInfo
 {
     NSMutableArray *menuList = [[NSMutableArray alloc] initWithCapacity:5];
+    [menuList addObject:@[@"我的账户"]];
+
+    NSMutableArray *menuIconList = [[NSMutableArray alloc] initWithCapacity:3];
+    [menuIconList addObject:@[[FAKIonIcons ios7BoxOutlineIconWithSize:NAV_BAR_ICON_SIZE]]];
+
     if(([UserManager SharedInstance].userLogined.role == WHClient
         || [UserManager SharedInstance].userLogined == nil)){
         [menuList addObject:@[@"我的消息", @"我的发型师"]];
         self.datasource = menuList;
-        NSMutableArray *menuIconList = [[NSMutableArray alloc] initWithCapacity:5];
+
         [menuIconList addObject:@[[FAKIonIcons ios7ChatboxesOutlineIconWithSize:NAV_BAR_ICON_SIZE], [FAKIonIcons ios7PeopleOutlineIconWithSize:NAV_BAR_ICON_SIZE]]];
         self.iconDatasource = menuIconList;
     }else{
         [menuList addObject:@[@"我的消息", @"我的客户"]];
         [menuList addObject:@[@"客户预约"]];
         self.datasource = menuList;
-        NSMutableArray *menuIconList = [[NSMutableArray alloc] initWithCapacity:5];
+
         [menuIconList addObject:@[[FAKIonIcons ios7ChatboxesOutlineIconWithSize:NAV_BAR_ICON_SIZE], [FAKIonIcons ios7PeopleOutlineIconWithSize:NAV_BAR_ICON_SIZE]]];
         [menuIconList addObject:@[[FAKIonIcons ios7TimerOutlineIconWithSize:NAV_BAR_ICON_SIZE]]];
         self.iconDatasource = menuIconList;
