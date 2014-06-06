@@ -14,12 +14,12 @@
 
 use Welfony\Controller\Base\AbstractAdminController;
 use Welfony\Core\Enum\UserRole;
+use Welfony\Service\DepositService;
 use Welfony\Service\UserService;
 use Welfony\Service\UserBalanceLogService;
 use Welfony\Service\WithdrawalService;
 use Welfony\Service\WithdrawalLogService;
 use Welfony\Utility\Util;
-use Welfony\Service\DepositService;
 
 class User_IndexController extends AbstractAdminController
 {
@@ -120,17 +120,6 @@ class User_IndexController extends AbstractAdminController
 
     public function depositsearchAction()
     {
-        //print_r(WithdrawalService::save(array(
-        //    'WithdrawalId' => 0,
-            //'UserId' => 1,
-        //    'CompanyId'=>1,
-        //    'Amount' => 0.1,
-        //    'Description' => '提现',
-        //    'Bank'=> '民生银行',
-         //   'AccountNo' => '1113l'
-        //)));
-        //die();
-        //$userId = intval($this->_request->getParam('user_id'));
         static $pageSize = 10;
 
         $this->view->pageTitle = '充值列表';
@@ -189,17 +178,6 @@ class User_IndexController extends AbstractAdminController
 
     public function withdrawalsearchAction()
     {
-        //print_r(WithdrawalService::save(array(
-        //    'WithdrawalId' => 0,
-            //'UserId' => 1,
-        //    'CompanyId'=>1,
-        //    'Amount' => 0.1,
-        //    'Description' => '提现',
-        //    'Bank'=> '民生银行',
-         //   'AccountNo' => '1113l'
-        //)));
-        //die();
-        //$userId = intval($this->_request->getParam('user_id'));
         static $pageSize = 10;
 
         $this->view->pageTitle = '提现请求';

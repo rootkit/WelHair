@@ -68,7 +68,6 @@ class WithdrawalRepository extends AbstractRepository
 
     public function listWithdrawal($pageNumber, $pageSize)
     {
-
         $offset = ($pageNumber - 1) * $pageSize;
         $strSql = "SELECT W.*, U.Username AS Username
                    FROM Withdrawal W
@@ -105,30 +104,47 @@ class WithdrawalRepository extends AbstractRepository
         return $this->conn->fetchAll($strSql);
     }
 
-    public function getAllCompanyWithdrawalCount()
+    public function getAllCompanyWithdrawalCount($companyId)
     {
+        $filter = '';
+        $paramArr = array();
+        if ($companyId !== null) {
+            $filter .= ' AND W.CompanyId = ?';
+            $paramArr[] = $companyId;
+        } else {
+            $filter .= ' AND W.CompanyId IS NOT NULL';
+        }
+
         $strSql = "SELECT
                        COUNT(1) `Total`
-                   FROM Withdrawal
-                   WHERE CompanyId IS NOT NULL";
+                   FROM Withdrawal W
+                   WHERE W.WithdrawalId > 0 $filter";
 
-        $row = $this->conn->fetchAssoc($strSql);
+        $row = $this->conn->fetchAssoc($strSql, $paramArr);
 
         return $row['Total'];
     }
 
-    public function listCompanyWithdrawal($pageNumber, $pageSize)
+    public function listCompanyWithdrawal($pageNumber, $pageSize, $companyId)
     {
+        $filter = '';
+        $paramArr = array();
+        if ($companyId !== null) {
+            $filter .= ' AND W.CompanyId = ?';
+            $paramArr[] = $companyId;
+        } else {
+            $filter .= ' AND W.CompanyId IS NOT NULL';
+        }
 
         $offset = ($pageNumber - 1) * $pageSize;
         $strSql = "SELECT W.*, C.Name AS Name
                    FROM Withdrawal W
                    LEFT JOIN Company C ON C.CompanyId = W.CompanyId
-                   WHERE W.CompanyId IS NOT NULL
-                   ORDER BY W.WithdrawalId
+                   WHERE W.WithdrawalId > 0 $filter
+                   ORDER BY W.WithdrawalId DESC
                    LIMIT $offset, $pageSize ";
 
-        return $this->conn->fetchAll($strSql);
+        return $this->conn->fetchAll($strSql, $paramArr);
     }
 
     public function getAllWithdrawalCountByUser($userId)
@@ -186,7 +202,7 @@ class WithdrawalRepository extends AbstractRepository
     public function findWithdrawalById($id)
     {
         $strSql = 'SELECT
-                       W.*, 
+                       W.*,
                        U.Nickname,
                        U.Username,
                        C.Name
@@ -221,7 +237,6 @@ class WithdrawalRepository extends AbstractRepository
 
             return $r;
         } catch (\Exception $e) {
-
             $this->logger->log($e, \Zend_Log::ERR);
 
             return false;
@@ -241,57 +256,55 @@ class WithdrawalRepository extends AbstractRepository
 
     public function approve($withdrawalId)
     {
-
         $conn = $this->conn;
         $conn->beginTransaction();
         try {
-
-            $strSql = 'SELECT
-                       *
-                   FROM Withdrawal
-                   WHERE WithdrawalId = ?
-                   LIMIT 1';
-
-            $withdrawal = $this->conn->fetchAssoc($strSql, array($withdrawalId));
+            $withdrawal = $this->findWithdrawalById($withdrawalId);
 
             $amount = $withdrawal['Amount'];
             $userId = $withdrawal['UserId'];
             $companyId = $withdrawal['CompanyId'];
 
-            $this->conn->update('Withdrawal', array('Status'=>1), array('WithdrawalId' => $withdrawalId));
-            $this->conn->insert('WithdrawalLog', array('WithdrawalId'=>$withdrawalId, 
-                                                      'Action'=>'批准',
-                                                      'Reason'=>'批准',
-                                                      'CreateTime'=> date('Y-m-d H:i:s')));
+            $this->conn->update('Withdrawal', array('Status' => 1), array('WithdrawalId' => $withdrawalId));
+            $this->conn->insert('WithdrawalLog', array(
+              'WithdrawalId'=> $withdrawalId,
+              'Action'=>'批准',
+              'Reason'=>'批准',
+              'CreateTime'=> date('Y-m-d H:i:s'))
+            );
 
-            if($userId)
-            {
-              $this->conn->executeUpdate(" 
-                          UPDATE `Users` SET Balance = Balance - $amount WHERE UserId  = $userId; 
-                   ");
+            if ($userId) {
+              $existedUserBalanceLog = UserBalanceLogRepository::getInstance()->findUserBalanceLogByIncomeSrc(3, $withdrawal['WithdrawalNo']);
+              if (!$existedUserBalanceLog) {
+                $this->conn->executeUpdate("
+                  UPDATE `Users` SET Balance = Balance - $amount WHERE UserId  = $userId;
+               ");
 
-              $this->conn->insert('UserBalanceLog', array('UserId' => $userId, 
-                                                         'Amount' => -$amount,
-                                                         'Status' => 1,
-                                                         'CreateTime'=> date('Y-m-d H:i:s'),
-                                                         'Description'=>'提现'.$amount.' 【'.$withdrawalId.'】'
+                $this->conn->insert('UserBalanceLog', array(
+                   'UserId' => $userId,
+                   'Amount' => -$amount,
+                   'Status' => 1,
+                   'IncomeSrc' => 3,
+                   'IncomeSrcId' => $withdrawal['WithdrawalNo'],
+                   'CreateTime'=> date('Y-m-d H:i:s'),
+                   'Description'=> sprintf('提现%.2f 【%s】', $amount, $withdrawal['WithdrawalNo'])
                 ));
-            }
-            else if($companyId)
-            {
-                 $this->conn->executeUpdate(" 
-                          UPDATE `Company` SET Amount = Amount - $amount WHERE CompanyId  = $companyId; 
-                   ");
+              }
+            } else if($companyId) {
+                $existedCompanyBalanceLog = CompanyBalanceLogRepository::getInstance()->findCompanyBalanceLogByIncomeSrc(3, $withdrawal['WithdrawalNo']);
+                if (!$existedCompanyBalanceLog) {
+                  $this->conn->executeUpdate("UPDATE `Company` SET Amount = Amount - $amount WHERE CompanyId  = $companyId;");
 
-                $this->conn->insert('CompanyBalanceLog', array(
-                                                         'CompanyId' => $companyId, 
-                                                         'Amount' => -$amount,
-                                                         'Status' => 1,
-                                                         'IncomeSrc' => 3,
-                                                         'IncomeSrcId' =>$withdrawalId,
-                                                         'CreateTime'=> date('Y-m-d H:i:s'),
-                                                         'Description'=>'提现'.$amount.' 【'.$withdrawalId.'】'
-                ));
+                  $this->conn->insert('CompanyBalanceLog', array(
+                     'CompanyId' => $companyId,
+                     'Amount' => -$amount,
+                     'Status' => 1,
+                     'IncomeSrc' => 3,
+                     'IncomeSrcId' => $withdrawal['WithdrawalNo'],
+                     'CreateTime'=> date('Y-m-d H:i:s'),
+                     'Description'=> sprintf('提现%.2f 【%s】', $amount, $withdrawal['WithdrawalNo'])
+                  ));
+                }
             }
             $conn->commit();
 
@@ -308,28 +321,17 @@ class WithdrawalRepository extends AbstractRepository
 
     public function reject($withdrawalId, $reason)
     {
-
         $conn = $this->conn;
         $conn->beginTransaction();
         try {
+            $this->conn->update('Withdrawal', array('Status' => 2), array('WithdrawalId' => $withdrawalId));
+            $this->conn->insert('WithdrawalLog', array(
+              'WithdrawalId'=>$withdrawalId,
+              'Action'=>'拒绝',
+              'Reason'=> $reason,
+              'CreateTime'=> date('Y-m-d H:i:s'))
+            );
 
-            $strSql = 'SELECT
-                       *
-                   FROM Withdrawal
-                   WHERE WithdrawalId = ?
-                   LIMIT 1';
-
-            $withdrawal = $this->conn->fetchAssoc($strSql, array($withdrawalId));
-
-            $amount = $withdrawal['Amount'];
-            $userId = $withdrawal['UserId'];
-
-            $this->conn->update('Withdrawal', array('Status'=>2), array('WithdrawalId' => $withdrawalId));
-            $this->conn->insert('WithdrawalLog', array('WithdrawalId'=>$withdrawalId, 
-                                                      'Action'=>'拒绝',
-                                                      'Reason'=>$reason,
-                                                      'CreateTime'=> date('Y-m-d H:i:s')));
-  
             $conn->commit();
 
             return true;

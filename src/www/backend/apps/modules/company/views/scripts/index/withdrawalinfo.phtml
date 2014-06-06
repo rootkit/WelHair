@@ -9,7 +9,7 @@ use \Welfony\Utility\Util;
                 <div class="ipt">
                    <?php echo $this->withdrawalInfo['Name']; ?> &nbsp;
                 </div>
-            </div>     
+            </div>
             <div class="formitm">
                 <label class="lab">金额：</label>
                 <div class="ipt">
@@ -19,7 +19,7 @@ use \Welfony\Utility\Util;
             <div class="formitm">
                 <label class="lab">描述：</label>
                 <div class="ipt">
-                    <?php echo $this->withdrawalInfo['Description']; ?>&nbsp;
+                    <?php echo empty($this->withdrawalInfo['Description']) ? '[无]' : $this->withdrawalInfo['Description']; ?>&nbsp;
                 </div>
             </div>
             <div class="formitm">
@@ -49,7 +49,7 @@ use \Welfony\Utility\Util;
             <div class="formitm">
                 <label class="lab">账户名：</label>
                 <div class="ipt">
-                    <?php echo $this->withdrawalInfo['AccountName']; ?>&nbsp;
+                    <?php echo empty($this->withdrawalInfo['AccountName']) ? '[无]' : $this->withdrawalInfo['AccountName']; ?>&nbsp;
                 </div>
             </div>
             <div class="formitm">
@@ -69,16 +69,20 @@ use \Welfony\Utility\Util;
             <div class="formitm">
                 <label class="lab">操作记录：</label>
                 <div class="ipt">
-                    <?php foreach( $this->logs as $log) :?>
+                    <?php if (count($this->logs) > 0): ?>
+                    <?php foreach($this->logs as $log) :?>
                         <?php echo $log['CreateTime']. ' '. $log['Action']. ' '.$log['Reason']; ?>
                         <br/>
                     <?php endforeach; ?>
+                    <?php else: ?>
+                    [无]
+                    <?php endif; ?>
                 </div>
             </div>
             <div class="formitm formitm-1">
                 <input type="hidden" id="withdrawal_id" value="<?php echo intval($this->withdrawalInfo['WithdrawalId']); ?>" />
             </div>
-            
+
         </fieldset>
     </form>
 </div>

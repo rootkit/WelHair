@@ -36,7 +36,6 @@ class WithdrawalService
         $totalCount = WithdrawalRepository::getInstance()->getAllUserWithdrawalCount();
 
         if ($totalCount > 0 && $pageNumber <= ceil($totalCount / $pageSize)) {
-
             $searchResult = WithdrawalRepository::getInstance()->listUserWithdrawal( $pageNumber, $pageSize);
 
             $result['withdrawals']= $searchResult;
@@ -47,19 +46,20 @@ class WithdrawalService
         return $result;
     }
 
-    public static function listCompanyWithdrawal($pageNumber, $pageSize)
+    public static function listCompanyWithdrawal($page, $pageSize, $companyId = null)
     {
+        $page = $page <= 0 ? 1 : $page;
+        $pageSize = $pageSize <= 0 ? 20 : $pageSize;
+
         $result = array(
             'withdrawals' => array(),
             'total' => 0
         );
 
-        $totalCount = WithdrawalRepository::getInstance()->getAllCompanyWithdrawalCount();
+        $totalCount = WithdrawalRepository::getInstance()->getAllCompanyWithdrawalCount($companyId);
 
-        if ($totalCount > 0 && $pageNumber <= ceil($totalCount / $pageSize)) {
-
-            $searchResult = WithdrawalRepository::getInstance()->listCompanyWithdrawal( $pageNumber, $pageSize);
-
+        if ($totalCount > 0 && $page <= ceil($totalCount / $pageSize)) {
+            $searchResult = WithdrawalRepository::getInstance()->listCompanyWithdrawal($page, $pageSize, $companyId);
             $result['withdrawals']= $searchResult;
         }
 
@@ -92,68 +92,65 @@ class WithdrawalService
     public static function listAllWithdrawal()
     {
         return $searchResult = WithdrawalRepository::getInstance()->getAllWithdrawal();
-
     }
 
     public static function save($data)
     {
         $result = array('success' => false, 'message' => '');
 
+        if (!isset($data['Bank']) || empty($data['Bank'])) {
+            $result['message'] = '请选择转账银行！';
+            return $result;
+        }
+        if (!isset($data['OpenAccountBank']) || empty($data['OpenAccountBank'])) {
+            $result['message'] = '请输入开户行名称！';
+            return $result;
+        }
+        if (!isset($data['AccountNo']) || empty($data['AccountNo'])) {
+            $result['message'] = '请输入银行账号！';
+            return $result;
+        }
+
         if ($data['WithdrawalId'] == 0) {
-
-
-            if( isset($data['Amount']) && floatval($data['Amount']) > 0 )
-            {
-                if(isset($data['UserId']) || isset($data['CompanyId']))
-                {
-                    if( isset($data['UserId']) )
-                    {
+            if (isset($data['Amount']) && floatval($data['Amount']) > 0) {
+                if (isset($data['UserId']) || isset($data['CompanyId'])) {
+                    if (isset($data['UserId'])) {
                         $u= UserRepository::getInstance()->findUserById($data['UserId']);
-                        if( floatval($data['Amount']) > floatval($u['Balance']))
-                        {
-                            $result = array('success' => false, 'message' => '用户余额不足！');
+                        if (floatval($data['Amount']) > floatval($u['Balance'])) {
+                            $result['message'] = '用户余额不足！';
                             return $result;
-                        }
-                        else
-                        {
+                        } else {
                             $userWithdrawalTotal = WithdrawalRepository::getInstance()->getUserWithrawalTotal($data['UserId']);
-                            if( floatval($data['Amount']) > floatval($u['Balance']) + floatval($userWithdrawalTotal ))
-                            {
-                                $result = array('success' => false, 'message' => '用户余额不足！');
+                            if (floatval($data['Amount']) > floatval($u['Balance']) - floatval($userWithdrawalTotal )) {
+                                $result['message'] = '提现总额超出用户余额！';
                                 return $result;
                             }
                         }
-                    }
-                    else
-                    {
-                        $c =CompanyRepository::getInstance()->findCompanyById($data['CompanyId']);
-                        if( floatval($data['Amount']) > floatval($c['Amount']))
-                        {
-                            $result = array('success' => false, 'message' => '沙龙余额不足！');
+                    } else {
+                        $c = CompanyRepository::getInstance()->findCompanyById($data['CompanyId']);
+                        if (floatval($data['Amount']) > floatval($c['Amount'])) {
+                            $result['message'] = '沙龙余额不足！';
                             return $result;
-                        }
-                        else
-                        {
+                        } else {
                             $companyWithdrawalTotal = WithdrawalRepository::getInstance()->getCompanyWithrawalTotal($data['CompanyId']);
-                            if( floatval($data['Amount']) > floatval($c['Amount']) + floatval($companyWithdrawalTotal))
-                            {
-                                $result = array('success' => false, 'message' => '沙龙余额不足！');
+                            if (floatval($data['Amount']) > floatval($c['Amount']) - floatval($companyWithdrawalTotal)) {
+                                $result['message'] = '提现总额超出沙龙余额！';
                                 return $result;
                             }
                         }
                     }
-                } 
-                else
-                {
-                    $result = array('success' => false, 'message' => '请设置提现对象！');
+                } else {
+                    $result['message'] = '请设置提现对象！';
                     return $result;
                 }
-            }
-            else
-            {
-                $result = array('success' => false, 'message' => '请设置正确的金额！');
+            } else {
+                $result['message'] = '请设置正确的金额！';
                 return $result;
             }
+
+            $data['CreateTime'] = date('Y-m-d H:i:s');
+            $data['LastUpdateDate'] = date('Y-m-d H:i:s');
+            $data['WithdrawalNo'] = date('YmdHis').rand(100000, 999999);
 
             $newId = WithdrawalRepository::getInstance()->save($data);
             if ($newId) {
@@ -164,22 +161,20 @@ class WithdrawalService
 
                 return $result;
             } else {
-                $result['message'] = '添加失败！';
+                $result['message'] = '提现失败！';
 
                 return $result;
             }
         } else {
-
-            $r = WithdrawalRepository::getInstance()->update($data['WithdrawalId'],$data);
+            $r = WithdrawalRepository::getInstance()->update($data['WithdrawalId'], $data);
 
             if ($r) {
-
                 $result['success'] = true;
                 $result['withdrawal'] = $data;
 
                 return $result;
             } else {
-                $result['message'] = '更新失败！';
+                $result['message'] = '提现更新失败！';
 
                 return $result;
             }
@@ -193,7 +188,6 @@ class WithdrawalService
         $result = array('success' => false, 'message' => '');
         $r = WithdrawalRepository::getInstance()->delete($data['WithdrawalId']);
         if ($r) {
-
             $result['success'] = true;
             $result['message'] = '删除成功！';
 

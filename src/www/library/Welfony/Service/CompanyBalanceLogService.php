@@ -45,27 +45,6 @@ class CompanyBalanceLogService
         return $result;
     }
 
-    public static function listBalanceLogByCompanyAndType($companyId, $balanceType, $pageNumber, $pageSize)
-    {
-        $result = array(
-            'companybalancelogs' => array(),
-            'total' => 0
-        );
-
-        $totalCount = CompanyBalanceLogRepository::getInstance()->getBalanceLogByCompanyAndTypeCount($companyId, $balanceType);
-
-        if ($totalCount > 0 && $pageNumber <= ceil($totalCount / $pageSize)) {
-
-            $searchResult = CompanyBalanceLogRepository::getInstance()->listBalanceLogByCompanyAndType($companyId, $balanceType, $pageNumber, $pageSize);
-
-            $result['companybalancelogs']= $searchResult;
-        }
-
-        $result['total'] = $totalCount;
-
-        return $result;
-    }
-
     public static function listCompanyBalanceLogByCompany($companyId, $pageNumber, $pageSize)
     {
         $result = array(

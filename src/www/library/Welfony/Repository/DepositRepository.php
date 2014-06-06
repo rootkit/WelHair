@@ -20,7 +20,6 @@ use Welfony\Repository\UserBalanceLogRepository;
 class DepositRepository extends AbstractRepository
 {
 
-
     public function getAllDeposit()
     {
         $strSql = 'SELECT
@@ -30,7 +29,6 @@ class DepositRepository extends AbstractRepository
 
         return $this->conn->fetchAll($strSql);
     }
-
 
     public function getAllDepositCount($userId)
     {
@@ -51,7 +49,6 @@ class DepositRepository extends AbstractRepository
         return $row['Total'];
     }
 
-
     public function listDeposit($pageNumber, $pageSize, $userId)
     {
         $filter = '';
@@ -71,7 +68,6 @@ class DepositRepository extends AbstractRepository
 
         return $this->conn->fetchAll($strSql, $paramArr);
     }
-
 
     public function findDepositById($id)
     {
