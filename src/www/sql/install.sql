@@ -52,7 +52,7 @@ BEGIN
       FROM `Users`
       WHERE `UserId` = 1
   ) THEN
-    INSERT INTO `Users` VALUES (1,1,'admin','管理员','admin@welhair.com',0,'',0,'$pbkdf2-sha512$12000$O2jQRADP6q6x6Z.SzwR/Wg$NLuLX3ZRllnYq0bH4YqBliUOZVbyX9FbovvS5CN.VEZVnrVoMBTCG2li87szHo.yES6U8aS7d1NB4HTkC5BXxA',NULL,1,'http://welhair.com/static/img/avatar-default.jpg','',NULL,0,'2014-02-28 20:59:21','2014-03-01 00:27:41');
+    INSERT INTO `Users` VALUES (1,1,'admin','管理员','admin@welhair.com',0,'',0,'$pbkdf2-sha512$12000$O2jQRADP6q6x6Z.SzwR/Wg$NLuLX3ZRllnYq0bH4YqBliUOZVbyX9FbovvS5CN.VEZVnrVoMBTCG2li87szHo.yES6U8aS7d1NB4HTkC5BXxA',NULL,1,'http://welhair.com/static/img/avatar-default.jpg','',NULL,0,'2014-02-28 20:59:21','2014-03-01 00:27:41', 0.00);
   END IF;
 END;;
 
@@ -1344,6 +1344,23 @@ CREATE PROCEDURE `sp_update_table_data`()
   ) THEN
     INSERT INTO `IncomeSrc` (`IncomeSrcId`, `Name`, `Description`)
     VALUES (4, '充值', '充值');
+  END IF;
+END;;
+
+DELIMITER ;
+CALL sp_update_table_data();
+DROP PROCEDURE IF EXISTS `sp_update_table_data`;
+
+DELIMITER ;;
+CREATE PROCEDURE `sp_update_table_data`()
+BEGIN
+  IF NOT EXISTS(
+    SELECT 5
+    FROM `IncomeSrc`
+    WHERE `Name` = '预约退款' AND `IncomeSrcId` = 5
+  ) THEN
+    INSERT INTO `IncomeSrc` (`IncomeSrcId`, `Name`, `Description`)
+    VALUES (5, '预约退款', '预约退款');
   END IF;
 END;;
 

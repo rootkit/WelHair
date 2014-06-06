@@ -82,7 +82,12 @@ class AppointmentService
         );
 
         if ($appointmentData['AppointmentId'] == 0) {
-            $appointmentData['Status'] = AppointmentStatus::Paid;
+            if ($data['Status'] == AppointmentStatus::Completed || $data['Status'] == AppointmentStatus::Cancelled) {
+                $result['message'] = '不可以直接添加已完成或已取消的预约。';
+                return $result;
+            }
+
+            $appointmentData['Status'] = isset($data['Status']) ? $data['Status'] : AppointmentStatus::Paid;
             $appointmentData['CreatedDate'] = date('Y-m-d H:i:s');
             $appointmentData['AppointmentNo'] = date('YmdHis').rand(100000, 999999);
 
@@ -109,6 +114,27 @@ class AppointmentService
                 return $result;
             }
         } else {
+            $oldAppointment = AppointmentRepository::getInstance()->findAppointmentById($appointmentData['AppointmentId']);
+
+            if ($oldAppointment['Status'] == AppointmentStatus::Completed || $oldAppointment['Status'] == AppointmentStatus::Cancelled) {
+                $result['message'] = '此预约不可更改！';
+                return $result;
+            }
+
+            if ($data['Status'] == AppointmentStatus::Completed) {
+                if ($oldAppointment['Status'] != AppointmentStatus::Paid) {
+                    $result['message'] = '非法操作！';
+                    return $result;
+                }
+            }
+
+            if ($data['Status'] == AppointmentStatus::Pending) {
+                if ($oldAppointment['Status'] != AppointmentStatus::Pending) {
+                    $result['message'] = '非法操作！';
+                    return $result;
+                }
+            }
+
             $appointmentData['Status'] = $data['Status'];
             $appointmentData['LastModifiedDate'] = date('Y-m-d H:i:s');
 
@@ -122,6 +148,27 @@ class AppointmentService
     public static function update($appointmentId, $data)
     {
         $result = array('success' => false, 'message' => '');
+
+        $oldAppointment = AppointmentRepository::getInstance()->findAppointmentById($appointmentId);
+
+        if ($oldAppointment['Status'] == AppointmentStatus::Completed || $oldAppointment['Status'] == AppointmentStatus::Cancelled) {
+            $result['message'] = '此预约不可更改！';
+            return $result;
+        }
+
+        if ($data['Status'] == AppointmentStatus::Completed) {
+            if ($oldAppointment['Status'] != AppointmentStatus::Paid) {
+                $result['message'] = '非法操作！';
+                return $result;
+            }
+        }
+
+        if ($data['Status'] == AppointmentStatus::Pending) {
+            if ($oldAppointment['Status'] != AppointmentStatus::Pending) {
+                $result['message'] = '非法操作！';
+                return $result;
+            }
+        }
 
         $data['LastModifiedDate'] = date('Y-m-d H:i:s');
 

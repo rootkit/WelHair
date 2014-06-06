@@ -97,10 +97,12 @@ use \Welfony\Utility\Util;
                     </span>
                 </div>
             </div>
+            <?php if ($this->appointmentInfo['Status'] != 3 && $this->appointmentInfo['Status'] != 4): ?>
             <div class="formitm formitm-1">
                 <input type="hidden" name="company_id" value="<?php echo intval($this->appointmentInfo['CompanyId']); ?>" />
                 <button class="u-btn u-btn-submit" type="button">确定</button>
             </div>
+            <?php endif; ?>
         </fieldset>
     </form>
 </div>

@@ -10,14 +10,14 @@ use \Welfony\Utility\Util;
                    <?php echo isset($this->depositInfo['Nickname'])? $this->depositInfo['Nickname']: $this->userInfo['Nickname']; ?> &nbsp;
                    <input type="hidden" id="user_id" value="<?php echo $this->depositInfo['UserId']; ?>" >
                 </div>
-            </div>     
+            </div>
             <div class="formitm">
                 <label class="lab">金额：</label>
                 <div class="ipt">
                 <?php if($this->depositInfo['DepositId']):?>
                     <?php echo $this->depositInfo['Amount']; ?> &nbsp;
-                    <input id="amount" type="hidden" value="<?php echo $this->depositInfo['Amount']; ?>"/> 
-                  
+                    <input id="amount" type="hidden" value="<?php echo $this->depositInfo['Amount']; ?>"/>
+
                 <?php else: ?>
                    <input id="amount" type="text" value="<?php echo $this->depositInfo['Amount']; ?>" datatype="n" errormsg="请输入数字" class="u-ipt"/> &nbsp;
                 <?php endif; ?>
@@ -33,7 +33,7 @@ use \Welfony\Utility\Util;
             <div class="formitm">
                 <label class="lab">时间：</label>
                 <div class="ipt">
-                    <?php echo $this->withdrawalInfo['CreateTime']; ?>&nbsp;
+                    <?php echo $this->depositInfo['CreateTime']; ?>&nbsp;
                 </div>
             </div>
             <?php endif; ?>
@@ -59,7 +59,7 @@ use \Welfony\Utility\Util;
                         <span class="u-btn u-btn-c<?php echo $this->depositInfo['Status'] == 1 ? '3' : '4'; ?>" data-value="1">成功</span>
                     </span>
                     <?php else :?>
-                        成功
+                    成功
                     <?php endif;?>
                 </div>
             </div>
@@ -75,7 +75,7 @@ use \Welfony\Utility\Util;
                 <button id="btnSave" class="u-btn" type="button">确定</button>
                 <?php endif;?>
             </div>
-            
+
         </fieldset>
     </form>
 </div>
