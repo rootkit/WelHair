@@ -61,7 +61,6 @@ class CompanyBalanceLogRepository extends AbstractRepository
                    LIMIT $offset, $pageSize ";
 
         return $this->conn->fetchAll($strSql,array($companyId, $balanceType));
-
     }
 
     public function listCompanyBalanceLog($pageNumber, $pageSize)
@@ -102,6 +101,17 @@ class CompanyBalanceLogRepository extends AbstractRepository
 
         return $this->conn->fetchAll($strSql);
 
+    }
+
+    public function findCompanyBalanceLogByIncomeSrc($incomeSrc, $incomeSrcId)
+    {
+        $strSql = 'SELECT
+                       *
+                   FROM CompanyBalanceLog
+                   WHERE IncomeSrc = ? AND IncomeSrcId = ?
+                   LIMIT 1';
+
+        return $this->conn->fetchAssoc($strSql, array($incomeSrc, $incomeSrcId));
     }
 
     public function findCompanyBalanceLogById($id)

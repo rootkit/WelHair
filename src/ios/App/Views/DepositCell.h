@@ -10,8 +10,10 @@
 //
 // ==============================================================================
 
-@interface RechargeViewController : BaseViewController
+#import "Deposit.h"
 
-@property (nonatomic, strong) NSString *deposit;
+@interface DepositCell : UITableViewCell
+
+- (void)setup:(Deposit *)deposit;
 
 @end

@@ -29,6 +29,11 @@ $app->get('/users/:userId/points', function ($userId) use ($app) {
     $ctrl->listPointsByUser($userId);
 })->conditions(array('userId' => '\d{1,10}'));
 
+$app->get('/users/:userId/balance', function ($userId) use ($app) {
+    $ctrl = new UserController();
+    $ctrl->getUserBalance($userId);
+})->conditions(array('userId' => '\d{1,10}'));
+
 $app->put('/users/:userId', function ($userId) use ($app) {
     $ctrl = new UserController();
     $ctrl->update($userId);

@@ -14,7 +14,10 @@
 
 namespace Welfony\Repository;
 
+use Welfony\Core\Enum\AppointmentStatus;
 use Welfony\Repository\Base\AbstractRepository;
+use Welfony\Repository\CompanyBalanceLogRepository;
+use Welfony\Repository\UserBalanceLogRepository;
 
 class AppointmentRepository extends AbstractRepository
 {
@@ -52,7 +55,7 @@ class AppointmentRepository extends AbstractRepository
 
     public function getAllAppointments($page, $pageSize, $staffId, $userId, $status)
     {
-      
+
         $filter = '';
         if ($staffId > 0) {
             $filter .= " AND A.StaffId = $staffId";
@@ -118,25 +121,51 @@ class AppointmentRepository extends AbstractRepository
     {
         $conn = $this->conn;
         $conn->beginTransaction();
+
         try {
             if ($conn->insert('Appointment', $data)) {
-
                   $newId = $conn->lastInsertId();
-                  if( $data['Status'] ==  '1')
-                  {
-                     $conn->insert('CompanyBalanceLog', array(
-                        'CompanyId' => $data['CompanyId'],
-                        'Amount' => $data['Price'],
-                        'IncomeSrc' => 2,
-                        'IncomeSrcId' => $data['AppointmentNo'],
-                        'CreateTime'=> date('Y-m-d H:i:s'),
-                        'Status' => 1,
-                        'Description' => '预约【'.$data['AppointmentNo'].'】付款'.$data['Price']
-                      ));
+                  if (intval($data['Status']) == AppointmentStatus::Paid) {
+                      $companyId = $data['CompanyId'];
+                      $userId = $data['UserId'];
+                      $price = $data['Price'];
+
+                      $existedCompanyBalanceLog = CompanyBalanceLogRepository::getInstance()->findCompanyBalanceLogByIncomeSrc(2, $data['AppointmentNo']);
+                      if (!$existedCompanyBalanceLog) {
+                        $this->conn->executeUpdate("
+                            UPDATE `Company` SET Amount = Amount + $price WHERE CompanyId  = $companyId;
+                        ");
+                        $conn->insert('CompanyBalanceLog', array(
+                          'CompanyId' => $data['CompanyId'],
+                          'Amount' => $price,
+                          'IncomeSrc' => 2,
+                          'IncomeSrcId' => $data['AppointmentNo'],
+                          'CreateTime'=> date('Y-m-d H:i:s'),
+                          'Status' => 1,
+                          'Description' => sprintf('预约【%s】付款%.2f元', $data['AppointmentNo'], $data['Price'])
+                        ));
+                      }
+
+                      $existedUserBalanceLog = UserBalanceLogRepository::getInstance()->findUserBalanceLogByIncomeSrc(2, $data['AppointmentNo']);
+                      if (!$existedUserBalanceLog) {
+                        $this->conn->executeUpdate("
+                            UPDATE `Users` SET Balance = Balance - $price WHERE UserId  = $userId;
+                        ");
+
+                        $this->conn->insert('UserBalanceLog', array(
+                            'UserId' => $userId,
+                            'Amount' => -$price,
+                            'IncomeSrc' => 2,
+                            'IncomeSrcId' => $data['AppointmentNo'],
+                            'CreateTime'=> date('Y-m-d H:i:s'),
+                            'Status' => 1,
+                            'Description'=> sprintf('预约【%s】付款%.2f元', $data['AppointmentNo'], $data['Price'])
+                        ));
+                      }
                   }
                   $conn->commit();
-                  return $newId;
 
+                  return $newId;
             }
         } catch (\Exception $e) {
             $conn->rollback();
@@ -153,29 +182,97 @@ class AppointmentRepository extends AbstractRepository
         $conn = $this->conn;
         $conn->beginTransaction();
         try {
-            $strSql = 'SELECT
-                       A.*
-                   FROM Appointment A
-                   WHERE A.AppointmentId = ?
-                   LIMIT 1';
+            $existing = $this->findAppointmentById($appointmentId);
 
-            $existing = $this->conn->fetchAssoc($strSql, array($appointmentId));
+            $ret = $this->conn->update('Appointment', $data, array('AppointmentId' => $appointmentId));
+            if (isset($data['Status'])) {
+              if (intval($data['Status']) == AppointmentStatus::Paid) {
+                $companyId = $existing['CompanyId'];
+                $userId = $existing['UserId'];
+                $price = $existing['Price'];
 
-            $ret =  $this->conn->update('Appointment', $data, array('AppointmentId' => $appointmentId));
-            if( $existing['Status'] == '0' && isset($data['Status']) && $data['Status'] == '1')
-            {
-                 $conn->insert('CompanyBalanceLog', array(
-                        'CompanyId' => isset($data['CompanyId'])?$data['CompanyId']:$existing['CompanyId'],
-                        'Amount' => isset($data['Price'])?$data['Price']:$existing['Price'],
-                        'IncomeSrc' => 2,
+                $existedCompanyBalanceLog = CompanyBalanceLogRepository::getInstance()->findCompanyBalanceLogByIncomeSrc(2, $existing['AppointmentNo']);
+                if (!$existedCompanyBalanceLog) {
+                  $this->conn->executeUpdate("
+                      UPDATE `Company` SET Amount = Amount + $price WHERE CompanyId  = $companyId;
+                  ");
+                  $conn->insert('CompanyBalanceLog', array(
+                    'CompanyId' => $existing['CompanyId'],
+                    'Amount' => $price,
+                    'IncomeSrc' => 2,
+                    'IncomeSrcId' => $existing['AppointmentNo'],
+                    'CreateTime'=> date('Y-m-d H:i:s'),
+                    'Status' => 1,
+                    'Description' => sprintf('预约【%s】付款%.2f元', $existing['AppointmentNo'], $existing['Price'])
+                  ));
+                }
+
+                $existedUserBalanceLog = UserBalanceLogRepository::getInstance()->findUserBalanceLogByIncomeSrc(2, $existing['AppointmentNo']);
+                if (!$existedUserBalanceLog) {
+                  $this->conn->executeUpdate("
+                      UPDATE `Users` SET Balance = Balance - $price WHERE UserId  = $userId;
+                  ");
+
+                  $this->conn->insert('UserBalanceLog', array(
+                      'UserId' => $userId,
+                      'Amount' => -$price,
+                      'IncomeSrc' => 2,
+                      'IncomeSrcId' => $existing['AppointmentNo'],
+                      'CreateTime'=> date('Y-m-d H:i:s'),
+                      'Status' => 1,
+                      'Description'=> sprintf('预约【%s】付款%.2f元', $existing['AppointmentNo'], $existing['Price'])
+                  ));
+                }
+              }
+
+              if (intval($data['Status']) == AppointmentStatus::Cancelled) {
+                $companyId = $existing['CompanyId'];
+                $userId = $existing['UserId'];
+                $price = $existing['Price'];
+
+                $existedCompanyBalanceLog = CompanyBalanceLogRepository::getInstance()->findCompanyBalanceLogByIncomeSrc(2, $existing['AppointmentNo']);
+                if ($existedCompanyBalanceLog) {
+                  $existedCompanyBalanceLog = CompanyBalanceLogRepository::getInstance()->findCompanyBalanceLogByIncomeSrc(5, $existing['AppointmentNo']);
+                  if (!$existedCompanyBalanceLog) {
+                    $this->conn->executeUpdate("
+                        UPDATE `Company` SET Amount = Amount - $price WHERE CompanyId  = $companyId;
+                    ");
+                    $conn->insert('CompanyBalanceLog', array(
+                      'CompanyId' => $existing['CompanyId'],
+                      'Amount' => -$price,
+                      'IncomeSrc' => 5,
+                      'IncomeSrcId' => $existing['AppointmentNo'],
+                      'CreateTime'=> date('Y-m-d H:i:s'),
+                      'Status' => 1,
+                      'Description' => sprintf('预约【%s】退款%.2f元', $existing['AppointmentNo'], $existing['Price'])
+                    ));
+                  }
+                }
+
+                $existedUserBalanceLog = UserBalanceLogRepository::getInstance()->findUserBalanceLogByIncomeSrc(2, $existing['AppointmentNo']);
+                if ($existedUserBalanceLog) {
+                  $existedUserBalanceLog = UserBalanceLogRepository::getInstance()->findUserBalanceLogByIncomeSrc(5, $existing['AppointmentNo']);
+                  if (!$existedUserBalanceLog) {
+                    $this->conn->executeUpdate("
+                        UPDATE `Users` SET Balance = Balance + $price WHERE UserId  = $userId;
+                    ");
+
+                    $this->conn->insert('UserBalanceLog', array(
+                        'UserId' => $userId,
+                        'Amount' => $price,
+                        'IncomeSrc' => 5,
                         'IncomeSrcId' => $existing['AppointmentNo'],
                         'CreateTime'=> date('Y-m-d H:i:s'),
                         'Status' => 1,
-                        'Description' => '预约【'.$existing['AppointmentNo'].'】付款'.(isset($data['Price'])?$data['Price']:$existing['Price'])
-                      ));
+                        'Description'=> sprintf('预约【%s】退款%.2f元', $existing['AppointmentNo'], $existing['Price'])
+                    ));
+                  }
+                }
+              }
             }
 
             $conn->commit();
+
             return $ret;
         } catch (\Exception $e) {
             $conn->rollback();

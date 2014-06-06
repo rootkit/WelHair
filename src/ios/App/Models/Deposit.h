@@ -10,8 +10,21 @@
 //
 // ==============================================================================
 
-@interface RechargeViewController : BaseViewController
+#import "BaseModel.h"
 
-@property (nonatomic, strong) NSString *deposit;
+typedef enum {
+    WHDepositStatusFailed = 0,
+    WHDepositStatusSuccess = 1
+} WHDepositStatus;
+
+@interface Deposit : BaseModel
+
+@property (nonatomic, strong) NSString *depositNo;
+@property (nonatomic, assign) WHDepositStatus status;
+@property (nonatomic, assign) float amount;
+
+@property (nonatomic, strong) NSDate *createdDate;
+
+- (Deposit *)initWithDic:(NSDictionary *)dictionary;
 
 @end

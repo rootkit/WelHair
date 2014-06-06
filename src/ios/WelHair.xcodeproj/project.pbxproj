@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		18076DC61936C94300F4E086 /* UserHairCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18076DC51936C94300F4E086 /* UserHairCell.m */; };
 		18076DC91936C99200F4E086 /* AppointmentNote.m in Sources */ = {isa = PBXBuildFile; fileRef = 18076DC81936C99200F4E086 /* AppointmentNote.m */; };
+		180A814C194161A700ED29B1 /* Deposit.m in Sources */ = {isa = PBXBuildFile; fileRef = 180A814B194161A700ED29B1 /* Deposit.m */; };
+		180A814F19416B9200ED29B1 /* DepositCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 180A814E19416B9200ED29B1 /* DepositCell.m */; };
 		181776AA18F3CC4300083C1E /* JoinGroupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 181776A918F3CC4300083C1E /* JoinGroupViewController.m */; };
 		1825E1CC18E183B70052AA9A /* Juchi@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1825E1C318E183B70052AA9A /* Juchi@2x.png */; };
 		1825E1CD18E183B70052AA9A /* MeTab1.png in Resources */ = {isa = PBXBuildFile; fileRef = 1825E1C418E183B70052AA9A /* MeTab1.png */; };
@@ -379,6 +381,10 @@
 		18076DC51936C94300F4E086 /* UserHairCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserHairCell.m; sourceTree = "<group>"; };
 		18076DC71936C99200F4E086 /* AppointmentNote.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppointmentNote.h; sourceTree = "<group>"; };
 		18076DC81936C99200F4E086 /* AppointmentNote.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppointmentNote.m; sourceTree = "<group>"; };
+		180A814A194161A700ED29B1 /* Deposit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Deposit.h; sourceTree = "<group>"; };
+		180A814B194161A700ED29B1 /* Deposit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Deposit.m; sourceTree = "<group>"; };
+		180A814D19416B9200ED29B1 /* DepositCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DepositCell.h; sourceTree = "<group>"; };
+		180A814E19416B9200ED29B1 /* DepositCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DepositCell.m; sourceTree = "<group>"; };
 		181776A818F3CC4300083C1E /* JoinGroupViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JoinGroupViewController.h; sourceTree = "<group>"; };
 		181776A918F3CC4300083C1E /* JoinGroupViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JoinGroupViewController.m; sourceTree = "<group>"; };
 		1825E1C318E183B70052AA9A /* Juchi@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Juchi@2x.png"; sourceTree = "<group>"; };
@@ -1397,6 +1403,8 @@
 				460C2F2918C8BFFF00AD16E6 /* Comment.m */,
 				46BDF12218D0B40E00999F50 /* Coupon.h */,
 				46BDF12318D0B40E00999F50 /* Coupon.m */,
+				180A814A194161A700ED29B1 /* Deposit.h */,
+				180A814B194161A700ED29B1 /* Deposit.m */,
 				46B25AEE18C185290035F425 /* FakeDataHelper.h */,
 				46B25AEF18C185290035F425 /* FakeDataHelper.m */,
 				460C2F4B18CAFEBF00AD16E6 /* Group.h */,
@@ -2168,6 +2176,8 @@
 				4642675F191914C200DFB7D5 /* CommentNarrowCell.m */,
 				46BDF12818D0B53200999F50 /* CouponCell.h */,
 				46BDF12918D0B53200999F50 /* CouponCell.m */,
+				180A814D19416B9200ED29B1 /* DepositCell.h */,
+				180A814E19416B9200ED29B1 /* DepositCell.m */,
 				467F0F1218CC1EAE009FFE08 /* DoubleCoverCell.h */,
 				467F0F1318CC1EAE009FFE08 /* DoubleCoverCell.m */,
 				467F0F2018CC7938009FFE08 /* DropDownView.h */,
@@ -2791,6 +2801,7 @@
 				4665C84118F568410066753D /* FavoriteProductTableView.m in Sources */,
 				46BDF13918D1779100999F50 /* UserAuthorViewController.m in Sources */,
 				464EAF5F191BBF600013F345 /* StaffNarrowCell.m in Sources */,
+				180A814C194161A700ED29B1 /* Deposit.m in Sources */,
 				4631CF1F18E3284C00F39814 /* PayViewController.m in Sources */,
 				18FAFAB518EAA6C200EF6960 /* BrickView.m in Sources */,
 				184B82C818DAC7F000177BAB /* JSMessageSoundEffect.m in Sources */,
@@ -2829,6 +2840,7 @@
 				18CA327719171F4C001C20D3 /* MessageConversation.m in Sources */,
 				46B25AE618BF1CC60035F425 /* MapViewController.mm in Sources */,
 				467F0F1D18CC219B009FFE08 /* TripleCoverCell.m in Sources */,
+				180A814F19416B9200ED29B1 /* DepositCell.m in Sources */,
 				4651D97A18DE7294004AC95A /* UserManager.m in Sources */,
 				4673BB8918D41260000F64DE /* MyGroupAddStaffViewController.m in Sources */,
 				18076DC61936C94300F4E086 /* UserHairCell.m in Sources */,

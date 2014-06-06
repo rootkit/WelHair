@@ -20,6 +20,7 @@
 @interface AccountViewController () <UITableViewDataSource, UITableViewDelegate>
 
 @property (nonatomic, strong) ABMGroupedTableView *tableView;
+@property (nonatomic, strong) UILabel *balanceLabel;
 
 @end
 
@@ -52,6 +53,9 @@
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
 
     [self.view addSubview:self.tableView];
+
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshUserBalance) name:NOTIFICATION_REFRESH_USER_BALANCE object:nil];
+    [self getUserBanlance];
 }
 
 - (void)didReceiveMemoryWarning
@@ -142,13 +146,14 @@
             [cell.imageView setImage:[UIImage imageNamed:@"yue"]];
             cell.label.text = @"账户余额";
 
-            UILabel *accessoryLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 100, 20)];
-            accessoryLabel.backgroundColor = [UIColor clearColor];
-            accessoryLabel.text = [NSString stringWithFormat:@"￥%.2f", 20000.0];
-            accessoryLabel.font = [UIFont systemFontOfSize:12];
-            accessoryLabel.textColor = [UIColor colorWithHexString:@"666666"];
-            accessoryLabel.textAlignment = TextAlignmentRight;
-            cell.accessoryView = accessoryLabel;
+            self.balanceLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 100, 20)];
+            self.balanceLabel.backgroundColor = [UIColor clearColor];
+            self.balanceLabel.font = [UIFont systemFontOfSize:12];
+            self.balanceLabel.textColor = [UIColor colorWithHexString:@"666666"];
+            self.balanceLabel.textAlignment = TextAlignmentRight;
+            self.balanceLabel.text = [NSString stringWithFormat:@"￥%.2f", 0.0f];
+
+            cell.accessoryView = self.balanceLabel;
         }
         if (indexPath.row == 1) {
             [cell.imageView setImage:[UIImage imageNamed:@"recharge"]];
@@ -194,7 +199,49 @@
 - (void)rechargeClick
 {
     RechargeViewController *vc = [RechargeViewController new];
+    vc.deposit = self.balanceLabel.text;
     [self.navigationController pushViewController:vc animated:YES];
+}
+
+
+#pragma mark Group Search API
+
+- (void)getUserBanlance
+{
+    [SVProgressHUD showWithMaskType:SVProgressHUDMaskTypeClear];
+
+    ASIHTTPRequest *request = [RequestUtil createGetRequestWithURL:[NSURL URLWithString:[NSString stringWithFormat:API_USERS_BALANCE, [UserManager SharedInstance].userLogined.id]] andParam:nil];
+    [request setDelegate:self];
+    [request setDidFinishSelector:@selector(finishGetUserBanlance:)];
+    [request setDidFailSelector:@selector(failGetUserBanlance:)];
+    [request startAsynchronous];
+}
+
+- (void)finishGetUserBanlance:(ASIHTTPRequest *)request
+{
+    [SVProgressHUD dismiss];
+
+    NSDictionary *responseMessage = [Util objectFromJson:request.responseString];
+    if (responseMessage) {
+        if ([[responseMessage objectForKey:@"success"] intValue] <= 0) {
+            [SVProgressHUD showErrorWithStatus:[responseMessage objectForKey:@"message"]];
+            return;
+        }
+
+        self.balanceLabel.text = [NSString stringWithFormat:@"￥%.2f", [[responseMessage objectForKey:@"balance"] floatValue]];
+        return;
+    }
+}
+
+- (void)failGetUserBanlance:(ASIHTTPRequest *)request
+{
+    [SVProgressHUD dismiss];
+    self.balanceLabel.text = [NSString stringWithFormat:@"￥%.2f", 0.0f];
+}
+
+- (void)refreshUserBalance
+{
+    [self getUserBanlance];
 }
 
 @end

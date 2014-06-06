@@ -46,8 +46,6 @@ class AppointmentController extends AbstractAPIController
         $reqData = $this->getDataFromRequestWithJsonFormat();
         $reqData['UserId'] = $this->currentContext['UserId'];
         $reqData['AppointmentId'] = 0;
-        //$reqData['PaymentTransactionId'] = 0;
-        $reqData['Status'] = AppointmentStatus::Pending;
 
         $result = AppointmentService::save($reqData);
         $this->sendResponse($result);

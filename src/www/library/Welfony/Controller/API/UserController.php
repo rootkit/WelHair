@@ -40,6 +40,26 @@ class UserController extends AbstractAPIController
         $this->sendResponse($result);
     }
 
+    public function getUserBalance($userId)
+    {
+        $response = array('success' => false);
+
+        if ($userId <=0 || $this->currentContext['UserId'] != $userId) {
+            $response['message'] = '不合法的用户信息！';
+            $this->sendResponse($response);
+        }
+
+        $response['success'] = true;
+        $response['balance'] = 0.00;
+
+        $user = UserService::getUserById($userId);
+        if ($user) {
+            $response['balance'] = floatval($user['Balance']);
+        }
+
+        $this->sendResponse($response);
+    }
+
     public function getDetail($userId)
     {
         $response = array('success' => false);

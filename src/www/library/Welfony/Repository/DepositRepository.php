@@ -15,6 +15,7 @@
 namespace Welfony\Repository;
 
 use Welfony\Repository\Base\AbstractRepository;
+use Welfony\Repository\UserBalanceLogRepository;
 
 class DepositRepository extends AbstractRepository
 {
@@ -31,36 +32,51 @@ class DepositRepository extends AbstractRepository
     }
 
 
-    public function getAllDepositCount()
+    public function getAllDepositCount($userId)
     {
+        $filter = '';
+        $paramArr = array();
+        if ($userId !== null) {
+            $filter .= ' AND D.UserId = ?';
+            $paramArr[] = $userId;
+        }
+
         $strSql = "SELECT
                        COUNT(1) `Total`
-                   FROM Deposit";
+                   FROM Deposit D
+                   WHERE D.DepositId > 0 $filter";
 
-        $row = $this->conn->fetchAssoc($strSql);
+        $row = $this->conn->fetchAssoc($strSql, $paramArr);
 
         return $row['Total'];
     }
 
 
-    public function listDeposit($pageNumber, $pageSize)
+    public function listDeposit($pageNumber, $pageSize, $userId)
     {
+        $filter = '';
+        $paramArr = array();
+        if ($userId !== null) {
+            $filter .= ' AND W.UserId = ?';
+            $paramArr[] = $userId;
+        }
 
         $offset = ($pageNumber - 1) * $pageSize;
-        $strSql = "SELECT W.*, U.Username AS Username,U.Nickname
+        $strSql = "SELECT W.*, U.Username AS Username, U.Nickname
                    FROM Deposit W
                    LEFT JOIN Users U ON U.UserId = W.UserId
-                   ORDER BY W.DepositId
+                   WHERE W.DepositId > 0 $filter
+                   ORDER BY W.DepositId DESC
                    LIMIT $offset, $pageSize ";
 
-        return $this->conn->fetchAll($strSql);
+        return $this->conn->fetchAll($strSql, $paramArr);
     }
 
 
     public function findDepositById($id)
     {
         $strSql = 'SELECT
-                       W.*, 
+                       W.*,
                        U.Nickname,
                        U.Username
                    FROM Deposit W
@@ -75,6 +91,7 @@ class DepositRepository extends AbstractRepository
     {
         if( isset($data['Nickname'])) unset($data['Nickname']);
         if( isset($data['Username'])) unset($data['Username']);
+
         $conn = $this->conn;
         $conn->beginTransaction();
         try {
@@ -82,22 +99,30 @@ class DepositRepository extends AbstractRepository
             if ($this->conn->insert('Deposit', $data)) {
                $newId = $this->conn->lastInsertId();
             }
+
             $amount = $data['Amount'];
             $userId = $data['UserId'];
-            if( $data['Status'] == '1')
-            {
-                $this->conn->executeUpdate(" 
-                          UPDATE `Users` SET Balance = Balance + $amount WHERE UserId  = $userId; 
-                   ");
 
-                $this->conn->insert('UserBalanceLog', array('UserId' => $userId, 
-                                                         'Amount' => -$amount,
-                                                         'Status' => 1,
-                                                         'CreateTime'=> date('Y-m-d H:i:s'),
-                                                         'Description'=>'充值'.$amount.' 【'.$depositId.'】'
-                ));
-            } 
+            if ($data['Status'] == '1') {
+                $existedUserBalanceLog = UserBalanceLogRepository::getInstance()->findUserBalanceLogByIncomeSrc(4, $data['DepositNo']);
+                if (!$existedUserBalanceLog) {
+                  $this->conn->executeUpdate("
+                      UPDATE `Users` SET Balance = Balance + $amount WHERE UserId  = $userId;
+                  ");
+
+                  $this->conn->insert('UserBalanceLog', array(
+                      'UserId' => $userId,
+                      'Amount' => $amount,
+                      'Status' => 1,
+                      'IncomeSrc' => 4,
+                      'IncomeSrcId' => $data['DepositNo'],
+                      'CreateTime'=> date('Y-m-d H:i:s'),
+                      'Description'=> sprintf('充值%.2f 【%s】', $amount, $data['DepositNo'])
+                  ));
+                }
+            }
             $conn->commit();
+
             return $newId;
         } catch (\Exception $e) {
             $conn->rollback();
@@ -113,6 +138,7 @@ class DepositRepository extends AbstractRepository
     {
         if( isset($data['Nickname'])) unset($data['Nickname']);
         if( isset($data['Username'])) unset($data['Username']);
+
         $conn = $this->conn;
         $conn->beginTransaction();
         try {
@@ -125,24 +151,29 @@ class DepositRepository extends AbstractRepository
             $existing = $this->conn->fetchAssoc($strSql, array($depositId));
 
             $r= $this->conn->update('Deposit', $data, array('DepositId' => $depositId));
-            if($existing['Status'] == '0' && isset($data['Status']) && $data['Status'] == '1' )
-            {
+            if ($existing['Status'] == '0' && isset($data['Status']) && $data['Status'] == '1') {
                 $amount = $existing['Amount'];
                 $userId = $existing['UserId'];
 
-                           
-                $this->conn->executeUpdate(" 
-                            UPDATE `Users` SET Balance = Balance + $amount WHERE UserId  = $userId; 
-                     ");
+                $existedUserBalanceLog = UserBalanceLogRepository::getInstance()->findUserBalanceLogByIncomeSrc(4, $data['DepositNo']);
+                if (!$existedUserBalanceLog) {
+                  $this->conn->executeUpdate("
+                    UPDATE `Users` SET Balance = Balance + $amount WHERE UserId  = $userId;
+                  ");
 
-                $this->conn->insert('UserBalanceLog', array('UserId' => $userId, 
-                                                           'Amount' => -$amount,
-                                                           'Status' => 1,
-                                                           'CreateTime'=> date('Y-m-d H:i:s'),
-                                                           'Description'=>'充值'.$amount.' 【'.$depositId.'】'
-                ));
+                  $this->conn->insert('UserBalanceLog', array(
+                    'UserId' => $userId,
+                    'Amount' => $amount,
+                    'Status' => 1,
+                    'IncomeSrc' => 4,
+                    'IncomeSrcId' => $data['DepositNo'],
+                    'CreateTime'=> date('Y-m-d H:i:s'),
+                    'Description'=> sprintf('充值%.2f 【%s】', $amount, $existing['DepositNo'])
+                  ));
+                }
             }
             $conn->commit();
+
             return $r;
         } catch (\Exception $e) {
             $conn->rollback();
@@ -184,18 +215,18 @@ class DepositRepository extends AbstractRepository
             $this->conn->update('Deposit', array('Status'=>1), array('DepositId' => $depositId));
 
 
-           
-            $this->conn->executeUpdate(" 
-                        UPDATE `Users` SET Balance = Balance + $amount WHERE UserId  = $userId; 
+
+            $this->conn->executeUpdate("
+                        UPDATE `Users` SET Balance = Balance + $amount WHERE UserId  = $userId;
                  ");
 
-            $this->conn->insert('UserBalanceLog', array('UserId' => $userId, 
+            $this->conn->insert('UserBalanceLog', array('UserId' => $userId,
                                                        'Amount' => -$amount,
                                                        'Status' => 1,
                                                        'CreateTime'=> date('Y-m-d H:i:s'),
                                                        'Description'=>'充值'.$amount.' 【'.$depositId.'】'
               ));
-            
+
             $conn->commit();
 
             return true;

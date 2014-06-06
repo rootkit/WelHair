@@ -10,12 +10,14 @@
 //
 // ==============================================================================
 
+#import "AppointmentsViewController.h"
 #import "BaseViewController.h"
 #import "City.h"
 #import "CityManager.h"
 #import "BaiduMapHelper.h"
 #import "UserManager.h"
 #import "LoginViewController.h"
+
 @interface BaseViewController ()
 {
     BOOL isAppearanceSetup;
@@ -48,6 +50,9 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pushToAppointmentList) name:NOTIFICATION_PUSH_TO_APPOINTMENTLIST object:nil];
+
     if (isIOS7) {
 //        self.edgesForExtendedLayout = UIRectEdgeNone;
         self.automaticallyAdjustsScrollViewInsets = NO;
@@ -228,6 +233,14 @@
 - (void)showLeftBadge:(int)number
 {
     
+}
+
+- (void)pushToAppointmentList
+{
+    AppointmentsViewController *vc = [AppointmentsViewController new];
+    vc.hidesBottomBarWhenPushed = YES;
+    vc.userId = [[UserManager SharedInstance] userLogined].id;
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 @end

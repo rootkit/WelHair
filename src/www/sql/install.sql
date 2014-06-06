@@ -1784,3 +1784,92 @@ CREATE TABLE IF NOT EXISTS `Deposit` (
   `LastUpdateDate` datetime DEFAULT NULL COMMENT '更新时间',
   PRIMARY KEY (`DepositId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='用户提现请求';
+
+-- ==============================================================================
+-- Add DepositNo to Deposit table
+-- ==============================================================================
+DELIMITER ;;
+
+CREATE PROCEDURE `sp_update_table_field`()
+BEGIN
+  IF NOT EXISTS (
+      SELECT 1
+      FROM information_schema.COLUMNS
+      WHERE lower(TABLE_SCHEMA) = 'welhair'
+        AND lower(TABLE_NAME) = 'deposit'
+        AND lower(COLUMN_NAME) = 'depositno'
+  ) THEN
+    ALTER TABLE `Deposit` ADD `DepositNo` varchar(20) NOT NULL COMMENT '充值唯一号';
+  END IF;
+END;;
+
+DELIMITER ;
+CALL sp_update_table_field();
+DROP PROCEDURE IF EXISTS `sp_update_table_field`;
+
+-- ==============================================================================
+-- Add WithdrawalNo to Withdrawal table
+-- ==============================================================================
+DELIMITER ;;
+
+CREATE PROCEDURE `sp_update_table_field`()
+BEGIN
+  IF NOT EXISTS (
+      SELECT 1
+      FROM information_schema.COLUMNS
+      WHERE lower(TABLE_SCHEMA) = 'welhair'
+        AND lower(TABLE_NAME) = 'withdrawal'
+        AND lower(COLUMN_NAME) = 'withdrawalno'
+  ) THEN
+    ALTER TABLE `Withdrawal` ADD `WithdrawalNo` varchar(20) NOT NULL COMMENT '提现唯一号';
+  END IF;
+END;;
+
+DELIMITER ;
+CALL sp_update_table_field();
+DROP PROCEDURE IF EXISTS `sp_update_table_field`;
+
+
+-- ==============================================================================
+-- Add IncomeSrc to UserBalanceLog table
+-- ==============================================================================
+DELIMITER ;;
+
+CREATE PROCEDURE `sp_update_table_field`()
+BEGIN
+  IF NOT EXISTS (
+      SELECT 1
+      FROM information_schema.COLUMNS
+      WHERE lower(TABLE_SCHEMA) = 'welhair'
+        AND lower(TABLE_NAME) ='userbalancelog'
+        AND lower(COLUMN_NAME) ='incomesrc'
+  ) THEN
+    ALTER TABLE `UserBalanceLog` ADD `IncomeSrc` tinyint(1) NOT NULL DEFAULT '1' COMMENT '收入来源1商品2预约';
+  END IF;
+END;;
+
+DELIMITER ;
+CALL sp_update_table_field();
+DROP PROCEDURE IF EXISTS `sp_update_table_field`;
+
+-- ==============================================================================
+-- Add IncomeSrcId to UserBalanceLog table
+-- ==============================================================================
+DELIMITER ;;
+
+CREATE PROCEDURE `sp_update_table_field`()
+BEGIN
+  IF NOT EXISTS (
+      SELECT 1
+      FROM information_schema.COLUMNS
+      WHERE lower(TABLE_SCHEMA) = 'welhair'
+        AND lower(TABLE_NAME) ='userbalancelog'
+        AND lower(COLUMN_NAME) ='incomesrcid'
+  ) THEN
+    ALTER TABLE `UserBalanceLog` ADD `IncomeSrcId` VARCHAR(255) NOT NULL COMMENT '订单号或者预约号';
+  END IF;
+END;;
+
+DELIMITER ;
+CALL sp_update_table_field();
+DROP PROCEDURE IF EXISTS `sp_update_table_field`;

@@ -12,6 +12,7 @@
 
 #import "ABMGroupedTableView.h"
 #import "ABMGroupedTableViewCell.h"
+#import "Deposit.h"
 #import "RechargeViewController.h"
 #import "UserManager.h"
 
@@ -130,7 +131,7 @@
 
             UILabel *accessoryLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 100, 20)];
             accessoryLabel.backgroundColor = [UIColor clearColor];
-            accessoryLabel.text = [NSString stringWithFormat:@"￥%.2f", 20000.0];
+            accessoryLabel.text = self.deposit;
             accessoryLabel.font = [UIFont systemFontOfSize:12];
             accessoryLabel.textColor = [UIColor colorWithHexString:@"666666"];
             accessoryLabel.textAlignment = TextAlignmentRight;
@@ -195,6 +196,51 @@
 
 - (void)rechargeClick
 {
+    if ([self.amountTxt.text floatValue] <= 0) {
+        [SVProgressHUD showSuccessWithStatus:@"请输入正确的金额。" duration:1];
+        return;
+    }
+
+    NSMutableDictionary *reqData = [[NSMutableDictionary alloc] initWithCapacity:1];
+    [reqData setObject:self.amountTxt.text forKey:@"Amount"];
+    [reqData setObject:@(WHDepositStatusSuccess) forKey:@"Status"];
+
+    [SVProgressHUD showWithMaskType:SVProgressHUDMaskTypeClear];
+    ASIFormDataRequest *request = [RequestUtil createPOSTRequestWithURL:[NSURL URLWithString:[NSString stringWithFormat:API_USERS_DEPOSIT, [UserManager SharedInstance].userLogined.id]]
+                                                                andData:reqData];
+    [self.requests addObject:request];
+    [request setDelegate:self];
+    [request setDidFinishSelector:@selector(createDepositFinish:)];
+    [request setDidFailSelector:@selector(createDepositFail:)];
+    [request startAsynchronous];
+}
+
+- (void)createDepositFinish:(ASIHTTPRequest *)request
+{
+    [SVProgressHUD dismiss];
+
+    if (request.responseStatusCode == 200) {
+        NSDictionary *responseMessage = [Util objectFromJson:request.responseString];
+        if (responseMessage) {
+            if ([responseMessage objectForKey:@"deposit"] == nil) {
+                [SVProgressHUD showErrorWithStatus:[responseMessage objectForKey:@"message"]];
+                return;
+            }
+
+            [SVProgressHUD dismiss];
+            [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_REFRESH_USER_BALANCE object:nil];
+            [self.navigationController popViewControllerAnimated:YES];
+
+            return;
+        }
+    }
+
+    [SVProgressHUD showErrorWithStatus:@"充值失败，请重试！"];
+}
+
+- (void)createDepositFail:(ASIHTTPRequest *)request
+{
+    [SVProgressHUD showErrorWithStatus:@"充值失败，请重试！"];
 }
 
 - (void)panHandler:(UIPanGestureRecognizer *)pan

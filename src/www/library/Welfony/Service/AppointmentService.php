@@ -14,11 +14,13 @@
 
 namespace Welfony\Service;
 
+use Welfony\Core\Enum\AppointmentStatus;
 use Welfony\Core\Enum\CompanyStatus;
 use Welfony\Core\Enum\StaffStatus;
 use Welfony\Core\Enum\NotificationType;
 use Welfony\Repository\AppointmentRepository;
 use Welfony\Repository\ServiceRepository;
+use Welfony\Repository\UserRepository;
 use Welfony\Service\NotificationService;
 
 class AppointmentService
@@ -65,7 +67,7 @@ class AppointmentService
             return $result;
         }
 
-        $data = array(
+        $appointmentData = array(
             'AppointmentId' => $data['AppointmentId'],
             'UserId' => $data['UserId'],
             'CompanyId' => $staff['Company']['CompanyId'],
@@ -76,22 +78,29 @@ class AppointmentService
             'ServiceId' => $service['ServiceId'],
             'ServiceTitle' => $service['Title'],
             'AppointmentDate' => $data['AppointmentDate'],
-            'Price' => $service['Price'],
-            'Status' => $data['Status']
+            'Price' => $service['Price']
         );
 
-        if ($data['AppointmentId'] == 0) {
-            $data['CreatedDate'] = date('Y-m-d H:i:s');
-            $data['AppointmentNo'] = date('YmdHis').rand(100000,999999);
+        if ($appointmentData['AppointmentId'] == 0) {
+            $appointmentData['Status'] = AppointmentStatus::Paid;
+            $appointmentData['CreatedDate'] = date('Y-m-d H:i:s');
+            $appointmentData['AppointmentNo'] = date('YmdHis').rand(100000, 999999);
 
-            $newId = AppointmentRepository::getInstance()->save($data);
+            $user = UserRepository::getInstance()->findUserById($appointmentData['UserId']);
+            if ($user['Balance'] < $appointmentData['Price']) {
+                $result['message'] = '账户余额不足，请充值。';
+
+                return $result;
+            }
+
+            $newId = AppointmentRepository::getInstance()->save($appointmentData);
             if ($newId) {
-                $data['AppointmentId'] = $newId;
+                $appointmentData['AppointmentId'] = $newId;
 
-                NotificationService::send(NotificationType::AppointmentNew, $data['StaffId']);
+                NotificationService::send(NotificationType::AppointmentNew, $appointmentData['StaffId']);
 
                 $result['success'] = true;
-                $result['appointment'] = $data;
+                $result['appointment'] = $appointmentData;
 
                 return $result;
             } else {
@@ -100,9 +109,10 @@ class AppointmentService
                 return $result;
             }
         } else {
-            $data['LastModifiedDate'] = date('Y-m-d H:i:s');
+            $appointmentData['Status'] = $data['Status'];
+            $appointmentData['LastModifiedDate'] = date('Y-m-d H:i:s');
 
-            $result['success'] = AppointmentRepository::getInstance()->update($data['AppointmentId'], $data);
+            $result['success'] = AppointmentRepository::getInstance()->update($appointmentData['AppointmentId'], $appointmentData);
             $result['message'] = $result['success'] ? '更新预约成功！' : '更新预约失败！';
 
             return $result;

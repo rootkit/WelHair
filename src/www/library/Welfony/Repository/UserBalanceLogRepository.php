@@ -80,6 +80,17 @@ class UserBalanceLogRepository extends AbstractRepository
 
     }
 
+    public function findUserBalanceLogByIncomeSrc($incomeSrc, $incomeSrcId)
+    {
+        $strSql = 'SELECT
+                       *
+                   FROM UserBalanceLog
+                   WHERE IncomeSrc = ? AND IncomeSrcId = ?
+                   LIMIT 1';
+
+        return $this->conn->fetchAssoc($strSql, array($incomeSrc, $incomeSrcId));
+    }
+
     public function findUserBalanceLogById($id)
     {
         $strSql = 'SELECT

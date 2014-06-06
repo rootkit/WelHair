@@ -22,21 +22,24 @@ class DepositService
 
     public static function getDepositById($id)
     {
-        return  DepositRepository::getInstance()->findDepositById( $id);
+        return  DepositRepository::getInstance()->findDepositById($id);
 
     }
-    public static function listDeposit($pageNumber, $pageSize)
+    public static function listDeposit($pageNumber, $pageSize, $userId = null)
     {
+        $pageNumber = $pageNumber <= 0 ? 1 : $pageNumber;
+        $pageSize = $pageSize <= 0 ? 20 : $pageSize;
+
         $result = array(
             'deposits' => array(),
             'total' => 0
         );
 
-        $totalCount = DepositRepository::getInstance()->getAllDepositCount();
+        $totalCount = DepositRepository::getInstance()->getAllDepositCount($userId);
 
         if ($totalCount > 0 && $pageNumber <= ceil($totalCount / $pageSize)) {
 
-            $searchResult = DepositRepository::getInstance()->listDeposit( $pageNumber, $pageSize);
+            $searchResult = DepositRepository::getInstance()->listDeposit($pageNumber, $pageSize, $userId);
 
             $result['deposits']= $searchResult;
         }
@@ -57,35 +60,21 @@ class DepositService
         $result = array('success' => false, 'message' => '');
 
         if ($data['DepositId'] == 0) {
+            if (isset($data['Amount']) && floatval($data['Amount']) > 0) {
+                if (isset($data['UserId']) && intval($data['UserId']) > 0) {
 
-
-            if( isset($data['Amount']) && floatval($data['Amount']) > 0 )
-            {
-                if(isset($data['UserId']))
-                {
-                    
-                } 
-                else
-                {
+                } else {
                     $result = array('success' => false, 'message' => '请设置充值对象！');
                     return $result;
                 }
-            }
-            else
-            {
+            } else {
                 $result = array('success' => false, 'message' => '请设置正确的金额！');
                 return $result;
             }
 
-            if( !isset($data['LastUpdateDate']))
-            {
-                $data['LastUpdateDate'] = date('Y-m-d H:i:s');
-            }
-
-            if( !isset($data['CreateTime']))
-            {
-                $data['CreateTime'] = date('Y-m-d H:i:s');
-            }
+            $data['CreateTime'] = date('Y-m-d H:i:s');
+            $data['LastUpdateDate'] = date('Y-m-d H:i:s');
+            $data['DepositNo'] = date('YmdHis').rand(100000, 999999);
 
             $newId = DepositRepository::getInstance()->save($data);
             if ($newId) {
@@ -96,26 +85,20 @@ class DepositService
 
                 return $result;
             } else {
-                $result['message'] = '添加失败！';
-
+                $result['message'] = '充值失败！';
                 return $result;
             }
         } else {
-            if( !isset($data['LastUpdateDate']))
-            {
-                $data['LastUpdateDate'] = date('Y-m-d H:i:s');
-            }
-            $r = DepositRepository::getInstance()->update($data['DepositId'],$data);
+            $data['LastUpdateDate'] = date('Y-m-d H:i:s');
+            $r = DepositRepository::getInstance()->update($data['DepositId'], $data);
 
             if ($r) {
-
                 $result['success'] = true;
                 $result['deposit'] = $data;
 
                 return $result;
             } else {
-                $result['message'] = '更新失败！';
-
+                $result['message'] = '充值更新失败！';
                 return $result;
             }
 
@@ -157,5 +140,5 @@ class DepositService
         }
     }
 
-   
+
 }

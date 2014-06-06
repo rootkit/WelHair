@@ -12,6 +12,8 @@
 
 #import "AppointmentPreviewViewController.h"
 #import "CircleImageView.h"
+#import "UserManager.h"
+
 @interface AppointmentPreviewViewController ()
 
 @end
@@ -52,7 +54,7 @@
      UIImageView  *avatorImgView = [[CircleImageView alloc] initWithFrame:CGRectMake(30, MaxY(barImgView) + 20, 60, 60)];
     [self.view addSubview:avatorImgView];
     avatorImgView.layer.borderColor = [[UIColor colorWithHexString:@"e0e0de"] CGColor];
-    avatorImgView.layer.borderWidth = 2;
+    avatorImgView.layer.borderWidth = 0;
     [avatorImgView setImageWithURL:self.appointment.staff.avatorUrl];
     
     UILabel *staffNameLbl = [[UILabel alloc] initWithFrame:CGRectMake(MaxX(avatorImgView) + 5,
@@ -176,9 +178,9 @@
                 return;
             }
 
-            [SVProgressHUD dismiss];
-
-            [SVProgressHUD showSuccessWithStatus:@"去支付宝支付" duration:1];
+            [SVProgressHUD showSuccessWithStatus:@"添加预约成功！"];
+            [self.navigationController popToRootViewControllerAnimated:NO];
+            [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_PUSH_TO_APPOINTMENTLIST object:nil];
 
             return;
         }

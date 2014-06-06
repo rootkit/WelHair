@@ -23,8 +23,8 @@
 
 #define DB_FILE_NAME   @"db.sqlite"
 
-#define DOMAIN_NAME @"115.28.208.165"
-//#define DOMAIN_NAME @"welhair.com"
+//#define DOMAIN_NAME @"115.28.208.165"
+#define DOMAIN_NAME @"welhair.com"
 
 #define WEBSOCKET_SERVER_URL [NSString stringWithFormat:@"ws://%@:8080", DOMAIN_NAME]
 #define SITE_PATH(path) [NSString stringWithFormat:@"http://%@%@", DOMAIN_NAME, path]
@@ -54,6 +54,8 @@
 #define API_USERS_UPDATE API_PATH(@"/users/%d")
 #define API_USERS_APPOINTMENT API_PATH(@"/users/%d/appointments")
 #define API_USERS_POINTS API_PATH(@"/users/%d/points")
+#define API_USERS_DEPOSIT API_PATH(@"/users/%d/deposit")
+#define API_USERS_BALANCE API_PATH(@"/users/%d/balance")
 
 #define API_USERDEVICE_REGISTER API_PATH(@"/users/device")
 #define API_USERDEVICE_REMOVE API_PATH(@"/users/device/remove")
@@ -136,12 +138,14 @@
 #define NOTIFICATION_REFRESH_APPOINTMENT @"Notification_RefreshAppintmentList"
 #define NOTIFICATION_REFRESH_APPOINTMENT_NOTE @"Notification_RefreshAppintmentNoteList"
 #define NOTIFICATION_REFRESH_COMMENTLIST @"Notification_RefreshCommentList"
+#define NOTIFICATION_REFRESH_USER_BALANCE @"Notification_Refresh_UserBalance"
 #define NOTIFICATION_REFRESH_ADDRESSLIST @"Notification_RefreshAddressList"
 #define NOTIFICATION_SHOW_LOGIN_VIEW  @"Notification_ShowLoginView"
 #define NOTIFICATION_NEW_MESSAGE_RECEIVED @"NewMessageReceived"
 #define NOTIFICATION_STAFF_GET_APPOINMENT @"StaffGetAppointment"
 #define NOTIFICATION_GOTO_HAIR_RECORD_VIEW @"GotoHairRecordView"
 #define NOTIFICATION_CANCEL_REQUEST_WITHDRAW @"Notification_CancelRequestWithdras"
+#define NOTIFICATION_PUSH_TO_APPOINTMENTLIST @"Notification_PushToAppointmentList"
 
 #define REMOTE_NOTIFICATION_TYPE_STAFF_GET_APPOINTMENT  1
 

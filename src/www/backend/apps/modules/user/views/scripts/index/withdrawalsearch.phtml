@@ -6,7 +6,7 @@ use Welfony\Utility\Util;
     <thead>
         <tr>
             <th class="col-chk"><input id="chk_all" type="checkbox" /></th>
-            <th class="cola">用户名</th>
+            <th>用户名</th>
             <th>数量</th>
             <th>请求时间</th>
             <th>状态</th>
@@ -18,7 +18,7 @@ use Welfony\Utility\Util;
         <?php foreach ($this->dataList as $data): ?>
         <tr>
             <td class="col-center"><input name="chk_ids[]" value="<?php echo $data['WithdrawalId']; ?>" type="checkbox" /></td>
-            <td class="cola">
+            <td>
                 <a href="<?php echo $this->baseUrl('user/index/withdrawalinfo?withdrawal_id=' . $data['WithdrawalId']); ?>">
                     <?php echo $data['Nickname']; ?>
                 </a>

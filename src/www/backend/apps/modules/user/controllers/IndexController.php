@@ -148,19 +148,15 @@ class User_IndexController extends AbstractAdminController
     {
         $this->view->pageTitle = '充值详情';
         $depositid = intval($this->_request->getParam('deposit_id'));
-        //if ($depositid) {
-        //    $deposit = DepositService::getWithdrawalById($withdrawalid);
-        //    $this->view->depositInfo= $deposit;
-        //}
+
         $userid = intval($this->_request->getParam('user_id'));
-        if($userid)
-        {
+        if ($userid) {
             $user = UserService::getUserById($userid);
             $this->view->userInfo = $user;
         }
 
         $deposit = array(
-            'DepositId' => $depositid ,
+            'DepositId' => $depositid,
             'UserId' => $userid,
             'Amount' => 0,
             'Status' => 0,
@@ -170,26 +166,18 @@ class User_IndexController extends AbstractAdminController
             'Comments' =>''
         );
 
-        $staffId = intval($this->_request->getParam('staff_id'));
-
         if ($this->_request->isPost()) {
-            $status = intval($this->_request->getParam('status'));
             $deposit['Description'] = $this->_request->getParam('description');
             $deposit['Comments'] = $this->_request->getParam('comments');
             $deposit['Amount'] = $this->_request->getParam('amount');
             $deposit['AccountNo'] = $this->_request->getParam('accountno');
             $deposit['AccountName'] = $this->_request->getParam('accountname');
-            $deposit['Status'] = $status;
+            $deposit['Status'] = intval($this->_request->getParam('status'));
 
             $result = DepositService::save($deposit);
             $this->_helper->viewRenderer->setNoRender(true);
             $this->_helper->layout->disableLayout();
             $this->_helper->json->sendJson($result);
-            //if ($result['success']) {
-            //    $this->getResponse()->setRedirect($this->view->baseUrl('user/index/depositsearch'));
-            //} else {
-            //    $this->view->errorMessage = $result['message'];
-            //}
         } else {
             if ($deposit['DepositId'] > 0) {
                 $deposit = DepositService::getDepositById($deposit['DepositId']);

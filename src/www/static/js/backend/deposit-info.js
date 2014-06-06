@@ -46,7 +46,7 @@ $(function() {
                                                             'accountno': $('#accountno').val(),
                                                             'accountname': $('#accountname').val(),
                                                             'amount': $('#amount').val(),
-                                                            'status': $('.u-btn-c4:first').attr('data-value')
+                                                            'status': $('.u-btn-c3:first').attr('data-value')
                                                          },
                                                         success: function(data){
                                                             if( data.success)

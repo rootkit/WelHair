@@ -101,7 +101,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
+
     self.tableView = [[UITableView alloc] init];
     self.tableView.frame = CGRectMake(0,
                                       self.topBarOffset,

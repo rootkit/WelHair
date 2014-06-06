@@ -16,7 +16,7 @@
 #import "UserManager.h"
 #import "User.h"
 
-@interface WithdrawViewController ()<UITableViewDataSource, UITableViewDelegate>
+@interface WithdrawViewController () <UITableViewDataSource, UITableViewDelegate>
 
 @property (nonatomic, assign) NSInteger currentPage;
 
@@ -67,12 +67,16 @@
     [super viewWillAppear:animated];
     [self.tableView triggerPullToRefresh];
 }
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(cancelRequestWithdraw:) name:NOTIFICATION_CANCEL_REQUEST_WITHDRAW  object:nil];
+
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(cancelRequestWithdraw:) name:NOTIFICATION_CANCEL_REQUEST_WITHDRAW object:nil];
+
     UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, WIDTH(self.view), 50)];
     headerView.backgroundColor = [UIColor colorWithHexString:APP_CONTENT_BG_COLOR];
+
     UILabel *titleLbl = [[UILabel alloc] initWithFrame:CGRectMake(10,10, 160, 30)];
     titleLbl.backgroundColor = [UIColor clearColor];
     titleLbl.textColor = [UIColor blackColor];
@@ -99,6 +103,7 @@
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.tableView.backgroundColor = [UIColor clearColor];
     [self.view addSubview:self.tableView];
+
     self.tableView.tableHeaderView = headerView;
     
     __weak typeof(self) weakSelf = self;
@@ -189,8 +194,10 @@
 {
     NSDictionary *rst = [Util objectFromJson:request.responseString];
     NSInteger total = [[rst objectForKey:@"total"] integerValue];
+
     self.currentBalance  = [[rst objectForKey:@"balance"] floatValue];
     self.balanceLbl.text = [NSString stringWithFormat:@"%.2f", self.currentBalance];
+
     NSArray *dataList = [rst objectForKey:@"companybalancelogs"];
     
     NSMutableArray *arr = [NSMutableArray arrayWithArray:self.datasource];
@@ -237,7 +244,6 @@
 {
     
 }
-
 
 - (void)cancelRequestWithdraw:(NSNotification *)noti
 {
