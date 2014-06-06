@@ -6,26 +6,26 @@ use \Welfony\Utility\Util;
         <tr>
             <th class="col-chk"></th>
             <th >沙龙</th>
-            <th style="width:120px;">货号</th>
+            <th style="width:140px;">货号</th>
             <th>名称</th>
             <th >规格</th>
             <th >售价</th>
-            <th ></th>
-            <th ></th>
+            <th >图片</th>
+            <th >二维码</th>
         </tr>
     </thead>
     <tbody>
       <?php if (count($this->rows) > 0): ?>
       <?php foreach( $this->rows as $goods) : ?>
       <?php
-                    $spc= '';
-                    if( $goods['SpecArray'] )
-                    {
-                        $spec= json_decode($goods['SpecArray'],true);
-                        $spc= $spec['Name'].":".$spec['Value'];
-                    }
+        $spc= '';
+        if( $goods['SpecArray'] )
+        {
+            $spec= json_decode($goods['SpecArray'],true);
+            $spc= $spec['Name'].":".$spec['Value'];
+        }
 
-        ?>
+      ?>
         <tr>
             <td class="col-center"><input type="radio" data-name="<?php echo $goods['Name'];?>"
                 data-goodsid= "<?php echo $goods['GoodsId']; ?>"
@@ -33,7 +33,7 @@ use \Welfony\Utility\Util;
                 data-sellprice = "<?php echo $goods['SellPrice']; ?>"
                 data-costprice = "<?php echo $goods['CostPrice']; ?>"
                 data-weight = "<?php echo $goods['Weight']; ?>"
-                data-img= "<?php echo $goods['Img']; ?>"
+                data-img= "<?php echo $goods['PictureUrl'][0]; ?>"
                 data-spec="<?php echo $spc; ?>"
                 data-id="<?php echo $goods['GoodsId'].'_'.$goods['ProductsId'];  ?>"
                 data-companyid = "<?php echo $goods['CompanyId']; ?>"
@@ -46,13 +46,13 @@ use \Welfony\Utility\Util;
             <td> <?php echo $goods['Name']; ?></td>
             <td><?php echo $spc; ?></td>
             <td> <?php echo $goods['SellPrice']; ?></td>
-            <td><img style="max-width:100px;max-height:100px;" src="<?php echo $goods['Img']; ?>"/></td>
+            <td><img style="max-width:100px;max-height:100px;" src="<?php echo $goods['PictureUrl'][0]; ?>"/></td>
             <td><img style="max-width:100px;max-height:100px;" src="<?php echo $this->baseUrl('goods/index/qrcode?goodsid=' .  $goods['GoodsId']. '&companyid='.$goods['CompanyId'].'&productsid='.$goods['ProductsId'] ); ?>""/></td>
         </tr>
         <?php endforeach; ?>
         <?php else: ?>
         <tr>
-            <td class="col-center" colspan="5">您还没有添加任何记录</td>
+            <td class="col-center" colspan="8">您还没有添加任何记录</td>
         </tr>
         <?php endif; ?>
     </tbody>

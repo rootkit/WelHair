@@ -26,9 +26,10 @@ use \Welfony\Utility\Util;
         </tr>
     </thead>
     <tbody>
+      <?php if (count($this->rows) > 0): ?>
       <?php foreach( $this->rows as $order) : ?>
         <tr>
-            <td>                    
+            <td>
                 <?php echo $order['OrderNo']; ?>
             </td>
             <td> <?php echo $order['AcceptName']; ?></td>
@@ -48,7 +49,7 @@ use \Welfony\Utility\Util;
                     <i class="iconfont"> &#xf0022;</i>&nbsp;&nbsp;编辑
                 </a>
                 <?php endif;?>
-               
+
                 <?php if(!$order['IsDeleted']): ?>
                 <a href="#" href="#" class="btnDelete" data-id="<?php echo $order['OrderId']; ?>" >
                     <i class="iconfont">&#xf013f;</i>&nbsp;&nbsp;删除
@@ -58,6 +59,11 @@ use \Welfony\Utility\Util;
             </td>
         </tr>
     <?php endforeach; ?>
+    <?php else: ?>
+    <tr>
+        <td class="col-center" colspan="9">您还没有添加任何记录</td>
+    </tr>
+    <?php endif; ?>
     </tbody>
 </table>
 

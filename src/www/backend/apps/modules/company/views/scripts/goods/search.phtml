@@ -1,0 +1,47 @@
+<?php
+use Welfony\Utility\Util;
+?>
+<div class="toolbar">
+</div>
+<table class="m-table">
+    <thead>
+        <tr>
+            <th style="width:140px;">货号</th>
+            <th>名称</th>
+            <th>规格</th>
+            <th>售价</th>
+            <th>图片</th>
+            <th>二维码</th>
+        </tr>
+    </thead>
+    <tbody>
+      <?php if (count($this->rows) > 0): ?>
+      <?php foreach( $this->rows as $goods) : ?>
+      <?php
+        $spc= '';
+        if( $goods['SpecArray'] )
+        {
+            $spec= json_decode($goods['SpecArray'],true);
+            $spc= $spec['Name'].":".$spec['Value'];
+        }
+
+      ?>
+        <tr>
+            <td>
+                <?php echo isset($goods['ProductsNo'])? $goods['ProductsNo']: $goods['GoodsNo']; ?>
+            </td>
+            <td><?php echo $goods['Name']; ?></td>
+            <td><?php echo $spc; ?></td>
+            <td><?php echo $goods['SellPrice']; ?></td>
+            <td><img style="max-width:100px;max-height:100px;" src="<?php echo $goods['PictureUrl'][0]; ?>"/></td>
+            <td><img style="max-width:100px;max-height:100px;" src="<?php echo $this->baseUrl('goods/index/qrcode?goodsid=' .  $goods['GoodsId']. '&companyid='.$goods['CompanyId'].'&productsid='.$goods['ProductsId'] ); ?>""/></td>
+        </tr>
+        <?php endforeach; ?>
+        <?php else: ?>
+        <tr>
+            <td class="col-center" colspan="6">您还没有添加任何记录</td>
+        </tr>
+        <?php endif; ?>
+    </tbody>
+</table>
+<?php echo $this->pager; ?>

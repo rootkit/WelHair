@@ -76,28 +76,28 @@
         <li>
             <a href="<?php echo $this->baseUrl('company/index/search'); ?>">沙龙管理</a>
         </li>
-        <?php if ($this->controller == 'index'): ?>
-        <li class="sub-menu<?php echo $this->action == 'search' ? ' active' : ''; ?>">
+        <?php if ($this->controller == 'index' || $this->controller == 'goods'): ?>
+        <li class="sub-menu<?php echo $this->controller == 'index' && $this->action == 'search' ? ' active' : ''; ?>">
             <a href="<?php echo $this->baseUrl('company/index/search'); ?>">
                 <i class="iconfont">&#x344a;</i>
                 沙龙列表
             </a>
         </li>
-        <li class="sub-menu">
+        <li class="sub-menu<?php echo $this->controller == 'index' && $this->action == 'authentication' ? ' active' : ''; ?>">
             <a href="<?php echo $this->baseUrl('company/index/authentication'); ?>">
                 <i class="iconfont">&#xf00b2;</i>
                 沙龙认证
             </a>
         </li>
-        <li class="sub-menu">
-            <a href="<?php echo $this->baseUrl('company/index/goods'); ?>">
+        <li class="sub-menu<?php echo $this->controller == 'goods' && $this->action == 'search' ? ' active' : ''; ?>">
+            <a href="<?php echo $this->baseUrl('company/goods/search'); ?>">
                 <i class="iconfont">&#xf0148;</i>
                 商品列表
             </a>
         </li>
-        <li class="sub-menu">
+        <li class="sub-menu<?php echo $this->controller == 'index' && $this->action == 'withdrawalsearch' ? ' active' : ''; ?>">
             <a href="<?php echo $this->baseUrl('company/index/withdrawalsearch'); ?>">
-                <i class="iconfont">&#x344a;</i>
+                <i class="iconfont">&#xf0150;</i>
                 提现列表
             </a>
         </li>
@@ -112,7 +112,7 @@
                 发型师列表
             </a>
         </li>
-        <li class="sub-menu">
+        <li class="sub-menu<?php echo $this->action == 'authentication' ? ' active' : ''; ?>">
             <a href="<?php echo $this->baseUrl('company/staff/authentication'); ?>">
                 <i class="iconfont">&#xf00b2;</i>
                 发型师认证

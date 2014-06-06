@@ -148,27 +148,6 @@ class Company_IndexController extends AbstractAdminController
                                                 ceil($searchResult['total'] / $pageSize), $func);
     }
 
-    public function goodsAction()
-    {
-        $this->view->pageTitle = '商品列表';
-        //$this->_helper->viewRenderer->setNoRender(true);
-        //$this->_helper->layout->disableLayout();
-
-        $pageSize = 10;
-
-        $page = $this->_request->getParam('page')?  intval($this->_request->getParam('page')):1;
-
-        $searchResult = GoodsService::listGoodsAndProducts($page, $pageSize);
-        $this->view->rows = $searchResult['goods'];
-        //$this->view->pagerHTML = $this->renderPager('',
-        //                                        $page,
-        //                                        ceil($searchResult['total'] / $pageSize), $func);
-
-        $this->view->pagerHTML = $this->renderPager($this->view->baseUrl('company/index/goods?s='),
-                                                $page,
-                                                ceil($searchResult['total'] / $pageSize));
-    }
-
     public function balancelogAction()
     {
         $companyId = intval($this->_request->getParam('company_id'));
@@ -187,7 +166,7 @@ class Company_IndexController extends AbstractAdminController
 
     public function withdrawalsearchAction()
     {
-        
+
         //$userId = intval($this->_request->getParam('user_id'));
         static $pageSize = 10;
 

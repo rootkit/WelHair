@@ -154,7 +154,7 @@ class GoodsService
 
         $goods = array();
         foreach ($goodsList as $g) {
-            $g['PictureUrl'] = array($g['Img']);
+            $g['PictureUrl'] = json_decode($g['Img']);
             unset($g['Img']);
 
             if (intval($g['CompanyId'] > 0)) {
@@ -202,9 +202,15 @@ class GoodsService
 
         if ($totalCount > 0 && $pageNumber <= ceil($totalCount / $pageSize)) {
 
-            $searchResult = GoodsRepository::getInstance()->listGoods( $pageNumber, $pageSize);
+            $goodsList = GoodsRepository::getInstance()->listGoods( $pageNumber, $pageSize);
+            $goods = array();
+            foreach ($goodsList as $g) {
+                $g['PictureUrl'] = json_decode($g['Img']);
+                unset($g['Img']);
+                $goods[] = $g;
+            }
 
-            $result['goods']= $searchResult;
+            $result['goods']= $goods;
         }
 
         $result['total'] = $totalCount;
@@ -212,20 +218,29 @@ class GoodsService
         return $result;
     }
 
-    public static function listGoodsAndProducts($pageNumber, $pageSize)
+    public static function listGoodsAndProducts($pageNumber, $pageSize, $companyId = null)
     {
+        $pageNumber = $pageNumber <= 0 ? 1 : $pageNumber;
+        $pageSize = $pageSize <= 0 ? 20 : $pageSize;
+
         $result = array(
             'goods' => array(),
             'total' => 0
         );
 
-        $totalCount = GoodsRepository::getInstance()->getAllGoodsAndProductsCount();
+        $totalCount = GoodsRepository::getInstance()->getAllGoodsAndProductsCount($companyId);
 
         if ($totalCount > 0 && $pageNumber <= ceil($totalCount / $pageSize)) {
+            $goodsList = GoodsRepository::getInstance()->listGoodsAndProducts($pageNumber, $pageSize, $companyId);
 
-            $searchResult = GoodsRepository::getInstance()->listGoodsAndProducts( $pageNumber, $pageSize);
+            $goods = array();
+            foreach ($goodsList as $g) {
+                $g['PictureUrl'] = json_decode($g['Img']);
+                unset($g['Img']);
+                $goods[] = $g;
+            }
 
-            $result['goods']= $searchResult;
+            $result['goods']= $goods;
         }
 
         $result['total'] = $totalCount;

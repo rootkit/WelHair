@@ -181,24 +181,37 @@ class GoodsRepository extends AbstractRepository
 
     }
 
-    public function getAllGoodsAndProductsCount()
+    public function getAllGoodsAndProductsCount($companyId)
     {
+        $filter = '';
+        $paramArr = array();
+        if ($companyId !== null) {
+            $filter .= ' AND IFNULL(C.CompanyId, 0) = ?';
+            $paramArr[] = $companyId;
+        }
+
         $strSql = "SELECT
                        COUNT(1) `Total`
                    FROM Goods G
                    LEFT JOIN Products P ON G.GoodsId = P.GoodsId
                    LEFT JOIN CompanyGoods CG ON G.GoodsId = CG.GoodsId
                    LEFT JOIN Company C ON CG.CompanyId = C.CompanyId AND C.Status = 1
-                   WHERE IsDeleted = 0
+                   WHERE IsDeleted = 0 $filter
                    LIMIT 1";
 
-        $row = $this->conn->fetchAssoc($strSql);
+        $row = $this->conn->fetchAssoc($strSql, $paramArr);
 
         return $row['Total'];
     }
 
-    public function listGoodsAndProducts($pageNumber, $pageSize)
+    public function listGoodsAndProducts($pageNumber, $pageSize, $companyId)
     {
+        $filter = '';
+        $paramArr = array();
+        if ($companyId !== null) {
+            $filter .= ' AND IFNULL(C.CompanyId, 0) = ?';
+            $paramArr[] = $companyId;
+        }
 
         $offset = ($pageNumber - 1) * $pageSize;
         $strSql = "  SELECT G.GoodsId, G.Name, G.GoodsNo,
@@ -227,10 +240,10 @@ class GoodsRepository extends AbstractRepository
                      LEFT JOIN Products P ON G.GoodsId = P.GoodsId
                      LEFT JOIN CompanyGoods CG ON G.GoodsId = CG.GoodsId
                      LEFT JOIN Company C ON CG.CompanyId = C.CompanyId AND C.Status = 1
-                     WHERE G.IsDeleted = 0
+                     WHERE G.IsDeleted = 0 $filter
                      LIMIT $offset, $pageSize ";
 
-        return $this->conn->fetchAll($strSql);
+        return $this->conn->fetchAll($strSql, $paramArr);
 
     }
 
