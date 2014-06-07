@@ -32,7 +32,7 @@
                     <a class="lnk<?php echo $this->module == 'order' ? ' on' : ''; ?>" href="<?php echo $this->baseUrl('order/index/search'); ?>">订单</a>
                 </li>
                 <li>
-                    <a class="lnk<?php echo ( $this->module == 'system' || $this->module == 'default')? ' on' : ''; ?>" href="<?php echo $this->baseUrl(); ?>">系统</a>
+                    <a class="lnk<?php echo ( $this->module == 'system')? ' on' : ''; ?>" href="<?php echo $this->baseUrl(); ?>">系统</a>
                 </li>
                 <li class="right">
                     <a class="lnk" href="<?php echo $this->baseUrl('user/auth/signout'); ?>">退出</a>

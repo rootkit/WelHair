@@ -1,0 +1,131 @@
+<script src="http://s1.bdstatic.com/r/www/cache/ecom/esl/1-6-10/esl.js"></script>
+
+<div id="main">
+    <div id="lt-chart" style="float: left; width: 50%; height:400px"></div>
+    <div id="rt-chart" style="float: left; width: 50%; height:400px"></div>
+    <div class="clearfix"></div>
+</div>
+
+<script type="text/javascript">
+    var fileLocation = 'http://echarts.baidu.com/build/echarts';
+    require.config({
+        paths:{
+            'echarts': fileLocation,
+            'echarts/chart/line': fileLocation,
+            'echarts/chart/bar': fileLocation,
+            'echarts/chart/pie': fileLocation
+        }
+    });
+
+    require(
+        [
+            'echarts',
+            'echarts/chart/line',
+            'echarts/chart/bar',
+            'echarts/chart/pie'
+        ],
+        function(ec) {
+            var ltChart = ec.init(document.getElementById('lt-chart'));
+            var rtChart = ec.init(document.getElementById('rt-chart'));
+
+            window.onresize = function() {
+                ltChart.resize();
+                rtChart.resize();
+            };
+
+            var optLTChart = {
+                title : {
+                    text: '用户'
+                },
+                tooltip: {
+                    show: true
+                },
+                legend: {
+                    data:['用户数量']
+                },
+                xAxis : [
+                    {
+                        type : 'category',
+                        data : ["客户","发型师","沙龙","商品"]
+                    }
+                ],
+                yAxis : [
+                    {
+                        type : 'value'
+                    }
+                ],
+                series : [
+                    {
+                        "name":"用户数量",
+                        "type":"bar",
+                        "data":[100, 40, 10, 60]
+                    }
+                ]
+            };
+            ltChart.setOption(optLTChart);
+
+            var optRTChart = {
+                title : {
+                    text: '预约&订单'
+                },
+                tooltip : {
+                    trigger: 'axis'
+                },
+                legend: {
+                    data:['订单','预约']
+                },
+                calculable : true,
+                xAxis : [
+                    {
+                        type : 'category',
+                        boundaryGap : false,
+                        data : ['周一','周二','周三','周四','周五','周六','周日']
+                    }
+                ],
+                yAxis : [
+                    {
+                        type : 'value',
+                        axisLabel : {
+                            formatter: '{value}'
+                        },
+                        splitArea : {show : true}
+                    }
+                ],
+                series : [
+                    {
+                        name:'订单',
+                        type:'line',
+                        itemStyle: {
+                            normal: {
+                                lineStyle: {
+                                    shadowColor : 'rgba(0,0,0,0.4)',
+                                    shadowBlur: 5,
+                                    shadowOffsetX: 3,
+                                    shadowOffsetY: 3
+                                }
+                            }
+                        },
+                        data:[1, 2, 10, 0, 5, 2, 6]
+                    },
+                    {
+                        name:'预约',
+                        type:'line',
+                        itemStyle: {
+                            normal: {
+                                lineStyle: {
+                                    shadowColor : 'rgba(0,0,0,0.4)',
+                                    shadowBlur: 5,
+                                    shadowOffsetX: 3,
+                                    shadowOffsetY: 3
+                                }
+                            }
+                        },
+                        data:[1, 7, 8, 10, 3, 2, 0]
+                    }
+                ]
+            };
+            rtChart.setOption(optRTChart);
+
+        }
+    );
+</script>
