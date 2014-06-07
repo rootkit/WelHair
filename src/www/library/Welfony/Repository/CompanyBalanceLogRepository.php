@@ -56,13 +56,14 @@ class CompanyBalanceLogRepository extends AbstractRepository
     public function getAllCompanyBalanceLogCountByCompany($companyId)
     {
         $strSql = "SELECT
-                       COUNT(1) `Total`
+                       COUNT(1) `Total`,
+                       SUM(Amount) `TotalAmount`
                    FROM CompanyBalanceLog
                    WHERE CompanyId = $companyId";
 
         $row = $this->conn->fetchAssoc($strSql);
 
-        return $row['Total'];
+        return array('total' => $row['Total'], 'totalamount' => $row['TotalAmount']);
     }
 
     public function listCompanyBalanceLogByCompany($companyId, $pageNumber, $pageSize)

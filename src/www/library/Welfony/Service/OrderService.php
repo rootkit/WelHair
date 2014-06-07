@@ -367,7 +367,7 @@ class OrderService
         }
     }
 
-     private static function composeOrderDetail($dataset)
+    private static function composeOrderDetail($dataset)
     {
         $result = array();
 

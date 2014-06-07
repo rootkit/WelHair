@@ -350,60 +350,58 @@ class Order_IndexController extends AbstractAdminController
         $this->_helper->layout->disableLayout();
 
         $currentUser = $this->getCurrentUser();
-        if( !$currentUser )
-        {
+        if (!$currentUser) {
             $this->_helper->json->sendJson(array('success' => false, 'message' => 'Need login' ));
             return;
         }
 
-        $orderId =  intval($this->_request->getParam('order_id')) ;
-        $orderNo =  $this->_request->getParam('order_no') ;
-        $payNote =  $this->_request->getParam('note') ;
-        if( floatval($this->_request->getParam('payamount')) > floatval($this->_request->getParam('orderamount')))
-        {
+        $orderId =  intval($this->_request->getParam('order_id'));
+        $orderNo =  $this->_request->getParam('order_no');
+        $payNote =  $this->_request->getParam('note');
+
+        if (floatval($this->_request->getParam('payamount')) > floatval($this->_request->getParam('orderamount'))) {
             $this->_helper->json->sendJson(array('success'=>false, 'message'=>'付款额大于订单总金额'));
             return;
         }
+
         $log= array(
-                'OrderId' => $orderId,
-                'User' => $currentUser["Username"],
-                'Action'=>'付款',
-                'AddTime'=>date('Y-m-d H:i:s'),
-                'Result'=> '成功',
-                'Note' => '订单【'.$orderNo.'】付款'.$this->_request->getParam('payamount')
+            'OrderId' => $orderId,
+            'User' => $currentUser["Username"],
+            'Action'=>'付款',
+            'AddTime'=>date('Y-m-d H:i:s'),
+            'Result'=> '成功',
+            'Note' => '订单【'.$orderNo.'】付款'. $this->_request->getParam('payamount') . '元'
         );
+
         $doc = array(
-                'OrderId' => $orderId,
-                'UserId' => $this->_request->getParam('userid'),
-                'Amount' =>  $this->_request->getParam('payamount'),
-                'CreateTime'=>date('Y-m-d H:i:s'),
-                'PaymentId'=> $this->_request->getParam('paymentid'),
-                'AdminId' => $currentUser["UserId"],
-                'PayStatus'=> 1,
-                'Note' => $payNote
+            'OrderId' => $orderId,
+            'UserId' => $this->_request->getParam('userid'),
+            'Amount' =>  $this->_request->getParam('payamount'),
+            'CreateTime'=>date('Y-m-d H:i:s'),
+            'PaymentId'=> $this->_request->getParam('paymentid'),
+            'AdminId' => $currentUser["UserId"],
+            'PayStatus'=> 1,
+            'Note' => $payNote
         );
 
         $userbalancelog = null;
         $companybalancelog = null;
         $paymentTransaction = null;
 
-
-        if( $this->_request->getParam('userid') )
-        {
+        if ($this->_request->getParam('userid')) {
             $user = UserService::getUserById($this->_request->getParam('userid'));
-            if( floatval($user['Balance']) > floatval($this->_request->getParam('payamount')))
-            {
+            if (floatval($user['Balance']) > floatval($this->_request->getParam('payamount'))) {
                 $userbalancelog = array(
-                        'OrderId' => $orderId,
-                        'UserId' => $this->_request->getParam('userid'),
-                        'Amount' => '-'.$this->_request->getParam('payamount'),
-                        'CreateTime'=>date('Y-m-d H:i:s'),
-                        'Status'=> 1,
-                        'Description' => '订单【'.$orderNo.'】付款'.$this->_request->getParam('payamount')
+                    'OrderId' => $orderId,
+                    'UserId' => $this->_request->getParam('userid'),
+                    'Amount' => -abs(floatval($this->_request->getParam('payamount'))),
+                    'IncomeSrc' => 1,
+                    'IncomeSrcId' => $orderNo,
+                    'CreateTime'=>date('Y-m-d H:i:s'),
+                    'Status'=> 1,
+                    'Description'=> sprintf('订单【%s】付款%.2f元', $orderNo, floatval($this->_request->getParam('payamount')))
                 );
-            }
-            else
-            {
+            } else {
                 $result = array('success' => false, 'message' => '余额不足！');
                 $this->_helper->json->sendJson($result);
                 return;
@@ -412,51 +410,30 @@ class Order_IndexController extends AbstractAdminController
 
         $ordergoods = OrderGoodsService::listAllOrderGoodsByOrder($orderId);
         $companyId = 0;
-        $goodsCompanyId = 0;
-        foreach($ordergoods as $goods)
-        {
-            if( $goods['CompanyId'])
-            {
+
+        foreach ($ordergoods as $goods) {
+            if (intval($goods['CompanyId']) > 0) {
                 $companyId = $goods['CompanyId'];
-                $goodsCompanyId = $goods['CompanyId'];
-            }
-            else
-            {
-                $goodsCompanyId = 0;
+            } else {
+                $companyId = 0;
             }
         }
 
-        if( $companyId && $goodsCompanyId)
-        {
-            $companybalancelog = array(
-                    'OrderId' => $orderId,
-                    'CompanyId' => $companyId,
-                    'Amount' => $this->_request->getParam('payamount'),
-                    'CreateTime'=>date('Y-m-d H:i:s'),
-                    'Status'=> 1,
-                    'Description' => '订单【'.$orderNo.'】付款'.$this->_request->getParam('payamount'),
-                    'IncomeSrc' =>1,
-                    'IncomeSrcId' =>$orderNo
-            );
-        }
-        else
-        {
-            $paymentTransaction =  array(
-                        'Amount' => $this->_request->getParam('payamount'),
-                        'IncomeSrc' => 1,
-                        'IncomeSrcId' => $orderNo,
-                        'CreatedDate'=> date('Y-m-d H:i:s'),
-                        'LastModifiedDate' =>date('Y-m-d H:i:s'),
-                        'Description' => '商品【'.$orderNo.'】付款'.$this->_request->getParam('payamount')
-                      );
-        }
-
+        $companybalancelog = array(
+            'OrderId' => $orderId,
+            'CompanyId' => $companyId,
+            'Amount' => abs(floatval($this->_request->getParam('payamount'))),
+            'CreateTime'=> date('Y-m-d H:i:s'),
+            'Status'=> 1,
+            'Description'=> sprintf('订单【%s】付款%.2f元', $orderNo, floatval($this->_request->getParam('payamount'))),
+            'IncomeSrc' => 1,
+            'IncomeSrcId' => $orderNo
+        );
 
         $order = array('Status'=> 2, 'PayStatus'=> 1);
 
         if ($this->_request->isPost()) {
-
-            $result = OrderService::payOrder($orderId, $order, $log, $doc, $userbalancelog, $companybalancelog, $paymentTransaction );
+            $result = OrderService::payOrder($orderId, $order, $log, $doc, $userbalancelog, $companybalancelog, $paymentTransaction);
             $this->_helper->json->sendJson($result);
         }
     }
@@ -533,9 +510,9 @@ class Order_IndexController extends AbstractAdminController
                 'OrderId' => $orderId,
                 'User' => $currentUser["Username"],
                 'Action'=>'退款',
-                'AddTime'=>date('Y-m-d H:i:s'),
+                'AddTime'=> date('Y-m-d H:i:s'),
                 'Result'=> '成功',
-                'Note' => '订单【'.$orderNo.'】退款'.$this->_request->getParam('refundamount')
+                'Note' => '订单【'.$orderNo.'】退款'.$this->_request->getParam('refundamount') . '元'
             );
         $doc = array(
                 'OrderId' => $orderId,
@@ -548,7 +525,7 @@ class Order_IndexController extends AbstractAdminController
                 'DisposeTime'=>date('Y-m-d H:i:s'),
                 'DisposeIdea' => '退款成功'
             );
-        
+
         $userbalancelog = null;
         $companybalancelog = null;
         $paymentTransaction = null;
@@ -558,58 +535,42 @@ class Order_IndexController extends AbstractAdminController
             $userbalancelog = array(
                 'OrderId' => $orderId,
                 'UserId' => $this->_request->getParam('userid'),
-                'Amount' => $this->_request->getParam('refundamount'),
+                'Amount' => abs(floatval($this->_request->getParam('refundamount'))),
+                'IncomeSrc' => 6,
+                'IncomeSrcId' => $orderNo,
                 'CreateTime'=>date('Y-m-d H:i:s'),
                 'Status'=> 1,
-                'Description' => '订单【'.$orderNo.'】退款'.$this->_request->getParam('refundamount')
+                'Description'=> sprintf('订单【%s】退款%.2f元', $orderNo, floatval($this->_request->getParam('refundamount')))
             );
         }
 
         $ordergoods = OrderGoodsService::listAllOrderGoodsByOrder($orderId);
         $companyId = 0;
-        $goodsCompanyId = 0;
         foreach($ordergoods as $goods)
         {
-            if( $goods['CompanyId'])
-            {
+            if (intval($goods['CompanyId']) > 0) {
                 $companyId = $goods['CompanyId'];
-                $goodsCompanyId = $goods['CompanyId'];
             }
             else
             {
-                $goodsCompanyId = 0;
+                $companyId = 0;
             }
         }
 
-        if( $companyId && $goodsCompanyId)
-        {
-            $companybalancelog = array(
-                    'OrderId' => $orderId,
-                    'CompanyId' => $companyId,
-                    'Amount' => '-'.$this->_request->getParam('refundamount'),
-                    'CreateTime'=>date('Y-m-d H:i:s'),
-                    'Status'=> 1,
-                    'Description' => '订单【'.$orderNo.'】退款'.$this->_request->getParam('refundamount'),
-                    'IncomeSrc' =>1,
-                    'IncomeSrcId' =>$orderNo
-            );
-        }
-        else
-        {
-            $paymentTransaction =  array(
-                        'Amount' => '-'.$this->_request->getParam('refundamount'),
-                        'IncomeSrc' => 1,
-                        'IncomeSrcId' => $orderNo,
-                        'CreatedDate'=> date('Y-m-d H:i:s'),
-                        'LastModifiedDate' =>date('Y-m-d H:i:s'),
-                        'Description' => '商品【'.$orderNo.'】退款'.'-'.$this->_request->getParam('refundamount')
-                      );
-        }
+        $companybalancelog = array(
+            'OrderId' => $orderId,
+            'CompanyId' => $companyId,
+            'Amount' => -abs(floatval($this->_request->getParam('refundamount'))),
+            'CreateTime'=>date('Y-m-d H:i:s'),
+            'Status'=> 1,
+            'Description'=> sprintf('订单【%s】退款%.2f元', $orderNo, floatval($this->_request->getParam('refundamount'))),
+            'IncomeSrc' => 6,
+            'IncomeSrcId' => $orderNo
+        );
 
         $order = array('Status'=> 5, 'PayStatus'=> 2);
 
         if ($this->_request->isPost()) {
-
             $result = OrderService::refundOrder($orderId, $order, $log, $doc, $userbalancelog, $companybalancelog, $paymentTransaction );
             $this->_helper->json->sendJson($result);
         }

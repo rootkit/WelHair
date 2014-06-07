@@ -1368,6 +1368,23 @@ DELIMITER ;
 CALL sp_update_table_data();
 DROP PROCEDURE IF EXISTS `sp_update_table_data`;
 
+DELIMITER ;;
+CREATE PROCEDURE `sp_update_table_data`()
+BEGIN
+  IF NOT EXISTS(
+    SELECT 6
+    FROM `IncomeSrc`
+    WHERE `Name` = '商品退款' AND `IncomeSrcId` = 6
+  ) THEN
+    INSERT INTO `IncomeSrc` (`IncomeSrcId`, `Name`, `Description`)
+    VALUES (6, '商品退款', '商品退款');
+  END IF;
+END;;
+
+DELIMITER ;
+CALL sp_update_table_data();
+DROP PROCEDURE IF EXISTS `sp_update_table_data`;
+
 
 -- ==============================================================================
 -- Add IncomeSrc to PaymentTransaction table

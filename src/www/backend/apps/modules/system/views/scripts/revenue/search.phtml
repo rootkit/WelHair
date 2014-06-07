@@ -5,8 +5,8 @@ use Welfony\Utility\Util;
 <table class="m-table">
     <thead>
         <tr>
-            <th class="col-chk"><input id="chk_all" type="checkbox" /></th>
-            <th>数量</th>
+            <th>类别</th>
+            <th>金额</th>
             <th>时间</th>
             <th>描述</th>
         </tr>
@@ -14,12 +14,17 @@ use Welfony\Utility\Util;
     <tbody>
         <?php if (count($this->dataList) > 0): ?>
         <?php foreach ($this->dataList as $data): ?>
-        <tr>
-            <td class="col-center"><input name="chk_ids[]" value="<?php echo $data['PaymentTransactionId']; ?>" type="checkbox" /></td>
+            <td>
+                <?php if ($data['IncomeSrc'] == 1 || $data['IncomeSrc'] == 6): ?>
+                商品
+                <?php endif; ?>
+                <?php if ($data['IncomeSrc'] == 2 || $data['IncomeSrc'] == 5): ?>
+                预约
+                <?php endif; ?>
+            </td>
             <td><?php echo $data['Amount']; ?></td>
-            <td><?php echo $data['CreatedDate']; ?></td>
+            <td><?php echo $data['CreateTime']; ?></td>
             <td><?php echo $data['Description']; ?></td>
-            
         </tr>
         <?php endforeach; ?>
         <?php else: ?>

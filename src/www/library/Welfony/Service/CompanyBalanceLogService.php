@@ -49,10 +49,12 @@ class CompanyBalanceLogService
     {
         $result = array(
             'companybalancelogs' => array(),
+            'totalamount' => 0,
             'total' => 0
         );
 
-        $totalCount = CompanyBalanceLogRepository::getInstance()->getAllCompanyBalanceLogCountByCompany($companyId);
+        $total = CompanyBalanceLogRepository::getInstance()->getAllCompanyBalanceLogCountByCompany($companyId);
+        $totalCount = $total['total'];
 
         if ($totalCount > 0 && $pageNumber <= ceil($totalCount / $pageSize)) {
 
@@ -61,7 +63,8 @@ class CompanyBalanceLogService
             $result['companybalancelogs']= $searchResult;
         }
 
-        $result['total'] = $totalCount;
+        $result['total'] = $total['total'];
+        $result['totalamount'] = $total['totalamount'];
 
         return $result;
     }
