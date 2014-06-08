@@ -17,6 +17,7 @@
 
 @property (nonatomic) BOOL isTop;
 @property (nonatomic) BOOL isBottom;
+@property (nonatomic) BOOL isSingle;
 
 @property (nonatomic, strong) CircleImageView *imgView;
 @property (nonatomic, strong) UILabel *nameLbl;
@@ -36,12 +37,12 @@
         self.linerView.backgroundColor = [UIColor colorWithHexString:APP_BASE_COLOR];
         [self addSubview:self.linerView];
         
-        float iconSize = 20;
-        float cellHeight = 100;
-        self.imgView = [[CircleImageView alloc] initWithFrame: CGRectMake(30, (cellHeight - iconSize) / 2, iconSize, iconSize)];
+        float iconSize = 10;
+        float cellHeight = 80;
+        self.imgView = [[CircleImageView alloc] initWithFrame: CGRectMake(20, (cellHeight - iconSize) / 2, iconSize, iconSize)];
         [self addSubview:self.imgView];
         
-        self.nameLbl = [[UILabel alloc] initWithFrame:CGRectMake(MaxX(self.imgView) + 5,
+        self.nameLbl = [[UILabel alloc] initWithFrame:CGRectMake(MaxX(self.imgView) + 20,
                                                                  0,
                                                                  170,
                                                                  cellHeight)];
@@ -52,7 +53,7 @@
         [self addSubview:self.nameLbl];
         
         self.scoreLbl = [[UILabel alloc] initWithFrame:CGRectMake(MaxX(self.nameLbl) + 5,
-                                                                    20,
+                                                                    10,
                                                                     80,
                                                                     30)];
         self.scoreLbl.font = [UIFont systemFontOfSize:14];
@@ -89,37 +90,41 @@
         self.imgView.layer.borderColor = [[UIColor colorWithHexString:APP_BASE_COLOR] CGColor];
         self.imgView.layer.borderWidth = 2;
         self.imgView.backgroundColor = [UIColor whiteColor];
-        self.linerView.frame =CGRectMake(37,
+        self.linerView.frame =CGRectMake(23,
                                          HEIGHT(self)/2,
-                                         6,
+                                         4,
                                          HEIGHT(self)/2);
     } else if(self.isBottom) {
         self.imgView.layer.borderColor = [[UIColor colorWithHexString:APP_BASE_COLOR] CGColor];
         self.imgView.layer.borderWidth = 10;
-        self.linerView.frame =CGRectMake(37,
+        self.linerView.frame =CGRectMake(23,
                                          0,
-                                         6,
+                                         4,
                                          HEIGHT(self)/2);
     } else {
         self.imgView.layer.borderColor = [[UIColor colorWithHexString:APP_BASE_COLOR] CGColor];
         self.imgView.layer.borderWidth = 10;
-        self.linerView.frame =CGRectMake(37,
+        self.linerView.frame =CGRectMake(23,
                                          0,
-                                         6,
+                                         4,
                                          HEIGHT(self));
     }
+    
+    self.linerView.hidden = self.isSingle;
 }
 
 - (void)setup:(NSDictionary *)data
         isTop:(BOOL)isTop
      isBottom:(BOOL)isBottom
+     isSingle:(BOOL)isSingle
 {
     self.nameLbl.text = [data objectForKey:@"Description"];
-    self.scoreLbl.text = [data objectForKey:@"Value"];
+    self.scoreLbl.text = [NSString stringWithFormat:@"+ %@",[data objectForKey:@"Value"]];
     self.dateLbl.text = [[data objectForKey:@"CreatedDate"] componentsSeparatedByString:@" "][0];
-
+    
     self.isTop = isTop;
     self.isBottom = isBottom;
+    self.isSingle = isSingle;
 }
 
 

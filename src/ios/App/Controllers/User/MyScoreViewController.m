@@ -146,7 +146,7 @@
 
 - (float) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 100;
+    return 80;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -164,7 +164,10 @@
     }
 
     cell.contentView.backgroundColor = indexPath.row % 2 == 0 ?  [UIColor colorWithHexString:APP_CONTENT_BG_COLOR] : [UIColor whiteColor];
-    [cell setup:[self.datasource objectAtIndex:indexPath.row] isTop:indexPath.row == 0 isBottom:indexPath.row == self.datasource.count -1];
+    [cell setup:[self.datasource objectAtIndex:indexPath.row]
+          isTop:indexPath.row == 0
+       isBottom:indexPath.row == self.datasource.count -1
+       isSingle:self.datasource.count ==1];
 
     return cell;
 }

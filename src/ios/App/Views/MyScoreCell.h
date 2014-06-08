@@ -12,8 +12,9 @@
 
 @interface MyScoreCell : UITableViewCell
 
-- (void)setup:(NSDictionary  *)data
+- (void)setup:(NSDictionary *)data
         isTop:(BOOL)isTop
-     isBottom:(BOOL)isBottom;
+     isBottom:(BOOL)isBottom
+     isSingle:(BOOL)isSingle;
 
 @end
