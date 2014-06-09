@@ -172,9 +172,7 @@
 		461B0C5A18DC3BD700E0DAF5 /* RootBottomTab4Selected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 461B0C1E18DC3BD700E0DAF5 /* RootBottomTab4Selected@2x.png */; };
 		461B0C5B18DC3BD700E0DAF5 /* RootBottomTab5@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 461B0C1F18DC3BD700E0DAF5 /* RootBottomTab5@2x.png */; };
 		461B0C5C18DC3BD700E0DAF5 /* RootBottomTab5Selected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 461B0C2018DC3BD700E0DAF5 /* RootBottomTab5Selected@2x.png */; };
-		461B0C5E18DC3BD700E0DAF5 /* AppointmentPreviewViewController_Bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 461B0C2418DC3BD700E0DAF5 /* AppointmentPreviewViewController_Bg@2x.png */; };
 		461B0C5F18DC3BD700E0DAF5 /* CouponDetailViewControl_Coupon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 461B0C2618DC3BD700E0DAF5 /* CouponDetailViewControl_Coupon@2x.png */; };
-		461B0C6418DC3BD700E0DAF5 /* GroupManageViewController_Bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 461B0C3018DC3BD700E0DAF5 /* GroupManageViewController_Bg@2x.png */; };
 		461B0C6518DC3BD700E0DAF5 /* MyGroupViewControl_ButtonBg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 461B0C3118DC3BD700E0DAF5 /* MyGroupViewControl_ButtonBg@2x.png */; };
 		461B0C6618DC3BD700E0DAF5 /* StaffManageViewControl_Bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 461B0C3318DC3BD700E0DAF5 /* StaffManageViewControl_Bg@2x.png */; };
 		461B0C6718DC3BD700E0DAF5 /* UploadWorkViewControl_FaceStyleCircleNormal@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 461B0C3518DC3BD700E0DAF5 /* UploadWorkViewControl_FaceStyleCircleNormal@2x.png */; };
@@ -197,13 +195,10 @@
 		4631CEF218E315A800F39814 /* ProductOpitionPanel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4631CEF118E315A800F39814 /* ProductOpitionPanel.m */; };
 		4631CEF518E319F600F39814 /* CountDownBtn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4631CEF318E319F600F39814 /* CountDownBtn@2x.png */; };
 		4631CEF618E319F600F39814 /* CountUpBtn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4631CEF418E319F600F39814 /* CountUpBtn@2x.png */; };
-		4631CEFC18E31F4C00F39814 /* OrderPreviewViewController_AddressBtn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4631CEFA18E31F4C00F39814 /* OrderPreviewViewController_AddressBtn@2x.png */; };
 		4631CEFD18E31F4C00F39814 /* OrderPreviewViewController_AddressTempBtn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4631CEFB18E31F4C00F39814 /* OrderPreviewViewController_AddressTempBtn@2x.png */; };
 		4631CF0418E3209900F39814 /* AddressListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4631CF0318E3209900F39814 /* AddressListViewController.m */; };
 		4631CF0718E320B400F39814 /* AddAddressViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4631CF0618E320B400F39814 /* AddAddressViewController.m */; };
-		4631CF0A18E321A900F39814 /* AddressListViewControl_TempBg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4631CF0918E321A900F39814 /* AddressListViewControl_TempBg@2x.png */; };
 		4631CF0D18E325C300F39814 /* OrderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4631CF0C18E325C300F39814 /* OrderCell.m */; };
-		4631CF0F18E3264600F39814 /* OrderListViewControl_CellBg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4631CF0E18E3264600F39814 /* OrderListViewControl_CellBg@2x.png */; };
 		4631CF1B18E3284C00F39814 /* AppointmentPreviewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4631CF1218E3284C00F39814 /* AppointmentPreviewViewController.m */; };
 		4631CF1C18E3284C00F39814 /* OrderDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4631CF1418E3284C00F39814 /* OrderDetailViewController.m */; };
 		4631CF1D18E3284C00F39814 /* OrderListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4631CF1618E3284C00F39814 /* OrderListViewController.m */; };
@@ -264,7 +259,6 @@
 		466DF41318FC111300CB8A53 /* libSocialWechat.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 466DF40018FC111300CB8A53 /* libSocialWechat.a */; };
 		466DF41418FC111300CB8A53 /* libWeChatSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 466DF40118FC111300CB8A53 /* libWeChatSDK.a */; };
 		466DF41818FD572500CB8A53 /* GCPlaceholderTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 466DF41718FD572500CB8A53 /* GCPlaceholderTextView.m */; };
-		466DF41A18FD6B0200CB8A53 /* GroupManageViewController_Bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 466DF41918FD6B0200CB8A53 /* GroupManageViewController_Bg.png */; };
 		466DF41D18FD6C7600CB8A53 /* ApprovalCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 466DF41C18FD6C7600CB8A53 /* ApprovalCell.m */; };
 		466DF42018FD73B600CB8A53 /* GroupRevenuCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 466DF41F18FD73B600CB8A53 /* GroupRevenuCell.m */; };
 		466DF42618FD7F6B00CB8A53 /* MyGroupDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 466DF42518FD7F6B00CB8A53 /* MyGroupDetailViewController.m */; };
@@ -356,7 +350,6 @@
 		46DB8CDD191F29E900B3AB40 /* MyStaffViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 46DB8CDC191F29E900B3AB40 /* MyStaffViewController.m */; };
 		46DB8CE8191F949700B3AB40 /* MyClientViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 46DB8CE7191F949700B3AB40 /* MyClientViewController.m */; };
 		46DB8CEC192100C900B3AB40 /* JSBadgeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 46DB8CEB192100C900B3AB40 /* JSBadgeView.m */; };
-		46DB8EDD1922535B00B3AB40 /* AppointmentRecordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 46DB8EDC1922535B00B3AB40 /* AppointmentRecordViewController.m */; };
 		46DB8EE319230A1700B3AB40 /* UserHairRecordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 46DB8EE219230A1700B3AB40 /* UserHairRecordViewController.m */; };
 		46DFBEA21928B72E00CFA6B5 /* WithdrawViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 46DFBEA11928B72E00CFA6B5 /* WithdrawViewController.m */; };
 		46DFBEA51928B88D00CFA6B5 /* AddWithdrawViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 46DFBEA41928B88D00CFA6B5 /* AddWithdrawViewController.m */; };
@@ -378,7 +371,6 @@
 		46EAF98A18D18D0D00D4C624 /* CityListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 46EAF98818D18D0D00D4C624 /* CityListViewController.m */; };
 		46F5865E18E1BB2B00F9BF51 /* GroupStaffCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 46F5865D18E1BB2B00F9BF51 /* GroupStaffCell.m */; };
 		46F5866118E1BF2C00F9BF51 /* StaffCellI_WorkIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 46F5866018E1BF2C00F9BF51 /* StaffCellI_WorkIcon@2x.png */; };
-		46F5866418E1C47100F9BF51 /* ProductDetailViewControl_TempBg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 46F5866318E1C47100F9BF51 /* ProductDetailViewControl_TempBg@2x.png */; };
 		8D253C7C0D2C41EC8279DF3F /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0DEE8FDE44A64A6986F93371 /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -612,9 +604,7 @@
 		461B0C1E18DC3BD700E0DAF5 /* RootBottomTab4Selected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "RootBottomTab4Selected@2x.png"; sourceTree = "<group>"; };
 		461B0C1F18DC3BD700E0DAF5 /* RootBottomTab5@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "RootBottomTab5@2x.png"; sourceTree = "<group>"; };
 		461B0C2018DC3BD700E0DAF5 /* RootBottomTab5Selected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "RootBottomTab5Selected@2x.png"; sourceTree = "<group>"; };
-		461B0C2418DC3BD700E0DAF5 /* AppointmentPreviewViewController_Bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "AppointmentPreviewViewController_Bg@2x.png"; sourceTree = "<group>"; };
 		461B0C2618DC3BD700E0DAF5 /* CouponDetailViewControl_Coupon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "CouponDetailViewControl_Coupon@2x.png"; sourceTree = "<group>"; };
-		461B0C3018DC3BD700E0DAF5 /* GroupManageViewController_Bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "GroupManageViewController_Bg@2x.png"; sourceTree = "<group>"; };
 		461B0C3118DC3BD700E0DAF5 /* MyGroupViewControl_ButtonBg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "MyGroupViewControl_ButtonBg@2x.png"; sourceTree = "<group>"; };
 		461B0C3318DC3BD700E0DAF5 /* StaffManageViewControl_Bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "StaffManageViewControl_Bg@2x.png"; sourceTree = "<group>"; };
 		461B0C3518DC3BD700E0DAF5 /* UploadWorkViewControl_FaceStyleCircleNormal@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "UploadWorkViewControl_FaceStyleCircleNormal@2x.png"; sourceTree = "<group>"; };
@@ -643,16 +633,13 @@
 		4631CEF118E315A800F39814 /* ProductOpitionPanel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProductOpitionPanel.m; sourceTree = "<group>"; };
 		4631CEF318E319F600F39814 /* CountDownBtn@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "CountDownBtn@2x.png"; sourceTree = "<group>"; };
 		4631CEF418E319F600F39814 /* CountUpBtn@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "CountUpBtn@2x.png"; sourceTree = "<group>"; };
-		4631CEFA18E31F4C00F39814 /* OrderPreviewViewController_AddressBtn@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "OrderPreviewViewController_AddressBtn@2x.png"; sourceTree = "<group>"; };
 		4631CEFB18E31F4C00F39814 /* OrderPreviewViewController_AddressTempBtn@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "OrderPreviewViewController_AddressTempBtn@2x.png"; sourceTree = "<group>"; };
 		4631CF0218E3209900F39814 /* AddressListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddressListViewController.h; sourceTree = "<group>"; };
 		4631CF0318E3209900F39814 /* AddressListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddressListViewController.m; sourceTree = "<group>"; };
 		4631CF0518E320B400F39814 /* AddAddressViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddAddressViewController.h; sourceTree = "<group>"; };
 		4631CF0618E320B400F39814 /* AddAddressViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddAddressViewController.m; sourceTree = "<group>"; };
-		4631CF0918E321A900F39814 /* AddressListViewControl_TempBg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "AddressListViewControl_TempBg@2x.png"; sourceTree = "<group>"; };
 		4631CF0B18E325C300F39814 /* OrderCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderCell.h; sourceTree = "<group>"; };
 		4631CF0C18E325C300F39814 /* OrderCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderCell.m; sourceTree = "<group>"; };
-		4631CF0E18E3264600F39814 /* OrderListViewControl_CellBg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "OrderListViewControl_CellBg@2x.png"; sourceTree = "<group>"; };
 		4631CF1118E3284C00F39814 /* AppointmentPreviewViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppointmentPreviewViewController.h; sourceTree = "<group>"; };
 		4631CF1218E3284C00F39814 /* AppointmentPreviewViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppointmentPreviewViewController.m; sourceTree = "<group>"; };
 		4631CF1318E3284C00F39814 /* OrderDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderDetailViewController.h; sourceTree = "<group>"; };
@@ -842,7 +829,6 @@
 		466DF40418FC111300CB8A53 /* WXApiObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApiObject.h; sourceTree = "<group>"; };
 		466DF41618FD572500CB8A53 /* GCPlaceholderTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GCPlaceholderTextView.h; sourceTree = "<group>"; };
 		466DF41718FD572500CB8A53 /* GCPlaceholderTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GCPlaceholderTextView.m; sourceTree = "<group>"; };
-		466DF41918FD6B0200CB8A53 /* GroupManageViewController_Bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = GroupManageViewController_Bg.png; sourceTree = "<group>"; };
 		466DF41B18FD6C7600CB8A53 /* ApprovalCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ApprovalCell.h; sourceTree = "<group>"; };
 		466DF41C18FD6C7600CB8A53 /* ApprovalCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ApprovalCell.m; sourceTree = "<group>"; };
 		466DF41E18FD73B600CB8A53 /* GroupRevenuCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroupRevenuCell.h; sourceTree = "<group>"; };
@@ -1001,8 +987,6 @@
 		46DB8CE7191F949700B3AB40 /* MyClientViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyClientViewController.m; sourceTree = "<group>"; };
 		46DB8CEA192100C900B3AB40 /* JSBadgeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSBadgeView.h; sourceTree = "<group>"; };
 		46DB8CEB192100C900B3AB40 /* JSBadgeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSBadgeView.m; sourceTree = "<group>"; };
-		46DB8EDB1922535B00B3AB40 /* AppointmentRecordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppointmentRecordViewController.h; sourceTree = "<group>"; };
-		46DB8EDC1922535B00B3AB40 /* AppointmentRecordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppointmentRecordViewController.m; sourceTree = "<group>"; };
 		46DB8EE119230A1700B3AB40 /* UserHairRecordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserHairRecordViewController.h; sourceTree = "<group>"; };
 		46DB8EE219230A1700B3AB40 /* UserHairRecordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserHairRecordViewController.m; sourceTree = "<group>"; };
 		46DFBEA01928B72E00CFA6B5 /* WithdrawViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WithdrawViewController.h; sourceTree = "<group>"; };
@@ -1042,7 +1026,6 @@
 		46F5865C18E1BB2B00F9BF51 /* GroupStaffCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroupStaffCell.h; sourceTree = "<group>"; };
 		46F5865D18E1BB2B00F9BF51 /* GroupStaffCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GroupStaffCell.m; sourceTree = "<group>"; };
 		46F5866018E1BF2C00F9BF51 /* StaffCellI_WorkIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "StaffCellI_WorkIcon@2x.png"; sourceTree = "<group>"; };
-		46F5866318E1C47100F9BF51 /* ProductDetailViewControl_TempBg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ProductDetailViewControl_TempBg@2x.png"; sourceTree = "<group>"; };
 		DB57361E9AB145E7AB30BD59 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = ../../Pods/Pods.xcconfig; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -1621,7 +1604,6 @@
 				461B0C2518DC3BD700E0DAF5 /* CouponDetailViewControl */,
 				461B0C2718DC3BD700E0DAF5 /* GroupDetailViewControl */,
 				4631CEF718E31D0F00F39814 /* OrderPreviewViewController */,
-				46F5866218E1C47100F9BF51 /* ProductDetailViewControl */,
 				461B0C2A18DC3BD700E0DAF5 /* StaffDetailViewControl */,
 				461B0C2D18DC3BD700E0DAF5 /* UserViewControl */,
 				461B0C3F18DC3BD700E0DAF5 /* WorkDetail */,
@@ -1633,7 +1615,6 @@
 		461B0C2318DC3BD700E0DAF5 /* AppointmentPreviewViewController */ = {
 			isa = PBXGroup;
 			children = (
-				461B0C2418DC3BD700E0DAF5 /* AppointmentPreviewViewController_Bg@2x.png */,
 			);
 			path = AppointmentPreviewViewController;
 			sourceTree = "<group>";
@@ -1675,19 +1656,9 @@
 		461B0C2E18DC3BD700E0DAF5 /* MyGroupViewControl */ = {
 			isa = PBXGroup;
 			children = (
-				461B0C2F18DC3BD700E0DAF5 /* GroupManageViewController */,
 				461B0C3118DC3BD700E0DAF5 /* MyGroupViewControl_ButtonBg@2x.png */,
 			);
 			path = MyGroupViewControl;
-			sourceTree = "<group>";
-		};
-		461B0C2F18DC3BD700E0DAF5 /* GroupManageViewController */ = {
-			isa = PBXGroup;
-			children = (
-				466DF41918FD6B0200CB8A53 /* GroupManageViewController_Bg.png */,
-				461B0C3018DC3BD700E0DAF5 /* GroupManageViewController_Bg@2x.png */,
-			);
-			path = GroupManageViewController;
 			sourceTree = "<group>";
 		};
 		461B0C3218DC3BD700E0DAF5 /* StaffManageViewControl */ = {
@@ -1739,7 +1710,6 @@
 				46AD849618EFC901005B2C3C /* OrderPreviewViewController_Bg.png */,
 				46AD849718EFC901005B2C3C /* OrderPreviewViewController_Bg@2x.png */,
 				46AD849818EFC901005B2C3C /* OrderPreviewViewController_BgBar.png */,
-				4631CEFA18E31F4C00F39814 /* OrderPreviewViewController_AddressBtn@2x.png */,
 				4631CEFB18E31F4C00F39814 /* OrderPreviewViewController_AddressTempBtn@2x.png */,
 			);
 			path = OrderPreviewViewController;
@@ -1759,7 +1729,6 @@
 		4631CF0818E321A900F39814 /* AddressListViewControl */ = {
 			isa = PBXGroup;
 			children = (
-				4631CF0918E321A900F39814 /* AddressListViewControl_TempBg@2x.png */,
 			);
 			path = AddressListViewControl;
 			sourceTree = "<group>";
@@ -1955,8 +1924,6 @@
 				46BDF12E18D1515A00999F50 /* Group */,
 				4631CF1018E3284C00F39814 /* Order */,
 				46BDF13618D1771E00999F50 /* Staff */,
-				46DB8EDB1922535B00B3AB40 /* AppointmentRecordViewController.h */,
-				46DB8EDC1922535B00B3AB40 /* AppointmentRecordViewController.m */,
 				4673BB5F18D2ED4D000F64DE /* AppointmentsViewController.h */,
 				4673BB6018D2ED4D000F64DE /* AppointmentsViewController.m */,
 				467F0EFB18CB5A8C009FFE08 /* FavoritesViewController.h */,
@@ -2483,18 +2450,9 @@
 			isa = PBXGroup;
 			children = (
 				18C20BE118F7E22100870F38 /* DateFlagBackground@2x.png */,
-				4631CF0E18E3264600F39814 /* OrderListViewControl_CellBg@2x.png */,
 				46F5866018E1BF2C00F9BF51 /* StaffCellI_WorkIcon@2x.png */,
 			);
 			path = Cell;
-			sourceTree = "<group>";
-		};
-		46F5866218E1C47100F9BF51 /* ProductDetailViewControl */ = {
-			isa = PBXGroup;
-			children = (
-				46F5866318E1C47100F9BF51 /* ProductDetailViewControl_TempBg@2x.png */,
-			);
-			path = ProductDetailViewControl;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -2646,30 +2604,24 @@
 				184B82EC18DAC7F000177BAB /* input-bar-flat.png in Resources */,
 				4659D28418E7E8E2005648C0 /* AddressUnSelectedBtn@2x.png in Resources */,
 				184B82CE18DAC7F000177BAB /* bubble-default-incoming-selected.png in Resources */,
-				4631CEFC18E31F4C00F39814 /* OrderPreviewViewController_AddressBtn@2x.png in Resources */,
 				184B82DB18DAC7F000177BAB /* bubble-flat-incoming@2x.png in Resources */,
 				461B0C5218DC3BD700E0DAF5 /* RootBottomTab1.png in Resources */,
 				466DF40818FC111300CB8A53 /* UMSCommentInputController.xib in Resources */,
 				184B82E518DAC7F000177BAB /* bubble-square-incoming@2x.png in Resources */,
 				46AD849518EFB142005B2C3C /* StaffDetailViewControl_Memo.png in Resources */,
 				46AD849418EFB142005B2C3C /* StaffDetailViewControl_Memo@2x.png in Resources */,
-				46F5866418E1C47100F9BF51 /* ProductDetailViewControl_TempBg@2x.png in Resources */,
 				184B82CD18DAC7F000177BAB /* bubble-default-incoming-green@2x.png in Resources */,
 				184B82D318DAC7F000177BAB /* bubble-default-outgoing-green@2x.png in Resources */,
 				4659D27218E7D79B005648C0 /* mapapi.bundle in Resources */,
-				4631CF0A18E321A900F39814 /* AddressListViewControl_TempBg@2x.png in Resources */,
-				4631CF0F18E3264600F39814 /* OrderListViewControl_CellBg@2x.png in Resources */,
 				461B0C5818DC3BD700E0DAF5 /* RootBottomTab3Selected@2x.png in Resources */,
 				46BCD25218BC3B4F005C4BD6 /* SVProgressHUD.bundle in Resources */,
 				18502DAB18F93ED600CD4A0A /* AvatarDefault@2x.jpg in Resources */,
 				184B82DD18DAC7F000177BAB /* bubble-flat-outgoing-old@2x.png in Resources */,
 				184B82E718DAC7F000177BAB /* bubble-square-outgoing-selected@2x.png in Resources */,
-				461B0C5E18DC3BD700E0DAF5 /* AppointmentPreviewViewController_Bg@2x.png in Resources */,
 				184B82F318DAC7F000177BAB /* PhotoIcon@2x.png in Resources */,
 				18A912A518BB249A006B9A04 /* InfoPlist.strings in Resources */,
 				461B0C6C18DC3BD700E0DAF5 /* UploadWorkViewControl_FaceStyleLongSelected@2x.png in Resources */,
 				183B03DE18E1110500765116 /* groupedTableViewCell_middleRow@2x.png in Resources */,
-				461B0C6418DC3BD700E0DAF5 /* GroupManageViewController_Bg@2x.png in Resources */,
 				46F5866118E1BF2C00F9BF51 /* StaffCellI_WorkIcon@2x.png in Resources */,
 				184B82DA18DAC7F000177BAB /* bubble-flat-incoming.png in Resources */,
 				184B82F718DAC7F000177BAB /* send@2x.png in Resources */,
@@ -2678,7 +2630,6 @@
 				1825E1CC18E183B70052AA9A /* Juchi@2x.png in Resources */,
 				466DF40E18FC111300CB8A53 /* UMSShareListController.xib in Resources */,
 				462BE8D71917C49300D78D39 /* RateHand.png in Resources */,
-				466DF41A18FD6B0200CB8A53 /* GroupManageViewController_Bg.png in Resources */,
 				184B82DE18DAC7F000177BAB /* bubble-flat-outgoing-selected.png in Resources */,
 				184B82EF18DAC7F000177BAB /* input-bar@2x.png in Resources */,
 				183B03E318E1110500765116 /* groupedTableViewCell_topRow_highlighted@2x.png in Resources */,
@@ -2898,7 +2849,6 @@
 				46E84EDD18C338370004C146 /* OpitionCategory.m in Sources */,
 				187638D31910BC2B00846BB9 /* MyClientDetailViewController.m in Sources */,
 				467F0EFD18CB5A8C009FFE08 /* FavoritesViewController.m in Sources */,
-				46DB8EDD1922535B00B3AB40 /* AppointmentRecordViewController.m in Sources */,
 				4673BB9C18D41BBB000F64DE /* ApprovalViewController.m in Sources */,
 				464BF44C18D56F0F006EBCD9 /* StaffAddServiceViewController.m in Sources */,
 				4673BBA218D41EE9000F64DE /* StaffManageViewController.m in Sources */,

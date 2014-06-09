@@ -33,6 +33,7 @@ class GoodsService
 
         $goods = array();
         foreach ($goodsList as $g) {
+            $g['PictureUrl'] = !json_decode($g['Img'], true) ? (!$g['Img'] ? array() : array($g['Img'])) : json_decode($g['Img'], true);
             $g['PictureUrl'] = array($g['Img']);
             unset($g['Img']);
 
@@ -45,7 +46,7 @@ class GoodsService
     public static function getGoodsDetail($goodsId, $companyId, $currentUserId = 0, $location = null)
     {
         $goods = GoodsRepository::getInstance()->findGoodsDetailById($goodsId, $currentUserId);
-        $goods['PictureUrl'] = !$goods['Img'] ? array() : array($goods['Img']);
+        $goods['PictureUrl'] = !json_decode($goods['Img'], true) ? (!$goods['Img'] ? array() : array($goods['Img'])) : json_decode($goods['Img'], true);
         unset($goods['Img']);
 
         $hasCompany = false;
@@ -80,13 +81,13 @@ class GoodsService
         $goods['Attributes'] = array();
         $goods['Spec'] = array();
         foreach ($attributeSet as $attr) {
-            if ($attr['AttributeId'] > 0) {
+            if ($attr['AttributeId'] > 0 && !empty($attr['Title'])) {
                 $goods['Attributes'][] = array (
                     'Title' => $attr['Title'],
                     'Value' => $attr['AttributeValue']
                 );
             }
-            if ($attr['SpecId'] > 0) {
+            if ($attr['SpecId'] > 0 && !empty($attr['Title'])) {
                 $specIndex = Util::keyValueExistedInArray($goods['Spec'], 'SpecId', $attr['SpecId']);
                 if ($specIndex === false) {
                     $spec = array(
@@ -135,7 +136,7 @@ class GoodsService
 
         $goods = array();
         foreach ($goodsList as $g) {
-            $g['PictureUrl'] = array($g['Img']);
+            $g['PictureUrl'] = !json_decode($g['Img'], true) ? (!$g['Img'] ? array() : array($g['Img'])) : json_decode($g['Img'], true);
             unset($g['Img']);
 
             $goods[] = $g;
@@ -154,7 +155,7 @@ class GoodsService
 
         $goods = array();
         foreach ($goodsList as $g) {
-            $g['PictureUrl'] = json_decode($g['Img']);
+            $g['PictureUrl'] = !json_decode($g['Img'], true) ? (!$g['Img'] ? array() : array($g['Img'])) : json_decode($g['Img'], true);
             unset($g['Img']);
 
             if (intval($g['CompanyId'] > 0)) {
@@ -205,6 +206,7 @@ class GoodsService
             $goodsList = GoodsRepository::getInstance()->listGoods( $pageNumber, $pageSize);
             $goods = array();
             foreach ($goodsList as $g) {
+            $g['PictureUrl'] = !json_decode($g['Img'], true) ? (!$g['Img'] ? array() : array($g['Img'])) : json_decode($g['Img'], true);
                 $g['PictureUrl'] = json_decode($g['Img']);
                 unset($g['Img']);
                 $goods[] = $g;
@@ -235,6 +237,7 @@ class GoodsService
 
             $goods = array();
             foreach ($goodsList as $g) {
+            $g['PictureUrl'] = !json_decode($g['Img'], true) ? (!$g['Img'] ? array() : array($g['Img'])) : json_decode($g['Img'], true);
                 $g['PictureUrl'] = json_decode($g['Img']);
                 unset($g['Img']);
                 $goods[] = $g;

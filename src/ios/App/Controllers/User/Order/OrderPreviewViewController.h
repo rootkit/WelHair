@@ -10,8 +10,10 @@
 //
 // ==============================================================================
 
-#import "BaseViewController.h"
 #import "Order.h"
+
 @interface OrderPreviewViewController : BaseViewController
+
 @property (nonatomic, strong) Order *order;
+
 @end

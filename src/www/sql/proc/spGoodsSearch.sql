@@ -34,7 +34,6 @@ FROM (
       C.CompanyId,
       C.Name CompanyName,
       C.LogoUrl,
-      C.PictureUrl,
       C.Tel,
       C.Mobile,
       C.Address,

@@ -14,6 +14,7 @@
 
 @property (nonatomic) int id;
 @property (nonatomic) int categoryId;
+@property (nonatomic) int productId;
 @property (nonatomic, strong) NSString *title;
 @property (nonatomic) float price;
 

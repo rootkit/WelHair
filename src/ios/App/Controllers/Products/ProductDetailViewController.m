@@ -418,7 +418,7 @@
             OpitionItem *item = [OpitionItem new];
             item.categoryId = category.id;
             item.id = [[optDic objectForKey:@"OptionId"] intValue];
-            item.id = item.id == 0 ? item.id+1 : item.id;
+            item.productId = [[optDic objectForKey:@"ProductId"] intValue];
             item.title = [optDic objectForKey:@"Label"];
             item.price = [[optDic objectForKey:@"Price"] floatValue];
             [items addObject:item];

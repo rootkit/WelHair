@@ -42,6 +42,8 @@
 
 #define API_WITHDRAW_URL API_PATH(@"/companies/%d/withdraws")
 
+#define API_ORDER_CREATE API_PATH(@"/orders")
+
 #define API_SOCIAL_LOGIN API_PATH(@"/users/signin/social")
 
 #define API_USERS_SIGNIN_EMAIL API_PATH(@"/users/signin/email")
