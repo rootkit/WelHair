@@ -40,9 +40,7 @@
 #define API_APPOINTMENTS_DETAIL API_PATH(@"/appointments/%d")
 #define API_APPOINTMENTS_LIST_BY_USER_AND_STAFF API_PATH(@"/appointments/note/staff/%d/user/%d")
 
-#define API_WITHDRAW_CREATE API_PATH(@"/companies/withdraw")
-#define API_WITHDRAW_CANCEL API_PATH(@"/companies/withdraw/cancel/%d")
-#define API_WITHDRAW_LIST API_PATH(@"/companies/withdraws")
+#define API_WITHDRAW_URL API_PATH(@"/companies/%d/withdraws")
 
 #define API_SOCIAL_LOGIN API_PATH(@"/users/signin/social")
 
@@ -117,7 +115,7 @@
 #define API_COMPANIES_JOIN API_PATH(@"/companies/%d/join")
 #define API_COMPANIES_LIKE API_PATH(@"/companies/%d/likes")
 #define API_COMPANIES_COMMENT_CREATE API_PATH(@"/companies/%d/comments")
-#define API_COMPANY_BALANCE API_PATH(@"/company/%d/balance")
+#define API_COMPANIES_BALANCE API_PATH(@"/companies/%d/balance")
 
 #define API_UPLOAD_PICTURE API_PATH(@"/upload/image")
 
@@ -139,6 +137,7 @@
 #define NOTIFICATION_REFRESH_APPOINTMENT_NOTE @"Notification_RefreshAppintmentNoteList"
 #define NOTIFICATION_REFRESH_COMMENTLIST @"Notification_RefreshCommentList"
 #define NOTIFICATION_REFRESH_USER_BALANCE @"Notification_Refresh_UserBalance"
+#define NOTIFICATION_REFRESH_COMPANY_BALANCE @"Notification_Refresh_CompanyBalance"
 #define NOTIFICATION_REFRESH_ADDRESSLIST @"Notification_RefreshAddressList"
 #define NOTIFICATION_SHOW_LOGIN_VIEW  @"Notification_ShowLoginView"
 #define NOTIFICATION_NEW_MESSAGE_RECEIVED @"NewMessageReceived"

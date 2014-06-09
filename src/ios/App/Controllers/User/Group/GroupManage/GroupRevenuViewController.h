@@ -10,7 +10,8 @@
 //
 // ==============================================================================
 
-#import "BaseViewController.h"
 @interface GroupRevenuViewController : BaseViewController
+
+@property (nonatomic, strong) Group *group;
 
 @end

@@ -10,10 +10,20 @@
 //
 // ==============================================================================
 
-#import "Withdraw.h"
+typedef enum {
+    WHWithdrawStatusPending = 0,
+    WHWithdrawStatusSuccess = 1,
+    WHWithdrawStatusFailed = 2
+} WHWithdrawStatus;
 
-@interface WithdrawCell : UITableViewCell
+@interface Withdraw : BaseModel
 
-- (void)setup:(Withdraw *)withdraw;
+@property (nonatomic, strong) NSString *withdrawNo;
+@property (nonatomic, assign) WHWithdrawStatus status;
+@property (nonatomic, assign) float amount;
+
+@property (nonatomic, strong) NSDate *createdDate;
+
+- (Withdraw *)initWithDic:(NSDictionary *)dictionary;
 
 @end

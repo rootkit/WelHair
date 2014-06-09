@@ -131,7 +131,7 @@
             [cell.imageView setImage:[UIImage imageNamed:@"account"]];
             cell.label.text = @"用户名";
 
-            UILabel *accessoryLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 100, 20)];
+            UILabel *accessoryLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 160, 20)];
             accessoryLabel.backgroundColor = [UIColor clearColor];
             accessoryLabel.text = [UserManager SharedInstance].userLogined.nickname;
             accessoryLabel.font = [UIFont systemFontOfSize:12];

@@ -84,6 +84,21 @@ class CompanyController extends AbstractAPIController
         $this->sendResponse($result);
     }
 
+    public function getCompanyBalance($companyId)
+    {
+        $response = array('success' => false);
+
+        $response['success'] = true;
+        $response['balance'] = 0.00;
+
+        $company = CompanyService::getCompanyById($companyId);
+        if ($company) {
+            $response['balance'] = floatval($company['Amount']);
+        }
+
+        $this->sendResponse($response);
+    }
+
     public function listStaffs($companyId)
     {
         $page = intval($this->app->request->get('page'));

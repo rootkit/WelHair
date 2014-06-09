@@ -33,8 +33,6 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        self.title = @"我的沙龙";
-
         FAKIcon *leftIcon = [FAKIonIcons ios7ArrowBackIconWithSize:NAV_BAR_ICON_SIZE];
         [leftIcon addAttribute:NSForegroundColorAttributeName value:[UIColor whiteColor]];
         self.leftNavItemImg =[leftIcon imageWithSize:CGSizeMake(NAV_BAR_ICON_SIZE, NAV_BAR_ICON_SIZE)];
@@ -72,6 +70,16 @@
     infoBtn.frame = CGRectMake(0, MaxY(manageBtn), WIDTH(contentView)/2, WIDTH(contentView)/2);
     [contentView addSubview:infoBtn];
 
+    if (self.group) {
+        self.title = self.group.name;
+    } else {
+        __weak typeof(self) weakSelf = self;
+        self.finishHandler = ^() {
+            weakSelf.title = weakSelf.group.name;
+        };
+
+        [self getStaffDetail];
+    }
 
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(refreshGroupInfo:)

@@ -81,7 +81,6 @@
     [super didReceiveMemoryWarning];
 }
 
-
 - (void)leftNavItemClick
 {
     [self.navigationController popViewControllerAnimated:YES];

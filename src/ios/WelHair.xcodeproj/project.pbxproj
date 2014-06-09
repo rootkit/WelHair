@@ -101,6 +101,13 @@
 		187638D61910D42E00846BB9 /* MyClientCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 187638D51910D42E00846BB9 /* MyClientCell.m */; };
 		187638D91910D7E900846BB9 /* StaffClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 187638D81910D7E900846BB9 /* StaffClient.m */; };
 		1882D2731901314200D59861 /* FeedbackViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1882D2721901314200D59861 /* FeedbackViewController.m */; };
+		1897C3B41945405500E20CC5 /* income@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1897C3B21945405500E20CC5 /* income@2x.png */; };
+		1897C3B51945405500E20CC5 /* withdraw@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1897C3B31945405500E20CC5 /* withdraw@2x.png */; };
+		1897C3B7194540AD00E20CC5 /* review@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1897C3B6194540AD00E20CC5 /* review@2x.png */; };
+		1897C3BB194549F700E20CC5 /* bankaccount@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1897C3B8194549F700E20CC5 /* bankaccount@2x.png */; };
+		1897C3BC194549F700E20CC5 /* bankcard@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1897C3B9194549F700E20CC5 /* bankcard@2x.png */; };
+		1897C3BD194549F700E20CC5 /* opencard@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1897C3BA194549F700E20CC5 /* opencard@2x.png */; };
+		1897C3C019454D5600E20CC5 /* Withdraw.m in Sources */ = {isa = PBXBuildFile; fileRef = 1897C3BF19454D5600E20CC5 /* Withdraw.m */; };
 		18A3E61318DC0C280080DC0B /* RegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A3E61218DC0C280080DC0B /* RegisterViewController.m */; };
 		18A3E61618DC10050080DC0B /* NSString+WelKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A3E61518DC10050080DC0B /* NSString+WelKit.m */; };
 		18A3E61918DC11240080DC0B /* RequestUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A3E61818DC11240080DC0B /* RequestUtil.m */; };
@@ -501,6 +508,14 @@
 		187638D81910D7E900846BB9 /* StaffClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StaffClient.m; sourceTree = "<group>"; };
 		1882D2711901314200D59861 /* FeedbackViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeedbackViewController.h; sourceTree = "<group>"; };
 		1882D2721901314200D59861 /* FeedbackViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeedbackViewController.m; sourceTree = "<group>"; };
+		1897C3B21945405500E20CC5 /* income@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "income@2x.png"; sourceTree = "<group>"; };
+		1897C3B31945405500E20CC5 /* withdraw@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "withdraw@2x.png"; sourceTree = "<group>"; };
+		1897C3B6194540AD00E20CC5 /* review@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "review@2x.png"; sourceTree = "<group>"; };
+		1897C3B8194549F700E20CC5 /* bankaccount@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bankaccount@2x.png"; sourceTree = "<group>"; };
+		1897C3B9194549F700E20CC5 /* bankcard@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bankcard@2x.png"; sourceTree = "<group>"; };
+		1897C3BA194549F700E20CC5 /* opencard@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "opencard@2x.png"; sourceTree = "<group>"; };
+		1897C3BE19454D5600E20CC5 /* Withdraw.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Withdraw.h; sourceTree = "<group>"; };
+		1897C3BF19454D5600E20CC5 /* Withdraw.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Withdraw.m; sourceTree = "<group>"; };
 		18A3E61118DC0C280080DC0B /* RegisterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegisterViewController.h; sourceTree = "<group>"; };
 		18A3E61218DC0C280080DC0B /* RegisterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegisterViewController.m; sourceTree = "<group>"; };
 		18A3E61418DC10050080DC0B /* NSString+WelKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+WelKit.h"; sourceTree = "<group>"; };
@@ -1431,6 +1446,8 @@
 				187638D81910D7E900846BB9 /* StaffClient.m */,
 				18A912E018BB26B6006B9A04 /* User.h */,
 				18A912E118BB26B6006B9A04 /* User.m */,
+				1897C3BE19454D5600E20CC5 /* Withdraw.h */,
+				1897C3BF19454D5600E20CC5 /* Withdraw.m */,
 				4665FD8318BC801000E88C6B /* Work.h */,
 				4665FD8418BC801000E88C6B /* Work.m */,
 			);
@@ -1510,8 +1527,14 @@
 			children = (
 				18FE0B4F19404BB2009128D9 /* account@2x.png */,
 				18FE0B49194047F8009128D9 /* alipay@2x.png */,
+				1897C3B8194549F700E20CC5 /* bankaccount@2x.png */,
+				1897C3B9194549F700E20CC5 /* bankcard@2x.png */,
+				1897C3B21945405500E20CC5 /* income@2x.png */,
 				18FE0B4B19404ADD009128D9 /* jine@2x.png */,
+				1897C3BA194549F700E20CC5 /* opencard@2x.png */,
 				18FE0B5019404BB2009128D9 /* recharge@2x.png */,
+				1897C3B6194540AD00E20CC5 /* review@2x.png */,
+				1897C3B31945405500E20CC5 /* withdraw@2x.png */,
 				18FE0B4C19404ADD009128D9 /* yue@2x.png */,
 			);
 			path = Icon;
@@ -2546,6 +2569,8 @@
 				184B82E218DAC7F000177BAB /* bubble-square-incoming-selected.png in Resources */,
 				46AD849A18EFC901005B2C3C /* OrderPreviewViewController_Bg@2x.png in Resources */,
 				184B82D718DAC7F000177BAB /* bubble-default-outgoing@2x.png in Resources */,
+				1897C3BB194549F700E20CC5 /* bankaccount@2x.png in Resources */,
+				1897C3BC194549F700E20CC5 /* bankcard@2x.png in Resources */,
 				184B82F918DAC7F000177BAB /* messageSent.aiff in Resources */,
 				461B0C4818DC3BD700E0DAF5 /* QQWeiboIcon.png in Resources */,
 				18FE0B4E19404ADD009128D9 /* yue@2x.png in Resources */,
@@ -2553,6 +2578,7 @@
 				184B82CF18DAC7F000177BAB /* bubble-default-incoming-selected@2x.png in Resources */,
 				183B03DF18E1110500765116 /* groupedTableViewCell_middleRow_highlighted@2x.png in Resources */,
 				184B82D418DAC7F000177BAB /* bubble-default-outgoing-selected.png in Resources */,
+				1897C3B7194540AD00E20CC5 /* review@2x.png in Resources */,
 				466DF40718FC111300CB8A53 /* UMSCommentDetailController.xib in Resources */,
 				466DF40D18FC111300CB8A53 /* UMSnsAccountViewController.xib in Resources */,
 				461B0C4318DC3BD700E0DAF5 /* AppointmentBtn@2x.png in Resources */,
@@ -2593,6 +2619,7 @@
 				466DF40518FC111300CB8A53 /* UMSocialLocalizable.strings in Resources */,
 				4631CEF518E319F600F39814 /* CountDownBtn@2x.png in Resources */,
 				4659D28218E7E8E2005648C0 /* AddressSelectedBtn@2x.png in Resources */,
+				1897C3B51945405500E20CC5 /* withdraw@2x.png in Resources */,
 				184B82F518DAC7F000177BAB /* send-highlighted@2x.png in Resources */,
 				184B82F118DAC7F000177BAB /* input-field@2x.png in Resources */,
 				461B0C6B18DC3BD700E0DAF5 /* UploadWorkViewControl_FaceStyleLongNormal@2x.png in Resources */,
@@ -2692,9 +2719,11 @@
 				183B03E218E1110500765116 /* groupedTableViewCell_topRow@2x.png in Resources */,
 				466DF40F18FC111300CB8A53 /* UMSocialSDKResourcesNew.bundle in Resources */,
 				466DF40918FC111300CB8A53 /* UMSCommentInputControlleriPad.xib in Resources */,
+				1897C3B41945405500E20CC5 /* income@2x.png in Resources */,
 				18A9129E18BB2350006B9A04 /* Release.xcconfig in Resources */,
 				183B03DC18E1110500765116 /* groupedTableViewCell_bottomRow_highlighted@2x.png in Resources */,
 				461B0C4918DC3BD700E0DAF5 /* QQWeiboIcon@2x.png in Resources */,
+				1897C3BD194549F700E20CC5 /* opencard@2x.png in Resources */,
 				461B0C4718DC3BD700E0DAF5 /* QQIcon@2x.png in Resources */,
 				46EAF98918D18D0D00D4C624 /* citydict.plist in Resources */,
 				461B0C7118DC3BD700E0DAF5 /* WD_AuthorLayerBg@2x.png in Resources */,
@@ -2912,6 +2941,7 @@
 				184B82C718DAC7F000177BAB /* JSMessageInputView.m in Sources */,
 				467F0EEE18CB4FCF009FFE08 /* UIImage+WelKit.m in Sources */,
 				18A3E61618DC10050080DC0B /* NSString+WelKit.m in Sources */,
+				1897C3C019454D5600E20CC5 /* Withdraw.m in Sources */,
 				184B82C418DAC7F000177BAB /* JSBubbleMessageCell.m in Sources */,
 				46DFBEA21928B72E00CFA6B5 /* WithdrawViewController.m in Sources */,
 				467F0F0318CB610F009FFE08 /* SettingViewController.m in Sources */,
