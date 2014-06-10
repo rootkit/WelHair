@@ -77,7 +77,9 @@
 - (void) setupWithData:(Product *)productData
 {
     self.product = productData;
-    [self.imgView setImageWithURL:[NSURL URLWithString:self.product.imgUrlList[0]]];
+    if (self.product.imgUrlList.count > 0) {
+        [self.imgView setImageWithURL:[NSURL URLWithString:self.product.imgUrlList[0]]];
+    }
     self.nameLbl.text = productData.name;
     self.groupLbl.text = productData.group.name;
     self.priceLbl.text = [NSString stringWithFormat:@"￥%.2f",productData.price];

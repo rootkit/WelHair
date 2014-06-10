@@ -10,16 +10,18 @@
 //
 // ==============================================================================
 
-#import "OrderUnpaidTableView.h"
-#import "OrderCell.h"
 #import "Order.h"
-#import "UIScrollView+UzysCircularProgressPullToRefresh.h"
-@interface OrderUnpaidTableView()<UITableViewDataSource, UITableViewDelegate>
+#import "OrderCell.h"
+#import "OrderUnpaidTableView.h"
+#import "UserManager.h"
+
+@interface OrderUnpaidTableView() <UITableViewDataSource, UITableViewDelegate>
+
 @property (nonatomic, strong) NSArray *datasource;
 @property (nonatomic, strong) UITableView *tableView;
+
 @property (nonatomic) NSInteger currentPage;
 
-- (void)getUnpaidOrders;
 @end
 
 
@@ -29,7 +31,6 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
-        __weak typeof(self) weakSelf = self;
         self.tableView = [[UITableView alloc] init];
         self.tableView.frame = self.bounds;
         [self addSubview:self.tableView];
@@ -38,27 +39,29 @@
         self.tableView.dataSource = self;
         self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         self.tableView.backgroundColor = [UIColor clearColor];
+
+        __weak typeof(self) weakSelf = self;
         [self.tableView addPullToRefreshActionHandler:^{
-            [weakSelf insertRowAtTop];
+            weakSelf.currentPage = 1;
+            [weakSelf getOrders];
         }];
-        
+
         [self.tableView.pullToRefreshView setSize:CGSizeMake(25, 25)];
         [self.tableView.pullToRefreshView setBorderWidth:2];
         [self.tableView.pullToRefreshView setBorderColor:[UIColor whiteColor]];
         [self.tableView.pullToRefreshView setImageIcon:[UIImage imageNamed:@"centerIcon"]];
-        self.datasource = nil;//[NSMutableArray arrayWithArray:[FakeDataHelper getFakeOrderList:NO]];
+
+        [self.tableView addInfiniteScrollingWithActionHandler:^{
+            weakSelf.currentPage += 1;
+            [weakSelf getOrders];
+        }];
+        self.tableView.showsInfiniteScrolling = NO;
+
+        [self.tableView triggerPullToRefresh];
     }
+
     return self;
 }
-- (void)insertRowAtTop
-{
-    int64_t delayInSeconds = 1.2;
-    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
-    dispatch_after(popTime, dispatch_get_main_queue(), ^(void) {
-        [self.tableView stopRefreshAnimation];
-    });
-}
-
 
 #pragma mark UITableView delegate
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -80,6 +83,7 @@
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
     [cell setup:[self.datasource objectAtIndex:indexPath.row]];
+
     return cell;
 }
 
@@ -88,10 +92,74 @@
     [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_PUSH_TO_UNPAIDORDER_PREVIEW_VIEW object:[self.datasource objectAtIndex:indexPath.row]];
 }
 
+#pragma mark Order Search API
 
-- (void)getUnpaidOrders{
-    
+- (void)getOrders
+{
+    NSMutableDictionary *reqData = [[NSMutableDictionary alloc] initWithCapacity:1];
+    [reqData setObject:[NSString stringWithFormat:@"%d", self.currentPage] forKey:@"page"];
+    [reqData setObject:[NSString stringWithFormat:@"%d", TABLEVIEW_PAGESIZE_DEFAULT] forKey:@"pageSize"];
+
+    ASIHTTPRequest *request = [RequestUtil createGetRequestWithURL:[NSURL URLWithString:[NSString stringWithFormat:API_ORDER_LIST_BY_USER, [UserManager SharedInstance].userLogined.id]]
+                                                          andParam:reqData];
+    [request setDelegate:self];
+    [request setDidFinishSelector:@selector(finishGetOrders:)];
+    [request setDidFailSelector:@selector(failGetOrders:)];
+    [request startAsynchronous];
 }
 
+- (void)finishGetOrders:(ASIHTTPRequest *)request
+{
+    NSDictionary *rst = [Util objectFromJson:request.responseString];
+    NSInteger total = [[rst objectForKey:@"total"] integerValue];
+    NSArray *dataList = [rst objectForKey:@"orders"];
+
+    NSMutableArray *arr = [NSMutableArray arrayWithArray:self.datasource];
+
+    if (self.currentPage == 1) {
+        [arr removeAllObjects];
+    } else {
+        if (self.currentPage % TABLEVIEW_PAGESIZE_DEFAULT > 0) {
+            int i;
+
+            for (i = 0; i < arr.count; i++) {
+                if (i >= (self.currentPage - 1) * TABLEVIEW_PAGESIZE_DEFAULT) {
+                    [arr removeObjectAtIndex:i];
+                    i--;
+                }
+            }
+        }
+    }
+
+    for (NSDictionary *dicData in dataList) {
+        [arr addObject:dicData];
+    }
+
+    self.datasource = arr;
+
+    BOOL enableInfinite = total > self.datasource.count;
+    if (self.tableView.showsInfiniteScrolling != enableInfinite) {
+        self.tableView.showsInfiniteScrolling = enableInfinite;
+    }
+
+    if (self.currentPage == 1) {
+        [self.tableView stopRefreshAnimation];
+    } else {
+        [self.tableView.infiniteScrollingView stopAnimating];
+    }
+
+    [self checkEmpty];
+
+    [self.tableView reloadData];
+}
+
+- (void)failGetOrders:(ASIHTTPRequest *)request
+{
+}
+
+- (void)checkEmpty
+{
+    
+}
 
 @end

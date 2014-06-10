@@ -10,8 +10,8 @@
 //
 // ==============================================================================
 
-#import <UIKit/UIKit.h>
 #define NOTIFICATION_PUSH_TO_UNPAIDORDER_PREVIEW_VIEW @"Notification_PushToUnpaidOrderPreviewView"
+
 @interface OrderUnpaidTableView : UIView
 
 @end

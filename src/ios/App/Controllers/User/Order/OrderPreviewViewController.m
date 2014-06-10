@@ -122,7 +122,7 @@
     productNameLbl.text = self.order.product.name;
     [detailView addSubview:productNameLbl];
     
-    UILabel *productSpecLbl = [[UILabel alloc] initWithFrame:CGRectMake(MaxX(avatorImgView) + 5, MaxY(productNameLbl), 110, HEIGHT(avatorImgView)*1/3)];
+    UILabel *productSpecLbl = [[UILabel alloc] initWithFrame:CGRectMake(MaxX(avatorImgView) + 5, MaxY(productNameLbl), 160, HEIGHT(avatorImgView)*1/3)];
     productSpecLbl.font = [UIFont systemFontOfSize:12];
     productSpecLbl.numberOfLines = 2;
     productSpecLbl.backgroundColor = [UIColor clearColor];
@@ -139,7 +139,7 @@
     priceLbl.text = [NSString stringWithFormat:@"￥%.2f", self.order.singleProductPrice];
     [detailView addSubview:priceLbl];
 
-    UILabel *productCountLbl = [[UILabel alloc] initWithFrame:CGRectMake(MaxX(productSpecLbl) + 5, Y(productSpecLbl), 100, HEIGHT(avatorImgView)/3)];
+    UILabel *productCountLbl = [[UILabel alloc] initWithFrame:CGRectMake(MaxX(productSpecLbl) + 5, Y(productSpecLbl), 50, HEIGHT(avatorImgView)/3)];
     productCountLbl.font = [UIFont systemFontOfSize:14];
     productCountLbl.numberOfLines = 1;
     productCountLbl.textAlignment = TextAlignmentRight;
@@ -223,10 +223,10 @@
         [reqData setObject:[NSString stringWithFormat:@"%d", 1] forKey:@"Distribution"];
 
         NSMutableDictionary *reqProduct = [[NSMutableDictionary alloc] initWithCapacity:1];
-        [reqData setObject:[NSString stringWithFormat:@"%d", self.order.product.id] forKey:@"GoodsId"];
-        [reqData setObject:[NSString stringWithFormat:@"%d", 1] forKey:@"Num"];
-        [reqData setObject:[NSString stringWithFormat:@"%d", 1] forKey:@"CompanyId"];
-        [reqData setObject:[NSString stringWithFormat:@"%d", 1] forKey:@"ProductId"];
+        [reqProduct setObject:[NSString stringWithFormat:@"%d", self.order.product.id] forKey:@"GoodsId"];
+        [reqProduct setObject:[NSString stringWithFormat:@"%d", self.order.count] forKey:@"Num"];
+        [reqProduct setObject:[NSString stringWithFormat:@"%d", self.order.product.group.id] forKey:@"CompanyId"];
+        [reqProduct setObject:[NSString stringWithFormat:@"%d", self.order.productId] forKey:@"ProductId"];
 
 
         [reqData setObject:@[reqProduct] forKey:@"Items"];

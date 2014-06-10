@@ -43,6 +43,7 @@
 #define API_WITHDRAW_URL API_PATH(@"/companies/%d/withdraws")
 
 #define API_ORDER_CREATE API_PATH(@"/orders")
+#define API_ORDER_LIST_BY_USER API_PATH(@"/users/%d/orders")
 
 #define API_SOCIAL_LOGIN API_PATH(@"/users/signin/social")
 

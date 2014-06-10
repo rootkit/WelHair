@@ -21,7 +21,8 @@
 @property (nonatomic, strong) NSArray *commentList;
 @property (nonatomic, strong) NSArray *imgUrlList;
 @property (nonatomic, strong) NSArray *attrList;
-@property (nonatomic, strong) NSArray *specList;//内含商品单价
+@property (nonatomic, strong) NSArray *specList;
+@property (nonatomic, strong) NSArray *productList;
 
 @property (nonatomic) BOOL isLiked;
 

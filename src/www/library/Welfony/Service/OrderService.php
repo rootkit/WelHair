@@ -424,10 +424,11 @@ class OrderService
                     'OrderGoodsId' => $row['OrderGoodsId'],
                     'GoodsId' => $row['GoodsId'],
                     'ProductsId' => $row['ProductsId'],
-                    'Img' => $row['Img'],
+                    'Img' => json_decode($row['Img'], true),
                     'GoodsNums' => $row['GoodsNums'],
                     'GoodsWeight' => $row['GoodsWeight'],
-                    'GoodsPrice' => $row['GoodsPrice']
+                    'GoodsPrice' => $row['GoodsPrice'],
+                    'CompanyName' => $row['CompanyName']
                 );
 
                 $goodsArray = json_decode($row['GoodsArray'], true);

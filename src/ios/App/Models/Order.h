@@ -17,7 +17,8 @@
 
 typedef NS_ENUM(NSInteger, OrderStatusEnum) {
     OrderStatusEnum_UnPaid = 0,
-    OrderStatusEnum_Paid = 1
+    OrderStatusEnum_Paid = 1,
+    OrderStatusEnum_Refund = 2
 };
 
 @interface Order : BaseModel
@@ -29,6 +30,7 @@ typedef NS_ENUM(NSInteger, OrderStatusEnum) {
 @property (nonatomic) float singleProductPrice; // total price
 @property (nonatomic) OrderStatusEnum status;
 @property (nonatomic, strong) Address *address;
+@property (nonatomic) int productId;
 
 // check if need pick spec
 - (NSString *)unSelectedSpecStr;

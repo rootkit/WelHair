@@ -39,4 +39,10 @@ class OrderController extends AbstractAPIController
         $this->sendResponse($result);
     }
 
+    public function pay($orderId)
+    {
+        $result = OrderService::create($reqData);
+        $this->sendResponse($result);
+    }
+
 }

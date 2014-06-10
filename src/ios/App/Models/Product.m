@@ -40,6 +40,10 @@
         if ([dictionary objectForKey:@"Spec"]) {
             self.specList = [dictionary objectForKey:@"Spec"];
         }
+
+        if ([dictionary objectForKey:@"Products"]) {
+            self.productList = [dictionary objectForKey:@"Products"];
+        }
     }
     
     return self;

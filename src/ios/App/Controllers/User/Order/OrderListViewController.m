@@ -12,13 +12,15 @@
 
 #import "OrderListViewController.h"
 #import "OrderPreviewViewController.h"
-#import "PPiFlatSegmentedControl.h"
 #import "OrderPaidTableView.h"
 #import "OrderUnpaidTableView.h"
+#import "PPiFlatSegmentedControl.h"
 
 
 @interface OrderListViewController ()
+
 @property (nonatomic, strong) PPiFlatSegmentedControl *segment;
+
 @property (nonatomic, strong) UIView *segmentContentView;
 @property (nonatomic) int activeIndex;
 
@@ -34,11 +36,13 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         self.title = @"订单列表";
+
         FAKIcon *leftIcon = [FAKIonIcons ios7ArrowBackIconWithSize:NAV_BAR_ICON_SIZE];
         [leftIcon addAttribute:NSForegroundColorAttributeName value:[UIColor whiteColor]];
         self.leftNavItemImg =[leftIcon imageWithSize:CGSizeMake(NAV_BAR_ICON_SIZE, NAV_BAR_ICON_SIZE)];
         
     }
+
     return self;
 }
 
@@ -83,10 +87,12 @@
 
 }
 
-- (void)segmentButtonSelected:(int)index{
-    if(self.activeIndex == index){
+- (void)segmentButtonSelected:(int)index
+{
+    if (self.activeIndex == index) {
         return;
     }
+
     self.activeIndex = index;
     self.unpaidTableView.hidden = YES;
     self.paidTableView.hidden = YES;

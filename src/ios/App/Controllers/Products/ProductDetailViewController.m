@@ -240,14 +240,10 @@
     self.order.price += self.order.singleProductPrice;
 }
 
-
 - (void)imagePager:(JOLImageSlider *)imagePager didSelectImageAtIndex:(NSUInteger)index
 {
     [self OpenImageGallery];
 }
-
-
-
 
 - (BOOL)favClick:(BOOL)markFav
 {
@@ -360,16 +356,12 @@
 
 - (void)submitClick
 {
-    if(self.order.product.specList.count == 0){
+    if (self.order.product.specList.count == 0) {
         OrderPreviewViewController *vc = [OrderPreviewViewController new];
         vc.order = self.order;
         [self.navigationController pushViewController:vc animated:YES];
-    }else{
-        self.productOpitionPanel =
-        [[ProductOpitionPanel alloc] initWithFrame:CGRectMake(0,
-                                                              0,
-                                                              WIDTH(self.view),
-                                                              HEIGHT(self.view) - self.topBarOffset - 80)];
+    } else {
+        self.productOpitionPanel = [[ProductOpitionPanel alloc] initWithFrame:CGRectMake(0, 0, WIDTH(self.view), HEIGHT(self.view) - self.topBarOffset - 80)];
         
         __weak typeof(self) selfDelegate = self;
         [self.productOpitionPanel setupTitle:@"产品"
@@ -388,18 +380,6 @@
     }
 }
 
-
-
-- (void)getSelectedOpitions:(NSArray *)array
-{
-    
-    NSMutableString *str = [NSMutableString string];
-    [str appendString:@"已选择"];
-    for (OpitionItem *item in array) {
-        [str appendFormat:@",%d", item.id];
-    }
-}
-
 - (SelectOpition *)buildSelectionOpition
 {
     self.selectOpition = [SelectOpition new];
@@ -413,14 +393,13 @@
 
         NSMutableArray *items = [NSMutableArray array];
 
-        NSArray *optArr = [specDic objectForKey:@"Options"];
+        NSArray *optArr = [specDic objectForKey:@"Values"];
         for (NSDictionary *optDic in optArr) {
             OpitionItem *item = [OpitionItem new];
             item.categoryId = category.id;
-            item.id = [[optDic objectForKey:@"OptionId"] intValue];
-            item.productId = [[optDic objectForKey:@"ProductId"] intValue];
-            item.title = [optDic objectForKey:@"Label"];
-            item.price = [[optDic objectForKey:@"Price"] floatValue];
+            item.id = [[optDic objectForKey:@"SpecId"] intValue];
+            item.category = category.title;
+            item.title = [optDic objectForKey:@"SpecValue"];
             [items addObject:item];
         }
 
@@ -465,7 +444,6 @@
     self.product = [[Product alloc] initWithDic:rst];
 
     self.order.product = self.product;
-    self.order.singleProductPrice = self.order.product.specList.count == 0 ? self.product.price: 0;
 
     [self setupUIPerData];
 }
@@ -631,9 +609,14 @@
         paramOffsetY += cellView.height;
     }
 
-    if(self.product.specList.count == 0){
+    if (self.product.productList.count == 0) {
         self.order.price = self.product.price;
+        self.order.singleProductPrice = self.product.price;
+    } else {
+        self.order.price = 0;
+        self.order.singleProductPrice = 0;
     }
+
     CGRect newFrame = paramScrollView.frame;
     newFrame.size.height = paramOffsetY;
     paramScrollView.frame = newFrame;

@@ -175,13 +175,16 @@
 
 - (void)setupTitle:(NSString *)title
           opitions:(SelectOpition *)selectOptioin
-           order:(Order *)order
+             order:(Order *)order
             cancel:(cancelSelection)cancelHandler
             submit:(submitSelection)submitHandler
 {
     _order = order;
 
-    [avatorImgView setImageWithURL:[NSURL URLWithString:_order.product.imgUrlList[0]]];
+    if (_order.product.imgUrlList.count > 0) {
+        [avatorImgView setImageWithURL:[NSURL URLWithString:_order.product.imgUrlList[0]]];
+    }
+
     nameLbl.text = _order.product.name;
 
     titleLbl.text = title;
@@ -200,8 +203,8 @@
         offsetY = [self fillCategory:category withOffsetY:offsetY];
     }
     countLbl.text = [NSString stringWithFormat:@"%d", _order.count == 0 ? 1 : _order.count];
-    bottomPriceLbl.text = [NSString stringWithFormat:@"￥%.2f",_order.price];
-    scrollView.contentSize = CGSizeMake(WIDTH(self), offsetY);
+    bottomPriceLbl.text = [NSString stringWithFormat:@"￥%.2f", _order.price];
+    scrollView.contentSize = CGSizeMake(WIDTH(self), offsetY + 10);
 }
 
 - (float)fillCategory:(OpitionCategory *)category
@@ -254,14 +257,46 @@
 {
     OpitionButton *btn = (OpitionButton *)sender;
     btn.choosen = YES;
-    _order.singleProductPrice = btn.opitionItem.price;
-    priceLbl.text = [NSString stringWithFormat:@"￥%.2f", _order.singleProductPrice];
-    _order.price = _order.singleProductPrice  * [countLbl.text floatValue];
-    
-    bottomPriceLbl.text = [NSString stringWithFormat:@"￥%.2f",_order.price];
-    
+
     OpitionItem *item = btn.opitionItem;
     [_order.productSelectedSpecs setObject:item forKey:@(item.categoryId)];
+
+    NSDictionary *productMatched = nil;
+
+    NSArray *productsList = _order.product.productList;
+    for (NSDictionary *prod in productsList) {
+        int matched = 0;
+        NSArray *prodSpecList = [prod objectForKey:@"Spec"];
+        for (NSDictionary *prodSpec in prodSpecList) {
+            for (OpitionItem *itm in [_order.productSelectedSpecs allValues]) {
+                if (itm.id == [[prodSpec objectForKey:@"Id"] intValue] && [itm.title isEqualToString:[prodSpec objectForKey:@"Value"]]) {
+                    matched++;
+                }
+            }
+        }
+
+        if (matched == prodSpecList.count) {
+            productMatched = prod;
+        }
+    }
+
+    if (productMatched) {
+        _order.productId = [[productMatched objectForKey:@"ProductId"] intValue];
+        _order.singleProductPrice = [[productMatched objectForKey:@"Price"] floatValue];
+        _order.count = [countLbl.text floatValue];
+        _order.price = _order.singleProductPrice  * _order.count;
+
+        priceLbl.text = [NSString stringWithFormat:@"￥%.2f", _order.singleProductPrice];
+        bottomPriceLbl.text = [NSString stringWithFormat:@"￥%.2f", _order.price];
+    } else {
+        _order.productId = 0;
+        _order.singleProductPrice = 0;
+        _order.count = [countLbl.text floatValue];
+        _order.price = _order.singleProductPrice  * _order.count;
+
+        priceLbl.text = [NSString stringWithFormat:@"￥%.2f", _order.singleProductPrice];
+        bottomPriceLbl.text = [NSString stringWithFormat:@"￥%.2f", _order.price];
+    }
 }
 
 

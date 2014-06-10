@@ -10,9 +10,10 @@
 //
 // ==============================================================================
 
-#import <UIKit/UIKit.h>
-
 #import "Order.h"
+
 @interface OrderCell : UITableViewCell
-- (void)setup:(Order *)order;
+
+- (void)setup:(NSDictionary *)order;
+
 @end

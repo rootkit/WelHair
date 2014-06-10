@@ -11,7 +11,8 @@
 // ==============================================================================
 
 #import "OrderCell.h"
-@interface OrderCell ()<UIAlertViewDelegate>
+
+@interface OrderCell () <UIAlertViewDelegate>
 
 @property (nonatomic, strong) UIImageView *productImgView;
 @property (nonatomic, strong) UILabel *groupNameLbl;
@@ -19,9 +20,11 @@
 @property (nonatomic, strong) UILabel *priceLbl;
 @property (nonatomic, strong) UILabel *descLbl;
 @property (nonatomic, strong) UILabel *countLbl;
+@property (nonatomic, strong) UILabel *shipPriceLbl;
 @property (nonatomic, strong) UILabel *totalPriceLbl;
 @property (nonatomic, strong) UILabel *statusLbl;
 @property (nonatomic, strong) UIButton *deleteBtn;
+
 @end
 
 @implementation OrderCell
@@ -44,23 +47,17 @@
         bottomLinerView.backgroundColor = [UIColor lightGrayColor];
         [self addSubview:bottomLinerView];
         
-        self.groupNameLbl = [[UILabel alloc] initWithFrame:CGRectMake(15,
-                                                                        5,
-                                                                        250 ,
-                                                                          30)];
-        self.groupNameLbl.font = [UIFont systemFontOfSize:12];
+        self.groupNameLbl = [[UILabel alloc] initWithFrame:CGRectMake(15, 5, 250, 30)];
+        self.groupNameLbl.font = [UIFont systemFontOfSize:14];
         self.groupNameLbl.numberOfLines = 1;
         self.groupNameLbl.backgroundColor = [UIColor clearColor];
         self.groupNameLbl.textColor = [UIColor colorWithHexString:APP_NAVIGATIONBAR_COLOR];
         [contentView addSubview:self.groupNameLbl];
         
-        self.statusLbl = [[UILabel alloc] initWithFrame:CGRectMake(MaxX(self.groupNameLbl),
-                                                                      Y(self.groupNameLbl),
-                                                                      50 ,
-                                                                      30)];
+        self.statusLbl = [[UILabel alloc] initWithFrame:CGRectMake(MaxX(self.groupNameLbl), Y(self.groupNameLbl), 50, 30)];
         self.statusLbl.font = [UIFont systemFontOfSize:12];
         self.statusLbl.numberOfLines = 1;
-        self.statusLbl.textAlignment = NSTextAlignmentRight;
+        self.statusLbl.textAlignment = TextAlignmentRight;
         self.statusLbl.backgroundColor = [UIColor clearColor];
         [contentView addSubview:self.statusLbl];
 
@@ -73,10 +70,7 @@
         self.productImgView.layer.borderColor = [[UIColor colorWithHexString:@"e0e0de"] CGColor];
         self.productImgView.layer.borderWidth = 2;
         
-        self.nameLbl = [[UILabel alloc] initWithFrame:CGRectMake(MaxX(self.productImgView) + 5,
-                                                                          Y(self.productImgView),
-                                                                          180,
-                                                                 HEIGHT(self.productImgView)*2/3)];
+        self.nameLbl = [[UILabel alloc] initWithFrame:CGRectMake(MaxX(self.productImgView) + 5, Y(self.productImgView), 180, HEIGHT(self.productImgView)*2/3)];
         self.nameLbl.font = [UIFont systemFontOfSize:14];
         self.nameLbl.numberOfLines = 2;
         self.nameLbl.backgroundColor = [UIColor clearColor];
@@ -88,7 +82,7 @@
                                                                       50,
                                                                       20)];
         self.priceLbl.font = [UIFont systemFontOfSize:12];
-        self.priceLbl.textAlignment = NSTextAlignmentRight;
+        self.priceLbl.textAlignment = TextAlignmentRight;
         self.priceLbl.numberOfLines = 1;
         self.priceLbl.backgroundColor = [UIColor clearColor];
         self.priceLbl.textColor = [UIColor lightGrayColor];
@@ -102,7 +96,7 @@
         self.descLbl.font = [UIFont systemFontOfSize:12];
         self.descLbl.numberOfLines = 1;
         self.descLbl.backgroundColor = [UIColor clearColor];
-        self.descLbl.textColor = [UIColor lightGrayColor];
+        self.descLbl.textColor = [UIColor colorWithHexString:@"777"];
         [contentView addSubview:self.descLbl];
         
         
@@ -110,11 +104,11 @@
                                                                    Y(self.descLbl),
                                                                    50,
                                                                    20)];
-        self.countLbl.font = [UIFont systemFontOfSize:14];
-        self.countLbl.textAlignment = NSTextAlignmentRight;
+        self.countLbl.font = [UIFont systemFontOfSize:12];
+        self.countLbl.textAlignment = TextAlignmentRight;
         self.countLbl.numberOfLines = 1;
         self.countLbl.backgroundColor = [UIColor clearColor];
-        self.countLbl.textColor = [UIColor colorWithHexString:APP_NAVIGATIONBAR_COLOR];
+        self.countLbl.textColor = [UIColor colorWithHexString:@"777"];
         [contentView addSubview:self.countLbl];
         
         
@@ -124,27 +118,20 @@
         seperaterView2.backgroundColor = [UIColor colorWithHexString:APP_CONTENT_BG_COLOR];
         [contentView addSubview:seperaterView2];
         
-        UILabel *shipLbl = [[UILabel alloc] initWithFrame:CGRectMake(0,
-                                                                       MaxY(seperaterView2) + 5,
-                                                                       240,
-                                                                       20)];
-        shipLbl.font = [UIFont systemFontOfSize:14];
+        UILabel *shipLbl = [[UILabel alloc] initWithFrame:CGRectMake(0, MaxY(seperaterView2) + 5, 240, 20)];
+        shipLbl.font = [UIFont systemFontOfSize:12];
         shipLbl.backgroundColor = [UIColor clearColor];
-        shipLbl.textAlignment = NSTextAlignmentRight;
-        shipLbl.textColor = [UIColor blackColor];
+        shipLbl.textAlignment = TextAlignmentRight;
+        shipLbl.textColor = [UIColor colorWithHexString:@"777"];
         shipLbl.text = @"运费:";
         [contentView addSubview:shipLbl];
         
-        UILabel *shipPriceLbl = [[UILabel alloc] initWithFrame:CGRectMake(MaxX(shipLbl),
-                                                                       MaxY(seperaterView2) + 5,
-                                                                     80,
-                                                                     20)];
-        shipPriceLbl.font = [UIFont systemFontOfSize:14];
-        shipPriceLbl.backgroundColor = [UIColor clearColor];
-        shipPriceLbl.textAlignment = NSTextAlignmentLeft;
-        shipPriceLbl.textColor = [UIColor blackColor];
-        shipPriceLbl.text = @"￥5";
-        [contentView addSubview:shipPriceLbl];
+        self.shipPriceLbl = [[UILabel alloc] initWithFrame:CGRectMake(MaxX(shipLbl), MaxY(seperaterView2) + 5, 75, 20)];
+        self.shipPriceLbl.font = [UIFont systemFontOfSize:12];
+        self.shipPriceLbl.backgroundColor = [UIColor clearColor];
+        self.shipPriceLbl.textAlignment = TextAlignmentRight;
+        self.shipPriceLbl.textColor = [UIColor colorWithHexString:@"777"];
+        [contentView addSubview:self.shipPriceLbl];
         
         FAKIcon *deleteIcon = [FAKIonIcons ios7TrashIconWithSize:20];
         [deleteIcon addAttribute:NSForegroundColorAttributeName value:[UIColor lightGrayColor]];
@@ -155,25 +142,19 @@
         [self.deleteBtn addTarget:self action:@selector(deleteOrder) forControlEvents:UIControlEventTouchDown];
         [contentView addSubview:self.deleteBtn];
         
-        UILabel *totalLbl= [[UILabel alloc] initWithFrame:CGRectMake(MaxX(self.deleteBtn),
-                                                                     MaxY(shipLbl),
-                                                                     195,
-                                                                     25)];
-        totalLbl.font = [UIFont systemFontOfSize:14];
+        UILabel *totalLbl= [[UILabel alloc] initWithFrame:CGRectMake(MaxX(self.deleteBtn), MaxY(shipLbl), 195, 25)];
+        totalLbl.font = [UIFont systemFontOfSize:12];
         totalLbl.backgroundColor = [UIColor clearColor];
-        totalLbl.textAlignment = NSTextAlignmentRight;
-        totalLbl.textColor = [UIColor blackColor];
+        totalLbl.textAlignment = TextAlignmentRight;
+        totalLbl.textColor = [UIColor colorWithHexString:@"777"];
         totalLbl.text = @"合计:";
         [contentView addSubview:totalLbl];
         
-        self.totalPriceLbl = [[UILabel alloc] initWithFrame:CGRectMake(MaxX(totalLbl),
-                                                                            MaxY(shipLbl),
-                                                                            80,
-                                                                            25)];
-        self.totalPriceLbl.font = [UIFont systemFontOfSize:14];
+        self.totalPriceLbl = [[UILabel alloc] initWithFrame:CGRectMake(MaxX(totalLbl), MaxY(shipLbl), 75, 25)];
+        self.totalPriceLbl.font = [UIFont boldSystemFontOfSize:14];
         self.totalPriceLbl.backgroundColor = [UIColor clearColor];
-        self.totalPriceLbl.textAlignment = NSTextAlignmentLeft;
-        self.totalPriceLbl.textColor = [UIColor blackColor];
+        self.totalPriceLbl.textAlignment = TextAlignmentRight;
+        self.totalPriceLbl.textColor = [UIColor colorWithHexString:@"000"];
         [contentView addSubview:self.totalPriceLbl];
         
     }
@@ -189,28 +170,35 @@
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated
 {
     [super setSelected:selected animated:animated];
-
-    // Configure the view for the selected state
 }
 
-
-- (void)setup:(Order *)order
+- (void)setup:(NSDictionary *)order
 {
-    if(order.status == OrderStatusEnum_UnPaid){
+    if ([[order objectForKey:@"PayStatus"] integerValue] == OrderStatusEnum_Paid) {
+        self.statusLbl.text = @"已付款";
+        self.statusLbl.hidden = NO;
+        self.statusLbl.textColor = [UIColor greenColor];
+    } else if ([[order objectForKey:@"PayStatus"] integerValue] == OrderStatusEnum_Refund) {
+        self.statusLbl.text = @"已退款";
+        self.statusLbl.hidden = NO;
+        self.statusLbl.textColor = [UIColor colorWithHexString:@"FF9500"];
+    } else {
         self.statusLbl.text = @"未付款";
         self.statusLbl.hidden = NO;
         self.statusLbl.textColor = [UIColor redColor];
-    }else{
-        self.statusLbl.hidden = YES;
     }
 
-    self.groupNameLbl.text = order.product.group.name;
-    self.nameLbl.text = order.product.name;
-    self.descLbl.text = order.product.description;
-    self.priceLbl.text = [NSString stringWithFormat:@"￥%.2f",order.product.price];
-    self.countLbl.text = [NSString stringWithFormat:@"%d",order.count];
-    self.totalPriceLbl.text = [NSString stringWithFormat:@"￥%.2f",order.price];
-    self.deleteBtn.hidden = order.status == OrderStatusEnum_Paid;
+    NSDictionary *dicGoods = [[order objectForKey:@"Goods"] objectAtIndex:0];
+    self.groupNameLbl.text = [dicGoods objectForKey:@"CompanyName"] == [NSNull null] ? @"" : [dicGoods objectForKey:@"CompanyName"];
+    self.nameLbl.text = [dicGoods objectForKey:@"Name"];
+    self.descLbl.text = [dicGoods objectForKey:@"SpecDetail"];
+    self.priceLbl.text = [NSString stringWithFormat:@"￥%.2f", [[dicGoods objectForKey:@"GoodsPrice"] floatValue]];
+    self.countLbl.text = [NSString stringWithFormat:@"%d", [[dicGoods objectForKey:@"GoodsNums"] intValue]];
+    self.totalPriceLbl.text = [NSString stringWithFormat:@"￥%.2f", [[order objectForKey:@"OrderAmount"] floatValue]];
+    self.shipPriceLbl.text = [NSString stringWithFormat:@"￥%.2f", [[order objectForKey:@"PayableFreight"] floatValue]];
+    self.deleteBtn.hidden = YES;
+
+    [self.productImgView setImageWithURL:[NSURL URLWithString:[[dicGoods objectForKey:@"Img"] objectAtIndex:0]]];
 }
 
 - (void)deleteOrder

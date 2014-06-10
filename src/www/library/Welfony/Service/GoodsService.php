@@ -93,19 +93,19 @@ class GoodsService
                     $spec = array(
                         'SpecId' => $attr['SpecId'],
                         'Title' => $attr['Title'],
-                        'Options' => array()
+                        'Values' => array()
                     );
                 } else {
                     $spec = $goods['Spec'][$specIndex];
                 }
 
-                $prodSelected = null;
                 $specCanAdd = false;
                 foreach ($products as $prod) {
-                    $specFromJson = json_decode($prod['SpecArray'], true);
-                    if ($specFromJson['Id'] == $attr['SpecId'] && $specFromJson['Value'] == $attr['SpecValue']) {
-                        $prodSelected = $prod;
-                        $specCanAdd = true;
+                    $productSpecArr = json_decode($prod['SpecArray'], true);
+                    foreach ($productSpecArr as $prodSpec) {
+                        if ($prodSpec['Id'] == $attr['SpecId'] && $prodSpec['Value'] == $attr['SpecValue']) {
+                            $specCanAdd = true;
+                        }
                     }
                 }
 
@@ -113,7 +113,7 @@ class GoodsService
                     continue;
                 }
 
-                $spec['Options'][] = array('ProductId' => $prodSelected['ProductsId'], 'Label' => $attr['SpecValue'], 'Price' => $prodSelected['SellPrice']);
+                $spec['Values'][] = array('SpecId' => $attr['SpecId'], 'SpecValue' => $attr['SpecValue']);
 
                 if ($specIndex === false) {
                     $goods['Spec'][] = $spec;
@@ -121,6 +121,16 @@ class GoodsService
                     $goods['Spec'][$specIndex] = $spec;
                 }
             }
+        }
+
+        foreach ($products as $prod) {
+            $p = array(
+                'ProductId' => $prod['ProductsId'],
+                'Spec' => array(),
+                'Price' => $prod['SellPrice']
+            );
+            $p['Spec'] = json_decode($prod['SpecArray'], true);
+            $goods['Products'][] = $p;
         }
 
         return $goods;

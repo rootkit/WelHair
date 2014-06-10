@@ -135,7 +135,8 @@ class OrderRepository extends AbstractRepository
                      OG.RealPrice GoodsPrice,
                      OG.GoodsNums,
                      OG.GoodsWeight,
-                     OG.GoodsArray
+                     OG.GoodsArray,
+                     (SELECT C.Name FROM Company C WHERE C.CompanyId = OG.CompanyId) CompanyName
 
                    FROM `Order` O
                    INNER JOIN Area PA ON PA.AreaId = O.Province

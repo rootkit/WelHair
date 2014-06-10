@@ -473,9 +473,11 @@ $(function() {
 
          goodsdata['attributes'] = attributes.concat(extAttributes);
 
-         if( imgs.length >  0 )
-         {
+         if (imgs.length > 0) {
             goodsdata['img'] = JSON.stringify(imgs); //$('#goods-url').val();
+          } else {
+            WF.showMessage('error', '注意', '请先上传一张产品图片');
+            return false;
           }
 
          //console.log(goodsdata);

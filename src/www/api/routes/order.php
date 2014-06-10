@@ -23,3 +23,8 @@ $app->post('/orders', function () use ($app) {
     $ctrl = new OrderController();
     $ctrl->create();
 });
+
+$app->post('/orders/:orderId/pay', function ($orderId) use ($app) {
+    $ctrl = new OrderController();
+    $ctrl->pay($orderId);
+})->conditions(array('orderId' => '\d{1,10}'));
