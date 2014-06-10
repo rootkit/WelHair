@@ -19,12 +19,14 @@ use Welfony\Utility\Util;
       <?php foreach( $this->rows as $goods) : ?>
       <?php
         $spc= '';
-        if( $goods['SpecArray'] )
-        {
-            $spec= json_decode($goods['SpecArray'],true);
-            $spc= $spec['Name'].":".$spec['Value'];
-        }
+        if ($goods['SpecArray']) {
+            $specArr = json_decode($goods['SpecArray'],true);
+            foreach ($specArr as $spec) {
+                $spc .= $spec['Name'] . ":" . $spec['Value'] . ', ';
+            }
 
+            $spc = trim($spc, ', ');
+        }
       ?>
         <tr>
             <td>
@@ -33,8 +35,8 @@ use Welfony\Utility\Util;
             <td><?php echo $goods['Name']; ?></td>
             <td><?php echo $spc; ?></td>
             <td><?php echo $goods['SellPrice']; ?></td>
-            <td><img style="max-width:100px;max-height:100px;" src="<?php echo $goods['PictureUrl'][0]; ?>"/></td>
-            <td><img style="max-width:100px;max-height:100px;" src="<?php echo $this->baseUrl('goods/index/qrcode?goodsid=' .  $goods['GoodsId']. '&companyid='.$goods['CompanyId'].'&productsid='.$goods['ProductsId'] ); ?>""/></td>
+            <td><img style="max-width:100px;max-height:100px;" onload="$(window).resize();" src="<?php echo $goods['PictureUrl'][0]; ?>"/></td>
+            <td><img style="max-width:100px;max-height:100px;" onload="$(window).resize();" src="<?php echo $this->baseUrl('goods/index/qrcode?goodsid=' .  $goods['GoodsId']. '&companyid='.$goods['CompanyId'].'&productsid='.$goods['ProductsId'] ); ?>""/></td>
         </tr>
         <?php endforeach; ?>
         <?php else: ?>

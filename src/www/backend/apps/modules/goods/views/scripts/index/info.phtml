@@ -112,7 +112,12 @@ $this->headScript()
                         <thead>
                             <tr>
                                 <th class="cola">商品货号</th>
-                                <th class="cola"><?php echo json_decode($this->products[0]['SpecArray'], true)['Name']; ?></th>
+                                <?php
+                                $specArr = json_decode($this->goodsInfo['SpecArray'], true);
+                                foreach ($specArr as $spec) {
+                                    echo sprintf('<th class="cola">%s</th>', $spec['Name']);
+                                }
+                                ?>
                                 <th class="cola">库存</th>
                                 <th class="cola">市场价格</th>
                                 <th class="cola">销售价格</th>
@@ -123,9 +128,17 @@ $this->headScript()
                         <tbody>
                             <?php foreach( $this->products as $product) :?>
                             <?php $specrow = json_decode($product['SpecArray'], true); ?>
-                            <tr spec-id="<?php echo $specrow['Id']; ?>" spec-value="<?php echo $specrow['Value']; ?>">
-                                <td><input name="goodsno"  type="text" value="<?php echo $product['ProductsNo']; ?>"  class="u-ipt"/></td>
-                                <td><?php echo $specrow['Value']; ?><input type=hidden name="spec" value='<?php echo $product['SpecArray']; ?>'></td>
+                            <tr>
+                                <td>
+                                    <input type="text" name="goodsno" value="<?php echo $product['ProductsNo']; ?>" class="u-ipt"/>
+                                    <input type=hidden name="spec" value='<?php echo $product['SpecArray']; ?>'/>
+                                </td>
+                                <?php
+                                $pSpecArr = json_decode($product['SpecArray'], true);
+                                foreach ($pSpecArr as $pSpec) {
+                                    echo sprintf('<td>%s</td>', $pSpec['Value']);
+                                }
+                                ?>
                                 <td><input name="storenums" type="text" value="<?php echo $product['StoreNums']; ?>"  class="u-ipt"/></td>
                                 <td><input name="marketprice" type="text" value="<?php echo $product['MarketPrice']; ?>"  class="u-ipt"/></td>
                                 <td><input name="sellprice" type="text" value="<?php echo $product['SellPrice']; ?>"  class="u-ipt"/></td>
@@ -178,11 +191,11 @@ $this->headScript()
                             <td attr-type='<?php echo $attribute['Type']; ?>' attr-id='<?php echo $attribute['AttributeId']; ?>'>
                                 <?php if($attribute['Type'] == '1'): ?>
                                     <?php foreach( explode(',',$attribute['Value']) as $val): ?>
-                                    <label class="attr"><input class="attribute" <?php echo $val == $attribute['AttributeValue'] ? 'checked' :''; ?> type="radio" value="<?php echo $val; ?>"><?php echo $val; ?></label>
+                                    <label class="attr"><input class="attribute" <?php echo $val == $attribute['AttributeValue'] ? 'checked' :''; ?> type="radio" value="<?php echo $val; ?>"><?php echo $val; ?></label>&nbsp;&nbsp;
                                     <?php endforeach; ?>
                                 <?php elseif($attribute['Type'] == '2') :?>
                                     <?php foreach( explode(',',$attribute['Value']) as $val): ?>
-                                    <label class="attr"><input class="attribute" type="checkbox" <?php echo in_array($val,explode(',',$attribute['AttributeValue'])) ? 'checked' :''; ?> value="<?php echo $val; ?>" ><?php echo $val; ?></label>
+                                    <label class="attr"><input class="attribute" type="checkbox" <?php echo in_array($val,explode(',',$attribute['AttributeValue'])) ? 'checked' :''; ?> value="<?php echo $val; ?>" ><?php echo $val; ?></label>&nbsp;&nbsp;
                                     <?php endforeach; ?>
                                 <?php elseif($attribute['Type'] == '3') :?>
                                     <select class='attribute'>
@@ -225,7 +238,7 @@ $this->headScript()
                 <label class="lab">产品相册：</label>
                 <div class="ipt">
                     <ul class="formimglst clearfix">
-                        <?php 
+                        <?php
 
                         $goodsImg = array();
                         if($this->goodsInfo['Img'])

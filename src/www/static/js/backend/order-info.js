@@ -65,7 +65,7 @@ $(function() {
     });
 
     $('#btnAddGoods').click(function(){
-      $('#goodsList').dialog({"modal": true, "width":940, "height":640});
+      $('#goodsList').dialog({"modal": true, "width":940, "height":660});
       WF.Goods.updateGoodsList(1);
     });
 
@@ -154,7 +154,7 @@ $(function() {
               else
               {
                   WF.showMessage('error', '错误', data.message);
-              } 
+              }
 
           });
 

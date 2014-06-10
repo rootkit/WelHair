@@ -19,12 +19,14 @@ use \Welfony\Utility\Util;
       <?php foreach( $this->rows as $goods) : ?>
       <?php
         $spc= '';
-        if( $goods['SpecArray'] )
-        {
-            $spec= json_decode($goods['SpecArray'],true);
-            $spc= $spec['Name'].":".$spec['Value'];
-        }
+        if ($goods['SpecArray']) {
+            $specArr = json_decode($goods['SpecArray'],true);
+            foreach ($specArr as $spec) {
+                $spc .= $spec['Name'] . ":" . $spec['Value'] . ', ';
+            }
 
+            $spc = trim($spc, ', ');
+        }
       ?>
         <tr>
             <td class="col-center"><input type="radio" data-name="<?php echo $goods['Name'];?>"

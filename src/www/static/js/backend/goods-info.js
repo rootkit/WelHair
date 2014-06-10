@@ -14,97 +14,158 @@ WF.Model = {
   updateSpecList :function(page)
   {
      var url =globalSetting.baseUrl + '/goods/spec/select?page=' + page + '&func= WF.Model.updateSpecList';
-     if( $('#goodsmodel').val() != 0)
-     {
+     if ($('#goodsmodel').val() != 0) {
         url += "&modelid=" + $('#goodsmodel').val();
      }
-     $.get( url, function(data) {
+
+    function descartes(list,specData)
+    {
+      //parent上一级索引;count指针计数
+      var point  = {};
+
+      var result = [];
+      var pIndex = null;
+      var tempCount = 0;
+      var temp   = [];
+
+      //根据参数列生成指针对象
+      for(var index in list)
+      {
+        if(typeof list[index] == 'object')
+        {
+          point[index] = {'parent':pIndex,'count':0}
+          pIndex = index;
+        }
+      }
+
+      //单维度数据结构直接返回
+      if(pIndex == null)
+      {
+        return list;
+      }
+
+      //动态生成笛卡尔积
+      while(true)
+      {
+        for(var index in list)
+        {
+          tempCount = point[index]['count'];
+          temp.push({"Id":specData[index].Id,"Type":specData[index].Type,"Name":specData[index].Name,"Value":list[index][tempCount]});
+        }
+
+        //压入结果数组
+        result.push(temp);
+        temp = [];
+
+        //检查指针最大值问题
+        while(true)
+        {
+          if(point[index]['count']+1 >= list[index].length)
+          {
+            point[index]['count'] = 0;
+            pIndex = point[index]['parent'];
+            if(pIndex == null)
+            {
+              return result;
+            }
+
+            //赋值parent进行再次检查
+            index = pIndex;
+          }
+          else
+          {
+            point[index]['count']++;
+            break;
+          }
+        }
+      }
+    }
+
+     $.get(url, function(data) {
         $('#specList').empty();
         $('#specList').html(data);
 
-        $('#specList input[type=radio]').click(function(){
-
-          //var first= $('#basicdatatable thead tr th:first');
-          //var row = $('<th class="cola">' + $(this).attr('data-name') + '</th>');
-          //first.after(row);
-          $('#basicdatatable thead tr').empty();
-
-
-          var headerline = '' +
-          '<th class="cola">商品货号</th>' +
-          '<th class="cola">'+$(this).attr('data-name') +'</th>' +
-          '<th class="cola">库存</th>'+
-          '<th class="cola">市场价格</th>'+
-          '<th class="cola">销售价格</th>'+
-          '<th class="cola">成本价格</th>'+
-          '<th class="cola">重量</th>';
-          $('#basicdatatable thead tr').append( $(headerline));
-
+        $('#specList input[type=radio]').click(function() {
           var val = $(this).attr('data-value');
-
-          if( !$('#basicdatatable').hasClass('hasspecs') )
-          {
+          if (val != null && val.replace(/\s+/g, '').length > 0) {
             $('#basicdatatable tbody').empty();
-          }
 
-          if( val != null && val.replace(/\s+/g, '').length > 0 )
-          {
-
+            var hasSpecs = $('#basicdatatable').hasClass('hasspecs');
+            if (!hasSpecs) {
               $('#basicdatatable').addClass('hasspecs');
-              var added = false;
-              var specArrayVal = $('#basicdatatable').attr('specarray');
+            }
 
-              if( specArrayVal !== undefined && specArrayVal !== false)
-              {
-                  specArrayVal = JSON.parse(specArrayVal  );
+            var specArrayVal = $('#basicdatatable').attr('specarray');
+            if (specArrayVal !== undefined && specArrayVal !== false) {
+              specArrayVal = JSON.parse(specArrayVal);
+            } else {
+              specArrayVal = [];
+            }
 
-                  for( var i =0; i< specArrayVal.length ; i++)
-                  {
-                      if( specArrayVal[i]['Id'] == $(this).attr('data-id') )
-                      {
-                        added = true;
-                      }
-                  }
-                  if( !added)
-                  {
-                      specArrayVal.push({'Name': $(this).attr('data-name'), 'Id': $(this).attr('data-id'), 'Value': val, "Type":"1"});
-                      $('#basicdatatable').attr('specarray', JSON.stringify(specArrayVal) );
-                  }
-              }
-              else
-              {
-                  $('#basicdatatable').attr('specarray',JSON.stringify([{'Name': $(this).attr('data-name'), 'Id': $(this).attr('data-id'), 'Value': val, "Type":"1"}]));
-              }
-              
-              if( !added )
-              {
-                val = JSON.parse(val );
-                var i= 0;
-                for( var idx in val)
-                {
-                  var spec = {'Name': $(this).attr('data-name'), 'Id': $(this).attr('data-id'), 'Value': val[idx]};
-                  var addedrow = '<tr spec-id="'+$(this).attr('data-id')+'" spec-value="'+ val[idx]  +'">' +
-                  '<td><input name="goodsno" type="text" value="' + $('#goodsno').val() + '-' + (++i) + '"  class="u-ipt"/></td>' +
-                  '<td>' + val[idx] + '<input type=hidden name="spec" value=\'' + JSON.stringify(spec) +'\'></td>' +
-                  '<td><input name="storenums" type="text" value="100"  class="u-ipt"/></td>' +
-                  '<td><input name="marketprice" type="text" value="0.00"  class="u-ipt"/></td>' +
-                  '<td><input name="sellprice" type="text" value="0.00"  class="u-ipt"/></td>' +
-                  '<td><input name="costprice" type="text" value="0.00"  class="u-ipt"/></td>' +
-                  '<td><input name="weight" type="text" value="0.00"  class="u-ipt"/></td>' +
-                  '</tr>';
-                  $('#basicdatatable tbody').append(addedrow);
-                  if( i> window.addedspecs )
-                  {
-                      $('.content').height($('.content').height() + 50);
-                  }
+            var added = false;
+            for (var i = 0; i < specArrayVal.length; i++) {
+                if (specArrayVal[i]['Id'] == $(this).attr('data-id')) {
+                  added = true;
                 }
-                if( i> window.addedspecs )
-                {
-                  window.addedspecs = i;
-                }
+            }
+
+            if(!added) {
+                specArrayVal.push({'Name': $(this).attr('data-name'), 'Id': $(this).attr('data-id'), 'Value': JSON.parse(val), "Type":"1"});
+            }
+
+            $('#basicdatatable').attr('specarray', JSON.stringify(specArrayVal));
+
+
+            var specValueData = {};
+            var specData = {};
+            $.each(specArrayVal, function() {
+              var sc = this;
+              if (!specValueData[sc.Id]) {
+                specData[sc.Id] = {'Id':sc.Id,'Name':sc.Name,'Type':sc.Type};
+                specValueData[sc.Id] = [];
               }
+              $.each (sc.Value, function() {
+                specValueData[sc.Id].push(this);
+              });
+            });
+
+            var specMaxData = descartes(specValueData,specData);
+
+            var headerline = '<th class="cola">商品货号</th>';
+            for (var j = 0; j < specArrayVal.length; j++) {
+              headerline += ('<th class="cola">' + specArrayVal[j].Name +'</th>');
+            }
+            headerline +=
+            '<th class="cola">库存</th>'+
+            '<th class="cola">市场价格</th>'+
+            '<th class="cola">销售价格</th>'+
+            '<th class="cola">成本价格</th>'+
+            '<th class="cola">重量</th>';
+            $('#basicdatatable thead tr').empty().append($(headerline));
+
+            var matrix = specMaxData.length;
+
+            for (var l = 0; l < matrix; l++) {
+              var addedrow = '<tr>' +
+                '<td><input name="goodsno" type="text" value="' + $('#goodsno').val() + '-' + (l + 1) + '"  class="u-ipt"/><input type=hidden name="spec" value=\'' + JSON.stringify(specMaxData[l]) +'\'></td>';
+
+              var specH = specArrayVal;
+              for (var m = 0; m < specH.length; m++) {
+                addedrow += '<td>' + specMaxData[l][m].Value + '</td>';
+              }
+
+              addedrow += '<td><input name="storenums" type="text" value="100"  class="u-ipt"/></td>' +
+              '<td><input name="marketprice" type="text" value="0.00"  class="u-ipt"/></td>' +
+              '<td><input name="sellprice" type="text" value="0.00"  class="u-ipt"/></td>' +
+              '<td><input name="costprice" type="text" value="0.00"  class="u-ipt"/></td>' +
+              '<td><input name="weight" type="text" value="0.00"  class="u-ipt"/></td>' +
+              '</tr>';
+
+              $('#basicdatatable tbody').append(addedrow);
+            }
           }
 
+          $(window).resize();
           $('#specList').dialog("close");
         });
      });
@@ -177,7 +238,7 @@ $(function() {
                                       valstr = "<td attr-type='1' attr-id='" + data[index].AttributeId + "'>";
                                       for( i in va )
                                       {
-                                          valstr += '<label class="attr"><input class="attribute" type="radio" value="' +va[i] + '">' +va[i] + '</label>';
+                                          valstr += '<label class="attr"><input class="attribute" type="radio" value="' +va[i] + '">' +va[i] + '</label>&nbsp;&nbsp;';
                                       }
                                       valstr += "</td>";
                                       break;
@@ -189,7 +250,7 @@ $(function() {
                                       valstr="<td attr-type='2' attr-id='" + data[index].AttributeId + "'>";
                                       for( i in va )
                                       {
-                                          valstr += '<label class="attr"><input class="attribute" type="checkbox" value="' +va[i] + '" >' +va[i] + '</label>';
+                                          valstr += '<label class="attr"><input class="attribute" type="checkbox" value="' +va[i] + '" >' +va[i] + '</label>&nbsp;&nbsp;';
                                       }
                                       valstr +="</td>";
                                       break;
@@ -322,34 +383,39 @@ $(function() {
           if( $('#basicdatatable').hasClass('hasspecs'))
           {
             var products=  $('#basicdatatable tbody tr').map(function(i,n){
-                  return {
-                    'ProductsNo': $(n).find('input[name="goodsno"]').val(),
-                    'SpecArray': $(n).find('input[name="spec"]').val(),
-                    'StoreNums': $(n).find('input[name="sellprice"]').val(),
-                    'Weight':$(n).find('input[name="weight"]').val(),
-                    'MarketPrice': $(n).find('input[name="marketprice"]').val(),
-                    'SellPrice':$(n).find('input[name="sellprice"]').val(),
-                    'CostPrice':$(n).find('input[name="costprice"]').val()
-                  };
-              }).get();
-            var specarray = $('#basicdatatable').attr('specarray');
+                return {
+                  'ProductsNo': $(n).find('input[name="goodsno"]').val(),
+                  'SpecArray': $(n).find('input[name="spec"]').val(),
+                  'StoreNums': $(n).find('input[name="sellprice"]').val(),
+                  'Weight':$(n).find('input[name="weight"]').val(),
+                  'MarketPrice': $(n).find('input[name="marketprice"]').val(),
+                  'SellPrice':$(n).find('input[name="sellprice"]').val(),
+                  'CostPrice':$(n).find('input[name="costprice"]').val()
+                };
+            }).get();
 
-             goodsdata['weight']= $('input[name="weight"]:first').val();
-             goodsdata['storenums']= $('input[name="sellprice"]:first').val();
-             goodsdata['marketprice']= $('input[name="marketprice"]:first').val();
-             goodsdata['costprice']= $('input[name="costprice"]:first').val();
-             goodsdata['sellprice']= $('input[name="sellprice"]:first').val();
-             goodsdata['specarray'] = specarray;
-             goodsdata['products'] = products;
-             attributes =  $('#basicdatatable tbody tr').map(function(i,n){
-                  return {
-                    'SpecId': $(n).attr('spec-id'),
-                    'SpecValue': $(n).attr('spec-value'),
+            var specarray = $('#basicdatatable').attr('specarray');
+            var specArrJson = $.parseJSON(specarray);
+
+            goodsdata['weight']= $('input[name="weight"]:first').val();
+            goodsdata['storenums']= $('input[name="sellprice"]:first').val();
+            goodsdata['marketprice']= $('input[name="marketprice"]:first').val();
+            goodsdata['costprice']= $('input[name="costprice"]:first').val();
+            goodsdata['sellprice']= $('input[name="sellprice"]:first').val();
+            goodsdata['specarray'] = specarray;
+            goodsdata['products'] = products;
+
+            $.each (specArrJson, function() {
+              var sc = this;
+              $.each (sc.Value, function() {
+                  attributes.push({
+                    'SpecId': sc.Id,
+                    'SpecValue': this,
                     'AttributeId':null,
                     'AttributeValue': null
-                  };
-              }).get();
-
+                  });
+                });
+            });
           }
           else
           {
@@ -487,7 +553,7 @@ $(function() {
             </div> \
         ');
 
-       
+
         $('#goods-image-uploader').uploadify({
             fileObjName: 'uploadfile',
             width: 102,

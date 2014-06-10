@@ -76,7 +76,7 @@ class Goods_IndexController extends AbstractAdminController
             'CostPrice'=>0,
             'Weight'=>0,
             'Img'=>'',
-            'DownTime'=>'',
+            'DownTime'=> null,
             'IsDeleted' => 0,
             'Keywords' => '',
             'Content' => ''
@@ -104,20 +104,17 @@ class Goods_IndexController extends AbstractAdminController
             $goods['Weight']= $this->_request->getParam('weight');
 
             $goods['Img']= $this->_request->getParam('img');
-           
+
             $goods['Content']= $this->_request->getParam('content');
 
             $goods['CreateTime'] = date('Y-m-d H:i:s');
-            if( $goodsId )
+            if( $this->_request->getParam('isup'))
             {
-                if( $this->_request->getParam('isup'))
-                {
-                     $goods['UpTime'] = date('Y-m-d H:i:s');
-                }
-                else
-                {
-                    $goods['DownTime'] = date('Y-m-d H:i:s');
-                }
+                 $goods['UpTime'] = date('Y-m-d H:i:s');
+            }
+            else
+            {
+                $goods['DownTime'] = date('Y-m-d H:i:s');
             }
 
             $categories =  $this->_request->getParam('categories');
@@ -223,7 +220,7 @@ class Goods_IndexController extends AbstractAdminController
         //$this->_helper->viewRenderer->setNoRender(true);
         $this->_helper->layout->disableLayout();
 
-        static $pageSize = 10;
+        static $pageSize = 4;
 
         $page = intval($this->_request->getParam('page'));
         $func = $this->_request->getParam('func');
