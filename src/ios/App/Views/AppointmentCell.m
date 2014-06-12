@@ -10,7 +10,6 @@
 //
 // ==============================================================================
 
-#import <AMRatingControl.h>
 #import "AppointmentCell.h"
 #import "CircleImageView.h"
 #import "Staff.h"
@@ -259,6 +258,10 @@
         ASIFormDataRequest *request = [RequestUtil createPUTRequestWithURL:[NSURL URLWithString:[NSString stringWithFormat:API_APPOINTMENTS_UPDATE, self.appointment.id]]
                                                                    andData:reqData];
 
+        if (self.baseController) {
+            [self.baseController.requests addObject:request];
+        }
+
         [request setDelegate:self];
         [request setDidFinishSelector:@selector(updateAppointmentFinish:)];
         [request setDidFailSelector:@selector(updateAppointmentFail:)];
@@ -275,6 +278,10 @@
 
         ASIFormDataRequest *request = [RequestUtil createPUTRequestWithURL:[NSURL URLWithString:[NSString stringWithFormat:API_APPOINTMENTS_UPDATE, self.appointment.id]]
                                                                    andData:reqData];
+
+        if (self.baseController) {
+            [self.baseController.requests addObject:request];
+        }
 
         [request setDelegate:self];
         [request setDidFinishSelector:@selector(updateAppointmentFinish:)];
@@ -299,6 +306,9 @@
 
         ASIFormDataRequest *request = [RequestUtil createPUTRequestWithURL:[NSURL URLWithString:[NSString stringWithFormat:API_APPOINTMENTS_UPDATE, self.appointment.id]]
                                                                    andData:reqData];
+        if (self.baseController) {
+            [self.baseController.requests addObject:request];
+        }
         [request startAsynchronous];
     }
 }

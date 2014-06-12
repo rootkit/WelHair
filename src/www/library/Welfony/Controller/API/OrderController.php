@@ -15,7 +15,9 @@
 namespace Welfony\Controller\API;
 
 use Welfony\Controller\Base\AbstractAPIController;
+use Welfony\Service\OrderGoodsService;
 use Welfony\Service\OrderService;
+use Welfony\Service\UserService;
 
 class OrderController extends AbstractAPIController
 {
@@ -41,8 +43,85 @@ class OrderController extends AbstractAPIController
 
     public function pay($orderId)
     {
-        $result = OrderService::create($reqData);
-        $this->sendResponse($result);
+        $response = array('success' => false);
+
+        $orderDetail = OrderService::getOrderDetailById($orderId);
+
+        $userId = $this->currentContext['UserId'];
+
+        if ($userId != $orderDetail['User']['UserId']) {
+            $response['message'] = '不合法的用户信息！';
+            $this->sendResponse($response);
+        }
+
+        $user = UserService::getUserById($userId);
+        if (!$user) {
+            $response['message'] = '不合法的用户信息！';
+            $this->sendResponse($response);
+        }
+
+        if (floatval($user['Balance']) < $orderDetail['OrderAmount']) {
+            $response['message'] = '用户账户余额不足，请充值！';
+            $this->sendResponse($response);
+        }
+
+        $log= array(
+            'OrderId' => $orderId,
+            'User' => $user['Username'],
+            'Action'=>'付款',
+            'AddTime'=>date('Y-m-d H:i:s'),
+            'Result'=> '成功',
+            'Note' => '订单【'. $orderDetail['OrderNo'] .'】付款' . $orderDetail['OrderAmount'] . '元'
+        );
+
+        $doc = array(
+            'OrderId' => $orderId,
+            'UserId' => $userId,
+            'Amount' => $orderDetail['OrderAmount'],
+            'CreateTime'=>date('Y-m-d H:i:s'),
+            'PaymentId'=> 1,
+            'AdminId' => 0,
+            'PayStatus'=> 1,
+            'Note' => '用户付款'
+        );
+
+        $userbalancelog = array(
+            'OrderId' => $orderId,
+            'UserId' => $userId,
+            'Amount' => -$orderDetail['OrderAmount'],
+            'IncomeSrc' => 1,
+            'IncomeSrcId' => $orderDetail['OrderNo'],
+            'CreateTime'=>date('Y-m-d H:i:s'),
+            'Status'=> 1,
+            'Description'=> sprintf('订单【%s】付款%.2f元', $orderDetail['OrderNo'], floatval($orderDetail['OrderAmount']))
+        );
+
+        $ordergoods = OrderGoodsService::listAllOrderGoodsByOrder($orderId);
+        $companyId = 0;
+
+        foreach ($ordergoods as $goods) {
+            if (intval($goods['CompanyId']) > 0) {
+                $companyId = $goods['CompanyId'];
+            } else {
+                $companyId = 0;
+            }
+        }
+
+        $companybalancelog = array(
+            'OrderId' => $orderId,
+            'CompanyId' => $companyId,
+            'Amount' => $orderDetail['OrderAmount'],
+            'CreateTime'=> date('Y-m-d H:i:s'),
+            'Status'=> 1,
+            'Description'=> sprintf('订单【%s】付款%.2f元', $orderDetail['OrderNo'], floatval($orderDetail['OrderAmount'])),
+            'IncomeSrc' => 1,
+            'IncomeSrcId' => $orderDetail['OrderNo']
+        );
+
+        $order = array('Status'=> 2, 'PayStatus'=> 1);
+        $response = OrderService::payOrder($orderId, $order, $log, $doc, $userbalancelog, $companybalancelog, null);
+
+        $this->sendResponse($response);
     }
 
 }

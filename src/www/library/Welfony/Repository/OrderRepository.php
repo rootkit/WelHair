@@ -64,8 +64,8 @@ class OrderRepository extends AbstractRepository
     public function getAllOrdersCountByUserId($userId, $status)
     {
         $filter = '';
-        if ($status > 0) {
-            $filter = ' AND O.Status = ' . intval($status);
+        if ($status >= 0) {
+            $filter = ' AND O.PayStatus = ' . intval($status);
         }
 
         $strSql = "SELECT
@@ -84,8 +84,8 @@ class OrderRepository extends AbstractRepository
         $offset = ($page - 1) * $pageSize;
 
         $filter = '';
-        if ($status > 0) {
-            $filter = ' AND O.Status = ' . intval($status);
+        if ($status >= 0) {
+            $filter = ' AND O.PayStatus = ' . intval($status);
         }
 
         $strSql = "SELECT

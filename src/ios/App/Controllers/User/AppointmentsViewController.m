@@ -129,6 +129,7 @@
     }
 
     cell.backgroundColor = [UIColor clearColor];
+    cell.baseController = self;
 
     Appointment *apt = [self.datasource objectAtIndex:indexPath.row];
     [cell setup:apt];
@@ -154,6 +155,9 @@
 
     ASIHTTPRequest *request = [RequestUtil createGetRequestWithURL:[NSURL URLWithString:[NSString stringWithFormat:self.staffId > 0 ? API_STAFFS_APPOINTMENT : API_USERS_APPOINTMENT, [[UserManager SharedInstance] userLogined].id]]
                                                           andParam:reqData];
+
+    [self.requests addObject:request];
+
     [request setDelegate:self];
     [request setDidFinishSelector:@selector(finishGetAppointments:)];
     [request setDidFailSelector:@selector(failGetAppointments:)];

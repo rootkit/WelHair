@@ -9,6 +9,7 @@
 // file that was distributed with this source code.
 //
 // ==============================================================================
+
 #import "FavoritesViewController.h"
 #import "PPiFlatSegmentedControl.h"
 #import "FavoriteWorkTableView.h"
@@ -29,6 +30,7 @@
 
 @property (nonatomic, strong) UIView *segmentContentView;
 @property (nonatomic) int activeIndex;
+
 @end
 
 @implementation FavoritesViewController
@@ -101,8 +103,10 @@
                                                                          [self contentHeightWithNavgationBar:YES withBottomBar:NO] - HEIGHT(segmentView))];
     self.segmentContentView.backgroundColor = [UIColor clearColor];
     [self.view addSubview:self.segmentContentView];
-    
-    self.workTableView = [[FavoriteWorkTableView alloc] initWithFrame:self.segmentContentView.bounds];
+
+    FavoriteWorkTableView *tblV = [[FavoriteWorkTableView alloc] initWithFrame:self.segmentContentView.bounds];
+    tblV.baseControler = self;
+    self.workTableView = tblV;
     [self.segmentContentView addSubview:self.workTableView];
     
     [self segmentButtonSelected:0];
@@ -112,7 +116,6 @@
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 
@@ -134,7 +137,9 @@
         case 1:
         {
             if(!self.groupTableView){
-                self.groupTableView = [[FavoriteGroupTableView alloc] initWithFrame:self.segmentContentView.bounds];
+                FavoriteGroupTableView *tblV = [[FavoriteGroupTableView alloc] initWithFrame:self.segmentContentView.bounds];
+                tblV.baseControler = self;
+                self.groupTableView = tblV;
                 [self.segmentContentView addSubview:self.groupTableView];
             }
             self.groupTableView.hidden = NO;
@@ -143,7 +148,9 @@
         case 2:
         {
             if(!self.staffTableView){
-                self.staffTableView = [[FavoriteStaffTableView alloc] initWithFrame:self.segmentContentView.bounds];
+                FavoriteStaffTableView *tblV = [[FavoriteStaffTableView alloc] initWithFrame:self.segmentContentView.bounds];
+                tblV.baseControler = self;
+                self.staffTableView = tblV;
                 [self.segmentContentView addSubview:self.staffTableView];
             }
             self.staffTableView.hidden = NO;
@@ -152,7 +159,9 @@
         case 3:
         {
             if(!self.productTableView){
-                self.productTableView = [[FavoriteProductTableView alloc] initWithFrame:self.segmentContentView.bounds];
+                FavoriteProductTableView *tblV = [[FavoriteProductTableView alloc] initWithFrame:self.segmentContentView.bounds];
+                tblV.baseControler = self;
+                self.productTableView = tblV;
                 [self.segmentContentView addSubview:self.productTableView];
             }
             self.productTableView.hidden = NO;

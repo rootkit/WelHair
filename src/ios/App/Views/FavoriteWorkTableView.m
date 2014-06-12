@@ -106,7 +106,12 @@
     NSMutableDictionary *reqData = [[NSMutableDictionary alloc] initWithCapacity:1];
     [reqData setObject:[NSString stringWithFormat:@"%d", self.currentPage] forKey:@"page"];
     [reqData setObject:[NSString stringWithFormat:@"%d", TABLEVIEW_PAGESIZE_DEFAULT] forKey:@"pageSize"];
+
     ASIHTTPRequest *request = [RequestUtil createGetRequestWithURL:[NSURL URLWithString:API_WORKS_LIKED] andParam:reqData];
+    if (self.baseControler) {
+        [self.baseControler.requests addObject:request];
+    }
+
     [request setDelegate:self];
     [request setDidFinishSelector:@selector(finishGetWorks:)];
     [request setDidFailSelector:@selector(failGetWorks:)];

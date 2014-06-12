@@ -58,6 +58,8 @@
         self.tableView.showsInfiniteScrolling = NO;
 
         [self.tableView triggerPullToRefresh];
+
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(triggerTablePullToRefresh) name:NOTIFICATION_REFRESH_ORDERLIST object:nil];
     }
 
     return self;
@@ -71,7 +73,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return  self.datasource.count;
+    return self.datasource.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -82,6 +84,8 @@
         cell = [[OrderCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
+
+    cell.baseController = self.baseController;
     [cell setup:[self.datasource objectAtIndex:indexPath.row]];
 
     return cell;
@@ -99,9 +103,15 @@
     NSMutableDictionary *reqData = [[NSMutableDictionary alloc] initWithCapacity:1];
     [reqData setObject:[NSString stringWithFormat:@"%d", self.currentPage] forKey:@"page"];
     [reqData setObject:[NSString stringWithFormat:@"%d", TABLEVIEW_PAGESIZE_DEFAULT] forKey:@"pageSize"];
+    [reqData setObject:[NSString stringWithFormat:@"%d", 0] forKey:@"status"];
 
     ASIHTTPRequest *request = [RequestUtil createGetRequestWithURL:[NSURL URLWithString:[NSString stringWithFormat:API_ORDER_LIST_BY_USER, [UserManager SharedInstance].userLogined.id]]
                                                           andParam:reqData];
+
+    if (self.baseController) {
+        [self.baseController.requests addObject:request];
+    }
+
     [request setDelegate:self];
     [request setDidFinishSelector:@selector(finishGetOrders:)];
     [request setDidFailSelector:@selector(failGetOrders:)];
@@ -160,6 +170,11 @@
 - (void)checkEmpty
 {
     
+}
+
+- (void)triggerTablePullToRefresh
+{
+    [self.tableView triggerPullToRefresh];
 }
 
 @end

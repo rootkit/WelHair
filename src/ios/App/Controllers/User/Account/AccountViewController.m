@@ -211,6 +211,8 @@
     [SVProgressHUD showWithMaskType:SVProgressHUDMaskTypeClear];
 
     ASIHTTPRequest *request = [RequestUtil createGetRequestWithURL:[NSURL URLWithString:[NSString stringWithFormat:API_USERS_BALANCE, [UserManager SharedInstance].userLogined.id]] andParam:nil];
+    [self.requests addObject:request];
+
     [request setDelegate:self];
     [request setDidFinishSelector:@selector(finishGetUserBanlance:)];
     [request setDidFailSelector:@selector(failGetUserBanlance:)];

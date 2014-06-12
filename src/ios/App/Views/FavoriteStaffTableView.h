@@ -14,4 +14,6 @@
 
 @interface FavoriteStaffTableView : UIView
 
+@property (nonatomic, strong) BaseViewController *baseControler;
+
 @end

@@ -14,4 +14,6 @@
 
 @interface FavoriteGroupTableView : UIView
 
+@property (nonatomic, strong) BaseViewController *baseControler;
+
 @end

@@ -124,6 +124,8 @@
     [reqData setObject:[NSString stringWithFormat:@"%d", TABLEVIEW_PAGESIZE_DEFAULT] forKey:@"pageSize"];
 
     ASIHTTPRequest *request = [RequestUtil createGetRequestWithURL:[NSURL URLWithString:[NSString stringWithFormat:API_USERS_DEPOSIT, [UserManager SharedInstance].userLogined.id]] andParam:reqData];
+    [self.requests addObject:request];
+
     [request setDelegate:self];
     [request setDidFinishSelector:@selector(finishGetDeposits:)];
     [request setDidFailSelector:@selector(failGetDeposits:)];

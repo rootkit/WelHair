@@ -44,6 +44,7 @@
 
 #define API_ORDER_CREATE API_PATH(@"/orders")
 #define API_ORDER_LIST_BY_USER API_PATH(@"/users/%d/orders")
+#define API_ORDER_PAY API_PATH(@"/orders/%d/pay")
 
 #define API_SOCIAL_LOGIN API_PATH(@"/users/signin/social")
 
@@ -137,6 +138,7 @@
 #define NOTIFICATION_USER_STATUS_CHANGE  @"Notification_UserStatusChanged"
 #define NOTIFICATION_USER_PROFILE_CHANGE  @"Notification_UserProfileChanged"
 #define NOTIFICATION_REFRESH_APPOINTMENT @"Notification_RefreshAppintmentList"
+#define NOTIFICATION_REFRESH_ORDERLIST @"Notification_RefreshOrderList"
 #define NOTIFICATION_REFRESH_APPOINTMENT_NOTE @"Notification_RefreshAppintmentNoteList"
 #define NOTIFICATION_REFRESH_COMMENTLIST @"Notification_RefreshCommentList"
 #define NOTIFICATION_REFRESH_USER_BALANCE @"Notification_Refresh_UserBalance"
@@ -148,6 +150,7 @@
 #define NOTIFICATION_GOTO_HAIR_RECORD_VIEW @"GotoHairRecordView"
 #define NOTIFICATION_CANCEL_REQUEST_WITHDRAW @"Notification_CancelRequestWithdras"
 #define NOTIFICATION_PUSH_TO_APPOINTMENTLIST @"Notification_PushToAppointmentList"
+#define NOTIFICATION_PUSH_TO_ORDERLIST @"Notification_PushToOrderList"
 
 #define REMOTE_NOTIFICATION_TYPE_STAFF_GET_APPOINTMENT  1
 

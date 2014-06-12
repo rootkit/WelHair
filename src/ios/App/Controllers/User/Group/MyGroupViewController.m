@@ -147,6 +147,8 @@
 {
     ASIHTTPRequest *request = [RequestUtil createGetRequestWithURL:[NSURL URLWithString:[NSString stringWithFormat:API_STAFFS_DETAIL, [UserManager SharedInstance].userLogined.id]]
                                                           andParam:nil];
+    [self.requests addObject:request];
+
 
     [request setDelegate:self];
     [request setDidFinishSelector:@selector(finishGetStaffDetail:)];

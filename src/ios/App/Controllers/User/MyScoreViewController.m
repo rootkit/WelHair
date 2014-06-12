@@ -101,6 +101,8 @@
     NSMutableDictionary *reqData = [[NSMutableDictionary alloc] initWithCapacity:1];
 
     ASIHTTPRequest *request = [RequestUtil createGetRequestWithURL:[NSURL URLWithString:[NSString stringWithFormat:API_USERS_POINTS, [UserManager SharedInstance].userLogined.id]] andParam:reqData];
+    [self.requests addObject:request];
+
     [request setDelegate:self];
     [request setDidFinishSelector:@selector(finishGetPoints:)];
     [request setDidFailSelector:@selector(failGetPoints:)];

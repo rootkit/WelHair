@@ -215,6 +215,8 @@
     [reqData setObject:[NSString stringWithFormat:@"%d", TABLEVIEW_PAGESIZE_DEFAULT] forKey:@"pageSize"];
 
     ASIHTTPRequest *request = [RequestUtil createGetRequestWithURL:[NSURL URLWithString:self.requestString] andParam:reqData];
+    [self.requests addObject:request];
+
     [request setDelegate:self];
     [request setDidFinishSelector:@selector(finishGetComments:)];
     [request setDidFailSelector:@selector(failGetComments:)];

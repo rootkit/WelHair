@@ -14,6 +14,8 @@
 
 @interface OrderCell () <UIAlertViewDelegate>
 
+@property (nonatomic, strong) NSDictionary *orderInfo;
+
 @property (nonatomic, strong) UIImageView *productImgView;
 @property (nonatomic, strong) UILabel *groupNameLbl;
 @property (nonatomic, strong) UILabel *nameLbl;
@@ -23,7 +25,7 @@
 @property (nonatomic, strong) UILabel *shipPriceLbl;
 @property (nonatomic, strong) UILabel *totalPriceLbl;
 @property (nonatomic, strong) UILabel *statusLbl;
-@property (nonatomic, strong) UIButton *deleteBtn;
+@property (nonatomic, strong) UIButton *actionBtn;
 
 @end
 
@@ -133,16 +135,16 @@
         self.shipPriceLbl.textColor = [UIColor colorWithHexString:@"777"];
         [contentView addSubview:self.shipPriceLbl];
         
-        FAKIcon *deleteIcon = [FAKIonIcons ios7TrashIconWithSize:20];
-        [deleteIcon addAttribute:NSForegroundColorAttributeName value:[UIColor lightGrayColor]];
-        UIImage *deleteImg =[deleteIcon imageWithSize:CGSizeMake(20, 20)];
-        self.deleteBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        self.deleteBtn.frame = CGRectMake(20, MaxY(shipLbl), 25, 25);
-        [self.deleteBtn setImage:deleteImg forState:UIControlStateNormal];
-        [self.deleteBtn addTarget:self action:@selector(deleteOrder) forControlEvents:UIControlEventTouchDown];
-        [contentView addSubview:self.deleteBtn];
+        self.actionBtn = [[UIButton alloc] initWithFrame:CGRectMake(X(seperaterView2), MinY(shipLbl), 60, 25)];
+        self.actionBtn.titleLabel.font = [UIFont systemFontOfSize:12];
+        self.actionBtn.tag = 0;
+        [self.actionBtn setTitle:@"付款" forState:UIControlStateNormal];
+        [self.actionBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [self.actionBtn setBackgroundColor:[UIColor colorWithHexString:@"e43a3d"]];
+        [self.actionBtn addTarget:self action:@selector(actionClick:) forControlEvents:UIControlEventTouchUpInside];
+        [contentView addSubview:self.actionBtn];
         
-        UILabel *totalLbl= [[UILabel alloc] initWithFrame:CGRectMake(MaxX(self.deleteBtn), MaxY(shipLbl), 195, 25)];
+        UILabel *totalLbl= [[UILabel alloc] initWithFrame:CGRectMake(MinX(shipLbl), MaxY(shipLbl), 240, 25)];
         totalLbl.font = [UIFont systemFontOfSize:12];
         totalLbl.backgroundColor = [UIColor clearColor];
         totalLbl.textAlignment = TextAlignmentRight;
@@ -174,18 +176,23 @@
 
 - (void)setup:(NSDictionary *)order
 {
+    self.orderInfo = order;
+
     if ([[order objectForKey:@"PayStatus"] integerValue] == OrderStatusEnum_Paid) {
         self.statusLbl.text = @"已付款";
         self.statusLbl.hidden = NO;
         self.statusLbl.textColor = [UIColor greenColor];
+        self.actionBtn.hidden = YES;
     } else if ([[order objectForKey:@"PayStatus"] integerValue] == OrderStatusEnum_Refund) {
         self.statusLbl.text = @"已退款";
         self.statusLbl.hidden = NO;
         self.statusLbl.textColor = [UIColor colorWithHexString:@"FF9500"];
+        self.actionBtn.hidden = YES;
     } else {
         self.statusLbl.text = @"未付款";
         self.statusLbl.hidden = NO;
         self.statusLbl.textColor = [UIColor redColor];
+        self.actionBtn.hidden = NO;
     }
 
     NSDictionary *dicGoods = [[order objectForKey:@"Goods"] objectAtIndex:0];
@@ -196,21 +203,61 @@
     self.countLbl.text = [NSString stringWithFormat:@"%d", [[dicGoods objectForKey:@"GoodsNums"] intValue]];
     self.totalPriceLbl.text = [NSString stringWithFormat:@"￥%.2f", [[order objectForKey:@"OrderAmount"] floatValue]];
     self.shipPriceLbl.text = [NSString stringWithFormat:@"￥%.2f", [[order objectForKey:@"PayableFreight"] floatValue]];
-    self.deleteBtn.hidden = YES;
 
     [self.productImgView setImageWithURL:[NSURL URLWithString:[[dicGoods objectForKey:@"Img"] objectAtIndex:0]]];
 }
 
-- (void)deleteOrder
+- (void)actionClick:(UIButton *)sender
 {
-    [[[UIAlertView alloc] initWithTitle:@"确定删除订单?" message:nil delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil] show];
+    [[[UIAlertView alloc] initWithTitle:@"确定要支付订单吗?" message:nil delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil] show];
 }
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
-    if(buttonIndex == 1){
-        NSLog(@"delete order");
+    if (buttonIndex == 1) {
+        [SVProgressHUD showWithMaskType:SVProgressHUDMaskTypeClear];
+
+        NSMutableDictionary *reqData = [[NSMutableDictionary alloc] initWithCapacity:1];
+
+        ASIFormDataRequest *request = [RequestUtil createPOSTRequestWithURL:[NSURL URLWithString:[NSString stringWithFormat:API_ORDER_PAY, [[self.orderInfo objectForKey:@"OrderId"] intValue]]]
+                                                                    andData:reqData];
+        if (self.baseController) {
+            [self.baseController.requests addObject:request];
+        }
+
+        [request setDelegate:self];
+        [request setDidFinishSelector:@selector(actionFinish:)];
+        [request setDidFailSelector:@selector(actionFail:)];
+        [request startAsynchronous];
     }
+}
+
+- (void)actionFinish:(ASIHTTPRequest *)request
+{
+    [SVProgressHUD dismiss];
+
+    if (request.responseStatusCode == 200) {
+        NSDictionary *responseMessage = [Util objectFromJson:request.responseString];
+        if (responseMessage) {
+            if ([[responseMessage objectForKey:@"success"] intValue] == 0) {
+                [SVProgressHUD showErrorWithStatus:[responseMessage objectForKey:@"message"]];
+                return;
+            }
+
+            [SVProgressHUD dismiss];
+            [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_REFRESH_ORDERLIST object:nil];
+            [SVProgressHUD showSuccessWithStatus:@"操作成功！"];
+
+            return;
+        }
+    }
+
+    [SVProgressHUD showErrorWithStatus:@"操作失败，请重试！"];
+}
+
+- (void)actionFail:(ASIHTTPRequest *)request
+{
+    [SVProgressHUD showErrorWithStatus:@"操作失败，请重试！"];
 }
 
 @end

@@ -14,4 +14,6 @@
 
 @interface FavoriteWorkTableView : UIView
 
+@property (nonatomic, strong) BaseViewController *baseControler;
+
 @end

@@ -78,8 +78,10 @@
                                                                        [self contentHeightWithNavgationBar:YES withBottomBar:NO] - HEIGHT(segmentView))];
     self.segmentContentView.backgroundColor = [UIColor clearColor];
     [self.view addSubview:self.segmentContentView];
-    
-    self.unpaidTableView = [[OrderUnpaidTableView alloc] initWithFrame:self.segmentContentView.bounds];
+
+    OrderUnpaidTableView *tblV = [[OrderUnpaidTableView alloc] initWithFrame:self.segmentContentView.bounds];
+    tblV.baseController = self;
+    self.unpaidTableView = tblV;
     [self.segmentContentView addSubview:self.unpaidTableView];
     
     [self segmentButtonSelected:0];
@@ -105,7 +107,9 @@
         case 1:
         {
             if(!self.paidTableView){
-                self.paidTableView = [[OrderPaidTableView alloc] initWithFrame:self.segmentContentView.bounds];
+                OrderPaidTableView *tblV = [[OrderPaidTableView alloc] initWithFrame:self.segmentContentView.bounds];
+                tblV.baseController = self;
+                self.paidTableView = tblV;
                 [self.segmentContentView addSubview:self.paidTableView];
             }
             self.paidTableView.hidden = NO;

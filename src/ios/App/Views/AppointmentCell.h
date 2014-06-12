@@ -14,6 +14,8 @@
 
 @interface AppointmentCell : UITableViewCell
 
+@property (nonatomic, strong) BaseViewController *baseController;
+
 - (void)setup:(Appointment *)appointment;
 
 @end

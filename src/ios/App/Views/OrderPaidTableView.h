@@ -10,10 +10,10 @@
 //
 // ==============================================================================
 
-#import <UIKit/UIKit.h>
-
 #define NOTIFICATION_PUSH_TO_PAIDORDER_PREVIEW_VIEW @"Notification_PushToPaidOrderPreviewView"
 
 @interface OrderPaidTableView : UIView
+
+@property (nonatomic, strong) BaseViewController *baseController;
 
 @end

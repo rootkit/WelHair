@@ -112,6 +112,10 @@
     [reqData setObject:[NSString stringWithFormat:@"%d", TABLEVIEW_PAGESIZE_DEFAULT] forKey:@"pageSize"];
 
     ASIHTTPRequest *request = [RequestUtil createGetRequestWithURL:[NSURL URLWithString:API_COMPANIES_LIKED] andParam:reqData];
+    if (self.baseControler) {
+        [self.baseControler.requests addObject:request];
+    }
+
     [request setDelegate:self];
     [request setDidFinishSelector:@selector(finishGetGroups:)];
     [request setDidFailSelector:@selector(failGetGroups:)];

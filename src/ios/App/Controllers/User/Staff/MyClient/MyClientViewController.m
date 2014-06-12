@@ -176,6 +176,8 @@
 
     ASIHTTPRequest *request = [RequestUtil createGetRequestWithURL:[NSURL URLWithString:[NSString stringWithFormat:API_STAFFS_CLIENTS, [UserManager SharedInstance].userLogined.id]]
                                                           andParam:reqData];
+    [self.requests addObject:request];
+
     [request setDelegate:self];
     [request setDidFinishSelector:@selector(finishGetClients:)];
     [request setDidFailSelector:@selector(failGetClients:)];

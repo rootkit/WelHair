@@ -14,6 +14,8 @@
 
 @interface OrderCell : UITableViewCell
 
+@property (nonatomic, strong) BaseViewController *baseController;
+
 - (void)setup:(NSDictionary *)order;
 
 @end

@@ -252,12 +252,24 @@
     if (request.responseStatusCode == 200) {
         NSDictionary *responseMessage = [Util objectFromJson:request.responseString];
         if (responseMessage) {
-            if ([responseMessage objectForKey:@"appointment"] == nil) {
+            if ([responseMessage objectForKey:@"order"] == nil) {
                 [SVProgressHUD showErrorWithStatus:[responseMessage objectForKey:@"message"]];
                 return;
             }
 
+            [SVProgressHUD showWithMaskType:SVProgressHUDMaskTypeClear];
 
+            NSMutableDictionary *reqData = [[NSMutableDictionary alloc] initWithCapacity:1];
+
+            NSDictionary *newOrder = [responseMessage objectForKey:@"order"];
+            ASIFormDataRequest *requestPay = [RequestUtil createPOSTRequestWithURL:[NSURL URLWithString:[NSString stringWithFormat:API_ORDER_PAY, [[newOrder objectForKey:@"OrderId"] intValue]]]
+                                                                        andData:reqData];
+            [self.requests addObject:requestPay];
+
+            [requestPay setDelegate:self];
+            [requestPay setDidFinishSelector:@selector(actionFinish:)];
+            [requestPay setDidFailSelector:@selector(actionFail:)];
+            [requestPay startAsynchronous];
 
             return;
         }
@@ -284,6 +296,36 @@
     self.order.address = address;
 
     [self setupAddressView];
+}
+
+- (void)actionFinish:(ASIHTTPRequest *)request
+{
+    [SVProgressHUD dismiss];
+
+    if (request.responseStatusCode == 200) {
+        NSDictionary *responseMessage = [Util objectFromJson:request.responseString];
+        if (responseMessage) {
+            if ([[responseMessage objectForKey:@"success"] intValue] == 0) {
+                [SVProgressHUD showErrorWithStatus:[responseMessage objectForKey:@"message"]];
+                return;
+            }
+
+            [SVProgressHUD dismiss];
+            [SVProgressHUD showSuccessWithStatus:@"操作成功！"];
+
+            [self.navigationController popToRootViewControllerAnimated:NO];
+            [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_PUSH_TO_ORDERLIST object:nil];
+
+            return;
+        }
+    }
+
+    [SVProgressHUD showErrorWithStatus:@"操作失败，请重试！"];
+}
+
+- (void)actionFail:(ASIHTTPRequest *)request
+{
+    [SVProgressHUD showErrorWithStatus:@"操作失败，请重试！"];
 }
 
 @end

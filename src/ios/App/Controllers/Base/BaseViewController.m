@@ -11,12 +11,13 @@
 // ==============================================================================
 
 #import "AppointmentsViewController.h"
+#import "BaiduMapHelper.h"
 #import "BaseViewController.h"
 #import "City.h"
 #import "CityManager.h"
-#import "BaiduMapHelper.h"
-#import "UserManager.h"
 #import "LoginViewController.h"
+#import "OrderListViewController.h"
+#import "UserManager.h"
 
 @interface BaseViewController ()
 {
@@ -52,6 +53,7 @@
     [super viewDidLoad];
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pushToAppointmentList) name:NOTIFICATION_PUSH_TO_APPOINTMENTLIST object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pushToOrderList) name:NOTIFICATION_PUSH_TO_ORDERLIST object:nil];
 
     if (isIOS7) {
 //        self.edgesForExtendedLayout = UIRectEdgeNone;
@@ -240,6 +242,13 @@
     AppointmentsViewController *vc = [AppointmentsViewController new];
     vc.hidesBottomBarWhenPushed = YES;
     vc.userId = [[UserManager SharedInstance] userLogined].id;
+    [self.navigationController pushViewController:vc animated:YES];
+}
+
+- (void)pushToOrderList
+{
+    OrderListViewController *vc = [OrderListViewController new];
+    vc.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:vc animated:YES];
 }
 

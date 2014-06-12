@@ -259,6 +259,8 @@
     [SVProgressHUD showWithMaskType:SVProgressHUDMaskTypeClear];
 
     ASIHTTPRequest *request = [RequestUtil createGetRequestWithURL:[NSURL URLWithString:[NSString stringWithFormat:API_COMPANIES_BALANCE, self.group.id]] andParam:nil];
+    [self.requests addObject:request];
+
     [request setDelegate:self];
     [request setDidFinishSelector:@selector(finishGetGroupBanlance:)];
     [request setDidFailSelector:@selector(failGetGroupBanlance:)];

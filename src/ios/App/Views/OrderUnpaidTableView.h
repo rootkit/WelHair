@@ -14,4 +14,6 @@
 
 @interface OrderUnpaidTableView : UIView
 
+@property (nonatomic, strong) BaseViewController *baseController;
+
 @end

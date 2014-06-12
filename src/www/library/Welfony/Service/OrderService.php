@@ -34,6 +34,18 @@ class OrderService
         return array('total' => $total, 'orders' => self::composeOrderDetail($orderList));
     }
 
+    public static function getOrderDetailById($id)
+    {
+        $dataItem = OrderRepository::getInstance()->findOrderById($id);
+        if (!$dataItem) {
+            return $dataItem;
+        }
+
+        $detailList = self::composeOrderDetail(array($dataItem));
+
+        return $detailList[0];
+    }
+
     public static function getOrderById($id)
     {
         return  OrderRepository::getInstance()->findOrderById($id);
@@ -394,10 +406,12 @@ class OrderService
             $orderDetail['Distribution'] = $row['Distribution'];
             $orderDetail['DistributionStatus'] = $row['DistributionStatus'];
 
-            $orderDetail['ProvinceName'] = $row['ProvinceName'];
-            $orderDetail['CityName'] = $row['CityName'];
-            $orderDetail['DistrictName'] = $row['DistrictName'];
-            $orderDetail['Address'] = $row['Address'];
+            if (isset($row['ProvinceName'])) {
+                $orderDetail['ProvinceName'] = $row['ProvinceName'];
+                $orderDetail['CityName'] = $row['CityName'];
+                $orderDetail['DistrictName'] = $row['DistrictName'];
+                $orderDetail['Address'] = $row['Address'];
+            }
 
             $orderDetail['AcceptName'] = $row['AcceptName'];
             $orderDetail['Mobile'] = $row['Mobile'];
@@ -413,13 +427,15 @@ class OrderService
 
             if ($row['UserId'] > 0) {
                 $orderDetail['User']['UserId'] =  $row['UserId'];
-                $orderDetail['User']['Username'] = $row['Username'];
-                $orderDetail['User']['Nickname'] = $row['Nickname'];
-                $orderDetail['User']['Email'] = $row['Email'];
-                $orderDetail['User']['AvatarUrl'] = $row['AvatarUrl'];
+                if (isset($row['Username'])) {
+                    $orderDetail['User']['Username'] = $row['Username'];
+                    $orderDetail['User']['Nickname'] = $row['Nickname'];
+                    $orderDetail['User']['Email'] = $row['Email'];
+                    $orderDetail['User']['AvatarUrl'] = $row['AvatarUrl'];
+                }
             }
 
-            if ($row['OrderGoodsId'] > 0 && Util::keyValueExistedInArray($orderDetail['Goods'], 'OrderGoodsId', $row['OrderGoodsId']) === false) {
+            if (isset($row['OrderGoodsId']) && $row['OrderGoodsId'] > 0 && Util::keyValueExistedInArray($orderDetail['Goods'], 'OrderGoodsId', $row['OrderGoodsId']) === false) {
                 $goods = array(
                     'OrderGoodsId' => $row['OrderGoodsId'],
                     'GoodsId' => $row['GoodsId'],
