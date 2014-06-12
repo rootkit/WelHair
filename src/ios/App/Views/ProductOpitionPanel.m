@@ -25,7 +25,7 @@
     
     UIScrollView *scrollView;
     
-    CircleImageView *avatorImgView;
+    UIImageView *avatorImgView;
     UILabel *nameLbl;
     UILabel *priceLbl;
     UILabel *countLbl;
@@ -52,7 +52,7 @@
         [topView addSubview:linerView];
         
         
-        avatorImgView = [[CircleImageView alloc] initWithFrame:CGRectMake(20, 20, 60, 60)];
+        avatorImgView = [[UIImageView alloc] initWithFrame:CGRectMake(20, 20, 60, 60)];
         avatorImgView.layer.borderColor = [[UIColor lightGrayColor] CGColor];
         avatorImgView.layer.borderWidth = 1;
         [topView addSubview:avatorImgView];

@@ -10,8 +10,6 @@
 //
 // ==============================================================================
 
-#import <FontAwesomeKit.h>
-
 #import "BrickView.h"
 #import "CityListViewController.h"
 #import "CityManager.h"
@@ -244,8 +242,7 @@
 
 #pragma mark code capture delegate
 
-- (void)didCaptureText:(NSString *)result
-           welQRReaderViewController:(WelQRReaderViewController *)readerVc
+- (void)didCaptureText:(NSString *)result welQRReaderViewController:(WelQRReaderViewController *)readerVc
 {
     ProductDetailViewController *vc = [ProductDetailViewController new];
     vc.product = [self.datasource objectAtIndex:0];

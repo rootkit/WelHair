@@ -39,6 +39,11 @@ $app->get('/companies/:companyId/balance', function ($companyId) use ($app) {
     $ctrl->getCompanyBalance($companyId);
 })->conditions(array('companyId' => '\d{1,10}'));
 
+$app->get('/companies/:companyId/revenues', function ($companyId) use ($app) {
+    $ctrl = new CompanyController();
+    $ctrl->getCompanyRevenue($companyId);
+})->conditions(array('companyId' => '\d{1,10}'));
+
 $app->get('/companies/:companyId/staffs', function ($companyId) use ($app) {
     $ctrl = new CompanyController();
     $ctrl->listStaffs($companyId);

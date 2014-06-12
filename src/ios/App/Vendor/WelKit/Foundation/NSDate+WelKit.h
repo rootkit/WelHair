@@ -18,4 +18,8 @@
 
 + (NSDateFormatter *)dateWithYMDFormatter;
 
++ (NSDateFormatter *)dateWithYMDHFormatter;
+
++ (NSDateFormatter *)dateWithYMFormatter;
+
 @end

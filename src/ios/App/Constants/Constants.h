@@ -109,6 +109,7 @@
 #define API_COMPANIES_SEARCH API_PATH(@"/companies")
 #define API_COMPANIES_LIKED API_PATH(@"/companies/liked")
 #define API_COMPANIES_STAFFS API_PATH(@"/companies/%d/staffs")
+#define API_COMPANIES_REVENUES API_PATH(@"/companies/%d/revenues")
 #define API_COMPANIES_GOODS API_PATH(@"/companies/%d/goods")
 #define API_COMPANIES_STAFFS_STATUS API_PATH(@"/companies/%d/staffs/%d/status")
 #define API_COMPANIES_STAFFS_REMOVE API_PATH(@"/companies/%d/staffs/%d/remove")

@@ -82,7 +82,7 @@ class AppointmentService
         );
 
         if ($appointmentData['AppointmentId'] == 0) {
-            if ($data['Status'] == AppointmentStatus::Completed || $data['Status'] == AppointmentStatus::Cancelled) {
+            if (isset($data['Status']) && ($data['Status'] == AppointmentStatus::Completed || $data['Status'] == AppointmentStatus::Cancelled)) {
                 $result['message'] = '不可以直接添加已完成或已取消的预约。';
                 return $result;
             }

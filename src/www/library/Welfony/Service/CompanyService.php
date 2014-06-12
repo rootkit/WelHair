@@ -232,12 +232,20 @@ class CompanyService
         return $company;
     }
 
-
     public static function getCompanyBalance($companyId)
     {
         return CompanyRepository::getInstance()->getCompanyBalance($companyId);
     }
 
-    
+    public static function getCompanyRevenue($companyId, $page, $pageSize)
+    {
+        $page = $page <= 0 ? 1 : $page;
+        $pageSize = $pageSize <= 0 ? 20 : $pageSize;
+
+        $total = CompanyRepository::getInstance()->getCompanyRevenueCount($companyId);
+        $revenueList = CompanyRepository::getInstance()->getCompanyRevenue($companyId, $page, $pageSize);
+
+        return array('total' => $total, 'revenues' => $revenueList);
+    }
 
 }

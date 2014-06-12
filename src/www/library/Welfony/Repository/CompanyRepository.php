@@ -171,12 +171,11 @@ class CompanyRepository extends AbstractRepository
 
     public  function getCompanyBalance($companyId)
     {
-       $strSql = 'SELECT Amount as `Amount` FROM Company 
+       $strSql = 'SELECT Amount as `Amount` FROM Company
                    WHERE CompanyId = ?';
         $result = $this->conn->fetchAssoc($strSql, array($companyId));
         return $result['Amount'];
     }
-
 
     public function save($data)
     {
@@ -193,7 +192,6 @@ class CompanyRepository extends AbstractRepository
         return false;
     }
 
-
     public function update($companyId, $data)
     {
         try {
@@ -203,6 +201,87 @@ class CompanyRepository extends AbstractRepository
 
             return false;
         }
+    }
+
+    public function getCompanyRevenueCount($companyId)
+    {
+        $filter = '';
+        $paramArr = array($companyId);
+
+        $strSql = "SELECT
+                       COUNT(1) `Total`
+                   FROM CompanyBalanceLog CBL
+                   WHERE CBL.CompanyId = ? AND IncomeSrc IN (1, 2, 5, 6) $filter
+                   LIMIT 1";
+
+        $row = $this->conn->fetchAssoc($strSql, $paramArr);
+
+        return $row['Total'];
+    }
+
+    public function getCompanyRevenue($companyId, $page, $pageSize)
+    {
+        $filter = '';
+        $paramArr = array($companyId, $companyId);
+
+        $offset = ($page - 1) * $pageSize;
+
+        $strSql = "SELECT
+                       *
+                   FROM (
+                      SELECT
+                        CBL.CompanyId,
+                        CBL.Amount,
+                        CBL.CreateTime,
+                        1 Type,
+                        CASE
+                        WHEN CBL.IncomeSrc = 2 THEN 1
+                        ELSE 0
+                        END Status,
+
+                        Client.UserId ClientUserId,
+                        Client.Nickname ClientNickname,
+                        Client.AvatarUrl ClientAvatarUrl,
+
+                        Staff.UserId StaffUserId,
+                        Staff.Nickname StaffNickname,
+
+                        A.ServiceTitle ServiceName
+                      FROM CompanyBalanceLog CBL
+                      INNER JOIN Appointment A ON A.AppointmentNo = CBL.IncomeSrcId
+                      INNER JOIN Users Client ON Client.UserId = A.UserId
+                      INNER JOIN Users Staff ON Staff.UserId = A.StaffId
+                      WHERE CBL.CompanyId = ? AND CBL.IncomeSrc IN (2, 5)
+
+                      UNION ALL
+
+                      SELECT
+                        CBL.CompanyId,
+                        CBL.Amount,
+                        CBL.CreateTime,
+                        2 Type,
+                        CASE
+                        WHEN CBL.IncomeSrc = 1 THEN 1
+                        ELSE 0
+                        END Status,
+
+                        Client.UserId ClientUserId,
+                        Client.Nickname ClientNickname,
+                        Client.AvatarUrl ClientAvatarUrl,
+
+                        0 StaffUserId,
+                        (SELECT G.Name FROM Goods G INNER JOIN OrderGoods OG ON OG.GoodsId = G.GoodsId WHERE OG.OrderId = O.OrderId LIMIT 1) StaffNickname,
+
+                        '' ServiceName
+                      FROM CompanyBalanceLog CBL
+                      INNER JOIN `Order` O ON O.OrderNo = CBL.IncomeSrcId
+                      INNER JOIN Users Client ON Client.UserId = O.UserId
+                      WHERE CBL.CompanyId = ? AND CBL.IncomeSrc IN (1, 6)
+                   ) AS TBL
+                   ORDER BY TBL.CreateTime DESC
+                   LIMIT $offset, $pageSize";
+
+        return $this->conn->fetchAll($strSql, $paramArr);
     }
 
 }

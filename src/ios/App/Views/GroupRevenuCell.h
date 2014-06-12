@@ -10,16 +10,18 @@
 //
 // ==============================================================================
 
-#import <UIKit/UIKit.h>
 #import "Staff.h"
 
 @protocol GroupRevenuCellDelegate <NSObject>
 
 - (void)didTapStaff:(int )staffId;
+
 @end
 
 @interface GroupRevenuCell : UITableViewCell
+
 @property (nonatomic, strong) id<GroupRevenuCellDelegate> delegate;
 
 - (void)setup:(NSDictionary *)dic;
+
 @end

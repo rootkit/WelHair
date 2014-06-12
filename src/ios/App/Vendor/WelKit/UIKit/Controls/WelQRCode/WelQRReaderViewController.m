@@ -9,10 +9,10 @@
 // file that was distributed with this source code.
 //
 // ==============================================================================
-#import "WelQRReaderViewController.h"
 #import <AudioToolbox/AudioToolbox.h>
 #import <AVFoundation/AVFoundation.h>
 
+#import "WelQRReaderViewController.h"
 
 @interface WelQRReaderViewController ()<UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 {
@@ -34,7 +34,9 @@
 @end
 
 @implementation WelQRReaderViewController
+
 static float CenterSquareSize = 200;
+
 #pragma mark - View Controller Methods
 
 - (id)init{
@@ -122,8 +124,8 @@ static float CenterSquareSize = 200;
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-//    self.navigationController.navigationBarHidden = YES;
-    if(!isCameraInited){
+
+    if (!isCameraInited) {
         [SVProgressHUD show];
     }
 }
@@ -157,7 +159,7 @@ static float CenterSquareSize = 200;
         [self.delegate didCaptureText:result.text welQRReaderViewController:self];
         
         // The barcode format, such as a QR code or UPC-A
-//        ZXBarcodeFormat format = result.barcodeFormat;
+        // ZXBarcodeFormat format = result.barcodeFormat;
     } else {
         [SVProgressHUD showErrorWithStatus:@"未识别的二维码" duration:1];
         [self cancel];
@@ -181,8 +183,6 @@ static float CenterSquareSize = 200;
         [self startScan];
     }
 }
-
-
 
 - (UIInterfaceOrientation)preferredInterfaceOrientationForPresentation
 {
@@ -220,12 +220,11 @@ static float CenterSquareSize = 200;
     }
 }
 
-
 - (void)captureSize:(ZXCapture*)capture width:(NSNumber*)width height:(NSNumber*)height {
     
 }
 
-- (void) playSound
+- (void)playSound
 {
     SystemSoundID SoundID;
     NSURL *buttonURL = [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"flush" ofType:@"caf"]];
@@ -241,4 +240,5 @@ static float CenterSquareSize = 200;
     [capture stop];
     [self.delegate didCancelWelQRReaderViewController:self];
 }
+
 @end

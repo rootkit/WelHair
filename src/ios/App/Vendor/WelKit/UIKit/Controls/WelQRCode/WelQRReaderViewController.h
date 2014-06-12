@@ -10,9 +10,11 @@
 //
 // ==============================================================================
 
-#import "ZXingObjC.h"
 #import "WFViewController.h"
+#import "ZXingObjC.h"
+
 @protocol WelQRReaderDelegate;
+
 @interface WelQRReaderViewController : WFViewController<ZXCaptureDelegate>
 
 @property (nonatomic, weak) id<WelQRReaderDelegate> delegate;
@@ -21,9 +23,8 @@
 
 @protocol WelQRReaderDelegate
 
-- (void) didCaptureText:(NSString *)result
-            welQRReaderViewController:(WelQRReaderViewController *)readerVc;
-
+- (void) didCaptureText:(NSString *)result  welQRReaderViewController:(WelQRReaderViewController *)readerVc;
 - (void) didCancelWelQRReaderViewController:(WelQRReaderViewController *)readerVc;
+
 @end
 

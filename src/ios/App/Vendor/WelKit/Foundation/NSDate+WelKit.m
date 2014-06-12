@@ -37,4 +37,20 @@
     return dateFormatter;
 }
 
++ (NSDateFormatter *)dateWithYMDHFormatter
+{
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    dateFormatter.dateFormat = @"yyyy-MM-dd";
+
+    return dateFormatter;
+}
+
++ (NSDateFormatter *)dateWithYMFormatter
+{
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    dateFormatter.dateFormat = @"yyyy-MM";
+
+    return dateFormatter;
+}
+
 @end
