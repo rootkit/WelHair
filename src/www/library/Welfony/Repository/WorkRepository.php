@@ -33,6 +33,7 @@ class WorkRepository extends AbstractRepository
                        C.Address CompanyAddress,
 
                        (SELECT COUNT(1) FROM UserLike UL WHERE ? > 0 AND ? = UL.CreatedBy AND UL.WorkId = W.WorkId) IsLiked,
+                       (SELECT COUNT(1) FROM UserLike UL WHERE UL.WorkId = W.WorkId) WorkLikeCount,
                        getDistance(C.Latitude, C.Longitude, ?, ?) Distance
                    FROM Work W
                    INNER JOIN CompanyUser CU ON CU.UserId = W.UserId

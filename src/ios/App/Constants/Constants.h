@@ -29,8 +29,9 @@
 #define WEBSOCKET_SERVER_URL [NSString stringWithFormat:@"ws://%@:8080", DOMAIN_NAME]
 #define SITE_PATH(path) [NSString stringWithFormat:@"http://%@%@", DOMAIN_NAME, path]
 #define API_PATH(path) [NSString stringWithFormat:@"http://%@/api%@", DOMAIN_NAME, path]
-//#define API_PATH(path) [NSString stringWithFormat:@"http://welhair.com/api%@" , path]
-//#define API_PATH(path) [NSString stringWithFormat:@"http://api.welhair.com/%@" , path]
+////#define API_PATH(path) [NSString stringWithFormat:@"http://welhair.com/api%@" , path]
+////#define API_PATH(path) [NSString stringWithFormat:@"http://api.welhair.com/%@" , path]
+//#define API_PATH(path) [NSString stringWithFormat:@"http://192.168.1.6/api%@" , path]
 
 #define SITE_GOODS_CONTENT SITE_PATH(@"/goods/index/content?goods_id=%d")
 
@@ -124,6 +125,8 @@
 
 #define API_UPLOAD_PICTURE API_PATH(@"/upload/image")
 
+#define API_APP_META_URL @"https://itunes.apple.com/lookup?id=781353439"
+
 
 #define APP_BASE_COLOR              @"206ba7"
 #define APP_NAVIGATIONBAR_COLOR     @"206aa7"
@@ -152,6 +155,7 @@
 #define NOTIFICATION_CANCEL_REQUEST_WITHDRAW @"Notification_CancelRequestWithdras"
 #define NOTIFICATION_PUSH_TO_APPOINTMENTLIST @"Notification_PushToAppointmentList"
 #define NOTIFICATION_PUSH_TO_ORDERLIST @"Notification_PushToOrderList"
+#define NOTIFICATION_MARK_WORK_AS_FAVORITE @"Notification_MarkWorkAsFavorite"
 
 #define REMOTE_NOTIFICATION_TYPE_STAFF_GET_APPOINTMENT  1
 

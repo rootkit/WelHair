@@ -37,6 +37,7 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateLikeNotification:) name:NOTIFICATION_MARK_WORK_AS_FAVORITE object:nil];
         __weak WorkCardView *selfDelegate = self;
 
         self.backgroundColor = [UIColor whiteColor];
@@ -161,10 +162,9 @@
     NSMutableDictionary *reqData = [[NSMutableDictionary alloc] initWithCapacity:1];
     [reqData setObject:[NSString stringWithFormat:@"%d", [[UserManager SharedInstance] userLogined].id] forKey:@"CreatedBy"];
     [reqData setObject:[NSString stringWithFormat:@"%d", markFav ? 1 : 0] forKey:@"IsLike"];
-
     ASIFormDataRequest *request = [RequestUtil createPOSTRequestWithURL:[NSURL URLWithString:[NSString stringWithFormat:API_WORKS_LIKE, self.workData.id]]
                                                                 andData:reqData];
-
+    request.tag = markFav ? 1  : 0;
     [request setDelegate:self];
     [request setDidFinishSelector:@selector(addLikeFinish:)];
     [request setDidFailSelector:@selector(addLikeFail:)];
@@ -180,9 +180,24 @@
         NSDictionary *responseMessage = [Util objectFromJson:request.responseString];
         if (responseMessage) {
             if ([[responseMessage objectForKey:@"success"] intValue] == 1) {
+                int favCount = request.tag > 0 ? self.workData.favCount + 1 : self.workData.favCount - 1;
+                self.workData.favCount = favCount >= 0 ? favCount : 0;
+                self.heartCountLbl.text = [NSString stringWithFormat:@"(%d)",self.workData.favCount];
                 return;
             }
         }
+    }
+}
+
+- (void)updateLikeNotification:(NSNotification *)noti
+{
+    NSArray *data = noti.object;
+    if(data.count == 2 &&  [data[0] intValue]==self.workData.id){
+        BOOL isOn = [data[1] intValue] > 0;
+        [self.heartBtn setOn:isOn];
+        int favCount = isOn ? self.workData.favCount + 1 : self.workData.favCount - 1;
+        self.workData.favCount = favCount >= 0 ? favCount : 0;
+        self.heartCountLbl.text = [NSString stringWithFormat:@"(%d)",self.workData.favCount];
     }
 }
 

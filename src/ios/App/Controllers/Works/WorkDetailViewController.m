@@ -36,6 +36,7 @@
 @property (nonatomic, strong) UILabel *allCommentLbl;
 @property (nonatomic, strong) NSMutableArray *workImgs;
 @property (nonatomic, strong) ToggleButton *heartBtn;
+@property (nonatomic, strong) UILabel *heartCountLbl;
 
 @end
 
@@ -187,6 +188,14 @@
                        }];
     self.heartBtn.frame = CGRectMake(240, 45, 25, 25);
     [staffView addSubview:self.heartBtn];
+    
+    self.heartCountLbl = [[UILabel alloc] initWithFrame:CGRectMake(MaxX(self.heartBtn), Y(self.heartBtn), 25, 25)];
+    self.heartCountLbl.numberOfLines = 0;
+    self.heartCountLbl.textAlignment = NSTextAlignmentLeft;
+    self.heartCountLbl.font = [UIFont systemFontOfSize:12];
+    self.heartCountLbl.backgroundColor = [UIColor clearColor];
+    self.heartCountLbl.textColor = [UIColor colorWithHexString:@"ccc"];
+    [staffView addSubview:self.heartCountLbl];
     
 
     
@@ -435,7 +444,7 @@
 
     ASIFormDataRequest *request = [RequestUtil createPOSTRequestWithURL:[NSURL URLWithString:[NSString stringWithFormat:API_WORKS_LIKE, self.work.id]]
                                                                 andData:reqData];
-
+    request.tag = markFav ? 1 : 0;
     [request setDelegate:self];
     [request setDidFinishSelector:@selector(addLikeFinish:)];
     [request setDidFailSelector:@selector(addLikeFail:)];
@@ -451,6 +460,10 @@
         NSDictionary *responseMessage = [Util objectFromJson:request.responseString];
         if (responseMessage) {
             if ([[responseMessage objectForKey:@"success"] intValue] == 1) {
+                int favCount = request.tag > 0 ? self.work.favCount + 1 : self.work.favCount - 1;
+                self.work.favCount = favCount >= 0 ? favCount : 0;
+                self.heartCountLbl.text = [NSString stringWithFormat:@"(%d)",self.work.favCount];
+                [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_MARK_WORK_AS_FAVORITE object:@[@(self.work.id),@(request.tag)]];
                 return;
             }
         }
@@ -535,6 +548,7 @@
     self.staffAddressLbl.text = self.work.creator.group.address;
     [self.staffImgView setImageWithURL:self.work.creator.avatorUrl];
     self.heartBtn.on = [[rst objectForKey:@"IsLiked"] intValue] == 1;
+    self.heartCountLbl.text = [NSString stringWithFormat:@"(%d)", self.work.favCount];
 }
 
 - (void)failGetWorkDetail:(ASIHTTPRequest *)request
