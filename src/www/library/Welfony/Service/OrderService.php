@@ -14,10 +14,13 @@
 
 namespace Welfony\Service;
 
+use Welfony\Core\Enum\NotificationType;
+use Welfony\Core\Enum\UserPointType;
 use Welfony\Repository\AddressRepository;
 use Welfony\Repository\GoodsRepository;
 use Welfony\Repository\OrderRepository;
 use Welfony\Repository\ProductsRepository;
+use Welfony\Service\UserPointService;
 use Welfony\Utility\Util;
 
 class OrderService
@@ -294,15 +297,22 @@ class OrderService
         }
     }
 
-    public static function payOrder($orderId, $data, $log, $doc, $userbalancelog, $companybalancelog, $paymentTransaction )
+    public static function payOrder($orderId, $data, $log, $doc, $userbalancelog, $companybalancelog, $paymentTransaction)
     {
         $result = array('success' => false, 'message' => '');
         $r = OrderRepository::getInstance()->payOrder($orderId,$data, $log, $doc, $userbalancelog, $companybalancelog, $paymentTransaction );
         if ($r) {
-
             $result['success'] = true;
             $result['message'] = '付款成功！';
-            //$result['order'] = $data;
+
+            if ($userbalancelog) {
+                $userPointData = array(
+                    'Type' => UserPointType::OrderUser,
+                    'UserId' => $userbalancelog['UserId']
+                );
+                UserPointService::addPoint($userPointData);
+            }
+
             return $result;
         } else {
             $result['message'] = '付款失败！';

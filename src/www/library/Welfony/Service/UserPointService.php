@@ -33,6 +33,21 @@ class UserPointService
                 $data['Description'] = '新用户注册';
                 break;
             }
+            case UserPointType::AppointmentClient: {
+                $data['Value'] = 10;
+                $data['Description'] = '完成预约';
+                break;
+            }
+            case UserPointType::AppointmentStaff: {
+                $data['Value'] = 10;
+                $data['Description'] = '被预约一次';
+                break;
+            }
+            case UserPointType::OrderUser: {
+                $data['Value'] = 10;
+                $data['Description'] = '完成订单';
+                break;
+            }
             default: {
                 break;
             }

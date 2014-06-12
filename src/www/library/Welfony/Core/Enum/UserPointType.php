@@ -27,7 +27,9 @@ class UserPointType extends Enum
     const AppointmentStaff = 3;
     const AppointmentReferral = 4;
 
-    const WorkLiked = 5;
-    const WorkShared = 6;
+    const OrderUser = 5;
+
+    const WorkLiked = 6;
+    const WorkShared = 7;
 
 }

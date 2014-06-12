@@ -16,12 +16,14 @@ namespace Welfony\Service;
 
 use Welfony\Core\Enum\AppointmentStatus;
 use Welfony\Core\Enum\CompanyStatus;
-use Welfony\Core\Enum\StaffStatus;
 use Welfony\Core\Enum\NotificationType;
+use Welfony\Core\Enum\StaffStatus;
+use Welfony\Core\Enum\UserPointType;
 use Welfony\Repository\AppointmentRepository;
 use Welfony\Repository\ServiceRepository;
 use Welfony\Repository\UserRepository;
 use Welfony\Service\NotificationService;
+use Welfony\Service\UserPointService;
 
 class AppointmentService
 {
@@ -101,6 +103,18 @@ class AppointmentService
             $newId = AppointmentRepository::getInstance()->save($appointmentData);
             if ($newId) {
                 $appointmentData['AppointmentId'] = $newId;
+
+                $userPointData = array(
+                    'Type' => UserPointType::AppointmentClient,
+                    'UserId' => $data['UserId']
+                );
+                UserPointService::addPoint($userPointData);
+
+                $userPointData = array(
+                    'Type' => UserPointType::AppointmentStaff,
+                    'UserId' => $data['StaffId']
+                );
+                UserPointService::addPoint($userPointData);
 
                 NotificationService::send(NotificationType::AppointmentNew, $appointmentData['StaffId']);
 
