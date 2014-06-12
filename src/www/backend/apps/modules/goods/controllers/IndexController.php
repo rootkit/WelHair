@@ -240,42 +240,37 @@ class Goods_IndexController extends AbstractAdminController
         $goodsId =  $this->_request->getParam('goodsid');
         $productId = $this->_request->getParam('productsid');
         $companyId = $this->_request->getParam('companyid');
-        if(!$goodsId)
-        {
+
+        if (!$goodsId) {
             return;
         }
+
         $goods = GoodsService::getGoodsById($goodsId);
         $product = array();
         $products=ProductsService::listAllProductsByGoods($goodsId);
-        if( $productId )
-        {
-            foreach( $products as $p)
-            {
-                if( $p['ProductsId'] == $productId )
-                {
+        if ($productId) {
+            foreach ($products as $p) {
+                if ($p['ProductsId'] == $productId) {
                     $product = $p;
                 }
             }
         }
+
         $company = array();
         $companies = CompanyService::listAllByGoods($goodsId);
-        if( $companyId)
-        {
-            foreach( $companies as $c)
-            {
-                if( $c['CompanyId'] == $companyId)
-                {
+        if ($companyId) {
+            foreach ($companies as $c) {
+                if ($c['CompanyId'] == $companyId) {
                     $company = $c;
                 }
             }
         }
-        $value= "GoodsId:$goodsId\n";
-        $value .= $goods['Name'];
-        if($company)
-        {
-            $value .=" Company:".$company['Name'];
+
+        $value= "http://welhair.com/goods/$goodsId?goods_id=$goodsId";
+        if ($company) {
+            $value .= '&company_id=' . $companyId;
         }
-        \PHPQRCode\QRcode::png($value);
+        \PHPQRCode\QRcode::png($value, false, 0, 15, 2);
     }
 
 }

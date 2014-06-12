@@ -17,6 +17,7 @@
 #import "JOLImageSlider.h"
 #import "MapViewController.h"
 #import "MWPhotoBrowser.h"
+#import "Order.h"
 #import "OrderPreviewViewController.h"
 #import "ProductDetailViewController.h"
 #import "ProductOpitionPanel.h"
@@ -27,7 +28,6 @@
 #import "UIViewController+KNSemiModal.h"
 #import "UserManager.h"
 #import "Util.h"
-#import "Order.h"
 
 @interface ProductDetailViewController () <UMSocialUIDelegate,JOLImageSliderDelegate,MWPhotoBrowserDelegate>
 
@@ -166,13 +166,7 @@
     [self.imgSlider setContentMode: UIViewContentModeScaleAspectFill];
     [self.scrollView addSubview:self.imgSlider];
 
-    NSMutableArray *sliderArray = [NSMutableArray array];
-    for (NSString *item in self.product.imgUrlList) {
-        JOLImageSlide * slideImg= [[JOLImageSlide alloc] init];
-        slideImg.image = item;
-        [sliderArray addObject:slideImg];
-    }
-    [self.imgSlider setSlides:sliderArray];
+    [self setSlider];
     
 #pragma product name & price
     self.productNameLbl = [[UILabel alloc] initWithFrame:CGRectMake(10, MaxY(self.imgSlider) + 5,220,40)];
@@ -455,6 +449,8 @@
 
 - (void)setupUIPerData
 {
+    [self setSlider];
+
     self.productImgs = [NSMutableArray array];
     for (NSString *item in self.product.imgUrlList) {
         [self.productImgs addObject:[MWPhoto photoWithURL:[NSURL URLWithString:item]]];
@@ -623,6 +619,18 @@
     [self.scrollView addSubview:paramScrollView];
 
     self.scrollView.contentSize = CGSizeMake(WIDTH(self.view), MaxY(paramScrollView) + 20);
+}
+
+- (void)setSlider
+{
+    NSMutableArray *sliderArray = [NSMutableArray array];
+    for (NSString *item in self.product.imgUrlList) {
+        JOLImageSlide * slideImg= [[JOLImageSlide alloc] init];
+        slideImg.image = item;
+        [sliderArray addObject:slideImg];
+    }
+    [self.imgSlider setSlides:sliderArray];
+    [self.imgSlider initialize];
 }
 
 @end

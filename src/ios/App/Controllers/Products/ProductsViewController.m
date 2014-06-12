@@ -244,8 +244,27 @@
 
 - (void)didCaptureText:(NSString *)result welQRReaderViewController:(WelQRReaderViewController *)readerVc
 {
+    NSArray *firstSplit = [result componentsSeparatedByString:@"?"];
+    if (firstSplit.count < 2) {
+        [SVProgressHUD showErrorWithStatus:@"无法解析该二维码！"];
+        return;
+    }
+
+    NSDictionary *paramList = [Util parametersDictionaryFromQueryString:firstSplit[1]];
+    if ([[paramList objectForKey:@"goods_id"] intValue] <= 0) {
+        [SVProgressHUD showErrorWithStatus:@"无法解析该二维码！"];
+    }
+
+    Product *prod = [[Product alloc] init];
+    prod.id = [[paramList objectForKey:@"goods_id"] intValue];
+
+    if ([[paramList objectForKey:@"company_id"] intValue] > 0) {
+        prod.group = [[Group alloc] init];
+        prod.group.id = [[paramList objectForKey:@"company_id"] intValue];
+    }
+
     ProductDetailViewController *vc = [ProductDetailViewController new];
-    vc.product = [self.datasource objectAtIndex:0];
+    vc.product = prod;
     vc.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:vc animated:YES];
 }
