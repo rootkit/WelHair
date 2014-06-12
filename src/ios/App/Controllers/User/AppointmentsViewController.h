@@ -10,7 +10,6 @@
 //
 // ==============================================================================
 
-
 @interface AppointmentsViewController : BaseViewController
 
 @property (nonatomic) int userId;

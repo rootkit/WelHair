@@ -11,6 +11,7 @@
 // ==============================================================================
 
 #import "AppointmentPreviewViewController.h"
+#import "AppointmentsViewController.h"
 #import "CircleImageView.h"
 #import "UserManager.h"
 
@@ -179,8 +180,10 @@
             }
 
             [SVProgressHUD showSuccessWithStatus:@"添加预约成功！"];
-            [self.navigationController popToRootViewControllerAnimated:NO];
-            [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_PUSH_TO_APPOINTMENTLIST object:nil];
+            [self.navigationController popViewControllerAnimated:NO];
+            if (self.staffDetailController) {
+                [self.staffDetailController pushToAppointmentList];
+            }
 
             return;
         }

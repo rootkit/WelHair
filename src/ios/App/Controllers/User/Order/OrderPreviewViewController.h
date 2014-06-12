@@ -11,9 +11,11 @@
 // ==============================================================================
 
 #import "Order.h"
+#import "ProductDetailViewController.h"
 
 @interface OrderPreviewViewController : BaseViewController
 
 @property (nonatomic, strong) Order *order;
+@property (nonatomic, strong) ProductDetailViewController *productDetailController;
 
 @end

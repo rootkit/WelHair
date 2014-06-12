@@ -16,4 +16,6 @@
 
 @property (nonatomic, strong) Product *product;
 
+- (void)pushToOrderList;
+
 @end

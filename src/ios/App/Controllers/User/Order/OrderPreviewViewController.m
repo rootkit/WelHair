@@ -313,8 +313,10 @@
             [SVProgressHUD dismiss];
             [SVProgressHUD showSuccessWithStatus:@"操作成功！"];
 
-            [self.navigationController popToRootViewControllerAnimated:NO];
-            [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_PUSH_TO_ORDERLIST object:nil];
+            [self.navigationController popViewControllerAnimated:NO];
+            if (self.productDetailController) {
+                [self.productDetailController pushToOrderList];
+            }
 
             return;
         }

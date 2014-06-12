@@ -12,6 +12,7 @@
 
 #import "Appointment.h"
 #import "AppointmentPreviewViewController.h"
+#import "AppointmentsViewController.h"
 #import "CalendarViewController.h"
 #import "ChatViewController.h"
 #import "CircleImageView.h"
@@ -357,6 +358,7 @@
 
                    AppointmentPreviewViewController *aptPreviewVC = [AppointmentPreviewViewController new];
                    aptPreviewVC.appointment = apt;
+                   aptPreviewVC.staffDetailController = self;
                    [self.navigationController pushViewController:aptPreviewVC animated:YES];
                }];
     [self.tabBarController presentSemiView:panel withOptions:nil];
@@ -728,6 +730,14 @@
 {
     WorkDetailViewController *vc = [WorkDetailViewController new];
     vc.work = work;
+    [self.navigationController pushViewController:vc animated:YES];
+}
+
+- (void)pushToAppointmentList
+{
+    AppointmentsViewController *vc = [AppointmentsViewController new];
+    vc.hidesBottomBarWhenPushed = YES;
+    vc.userId = [[UserManager SharedInstance] userLogined].id;
     [self.navigationController pushViewController:vc animated:YES];
 }
 

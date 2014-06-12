@@ -12,9 +12,12 @@
 
 #import "Appointment.h"
 #import "BaseViewController.h"
+#import "StaffDetailViewController.h"
 
 @interface AppointmentPreviewViewController : BaseViewController
 
 @property (nonatomic, strong) Appointment *appointment;
+
+@property (nonatomic, strong) StaffDetailViewController *staffDetailController;
 
 @end

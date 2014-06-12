@@ -18,6 +18,7 @@
 #import "MapViewController.h"
 #import "MWPhotoBrowser.h"
 #import "Order.h"
+#import "OrderListViewController.h"
 #import "OrderPreviewViewController.h"
 #import "ProductDetailViewController.h"
 #import "ProductOpitionPanel.h"
@@ -353,6 +354,7 @@
     if (self.order.product.specList.count == 0) {
         OrderPreviewViewController *vc = [OrderPreviewViewController new];
         vc.order = self.order;
+        vc.productDetailController = self;
         [self.navigationController pushViewController:vc animated:YES];
     } else {
         self.productOpitionPanel = [[ProductOpitionPanel alloc] initWithFrame:CGRectMake(0, 0, WIDTH(self.view), HEIGHT(self.view) - self.topBarOffset - 80)];
@@ -368,6 +370,7 @@
                        [selfDelegate.tabBarController dismissSemiModalView];
                        OrderPreviewViewController *vc = [OrderPreviewViewController new];
                        vc.order = selfDelegate.order;
+                       vc.productDetailController = self;
                        [selfDelegate.navigationController pushViewController:vc animated:YES];
                    }];
         [self.tabBarController presentSemiView:self.productOpitionPanel withOptions:nil];
@@ -631,6 +634,13 @@
     }
     [self.imgSlider setSlides:sliderArray];
     [self.imgSlider initialize];
+}
+
+- (void)pushToOrderList
+{
+    OrderListViewController *vc = [OrderListViewController new];
+    vc.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 @end

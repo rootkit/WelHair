@@ -16,4 +16,6 @@
 
 @property (nonatomic, strong) Staff *staff;
 
+- (void)pushToAppointmentList;
+
 @end
