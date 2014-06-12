@@ -111,7 +111,7 @@
     self.searchBar.showsCancelButton = NO;
     self.searchBar.showsBookmarkButton = NO;
     self.searchBar.placeholder = @"搜索";
-    self.searchBar.tintColor = [UIColor whiteColor];
+    self.searchBar.tintColor = isIOS6 ? [UIColor lightGrayColor] : [UIColor whiteColor];
     [self.searchBar sizeToFit];
     self.tableView.tableHeaderView = self.searchBar;
 
@@ -299,6 +299,10 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    if([self.searchBar isFirstResponder]){
+        [self.searchBar resignFirstResponder];
+        return;
+    }
     StaffDetailViewController *vc = [StaffDetailViewController new];
     vc.staff = [self.datasource objectAtIndex:indexPath.row];
     vc.hidesBottomBarWhenPushed = YES;
@@ -322,10 +326,11 @@
 
 - (void)getStaffs
 {
+    NSString *searchText= self.searchBar.text.length >0 ? self.searchBar.text : @"";
     NSMutableDictionary *reqData = [[NSMutableDictionary alloc] initWithCapacity:1];
     [reqData setObject:[NSString stringWithFormat:@"%d", self.currentPage] forKey:@"page"];
     [reqData setObject:[NSString stringWithFormat:@"%d", TABLEVIEW_PAGESIZE_DEFAULT] forKey:@"pageSize"];
-    [reqData setObject:self.searchBar.text forKey:@"searchText"];
+    [reqData setObject:searchText forKey:@"searchText"];
     [reqData setObject:[NSString stringWithFormat:@"%d", [[CityManager SharedInstance] getSelectedCity].id] forKey:@"city"];
     [reqData setObject:[NSString stringWithFormat:@"%d", self.areaSelectedIndex] forKey:@"district"];
     [reqData setObject:[NSString stringWithFormat:@"%d", self.sortSelectedIndex] forKey:@"sort"];
