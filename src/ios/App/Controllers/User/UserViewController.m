@@ -357,7 +357,7 @@
 {
     int count = [[SettingManager SharedInstance] notificationCount];
     if([UserManager SharedInstance].userLogined && [UserManager SharedInstance].userLogined.role != WHClient){
-        UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:1]];
+        UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:2]];
         if(count > 0){
             JSBadgeView *badgeView = [[JSBadgeView alloc] initWithParentView:cell.imageView alignment:JSBadgeViewAlignmentTopLeft];
             badgeView.badgeText = [NSString stringWithFormat:@"%d", count];
