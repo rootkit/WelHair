@@ -167,7 +167,7 @@
     totalPriceLbl.textAlignment = TextAlignmentRight;
     totalPriceLbl.backgroundColor = [UIColor clearColor];
     totalPriceLbl.textColor = [UIColor blackColor];
-    totalPriceLbl.text = [NSString stringWithFormat:@"总价: ￥%.2f",self.order.price];
+    totalPriceLbl.text = [NSString stringWithFormat:@"总价: ￥%.2f",self.order.price + 10.0];
     [detailView addSubview:totalPriceLbl];
 
     float scrollOffsetY = MaxY(freightPriceLbl) + 20;

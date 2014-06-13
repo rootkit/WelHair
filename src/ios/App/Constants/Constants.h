@@ -23,8 +23,8 @@
 
 #define DB_FILE_NAME   @"db.sqlite"
 
-//#define DOMAIN_NAME @"115.28.208.165"
-#define DOMAIN_NAME @"welhair.com"
+#define DOMAIN_NAME @"115.28.208.165"
+//#define DOMAIN_NAME @"welhair.com"
 
 #define WEBSOCKET_SERVER_URL [NSString stringWithFormat:@"ws://%@:8080", DOMAIN_NAME]
 #define SITE_PATH(path) [NSString stringWithFormat:@"http://%@%@", DOMAIN_NAME, path]
