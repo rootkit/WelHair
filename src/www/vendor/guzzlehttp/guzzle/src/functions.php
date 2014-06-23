@@ -142,25 +142,17 @@ function batch(ClientInterface $client, $requests, array $options = [])
         $hash->attach($request);
     }
 
-    $handler = [
-        'priority' => RequestEvents::EARLY,
-        'once' => true,
-        'fn' => function ($e) use ($hash) { $hash[$e->getRequest()] = $e; }
-    ];
-
     // Merge the necessary complete and error events to the event listeners so
     // that as each request succeeds or fails, it is added to the result hash.
-    foreach (['complete', 'error'] as $name) {
-        if (!isset($options[$name])) {
-            $options[$name] = $handler;
-        } elseif (is_callable($options[$name])) {
-            $options[$name] = [['fn' => $options[$name]], $handler];
-        } elseif (is_array($options[$name])) {
-            $options[$name][] = $handler;
-        } else {
-            throw new \InvalidArgumentException('Invalid event format');
-        }
-    }
+    $options = RequestEvents::convertEventArray(
+        $options,
+        ['complete', 'error'],
+        [
+            'priority' => RequestEvents::EARLY,
+            'once' => true,
+            'fn' => function ($e) use ($hash) { $hash[$e->getRequest()] = $e; }
+        ]
+    );
 
     // Send the requests in parallel and aggregate the results.
     $client->sendAll($requests, $options);
@@ -272,6 +264,43 @@ function uri_template($template, array $variables)
     }
 
     return $uriTemplate->expand($template, $variables);
+}
+
+/**
+ * Wrapper for JSON decode that implements error detection with helpful error
+ * messages.
+ *
+ * @param string $json    JSON data to parse
+ * @param bool   $assoc   When true, returned objects will be converted into
+ *                        associative arrays.
+ * @param int    $depth   User specified recursion depth.
+ * @param int    $options Bitmask of JSON decode options.
+ *
+ * @return mixed
+ * @throws \InvalidArgumentException if the JSON cannot be parsed.
+ * @link http://www.php.net/manual/en/function.json-decode.php
+ */
+function json_decode($json, $assoc = false, $depth = 512, $options = 0)
+{
+    static $jsonErrors = [
+        JSON_ERROR_DEPTH => 'JSON_ERROR_DEPTH - Maximum stack depth exceeded',
+        JSON_ERROR_STATE_MISMATCH => 'JSON_ERROR_STATE_MISMATCH - Underflow or the modes mismatch',
+        JSON_ERROR_CTRL_CHAR => 'JSON_ERROR_CTRL_CHAR - Unexpected control character found',
+        JSON_ERROR_SYNTAX => 'JSON_ERROR_SYNTAX - Syntax error, malformed JSON',
+        JSON_ERROR_UTF8 => 'JSON_ERROR_UTF8 - Malformed UTF-8 characters, possibly incorrectly encoded'
+    ];
+
+    $data = \json_decode($json, $assoc, $depth, $options);
+
+    if (JSON_ERROR_NONE !== json_last_error()) {
+        $last = json_last_error();
+        throw new \InvalidArgumentException(
+            'Unable to parse JSON data: '
+            . (isset($jsonErrors[$last]) ? $jsonErrors[$last] : 'Unknown error')
+        );
+    }
+
+    return $data;
 }
 
 /**
