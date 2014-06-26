@@ -355,8 +355,8 @@
     self.commentCountLbl.textColor = [UIColor blackColor];
     [commentCellView addSubview:self.commentCountLbl];
     
-    self.allCommentLbl  =[[UILabel alloc] initWithFrame:CGRectMake(120, 5, 160,20)];
-    self.allCommentLbl.font = [UIFont systemFontOfSize:14];
+    self.allCommentLbl  =[[UILabel alloc] initWithFrame:CGRectMake(130, 5, 160,20)];
+    self.allCommentLbl.font = [UIFont systemFontOfSize:12];
     self.allCommentLbl.textAlignment = NSTextAlignmentRight;
     self.allCommentLbl.backgroundColor = [UIColor clearColor];
     self.allCommentLbl.textColor = [UIColor grayColor];
@@ -387,7 +387,6 @@
     }
     [self.imgSlider setSlides:sliderArray];
     self.commentCountLbl.text = [NSString stringWithFormat:@"作品评论(%d)",self.work.commentCount];
-    self.allCommentLbl.hidden = self.work.commentCount == 0;
     self.workImgs = [NSMutableArray array];
     for (NSString *item in self.work.imgUrlList) {
         [self.workImgs addObject:[MWPhoto photoWithURL:[NSURL URLWithString:item]]];
