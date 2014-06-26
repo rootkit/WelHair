@@ -225,6 +225,8 @@
 
                 if (appointment.isLiked) {
                     [self.actionBtn setTitle:@"已赞" forState:UIControlStateNormal];
+                    self.actionBtn.enabled = false;
+                    [self.actionBtn setBackgroundColor:[UIColor lightGrayColor]];
                 } else {
                     [self.actionBtn setTitle:@"赞" forState:UIControlStateNormal];
                 }
@@ -299,18 +301,34 @@
 
         self.appointment.isLiked = !self.appointment.isLiked;
         [self.actionBtn setTitle:self.appointment.isLiked ? @"已赞" : @"赞" forState:UIControlStateNormal];
-
-
+        if(self.appointment.isLiked){
+            self.actionBtn.enabled = false;
+            [self.actionBtn setBackgroundColor:[UIColor lightGrayColor]];
+        }
+        
         NSMutableDictionary *reqData = [[NSMutableDictionary alloc] initWithCapacity:1];
         [reqData setObject:[NSString stringWithFormat:@"%d", self.appointment.isLiked ? 1 : 0] forKey:@"IsLiked"];
 
         ASIFormDataRequest *request = [RequestUtil createPUTRequestWithURL:[NSURL URLWithString:[NSString stringWithFormat:API_APPOINTMENTS_UPDATE, self.appointment.id]]
                                                                    andData:reqData];
+        [request setDelegate:self];
+        [request setDidFinishSelector:@selector(likeStaffFinish:)];
+        [request setDidFailSelector:@selector(likeStaffFail:)];
         if (self.baseController) {
             [self.baseController.requests addObject:request];
         }
         [request startAsynchronous];
     }
+}
+
+- (void)likeStaffFinish:(ASIHTTPRequest *)request
+{
+    debugLog(@"likeStaffFinish %@",request.responseString);
+}
+
+- (void)likeStaffFail:(ASIHTTPRequest *)request
+{
+    debugLog(@"likeStaffFail %@",request.responseString);
 }
 
 - (void)updateAppointmentFinish:(ASIHTTPRequest *)request
