@@ -36,10 +36,14 @@
 #import "MyClientViewController.h"
 #import "MyStaffViewController.h"
 
+#define User_MyAccount  @"我的账户"
+#define User_MyGroup  @"我的沙龙"
+#define User_MyStaff  @"我的发型师"
+#define User_MyMessage  @"我的消息"
+#define User_MyClient  @"我的客户"
+#define User_UserAppointment  @"客户预约"
+
 @interface UserViewController ()<UITableViewDataSource, UITableViewDelegate, UIActionSheetDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
-
-
-
 @property (nonatomic, strong) NSArray *datasource;
 @property (nonatomic, strong) NSArray *iconDatasource;
 @property (nonatomic, strong) NSArray *tabTextDatasource;
@@ -65,7 +69,7 @@
 
         self.tabTextDatasource = @[@"我的预约", @"订单", @"积分", @"收藏"];
 
-        [self refreshUserInfo];
+        [self refreshTableView];
     }
     return self;
 }
@@ -158,6 +162,7 @@
 {
     [super viewDidAppear:animated];
     [self showBadge];
+    [self refreshUserInfo];
 }
 
 - (void)didReceiveMemoryWarning
@@ -270,82 +275,104 @@
     if(![self checkLogin]){
        return;
     }
-
-    if(indexPath.section == 0) {
-        switch (indexPath.row) {
-            case 0:
-            {
-                AccountViewController *vc = [AccountViewController new];
-                vc.hidesBottomBarWhenPushed = YES;
-                [self.navigationController pushViewController:vc animated:YES];
-
-                break;
-            }
+    User *loginUser = [UserManager SharedInstance].userLogined;
+    ABMGroupedTableViewCell *cell = (ABMGroupedTableViewCell* )[tableView cellForRowAtIndexPath:indexPath];
+    NSString *cellTitle = cell.label.text;
+    if([cellTitle isEqualToString:User_MyGroup]){
+        if(loginUser.role == WHManager){
+            MyGroupViewController *vc = [MyGroupViewController new];
+            vc.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:vc animated:YES];
+        } else if (loginUser.role == WHStaff) {
+            StaffManageViewController *vc = [StaffManageViewController new];
+            vc.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:vc animated:YES];
         }
-    }
+    }else if([cellTitle isEqualToString:User_MyAccount]){
+        AccountViewController *vc = [AccountViewController new];
+        vc.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:vc animated:YES];
+    }else if([cellTitle isEqualToString:User_MyMessage]){
+        ChatSessionListViewController *vc = [ChatSessionListViewController new];
+        vc.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:vc animated:YES];
+    }else if([cellTitle isEqualToString:User_MyStaff]){
+        MyStaffViewController *vc = [MyStaffViewController new];
+        vc.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:vc animated:YES];
+    }else if([cellTitle isEqualToString:User_MyClient]){
+        MyClientViewController *vc = [MyClientViewController new];
+        vc.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:vc animated:YES];
+    }else if([cellTitle isEqualToString:User_UserAppointment]){
+        AppointmentsViewController *vc = [AppointmentsViewController new];
+        vc.hidesBottomBarWhenPushed = YES;
+        vc.staffId = [[UserManager SharedInstance] userLogined].id;
+        [self.navigationController pushViewController:vc animated:YES];
 
-    if(indexPath.section == 1) {
-        switch (indexPath.row) {
-            case 0:
-            {
-                ChatSessionListViewController *vc = [ChatSessionListViewController new];
-                vc.hidesBottomBarWhenPushed = YES;
-                [self.navigationController pushViewController:vc animated:YES];
-
-                break;
-            }
-            case 1: {
-                if ([UserManager SharedInstance].userLogined.role == WHClient){
-                    MyStaffViewController *vc = [MyStaffViewController new];
-                    vc.hidesBottomBarWhenPushed = YES;
-                    [self.navigationController pushViewController:vc animated:YES];
-                }else{
-                    MyClientViewController *vc = [MyClientViewController new];
-                    vc.hidesBottomBarWhenPushed = YES;
-                    [self.navigationController pushViewController:vc animated:YES];
-                }
-                break;
-            }
-            default: {
-                break;
-            }
-        }
-    }
-
-    if(indexPath.section == 2) {
-        switch (indexPath.row) {
-            case 0:
-            {
-                AppointmentsViewController *vc = [AppointmentsViewController new];
-                vc.hidesBottomBarWhenPushed = YES;
-                vc.staffId = [[UserManager SharedInstance] userLogined].id;
-                [self.navigationController pushViewController:vc animated:YES];
-                break;
-            }
-        }
     }
 }
 
+
 - (void)refreshUserInfo
 {
-    NSMutableArray *menuList = [[NSMutableArray alloc] initWithCapacity:5];
-    [menuList addObject:@[@"我的账户"]];
+    User *userLogined = [[UserManager SharedInstance] userLogined];
+    if (userLogined) {
+        if (userLogined.role == WHStaff || userLogined.role == WHManager)
+            [self getStaffDetail];
+    }
+}
 
+- (void)getStaffDetail
+{
+    ASIHTTPRequest *request = [RequestUtil createGetRequestWithURL:[NSURL URLWithString:[NSString stringWithFormat:API_STAFFS_DETAIL, [UserManager SharedInstance].userLogined.id]]
+                                                          andParam:nil];
+    [self.requests addObject:request];
+    [request setDelegate:self];
+    [request setDidFinishSelector:@selector(finishGetStaffDetail:)];
+    [request setDidFailSelector:@selector(failGetStaffDetail:)];
+    [request startAsynchronous];
+}
+
+- (void)finishGetStaffDetail:(ASIHTTPRequest *)request
+{
+    NSDictionary *rst = [Util objectFromJson:request.responseString];
+    User *usr = [[User alloc] initWithDic:rst];
+    [UserManager SharedInstance].userLogined = usr;
+    [self refreshTableView];
+}
+
+- (void)failGetStaffDetail:(ASIHTTPRequest *)request
+{
+}
+
+
+- (void)refreshTableView
+{
+    NSMutableArray *menuList = [[NSMutableArray alloc] initWithCapacity:5];
+    
     NSMutableArray *menuIconList = [[NSMutableArray alloc] initWithCapacity:3];
     [menuIconList addObject:@[[FAKIonIcons ios7BoxOutlineIconWithSize:NAV_BAR_ICON_SIZE]]];
-
-    if(([UserManager SharedInstance].userLogined.role == WHClient
+    User *loginUser = [UserManager SharedInstance].userLogined;
+    if((loginUser.role == WHClient
         || [UserManager SharedInstance].userLogined == nil)){
-        [menuList addObject:@[@"我的消息", @"我的发型师"]];
+        [menuList addObject:@[User_MyAccount]];
+        [menuList addObject:@[User_MyMessage, User_MyStaff]];
         self.datasource = menuList;
-
+        
         [menuIconList addObject:@[[FAKIonIcons ios7ChatboxesOutlineIconWithSize:NAV_BAR_ICON_SIZE], [FAKIonIcons ios7PeopleOutlineIconWithSize:NAV_BAR_ICON_SIZE]]];
         self.iconDatasource = menuIconList;
     }else{
-        [menuList addObject:@[@"我的消息", @"我的客户"]];
-        [menuList addObject:@[@"客户预约"]];
+        if(loginUser.approveStatus == WHApproveStatusValid)
+            [menuList addObject:@[User_MyGroup]];
+        [menuList addObject:@[User_MyAccount]];
+        [menuList addObject:@[User_MyMessage, User_MyClient]];
+        [menuList addObject:@[User_UserAppointment]];
         self.datasource = menuList;
-
+        
+        if(loginUser.approveStatus == WHApproveStatusValid)
+            [menuIconList addObject:@[[FAKIonIcons ios7ChatboxesOutlineIconWithSize:NAV_BAR_ICON_SIZE]]];
+        
         [menuIconList addObject:@[[FAKIonIcons ios7ChatboxesOutlineIconWithSize:NAV_BAR_ICON_SIZE], [FAKIonIcons ios7PeopleOutlineIconWithSize:NAV_BAR_ICON_SIZE]]];
         [menuIconList addObject:@[[FAKIonIcons ios7TimerOutlineIconWithSize:NAV_BAR_ICON_SIZE]]];
         self.iconDatasource = menuIconList;

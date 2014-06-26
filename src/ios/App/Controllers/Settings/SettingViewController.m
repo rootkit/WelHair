@@ -89,9 +89,6 @@ static const float profileViewHeight = 90;
     } else if (user.approveStatus == WHApproveStatusRequested && user.groupId > 0) {
         [menuList addObject:@[SettingGroupPending]];
         [menuIconList addObject:@[[FAKIonIcons ios7ChatboxesOutlineIconWithSize:NAV_BAR_ICON_SIZE]]];
-    } else if (user.role == WHStaff || user.role == WHManager) {
-        [menuList addObject:@[SettingMyGroup]];
-        [menuIconList addObject:@[[FAKIonIcons ios7ChatboxesOutlineIconWithSize:NAV_BAR_ICON_SIZE]]];
     }
     
     [menuList addObject:@[SettingMyAddress, SettingMyScore]];
