@@ -240,6 +240,7 @@
 
 - (void)failGetAppointmentNotes:(ASIHTTPRequest *)request
 {
+    [self.tableView stopRefreshAnimation];
 }
 
 - (void)checkEmpty

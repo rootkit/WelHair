@@ -185,6 +185,7 @@
 
 - (void)failGetWithdraws:(ASIHTTPRequest *)request
 {
+    [self.tableView stopRefreshAnimation];
 }
 
 - (void)checkEmpty

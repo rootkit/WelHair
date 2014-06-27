@@ -211,6 +211,7 @@
 
 - (void)failGetAppointments:(ASIHTTPRequest *)request
 {
+    [self.tableView stopRefreshAnimation];
 }
 
 - (void)checkEmpty

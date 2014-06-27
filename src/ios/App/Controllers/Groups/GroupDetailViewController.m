@@ -605,6 +605,7 @@
 
 - (void)failGetStaffs:(ASIHTTPRequest *)request
 {
+    [self.tableView stopRefreshAnimation];
 }
 
 - (void)checkEmpty

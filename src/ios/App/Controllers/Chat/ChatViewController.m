@@ -338,6 +338,7 @@
 
 - (void)failGetMessages:(ASIHTTPRequest *)request
 {
+    [self.tableView stopRefreshAnimation];
 }
 
 - (void)checkEmpty

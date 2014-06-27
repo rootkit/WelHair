@@ -272,6 +272,7 @@ static const float avatorSize = 50;
 
 - (void)failGetAppointmentNotes:(ASIHTTPRequest *)request
 {
+    [self.tableView stopRefreshAnimation];
 }
 
 - (void)checkEmpty

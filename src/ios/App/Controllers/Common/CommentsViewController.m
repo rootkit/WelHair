@@ -124,7 +124,7 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    if (self.goodsId > 0) {
+    if (self.hideComposeBtn) {
         self.rightNavItemImg = nil;
     }
     [super viewWillAppear:animated];
@@ -270,6 +270,7 @@
 
 - (void)failGetComments:(ASIHTTPRequest *)request
 {
+    [self.tableView stopRefreshAnimation];
 }
 
 - (void)checkEmpty

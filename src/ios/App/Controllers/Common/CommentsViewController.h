@@ -15,6 +15,8 @@
 @property (nonatomic) int userId;
 @property (nonatomic) int companyId;
 @property (nonatomic) int workId;
+
 @property (nonatomic) int goodsId;
+@property (nonatomic) BOOL hideComposeBtn;
 
 @end
