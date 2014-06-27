@@ -132,6 +132,7 @@ static float CenterSquareSize = 200;
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
+    [picker dismissViewControllerAnimated:NO completion:nil];
     UIImage *pickedImg = [info objectForKey:UIImagePickerControllerOriginalImage];
     
     CGImageRef imageToDecode = pickedImg.CGImage;  // Given a CGImage in which we are looking for barcodes
@@ -235,9 +236,9 @@ static float CenterSquareSize = 200;
 - (void)cancel
 {
     [timer invalidate];
+    [capture stop];
     [capture.layer removeFromSuperlayer];
     capture.delegate = nil;
-    [capture stop];
     [self.delegate didCancelWelQRReaderViewController:self];
 }
 
