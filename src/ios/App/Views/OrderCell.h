@@ -11,11 +11,12 @@
 // ==============================================================================
 
 #import "Order.h"
+typedef void (^CommentOrderHandler)(int goodId);
 
 @interface OrderCell : UITableViewCell
 
 @property (nonatomic, strong) BaseViewController *baseController;
 
-- (void)setup:(NSDictionary *)order;
+- (void)setup:(NSDictionary *)order commentHandler:(CommentOrderHandler)commentHalder;
 
 @end

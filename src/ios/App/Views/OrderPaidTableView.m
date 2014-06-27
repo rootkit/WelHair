@@ -11,7 +11,6 @@
 // ==============================================================================
 
 #import "Order.h"
-#import "OrderCell.h"
 #import "OrderPaidTableView.h"
 #import "UserManager.h"
 
@@ -87,7 +86,10 @@
     }
 
     cell.baseController = self.baseController;
-    [cell setup:[self.datasource objectAtIndex:indexPath.row]];
+    __weak typeof(self) selfDelegate = self;
+    [cell setup:[self.datasource objectAtIndex:indexPath.row] commentHandler:^(int goodId){
+        selfDelegate.commentOrderHandler(goodId);
+    }];
 
     return cell;
 }

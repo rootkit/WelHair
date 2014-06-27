@@ -292,6 +292,7 @@
     } else {
         CommentsViewController *commentVC = [CommentsViewController new];
         commentVC.goodsId = self.product.id;
+        commentVC.hideComposeBtn = YES;
         [self.navigationController pushViewController:commentVC animated:YES];
     }
 }

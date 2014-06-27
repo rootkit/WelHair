@@ -26,6 +26,9 @@
 @property (nonatomic, strong) UILabel *totalPriceLbl;
 @property (nonatomic, strong) UILabel *statusLbl;
 @property (nonatomic, strong) UIButton *actionBtn;
+@property (nonatomic, strong) UIButton *commentBtn;
+
+@property (nonatomic, strong) CommentOrderHandler commentHandler;
 
 @end
 
@@ -119,8 +122,17 @@
                                                                           300,1)];
         seperaterView2.backgroundColor = [UIColor colorWithHexString:APP_CONTENT_BG_COLOR];
         [contentView addSubview:seperaterView2];
+
         
-        UILabel *shipLbl = [[UILabel alloc] initWithFrame:CGRectMake(0, MaxY(seperaterView2) + 5, 240, 20)];
+        FAKIcon *commentIcon = [FAKIonIcons ios7ComposeOutlineIconWithSize:30];
+        [commentIcon addAttribute:NSForegroundColorAttributeName value:[UIColor blackColor]];
+        self.commentBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        self.commentBtn.frame = CGRectMake(15, MaxY(seperaterView2) + 10, 30, 30);
+        [self.commentBtn setImage:[commentIcon imageWithSize:CGSizeMake(30, 30)] forState:UIControlStateNormal];
+        [self.commentBtn addTarget:self action:@selector(commentBtnClick) forControlEvents:UIControlEventTouchUpInside];
+        [contentView addSubview:self.commentBtn];
+        
+        UILabel *shipLbl = [[UILabel alloc] initWithFrame:CGRectMake(80, MaxY(seperaterView2) + 5, 160, 20)];
         shipLbl.font = [UIFont systemFontOfSize:12];
         shipLbl.backgroundColor = [UIColor clearColor];
         shipLbl.textAlignment = TextAlignmentRight;
@@ -144,7 +156,7 @@
         [self.actionBtn addTarget:self action:@selector(actionClick:) forControlEvents:UIControlEventTouchUpInside];
         [contentView addSubview:self.actionBtn];
         
-        UILabel *totalLbl= [[UILabel alloc] initWithFrame:CGRectMake(MinX(shipLbl), MaxY(shipLbl), 240, 25)];
+        UILabel *totalLbl= [[UILabel alloc] initWithFrame:CGRectMake(MinX(shipLbl), MaxY(shipLbl), 160, 25)];
         totalLbl.font = [UIFont systemFontOfSize:12];
         totalLbl.backgroundColor = [UIColor clearColor];
         totalLbl.textAlignment = TextAlignmentRight;
@@ -163,6 +175,15 @@
     return self;
 }
 
+- (void)commentBtnClick
+{
+    NSArray *goods = [self.orderInfo objectForKey:@"Goods"];
+    if([goods isKindOfClass:[NSArray class]] && goods.count > 0){
+        int goodId = [[(NSDictionary *)goods[0] objectForKey:@"GoodsId"] intValue];
+        self.commentHandler(goodId);
+    }
+}
+
 
 - (void)awakeFromNib
 {
@@ -174,10 +195,10 @@
     [super setSelected:selected animated:animated];
 }
 
-- (void)setup:(NSDictionary *)order
+- (void)setup:(NSDictionary *)order commentHandler:(CommentOrderHandler)commentHalder
 {
     self.orderInfo = order;
-
+    self.commentHandler = commentHalder;
     if ([[order objectForKey:@"PayStatus"] integerValue] == OrderStatusEnum_Paid) {
         self.statusLbl.text = @"已付款";
         self.statusLbl.hidden = NO;
@@ -204,7 +225,11 @@
     self.totalPriceLbl.text = [NSString stringWithFormat:@"￥%.2f", [[order objectForKey:@"OrderAmount"] floatValue]];
     self.shipPriceLbl.text = [NSString stringWithFormat:@"￥%.2f", [[order objectForKey:@"PayableFreight"] floatValue]];
 
-    [self.productImgView setImageWithURL:[NSURL URLWithString:[[dicGoods objectForKey:@"Img"] objectAtIndex:0]]];
+    id imgObj = [dicGoods objectForKey:@"Img"];
+    if(imgObj && [imgObj isKindOfClass:[NSArray class]] && ((NSArray *)imgObj).count > 0){
+        [self.productImgView setImageWithURL:[imgObj objectAtIndex:0]];
+    }
+
 }
 
 - (void)actionClick:(UIButton *)sender

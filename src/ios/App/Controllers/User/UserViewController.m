@@ -360,7 +360,7 @@
         [menuList addObject:@[User_MyMessage, User_MyStaff]];
         self.datasource = menuList;
         
-        [menuIconList addObject:@[[FAKIonIcons ios7ChatboxesOutlineIconWithSize:NAV_BAR_ICON_SIZE], [FAKIonIcons ios7PeopleOutlineIconWithSize:NAV_BAR_ICON_SIZE]]];
+        [menuIconList addObject:@[[FAKIonIcons ios7AlbumsOutlineIconWithSize:NAV_BAR_ICON_SIZE], [FAKIonIcons ios7PeopleOutlineIconWithSize:NAV_BAR_ICON_SIZE]]];
         self.iconDatasource = menuIconList;
     }else{
         if(loginUser.approveStatus == WHApproveStatusValid)

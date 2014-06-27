@@ -15,6 +15,7 @@
 #import "OrderPaidTableView.h"
 #import "OrderUnpaidTableView.h"
 #import "PPiFlatSegmentedControl.h"
+#import "CommentsViewController.h"
 
 
 @interface OrderListViewController ()
@@ -107,9 +108,15 @@
         case 1:
         {
             if(!self.paidTableView){
+                __weak typeof(self) selfDelegate = self;
                 OrderPaidTableView *tblV = [[OrderPaidTableView alloc] initWithFrame:self.segmentContentView.bounds];
                 tblV.baseController = self;
                 self.paidTableView = tblV;
+                self.paidTableView.commentOrderHandler = ^(int goodId){
+                    CommentsViewController *commentVC = [CommentsViewController new];
+                    commentVC.goodsId = goodId;
+                    [selfDelegate.navigationController pushViewController:commentVC animated:YES];
+                };
                 [self.segmentContentView addSubview:self.paidTableView];
             }
             self.paidTableView.hidden = NO;

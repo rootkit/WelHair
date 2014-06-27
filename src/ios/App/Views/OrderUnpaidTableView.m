@@ -86,7 +86,7 @@
     }
 
     cell.baseController = self.baseController;
-    [cell setup:[self.datasource objectAtIndex:indexPath.row]];
+    [cell setup:[self.datasource objectAtIndex:indexPath.row] commentHandler:nil];
 
     return cell;
 }
