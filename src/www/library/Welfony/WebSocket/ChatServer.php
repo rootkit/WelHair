@@ -34,7 +34,6 @@ class ChatServer implements MessageComponentInterface
 
     public function onOpen(ConnectionInterface $conn)
     {
-        $logger->log($conn, \Zend_Log::ERR);
         $this->clients[$conn->resourceId] = array(
             'Connection' => $conn,
             'User' => array('UserId' => 0)
@@ -44,8 +43,6 @@ class ChatServer implements MessageComponentInterface
 
     public function onMessage(ConnectionInterface $conn, $msg)
     {
-        $loger = \Zend_Registry::get('logger');
-        $logger->log($msg, \Zend_Log::ERR);
         $message = json_decode($msg, true);
         if ($message === null) {
             return;
@@ -85,7 +82,6 @@ class ChatServer implements MessageComponentInterface
                 }
 
             } elseif (isset($message['ToId']) && intval($message['ToId']) > 0) {
-                $logger->log($message, \Zend_Log::ERR);
                 $message['RoomId'] = 0;
                 $message['CreatedDate'] = date('Y-m-d H:i:s');
                 $message['Status'] = MessageStatus::Sent;
