@@ -34,6 +34,7 @@ class ChatServer implements MessageComponentInterface
 
     public function onOpen(ConnectionInterface $conn)
     {
+        $logger->log($conn, \Zend_Log::ERR);
         $this->clients[$conn->resourceId] = array(
             'Connection' => $conn,
             'User' => array('UserId' => 0)
