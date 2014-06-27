@@ -82,6 +82,7 @@ class ChatServer implements MessageComponentInterface
                 }
 
             } elseif (isset($message['ToId']) && intval($message['ToId']) > 0) {
+                $this->logger->log($message, \Zend_Log::ERR);
                 $message['RoomId'] = 0;
                 $message['CreatedDate'] = date('Y-m-d H:i:s');
                 $message['Status'] = MessageStatus::Sent;
