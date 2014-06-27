@@ -13,12 +13,19 @@
 // ==============================================================================
 
 use Welfony\Controller\Base\AbstractFrontendController;
+use Welfony\Service\StaffService;
+use Welfony\Service\WorkService;
 
 class IndexController extends AbstractFrontendController
 {
 
     public function indexAction()
     {
+        $rstStaffList = StaffService::search(0, '', 0, 0, 0, 0, null, 1, 10);
+        $this->view->staffList = $rstStaffList['staffs'];
+
+        $rstWorkList = $workList = WorkService::search(0, 0, 0, 0, 0, 1, 12);
+        $this->view->workList = $rstWorkList['works'];
     }
 
 }

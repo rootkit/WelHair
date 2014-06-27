@@ -1203,6 +1203,12 @@ iframe {
   margin-left: 10px;
   width: 240px;
 }
+.span24-5 {
+  float: left;
+  _display: inline;
+  margin-left: 10px;
+  width: 237px;
+}
 .span24 {
   float: left;
   _display: inline;

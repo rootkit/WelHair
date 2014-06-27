@@ -1,0 +1,79 @@
+<div class="container">
+    <div class="g_banner">
+        <div class="g_banner_left">
+            <img src="<?php echo $this->config->asset->baseUrl; ?>/img/frontend/banner_1.png" />
+            <div class="bk">
+                <button class="down">
+                    <img src="<?php echo $this->config->asset->baseUrl; ?>/img/frontend/apple_down.png" />
+                </button>
+            </div>
+            <div class="bk">
+                <button class="down">
+                    <img src="<?php echo $this->config->asset->baseUrl; ?>/img/frontend/andriod_down.png" />
+                </button>
+            </div>
+            <div class="erweima">
+                <img src="<?php echo $this->config->asset->baseUrl; ?>/img/frontend/weixin.png" />
+            </div>
+        </div>
+        <div class="g_banner_right">
+            <img src="<?php echo $this->config->asset->baseUrl; ?>/img/frontend/bannnerimg.png" />
+        </div>
+    </div>
+</div>
+
+<div class="content">
+    <div class="projects">
+        <h1>设计师</h1>
+        <div class="flexslider">
+            <ul class="slides">
+                <li>
+                    <?php foreach ($this->staffList as $staff): ?>
+                    <div class="item">
+                        <a href="#">
+                            <img src="<?php echo $staff['AvatarUrl']; ?>" class="picimg">
+                            <span class="mask"></span>
+                        </a>
+                        <p class="pic">
+                            <?php echo $staff['Nickname']; ?>
+                        </p>
+                    </div>
+                    <?php endforeach; ?>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="projects">
+        <h1>发型</h1>
+        <div class="row">
+            <?php foreach ($this->workList as $work): ?>
+            <div class="span24-5">
+                <div class="col-md-3 box_shadow clearfix">
+                    <div class="userBox">
+                        <div class=" userPic">
+                            <a href="#"><img src="<?php echo $work['Staff']['AvatarUrl']; ?>"></a>
+                        </div>
+                        <div class="pannel">
+                            <div class="username">
+                                <strong>
+                                    <a href="#"><?php echo $work['Staff']['Nickname']; ?></a>
+                                </strong>
+                            </div>
+                            <div class="usersalon">沙龙名：<?php echo $work['Staff']['Company']['Name']; ?></div>
+                        </div>
+                    </div>
+                    <div class="picbox">
+                        <img src="<?php echo $work['PictureUrl'][0]; ?>" onerror="this.src='<?php echo $this->config->asset->baseUrl; ?>/img/photo-default.png';" />
+                    </div>
+                    <div class="comtbox">
+                        <ul>
+                            <li><img src="<?php echo $this->config->asset->baseUrl; ?>/img/frontend/review.png"><span>124521</span></li>
+                            <li><img src="<?php echo $this->config->asset->baseUrl; ?>/img/frontend/heart.png"><span>124521</span></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <?php endforeach; ?>
+        </div>
+    </div>
+</div>
