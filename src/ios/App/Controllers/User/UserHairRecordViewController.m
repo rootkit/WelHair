@@ -16,9 +16,6 @@
 
 @property (nonatomic, strong) UIScrollView *scrollView;
 
-@property (nonatomic) int uploadIndex;
-@property (nonatomic) int uploadRemoveIndex;
-
 @property (nonatomic, strong) UIImageView *uploadPic1;
 @property (nonatomic, strong) UIActivityIndicatorView *uploadPictureActivityIndicator1;
 @property (nonatomic, strong) UIImageView *uploadPic2;
@@ -47,9 +44,6 @@
         self.leftNavItemImg =[leftIcon imageWithSize:CGSizeMake(NAV_BAR_ICON_SIZE, NAV_BAR_ICON_SIZE)];
         
         self.rightNavItemTitle = @"保存";
-        
-        self.uploadIndex = -1;
-        self.uploadRemoveIndex = -1;
         
         self.uploadedPictures = [[NSMutableArray alloc] initWithCapacity:5];
         for (int i = 0; i < 4; i++) {
@@ -251,28 +245,14 @@
     [super didReceiveMemoryWarning];
 }
 
-- (void)viewTapped:(UITapGestureRecognizer *)tap
-{
-    if(tap.view.tag == 3) {
-        self.uploadIndex = 0;
-        UIActionSheet *actionSheet = [[UIActionSheet alloc]
-                                      initWithTitle:nil
-                                      delegate:self
-                                      cancelButtonTitle:NSLocalizedString(@"Cancel", nil)
-                                      destructiveButtonTitle:nil
-                                      otherButtonTitles:NSLocalizedString(@"Camera", nil), NSLocalizedString(@"Album", nil), nil];
-        [actionSheet showInView:self.view];
-    }
-    
-}
-
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {
+    int index = actionSheet.tag;
     NSString *buttonTitle = [actionSheet buttonTitleAtIndex:buttonIndex];
-    
     if ([buttonTitle isEqualToString:NSLocalizedString(@"Camera", nil)]) {
         UIImagePickerController *imagePickerController = [[UIImagePickerController alloc] init];
+        imagePickerController.view.tag = index;
         imagePickerController.delegate = self;
         imagePickerController.allowsEditing = YES;
         imagePickerController.sourceType = UIImagePickerControllerSourceTypeCamera;
@@ -283,27 +263,27 @@
         UIImagePickerController *imagePickerController = [[UIImagePickerController alloc] init];
         imagePickerController.delegate = self;
         imagePickerController.allowsEditing = YES;
+        imagePickerController.view.tag = index;
         imagePickerController.sourceType = UIImagePickerControllerSourceTypeSavedPhotosAlbum;
         
         [self presentViewController:imagePickerController
                            animated:YES
                          completion:nil];
     } else if ([buttonTitle isEqualToString:NSLocalizedString(@"Remove", nil)]) {
-        if (self.uploadRemoveIndex == 1) {
+        if (index == 1) {
             self.uploadPic1.image  = [UIImage imageNamed:@"AddImage"];
         }
-        if (self.uploadRemoveIndex == 2) {
+        if (index == 2) {
             self.uploadPic2.image  = [UIImage imageNamed:@"AddImage"];
         }
-        if (self.uploadRemoveIndex == 3) {
+        if (index == 3) {
             self.uploadPic3.image  = [UIImage imageNamed:@"AddImage"];
         }
-        if (self.uploadRemoveIndex == 4) {
+        if (index == 4) {
             self.uploadPic4.image  = [UIImage imageNamed:@"AddImage"];
         }
         
-        self.uploadedPictures[self.uploadRemoveIndex - 1] = @"";
-        self.uploadRemoveIndex = -1;
+        self.uploadedPictures[index - 1] = @"";
     }
 }
 
@@ -313,20 +293,21 @@
     
     UIImage *pickedImg = [info objectForKey:UIImagePickerControllerEditedImage];
     pickedImg = [pickedImg createThumbnailWithWidth:pickedImg.size.width];
+    int uploadIndex = picker.view.tag;
     
-    if (self.uploadIndex == 1) {
+    if (uploadIndex == 1) {
         self.uploadPic1.image  = pickedImg;
         [self.uploadPictureActivityIndicator1 startAnimating];
     }
-    if (self.uploadIndex == 2) {
+    if (uploadIndex == 2) {
         self.uploadPic2.image  = pickedImg;
         [self.uploadPictureActivityIndicator2 startAnimating];
     }
-    if (self.uploadIndex == 3) {
+    if (uploadIndex == 3) {
         self.uploadPic3.image  = pickedImg;
         [self.uploadPictureActivityIndicator3 startAnimating];
     }
-    if (self.uploadIndex == 4) {
+    if (uploadIndex == 4) {
         self.uploadPic4.image  = pickedImg;
         [self.uploadPictureActivityIndicator4 startAnimating];
     }
@@ -337,7 +318,7 @@
                                                                 andData:reqData];
     [self.requests addObject:request];
     
-    [request setUserInfo:@{@"UploadPictureIndex": @(self.uploadIndex)}];
+    [request setUserInfo:@{@"UploadPictureIndex": @(uploadIndex)}];
     [request addData:UIImageJPEGRepresentation(pickedImg, 1) withFileName:@"uploadfile.jpg" andContentType:@"mage/JPEG" forKey:@"uploadfile"];
     [request setDelegate:self];
     [request setDidFinishSelector:@selector(uploadPictureFinish:)];
@@ -347,13 +328,13 @@
 
 - (void)uploadPictureFinish:(ASIHTTPRequest *)request
 {
-    self.uploadIndex = [[request.userInfo objectForKey:@"UploadPictureIndex"] intValue];
+    int uploadIndex = [[request.userInfo objectForKey:@"UploadPictureIndex"] intValue];
     
     if (request.responseStatusCode == 200) {
         NSDictionary *responseMessage = [Util objectFromJson:request.responseString];
         if ([responseMessage objectForKey:@"Thumb480Url"] && [responseMessage objectForKey:@"Thumb480Url"] != [NSNull null]) {
             NSString *picUrl = [responseMessage objectForKey:@"Thumb480Url"];
-            self.uploadedPictures[self.uploadIndex - 1] = picUrl;
+            self.uploadedPictures[uploadIndex - 1] = picUrl;
         } else {
             [SVProgressHUD showErrorWithStatus:@"上传图片失败，请重试！"];
         }
@@ -361,41 +342,40 @@
         [SVProgressHUD showErrorWithStatus:@"上传图片失败，请重试！"];
     }
     
-    [self stopUploadActivityIndicator];
+    [self stopUploadActivityIndicator:uploadIndex];
 }
 
 - (void)uploadPictureFail:(ASIHTTPRequest *)request
 {
     [SVProgressHUD showErrorWithStatus:@"上传图片失败，请重试！"];
     
-    self.uploadIndex = [[request.userInfo objectForKey:@"UploadPictureIndex"] intValue];
-    [self stopUploadActivityIndicator];
+    int index = [[request.userInfo objectForKey:@"UploadPictureIndex"] intValue];
+    [self stopUploadActivityIndicator:index];
 }
 
-- (void)stopUploadActivityIndicator
+- (void)stopUploadActivityIndicator:(int)index
 {
-    if (self.uploadIndex == 1) {
+    if (index == 1) {
         [self.uploadPictureActivityIndicator1 stopAnimating];
     }
-    if (self.uploadIndex == 2) {
+    if (index == 2) {
         [self.uploadPictureActivityIndicator2 stopAnimating];
     }
-    if (self.uploadIndex == 3) {
+    if (index == 3) {
         [self.uploadPictureActivityIndicator3 stopAnimating];
     }
-    if (self.uploadIndex == 4) {
+    if (index == 4) {
         [self.uploadPictureActivityIndicator4 stopAnimating];
     }
-    
-    self.uploadIndex = -1;
 }
 
 - (void)uploadPictureLongPress:(UILongPressGestureRecognizer *)gesture
 {
+    int index =  gesture.view.tag;
     if (gesture.state == UIGestureRecognizerStateEnded) {
-        self.uploadRemoveIndex = gesture.view.tag;
+        index = gesture.view.tag;
         
-        if ([self.uploadedPictures[self.uploadRemoveIndex - 1] isEqualToString:@""]) {
+        if ([self.uploadedPictures[index - 1] isEqualToString:@""]) {
             return;
         }
         
@@ -405,20 +385,20 @@
                                       cancelButtonTitle:NSLocalizedString(@"Cancel", nil)
                                       destructiveButtonTitle:nil
                                       otherButtonTitles:NSLocalizedString(@"Remove", nil), nil];
+        actionSheet.tag = index;
         [actionSheet showInView:self.view];
     }
 }
 
 - (void)uploadPictureTapped:(UIButton *)sender
 {
-    self.uploadIndex = sender.tag;
-    
     UIActionSheet *actionSheet = [[UIActionSheet alloc]
                                   initWithTitle:nil
                                   delegate:self
                                   cancelButtonTitle:NSLocalizedString(@"Cancel", nil)
                                   destructiveButtonTitle:nil
                                   otherButtonTitles:NSLocalizedString(@"Camera", nil), NSLocalizedString(@"Album", nil), nil];
+    actionSheet.tag = sender.tag;
     [actionSheet showInView:self.view];
 }
 
