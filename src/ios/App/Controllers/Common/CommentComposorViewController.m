@@ -10,15 +10,15 @@
 //
 // ==============================================================================
 
-#import <AMRatingControl.h>
 #import "CommentComposorViewController.h"
 #import "UserManager.h"
+#import "OpitionButton.h"
 
 @interface CommentComposorViewController () <UITextFieldDelegate, UIActionSheetDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 
+@property (nonatomic) float rate;
 @property (nonatomic, strong) UIScrollView *scrollView;
 
-@property (nonatomic, strong) AMRatingControl *ratingControl;
 @property (nonatomic, strong) UITextView *commentBodyView;
 
 @property (nonatomic, strong) UIImageView *uploadLogo;
@@ -62,8 +62,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
-
+    
     float margin =  10;
 
     self.scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, self.topBarOffset, WIDTH(self.view), [self contentHeightWithNavgationBar:YES withBottomBar:NO])];
@@ -83,13 +82,37 @@
     ratingLabel.textColor = [UIColor blackColor];
     ratingLabel.text = @"星级评分：";
     [viewRatingContainer addSubview:ratingLabel];
-
-    self.ratingControl = [[AMRatingControl alloc] initWithLocation:CGPointMake(90, 7)
-                                                        emptyColor:[UIColor colorWithHexString:@"ffc62a"]
-                                                        solidColor:[UIColor colorWithHexString:@"ffc62a"]
-                                                      andMaxRating:5];
-    [viewRatingContainer addSubview:self.ratingControl];
-
+    
+    OpitionButton *positiveBtn = [[OpitionButton alloc] initWithFrame:CGRectMake(MaxX(ratingLabel),
+                                                                                 margin - 5,
+                                                                                 50,
+                                                                                 30)];
+    positiveBtn.tag = 1;
+    positiveBtn.groupName = @"Comments";
+    [positiveBtn setTitle:@"好评" forState:UIControlStateNormal];
+    [positiveBtn addTarget:self action:@selector(rateClick:) forControlEvents:UIControlEventTouchDown];
+    [viewRatingContainer addSubview:positiveBtn];
+    
+    OpitionButton *neutralBtn = [[OpitionButton alloc] initWithFrame:CGRectMake(MaxX(positiveBtn) + margin,
+                                                                                 margin - 5,
+                                                                                 50,
+                                                                                 30)];
+    neutralBtn.tag = 2;
+    neutralBtn.groupName = @"Comments";
+    [neutralBtn setTitle:@"中评" forState:UIControlStateNormal];
+    [neutralBtn addTarget:self action:@selector(rateClick:) forControlEvents:UIControlEventTouchDown];
+    [viewRatingContainer addSubview:neutralBtn];
+    
+    OpitionButton *negativeBtn = [[OpitionButton alloc] initWithFrame:CGRectMake(MaxX(neutralBtn) + margin,
+                                                                                margin- 5,
+                                                                                50,
+                                                                                30)];
+    negativeBtn.tag = 3;
+    negativeBtn.groupName = @"Comments";
+    [negativeBtn setTitle:@"差评" forState:UIControlStateNormal];
+    [negativeBtn addTarget:self action:@selector(rateClick:) forControlEvents:UIControlEventTouchDown];
+    [viewRatingContainer addSubview:negativeBtn];
+    
     UILabel *commentBodyLabel = [[UILabel alloc] initWithFrame:CGRectMake(margin, MaxY(viewRatingContainer) + margin, 100, 20)];
     commentBodyLabel.backgroundColor = [UIColor clearColor];
     commentBodyLabel.textColor = [UIColor blackColor];
@@ -198,9 +221,28 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 
+- (void)rateClick:(UIButton *)sender
+{
+    OpitionButton *btn = (OpitionButton *)sender;
+    btn.choosen = YES;
+    switch (sender.tag) {
+        case 1:
+            self.rate = 5.0;
+            break;
+        case 2:
+            self.rate = 3.0;
+            break;
+        case 3:
+            self.rate = 1.0;
+            break;
+        default:
+            break;
+    }
+}
+
 - (void) rightNavItemClick
 {
-    if (self.ratingControl.rating <= 0) {
+    if (self.rate < 1) {
         [SVProgressHUD showSuccessWithStatus:@"请给个评分吧。" duration:1];
         return;
     }
@@ -211,7 +253,7 @@
 
     NSMutableDictionary *reqData = [[NSMutableDictionary alloc] initWithCapacity:1];
     [reqData setObject:self.commentBodyView.text forKey:@"Body"];
-    [reqData setObject:@(self.ratingControl.rating) forKey:@"Rate"];
+    [reqData setObject:@(self.rate) forKey:@"Rate"];
     [reqData setObject:@(self.workId) forKey:@"WorkId"];
     [reqData setObject:@(self.goodsId) forKey:@"GoodsId"];
     [reqData setObject:@(self.userId) forKey:@"UserId"];

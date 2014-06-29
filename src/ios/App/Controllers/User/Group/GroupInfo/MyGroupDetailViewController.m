@@ -10,7 +10,6 @@
 //
 // ==============================================================================
 
-#import <AMRatingControl.h>
 #import "CreateGroupViewController.h"
 #import "MyGroupDetailViewController.h"
 #import "MWPhotoBrowser.h"
@@ -24,8 +23,7 @@
 @property (nonatomic, strong) UILabel *nameLbl;
 @property (nonatomic, strong) UILabel *phoneLbl;
 @property (nonatomic, strong) UILabel *addressLbl;
-@property (nonatomic, strong) AMRatingControl *rateCtrl;
-
+@property (nonatomic, strong) UILabel *rateLbl;
 @property (nonatomic, strong) NSMutableArray *groupImages;
 
 @end
@@ -89,13 +87,20 @@
     [self.headerView addSubview:self.nameLbl];
     
 
-    self.rateCtrl = [[AMRatingControl alloc] initWithLocation:CGPointMake(X(self.nameLbl), MaxY(self.nameLbl) )
-                                                   emptyColor:[UIColor colorWithHexString:@"ffc62a"]
-                                                   solidColor:[UIColor colorWithHexString:@"ffc62a"]
-                                                 andMaxRating:5];
-    [self.headerView addSubview:self.rateCtrl];
-    self.rateCtrl.enabled = NO;
-    [self.rateCtrl setRating:self.group.ratingCount];
+    UIImageView *rateHandImageView = [[UIImageView alloc] initWithFrame:CGRectMake(MaxX(self.groupAvatorImg) + 10, MaxY(self.nameLbl) + 10, 15, 15)];
+    [self.headerView addSubview:rateHandImageView];
+    rateHandImageView.image = [UIImage imageNamed:@"RateHand"];
+    
+    self.rateLbl = [[UILabel alloc] initWithFrame:CGRectMake(MaxX(rateHandImageView) + 5,
+                                                             Y(rateHandImageView),
+                                                             50,
+                                                             15)];
+    self.rateLbl.font = [UIFont systemFontOfSize:12];
+    self.rateLbl.numberOfLines = 2;
+    self.rateLbl.text = TextAlignmentLeft;
+    self.rateLbl.backgroundColor = [UIColor clearColor];
+    self.rateLbl.textColor = [UIColor blackColor];
+    [self.headerView addSubview:self.rateLbl];
 
     UIImageView *phoneImg = [[UIImageView alloc] initWithFrame:CGRectMake(MaxX(self.groupAvatorImg) + 10, MaxY(self.nameLbl) + 35, 20, 20)];
     FAKIcon *phoneIcon = [FAKIonIcons ios7TelephoneIconWithSize:30];
@@ -242,6 +247,7 @@
     self.phoneLbl.text =  self.group.tel.length > 0 ? self.group.tel : self.group.mobile;
     [self.groupAvatorImg setImageWithURL:[NSURL URLWithString:self.group.logoUrl]];
     self.addressLbl.text = self.group.address;
+    self.rateLbl.text = [NSString stringWithFormat:@"%d", self.group.ratingCount];
 
     self.groupImages = [NSMutableArray array];
     for (NSString *item in self.group.imgUrls) {

@@ -10,8 +10,6 @@
 //
 // ==============================================================================
 
-#import <AMRatingControl.h>
-
 #import "CircleImageView.h"
 #import "StaffCell.h"
 

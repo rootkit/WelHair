@@ -10,8 +10,6 @@
 //
 // ==============================================================================
 
-#import <AMRatingControl.h>
-
 #import "CircleImageView.h"
 #import "StaffNarrowCell.h"
 
@@ -77,7 +75,7 @@
         [self.contentView addSubview:rateImageView];
         rateImageView.image = [UIImage imageNamed:@"RateHand"];
         
-        self.rateCoubtLbl = [[UILabel alloc] initWithFrame:CGRectMake(MaxX(rateImageView) + 5,
+        self.rateCoubtLbl = [[UILabel alloc] initWithFrame:CGRectMake(MaxX(rateImageView) + 7,
                                                                       Y(self.nameLbl)+10,
                                                                       50,
                                                                       HEIGHT(self.imgView)/3)];

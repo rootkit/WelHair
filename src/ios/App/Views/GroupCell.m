@@ -10,7 +10,6 @@
 //
 // ==============================================================================
 
-#import <AMRatingControl.h>
 #import "GroupCell.h"
 
 @interface GroupCell()
