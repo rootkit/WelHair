@@ -23,7 +23,7 @@ class StaffRepository extends AbstractRepository
     public function searchCount($searchText, $companyId, $city, $district)
     {
         $strSql = "SELECT
-                     COUNT(1) `Total`
+                     COUNT(DISTINCT U.UserId) `Total`
                    FROM Users U
                    INNER JOIN CompanyUser CU ON CU.UserId = U.UserId
                    INNER JOIN Company C ON CU.CompanyId = C.CompanyId
@@ -131,7 +131,7 @@ class StaffRepository extends AbstractRepository
          $strSql = "SELECT
                        COUNT(DISTINCT A.UserId) `Total`
                    FROM Appointment A
-                   WHERE A.Status > 0 AND A.StaffId = ?
+                   WHERE A.Status > 0 AND A.UserId = ?
                    GROUP BY A.StaffId
                    LIMIT 1";
 
@@ -152,7 +152,7 @@ class StaffRepository extends AbstractRepository
 
                        COUNT(A.AppointmentId) AppointmentCount
                    FROM Appointment A
-                   INNER JOIN Users U ON U.UserId = A.StaffId
+                   INNER JOIN Users U ON U.UserId = A.UserId
                    WHERE A.Status > 0 AND A.UserId = ?
                    GROUP BY A.StaffId
                    ORDER BY A.AppointmentId DESC
