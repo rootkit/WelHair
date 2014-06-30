@@ -14,19 +14,11 @@
 
 use Welfony\Controller\Base\AbstractFrontendController;
 
-class User_AuthController extends AbstractFrontendController
+class City_IndexController extends AbstractFrontendController
 {
 
-    public function signinAction()
+    public function indexAction()
     {
-        if ($this->_request->isPost()) {
-            echo 'a';die();
-        }
-    }
-
-    public function signupAction()
-    {
-
     }
 
 }

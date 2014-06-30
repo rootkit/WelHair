@@ -8,8 +8,21 @@
  * file that was distributed with this source code.
 */
 
+body, button, input, select, textarea {
+    font: 14px/1.5 tahoma,"microsoft yahei","\5FAE\8F6F\96C5\9ED1";
+}
+
+*:focus {
+    outline: 0;
+}
+
+a, a:hover {
+    color: #51add3;
+    text-decoration: none;
+}
+
 #sitemast {
-    background: #206aa7;
+    background: #333;
     height: 45px;
     line-height: 45px;
 }
@@ -56,7 +69,6 @@
 }
 
 .g_nav ul li a {
-    font-weight: bold;
     color: #fff;
     width: 60px;
     display: block;
@@ -1022,7 +1034,7 @@ html[xmlns] .slides {
     border: 1px solid #d9d9d9;
     border-radius: 6px;
     min-height: 400px;
-    margin-top: 40px;
+    margin: 40px auto;
     overflow: hidden;
 }
 
@@ -1074,7 +1086,7 @@ html[xmlns] .slides {
 }
 
 .rginfoitem .agr,  .rginfoitem .rgbt {
-    margin-left: 120px;
+    margin-left: 160px;
 }
 
 .rginfoitem .rgbt a {
@@ -1089,14 +1101,14 @@ html[xmlns] .slides {
     border: 1px solid #ccc;
     border-radius: 2px;
     height: 28px;
-    padding: 0 0 0 2px;
+    padding: 0 5px;
     vertical-align: middle;
     color: #808080;
     -webkit-box-shadow: 0px 1px 1px 0px #eaeaea inset;
     -moz-box-shadow: 0px 1px 1px 0px #eaeaea inset;
     box-shadow: 0px 1px 1px 0px #eaeaea inset;
     height: 20px\9;
-    padding: 8px 0 0 2px\9;
+    padding: 8px 0 0 5px\9;
     width: 187px;
 }
 
@@ -1149,9 +1161,8 @@ html[xmlns] .slides {
     position: absolute;
     z-index: -99;
     top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+    left: -110px;
+    width: 1200px;
     overflow: hidden;
 }
 
@@ -1161,10 +1172,11 @@ html[xmlns] .slides {
 }
 
 .logcontent {
+    position: relative;
     width: 980px;
     margin: 0 auto;
     background: url(../../img/frontend/logcontentbg.png) no-repeat center;
-    min-height: 500px;
+    min-height: 675px;
 }
 
 .logcontent .loginbox {
@@ -1176,7 +1188,7 @@ html[xmlns] .slides {
     border-radius: 8px;
     float: right;
     margin-right: 100px;
-    margin-top: 8%;
+    margin-top: 190px;
     padding-top: 10px;
 }
 
@@ -1239,7 +1251,15 @@ html[xmlns] .slides {
 }
 
 .logcontent .loginbox .loginitem .userico {
-    background: url(../../img/frontend/form_login.png)0 0px no-repeat;
+    background: url(../../img/frontend/form_login.png) 0 0px no-repeat;
+    display: block;
+    width: 40px;
+    height: 30px;
+    float: left;
+}
+
+.logcontent .loginbox .loginitem .pwdico {
+    background: url(../../img/frontend/form_login.png) 0 -50px no-repeat;
     display: block;
     width: 40px;
     height: 30px;
@@ -1247,13 +1267,12 @@ html[xmlns] .slides {
 }
 
 .logcontent .loginbox .loginitem .loginbt {
-    width: 60px;
-    height: 24px;
+    width: 110px;
     color: #fff;
     font-size: 14px;
-    line-height: 24px;
-    font-weight: bold;
     float: left;
+    padding: 0;
+    height: 30px;
 }
 
 .footbuttom {

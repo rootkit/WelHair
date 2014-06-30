@@ -1,6 +1,6 @@
 <script>
     var globalSetting = {
-        baseUrl: '<?php echo $this->baseUrl(); ?>',
+        baseUrl: '<?php echo $this->baseUrl(''); ?>',
         apiBaseUrl: '<?php echo $this->config->api->baseUrl; ?>',
         staticAssetBaseUrl: '<?php echo $this->config->asset->baseUrl; ?>'
     };
@@ -8,16 +8,19 @@
 <div id="sitemast">
     <div id="sitemast_m">
         <div class="g_logo">
-            <a href="#"><img src="<?php echo $this->config->asset->baseUrl; ?>/img/frontend/logo.png" /></a>
-            <div class="g_homearea"><a href="#">济南</a></div>
+            <a href="<?php echo $this->baseUrl(''); ?>">
+                <img src="<?php echo $this->config->asset->baseUrl; ?>/img/frontend/logo.png" />
+            </a>
+            <div class="g_homearea">
+                <a href="<?php echo $this->baseUrl('city'); ?>">济南</a>
+            </div>
         </div>
         <div class="g_nav">
             <ul>
-                <li class="select"><a href="#">首页</a></li>
-                <li><a href="#">发型</a></li>
-                <li><a href="#">沙龙</a></li>
-                <li><a href="#">设计师</a></li>
-                <li><a href="#">商城</a></li>
+                <li><a href="<?php echo $this->baseUrl('hair'); ?>">发型</a></li>
+                <li><a href="<?php echo $this->baseUrl('salon'); ?>">沙龙</a></li>
+                <li><a href="<?php echo $this->baseUrl('stylist'); ?>">设计师</a></li>
+                <li><a href="<?php echo $this->baseUrl('goods'); ?>">商城</a></li>
             </ul>
         </div>
         <div class="f_search">
@@ -26,7 +29,7 @@
             <button class="f_search_bt"></button>
         </div>
         <div class="loginbt">
-            <a href="#"><Img src="<?php echo $this->config->asset->baseUrl; ?>/img/frontend/man.png" /></a>
+            <a href="<?php echo $this->baseUrl('user/auth/signin'); ?>"><Img src="<?php echo $this->config->asset->baseUrl; ?>/img/frontend/man.png" /></a>
         </div>
     </div>
 </div>

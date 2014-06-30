@@ -1,0 +1,44 @@
+<div class="logcontent">
+    <div class="logbg">
+     <img src="<?php echo $this->config->asset->baseUrl; ?>/img/frontend/loginbg.png" />
+    </div>
+    <form method="post">
+     <div class="loginbox">
+      <div class="loginitem">
+       <div class="inputbox">
+        <div class="winput">
+            <span class="userico"></span>
+            <input name="email" type="text" class="inputsty"/>
+        </div>
+       </div>
+      </div>
+      <div class="loginitem">
+       <div class="inputbox">
+        <div class="winput">
+            <span class="pwdico"></span>
+            <input name="password" type="password" class="inputsty"/>
+        </div>
+       </div>
+      </div>
+      <div class="loginitem">
+       <span class="wuser"><label><input name="" class="check"type="checkbox" value="" />&nbsp;&nbsp;记住账号</label></span>
+       <span class="right"><a href="#">忘记密码？</a></span>
+      </div>
+      <div class="loginitem" style="margin-top:10px;">
+        <button type="submit" class="btn btn2_xl btn2_l loginbt">登录</button>
+       <span class="right" style="float:left; line-height:30px;">还没有账号？<a href="<?php echo $this->baseUrl('user/auth/signup'); ?>">免费注册</a></span>
+      </div>
+      <div class="loginitem">
+      <div class="fast">
+      <h3>用合作网站账号登录</h3>
+      <ul>
+       <li>
+        <a href="#"><img src="<?php echo $this->config->asset->baseUrl; ?>/img/frontend/fast_qq.png" /></a>
+       </li>
+       <li><a href="#"><img src="<?php echo $this->config->asset->baseUrl; ?>/img/frontend/fast_sina.png" /></a></li>
+      </ul>
+     </div>
+      </div>
+     </div>
+    </form>
+</div>

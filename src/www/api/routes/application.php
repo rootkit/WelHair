@@ -18,7 +18,7 @@ use Welfony\Utility\Util;
 
 $app->hook('slim.before.router', function () use ($app) {
     $ip = Util::getRealIp();
-    $isLocalhost = $ip == '127.0.0.1';
+    $isLocalhost = $ip == '127.0.0.1' || $ip == '192.168.1.103';
 
     $contextArr = json_decode($app->request->headers->get('WH-Context'), true);
 
