@@ -31,7 +31,7 @@
                     <?php foreach ($this->staffList as $staff): ?>
                     <div class="item">
                         <a href="#">
-                            <img src="<?php echo $staff['AvatarUrl']; ?>" class="picimg">
+                            <img src="<?php echo str_replace('480x480', '110x110', $staff['AvatarUrl']); ?>" class="picimg">
                             <span class="mask"></span>
                         </a>
                         <p class="pic">
