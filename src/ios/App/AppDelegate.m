@@ -27,6 +27,7 @@
 #import "ProductsViewController.h"
 #import "UserViewController.h"
 #import "AppointmentsViewController.h"
+#import <Crashlytics/Crashlytics.h>
 
 
 @interface AppDelegate()<UIAlertViewDelegate>
@@ -56,12 +57,13 @@
 
     NSDictionary *remoteNotif = [launchOptions objectForKey: UIApplicationLaunchOptionsRemoteNotificationKey];
     [self handleRemoteNotification:remoteNotif];
-    
     return YES;
 }
 
 - (void)initialServices:(UIApplication *)application options:(NSDictionary *)launchOptions
 {
+    //crash report
+    [Crashlytics startWithAPIKey:@"b10b274f4b20fb41d2d6e477a6b4c032d790d4c9"];
     //setup social component
     [UMSocialData setAppKey:CONFIG_UMSOCIAL_APPKEY];
     [UMSocialConfig setSupportSinaSSO:YES];

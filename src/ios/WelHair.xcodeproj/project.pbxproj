@@ -301,6 +301,7 @@
 		467F0F2518CC8FFB009FFE08 /* CommentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 467F0F2418CC8FFB009FFE08 /* CommentCell.m */; };
 		467F0F2B18CC95CA009FFE08 /* JOLImageSlide.m in Sources */ = {isa = PBXBuildFile; fileRef = 467F0F2818CC95CA009FFE08 /* JOLImageSlide.m */; };
 		467F0F2C18CC95CA009FFE08 /* JOLImageSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = 467F0F2A18CC95CA009FFE08 /* JOLImageSlider.m */; };
+		468004CE1961638B0005891A /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 468004CD1961638B0005891A /* Crashlytics.framework */; };
 		468BD8A818F243EB00B11209 /* Order.m in Sources */ = {isa = PBXBuildFile; fileRef = 468BD8A718F243EB00B11209 /* Order.m */; };
 		4693AAA718D8426100104F01 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4693AAA618D8426100104F01 /* Images.xcassets */; };
 		46A46FE518BE21160057F579 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46A46FE418BE21160057F579 /* CoreLocation.framework */; };
@@ -909,6 +910,7 @@
 		467F0F2818CC95CA009FFE08 /* JOLImageSlide.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JOLImageSlide.m; sourceTree = "<group>"; };
 		467F0F2918CC95CA009FFE08 /* JOLImageSlider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JOLImageSlider.h; sourceTree = "<group>"; };
 		467F0F2A18CC95CA009FFE08 /* JOLImageSlider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JOLImageSlider.m; sourceTree = "<group>"; };
+		468004CD1961638B0005891A /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 		468BD8A618F243EB00B11209 /* Order.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Order.h; sourceTree = "<group>"; };
 		468BD8A718F243EB00B11209 /* Order.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Order.m; sourceTree = "<group>"; };
 		4693AAA618D8426100104F01 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = Assets/Images.xcassets; sourceTree = "<group>"; };
@@ -1055,6 +1057,7 @@
 				18A9126518BB216E006B9A04 /* CoreGraphics.framework in Frameworks */,
 				18A9126318BB216E006B9A04 /* Foundation.framework in Frameworks */,
 				18A9126718BB216E006B9A04 /* UIKit.framework in Frameworks */,
+				468004CE1961638B0005891A /* Crashlytics.framework in Frameworks */,
 				8D253C7C0D2C41EC8279DF3F /* libPods.a in Frameworks */,
 				466DF40618FC111300CB8A53 /* libUMSocial_Sdk_3.3.7.a in Frameworks */,
 				46C37A561915E7E7004070C8 /* libXG-SDK.a in Frameworks */,
@@ -1262,6 +1265,7 @@
 		18A9126118BB216E006B9A04 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				468004CD1961638B0005891A /* Crashlytics.framework */,
 				46C37A571915E848004070C8 /* CFNetwork.framework */,
 				18A9126418BB216E006B9A04 /* CoreGraphics.framework */,
 				46A46FE418BE21160057F579 /* CoreLocation.framework */,
@@ -2467,6 +2471,7 @@
 				18A9125C18BB216E006B9A04 /* Frameworks */,
 				18A9125D18BB216E006B9A04 /* Resources */,
 				F6DB7E5905E7411392BBDDDD /* Copy Pods Resources */,
+				468004CC196163490005891A /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -2684,6 +2689,19 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		468004CC196163490005891A /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "./Crashlytics.framework/run b10b274f4b20fb41d2d6e477a6b4c032d790d4c9 a72e734ea3f0db4a4fd58823c99a57968fa74cf8814277cbae49d660c15f7f12";
+		};
 		BBFCEE8E2FA94743A5B97B04 /* Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -3034,11 +3052,12 @@
 				);
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: SHIGUANG LU (X23L3QCJ5Z)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: SHIGUANG LU (X23L3QCJ5Z)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: larry lu (3LBN2U88Z3)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: larry lu (3LBN2U88Z3)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/App/Vendor/UMSocial_Sdk_3.3.7/UMSocial_Sdk_Extra_Frameworks/TencentOpenAPI",
+					"$(PROJECT_DIR)",
 				);
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -3056,7 +3075,7 @@
 				);
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "771812A7-4D08-47BE-8709-4C9FA5456871";
+				PROVISIONING_PROFILE = "B5A03AE8-DAEA-4FE1-BAD6-D5C5B8FBFBC2";
 				SDKROOT = iphoneos;
 				VALID_ARCHS = "armv7 armv7s arm64";
 				WRAPPER_EXTENSION = app;
@@ -3073,11 +3092,12 @@
 				);
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: SHIGUANG LU (X23L3QCJ5Z)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: SHIGUANG LU (X23L3QCJ5Z)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: larry lu (3LBN2U88Z3)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: larry lu (3LBN2U88Z3)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/App/Vendor/UMSocial_Sdk_3.3.7/UMSocial_Sdk_Extra_Frameworks/TencentOpenAPI",
+					"$(PROJECT_DIR)",
 				);
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -3094,7 +3114,7 @@
 				);
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "771812A7-4D08-47BE-8709-4C9FA5456871";
+				PROVISIONING_PROFILE = "B5A03AE8-DAEA-4FE1-BAD6-D5C5B8FBFBC2";
 				SDKROOT = iphoneos;
 				VALID_ARCHS = "armv7 armv7s arm64";
 				WRAPPER_EXTENSION = app;
