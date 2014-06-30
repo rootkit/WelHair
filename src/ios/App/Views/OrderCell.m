@@ -130,6 +130,7 @@
         self.commentBtn.frame = CGRectMake(15, MaxY(seperaterView2) + 10, 30, 30);
         [self.commentBtn setImage:[commentIcon imageWithSize:CGSizeMake(30, 30)] forState:UIControlStateNormal];
         [self.commentBtn addTarget:self action:@selector(commentBtnClick) forControlEvents:UIControlEventTouchUpInside];
+        self.commentBtn.hidden = YES;
         [contentView addSubview:self.commentBtn];
         
         UILabel *shipLbl = [[UILabel alloc] initWithFrame:CGRectMake(80, MaxY(seperaterView2) + 5, 160, 20)];
@@ -204,6 +205,7 @@
         self.statusLbl.hidden = NO;
         self.statusLbl.textColor = [UIColor greenColor];
         self.actionBtn.hidden = YES;
+        self.commentBtn.hidden = NO;
     } else if ([[order objectForKey:@"PayStatus"] integerValue] == OrderStatusEnum_Refund) {
         self.statusLbl.text = @"已退款";
         self.statusLbl.hidden = NO;

@@ -320,6 +320,9 @@
     if (userLogined) {
         if (userLogined.role == WHStaff || userLogined.role == WHManager)
             [self getStaffDetail];
+        else{
+            [self refreshTableView];
+        }
     }
 }
 
@@ -352,29 +355,31 @@
     NSMutableArray *menuList = [[NSMutableArray alloc] initWithCapacity:5];
     
     NSMutableArray *menuIconList = [[NSMutableArray alloc] initWithCapacity:3];
-    [menuIconList addObject:@[[FAKIonIcons ios7BoxOutlineIconWithSize:NAV_BAR_ICON_SIZE]]];
+
     User *loginUser = [UserManager SharedInstance].userLogined;
     if((loginUser.role == WHClient
         || [UserManager SharedInstance].userLogined == nil)){
         [menuList addObject:@[User_MyAccount]];
-        [menuList addObject:@[User_MyMessage, User_MyStaff]];
-        self.datasource = menuList;
+        [menuIconList addObject:@[[FAKIonIcons ios7BoxOutlineIconWithSize:NAV_BAR_ICON_SIZE]]];
         
-        [menuIconList addObject:@[[FAKIonIcons ios7AlbumsOutlineIconWithSize:NAV_BAR_ICON_SIZE], [FAKIonIcons ios7PeopleOutlineIconWithSize:NAV_BAR_ICON_SIZE]]];
+        [menuList addObject:@[User_MyMessage, User_MyStaff]];
+        [menuIconList addObject:@[[FAKIonIcons ios7ChatboxesOutlineIconWithSize:NAV_BAR_ICON_SIZE], [FAKIonIcons ios7PeopleOutlineIconWithSize:NAV_BAR_ICON_SIZE]]];
+        self.datasource = menuList;
         self.iconDatasource = menuIconList;
     }else if(loginUser.role == WHStaff || loginUser.role == WHManager || loginUser.role == WHAdmin){
-        if(loginUser.approveStatus == WHApproveStatusValid)
+        if(loginUser.approveStatus == WHApproveStatusValid){
             [menuList addObject:@[User_MyGroup]];
+            [menuIconList addObject:@[[FAKIonIcons ios7AlbumsOutlineIconWithSize:NAV_BAR_ICON_SIZE]]];
+        }
         [menuList addObject:@[User_MyAccount]];
+        [menuIconList addObject:@[[FAKIonIcons ios7BoxOutlineIconWithSize:NAV_BAR_ICON_SIZE]]];
+        
         [menuList addObject:@[User_MyMessage, User_MyClient]];
-        [menuList addObject:@[User_UserAppointment]];
-        self.datasource = menuList;
-        
-        if(loginUser.approveStatus == WHApproveStatusValid)
-            [menuIconList addObject:@[[FAKIonIcons ios7ChatboxesOutlineIconWithSize:NAV_BAR_ICON_SIZE]]];
-        
         [menuIconList addObject:@[[FAKIonIcons ios7ChatboxesOutlineIconWithSize:NAV_BAR_ICON_SIZE], [FAKIonIcons ios7PeopleOutlineIconWithSize:NAV_BAR_ICON_SIZE]]];
+        
+        [menuList addObject:@[User_UserAppointment]];
         [menuIconList addObject:@[[FAKIonIcons ios7TimerOutlineIconWithSize:NAV_BAR_ICON_SIZE]]];
+        self.datasource = menuList;
         self.iconDatasource = menuIconList;
     }
     [self.tableView reloadData];
@@ -384,7 +389,7 @@
 {
     int count = [[SettingManager SharedInstance] notificationCount];
     if([UserManager SharedInstance].userLogined && [UserManager SharedInstance].userLogined.role != WHClient){
-        UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:2]];
+        UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:3]];
         if(count > 0){
             JSBadgeView *badgeView = [[JSBadgeView alloc] initWithParentView:cell.imageView alignment:JSBadgeViewAlignmentTopLeft];
             badgeView.badgeText = [NSString stringWithFormat:@"%d", count];
