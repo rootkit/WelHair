@@ -23,9 +23,9 @@ class StaffRepository extends AbstractRepository
     public function searchCount($searchText, $companyId, $city, $district)
     {
         $strSql = "SELECT
-                     COUNT(DISTINCT U.UserId) `Total`
+                     COUNT(1) `Total`
                    FROM Users U
-                   INNER JOIN CompanyUser CU ON CU.UserId = U.UserId
+                   INNER JOIN CompanyUser CU ON CU.UserId = U.UserId AND CU.Status = 1 
                    INNER JOIN Company C ON CU.CompanyId = C.CompanyId
                    WHERE U.Role = 3 AND (? = '' || U.Nickname LIKE ? || U.Username LIKE ?) AND (? = 0 || CU.CompanyId = ?) AND (? = 0 || C.City = ?) AND (? = 0 || C.District= ?)
                    LIMIT 1";
