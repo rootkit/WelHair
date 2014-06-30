@@ -2177,8 +2177,9 @@ html[xmlns] .slides {
     background: #f1f1f1;
     border: 1px #f7f7f7 solid;
     border-radius: 0;
-    font-family: Tahoma;
+    font-family: verdana;
     font-size: 16px;
+    line-height: 28px;
 }
 
 .citieslist a {
