@@ -131,7 +131,7 @@ class StaffRepository extends AbstractRepository
          $strSql = "SELECT
                        COUNT(DISTINCT A.UserId) `Total`
                    FROM Appointment A
-                   WHERE A.Status > 0 AND A.UserId = ?
+                   WHERE A.Status > 0 AND A.StaffId = ?
                    GROUP BY A.StaffId
                    LIMIT 1";
 
@@ -152,7 +152,7 @@ class StaffRepository extends AbstractRepository
 
                        COUNT(A.AppointmentId) AppointmentCount
                    FROM Appointment A
-                   INNER JOIN Users U ON U.UserId = A.UserId
+                   INNER JOIN Users U ON U.UserId = A.StaffId
                    WHERE A.Status > 0 AND A.UserId = ?
                    GROUP BY A.StaffId
                    ORDER BY A.AppointmentId DESC
