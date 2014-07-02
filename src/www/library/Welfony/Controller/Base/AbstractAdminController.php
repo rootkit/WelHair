@@ -28,13 +28,14 @@ class AbstractAdminController extends AbstractController
     {
         parent::preDispatch();
 
-        $nologinList = isset($this->nologinActionList[$this->view->controller]) ? $this->nologinActionList[$this->view->controller] : array();
+        $nologinList = isset($this->nologinActionList[$this->view->module]) && isset($this->nologinActionList[$this->view->module][$this->view->controller]) ? $this->nologinActionList[$this->view->module][$this->view->controller] : array();
 
-        $auth = \Zend_Auth::getInstance();
         if (!in_array($this->view->action, $nologinList)) {
             if (!$this->getCurrentUser() || $this->currentUser['Role'] != UserRole::Admin) {
                 $this->gotoLogin();
             }
+        } else {
+            $this->getCurrentUser();
         }
     }
 

@@ -27,9 +27,9 @@ class AbstractController extends \Zend_Controller_Action
     protected $successMessage;
     protected $errorMessage;
     protected $config;
-    protected $nologinActionList = array(
-        'auth' => array('signin', 'signup', 'signout')
-    );
+
+    protected $nologinActionList = array();
+    protected $needloginActionList = array();
 
     public function init()
     {

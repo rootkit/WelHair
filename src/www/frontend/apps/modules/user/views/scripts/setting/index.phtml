@@ -1,0 +1,240 @@
+<div class="my_container">
+  <div class="contentset">
+    <ul id="tags" style="border-bottom:none;" class="cleft">
+      <li class="selectTag"><A onClick="selectTag('tagContent0',this)" href="javascript:void(0)" class="tab_1">基本信息</a></li>
+      <li><a onClick="selectTag('tagContent1',this)" href="javascript:void(0)" class="tab_1">修改密码</a></li>
+      <li><a onClick="selectTag('tagContent2',this)" href="javascript:void(0)" class="tab_1">支付宝绑定设置</a></li>
+      <li><a onClick="selectTag('tagContent3',this)" href="javascript:void(0)" class="tab_1">收货地址</a></li>
+      <li><a onClick="selectTag('tagContent3',this)" href="javascript:void(0)" class="tab_1">消息中心</a></li>
+    </ul>
+    <div id="tagContent" class="cright">
+      <DIV class="tagContent selectTag" id=tagContent0>
+        <div class="member-avatar-box">
+          <div class="member-avatar-pic"><img src="images/photo.jpg" /></div>
+          <div class="member-avatar-bt">
+            <input type="file" />
+          </div>
+          <div class="member-avatar-tip">
+            <p>大小不超过50k</p>
+            <p>尺寸：160px * 160px</p>
+            <p>格式：jpg、png、gif</p>
+          </div>
+        </div>
+        <div class="rginfoitem">
+          <div class="tit"><i>*</i>所在地：</div>
+          <div class="rginfo">
+            <input type="text"  class="winput"/>
+          </div>
+        </div>
+        <div class="rginfoitem">
+          <div class="tit"><i>*</i>手机号：</div>
+          <div class="rginfo">
+            <input type="text"  class="winput"/>
+          </div>
+        </div>
+        <div class="rginfoitem">
+          <div class="tit"><i>*</i>设置密码：</div>
+          <div class="rginfo">
+            <input type="text"  class="winput"/>
+          </div>
+        </div>
+        <div class="rginfoitem">
+          <div class="tit"><i>*</i>昵称：</div>
+          <div class="rginfo">
+            <input type="text"  class="winput"/>
+          </div>
+        </div>
+        <div class="rginfoitem">
+          <div class="tit"><i>*</i>性别：</div>
+          <div class="rginfo">
+            <input name="male" type="radio" value="" checked="checked" class="wradio" />
+            <label>女</label>
+            <input name="male" type="radio" value="" class="wradio" />
+            <label>男</label>
+          </div>
+        </div>
+        <div class="rginfoitem">
+          <div class="tit"><i>*</i>所在地：</div>
+          <div class="rginfo">
+            <select>
+              <option value ="1">山东</option>
+              <option value ="2">北京</option>
+              <option value="3">河北</option>
+              <option value="4">云南</option>
+            </select>
+            <select>
+              <option value ="1">济南</option>
+              <option value ="2">日照</option>
+              <option value="3">烟台</option>
+              <option value="4">威海</option>
+            </select>
+          </div>
+        </div>
+        <div class="rginfoitem">
+          <div class="rgbt"><a href="#" class="btn btn2_xl btn2_l">保存</a></div>
+        </div>
+      </div>
+      <DIV class="tagContent" id=tagContent1>
+        <div class="rginfoitem">
+          <div class="tit"><i>*</i>输入新密码：</div>
+          <div class="rginfo">
+            <input type="text"  class="winput"/>
+          </div>
+        </div>
+        <div class="rginfoitem">
+          <div class="tit"><i>*</i>确认新密码：</div>
+          <div class="rginfo">
+            <input type="text"  class="winput"/>
+          </div>
+        </div>
+        <div class="rginfoitem">
+          <div class="rgbt"><a href="#" class="btn btn2_xl btn2_l">保存</a></div>
+        </div>
+      </div>
+      <DIV class="tagContent" id=tagContent2> </div>
+      <DIV class="tagContent" id=tagContent3>
+       <h3></h3>
+        <div class="rginfoitem">
+          <div class="tit"><i>*</i>所在地区：</div>
+          <div class="rginfo">
+             <select>
+              <option value ="1">山东</option>
+              <option value ="2">北京</option>
+              <option value="3">河北</option>
+              <option value="4">云南</option>
+            </select>
+            <select>
+              <option value ="1">济南</option>
+              <option value ="2">日照</option>
+              <option value="3">烟台</option>
+              <option value="4">威海</option>
+            </select>
+          </div>
+        </div>
+        <div class="rginfoitem">
+          <div class="tit"><i>*</i>邮政编码：</div>
+          <div class="rginfo">
+            <input type="text"  class="winput"/>
+          </div>
+        </div>
+        <div class="rginfoitem">
+          <div class="tit"><i>*</i>街道地址：</div>
+          <div class="rginfo">
+            <textarea cols="50" class="winput_nonesize" rows="3" placeholder="不需要重复填写省市区，必须大于5个字符，小于120个字符"></textarea>
+          </div>
+        </div>
+        <div class="rginfoitem">
+          <div class="tit"><i>*</i>收货人姓名：</div>
+          <div class="rginfo">
+            <input type="text" placeholder="长度不超过25个字" class="winput"/>
+          </div>
+        </div>
+        <div class="rginfoitem">
+          <div class="tit"><i>*</i>手机号  ：</div>
+          <div class="rginfo">
+            <input type="text" placeholder="电话号码、手机号码必须填一项"  class="winput"/>
+          </div>
+        </div>
+        <div class="rginfoitem">
+          <div class="tit"><i>*</i>设为默认地址：</div>
+          <div class="rginfo">
+             <input name="" type="checkbox" value="" class="wradio"/>
+             <label>设为默认地址</label>
+
+          </div>
+        </div>
+        <div class="rginfoitem">
+          <div class="rgbt"><a href="#" class="btn btn2_xl btn2_l">保存</a></div>
+        </div>
+        <div class="row">
+         <div class="col-md-3 dalist">
+          <div class="daBox on">
+           <ul>
+            <li><strong>张三</strong><span class="tel">15054128101</span></li>
+            <li><p>湖南省长沙市雨花区雨花亭XX路306号</p></li>
+            <li><button type="button" class="min_bt br"> 默认地址 </button><a href="###" class="close" title="删除"></a><a href="###" class="edit" title="编辑"></a></li>
+           </ul>
+          </div>
+         </div>
+        <div class="col-md-3 dalist">
+          <div class="daBox on">
+           <ul>
+            <li><strong>张三</strong><span class="tel">15054128101</span></li>
+            <li><p>湖南省长沙市雨花区雨花亭XX路306号</p></li>
+            <li><button type="button" class="min_bt br"> 默认地址 </button><a href="###" class="close" title="删除"></a><a href="###" class="edit" title="编辑"></a></li>
+           </ul>
+          </div>
+         </div>
+         <div class="col-md-3 dalist">
+          <div class="daBox on">
+           <ul>
+            <li><strong>张三</strong><span class="tel">15054128101</span></li>
+            <li><p>湖南省长沙市雨花区雨花亭XX路306号</p></li>
+            <li><button type="button" class="min_bt br"> 默认地址 </button><a href="###" class="close" title="删除"></a><a href="###" class="edit" title="编辑"></a></li>
+           </ul>
+          </div>
+         </div>
+         <div class="col-md-3 dalist">
+          <div class="daBox on">
+           <ul>
+            <li><strong>张三</strong><span class="tel">15054128101</span></li>
+            <li><p>湖南省长沙市雨花区雨花亭XX路306号</p></li>
+            <li><button type="button" class="min_bt br"> 默认地址 </button><a href="###" class="close" title="删除"></a><a href="###" class="edit" title="编辑"></a></li>
+           </ul>
+          </div>
+         </div>
+         <div class="col-md-3 dalist">
+          <div class="daBox on">
+           <ul>
+            <li><strong>张三</strong><span class="tel">15054128101</span></li>
+            <li><p>湖南省长沙市雨花区雨花亭XX路306号</p></li>
+            <li><button type="button" class="min_bt br"> 默认地址 </button><a href="###" class="close" title="删除"></a><a href="###" class="edit" title="编辑"></a></li>
+           </ul>
+          </div>
+         </div>
+         <div class="col-md-3 dalist">
+          <div class="daBox on">
+           <ul>
+            <li><strong>张三</strong><span class="tel">15054128101</span></li>
+            <li><p>湖南省长沙市雨花区雨花亭XX路306号</p></li>
+            <li><button type="button" class="min_bt br"> 默认地址 </button><a href="###" class="close" title="删除"></a><a href="###" class="edit" title="编辑"></a></li>
+           </ul>
+          </div>
+         </div>
+         <div class="col-md-3 dalist">
+          <div class="daBox on">
+           <ul>
+            <li><strong>张三</strong><span class="tel">15054128101</span></li>
+            <li><p>湖南省长沙市雨花区雨花亭XX路306号</p></li>
+            <li><button type="button" class="min_bt br"> 默认地址 </button><a href="###" class="close" title="删除"></a><a href="###" class="edit" title="编辑"></a></li>
+           </ul>
+          </div>
+         </div>
+        </div>
+      </div>
+      <DIV class="tagContent" id=tagContent4>
+       <div></div>
+      </DIV>
+    </div>
+  </div>
+  <p>
+    <SCRIPT type=text/javascript>
+function selectTag(showContent,selfObj){
+    // 操作标签
+    var tag = document.getElementById("tags").getElementsByTagName("li");
+    var taglength = tag.length;
+    for(i=0; i<taglength; i++){
+        tag[i].className = "";
+    }
+    selfObj.parentNode.className = "selectTag";
+    // 操作内容
+    for(i=0; j=document.getElementById("tagContent"+i); i++){
+        j.style.display = "none";
+    }
+    document.getElementById(showContent).style.display = "block";
+
+
+}
+</SCRIPT>
+  </p>
+</div>

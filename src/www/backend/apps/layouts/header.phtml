@@ -1,3 +1,4 @@
+<?php use Welfony\Core\Enum\UserRole; ?>
 <script>
     var globalSetting = {
         baseUrl: '<?php echo $this->baseUrl(); ?>',
@@ -10,7 +11,7 @@
         <strong class="brand">
             <a href="<?php echo $this->baseUrl(); ?>">打扮吧后台管理系统</a>
         </strong>
-        <?php if ($this->currentUser): ?>
+        <?php if ($this->currentUser && $this->currentUser['Role'] == UserRole::Admin): ?>
         <div class="lnks clearfix">
             <ul class="lnks-li">
                 <li>

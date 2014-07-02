@@ -29,7 +29,18 @@
             <button class="f_search_bt"></button>
         </div>
         <div class="loginbt">
-            <a href="<?php echo $this->baseUrl('user/auth/signin'); ?>"><Img src="<?php echo $this->config->asset->baseUrl; ?>/img/frontend/man.png" /></a>
+            <a class="account-icon" href="<?php echo $this->currentUser ? 'javascript:;' : $this->baseUrl('user/auth/signin'); ?>">
+                <img src="<?php echo $this->currentUser ? str_replace('480x480', '110x110', $this->currentUser['AvatarUrl']) : $this->config->asset->baseUrl . '/img/frontend/man.png'; ?>" />
+            </a>
+            <?php if ($this->currentUser): ?>
+            <div class="header-tc-content" style="width: 160px;">
+                <span class="header-tc-ct-bg"></span>
+                <span class="header-tuc-uname"><?php echo $this->currentUser['Nickname']; ?></span>
+                <a class="header-tuc-item" href="<?php echo $this->baseUrl('user'); ?>">个人中心</a>
+                <a class="header-tuc-item" href="<?php echo $this->baseUrl('user/setting'); ?>">帐号设置</a>
+                <a class="header-tuc-logout" href="<?php echo $this->baseUrl('user/auth/signout'); ?>">退出帐号</a>
+            </div>
+            <?php endif; ?>
         </div>
     </div>
 </div>

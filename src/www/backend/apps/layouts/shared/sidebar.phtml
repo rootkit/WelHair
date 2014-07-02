@@ -1,4 +1,7 @@
-<?php if ($this->currentUser): ?>
+<?php
+use Welfony\Core\Enum\UserRole;
+?>
+<?php if ($this->currentUser && $this->currentUser['Role'] == UserRole::Admin): ?>
     <?php if ($this->module == 'default' || $this->module == 'system'): ?>
     <ul class="lists">
         <li<?php echo ($this->controller == 'index' && $this->action == 'index') ? ' class="active"' : ''; ?>>

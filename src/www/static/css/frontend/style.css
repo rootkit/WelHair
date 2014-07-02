@@ -21,8 +21,13 @@ a, a:hover {
     text-decoration: none;
 }
 
+#error-message,
+#success-message {
+    display: none;
+}
+
 #sitemast {
-    background: #333;
+    background: #203854;
     height: 45px;
     line-height: 45px;
 }
@@ -118,17 +123,24 @@ a, a:hover {
 }
 
 .loginbt {
-    background: #415464;
+    position: relative;
     height: 45px;
     width: 45px;
     float: right;
 }
 
-.loginbt a {
+.loginbt .account-icon {
     height: 32px;
     width: 32px;
     display: block;
-    margin: 6px 7px;
+    margin: 5px 0 5px 8px;
+    border: 2px solid #ddd;
+}
+
+.loginbt .account-icon img {
+    display: block;
+    width: 100%;
+    height: 100%;
 }
 
 .container {
@@ -1048,7 +1060,7 @@ html[xmlns] .slides {
 }
 
 .f_rg_tab .cur {
-    border-bottom: 3px solid #1e78e8;
+    border-bottom: 3px solid #51add3;
 }
 
 .f_rg_tab a {
@@ -1222,7 +1234,7 @@ html[xmlns] .slides {
 .logcontent .loginbox .loginitem  .inputsty {
     border: none;
     float: left;
-    width: 143px;
+    width: 190px;
     font-size: 14px;
     height: 28px;
     line-height: 28px;
@@ -1273,6 +1285,69 @@ html[xmlns] .slides {
     float: left;
     padding: 0;
     height: 30px;
+}
+
+.header-tc-content {
+    position: absolute;
+    border: 1px solid #AABAD5;
+    border-top: none;
+    right: -1px;
+    top: 45px;
+    background-color: #FFF;
+    text-align: left;
+    display: none;
+    z-index: 100;
+    color: #4b4b4b;
+    font-size: 12px;
+    height: auto!important;
+    min-height: 32px;
+    height: 32px;
+    box-shadow: 0 0 6px rgba(0,0,0,.19);
+}
+
+.header-tc-ct-bg {
+    position: absolute;
+    top: -8px;
+    right: 10px;
+    width: 0;
+    height: 0;
+    border: 4px solid #FFF;
+    border-color: transparent transparent #FFF;
+}
+
+.header-tuc-uname {
+    display: block;
+    margin: 0 24px;
+    font-size: 14px;
+    line-height: 42px;
+    color: #969696;
+    border-bottom: 1px solid #E0E6F1;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.header-tuc-item {
+    display: block;
+    margin: 0 24px;
+    font-size: 14px;
+    line-height: 42px;
+    color: #454545;
+    border-bottom: 1px solid #E0E6F1;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.header-tuc-logout {
+    display: block;
+    margin: 0 24px;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    text-decoration: none;
+    color: #454545;
+    line-height: 42px;
 }
 
 .footbuttom {
@@ -1376,7 +1451,7 @@ html[xmlns] .slides {
 
 .my_banner {
     height: 120px;
-    background: url(../my_images/my_banner.png) no-repeat center center;
+    background: url(../../img/frontend/my_banner.png) no-repeat center center;
 }
 
 .my_banner .my_photo {
@@ -1402,7 +1477,7 @@ html[xmlns] .slides {
     left: 0;
     width: 100px;
     height: 90px;
-    background: url(../my_images/mask_avatar.32.png) 0 0 no-repeat;
+    background: url(../../img/frontend/mask_avatar.32.png) 0 0 no-repeat;
     z-index: 2;
 }
 
@@ -1475,7 +1550,7 @@ html[xmlns] .slides {
 }
 
 .my_left .aside_nav .cur {
-    background: url(../my_images/navbg.jpg) no-repeat center center;
+    background: url(../../img/frontend/navbg.jpg) no-repeat center center;
 }
 
 .my_left .aside_nav .cur .nav_item_txt {
@@ -1506,10 +1581,10 @@ html[xmlns] .slides {
     height: 48px;
     vertical-align: middle;
     cursor: pointer;
-    background-image: url(../my_images/navico48.png);
-    _background-image: url(../my_images/navico48.png);
+    background-image: url(../../img/frontend/navico48.png);
+    _background-image: url(../../img/frontend/navico48.png);
     background-repeat: no-repeat;
-    background-image: -webkit-image-set(url(../my_images/navico48.png) 1x,url(../my_images/navico48.png) 2x);
+    background-image: -webkit-image-set(url(../../img/frontend/navico48.png) 1x,url(../../img/frontend/navico48.png) 2x);
 }
 
 .nav_appointmen_48 {
@@ -1525,7 +1600,7 @@ html[xmlns] .slides {
 }
 
 .my_left .aside_nav .cur {
-    background: url(../my_images/navbg.jpg) no-repeat center center;
+    background: url(../../img/frontend/navbg.jpg) no-repeat center center;
 }
 
 .my_left .aside_nav .cur .nav_item_txt {
@@ -1650,7 +1725,7 @@ html[xmlns] .slides {
 }
 
 .Dynamicitem .darrow {
-    background: url(../my_images/dyitem_arrow.png) no-repeat;
+    background: url(../../img/frontend/dyitem_arrow.png) no-repeat;
     width: 25px;
     height: 48px;
     position: relative;
@@ -1662,7 +1737,7 @@ html[xmlns] .slides {
 .Dynamic_right {
     width: 30%;
     float: right;
-    background: url(../my_images/Dynamic_rightbg.png) repeat-y;
+    background: url(../../img/frontend/Dynamic_rightbg.png) repeat-y;
     height: 100%;
     min-height: 720px;
 }
@@ -1774,7 +1849,7 @@ html[xmlns] .slides {
 }
 
 .contentset .cleft {
-    width: 17%;
+    width: 165px;
     float: left;
     min-height: 500px;
 }

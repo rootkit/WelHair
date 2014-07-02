@@ -18,6 +18,13 @@ use Welfony\Controller\Base\AbstractAdminController;
 class User_AuthController extends AbstractAdminController
 {
 
+    public function init()
+    {
+        $this->nologinActionList['user'] = array('auth' => array('signin', 'signup', 'signout'));
+
+        parent::init();
+    }
+
     public function signinAction()
     {
         if ($this->_request->isPost()) {

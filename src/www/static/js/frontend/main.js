@@ -52,6 +52,15 @@ WF = {
             });
         });
 
+        $('.loginbt').hover(
+            function() {
+                $(this).find('.header-tc-content').show();
+            },
+            function() {
+                $(this).find('.header-tc-content').hide();
+            }
+        );
+
         $('.u-btns').find('span').click(function() {
             var cur = $(this);
             var group = cur.parent();

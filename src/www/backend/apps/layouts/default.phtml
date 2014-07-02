@@ -1,5 +1,6 @@
 <?php
 use \Welfony\Utility\Util;
+use Welfony\Core\Enum\UserRole;
 
 $this->headLink()
      ->appendStylesheet(Util::baseAssetUrl('css/vendor/normalize/1.1.3/normalize.css'))
@@ -48,7 +49,7 @@ $this->headScript()
             'currentUser' => $this->currentUser));
         ?>
         <div class="container clearfix">
-            <?php if ($this->currentUser): ?>
+            <?php if ($this->currentUser && $this->currentUser['Role'] == UserRole::Admin): ?>
             <div class="sidebar">
                 <?php
                 echo $this->partial('shared/sidebar.phtml', array(

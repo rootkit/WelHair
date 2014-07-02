@@ -28,14 +28,15 @@ class AbstractFrontendController extends AbstractController
     {
         parent::preDispatch();
 
-        // $nologinList = isset($this->nologinActionList[$this->view->controller]) ? $this->nologinActionList[$this->view->controller] : array();
+        $needloginList = isset($this->needloginActionList[$this->view->module]) && isset($this->needloginActionList[$this->view->module][$this->view->controller]) ? $this->needloginActionList[$this->view->module][$this->view->controller] : array();
 
-        // $auth = \Zend_Auth::getInstance();
-        // if (!in_array($this->view->action, $nologinList)) {
-        //     if (!$this->getCurrentUser() || $this->currentUser['Role'] != UserRole::Admin) {
-        //         $this->gotoLogin();
-        //     }
-        // }
+        if (in_array($this->view->action, $needloginList)) {
+            if (!$this->getCurrentUser()) {
+                $this->gotoLogin();
+            }
+        } else {
+            $this->getCurrentUser();
+        }
     }
 
 }
