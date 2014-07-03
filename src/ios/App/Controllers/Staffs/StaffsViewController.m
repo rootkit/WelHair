@@ -151,11 +151,10 @@
     [self.tableView triggerPullToRefresh];
 }
 
-
 - (void)viewWillAppear:(BOOL)animated
 {
-    [super viewWillAppear:animated];
     [self setTopLeftCityName];
+    [super viewWillAppear:animated];
 }
 
 - (void)didReceiveMemoryWarning
