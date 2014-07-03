@@ -63,6 +63,7 @@
 - (void)initialServices:(UIApplication *)application options:(NSDictionary *)launchOptions
 {
     //crash report
+    [[Crashlytics sharedInstance] setDebugMode:NO];
     [Crashlytics startWithAPIKey:@"b10b274f4b20fb41d2d6e477a6b4c032d790d4c9"];
     //setup social component
     [UMSocialData setAppKey:CONFIG_UMSOCIAL_APPKEY];
