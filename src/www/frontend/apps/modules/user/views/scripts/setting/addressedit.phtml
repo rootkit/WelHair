@@ -1,0 +1,104 @@
+<div class="my_container">
+    <div class="contentset">
+        <ul id="tags" style="border-bottom:none;" class="cleft">
+            <li>
+                <a href="<?php echo $this->baseUrl('user/setting'); ?>" class="tab_1">
+                    基本信息
+                </a>
+            </li>
+            <li>
+                <a href="<?php echo $this->baseUrl('user/setting/changepassword'); ?>" class="tab_1">
+                    修改密码
+                </a>
+            </li>
+            <li class="selectTag">
+                <a href="" class="tab_1">
+                    收货地址
+                </a>
+            </li>
+        </ul>
+        <div id="tagContent" class="cright">
+            <div class="tagContent selectTag">
+
+                <div class="rginfoitem">
+                    <div class="tit">
+                        <i>
+                            *
+                        </i>
+                        地区：
+                    </div>
+                    <div class="rginfo">
+                        <select id="sel-province" name="province" class="u-sel">
+                            <option value="">请选择</option>
+                            <?php foreach ($this->provinceList as $province): ?>
+                            <option value="<?php echo $province['AreaId']; ?>"<?php echo $this->addressInfo['Province'] == $province['AreaId'] ? ' selected' : ''; ?>><?php echo $province['Name']; ?></option>
+                            <?php endforeach; ?>
+                        </select>
+                        <select id="sel-city" name="city" class="u-sel">
+                            <option value="">请选择</option>
+                            <?php foreach ($this->cityList as $city): ?>
+                            <option value="<?php echo $city['AreaId']; ?>"<?php echo $this->addressInfo['City'] == $city['AreaId'] ? ' selected' : ''; ?>><?php echo $city['Name']; ?></option>
+                            <?php endforeach; ?>
+                        </select>
+                        <select id="sel-district" name="district" class="u-sel" datatype="*">
+                            <option value="">请选择</option>
+                            <?php foreach ($this->districtList as $district): ?>
+                            <option value="<?php echo $district['AreaId']; ?>"<?php echo $this->addressInfo['District'] == $district['AreaId'] ? ' selected' : ''; ?>><?php echo $district['Name']; ?></option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="rginfoitem">
+                    <div class="tit">
+                        <i>
+                            *
+                        </i>
+                        收件人：
+                    </div>
+                    <div class="rginfo">
+                        <input name="receiver_name" type="text" value="<?php echo $this->addressInfo['ShippingName']; ?>" class="winput" />
+                    </div>
+                </div>
+
+                <div class="rginfoitem">
+                    <div class="tit">
+                        <i>
+                            *
+                        </i>
+                        电话：
+                    </div>
+                    <div class="rginfo">
+                        <input name="mobile" type="text" value="<?php echo $this->addressInfo['Mobile']; ?>" class="winput" />
+                    </div>
+                </div>
+
+                <div class="rginfoitem">
+                    <div class="tit">
+                        <i>
+                            *
+                        </i>
+                        详细地址：
+                    </div>
+                    <div class="rginfo">
+                        <textarea name="address_detail" cols="50" class="winput_nonesize" rows="3" placeholder="不需要重复填写省市区，必须大于5个字符，小于120个字符">
+                             <?php echo $this->addressInfo['Address']; ?>
+                        </textarea>
+                    </div>
+                </div>
+
+                <div class="rginfoitem">
+                    <div class="rgbt">
+                        <input name="address_id" value="<?php echo $this->addressInfo['AddressId']; ?>" type="hidden" />
+                        <button type="submit" class="btn btn2_xl btn2_l">
+                            保存
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+WF.initAreaSelector();
+</script>

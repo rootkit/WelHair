@@ -1,240 +1,289 @@
+<form method="post">
 <div class="my_container">
-  <div class="contentset">
-    <ul id="tags" style="border-bottom:none;" class="cleft">
-      <li class="selectTag"><A onClick="selectTag('tagContent0',this)" href="javascript:void(0)" class="tab_1">基本信息</a></li>
-      <li><a onClick="selectTag('tagContent1',this)" href="javascript:void(0)" class="tab_1">修改密码</a></li>
-      <li><a onClick="selectTag('tagContent2',this)" href="javascript:void(0)" class="tab_1">支付宝绑定设置</a></li>
-      <li><a onClick="selectTag('tagContent3',this)" href="javascript:void(0)" class="tab_1">收货地址</a></li>
-      <li><a onClick="selectTag('tagContent3',this)" href="javascript:void(0)" class="tab_1">消息中心</a></li>
-    </ul>
-    <div id="tagContent" class="cright">
-      <DIV class="tagContent selectTag" id=tagContent0>
-        <div class="member-avatar-box">
-          <div class="member-avatar-pic"><img src="images/photo.jpg" /></div>
-          <div class="member-avatar-bt">
-            <input type="file" />
-          </div>
-          <div class="member-avatar-tip">
-            <p>大小不超过50k</p>
-            <p>尺寸：160px * 160px</p>
-            <p>格式：jpg、png、gif</p>
-          </div>
-        </div>
-        <div class="rginfoitem">
-          <div class="tit"><i>*</i>所在地：</div>
-          <div class="rginfo">
-            <input type="text"  class="winput"/>
-          </div>
-        </div>
-        <div class="rginfoitem">
-          <div class="tit"><i>*</i>手机号：</div>
-          <div class="rginfo">
-            <input type="text"  class="winput"/>
-          </div>
-        </div>
-        <div class="rginfoitem">
-          <div class="tit"><i>*</i>设置密码：</div>
-          <div class="rginfo">
-            <input type="text"  class="winput"/>
-          </div>
-        </div>
-        <div class="rginfoitem">
-          <div class="tit"><i>*</i>昵称：</div>
-          <div class="rginfo">
-            <input type="text"  class="winput"/>
-          </div>
-        </div>
-        <div class="rginfoitem">
-          <div class="tit"><i>*</i>性别：</div>
-          <div class="rginfo">
-            <input name="male" type="radio" value="" checked="checked" class="wradio" />
-            <label>女</label>
-            <input name="male" type="radio" value="" class="wradio" />
-            <label>男</label>
-          </div>
-        </div>
-        <div class="rginfoitem">
-          <div class="tit"><i>*</i>所在地：</div>
-          <div class="rginfo">
-            <select>
-              <option value ="1">山东</option>
-              <option value ="2">北京</option>
-              <option value="3">河北</option>
-              <option value="4">云南</option>
-            </select>
-            <select>
-              <option value ="1">济南</option>
-              <option value ="2">日照</option>
-              <option value="3">烟台</option>
-              <option value="4">威海</option>
-            </select>
-          </div>
-        </div>
-        <div class="rginfoitem">
-          <div class="rgbt"><a href="#" class="btn btn2_xl btn2_l">保存</a></div>
-        </div>
-      </div>
-      <DIV class="tagContent" id=tagContent1>
-        <div class="rginfoitem">
-          <div class="tit"><i>*</i>输入新密码：</div>
-          <div class="rginfo">
-            <input type="text"  class="winput"/>
-          </div>
-        </div>
-        <div class="rginfoitem">
-          <div class="tit"><i>*</i>确认新密码：</div>
-          <div class="rginfo">
-            <input type="text"  class="winput"/>
-          </div>
-        </div>
-        <div class="rginfoitem">
-          <div class="rgbt"><a href="#" class="btn btn2_xl btn2_l">保存</a></div>
-        </div>
-      </div>
-      <DIV class="tagContent" id=tagContent2> </div>
-      <DIV class="tagContent" id=tagContent3>
-       <h3></h3>
-        <div class="rginfoitem">
-          <div class="tit"><i>*</i>所在地区：</div>
-          <div class="rginfo">
-             <select>
-              <option value ="1">山东</option>
-              <option value ="2">北京</option>
-              <option value="3">河北</option>
-              <option value="4">云南</option>
-            </select>
-            <select>
-              <option value ="1">济南</option>
-              <option value ="2">日照</option>
-              <option value="3">烟台</option>
-              <option value="4">威海</option>
-            </select>
-          </div>
-        </div>
-        <div class="rginfoitem">
-          <div class="tit"><i>*</i>邮政编码：</div>
-          <div class="rginfo">
-            <input type="text"  class="winput"/>
-          </div>
-        </div>
-        <div class="rginfoitem">
-          <div class="tit"><i>*</i>街道地址：</div>
-          <div class="rginfo">
-            <textarea cols="50" class="winput_nonesize" rows="3" placeholder="不需要重复填写省市区，必须大于5个字符，小于120个字符"></textarea>
-          </div>
-        </div>
-        <div class="rginfoitem">
-          <div class="tit"><i>*</i>收货人姓名：</div>
-          <div class="rginfo">
-            <input type="text" placeholder="长度不超过25个字" class="winput"/>
-          </div>
-        </div>
-        <div class="rginfoitem">
-          <div class="tit"><i>*</i>手机号  ：</div>
-          <div class="rginfo">
-            <input type="text" placeholder="电话号码、手机号码必须填一项"  class="winput"/>
-          </div>
-        </div>
-        <div class="rginfoitem">
-          <div class="tit"><i>*</i>设为默认地址：</div>
-          <div class="rginfo">
-             <input name="" type="checkbox" value="" class="wradio"/>
-             <label>设为默认地址</label>
+    <div class="contentset">
+        <ul id="tags" style="border-bottom:none;" class="cleft">
+            <li class="selectTag">
+                <a href="" class="tab_1">
+                    基本信息
+                </a>
+            </li>
+            <li>
+                <a href="<?php echo $this->baseUrl('user/setting/changepassword'); ?>" class="tab_1">
+                    修改密码
+                </a>
+            </li>
+            <li>
+                <a href="<?php echo $this->baseUrl('user/setting/address'); ?>" class="tab_1">
+                    收货地址
+                </a>
+            </li>
+        </ul>
+        <div id="tagContent" class="cright">
+            <div class="tagContent selectTag">
+                <div class="member-avatar-box">
+                    <div class="member-avatar-pic">
+                        <span class="u-img2">
+                            <a href="javascript:;">
+                                <img id="avatar-image" src="<?php echo $this->userInfo['AvatarUrl']; ?>" data-ori="<?php echo $this->userInfo['AvatarOriginalUrl']; ?>" data-110="<?php echo $this->userInfo['AvatarThumb110Url']; ?>" alt="">
+                                <input id="avatar-url" type="hidden" name="avatar_url" value="<?php echo $this->userInfo['AvatarUrl']; ?>" />
+                            </a>
+                        </span>
+                        <a class="update-thumb" href="#">调整缩略图</a>
+                    </div>
+                    <div class="member-avatar-bt">
+                        <div id="avatar-uploader"></div>
+                    </div>
+                    <div class="member-avatar-tip">
+                        <p>
+                            大小不超过50k
+                        </p>
+                        <p>
+                            尺寸：160px * 160px
+                        </p>
+                        <p>
+                            格式：jpg、png
+                        </p>
+                    </div>
+                </div>
 
-          </div>
+                <div class="rginfoitem">
+                    <div class="tit">
+                        <i>
+                            *
+                        </i>
+                        帐号：
+                    </div>
+                    <div class="rginfo">
+                        <input name="username" value="<?php echo $this->userInfo['Username']; ?>" type="text" class="winput" />
+                    </div>
+                </div>
+
+                <div class="rginfoitem">
+                    <div class="tit">
+                        <i>
+                            *
+                        </i>
+                        昵称：
+                    </div>
+                    <div class="rginfo">
+                        <input name="nickname" value="<?php echo $this->userInfo['Nickname']; ?>" type="text" class="winput" />
+                    </div>
+                </div>
+
+                <div class="rginfoitem">
+                    <div class="tit">
+                        <i>
+                            *
+                        </i>
+                        邮箱：
+                    </div>
+                    <div class="rginfo">
+                        <input name="email" value="<?php echo $this->userInfo['Email']; ?>" type="text" class="winput" />
+                    </div>
+                </div>
+
+                <div class="rginfoitem">
+                    <div class="tit">
+                        <i>
+                            *
+                        </i>
+                        手机号：
+                    </div>
+                    <div class="rginfo">
+                        <input name="mobile" type="text" value="<?php echo $this->userInfo['Mobile']; ?>" class="winput" />
+                    </div>
+                </div>
+
+                <div class="rginfoitem">
+                    <div class="rgbt">
+                        <button type="submit" class="btn btn2_xl btn2_l">
+                            保存
+                        </button>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="rginfoitem">
-          <div class="rgbt"><a href="#" class="btn btn2_xl btn2_l">保存</a></div>
-        </div>
-        <div class="row">
-         <div class="col-md-3 dalist">
-          <div class="daBox on">
-           <ul>
-            <li><strong>张三</strong><span class="tel">15054128101</span></li>
-            <li><p>湖南省长沙市雨花区雨花亭XX路306号</p></li>
-            <li><button type="button" class="min_bt br"> 默认地址 </button><a href="###" class="close" title="删除"></a><a href="###" class="edit" title="编辑"></a></li>
-           </ul>
-          </div>
-         </div>
-        <div class="col-md-3 dalist">
-          <div class="daBox on">
-           <ul>
-            <li><strong>张三</strong><span class="tel">15054128101</span></li>
-            <li><p>湖南省长沙市雨花区雨花亭XX路306号</p></li>
-            <li><button type="button" class="min_bt br"> 默认地址 </button><a href="###" class="close" title="删除"></a><a href="###" class="edit" title="编辑"></a></li>
-           </ul>
-          </div>
-         </div>
-         <div class="col-md-3 dalist">
-          <div class="daBox on">
-           <ul>
-            <li><strong>张三</strong><span class="tel">15054128101</span></li>
-            <li><p>湖南省长沙市雨花区雨花亭XX路306号</p></li>
-            <li><button type="button" class="min_bt br"> 默认地址 </button><a href="###" class="close" title="删除"></a><a href="###" class="edit" title="编辑"></a></li>
-           </ul>
-          </div>
-         </div>
-         <div class="col-md-3 dalist">
-          <div class="daBox on">
-           <ul>
-            <li><strong>张三</strong><span class="tel">15054128101</span></li>
-            <li><p>湖南省长沙市雨花区雨花亭XX路306号</p></li>
-            <li><button type="button" class="min_bt br"> 默认地址 </button><a href="###" class="close" title="删除"></a><a href="###" class="edit" title="编辑"></a></li>
-           </ul>
-          </div>
-         </div>
-         <div class="col-md-3 dalist">
-          <div class="daBox on">
-           <ul>
-            <li><strong>张三</strong><span class="tel">15054128101</span></li>
-            <li><p>湖南省长沙市雨花区雨花亭XX路306号</p></li>
-            <li><button type="button" class="min_bt br"> 默认地址 </button><a href="###" class="close" title="删除"></a><a href="###" class="edit" title="编辑"></a></li>
-           </ul>
-          </div>
-         </div>
-         <div class="col-md-3 dalist">
-          <div class="daBox on">
-           <ul>
-            <li><strong>张三</strong><span class="tel">15054128101</span></li>
-            <li><p>湖南省长沙市雨花区雨花亭XX路306号</p></li>
-            <li><button type="button" class="min_bt br"> 默认地址 </button><a href="###" class="close" title="删除"></a><a href="###" class="edit" title="编辑"></a></li>
-           </ul>
-          </div>
-         </div>
-         <div class="col-md-3 dalist">
-          <div class="daBox on">
-           <ul>
-            <li><strong>张三</strong><span class="tel">15054128101</span></li>
-            <li><p>湖南省长沙市雨花区雨花亭XX路306号</p></li>
-            <li><button type="button" class="min_bt br"> 默认地址 </button><a href="###" class="close" title="删除"></a><a href="###" class="edit" title="编辑"></a></li>
-           </ul>
-          </div>
-         </div>
-        </div>
-      </div>
-      <DIV class="tagContent" id=tagContent4>
-       <div></div>
-      </DIV>
     </div>
-  </div>
-  <p>
-    <SCRIPT type=text/javascript>
-function selectTag(showContent,selfObj){
-    // 操作标签
-    var tag = document.getElementById("tags").getElementsByTagName("li");
-    var taglength = tag.length;
-    for(i=0; i<taglength; i++){
-        tag[i].className = "";
-    }
-    selfObj.parentNode.className = "selectTag";
-    // 操作内容
-    for(i=0; j=document.getElementById("tagContent"+i); i++){
-        j.style.display = "none";
-    }
-    document.getElementById(showContent).style.display = "block";
-
-
-}
-</SCRIPT>
-  </p>
 </div>
+</form>
+<script>
+$(document).ready(function() {
+  var popup = $(' \
+      <div class="crop-container"> \
+          <div class="crop-content"> \
+              <img class="crop-img-o" src=""/> \
+              <input type="hidden" name="x1" value="" /> \
+              <input type="hidden" name="y1" value="" /> \
+              <input type="hidden" name="x2" value="" /> \
+              <input type="hidden" name="y2" value="" /> \
+          </div> \
+          <div class="crop-preview"> \
+              <p>拖拽或缩放曲线框，<br/>生成方形图片。</p> \
+              <div class="crop-preview-110"> \
+                  <img class="crop-img-preview-110" src="" /> \
+              </div> \
+              <p>110*110像素</p> \
+              <div class="crop-preview-64"> \
+                  <img class="crop-img-preview-64" src="" /> \
+              </div> \
+              <p>64*64像素</p> \
+              <div class="crop-preview-30"> \
+                  <img class="crop-img-preview-30" src="" /> \
+              </div> \
+              <p>30*30像素</p> \
+          </div> \
+      </div> \
+  ');
+
+  $('.update-thumb').click(function() {
+      var crop = null;
+      var imgUrl = $('#avatar-image').attr('data-ori');
+      if (!imgUrl) {
+          WF.showMessage('error', '注意', '请先上传一张图片');
+          return false;
+      }
+
+      $(popup).dialog({
+          resizable: false,
+          title: '编辑缩略图',
+          width: 600,
+          height:500,
+          modal: true,
+          draggable: false,
+          buttons: {
+              '保存': function() {
+                  var opts = {
+                      type: 'POST',
+                      url: WF.setting.apiBaseUrl + '/upload/image/crop',
+                      dataType: 'json',
+                      data: {
+                          x1: $('input[name="x1"]').val(),
+                          y1: $('input[name="y1"]').val(),
+                          x2: $('input[name="x2"]').val(),
+                          y2: $('input[name="y2"]').val(),
+                          img: $('#avatar-image').attr('data-ori')
+                      },
+                      success: function(data, textStatus, jqXHR) {
+                          $('#avatar-image').attr('src', $('#avatar-image').attr('data-110') + '?timestamp=' + new Date().getTime());
+                          popup.dialog('close');
+                      }
+                  };
+                  $.ajax(opts);
+              },
+              '取消': function() {
+                  $(this).dialog('close');
+              }
+          },
+          open: function() {
+              var imgO = popup.find('.crop-img-o');
+              imgO.attr('src', imgUrl);
+
+              var imgPreview110 = popup.find('.crop-img-preview-110');
+              imgPreview110.attr('src', imgUrl);
+
+              var imgPreview64 = popup.find('.crop-img-preview-64');
+              imgPreview64.attr('src', imgUrl);
+
+              var imgPreview30 = popup.find('.crop-img-preview-30');
+              imgPreview30.attr('src', imgUrl);
+
+              WF.getImageSize(imgUrl, function(width, height) {
+                  if (width >= height) {
+                      imgO.css('width', imgO.parent().width())
+                          .css('height', 'auto')
+                          .css('margin-top', (imgO.parent().height() - imgO.height()) / 2)
+                          .show();
+                  } else {
+                      imgO.css('height', imgO.parent().height())
+                      .css('width', 'auto')
+                      .css('margin-left', (imgO.parent().width() - imgO.width()) / 2)
+                      .show();
+                  }
+
+                  crop = imgO.imgAreaSelect({
+                      instance: true,
+                      handles: true,
+                      aspectRatio: '1:1',
+                      onSelectEnd: function(img, selection) {
+                          var rate = width / imgO.width();
+
+                          $('input[name="x1"]').val(selection.x1 * rate);
+                          $('input[name="y1"]').val(selection.y1 * rate);
+                          $('input[name="x2"]').val(selection.x2 * rate);
+                          $('input[name="y2"]').val(selection.y2 * rate);
+                      },
+                      onSelectChange: function(img, selection) {
+                          var imgOWith = imgO.width();
+                          var imgOHeight = imgO.height();
+
+                          var scaleX = 110 / (selection.width || 1);
+                          var scaleY = 110 / (selection.height || 1);
+                          imgPreview110.css({
+                              width: Math.round(scaleX * imgOWith) + 'px',
+                              height: Math.round(scaleY * imgOHeight) + 'px',
+                              marginLeft: '-' + Math.round(scaleX * selection.x1) + 'px',
+                              marginTop: '-' + Math.round(scaleY * selection.y1) + 'px'
+                          });
+
+                          scaleX = 64 / (selection.width || 1);
+                          scaleY = 64 / (selection.height || 1);
+                          imgPreview64.css({
+                              width: Math.round(scaleX * imgOWith) + 'px',
+                              height: Math.round(scaleY * imgOHeight) + 'px',
+                              marginLeft: '-' + Math.round(scaleX * selection.x1) + 'px',
+                              marginTop: '-' + Math.round(scaleY * selection.y1) + 'px'
+                          });
+
+                          scaleX = 30 / (selection.width || 1);
+                          scaleY = 30 / (selection.height || 1);
+                          imgPreview30.css({
+                              width: Math.round(scaleX * imgOWith) + 'px',
+                              height: Math.round(scaleY * imgOHeight) + 'px',
+                              marginLeft: '-' + Math.round(scaleX * selection.x1) + 'px',
+                              marginTop: '-' + Math.round(scaleY * selection.y1) + 'px'
+                          });
+                      }
+                  });
+              });
+          },
+          close: function() {
+              if (crop) {
+                  crop.remove(true);
+              }
+              popup.dialog('destroy').remove();
+          }
+      });
+
+      return false;
+  });
+
+  $('#avatar-uploader').uploadify({
+      fileObjName: 'uploadfile',
+      width: 78,
+      height: 32,
+      multi: false,
+      checkExisting: false,
+      preventCaching: false,
+      fileExt: '*.jpg;*.jpeg;*.png',
+      fileDesc: 'Image file (.jpg, .jpeg, .png)',
+      buttonText: '选择文件',
+      swf: WF.setting.staticAssetBaseUrl + '/swf/uploadify.swf',
+      uploader: WF.setting.apiBaseUrl + '/upload/image',
+      onUploadError: function(file, errorCode, errorMsg, errorString) {
+          console.log(errorString);
+      },
+      onUploadSuccess: function(file, data, response) {
+          var result = $.parseJSON(data);
+          if (result.success !== false) {
+              $('#avatar-image').attr('src', result.Thumb110Url)
+                                .attr('data-110', result.Thumb110Url)
+                                .attr('data-ori', result.OriginalUrl);
+              $('#avatar-url').val(result.Thumb480Url);
+          } else {
+              WF.showMessage('error', '错误', '上传失败，请重试！');
+          }
+      }
+  });
+});
+</script>
+

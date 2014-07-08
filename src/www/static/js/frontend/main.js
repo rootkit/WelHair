@@ -149,7 +149,7 @@ WF = {
 
             var opts = {
                 type: "GET",
-                url: WF.setting.baseUrl + '/ajax/area/list',
+                url: '/ajax/area/list',
                 contentType: "application/json",
                 data: "pid=" + parentId,
                 success: function(data) {

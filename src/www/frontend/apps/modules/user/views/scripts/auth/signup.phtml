@@ -1,53 +1,115 @@
+<form method="post">
 <div class="f_rg">
- <div class="f_rg_tab">
-  <a href="#" class="cur">顾客</a><span class="vline">|</span>
-  <a href="#">设计师</a>
- </div>
- <div class="f_rg_left">
-  <div class="rginfoitem">
-   <div class="tit"><i>*</i>邮箱：</div>
-   <div class="rginfo">
-    <input type="text"  class="winput"/>
-   </div>
-  </div>
-  <div class="rginfoitem">
-   <div class="tit"><i>*</i>昵称：</div>
-   <div class="rginfo">
-    <input type="text"  class="winput"/>
-   </div>
-  </div>
-  <div class="rginfoitem">
-   <div class="tit"><i>*</i>创建密码：</div>
-   <div class="rginfo">
-    <input type="text"  class="winput"/>
-   </div>
-  </div>
-  <div class="rginfoitem">
-   <div class="tit"><i>*</i>确认密码：</div>
-   <div class="rginfo">
-    <input type="text"  class="winput"/>
-   </div>
-  </div>
-  <div class="rginfoitem">
-   <div class="agr">
-    <label><input name="" type="checkbox" value="" />&nbsp;是否已阅读</label><a href="#">《打扮吧服务协议》</a></div>
-
+    <div class="f_rg_tab">
+        <a class="cur" data-val="0">
+            顾客
+        </a>
+        <span class="vline">
+            |
+        </span>
+        <a data-val="1">
+            设计师
+        </a>
+        <input type="hidden" name="user_role" value="0" />
     </div>
-    <div class="rginfoitem">
-   <div class="rgbt"><a href="#" class="btn btn2_xl btn2_l">立即注册</a></div>
-
+    <div class="f_rg_left">
+        <div class="rginfoitem">
+            <div class="tit">
+                <i>
+                    *
+                </i>
+                邮箱：
+            </div>
+            <div class="rginfo">
+                <input name="email" type="text" class="winput" />
+            </div>
+        </div>
+        <div class="rginfoitem">
+            <div class="tit">
+                <i>
+                    *
+                </i>
+                昵称：
+            </div>
+            <div class="rginfo">
+                <input name="nickname" type="text" class="winput" />
+            </div>
+        </div>
+        <div class="rginfoitem">
+            <div class="tit">
+                <i>
+                    *
+                </i>
+                创建密码：
+            </div>
+            <div class="rginfo">
+                <input name="password" type="password" class="winput" />
+            </div>
+        </div>
+        <div class="rginfoitem">
+            <div class="tit">
+                <i>
+                    *
+                </i>
+                确认密码：
+            </div>
+            <div class="rginfo">
+                <input name="repeate_password" type="password" class="winput" />
+            </div>
+        </div>
+        <div class="rginfoitem">
+            <div class="agr">
+                <label>
+                    <input name="agreement" type="checkbox" value="1" />
+                    &nbsp;是否已阅读
+                </label>
+                <a href="#">
+                    《打扮吧服务协议》
+                </a>
+            </div>
+        </div>
+        <div class="rginfoitem">
+            <div class="rgbt">
+                <button type="submit" class="btn btn2_xl btn2_l">
+                    立即注册
+                </button>
+            </div>
+        </div>
     </div>
-  </div>
-
-<div class="f_rg_right">
- <div>已有账号？<a href="<?php echo $this->baseUrl('user/auth/signin'); ?>">登录</a></div>
- <div class="fast">
-  <h3>用合作网站账号登录</h3>
-  <ul>
-   <li><a href="#"><img src="<?php echo $this->config->asset->baseUrl; ?>/img/frontend/fast_qq.png" /></a></li>
-   <li><a href="#"><img src="<?php echo $this->config->asset->baseUrl; ?>/img/frontend/fast_sina.png" /></a></li>
-  </ul>
- </div>
+    <div class="f_rg_right">
+        <div>
+            已有账号？
+            <a href="<?php echo $this->baseUrl('user/auth/signin'); ?>">
+                登录
+            </a>
+        </div>
+        <div class="fast">
+            <h3>
+                用合作网站账号登录
+            </h3>
+            <ul>
+                <li>
+                    <a href="#">
+                        <img src="<?php echo $this->config->asset->baseUrl; ?>/img/frontend/fast_qq.png"/>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <img src="<?php echo $this->config->asset->baseUrl; ?>/img/frontend/fast_sina.png" />
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
 </div>
+</form>
+<script>
+$('.f_rg_tab a').click(function() {
+  $('.f_rg_tab a').removeClass('cur');
+  $(this).addClass('cur');
 
- </div>
+  $('.f_rg_tab input[name=user_role]').val($(this).attr('data-val'));
+
+  return false;
+});
+</script>

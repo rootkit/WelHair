@@ -14,6 +14,8 @@
 
 namespace Welfony\Controller\Base;
 
+use Welfony\Service\UserService;
+
 class AbstractController extends \Zend_Controller_Action
 {
 
@@ -55,6 +57,16 @@ class AbstractController extends \Zend_Controller_Action
 
         $this->config = \Zend_Registry::get('config');
         $this->view->config = $this->config;
+    }
+
+    protected function refreshCurrentUser()
+    {
+        $rstNewUserInfo = UserService::signInWithUserId($this->currentUser['UserId']);
+
+        $auth = \Zend_Auth::getInstance();
+        $auth->getStorage()->write($rstNewUserInfo['user']);
+
+        $this->getCurrentUser();
     }
 
     protected function getCurrentUser()

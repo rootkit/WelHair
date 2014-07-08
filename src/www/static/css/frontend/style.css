@@ -19,6 +19,7 @@ body, button, input, select, textarea {
 a, a:hover {
     color: #51add3;
     text-decoration: none;
+    cursor: pointer;
 }
 
 #error-message,
@@ -407,7 +408,6 @@ html[xmlns] .slides {
 }
 
 .col-md-3 {
-    width: 100%;
     border: 1px solid #dedede;
     margin-top: 10px;
 }
@@ -1101,7 +1101,8 @@ html[xmlns] .slides {
     margin-left: 160px;
 }
 
-.rginfoitem .rgbt a {
+.rginfoitem .rgbt a,
+.rginfoitem .rgbt button {
     color: #fff;
 }
 
@@ -1888,8 +1889,8 @@ html[xmlns] .slides {
 .member-avatar-bt {
     position: relative;
     margin: 10px auto 0px;
-    width: 70px;
-    height: 32px;
+    width: 80px;
+    height: 34px;
     overflow: hidden;
 }
 
@@ -1908,12 +1909,12 @@ html[xmlns] .slides {
 }
 
 #tags {
-    PADDING-RIGHT: 0px;
-    PADDING-LEFT: 0px;
-    PADDING-BOTTOM: 0px;
-    MARGIN: 0px 0px 0px 0px;
-    PADDING-TOP: 0px;
-    HEIGHT: 30px;
+       margin: 0px 0px 0px 0px;
+    padding-top: 0px;
+ padding-right: 0px;
+    padding-bottom: 0px;
+    padding-left: 0px;
+    height: 30px;
     border-bottom: 1px solid #d7d7d7;
 }
 
@@ -1954,23 +1955,23 @@ html[xmlns] .slides {
 
 #tagContent {
     padding: 25px;
-    BACKGROUND-COLOR: #fff;
+    background-color: #fff;
 }
 
 .tagContent {
-    PADDING-RIGHT: 5px;
-    DISPLAY: none;
+    padding-right: 5px;
+    display: none;
     min-height: 600px;
-    PADDING-LEFT: 5px;
-    PADDING-BOTTOM: 10px;
-    WIDTH: 98%;
-    COLOR: #474747;
-    PADDING-TOP: 10px;
+    padding-left: 5px;
+    padding-bottom: 10px;
+    width: 98%;
+    color: #474747;
+    padding-top: 10px;
     height: auto;
     overflow: hidden;
 }
 
-#tagContent DIV.selectTag {
+#tagContent div.selectTag {
     DISPLAY: block;
 }
 
@@ -2101,7 +2102,6 @@ html[xmlns] .slides {
 }
 
 .dalist {
-    width: 22%;
 }
 
 .dalist .daBox {
@@ -2310,4 +2310,31 @@ ul li a .look a span {
 
 ul li a .look a img {
     float: right;
+}
+
+.toolbar {
+}
+
+.toolbar ul {
+    display: block;
+    margin: 0 0 10px;
+}
+
+.toolbar ul li {
+    float: left;
+    padding: 0 20px 0 0;
+}
+
+.toolbar ul li a {
+    color: #737383;
+    text-decoration: none;
+}
+
+.u-sel {
+    padding: 5px;
+    height: 30px;
+    line-height: 30px;
+    *height: auto;
+    background: #fff;
+    border: 1px solid #ccc;
 }

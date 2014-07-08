@@ -111,6 +111,11 @@ class AddressService
         return array('total' => count($addressList), 'addresses' => $addressList);
     }
 
+    public static function getAddressById($id)
+    {
+        return AddressRepository::getInstance()->findAddressById($id);
+    }
+
     public static function remove($id)
     {
         return AddressRepository::getInstance()->remove($id);

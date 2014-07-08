@@ -134,6 +134,31 @@ class UserService
         return $result;
     }
 
+    public static function signInWithUserId($userId)
+    {
+        $result = array('success' => true);
+
+        $user = UserRepository::getInstance()->findUserById($userId);
+        if (!$user) {
+            $result['message'] = '用户不存在！';
+
+            return $result;
+        }
+
+        unset($user['Password']);
+
+        $companyUser = CompanyUserRepository::getInstance()->findByUser($user['UserId']);
+        if ($companyUser) {
+            $user['IsApproved'] = $companyUser['Status'] == StaffStatus::Valid;
+        } else {
+            $user['IsApproved'] = $user['Role'] == UserRole::Client ? 1 : 0;
+        }
+
+        $result['user'] = $user;
+
+        return $result;
+    }
+
     public static function signInWithMobile($mobile, $password)
     {
         $result = array('success' => false, 'message' => '');

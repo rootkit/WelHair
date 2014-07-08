@@ -1,279 +1,591 @@
-
 <div class="container">
-  <div class="my_banner">
-    <div class="my_photo">
-      <img src="<?php echo str_replace('480x480', '110x110', $this->currentUser['AvatarUrl']); ?>" alt="<?php echo $this->currentUser['Nickname']; ?>" />
-      <i class="user_avatar_mask"></i>
-    </div>
-    <div class=" userinfo">
-      <h2 class="user_info_name"><?php echo $this->currentUser['Nickname']; ?></h2>
-      <span><a href="#"  class="Integral">我的积分:324</a></span> </div>
-  </div>
-  <!-- 主体内容 开始 -->
-  <div class="my_container">
-    <div class="my_left">
-      <div class="aside_nav">
-        <ul>
-          <li class="navitem"><a href="#" class="navitema"><i class="nav_Dynamic_48"></i><span class="nav_item_txt">动态</span></a></li>
-          <li class="navitem  cur"><a href="#" class="navitema"><i class="nav_appointmen_48"></i><span class="nav_item_txt">我的预约</span></a></li>
-          <li class="navitem"><a href="#" class="navitema"><i class="nav_order_48"></i><span class="nav_item_txt">订单</span></a></li>
-          <li class="navitem"><a href="#" class="navitema"><i class="nav_Collection_48"></i><span class="nav_item_txt">收藏</span></a></li>
-        </ul>
-      </div>
-    </div>
-    <div class="my_right g_mc">
-      <ul id=tags>
-        <li class="selectTag"><A onClick="selectTag('tagContent0',this)" href="javascript:void(0)">全部</a></li>
-        <li><a onClick="selectTag('tagContent1',this)" href="javascript:void(0)">未完成</a></li>
-
-      </ul>
-      <div id="tagContent">
-        <DIV class="tagContent selectTag" id=tagContent0>
-          <table  class="bought-table">
-            <colgroup>
-            <col class="baobei">
-            <col class="price">
-            <col class="trade-status">
-            <col class="trade-operate">
-            </colgroup>
-            <thead>
-              <tr class="col-name">
-                <th colspan="3">项目</th>
-                <th>费用</th>
-                <th>状态</th>
-                <th>操作</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr class="sep-row">
-                <td colspan="6"></td>
-              </tr>
-              <tr class="col-name_1">
-                <th><span>
-                  <input name="" type="checkbox" value="" class="checkinput" />
-                  </span><span>订单号：683569307481861</span></th>
-                <th colspan="5" ><a href="#">vs沙宣美发沙龙</a></th>
-
-              </tr>
-              <tr class="order-bd">
-                <td colspan="3"><div class="chaterphoto"><a href="#"><img src="my_images/-1.jpg" /><span class="mask_side_100"></span></a></div>
-                  <div class="chaterbaobei">
-                    <ul>
-                      <li><a href="#">最高价值368元的烫/染套餐最高价值368元的烫/染套餐最高价值368元的烫/染套餐最高价值368元的烫/染套餐</a></li>
-                      <li><span>设计师：王明明</span></li>
-                      <li><span>预约时间:2014-05-31</span></li>
-                    </ul>
-                  </div>
-                  <div class="chatercount">
-                    <ul>
-                      <li>￥89.00 </li>
-                      <li>1</li>
-                    </ul>
-                  </div>
-                  <div class="chateaddress">地址：历下区泉城广场泺文路实验小学斜对面（老董家菜馆旁边）
-                  </div>
-                  </td>
-                <td>￥89.00</td>
-                <td>预约成功</td>
-                <td><button class="btn btn2_xl btn2_l"><span class="t1">立即付款</span></button></td>
-              </tr>
-            </tbody>
-            <tbody>
-              <tr class="sep-row">
-                <td colspan="6"></td>
-              </tr>
-              <tr class="col-name_1">
-                <th><span>
-                  <input name="" type="checkbox" value="" class="checkinput" />
-                  </span><span>订单号：683569307481861</span></th>
-                <th colspan="5" ><a href="#">vs沙宣美发沙龙</a></th>
-
-              </tr>
-              <tr class="order-bd">
-                <td colspan="3"><div class="chaterphoto"><a href="#"><img src="my_images/-1.jpg" /><span class="mask_side_100"></span></a></div>
-                  <div class="chaterbaobei">
-                    <ul>
-                      <li><a href="#">最高价值368元的烫/染套餐最高价值368元的烫/染套餐最高价值368元的烫/染套餐最高价值368元的烫/染套餐</a></li>
-                      <li><span>设计师：王明明</span></li>
-                      <li><span>预约时间:2014-05-31</span></li>
-                    </ul>
-                  </div>
-                  <div class="chatercount">
-                    <ul>
-                      <li>￥89.00 </li>
-                      <li>1</li>
-                    </ul>
-                  </div>
-                  <div class="chateaddress">地址：历下区泉城广场泺文路实验小学斜对面（老董家菜馆旁边）
-                  </div>
-                  </td>
-                <td>￥89.00</td>
-                <td>预约成功</td>
-                <td><button class="btn btn2_xl btn2_l"><span class="t1">立即付款</span></button></td>
-              </tr>
-            </tbody>
-            <tbody>
-              <tr class="sep-row">
-                <td colspan="6"></td>
-              </tr>
-              <tr class="col-name_1">
-                <th><span>
-                  <input name="" type="checkbox" value="" class="checkinput" />
-                  </span><span>订单号：683569307481861</span></th>
-                <th colspan="5" ><a href="#">vs沙宣美发沙龙</a></th>
-
-              </tr>
-              <tr class="order-bd">
-                <td colspan="3"><div class="chaterphoto"><a href="#"><img src="my_images/-1.jpg" /><span class="mask_side_100"></span></a></div>
-                  <div class="chaterbaobei">
-                    <ul>
-                      <li><a href="#">最高价值368元的烫/染套餐最高价值368元的烫/染套餐最高价值368元的烫/染套餐最高价值368元的烫/染套餐</a></li>
-                      <li><span>设计师：王明明</span></li>
-                      <li><span>预约时间:2014-05-31</span></li>
-                    </ul>
-                  </div>
-                  <div class="chatercount">
-                    <ul>
-                      <li>￥89.00 </li>
-                      <li>1</li>
-                    </ul>
-                  </div>
-                  <div class="chateaddress">地址：历下区泉城广场泺文路实验小学斜对面（老董家菜馆旁边）
-                  </div>
-                  </td>
-                <td>￥89.00</td>
-                <td>预约成功</td>
-                <td><button class="btn btn2_xl btn2_l"><span class="t1">立即付款</span></button></td>
-              </tr>
-            </tbody>
-            <tbody>
-              <tr class="sep-row">
-                <td colspan="6"></td>
-              </tr>
-              <tr class="col-name_1">
-                <th><span>
-                  <input name="" type="checkbox" value="" class="checkinput" />
-                  </span><span>订单号：683569307481861</span></th>
-                <th colspan="5" ><a href="#">vs沙宣美发沙龙</a></th>
-
-              </tr>
-              <tr class="order-bd">
-                <td colspan="3"><div class="chaterphoto"><a href="#"><img src="my_images/-1.jpg" /><span class="mask_side_100"></span></a></div>
-                  <div class="chaterbaobei">
-                    <ul>
-                      <li><a href="#">最高价值368元的烫/染套餐最高价值368元的烫/染套餐最高价值368元的烫/染套餐最高价值368元的烫/染套餐</a></li>
-                      <li><span>设计师：王明明</span></li>
-                      <li><span>预约时间:2014-05-31</span></li>
-                    </ul>
-                  </div>
-                  <div class="chatercount">
-                    <ul>
-                      <li>￥89.00 </li>
-                      <li>1</li>
-                    </ul>
-                  </div>
-                  <div class="chateaddress">地址：历下区泉城广场泺文路实验小学斜对面（老董家菜馆旁边）
-                  </div>
-                  </td>
-                <td>￥89.00</td>
-                <td>预约成功</td>
-                <td><button class="btn btn2_xl btn2_l"><span class="t1">立即付款</span></button></td>
-              </tr>
-            </tbody>
-            <tbody>
-              <tr class="sep-row">
-                <td colspan="6"></td>
-              </tr>
-              <tr class="col-name_1">
-                <th><span>
-                  <input name="" type="checkbox" value="" class="checkinput" />
-                  </span><span>订单号：683569307481861</span></th>
-                <th colspan="5" ><a href="#">vs沙宣美发沙龙</a></th>
-
-              </tr>
-              <tr class="order-bd">
-                <td colspan="3"><div class="chaterphoto"><a href="#"><img src="my_images/-1.jpg" /><span class="mask_side_100"></span></a></div>
-                  <div class="chaterbaobei">
-                    <ul>
-                      <li><a href="#">最高价值368元的烫/染套餐最高价值368元的烫/染套餐最高价值368元的烫/染套餐最高价值368元的烫/染套餐</a></li>
-                      <li><span>设计师：王明明</span></li>
-                      <li><span>预约时间:2014-05-31</span></li>
-                    </ul>
-                  </div>
-                  <div class="chatercount">
-                    <ul>
-                      <li>￥89.00 </li>
-                      <li>1</li>
-                    </ul>
-                  </div>
-                  <div class="chateaddress">地址：历下区泉城广场泺文路实验小学斜对面（老董家菜馆旁边）
-                  </div>
-                  </td>
-                <td>￥89.00</td>
-                <td>预约成功</td>
-                <td><button class="btn btn2_xl btn2_l"><span class="t1">立即付款</span></button></td>
-              </tr>
-            </tbody>
-            <tbody>
-              <tr class="sep-row">
-                <td colspan="6"></td>
-              </tr>
-              <tr class="col-name_1">
-                <th><span>
-                  <input name="" type="checkbox" value="" class="checkinput" />
-                  </span><span>订单号：683569307481861</span></th>
-                <th colspan="5" ><a href="#">vs沙宣美发沙龙</a></th>
-
-              </tr>
-              <tr class="order-bd">
-                <td colspan="3"><div class="chaterphoto"><a href="#"><img src="my_images/-1.jpg" /><span class="mask_side_100"></span></a></div>
-                  <div class="chaterbaobei">
-                    <ul>
-                      <li><a href="#">最高价值368元的烫/染套餐最高价值368元的烫/染套餐最高价值368元的烫/染套餐最高价值368元的烫/染套餐</a></li>
-                      <li><span>设计师：王明明</span></li>
-                      <li><span>预约时间:2014-05-31</span></li>
-                    </ul>
-                  </div>
-                  <div class="chatercount">
-                    <ul>
-                      <li>￥89.00 </li>
-                      <li>1</li>
-                    </ul>
-                  </div>
-                  <div class="chateaddress">地址：历下区泉城广场泺文路实验小学斜对面（老董家菜馆旁边）
-                  </div>
-                  </td>
-                <td>￥89.00</td>
-                <td>预约成功</td>
-                <td><button class="btn btn2_xl btn2_l"><span class="t1">立即付款</span></button></td>
-              </tr>
-            </tbody>
-          </table>
+    <div class="my_banner">
+        <div class="my_photo">
+            <img src="<?php echo str_replace('480x480', '110x110', $this->currentUser['AvatarUrl']); ?>" alt="<?php echo $this->currentUser['Nickname']; ?>" />
+            <i class="user_avatar_mask"></i>
         </div>
-        <DIV class="tagContent" id=tagContent1> </div>
-        <DIV class="tagContent" id=tagContent2> </div>
-      </div>
+        <div class=" userinfo">
+            <h2 class="user_info_name">
+                <?php echo $this->currentUser['Nickname']; ?>
+            </h2>
+            <span>
+                <a href="#" class="Integral">
+                    我的积分:324
+                </a>
+            </span>
+        </div>
     </div>
-    <p>
-      <SCRIPT type=text/javascript>
-function selectTag(showContent,selfObj){
-    // 操作标签
-    var tag = document.getElementById("tags").getElementsByTagName("li");
-    var taglength = tag.length;
-    for(i=0; i<taglength; i++){
-        tag[i].className = "";
-    }
-    selfObj.parentNode.className = "selectTag";
-    // 操作内容
-    for(i=0; j=document.getElementById("tagContent"+i); i++){
-        j.style.display = "none";
-    }
-    document.getElementById(showContent).style.display = "block";
+    <!-- 主体内容 开始 -->
+    <div class="my_container">
+        <div class="my_left">
+            <div class="aside_nav">
+                <ul>
+                    <li class="navitem">
+                        <a href="#" class="navitema">
+                            <i class="nav_Dynamic_48">
+                            </i>
+                            <span class="nav_item_txt">
+                                动态
+                            </span>
+                        </a>
+                    </li>
+                    <li class="navitem  cur">
+                        <a href="#" class="navitema">
+                            <i class="nav_appointmen_48">
+                            </i>
+                            <span class="nav_item_txt">
+                                我的预约
+                            </span>
+                        </a>
+                    </li>
+                    <li class="navitem">
+                        <a href="#" class="navitema">
+                            <i class="nav_order_48">
+                            </i>
+                            <span class="nav_item_txt">
+                                订单
+                            </span>
+                        </a>
+                    </li>
+                    <li class="navitem">
+                        <a href="#" class="navitema">
+                            <i class="nav_Collection_48">
+                            </i>
+                            <span class="nav_item_txt">
+                                收藏
+                            </span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="my_right g_mc">
+            <ul id=tags>
+                <li class="selectTag">
+                    <A onClick="selectTag('tagContent0',this)" href="javascript:void(0)">
+                        全部
+                    </a>
+                </li>
+                <li>
+                    <a onClick="selectTag('tagContent1',this)" href="javascript:void(0)">
+                        未完成
+                    </a>
+                </li>
+            </ul>
+            <div id="tagContent">
+                <DIV class="tagContent selectTag" id=tagContent0>
+                    <table class="bought-table">
+                        <colgroup>
+                            <col class="baobei">
+                                <col class="price">
+                                    <col class="trade-status">
+                                        <col class="trade-operate">
+                        </colgroup>
+                        <thead>
+                            <tr class="col-name">
+                                <th colspan="3">
+                                    项目
+                                </th>
+                                <th>
+                                    费用
+                                </th>
+                                <th>
+                                    状态
+                                </th>
+                                <th>
+                                    操作
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="sep-row">
+                                <td colspan="6">
+                                </td>
+                            </tr>
+                            <tr class="col-name_1">
+                                <th>
+                                    <span>
+                                        <input name="" type="checkbox" value="" class="checkinput" />
+                                    </span>
+                                    <span>
+                                        订单号：683569307481861
+                                    </span>
+                                </th>
+                                <th colspan="5">
+                                    <a href="#">
+                                        vs沙宣美发沙龙
+                                    </a>
+                                </th>
+                            </tr>
+                            <tr class="order-bd">
+                                <td colspan="3">
+                                    <div class="chaterphoto">
+                                        <a href="#">
+                                            <img src="my_images/-1.jpg" />
+                                            <span class="mask_side_100">
+                                            </span>
+                                        </a>
+                                    </div>
+                                    <div class="chaterbaobei">
+                                        <ul>
+                                            <li>
+                                                <a href="#">
+                                                    最高价值368元的烫/染套餐最高价值368元的烫/染套餐最高价值368元的烫/染套餐最高价值368元的烫/染套餐
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <span>
+                                                    设计师：王明明
+                                                </span>
+                                            </li>
+                                            <li>
+                                                <span>
+                                                    预约时间:2014-05-31
+                                                </span>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="chatercount">
+                                        <ul>
+                                            <li>
+                                                ￥89.00
+                                            </li>
+                                            <li>
+                                                1
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="chateaddress">
+                                        地址：历下区泉城广场泺文路实验小学斜对面（老董家菜馆旁边）
+                                    </div>
+                                </td>
+                                <td>
+                                    ￥89.00
+                                </td>
+                                <td>
+                                    预约成功
+                                </td>
+                                <td>
+                                    <button class="btn btn2_xl btn2_l">
+                                        <span class="t1">
+                                            立即付款
+                                        </span>
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                        <tbody>
+                            <tr class="sep-row">
+                                <td colspan="6">
+                                </td>
+                            </tr>
+                            <tr class="col-name_1">
+                                <th>
+                                    <span>
+                                        <input name="" type="checkbox" value="" class="checkinput" />
+                                    </span>
+                                    <span>
+                                        订单号：683569307481861
+                                    </span>
+                                </th>
+                                <th colspan="5">
+                                    <a href="#">
+                                        vs沙宣美发沙龙
+                                    </a>
+                                </th>
+                            </tr>
+                            <tr class="order-bd">
+                                <td colspan="3">
+                                    <div class="chaterphoto">
+                                        <a href="#">
+                                            <img src="my_images/-1.jpg" />
+                                            <span class="mask_side_100">
+                                            </span>
+                                        </a>
+                                    </div>
+                                    <div class="chaterbaobei">
+                                        <ul>
+                                            <li>
+                                                <a href="#">
+                                                    最高价值368元的烫/染套餐最高价值368元的烫/染套餐最高价值368元的烫/染套餐最高价值368元的烫/染套餐
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <span>
+                                                    设计师：王明明
+                                                </span>
+                                            </li>
+                                            <li>
+                                                <span>
+                                                    预约时间:2014-05-31
+                                                </span>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="chatercount">
+                                        <ul>
+                                            <li>
+                                                ￥89.00
+                                            </li>
+                                            <li>
+                                                1
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="chateaddress">
+                                        地址：历下区泉城广场泺文路实验小学斜对面（老董家菜馆旁边）
+                                    </div>
+                                </td>
+                                <td>
+                                    ￥89.00
+                                </td>
+                                <td>
+                                    预约成功
+                                </td>
+                                <td>
+                                    <button class="btn btn2_xl btn2_l">
+                                        <span class="t1">
+                                            立即付款
+                                        </span>
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                        <tbody>
+                            <tr class="sep-row">
+                                <td colspan="6">
+                                </td>
+                            </tr>
+                            <tr class="col-name_1">
+                                <th>
+                                    <span>
+                                        <input name="" type="checkbox" value="" class="checkinput" />
+                                    </span>
+                                    <span>
+                                        订单号：683569307481861
+                                    </span>
+                                </th>
+                                <th colspan="5">
+                                    <a href="#">
+                                        vs沙宣美发沙龙
+                                    </a>
+                                </th>
+                            </tr>
+                            <tr class="order-bd">
+                                <td colspan="3">
+                                    <div class="chaterphoto">
+                                        <a href="#">
+                                            <img src="my_images/-1.jpg" />
+                                            <span class="mask_side_100">
+                                            </span>
+                                        </a>
+                                    </div>
+                                    <div class="chaterbaobei">
+                                        <ul>
+                                            <li>
+                                                <a href="#">
+                                                    最高价值368元的烫/染套餐最高价值368元的烫/染套餐最高价值368元的烫/染套餐最高价值368元的烫/染套餐
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <span>
+                                                    设计师：王明明
+                                                </span>
+                                            </li>
+                                            <li>
+                                                <span>
+                                                    预约时间:2014-05-31
+                                                </span>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="chatercount">
+                                        <ul>
+                                            <li>
+                                                ￥89.00
+                                            </li>
+                                            <li>
+                                                1
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="chateaddress">
+                                        地址：历下区泉城广场泺文路实验小学斜对面（老董家菜馆旁边）
+                                    </div>
+                                </td>
+                                <td>
+                                    ￥89.00
+                                </td>
+                                <td>
+                                    预约成功
+                                </td>
+                                <td>
+                                    <button class="btn btn2_xl btn2_l">
+                                        <span class="t1">
+                                            立即付款
+                                        </span>
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                        <tbody>
+                            <tr class="sep-row">
+                                <td colspan="6">
+                                </td>
+                            </tr>
+                            <tr class="col-name_1">
+                                <th>
+                                    <span>
+                                        <input name="" type="checkbox" value="" class="checkinput" />
+                                    </span>
+                                    <span>
+                                        订单号：683569307481861
+                                    </span>
+                                </th>
+                                <th colspan="5">
+                                    <a href="#">
+                                        vs沙宣美发沙龙
+                                    </a>
+                                </th>
+                            </tr>
+                            <tr class="order-bd">
+                                <td colspan="3">
+                                    <div class="chaterphoto">
+                                        <a href="#">
+                                            <img src="my_images/-1.jpg" />
+                                            <span class="mask_side_100">
+                                            </span>
+                                        </a>
+                                    </div>
+                                    <div class="chaterbaobei">
+                                        <ul>
+                                            <li>
+                                                <a href="#">
+                                                    最高价值368元的烫/染套餐最高价值368元的烫/染套餐最高价值368元的烫/染套餐最高价值368元的烫/染套餐
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <span>
+                                                    设计师：王明明
+                                                </span>
+                                            </li>
+                                            <li>
+                                                <span>
+                                                    预约时间:2014-05-31
+                                                </span>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="chatercount">
+                                        <ul>
+                                            <li>
+                                                ￥89.00
+                                            </li>
+                                            <li>
+                                                1
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="chateaddress">
+                                        地址：历下区泉城广场泺文路实验小学斜对面（老董家菜馆旁边）
+                                    </div>
+                                </td>
+                                <td>
+                                    ￥89.00
+                                </td>
+                                <td>
+                                    预约成功
+                                </td>
+                                <td>
+                                    <button class="btn btn2_xl btn2_l">
+                                        <span class="t1">
+                                            立即付款
+                                        </span>
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                        <tbody>
+                            <tr class="sep-row">
+                                <td colspan="6">
+                                </td>
+                            </tr>
+                            <tr class="col-name_1">
+                                <th>
+                                    <span>
+                                        <input name="" type="checkbox" value="" class="checkinput" />
+                                    </span>
+                                    <span>
+                                        订单号：683569307481861
+                                    </span>
+                                </th>
+                                <th colspan="5">
+                                    <a href="#">
+                                        vs沙宣美发沙龙
+                                    </a>
+                                </th>
+                            </tr>
+                            <tr class="order-bd">
+                                <td colspan="3">
+                                    <div class="chaterphoto">
+                                        <a href="#">
+                                            <img src="my_images/-1.jpg" />
+                                            <span class="mask_side_100">
+                                            </span>
+                                        </a>
+                                    </div>
+                                    <div class="chaterbaobei">
+                                        <ul>
+                                            <li>
+                                                <a href="#">
+                                                    最高价值368元的烫/染套餐最高价值368元的烫/染套餐最高价值368元的烫/染套餐最高价值368元的烫/染套餐
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <span>
+                                                    设计师：王明明
+                                                </span>
+                                            </li>
+                                            <li>
+                                                <span>
+                                                    预约时间:2014-05-31
+                                                </span>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="chatercount">
+                                        <ul>
+                                            <li>
+                                                ￥89.00
+                                            </li>
+                                            <li>
+                                                1
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="chateaddress">
+                                        地址：历下区泉城广场泺文路实验小学斜对面（老董家菜馆旁边）
+                                    </div>
+                                </td>
+                                <td>
+                                    ￥89.00
+                                </td>
+                                <td>
+                                    预约成功
+                                </td>
+                                <td>
+                                    <button class="btn btn2_xl btn2_l">
+                                        <span class="t1">
+                                            立即付款
+                                        </span>
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                        <tbody>
+                            <tr class="sep-row">
+                                <td colspan="6">
+                                </td>
+                            </tr>
+                            <tr class="col-name_1">
+                                <th>
+                                    <span>
+                                        <input name="" type="checkbox" value="" class="checkinput" />
+                                    </span>
+                                    <span>
+                                        订单号：683569307481861
+                                    </span>
+                                </th>
+                                <th colspan="5">
+                                    <a href="#">
+                                        vs沙宣美发沙龙
+                                    </a>
+                                </th>
+                            </tr>
+                            <tr class="order-bd">
+                                <td colspan="3">
+                                    <div class="chaterphoto">
+                                        <a href="#">
+                                            <img src="my_images/-1.jpg" />
+                                            <span class="mask_side_100">
+                                            </span>
+                                        </a>
+                                    </div>
+                                    <div class="chaterbaobei">
+                                        <ul>
+                                            <li>
+                                                <a href="#">
+                                                    最高价值368元的烫/染套餐最高价值368元的烫/染套餐最高价值368元的烫/染套餐最高价值368元的烫/染套餐
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <span>
+                                                    设计师：王明明
+                                                </span>
+                                            </li>
+                                            <li>
+                                                <span>
+                                                    预约时间:2014-05-31
+                                                </span>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="chatercount">
+                                        <ul>
+                                            <li>
+                                                ￥89.00
+                                            </li>
+                                            <li>
+                                                1
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="chateaddress">
+                                        地址：历下区泉城广场泺文路实验小学斜对面（老董家菜馆旁边）
+                                    </div>
+                                </td>
+                                <td>
+                                    ￥89.00
+                                </td>
+                                <td>
+                                    预约成功
+                                </td>
+                                <td>
+                                    <button class="btn btn2_xl btn2_l">
+                                        <span class="t1">
+                                            立即付款
+                                        </span>
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="tagContent" id="tagContent1">
+                </div>
+                <div class="tagContent" id="tagContent2">
+                </div>
+            </div>
+        </div>
+        <p>
+            <script type=text/javascript>
+                function selectTag(showContent, selfObj) {
+                    // 操作标签
+                    var tag = document.getElementById("tags").getElementsByTagName("li");
+                    var taglength = tag.length;
+                    for (i = 0; i < taglength; i++) {
+                        tag[i].className = "";
+                    }
+                    selfObj.parentNode.className = "selectTag";
+                    // 操作内容
+                    for (i = 0; j = document.getElementById("tagContent" + i); i++) {
+                        j.style.display = "none";
+                    }
+                    document.getElementById(showContent).style.display = "block";
 
-
-}
-</SCRIPT>
-    </p>
-  </div>
-  <!-- 主体内容 结束 -->
+                }
+            </script>
+        </p>
+    </div>
+    <!-- 主体内容 结束 -->
 </div>

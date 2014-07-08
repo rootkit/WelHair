@@ -34,7 +34,6 @@ class GoodsService
         $goods = array();
         foreach ($goodsList as $g) {
             $g['PictureUrl'] = !json_decode($g['Img'], true) ? (!$g['Img'] ? array() : array($g['Img'])) : json_decode($g['Img'], true);
-            $g['PictureUrl'] = array($g['Img']);
             unset($g['Img']);
 
             $goods[] = $g;

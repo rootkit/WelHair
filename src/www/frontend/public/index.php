@@ -19,6 +19,8 @@ define('DS', \DIRECTORY_SEPARATOR);
 define('ROOT_PATH', realpath(__DIR__ . '/../../'));
 define('STATIC_ROOT_PATH', ROOT_PATH . '/static');
 
+@header('Content-type:text/html;charset=UTF-8');
+
 require ROOT_PATH . '/vendor/autoload.php';
 
 $config = new Zend_Config_Ini(ROOT_PATH . '/frontend/apps/configs/application.ini', APP_ENV);

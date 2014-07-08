@@ -1,0 +1,67 @@
+<div class="my_container">
+    <div class="contentset">
+        <ul id="tags" style="border-bottom:none;" class="cleft">
+            <li>
+                <a href="<?php echo $this->baseUrl('user/setting'); ?>" class="tab_1">
+                    基本信息
+                </a>
+            </li>
+            <li>
+                <a href="<?php echo $this->baseUrl('user/setting/changepassword'); ?>" class="tab_1">
+                    修改密码
+                </a>
+            </li>
+            <li class="selectTag">
+                <a href="" class="tab_1">
+                    收货地址
+                </a>
+            </li>
+        </ul>
+        <div id="tagContent" class="cright">
+            <div class="tagContent selectTag">
+                <div class="toolbar">
+                    <ul class="clearfix">
+                        <li>
+                            <a href="<?php echo $this->baseUrl('user/setting/addressedit'); ?>">
+                                <i class="iconfont">&#xf0175;</i>
+                                添加新地址
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="row">
+                    <?php foreach ($this->addressList as $address): ?>
+                    <div class="col-md-3 dalist span18">
+                        <div class="daBox on">
+                            <ul>
+                                <li>
+                                    <strong>
+                                        张三
+                                    </strong>
+                                    <span class="tel">
+                                        15054128101
+                                    </span>
+                                </li>
+                                <li>
+                                    <p>
+                                        湖南省长沙市雨花区雨花亭XX路306号
+                                    </p>
+                                </li>
+                                <li>
+                                    <button type="button" class="min_bt br">
+                                        默认地址
+                                    </button>
+                                    <a href="###" class="close" title="删除">
+                                    </a>
+                                    <a href="###" class="edit" title="编辑">
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <?php endforeach; ?>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

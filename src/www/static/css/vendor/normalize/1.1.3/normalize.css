@@ -1257,6 +1257,12 @@ iframe {
   margin-left: 10px;
   width: 160px;
 }
+.span16_8 {
+  float: left;
+  _display: inline;
+  margin-left: 10px;
+  width: 168px;
+}
 .span16 {
   float: left;
   _display: inline;
