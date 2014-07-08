@@ -12,7 +12,9 @@
                 <img src="<?php echo $this->config->asset->baseUrl; ?>/img/frontend/logo.png" />
             </a>
             <div class="g_homearea">
-                <a href="<?php echo $this->baseUrl('city'); ?>">济南</a>
+                <a href="<?php echo $this->baseUrl('city'); ?>">
+                    <?php echo $this->userContext->area['City']['Name']; ?>
+                </a>
             </div>
         </div>
         <div class="g_nav">

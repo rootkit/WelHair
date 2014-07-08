@@ -1,73 +1,83 @@
 <div class="content">
- <div class="changecity">
-  <div class="choice_province">
-   <form>
-    <span>选择城市省份：</span>
-    <select>
-     <option>山东</option>
-     <option>北京</option>
-     <option>河北</option>
-    </select>
-    <select>
-     <option>济南</option>
-     <option>青岛</option>
-     <option>烟台</option>
-    </select>
-    <button class="btn min_bt">确定</button>
-   </form>
-  </div>
-  <div class=" city_list">
-  <h3>常用城市:</h3>
-  <p><a href="#">上海</a><a href="#">北京</a><a href="#">广州</a><a href="#">深圳</a><a href="#">武汉</a><a href="#">天津</a><a href="#">西安</a><a href="#">南京</a><a href="#">杭州</a><a href="#">成都</a><a href="#">重庆</a><a href="#">苏州</a><a href="#">嘉兴</a><a href="#">无锡</a><a href="#">常州</a><a href="#">宁波</a><a href="#">长沙</a><a href="#">上海</a><a href="#">上海</a><a href="#">上海</a><a href="#">上海</a></p>
-  </div>
-  <div class="citieslist">
-   <h3>按拼音首字母选择</h3>
-   <ol>
-    <li id="city-A">
-     <p>
-      <span class="label"><strong>A</strong></span>
-      <span><a href="#" class="isonline">鞍山</a><a href="#">鞍山</a><a href="#">鞍山</a><a href="#">鞍山</a><a href="#">鞍山</a><a href="#">鞍山</a><a href="#">鞍山</a><a href="#">鞍山</a><a href="#">鞍山</a><a href="#">鞍山</a></span>
-     </p>
-    </li>
-      <li id="city-B">
-     <p>
-      <span class="label"><strong>B</strong></span>
-      <span><a href="#" class="isonline">北京</a><a href="#">包头</a><a href="#">滨海</a><a href="#">鞍山</a><a href="#">鞍山</a><a href="#">鞍山</a><a href="#">鞍山</a><a href="#">鞍山</a><a href="#">鞍山</a><a href="#">鞍山</a></span>
-     </p>
-    </li>
-      <li id="city-C" class="hover">
-     <p>
-      <span class="label"><strong>C</strong></span>
-      <span><a href="#" class="isonline">鞍山</a><a href="#">鞍山</a><a href="#">鞍山</a><a href="#">鞍山</a><a href="#">鞍山</a><a href="#">鞍山</a><a href="#">鞍山</a><a href="#">鞍山</a><a href="#">鞍山</a><a href="#">鞍山</a></span>
-     </p>
-    </li>
-    <li id="city-D">
-     <p>
-      <span class="label"><strong>B</strong></span>
-      <span><a href="#" class="isonline">鞍山</a><a href="#">鞍山</a><a href="#">鞍山</a><a href="#">鞍山</a><a href="#">鞍山</a><a href="#">鞍山</a><a href="#">鞍山</a><a href="#">鞍山</a><a href="#">鞍山</a><a href="#">鞍山</a></span>
-     </p>
-    </li>
-    <li id="city-E">
-     <p>
-      <span class="label"><strong>B</strong></span>
-      <span><a href="#" class="isonline">鞍山</a><a href="#">鞍山</a><a href="#">鞍山</a><a href="#">鞍山</a><a href="#">鞍山</a><a href="#">鞍山</a><a href="#">鞍山</a><a href="#">鞍山</a><a href="#">鞍山</a><a href="#">鞍山</a></span>
-     </p>
-    </li>
-    <li id="city-F">
-     <p>
-      <span class="label"><strong>B</strong></span>
-      <span><a href="#" class="isonline">鞍山</a><a href="#">鞍山</a><a href="#">鞍山</a><a href="#">鞍山</a><a href="#">鞍山</a><a href="#">鞍山</a><a href="#">鞍山</a><a href="#">鞍山</a><a href="#">鞍山</a><a href="#">鞍山</a></span>
-     </p>
-    </li>
-    <li id="city-H">
-     <p>
-      <span class="label"><strong>B</strong></span>
-      <span><a href="#" class="isonline">鞍山</a><a href="#">鞍山</a><a href="#">鞍山</a><a href="#">鞍山</a><a href="#">鞍山</a><a href="#">鞍山</a><a href="#">鞍山</a><a href="#">鞍山</a><a href="#">鞍山</a><a href="#">鞍山</a></span>
-     </p>
-    </li>
-   </ol>
-
-  </div>
- </div>
-
+    <div class="changecity">
+        <div class="choice_province">
+            <form method="post">
+                <span>
+                    选择城市省份：
+                </span>
+                <select id="sel-province" name="province" class="u-sel">
+                    <option value="">请选择</option>
+                    <?php foreach ($this->provinceList as $province): ?>
+                    <option value="<?php echo $province['AreaId']; ?>"<?php echo $this->userContext->area['Province']['AreaId'] == $province['AreaId'] ? ' selected' : ''; ?>><?php echo $province['Name']; ?></option>
+                    <?php endforeach; ?>
+                </select>
+                <select id="sel-city" name="city" class="u-sel">
+                    <option value="">请选择</option>
+                    <?php foreach ($this->cityList as $city): ?>
+                    <option value="<?php echo $city['AreaId']; ?>"<?php echo $this->userContext->area['City']['AreaId'] == $city['AreaId'] ? ' selected' : ''; ?>><?php echo $city['Name']; ?></option>
+                    <?php endforeach; ?>
+                </select>
+                <button class="btn min_bt" style="margin-top: -4px;">
+                    确定
+                </button>
+            </form>
+        </div>
+        <div class=" city_list">
+            <h3>
+                常用城市:
+            </h3>
+            <p>
+                <a href="<?php echo $this->baseUrl('city/index/select?province=110000&city=110100'); ?>">
+                    北京
+                </a>
+                <a href="<?php echo $this->baseUrl('city/index/select?province=310000&city=310100'); ?>">
+                    上海
+                </a>
+                <a href="<?php echo $this->baseUrl('city/index/select?province=440000&city=440100'); ?>">
+                    广州
+                </a>
+                <a href="<?php echo $this->baseUrl('city/index/select?province=370000&city=370100'); ?>">
+                    济南
+                </a>
+            </p>
+        </div>
+        <div class="citieslist">
+            <h3>
+                按拼音首字母选择
+            </h3>
+            <ol>
+                <?php foreach ($this->areaList as $k => $cityList): ?>
+                <li>
+                    <p>
+                        <span class="label">
+                            <strong>
+                                <?php echo $k; ?>
+                            </strong>
+                        </span>
+                        <span>
+                            <?php foreach ($cityList as $city): ?>
+                            <a href="<?php echo $this->baseUrl('city/index/select?province=' . $city['ProvinceId'] . '&city=' . $city['CityId']); ?>">
+                                <?php echo $city['Name']; ?>
+                            </a>
+                            <?php endforeach; ?>
+                        </span>
+                    </p>
+                </li>
+                <?php endforeach; ?>
+            </ol>
+        </div>
+    </div>
 </div>
+
+<script>
+WF.initAreaSelector();
+$('.citieslist ol li').hover(
+  function () {
+    $('.citieslist ol li').removeClass('hover');
+    $(this).addClass('hover');
+  },
+  function () {
+    $(this).removeClass('hover');
+  }
+);
+</script>

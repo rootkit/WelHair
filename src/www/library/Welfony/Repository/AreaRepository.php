@@ -41,6 +41,17 @@ class AreaRepository extends AbstractRepository
         return $this->conn->fetchAll($strSql, array($parentId));
     }
 
+    public function getAreaByName($name)
+    {
+        $strSql = "SELECT
+                       *
+                   FROM Area A
+                   WHERE A.Name = ?
+                   LIMIT 1";
+
+        return $this->conn->fetchAssoc($strSql, array($name));
+    }
+
     public function getAreaById($id)
     {
         $strSql = "SELECT

@@ -36,9 +36,12 @@ class AreaService
 
     public static function getAreaById($id)
     {
-        $areaList = AreaRepository::getInstance()->getAreaById($id);
+        return AreaRepository::getInstance()->getAreaById($id);
+    }
 
-        return $areaList;
+    public static function getAreaByName($name)
+    {
+        return AreaRepository::getInstance()->getAreaByName($name);
     }
 
     public static function listAllAreas()
@@ -87,9 +90,10 @@ class AreaService
 
                     if ($child['Name'] == '市辖区') {
                         $child['Name'] = $area['Name'];
+                        $child['FirstChar'] = $area['FirstChar'];
                     }
 
-                    echo "INSERT INTO City (CityId, ParentId, CityName, SortOrder, FirstChar) VALUES(" . $child['AreaId'] . ", " . 0 . ", '" . $child['Name'] . "', 99, '" . substr($child['FirstChar'], 0, 1) . "');\n";
+                    // echo "INSERT INTO City (CityId, ParentId, CityName, SortOrder, FirstChar) VALUES(" . $child['AreaId'] . ", " . 0 . ", '" . $child['Name'] . "', 99, '" . substr($child['FirstChar'], 0, 1) . "');\n";
 
                     unset($child['Sort']);
                     unset($child['ParentId']);
@@ -105,7 +109,7 @@ class AreaService
                                 continue;
                             }
 
-                            echo "INSERT INTO City (CityId, ParentId, CityName, SortOrder, FirstChar) VALUES(" . $childChild['AreaId'] . ", " . $child['AreaId'] . ", '" . $childChild['Name'] . "', 99, '" . substr($childChild['FirstChar'], 0, 1) . "');\n";
+                            // echo "INSERT INTO City (CityId, ParentId, CityName, SortOrder, FirstChar) VALUES(" . $childChild['AreaId'] . ", " . $child['AreaId'] . ", '" . $childChild['Name'] . "', 99, '" . substr($childChild['FirstChar'], 0, 1) . "');\n";
 
                             unset($childChild['Sort']);
                             unset($childChild['ParentId']);
@@ -124,7 +128,6 @@ class AreaService
 
             $areaList[] = $area;
         }
-die();
 
         return $areaList;
     }

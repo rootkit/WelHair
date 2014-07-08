@@ -2197,6 +2197,7 @@ html[xmlns] .slides {
     width: 870px;
     vertical-align: top;
     zoom: 1;
+    margin-top: 10px;
 }
 
 .city_list a {
@@ -2217,7 +2218,7 @@ html[xmlns] .slides {
 }
 
 .citieslist p {
-    padding: 6px 10px 6px 30px;
+    padding: 6px 10px 6px 20px;
     border-top: 1px #FFF solid;
     border-bottom: 1px #FFF solid;
 }

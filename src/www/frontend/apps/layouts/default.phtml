@@ -46,7 +46,8 @@ $this->headScript()
         echo $this->partial('header.phtml', array(
             'module' => $this->module,
             'config' => $this->config,
-            'currentUser' => $this->currentUser));
+            'currentUser' => $this->currentUser,
+            'userContext' => $this->userContext));
         ?>
         <?php echo $this->layout()->content; ?>
         <?php echo $this->partial('footer.phtml'); ?>
