@@ -6,6 +6,6 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
-    $vendorDir . '/phpseclib/phpseclib/phpseclib',
     $vendorDir . '/zendframework/zendframework1/library',
+    $vendorDir . '/phpseclib/phpseclib/phpseclib',
 );

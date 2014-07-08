@@ -9,6 +9,7 @@ return array(
     'Zend_' => array($vendorDir . '/zendframework/zendframework1/library'),
     'Welfony' => array($baseDir . '/library'),
     'Twig_Extensions_' => array($vendorDir . '/slim/extras/Views/Extension'),
+    'System' => array($vendorDir . '/phpseclib/phpseclib/phpseclib'),
     'Symfony\\Component\\Routing\\' => array($vendorDir . '/symfony/routing'),
     'Symfony\\Component\\HttpFoundation\\' => array($vendorDir . '/symfony/http-foundation'),
     'Symfony\\Component\\Filesystem\\' => array($vendorDir . '/symfony/filesystem'),
