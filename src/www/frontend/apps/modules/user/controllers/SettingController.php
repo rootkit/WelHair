@@ -147,7 +147,8 @@ class User_SettingController extends AbstractFrontendController
                 'City' => 0,
                 'District' => 0,
                 'Mobile' => '',
-                'Address' => ''
+                'Address' => '',
+                'IsDefault' => 0
             );
         }
 
