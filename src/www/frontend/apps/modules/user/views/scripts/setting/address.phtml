@@ -36,25 +36,25 @@
                             <ul>
                                 <li>
                                     <strong>
-                                        张三
+                                        <?php echo $address['ShippingName']; ?>
                                     </strong>
                                     <span class="tel">
-                                        15054128101
+                                        <?php echo $address['Mobile']; ?>
                                     </span>
                                 </li>
                                 <li>
                                     <p>
-                                        湖南省长沙市雨花区雨花亭XX路306号
+                                        <?php echo $address['Address']; ?>
                                     </p>
                                 </li>
                                 <li>
+                                    <?php if ($address['IsDefault']): ?>
                                     <button type="button" class="min_bt br">
                                         默认地址
                                     </button>
-                                    <a href="###" class="close" title="删除">
-                                    </a>
-                                    <a href="###" class="edit" title="编辑">
-                                    </a>
+                                    <?php endif; ?>
+                                    <a href="#" class="close" data-id="<?php echo $address['AddressId']; ?>" title="删除"></a>
+                                    <a href="<?php echo $this->baseUrl('user/setting/addressedit?address_id=' . $address['AddressId']); ?>" class="edit" title="编辑"></a>
                                 </li>
                             </ul>
                         </div>
@@ -65,3 +65,22 @@
         </div>
     </div>
 </div>
+
+<script>
+$(document).ready(function() {
+    $('.close').click(function() {
+        var lnk = $(this);
+        var opts = {
+            type: "GET",
+            url: '/ajax/address/remove',
+            contentType: "application/json",
+            data: "address_id=" + lnk.attr('data-id'),
+            success: function(data) {
+                lnk.parent().parent().parent().parent().fadeOut();
+            }
+        };
+        $.ajax(opts);
+        return false;
+    });
+});
+</script>

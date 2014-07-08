@@ -106,7 +106,8 @@ class User_SettingController extends AbstractFrontendController
     {
         $this->view->pageTitle = '收货地址';
 
-        $this->view->addressList = array(1, 2,3, 4, 5);
+        $rstAddressList = AddressService::listAllAddressesByUser($this->currentUser['UserId']);
+        $this->view->addressList = $rstAddressList['addresses'];
     }
 
     public function addresseditAction()
@@ -116,11 +117,25 @@ class User_SettingController extends AbstractFrontendController
         $addressId = intval($this->_request->getParam('address_id'));
 
         if ($this->_request->isPost()) {
+            $address = array(
+                'AddressId' => $addressId,
+                'UserId' => $this->currentUser['UserId'],
+                'ShippingName' => htmlspecialchars($this->_request->getParam('receiver_name')),
+                'Province' => intval($this->_request->getParam('province')),
+                'City' => intval($this->_request->getParam('city')),
+                'District' => intval($this->_request->getParam('district')),
+                'Address' => htmlspecialchars($this->_request->getParam('address_detail')),
+                'Mobile' => htmlspecialchars($this->_request->getParam('mobile')),
+                'IsDefault' => intval($this->_request->getParam('is_default'))
+            );
 
+            $result = AddressService::save($address);
+            if ($result['success']) {
+                $this->_redirect($this->view->baseUrl('user/setting/address'));
+            } else {
+                $this->view->errorMessage = $result['message'];
+            }
         }
-
-        $provinceId = 0;
-        $cityId = 0;
 
         if ($addressId > 0) {
             $this->view->addressInfo = AddressService::getAddressById($addressId);
@@ -137,8 +152,8 @@ class User_SettingController extends AbstractFrontendController
         }
 
         $this->view->provinceList = AreaService::listAreaByParent(0);
-        $this->view->cityList = $provinceId > 0 ? AreaService::listAreaByParent($provinceId) : array();
-        $this->view->districtList = $cityId > 0 ? AreaService::listAreaByParent($cityId) : array();
+        $this->view->cityList = $this->view->addressInfo['Province'] > 0 ? AreaService::listAreaByParent($this->view->addressInfo['Province']) : array();
+        $this->view->districtList = $this->view->addressInfo['City'] > 0 ? AreaService::listAreaByParent($this->view->addressInfo['City']) : array();
     }
 
 }
