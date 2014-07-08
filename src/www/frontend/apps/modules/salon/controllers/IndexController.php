@@ -21,4 +21,8 @@ class Salon_IndexController extends AbstractFrontendController
     {
     }
 
+    public function detailAction()
+    {
+    }
+
 }

@@ -31,6 +31,10 @@ class WorkRepository extends AbstractRepository
                        C.CompanyId,
                        C.Name CompanyName,
                        C.Address CompanyAddress,
+                       C.Tel CompanyTel,
+                       C.Mobile CompanyMobile,
+                       C.Latitude CompanyLatitude,
+                       C.Longitude CompanyLongitude,
 
                        (SELECT COUNT(1) FROM UserLike UL WHERE ? > 0 AND ? = UL.CreatedBy AND UL.WorkId = W.WorkId) IsLiked,
                        (SELECT COUNT(1) FROM UserLike UL WHERE UL.WorkId = W.WorkId) WorkLikeCount,

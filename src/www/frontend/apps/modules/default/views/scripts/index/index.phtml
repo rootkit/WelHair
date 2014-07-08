@@ -63,12 +63,14 @@
                         </div>
                     </div>
                     <div class="picbox">
-                        <img src="<?php echo $work['PictureUrl'][0]; ?>" onerror="this.src='<?php echo $this->config->asset->baseUrl; ?>/img/photo-default.png';" />
+                        <a href="<?php echo $this->baseUrl('hair/index/detail?hair_id=' . $work['WorkId']); ?>">
+                            <img src="<?php echo $work['PictureUrl'][0]; ?>" onerror="this.src='<?php echo $this->config->asset->baseUrl; ?>/img/photo-default.png';" />
+                        </a>
                     </div>
                     <div class="comtbox">
                         <ul>
-                            <li><img src="<?php echo $this->config->asset->baseUrl; ?>/img/frontend/review.png"><span>124521</span></li>
-                            <li><img src="<?php echo $this->config->asset->baseUrl; ?>/img/frontend/heart.png"><span>124521</span></li>
+                            <li><img src="<?php echo $this->config->asset->baseUrl; ?>/img/frontend/review.png"><span><?php echo $work['WorkCommentCount']; ?></span></li>
+                            <li><img src="<?php echo $this->config->asset->baseUrl; ?>/img/frontend/heart.png"><span><?php echo $work['WorkLikeCount']; ?></span></li>
                         </ul>
                     </div>
                 </div>

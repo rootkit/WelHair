@@ -238,7 +238,11 @@ class WorkService
                 'Company' => array(
                     'CompanyId' => $work['StaffNickname'],
                     'Name' => $work['CompanyName'],
-                    'Address' => $work['CompanyAddress']
+                    'Address' => $work['CompanyAddress'],
+                    'Tel' => $work['CompanyTel'],
+                    'Mobile' => $work['CompanyMobile'],
+                    'Latitude' => $work['CompanyLatitude'],
+                    'Longitude' => $work['CompanyLongitude']
                 )
             );
         } else {
