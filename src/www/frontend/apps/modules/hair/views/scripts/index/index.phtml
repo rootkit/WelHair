@@ -58,38 +58,38 @@
     </div>
   </div>
   <div class="projects">
-        <div class="row">
-            <?php foreach ($this->workList as $work): ?>
-            <div class="span24-5">
-                <div class="col-md-3 box_shadow clearfix">
-                    <div class="userBox">
-                        <div class=" userPic">
-                            <a href="#"><img src="<?php echo $work['Staff']['AvatarUrl']; ?>"></a>
-                        </div>
-                        <div class="pannel">
-                            <div class="username">
-                                <strong>
-                                    <a href="#"><?php echo $work['Staff']['Nickname']; ?></a>
-                                </strong>
-                            </div>
-                            <div class="usersalon">沙龙名：<?php echo $work['Staff']['Company']['Name']; ?></div>
-                        </div>
+    <div class="row">
+        <?php foreach ($this->workList as $work): ?>
+        <div class="span24-5">
+            <div class="col-md-3 box_shadow clearfix">
+                <div class="userBox">
+                    <div class=" userPic">
+                        <a href="#"><img src="<?php echo $work['Staff']['AvatarUrl']; ?>"></a>
                     </div>
-                    <div class="picbox">
-                        <a href="<?php echo $this->baseUrl('hair/index/detail?hair_id=' . $work['WorkId']); ?>">
-                            <img src="<?php echo $work['PictureUrl'][0]; ?>" onerror="this.src='<?php echo $this->config->asset->baseUrl; ?>/img/photo-default.png';" />
-                        </a>
-                    </div>
-                    <div class="comtbox">
-                        <ul>
-                            <li><img src="<?php echo $this->config->asset->baseUrl; ?>/img/frontend/review.png"><span><?php echo $work['WorkCommentCount']; ?></span></li>
-                            <li><img src="<?php echo $this->config->asset->baseUrl; ?>/img/frontend/heart.png"><span><?php echo $work['WorkLikeCount']; ?></span></li>
-                        </ul>
+                    <div class="pannel">
+                        <div class="username">
+                            <strong>
+                                <a href="#"><?php echo $work['Staff']['Nickname']; ?></a>
+                            </strong>
+                        </div>
+                        <div class="usersalon">沙龙名：<?php echo $work['Staff']['Company']['Name']; ?></div>
                     </div>
                 </div>
+                <div class="picbox">
+                    <a href="<?php echo $this->baseUrl('hair/index/detail?hair_id=' . $work['WorkId']); ?>">
+                        <img src="<?php echo $work['PictureUrl'][0]; ?>" onerror="this.src='<?php echo $this->config->asset->baseUrl; ?>/img/photo-default.png';" />
+                    </a>
+                </div>
+                <div class="comtbox">
+                    <ul>
+                        <li><img src="<?php echo $this->config->asset->baseUrl; ?>/img/frontend/review.png"><span><?php echo $work['WorkCommentCount']; ?></span></li>
+                        <li><img src="<?php echo $this->config->asset->baseUrl; ?>/img/frontend/heart.png"><span><?php echo $work['WorkLikeCount']; ?></span></li>
+                    </ul>
+                </div>
             </div>
-            <?php endforeach; ?>
         </div>
-            <?php echo $this->pager; ?>
+        <?php endforeach; ?>
     </div>
+    <?php echo $this->pager; ?>
+  </div>
 </div>

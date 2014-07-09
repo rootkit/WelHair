@@ -7,25 +7,71 @@
       <div class="fliter_bd">
         <div class="col-md-1 fliter_kind_box" style="border-bottom:none;">
           <div class="a_key">地区:</div>
+          <?php
+          $params = $this->params;
+          $select = isset($params['district']) ? $params['district'] : 0;
+          unset($params['district']);
+          $qryStr = http_build_query($params);
+          ?>
           <ul>
-           <li class="select"><a href="#">全部</a></li>
-           <li><a href="#">历下区</a></li>
-           <li><a href="#">市中区</a></li>
-           <li><a href="#">历城</a></li>
-           <li><a href="#">长清</a></li>
-           <li><a href="#">高新区</a></li>
+           <li<?php echo $select == 0 ? ' class="select"' : ''; ?>><a href="<?php echo $this->baseUrl('goods' . (!empty($qryStr) ? '?' . $qryStr : '')); ?>">全部</a></li>
+           <?php foreach ($this->districtList as $area): ?>
+           <li<?php echo $select == $area['AreaId'] ? ' class="select"' : ''; ?>><a href="<?php echo $this->baseUrl('goods?district=' . $area['AreaId'] . (!empty($qryStr) ? '&' . $qryStr : '')); ?>"><?php echo $area['Name']; ?></a></li>
+           <?php endforeach; ?>
           </ul>
         </div>
       </div>
       <div class="fliter_foot">
        <div class="buttom_tip">
-        <a href="#" class="button-strip-item button-strip-item-right button-strip-item-checked">默认排序</a>
-        <a href="#" class="button-strip-item"><span class="button-strip-item_name">离我最近</span><span class="button_arrow_top"></span></a>
-        <a href="#" class="button-strip-item"><span  class="button-strip-item_name">评分最高</span><span class="button_arrow_down"></span></a>
+        <?php
+        $params = $this->params;
+        $select = isset($params['sort']) ? $params['sort'] : 0;
+        unset($params['sort']);
+        $qryStr = http_build_query($params);
+        ?>
+        <a href="<?php echo $this->baseUrl('goods' . (!empty($qryStr) ? '?' . $qryStr : '')); ?>" class="button-strip-item button-strip-item-right<?php echo $select == 0 ? ' button-strip-item-checked' : ''; ?>">默认排序</a>
+        <a href="<?php echo $this->baseUrl('goods?sort=1' . (!empty($qryStr) ? '&' . $qryStr : '')); ?>" class="button-strip-item<?php echo $select == 1 ? ' button-strip-item-checked' : ''; ?>"><span class="button-strip-item_name">离我最近</span><span class="button_arrow_top"></span></a>
+        <a href="<?php echo $this->baseUrl('goods?sort=2' . (!empty($qryStr) ? '&' . $qryStr : '')); ?>" class="button-strip-item<?php echo $select == 2 ? ' button-strip-item-checked' : ''; ?>"><span  class="button-strip-item_name">评分最高</span><span class="button_arrow_down"></span></a>
        </div>
       </div>
     </div>
   </div>
   <div class="projects">
+    <div class="row">
+        <?php foreach ($this->goodsList as $goods): ?>
+        <div class="span24-5">
+            <div class="col-md-3 box_shadow clearfix">
+                <div class="userBox">
+                    <?php if (isset($goods['Company'])): ?>
+                    <div class=" userPic">
+                        <a href="<?php echo $this->baseUrl('company/index/detail?company_id=' . $goods['Company']['CompanyId']); ?>"><img src="<?php echo $goods['Company']['LogoUrl']; ?>"></a>
+                    </div>
+                    <?php endif; ?>
+                    <div class="pannel">
+                        <div class="username">
+                            <strong>
+                                <a href="<?php echo $this->baseUrl('goods/index/detail?goods_id=' . $goods['GoodsId']); ?>"><?php echo $goods['Name']; ?></a>
+                            </strong>
+                        </div>
+                        <?php if (isset($goods['Company'])): ?>
+                        <div class="usersalon">沙龙：<?php echo $goods['Company']['Name']; ?></div>
+                        <?php endif; ?>
+                    </div>
+                </div>
+                <div class="picbox">
+                    <a href="<?php echo $this->baseUrl('goods/index/detail?goods_id=' . $goods['GoodsId']); ?>">
+                        <img src="<?php echo $goods['PictureUrl'][0]; ?>" onerror="this.src='<?php echo $this->config->asset->baseUrl; ?>/img/photo-default.png';" />
+                    </a>
+                </div>
+                <div class="comtbox">
+                    <ul>
+                        <li style="width: 220px;"><span style="display: block; width: 100%; text-align: right; color: #ff2900; font: 700 16px Arial;">￥<?php echo number_format($goods['SellPrice'], 2); ?></span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <?php endforeach; ?>
+    </div>
+    <?php echo $this->pager; ?>
   </div>
 </div>

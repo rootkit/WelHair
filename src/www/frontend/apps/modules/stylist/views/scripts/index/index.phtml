@@ -7,26 +7,66 @@
       <div class="fliter_bd">
         <div class="col-md-1 fliter_kind_box" style="border-bottom:none;">
           <div class="a_key">地区:</div>
+          <?php
+          $params = $this->params;
+          $select = isset($params['district']) ? $params['district'] : 0;
+          unset($params['district']);
+          $qryStr = http_build_query($params);
+          ?>
           <ul>
-           <li class="select"><a href="#">全部</a></li>
-           <li><a href="#">历下区</a></li>
-           <li><a href="#">市中区</a></li>
-           <li><a href="#">历城</a></li>
-           <li><a href="#">长清</a></li>
-           <li><a href="#">高新区</a></li>
+           <li<?php echo $select == 0 ? ' class="select"' : ''; ?>><a href="<?php echo $this->baseUrl('stylist' . (!empty($qryStr) ? '?' . $qryStr : '')); ?>">全部</a></li>
+           <?php foreach ($this->districtList as $area): ?>
+           <li<?php echo $select == $area['AreaId'] ? ' class="select"' : ''; ?>><a href="<?php echo $this->baseUrl('stylist?district=' . $area['AreaId'] . (!empty($qryStr) ? '&' . $qryStr : '')); ?>"><?php echo $area['Name']; ?></a></li>
+           <?php endforeach; ?>
           </ul>
         </div>
       </div>
       <div class="fliter_foot">
        <div class="buttom_tip">
-        <a href="#" class="button-strip-item button-strip-item-right button-strip-item-checked">默认排序</a>
-        <a href="#" class="button-strip-item"><span class="button-strip-item_name">离我最近</span><span class="button_arrow_top"></span></a>
-        <a href="#" class="button-strip-item"><span  class="button-strip-item_name">评分最高</span><span class="button_arrow_down"></span></a>
-        <a href="#" class="button-strip-item"><span  class="button-strip-item_name">作品数量</span><span class="button_arrow_down"></span></a>
+       <?php
+        $params = $this->params;
+        $select = isset($params['sort']) ? $params['sort'] : 0;
+        unset($params['sort']);
+        $qryStr = http_build_query($params);
+        ?>
+        <a href="<?php echo $this->baseUrl('stylist' . (!empty($qryStr) ? '?' . $qryStr : '')); ?>" class="button-strip-item button-strip-item-right<?php echo $select == 0 ? ' button-strip-item-checked' : ''; ?>">默认排序</a>
+        <a href="<?php echo $this->baseUrl('stylist?sort=1' . (!empty($qryStr) ? '&' . $qryStr : '')); ?>" class="button-strip-item<?php echo $select == 1 ? ' button-strip-item-checked' : ''; ?>"><span class="button-strip-item_name">离我最近</span><span class="button_arrow_top"></span></a>
+        <a href="<?php echo $this->baseUrl('stylist?sort=2' . (!empty($qryStr) ? '&' . $qryStr : '')); ?>" class="button-strip-item<?php echo $select == 2 ? ' button-strip-item-checked' : ''; ?>"><span  class="button-strip-item_name">评分最高</span><span class="button_arrow_down"></span></a>
+        <a href="<?php echo $this->baseUrl('stylist?sort=2' . (!empty($qryStr) ? '&' . $qryStr : '')); ?>" class="button-strip-item<?php echo $select == 2 ? ' button-strip-item-checked' : ''; ?>"><span  class="button-strip-item_name">作品数量</span><span class="button_arrow_down"></span></a>
        </div>
       </div>
     </div>
   </div>
   <div class="projects">
+    <div class="row">
+        <?php foreach ($this->staffList as $staff): ?>
+        <div class="span24-5">
+            <div class="col-md-3 box_shadow clearfix">
+                <div class="userBox">
+                    <div class="pannel">
+                        <div class="username">
+                            <strong>
+                                <a href="<?php echo $this->baseUrl('stylist/index/detail?stylist_id=' . $staff['UserId']); ?>"><?php echo $staff['Nickname']; ?></a>
+                            </strong>
+                        </div>
+                        <div class="usersalon">沙龙：<?php echo $staff['Company']['Name']; ?></div>
+                    </div>
+                </div>
+                <div class="picbox">
+                    <a href="<?php echo $this->baseUrl('stylist/index/detail?stylist_id=' . $staff['UserId']); ?>">
+                        <img src="<?php echo $staff['AvatarUrl']; ?>" onerror="this.src='<?php echo $this->config->asset->baseUrl; ?>/img/photo-default.png';" />
+                    </a>
+                </div>
+                <div class="comtbox">
+                    <ul>
+                        <li><img src="<?php echo $this->config->asset->baseUrl; ?>/img/frontend/iconfont-chanpin.png"><span><?php echo $staff['WorkCount']; ?></span></li>
+                        <li><img src="<?php echo $this->config->asset->baseUrl; ?>/img/frontend/iconfont-zan.png"><span><?php echo $staff['RateCount']; ?></span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <?php endforeach; ?>
+    </div>
+    <?php echo $this->pager; ?>
   </div>
 </div>
