@@ -61,7 +61,7 @@ WF = {
             }
         );
 
-        $('.u-btns').find('span').click(function() {
+        $('.u-btns.enable').find('span').click(function() {
             var cur = $(this);
             var group = cur.parent();
 

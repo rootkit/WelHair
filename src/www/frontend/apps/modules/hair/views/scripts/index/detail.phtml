@@ -17,7 +17,7 @@
                             </strong>
                         </div>
                         <div class="usersalon">
-                            发布时间：2014-07-08 12:23
+                            发布时间：<?php echo date('Y-m-d H:i', strtotime($this->workDetail['CreatedDate'])); ?>
                         </div>
                     </div>
                 </div>
@@ -41,6 +41,51 @@
                 <div class="salonaddress">
                     <h2>
                         <span>
+                            适合人群
+                        </span>
+                    </h2>
+                    <div class="option-list">
+                        <p>
+                            <strong>性别：</strong>
+                            <span class="u-btns" data-type="checkbox">
+                                <span class="u-btn u-btn-c<?php echo $this->workDetail['Gender'] == 1 ? '5' : '4'; ?>">男</span>
+                                <span class="u-btn u-btn-c<?php echo $this->workDetail['Gender'] == 2 ? '5' : '4'; ?>">女</span>
+                            </span>
+                        </p>
+                        <p>
+                            <strong>脸型：</strong>
+                            <span class="u-btns" data-type="checkbox">
+                                <?php
+                                $hairSelected = explode(',', $this->workDetail['Face']);
+                                ?>
+                                <span class="u-btn u-btn-c<?php echo in_array(1, $hairSelected) ? '5' : '4'; ?>">圆脸</span>
+                                <span class="u-btn u-btn-c<?php echo in_array(2, $hairSelected) ? '5' : '4'; ?>">瓜子脸</span>
+                                <span class="u-btn u-btn-c<?php echo in_array(3, $hairSelected) ? '5' : '4'; ?>">方脸</span>
+                                <span class="u-btn u-btn-c<?php echo in_array(4, $hairSelected) ? '5' : '4'; ?>">长脸</span>
+                            </span>
+                        </p>
+                        <p>
+                            <strong>发型：</strong>
+                            <span class="u-btns" data-type="checkbox">
+                                <span class="u-btn u-btn-c<?php echo $this->workDetail['HairStyle'] == 1 ? '5' : '4'; ?>">短发</span>
+                                <span class="u-btn u-btn-c<?php echo $this->workDetail['HairStyle'] == 2 ? '5' : '4'; ?>">长发</span>
+                                <span class="u-btn u-btn-c<?php echo $this->workDetail['HairStyle'] == 3 ? '5' : '4'; ?>">编发</span>
+                                <span class="u-btn u-btn-c<?php echo $this->workDetail['HairStyle'] == 4 ? '5' : '4'; ?>">中发</span>
+                            </span>
+                        </p>
+                        <p>
+                            <strong>发量：</strong>
+                            <span class="u-btns" data-type="checkbox">
+                                <span class="u-btn u-btn-c<?php echo $this->workDetail['HairAmount'] == 1 ? '5' : '4'; ?>">多密</span>
+                                <span class="u-btn u-btn-c<?php echo $this->workDetail['HairAmount'] == 2 ? '5' : '4'; ?>">中等</span>
+                                <span class="u-btn u-btn-c<?php echo $this->workDetail['HairAmount'] == 3 ? '5' : '4'; ?>">偏少</span>
+                            </span>
+                        </p>
+                    </div>
+                </div>
+                <div class="salonaddress">
+                    <h2>
+                        <span>
                             沙龙位置
                         </span>
                     </h2>
@@ -58,33 +103,28 @@
                                 地址：<?php echo $this->workDetail['Staff']['Company']['Address']; ?>
                             </p>
                             <p>
-                                电话：<?php echo $this->workDetail['Staff']['Company']['Tel']; ?>
+                                电话：<?php echo empty($this->workDetail['Staff']['Company']['Mobile']) ? $this->workDetail['Staff']['Company']['Tel'] : $this->workDetail['Staff']['Company']['Mobile']; ?>
                             </p>
                         </li>
                     </ul>
                 </div>
                 <div class="sidefunc">
                     <div class="left">
-                        <a href="#" class="heartcount">
-                            <img src="<?php echo $this->config->asset->baseUrl; ?>/img/frontend/heart.png" />
+                        <a id="hair_like" href="#" data-hair-id="<?php echo $this->workDetail['WorkId']; ?>" class="heartcount">
+                            <img src="<?php echo $this->config->asset->baseUrl; ?>/img/frontend/heart<?php echo $this->workDetail['IsLiked'] ? '_red' : ''; ?>.png" />
                             <p>
                                 <?php echo $this->workDetail['WorkLikeCount']; ?>
                             </p>
                         </a>
                     </div>
                     <div class="share">
-                        <a href="#">
-                            <i class="ico25 ico25a">
-                            </i>
-                        </a>
-                        <a href="#">
-                            <i class="ico25 ico25b">
-                            </i>
-                        </a>
-                        <a href="#">
-                            <i class="ico25 ico25c">
-                            </i>
-                        </a>
+                        <div class="bdsharebuttonbox">
+                            <a href="#" class="bds_more" data-cmd="more"></a>
+                            <a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a>
+                            <a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+                            <a href="#" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博"></a>
+                            <a href="#" class="bds_renren" data-cmd="renren" title="分享到人人网"></a>
+                        </div>
                     </div>
                 </div>
                 <div class="msgList">
@@ -148,8 +188,8 @@
                             预约
                         </span>
                     </a>
-                    <a href="#" class=" btn btn2_xl btn2_l btn2_1_l">
-                        <img src="<?php echo $this->config->asset->baseUrl; ?>/img/frontend/heart.png" class="ico">
+                    <a id="staff_like" data-staff-id="<?php echo $this->staffDetail['UserId']; ?>" href="#" class=" btn btn2_xl btn2_l btn2_1_l">
+                        <img src="<?php echo $this->config->asset->baseUrl; ?>/img/frontend/heart<?php echo $this->staffDetail['IsLiked'] ? '_red' : ''; ?>.png" class="ico">
                         <span class="t">
                             收藏
                         </span>
@@ -157,19 +197,13 @@
                 </div>
                 <div class="data">
                     <span class="count">
-                        11作品
+                        <?php echo count($this->staffDetail['Works']); ?>作品
                     </span>
                     <span class="spacer">
                         |
                     </span>
                     <span class="count">
-                        34收藏
-                    </span>
-                    <span class="spacer">
-                        |
-                    </span>
-                    <span class="count">
-                        56服务项目
+                        <?php echo count($this->staffDetail['Services']); ?>服务项目
                     </span>
                 </div>
             </div>
@@ -182,11 +216,10 @@
                 </div>
                 <div class="saloninfo">
                     <h3>
-                        沙龙简介
+                        发型师简介
                     </h3>
                     <p>
-                        身为国家级造型师，德国哈苏公司高级 客座讲师。世界知名品牌姿生堂SHISEIDO的首 席彩妆顾问, 自1991年正式进入中国时尚圈以 来，以其对国际流行元素的敏锐感觉和把握，
-                        多年来始终走在潮流前列，执掌造型界牛耳， 左右时尚走向。
+                        这家伙什么都没留下...
                     </p>
                 </div>
             </div>
@@ -204,31 +237,51 @@ var minOpa = 50; //滤镜最小值
 var maxOpa = 100; //滤镜最大值
 var spa = 2; //缩略图区域补充数值
 var w = 0;
-spec = (browse.indexOf("microsoft") > -1) ? spec : ((browse.indexOf("opera") > -1) ? spec*10 : spec*20);
-function getById(e) {return document.getElementById(e);}
-function goleft() {getById('photos').scrollLeft -= spec;}
-function goright() {getById('photos').scrollLeft += spec;}
+spec = (browse.indexOf("microsoft") > -1) ? spec: ((browse.indexOf("opera") > -1) ? spec * 10 : spec * 20);
+function getById(e) {
+    return document.getElementById(e);
+}
+function goleft() {
+    getById('photos').scrollLeft -= spec;
+}
+function goright() {
+    getById('photos').scrollLeft += spec;
+}
 function setOpacity(e, n) {
     if (browse.indexOf("microsoft") > -1) e.style.filter = 'alpha(opacity=' + n + ')';
-    else e.style.opacity = n/100;
+    else e.style.opacity = n / 100;
 }
 getById('goleft').style.cursor = 'pointer';
 getById('goright').style.cursor = 'pointer';
-getById('mainphoto').onmouseover = function() {setOpacity(this, maxOpa);}
-getById('mainphoto').onmouseout = function() {setOpacity(this, minOpa);}
-getById('mainphoto').onclick = function() {location = this.getAttribute('name');}
-getById('goleft').onmouseover = function() {this.src = '<?php echo $this->config->asset->baseUrl; ?>/img/frontend/goleft2.gif'; MyMar=setInterval(goleft, speed);}
-getById('goleft').onmouseout = function() {this.src = '<?php echo $this->config->asset->baseUrl; ?>/img/frontend/goleft.gif'; clearInterval(MyMar);}
-getById('goright').onmouseover = function() {this.src = '<?php echo $this->config->asset->baseUrl; ?>/img/frontend/goright2.gif'; MyMar=setInterval(goright,speed);}
-getById('goright').onmouseout = function() {this.src = '<?php echo $this->config->asset->baseUrl; ?>/img/frontend/goright.gif'; clearInterval(MyMar);}
+getById('mainphoto').onmouseover = function() {
+    setOpacity(this, maxOpa);
+}
+getById('mainphoto').onmouseout = function() {
+    setOpacity(this, minOpa);
+}
+getById('goleft').onmouseover = function() {
+    this.src = '<?php echo $this->config->asset->baseUrl; ?>/img/frontend/goleft2.gif';
+    MyMar = setInterval(goleft, speed);
+}
+getById('goleft').onmouseout = function() {
+    this.src = '<?php echo $this->config->asset->baseUrl; ?>/img/frontend/goleft.gif';
+    clearInterval(MyMar);
+}
+getById('goright').onmouseover = function() {
+    this.src = '<?php echo $this->config->asset->baseUrl; ?>/img/frontend/goright2.gif';
+    MyMar = setInterval(goright, speed);
+}
+getById('goright').onmouseout = function() {
+    this.src = '<?php echo $this->config->asset->baseUrl; ?>/img/frontend/goright.gif';
+    clearInterval(MyMar);
+}
 window.onload = function() {
     setOpacity(getById('mainphoto'), minOpa);
     var rHtml = '';
     var p = getById('showArea').getElementsByTagName('img');
-    for (var i=0; i<p.length; i++) {
+    for (var i = 0; i < p.length; i++) {
         w += parseInt(p[i].getAttribute('width')) + spa;
         setOpacity(p[i], minOpa);
-        p[i].onclick = function() {location = this.getAttribute('name');}
         p[i].onmouseover = function() {
             setOpacity(this, maxOpa);
             getById('mainphoto').src = this.getAttribute('rel');
@@ -250,6 +303,60 @@ window.onload = function() {
     rLoad.innerHTML = rHtml;
 
     initMap();
+    initShare();
+    initLike();
+}
+
+function initLike() {
+    $('#hair_like').click(function() {
+        var btn = $(this);
+
+        var liked = btn.find('img').attr('src').indexOf('_red') > 0;
+        if (liked) {
+            btn.find('img').attr('src', '<?php echo $this->config->asset->baseUrl; ?>/img/frontend/heart.png');
+            btn.find('p').text(parseInt(btn.find('p').text()) - 1);
+        } else {
+            btn.find('img').attr('src', '<?php echo $this->config->asset->baseUrl; ?>/img/frontend/heart_red.png');
+            btn.find('p').text(parseInt(btn.find('p').text()) + 1);
+        }
+
+        var opts = {
+            type: "GET",
+            url: '/ajax/hair/like',
+            contentType: "application/json",
+            data: "work_id=" + btn.attr('data-hair-id') + '&' + "is_like=" + (liked ? 0 : 1),
+            success: function(data) {
+
+            }
+        };
+        $.ajax(opts);
+
+        return false;
+    });
+
+    $('#staff_like').click(function() {
+        var btn = $(this);
+
+        var liked = btn.find('img').attr('src').indexOf('_red') > 0;
+        if (liked) {
+            btn.find('img').attr('src', '<?php echo $this->config->asset->baseUrl; ?>/img/frontend/heart.png');
+        } else {
+            btn.find('img').attr('src', '<?php echo $this->config->asset->baseUrl; ?>/img/frontend/heart_red.png');
+        }
+
+        var opts = {
+            type: "GET",
+            url: '/ajax/staff/like',
+            contentType: "application/json",
+            data: "staff_id=" + btn.attr('data-staff-id') + '&' + "is_like=" + (liked ? 0 : 1),
+            success: function(data) {
+
+            }
+        };
+        $.ajax(opts);
+
+        return false;
+    });
 }
 
 function initMap() {
@@ -263,6 +370,26 @@ function initMap() {
   });
 
   map.addOverlay(marker);
+}
+
+function initShare() {
+    window._bd_share_config = {
+        "common": {
+            "bdSnsKey": {},
+            "bdText": "很好的哦",
+            "bdMini": "2",
+            "bdMiniList": false,
+            "bdPic": "",
+            "bdStyle": "2",
+            "bdSize": "24"
+        },
+        "share": {},
+        "selectShare": {
+            "bdContainerClass": null,
+            "bdSelectMiniList": ["qzone", "tsina", "tqq", "renren", "weixin"]
+        }
+    };
+    with(document) 0[(getElementsByTagName('head')[0] || body).appendChild(createElement('script')).src = 'http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion=' + ~ ( - new Date() / 36e5)];
 }
 
 </script>

@@ -14,6 +14,7 @@
 
 use Welfony\Controller\Base\AbstractFrontendController;
 use Welfony\Service\CommentService;
+use Welfony\Service\StaffService;
 use Welfony\Service\WorkService;
 
 class Hair_IndexController extends AbstractFrontendController
@@ -32,7 +33,7 @@ class Hair_IndexController extends AbstractFrontendController
         $this->view->comments = $rstComments['comments'];
         $this->view->commentTotal = $rstComments['total'];
 
-        // var_dump($this->view->comments);die();
+        $this->view->staffDetail = StaffService::getStaffDetail($this->view->workDetail['Staff']['UserId'], $this->currentUser['UserId'], $this->userContext->location);
     }
 
 }
