@@ -7,32 +7,89 @@
       <div class="fliter_bd">
         <div class="col-md-1 fliter_kind_box">
           <div class="a_key">发质:</div>
+          <?php
+          $params = $this->params;
+          $select = isset($params['hair_style']) ? $params['hair_style'] : 0;
+          unset($params['hair_style']);
+          $qryStr = http_build_query($params);
+          ?>
           <ul>
-           <li class="select"><a href="#">全部</a></li>
-           <li><a href="#">短发</a></li>
-           <li><a href="#">长发</a></li>
-           <li><a href="#">编发</a></li>
-           <li><a href="#">中发</a></li>
+           <li<?php echo $select == 0 ? ' class="select"' : ''; ?>><a href="<?php echo $this->baseUrl('hair' . (!empty($qryStr) ? '?' . $qryStr : '')); ?>">全部</a></li>
+           <li<?php echo $select == 1 ? ' class="select"' : ''; ?>><a href="<?php echo $this->baseUrl('hair?hair_style=1' . (!empty($qryStr) ? '&' . $qryStr : '')); ?>">短发</a></li>
+           <li<?php echo $select == 2 ? ' class="select"' : ''; ?>><a href="<?php echo $this->baseUrl('hair?hair_style=2' . (!empty($qryStr) ? '&' . $qryStr : '')); ?>">长发</a></li>
+           <li<?php echo $select == 3 ? ' class="select"' : ''; ?>><a href="<?php echo $this->baseUrl('hair?hair_style=3' . (!empty($qryStr) ? '&' . $qryStr : '')); ?>">编发</a></li>
+           <li<?php echo $select == 4 ? ' class="select"' : ''; ?>><a href="<?php echo $this->baseUrl('hair?hair_style=4' . (!empty($qryStr) ? '&' . $qryStr : '')); ?>">中发</a></li>
           </ul>
         </div>
         <div class="col-md-1 fliter_kind_box" style="border-bottom:none;">
           <div class="a_key">性别:</div>
+          <?php
+          $params = $this->params;
+          $select = isset($params['gender']) ? $params['gender'] : 0;
+          unset($params['gender']);
+          $qryStr = http_build_query($params);
+          ?>
           <ul>
-           <li class="select"><a href="#">全部</a></li>
-           <li><a href="#">男士</a></li>
-           <li><a href="#">女士</a></li>
+           <li<?php echo $select == 0 ? ' class="select"' : ''; ?>><a href="<?php echo $this->baseUrl('hair' . (!empty($qryStr) ? '?' . $qryStr : '')); ?>">全部</a></li>
+           <li<?php echo $select == 1 ? ' class="select"' : ''; ?>><a href="<?php echo $this->baseUrl('hair?gender=1' . (!empty($qryStr) ? '&' . $qryStr : '')); ?>">男士</a></li>
+           <li<?php echo $select == 2 ? ' class="select"' : ''; ?>><a href="<?php echo $this->baseUrl('hair?gender=2' . (!empty($qryStr) ? '&' . $qryStr : '')); ?>">女士</a></li>
           </ul>
         </div>
       </div>
       <div class="fliter_foot">
        <div class="buttom_tip">
-        <a href="#" class="button-strip-item button-strip-item-right button-strip-item-checked">默认排序</a>
-        <a href="#" class="button-strip-item"><span class="button-strip-item_name">最新发型</span><span class="button_arrow_top"></span></a>
-        <a href="#" class="button-strip-item"><span  class="button-strip-item_name">最受欢迎</span><span class="button_arrow_down"></span></a>
+        <?php
+        $params = $this->params;
+        $select = isset($params['sort']) ? $params['sort'] : 0;
+        unset($params['sort']);
+        $qryStr = http_build_query($params);
+        ?>
+        <a href="<?php echo $this->baseUrl('hair' . (!empty($qryStr) ? '?' . $qryStr : '')); ?>" class="button-strip-item button-strip-item-right<?php echo $select == 0 ? ' button-strip-item-checked' : ''; ?>">
+          默认排序
+        </a>
+        <a href="<?php echo $this->baseUrl('hair?sort=1' . (!empty($qryStr) ? '&' . $qryStr : '')); ?>" class="button-strip-item<?php echo $select == 1 ? ' button-strip-item-checked' : ''; ?>">
+          <span class="button-strip-item_name">最新发型</span><span class="button_arrow_top"></span>
+        </a>
+        <a href="<?php echo $this->baseUrl('hair?sort=2' . (!empty($qryStr) ? '&' . $qryStr : '')); ?>" class="button-strip-item<?php echo $select == 2 ? ' button-strip-item-checked' : ''; ?>">
+          <span  class="button-strip-item_name">最受欢迎</span><span class="button_arrow_down"></span>
+        </a>
        </div>
       </div>
     </div>
   </div>
   <div class="projects">
-  </div>
+        <div class="row">
+            <?php foreach ($this->workList as $work): ?>
+            <div class="span24-5">
+                <div class="col-md-3 box_shadow clearfix">
+                    <div class="userBox">
+                        <div class=" userPic">
+                            <a href="#"><img src="<?php echo $work['Staff']['AvatarUrl']; ?>"></a>
+                        </div>
+                        <div class="pannel">
+                            <div class="username">
+                                <strong>
+                                    <a href="#"><?php echo $work['Staff']['Nickname']; ?></a>
+                                </strong>
+                            </div>
+                            <div class="usersalon">沙龙名：<?php echo $work['Staff']['Company']['Name']; ?></div>
+                        </div>
+                    </div>
+                    <div class="picbox">
+                        <a href="<?php echo $this->baseUrl('hair/index/detail?hair_id=' . $work['WorkId']); ?>">
+                            <img src="<?php echo $work['PictureUrl'][0]; ?>" onerror="this.src='<?php echo $this->config->asset->baseUrl; ?>/img/photo-default.png';" />
+                        </a>
+                    </div>
+                    <div class="comtbox">
+                        <ul>
+                            <li><img src="<?php echo $this->config->asset->baseUrl; ?>/img/frontend/review.png"><span><?php echo $work['WorkCommentCount']; ?></span></li>
+                            <li><img src="<?php echo $this->config->asset->baseUrl; ?>/img/frontend/heart.png"><span><?php echo $work['WorkLikeCount']; ?></span></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <?php endforeach; ?>
+        </div>
+            <?php echo $this->pager; ?>
+    </div>
 </div>

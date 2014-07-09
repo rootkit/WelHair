@@ -127,7 +127,7 @@ class AbstractController extends \Zend_Controller_Action
         $href = '';
         for ($page = $startPoint; $page <= $endPoint; $page++) {
             if (empty($ajaxfunc)) {
-                $href = ' href="' . ($url . '&page=' . $page) . '"';
+                $href = ' href="' . str_replace('?&', '?', $url . '&page=' . $page) . '"';
             } else {
                 $href = ' href="javascript:;" onclick="' . $ajaxfunc . '(' . $page . ')"';
             }
