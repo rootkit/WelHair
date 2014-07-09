@@ -43,19 +43,19 @@
             <div class="col-md-3 box_shadow clearfix">
                 <div class="userBox">
                     <div class=" userPic">
-                        <a href="<?php echo $this->baseUrl('company/index/detail?company_id=' . $company['CompanyId']); ?>"><img src="<?php echo $company['LogoUrl']; ?>"></a>
+                        <a href="<?php echo $this->baseUrl('salon/index/detail?salon_id=' . $company['CompanyId']); ?>"><img src="<?php echo $company['LogoUrl']; ?>"></a>
                     </div>
                     <div class="pannel">
                         <div class="username">
                             <strong>
-                                <a href="<?php echo $this->baseUrl('company/index/detail?company_id=' . $company['CompanyId']); ?>"><?php echo $company['Name']; ?></a>
+                                <a href="<?php echo $this->baseUrl('salon/index/detail?salon_id=' . $company['CompanyId']); ?>"><?php echo $company['Name']; ?></a>
                             </strong>
                         </div>
                         <div class="usersalon">地址：<?php echo $company['Address']; ?></div>
                     </div>
                 </div>
                 <div class="picbox">
-                    <a href="<?php echo $this->baseUrl('company/index/detail?company_id=' . $company['CompanyId']); ?>">
+                    <a href="<?php echo $this->baseUrl('salon/index/detail?salon_id=' . $company['CompanyId']); ?>">
                         <img src="<?php echo $company['PictureUrl'][0]; ?>" onerror="this.src='<?php echo $this->config->asset->baseUrl; ?>/img/photo-default.png';" />
                     </a>
                 </div>

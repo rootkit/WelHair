@@ -42,7 +42,12 @@ class CompanyService
     {
         $resultSet = CompanyRepository::getInstance()->findCompanyDetailById($companyId, $currentUserId, $location);
 
-        return count($resultSet) > 0 ? $resultSet[0] : null;
+        $company = count($resultSet) > 0 ? $resultSet[0] : null;
+        if ($company) {
+            $company['PictureUrl'] = json_decode($company['PictureUrl'], true);
+        }
+
+        return $company;
     }
 
     public static function listLikedCompany($currentUserId, $location, $page, $pageSize)

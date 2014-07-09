@@ -21,6 +21,8 @@ class Goods_IndexController extends AbstractFrontendController
 
     public function indexAction()
     {
+        $this->view->pageTitle = '商城';
+
         $district = intval($this->_request->getParam('district'));
         $sort = intval($this->_request->getParam('sort'));
 

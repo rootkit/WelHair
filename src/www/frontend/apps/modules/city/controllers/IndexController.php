@@ -20,6 +20,8 @@ class City_IndexController extends AbstractFrontendController
 
     public function indexAction()
     {
+        $this->view->pageTitle = '城市';
+
         $cityList = array();
 
         $areaList = AreaService::listAllAreas();

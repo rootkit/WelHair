@@ -1,152 +1,313 @@
 <div class="projects">
-  <div class="row">
-    <div class="side_left">
-      <div class="sideitem">
-        <div class="sideuser">
-          <div class="userPic"><a href="#" class="avatar"><img src="images/1352.jpg" /></a></div>
-          <div class="pannel">
-            <div class="username"><strong><a href="#">李彤彤</a></strong></div>
-            <div class="usersalon">发布时间：2014-07-08 12:23</div>
-          </div>
+    <div class="row">
+        <div class="side_left span65">
+            <div class="sideitem">
+                <div id="tbody">
+                    <div id="mainbody">
+                        <img src="<?php echo $this->companyDetail['PictureUrl'][0]; ?>" width="100%" id="mainphoto" />
+                    </div>
+                    <img src="<?php echo $this->config->asset->baseUrl; ?>/img/frontend/goleft.gif" width="11" height="56" id="goleft" />
+                    <img src="<?php echo $this->config->asset->baseUrl; ?>/img/frontend/goright.gif" width="11" height="56" id="goright" />
+                    <div id="photos">
+                        <div id="showArea">
+                            <?php foreach ($this->companyDetail['PictureUrl'] as $pic): ?>
+                            <img src="<?php echo str_replace('480x480', '110x110', $pic); ?>" rel="<?php echo $pic; ?>" />
+                            <?php endforeach; ?>
+                        </div>
+                    </div>
+                    <div id="maincontent">
+                    </div>
+                </div>
+                <div class="salonaddress">
+                    <h2>
+                        <span>
+                            沙龙位置
+                        </span>
+                    </h2>
+                    <ul>
+                        <li class="addressmap">
+                            <input id="latitude" type="hidden" name="latitude" value="<?php echo doubleval($this->companyDetail['Latitude']); ?>" />
+                            <input id="longitude" type="hidden" name="longitude" value="<?php echo doubleval($this->companyDetail['Longitude']); ?>" />
+                            <div id="company-map" class="map"></div>
+                        </li>
+                        <li class="addresscontent">
+                            <h3>
+                                <?php echo $this->companyDetail['CompanyName']; ?>
+                            </h3>
+                            <p>
+                                地址：<?php echo $this->companyDetail['CompanyAddress']; ?>
+                            </p>
+                            <p>
+                                电话：<?php echo empty($this->companyDetail['Mobile']) ? $this->companyDetail['Tel'] : $this->companyDetail['Mobile']; ?>
+                            </p>
+                        </li>
+                    </ul>
+                </div>
+                <div class="sidefunc">
+                    <div class="share">
+                        <div class="bdsharebuttonbox">
+                            <a href="#" class="bds_more" data-cmd="more"></a>
+                            <a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a>
+                            <a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+                            <a href="#" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博"></a>
+                            <a href="#" class="bds_renren" data-cmd="renren" title="分享到人人网"></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="msgList">
+                    <ul>
+                        <?php foreach ($this->comments as $comment): ?>
+                        <li>
+                            <div class="sideuser">
+                                <div class="userPic">
+                                    <a href="#" class="avatar">
+                                        <img src="<?php echo str_replace('480x480', '110x110', $comment['CreatedBy']['AvatarUrl']); ?>" />
+                                    </a>
+                                </div>
+                                <div class="pannel">
+                                    <div class="username">
+                                        <strong>
+                                            <a href="#">
+                                                <?php echo $comment['CreatedBy']['Nickname']; ?>
+                                            </a>
+                                        </strong>
+                                        <span class="date">
+                                            <?php echo date('m月d日 H:i', strtotime($comment['CreatedDate']));?>
+                                        </span>
+                                    </div>
+                                    <div class="mscontent">
+                                        <p>
+                                            <?php echo $comment['Body']; ?>
+                                        </p>
+                                        <div class="msconent-img">
+                                          <?php if(count($comment['PictureUrl']) > 0): ?>
+                                          <?php foreach ($comment['PictureUrl'] as $pic): ?>
+                                          <img src="<?php echo str_replace('480x480', '110x110', $pic); ?>" rel="<?php echo $pic; ?>" />
+                                          <?php endforeach; ?>
+                                          <?php endif; ?>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <?php endforeach; ?>
+                    </ul>
+                </div>
+            </div>
         </div>
-        <div id="tbody">
-          <div id="mainbody"> <img src="images/inacup_donut.jpg" width="100%" id="mainphoto"  /> </div>
-          <img src="images/goleft.gif" width="11" height="56" id="goleft" /> <img src="images/goright.gif" width="11" height="56" id="goright" />
-          <div id="photos">
-            <div id="showArea">
-              <!--
-          SRC: 缩略图地址
-          REL: 大图地址
-          NAME: 网址
-        -->
-              <img src="images/inacup_donut.jpg" rel="images/inacup_donut.jpg"/ > <img src="images/inacup_pumpkin.jpg" rel="images/inacup_pumpkin.jpg"/> <img src="images/inacup_samoa.jpg" rel="images/inacup_samoa.jpg"/> <img src="images/inacup_vanilla.jpg" rel="images/inacup_vanilla.jpg"/> </div>
-          </div>
-            <div id="maincontent"><p>性一起讨论艺术，美容，生活的地方就叫做沙龙。后来到了近现代出现的美容美发化妆等综合店面，就开始流行叫做沙龙（SALON）了，如果是专业做关于头发的美发中心，档次高一点...</p></div>
+        <div class="side_right span33">
+            <div class="c1">
+                <a href="#" class="avatar">
+                    <img src="<?php echo $this->companyDetail['CompanyLogoUrl']; ?>" class="picimg">
+                    <span class="mask_side">
+                    </span>
+                </a>
+            </div>
+            <div class="c2">
+                <div class=" username">
+                    <a href="#">
+                        <?php echo $this->companyDetail['CompanyName']; ?>
+                    </a>
+                </div>
+                <div class="data">
+                    <span class="count">
+                        <?php echo count($this->staffDetail['Works']); ?>发型师
+                    </span>
+                    <span class="spacer">
+                        |
+                    </span>
+                    <span class="count">
+                        <?php echo count($this->staffDetail['Services']); ?>商品
+                    </span>
+                </div>
+            </div>
+            <div class="c3">
+                <div class="salonna">
+                    区域：
+                    <a href="#">
+                        <?php echo $this->companyDetail['Region']; ?>
+                    </a>
+                </div>
+                <div class="salonna">
+                    地址：
+                    <a href="#">
+                        <?php echo $this->companyDetail['Address']; ?>
+                    </a>
+                </div>
+                <div class="salonna">
+                    电话：
+                    <a href="#">
+                        <?php echo empty($this->companyDetail['Mobile']) ? $this->companyDetail['Tel'] : $this->companyDetail['Mobile']; ?>
+                    </a>
+                </div>
+            </div>
         </div>
-
-        <div class="salonaddress">
-         <h2><span>沙龙位置</span></h2>
-         <ul>
-          <li class="addressmap"><img src="images/map.jpg" /></li>
-          <li class="addresscontent"><h3>非凡造型沙龙</h3>
-          <p>地址：历下区解放历下区解放历下区解放路16-3号(近公交总公司)</p>
-          <p>电话：0531-5557896</p>
-          </li>
-         </ul>
-        </div>
-        <div class="sidefunc">
-          <div class="left"> <span><a href="#">131转发</a></span> <span style="border:none;"><a href="#">17评论</a></span> <a href="#" class="heartcount"><img src="images/heart.png" />
-            <p>452</p>
-            </a> </div>
-          <div class="share"> <a href="#"><i class="ico25 ico25a"></i></a> <a href="#"><i class="ico25 ico25b"></i></a> <a href="#"><i class="ico25 ico25c"></i></a> </div>
-        </div>
-
-        <div class="msgList">
-          <ul>
-            <li>
-              <div class="sideuser">
-                <div class="userPic"><a href="#" class="avatar"><img src="images/1352.jpg" /></a></div>
-                <div class="pannel">
-                  <div class="username"><strong><a href="#">李彤彤</a></strong><span class="date">5月29日 12:36</span></div>
-                  <div class="mscontent"><p>这个发型很不错，店里的环境也不错，这个发型很不错，店里的环境也不错，这个发型很不错，店里的环境也不错，这个发型很不错，店里的环境也不错，这个发型很不错，店里的环境也不错，这个发型很不错，店里的环境也不错，这个发型很不错，店里的环境也不错，这个发型很不错，店里的环境也不错，</p></div>
-                </div>
-              </div>
-            </li>
-            <li>
-              <div class="sideuser">
-                <div class="userPic"><a href="#" class="avatar"><img src="images/1352.jpg" /></a></div>
-                <div class="pannel">
-                  <div class="username"><strong><a href="#">李彤彤</a></strong><span class="date">5月29日 12:36</span></div>
-                  <div class="mscontent"><p>这个发型很不错，店里的环境也不错，这个发型很不错，店里的环境也不错，这个发型很不错，店里的环境也不错，这个发型很不错，店里的环境也不错，这个发型很不错，店里的环境也不错，这个发型很不错，店里的环境也不错，这个发型很不错，店里的环境也不错，这个发型很不错，店里的环境也不错，</p></div>
-                </div>
-              </div>
-            </li>
-            <li>
-              <div class="sideuser">
-                <div class="userPic"><a href="#" class="avatar"><img src="images/1352.jpg" /></a></div>
-                <div class="pannel">
-                  <div class="username"><strong><a href="#">李彤彤</a></strong><span class="date">5月29日 12:36</span></div>
-                  <div class="mscontent"><p>这个发型很不错，店里的环境也不错，这个发型很不错，店里的环境也不错，这个发型很不错，店里的环境也不错，这个发型很不错，店里的环境也不错，这个发型很不错，店里的环境也不错，这个发型很不错，店里的环境也不错，这个发型很不错，店里的环境也不错，这个发型很不错，店里的环境也不错，</p></div>
-                </div>
-              </div>
-            </li>
-            <li>
-              <div class="sideuser">
-                <div class="userPic"><a href="#" class="avatar"><img src="images/1352.jpg" /></a></div>
-                <div class="pannel">
-                  <div class="username"><strong><a href="#">李彤彤</a></strong><span class="date">5月29日 12:36</span></div>
-                  <div class="mscontent"><p>这个发型很不错，店里的环境也不错，这个发型很不错，店里的环境也不错，这个发型很不错，店里的环境也不错，这个发型很不错，店里的环境也不错，这个发型很不错，店里的环境也不错，这个发型很不错，店里的环境也不错，这个发型很不错，店里的环境也不错，这个发型很不错，店里的环境也不错，</p></div>
-                </div>
-              </div>
-            </li>
-            <li>
-              <div class="sideuser">
-                <div class="userPic"><a href="#" class="avatar"><img src="images/1352.jpg" /></a></div>
-                <div class="pannel">
-                  <div class="username"><strong><a href="#">李彤彤</a></strong><span class="date">5月29日 12:36</span></div>
-                  <div class="mscontent"><p>这个发型很不错，店里的环境也不错，这个发型很不错，店里的环境也不错，这个发型很不错，店里的环境也不错，这个发型很不错，店里的环境也不错，这个发型很不错，店里的环境也不错，这个发型很不错，店里的环境也不错，这个发型很不错，店里的环境也不错，这个发型很不错，店里的环境也不错，</p></div>
-                </div>
-              </div>
-            </li>
-            <li>
-              <div class="sideuser">
-                <div class="userPic"><a href="#" class="avatar"><img src="images/1352.jpg" /></a></div>
-                <div class="pannel">
-                  <div class="username"><strong><a href="#">李彤彤</a></strong><span class="date">5月29日 12:36</span></div>
-                  <div class="mscontent"><p>这个发型很不错，店里的环境也不错，这个发型很不错，店里的环境也不错，这个发型很不错，店里的环境也不错，这个发型很不错，店里的环境也不错，这个发型很不错，店里的环境也不错，这个发型很不错，店里的环境也不错，这个发型很不错，店里的环境也不错，这个发型很不错，店里的环境也不错，</p></div>
-                </div>
-              </div>
-            </li>
-            <li>
-              <div class="sideuser">
-                <div class="userPic"><a href="#" class="avatar"><img src="images/1352.jpg" /></a></div>
-                <div class="pannel">
-                  <div class="username"><strong><a href="#">李彤彤</a></strong><span class="date">5月29日 12:36</span></div>
-                  <div class="mscontent"><p>这个发型很不错，店里的环境也不错，这个发型很不错，店里的环境也不错，这个发型很不错，店里的环境也不错，这个发型很不错，店里的环境也不错，这个发型很不错，店里的环境也不错，这个发型很不错，店里的环境也不错，这个发型很不错，店里的环境也不错，这个发型很不错，店里的环境也不错，</p></div>
-                </div>
-              </div>
-            </li>
-            <li>
-              <div class="sideuser">
-                <div class="userPic"><a href="#" class="avatar"><img src="images/1352.jpg" /></a></div>
-                <div class="pannel">
-                  <div class="username"><strong><a href="#">李彤彤</a></strong><span class="date">5月29日 12:36</span></div>
-                  <div class="mscontent"><p>这个发型很不错，店里的环境也不错，这个发型很不错，店里的环境也不错，这个发型很不错，店里的环境也不错，这个发型很不错，店里的环境也不错，这个发型很不错，店里的环境也不错，这个发型很不错，店里的环境也不错，这个发型很不错，店里的环境也不错，这个发型很不错，店里的环境也不错，</p></div>
-                </div>
-              </div>
-            </li>
-            <li>
-              <div class="sideuser">
-                <div class="userPic"><a href="#" class="avatar"><img src="images/1352.jpg" /></a></div>
-                <div class="pannel">
-                  <div class="username"><strong><a href="#">李彤彤</a></strong><span class="date">5月29日 12:36</span></div>
-                  <div class="mscontent"><p>这个发型很不错，店里的环境也不错，这个发型很不错，店里的环境也不错，这个发型很不错，店里的环境也不错，这个发型很不错，店里的环境也不错，这个发型很不错，店里的环境也不错，这个发型很不错，店里的环境也不错，这个发型很不错，店里的环境也不错，这个发型很不错，店里的环境也不错，</p></div>
-                </div>
-              </div>
-            </li>
-          </ul>
-        </div>
-      </div>
     </div>
-    <div class="side_right">
-      <div class="c1"><a href="#" class="avatar"><img src="images/135.jpg" class="picimg"><span class="mask_side"></span></a></div>
-      <div class="c2">
-        <div class=" username"><a href="#">设计师：杨俊秀</a> </div>
-        <div class=" opt"><a href="#" class=" btn btn2_xl btn2_l"><span class="t">预约</span></a><a href="#" class=" btn btn2_xl btn2_l btn2_1_l"><img src="images/heart.png" class="ico"><span class="t">收藏</span></a></div>
-        <div class="data"> <span class="count">11作品</span><span class="spacer">|</span><span class="count">34收藏</span> <span class="spacer">|</span><span class="count">56服务项目</span> </div>
-      </div>
-      <div class="c3">
-        <div class="salonna">沙龙名称：<a href="#">沙宣造型</a></div>
-        <div class="saloninfo">
-          <h3>沙龙简介</h3>
-          <p>身为国家级造型师，德国哈苏公司高级
-            客座讲师。世界知名品牌姿生堂SHISEIDO的首
-            席彩妆顾问, 自1991年正式进入中国时尚圈以
-            来，以其对国际流行元素的敏锐感觉和把握，
-            多年来始终走在潮流前列，执掌造型界牛耳，
-            左右时尚走向。</p>
-        </div>
-      </div>
-    </div>
-  </div>
 </div>
+
+<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&amp;ak=3998daac6ca53a8067263f139b4aadf4"></script>
+<script>
+var browse = window.navigator.appName.toLowerCase();
+var MyMar;
+var speed = 1; //速度，越大越慢
+var spec = 1; //每次滚动的间距, 越大滚动越快
+var minOpa = 50; //滤镜最小值
+var maxOpa = 100; //滤镜最大值
+var spa = 2; //缩略图区域补充数值
+var w = 0;
+spec = (browse.indexOf("microsoft") > -1) ? spec: ((browse.indexOf("opera") > -1) ? spec * 10 : spec * 20);
+function getById(e) {
+    return document.getElementById(e);
+}
+function goleft() {
+    getById('photos').scrollLeft -= spec;
+}
+function goright() {
+    getById('photos').scrollLeft += spec;
+}
+function setOpacity(e, n) {
+    if (browse.indexOf("microsoft") > -1) e.style.filter = 'alpha(opacity=' + n + ')';
+    else e.style.opacity = n / 100;
+}
+getById('goleft').style.cursor = 'pointer';
+getById('goright').style.cursor = 'pointer';
+getById('mainphoto').onmouseover = function() {
+    setOpacity(this, maxOpa);
+}
+getById('mainphoto').onmouseout = function() {
+    setOpacity(this, minOpa);
+}
+getById('goleft').onmouseover = function() {
+    this.src = '<?php echo $this->config->asset->baseUrl; ?>/img/frontend/goleft2.gif';
+    MyMar = setInterval(goleft, speed);
+}
+getById('goleft').onmouseout = function() {
+    this.src = '<?php echo $this->config->asset->baseUrl; ?>/img/frontend/goleft.gif';
+    clearInterval(MyMar);
+}
+getById('goright').onmouseover = function() {
+    this.src = '<?php echo $this->config->asset->baseUrl; ?>/img/frontend/goright2.gif';
+    MyMar = setInterval(goright, speed);
+}
+getById('goright').onmouseout = function() {
+    this.src = '<?php echo $this->config->asset->baseUrl; ?>/img/frontend/goright.gif';
+    clearInterval(MyMar);
+}
+window.onload = function() {
+    setOpacity(getById('mainphoto'), minOpa);
+    var rHtml = '';
+    var p = getById('showArea').getElementsByTagName('img');
+    for (var i = 0; i < p.length; i++) {
+        w += parseInt(p[i].getAttribute('width')) + spa;
+        setOpacity(p[i], minOpa);
+        p[i].onmouseover = function() {
+            setOpacity(this, maxOpa);
+            getById('mainphoto').src = this.getAttribute('rel');
+            getById('mainphoto').setAttribute('name', this.getAttribute('name'));
+            setOpacity(getById('mainphoto'), maxOpa);
+        }
+        p[i].onmouseout = function() {
+            setOpacity(this, minOpa);
+            setOpacity(getById('mainphoto'), minOpa);
+        }
+        rHtml += '<img src="' + p[i].getAttribute('rel') + '" width="0" height="0" alt="" />';
+    }
+    getById('showArea').style.width = parseInt(w) + 'px';
+    var rLoad = document.createElement("div");
+    getById('photos').appendChild(rLoad);
+    rLoad.style.width = "1px";
+    rLoad.style.height = "1px";
+    rLoad.style.overflow = "hidden";
+    rLoad.innerHTML = rHtml;
+
+    initMap();
+    initShare();
+    initLike();
+}
+
+function initLike() {
+    $('#hair_like').click(function() {
+        var btn = $(this);
+
+        var liked = btn.find('img').attr('src').indexOf('_red') > 0;
+        if (liked) {
+            btn.find('img').attr('src', '<?php echo $this->config->asset->baseUrl; ?>/img/frontend/heart.png');
+            btn.find('p').text(parseInt(btn.find('p').text()) - 1);
+        } else {
+            btn.find('img').attr('src', '<?php echo $this->config->asset->baseUrl; ?>/img/frontend/heart_red.png');
+            btn.find('p').text(parseInt(btn.find('p').text()) + 1);
+        }
+
+        var opts = {
+            type: "GET",
+            url: '/ajax/hair/like',
+            contentType: "application/json",
+            data: "work_id=" + btn.attr('data-hair-id') + '&' + "is_like=" + (liked ? 0 : 1),
+            success: function(data) {
+
+            }
+        };
+        $.ajax(opts);
+
+        return false;
+    });
+
+    $('#staff_like').click(function() {
+        var btn = $(this);
+
+        var liked = btn.find('img').attr('src').indexOf('_red') > 0;
+        if (liked) {
+            btn.find('img').attr('src', '<?php echo $this->config->asset->baseUrl; ?>/img/frontend/heart.png');
+        } else {
+            btn.find('img').attr('src', '<?php echo $this->config->asset->baseUrl; ?>/img/frontend/heart_red.png');
+        }
+
+        var opts = {
+            type: "GET",
+            url: '/ajax/staff/like',
+            contentType: "application/json",
+            data: "staff_id=" + btn.attr('data-staff-id') + '&' + "is_like=" + (liked ? 0 : 1),
+            success: function(data) {
+
+            }
+        };
+        $.ajax(opts);
+
+        return false;
+    });
+}
+
+function initMap() {
+  var map = new BMap.Map('company-map');
+  var point = new BMap.Point(document.getElementById('longitude').value, document.getElementById('latitude').value);
+  map.centerAndZoom(point, 15);
+
+  var marker = new BMap.Marker(point, {
+      enableMassClear: false,
+      raiseOnDrag: false
+  });
+
+  map.addOverlay(marker);
+}
+
+function initShare() {
+    window._bd_share_config = {
+        "common": {
+            "bdSnsKey": {},
+            "bdText": "很好的哦",
+            "bdMini": "2",
+            "bdMiniList": false,
+            "bdPic": "",
+            "bdStyle": "2",
+            "bdSize": "24"
+        },
+        "share": {},
+        "selectShare": {
+            "bdContainerClass": null,
+            "bdSelectMiniList": ["qzone", "tsina", "tqq", "renren", "weixin"]
+        }
+    };
+    with(document) 0[(getElementsByTagName('head')[0] || body).appendChild(createElement('script')).src = 'http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion=' + ~ ( - new Date() / 36e5)];
+}
+
+</script>

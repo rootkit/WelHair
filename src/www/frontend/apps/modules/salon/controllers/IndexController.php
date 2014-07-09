@@ -14,6 +14,7 @@
 
 use Welfony\Controller\Base\AbstractFrontendController;
 use Welfony\Service\AreaService;
+use Welfony\Service\CommentService;
 use Welfony\Service\CompanyService;
 
 class Salon_IndexController extends AbstractFrontendController
@@ -21,6 +22,8 @@ class Salon_IndexController extends AbstractFrontendController
 
     public function indexAction()
     {
+        $this->view->pageTitle = '沙龙';
+
         $district = intval($this->_request->getParam('district'));
         $sort = intval($this->_request->getParam('sort'));
 
@@ -47,6 +50,14 @@ class Salon_IndexController extends AbstractFrontendController
 
     public function detailAction()
     {
+        $companyId = intval($this->_request->getParam('salon_id'));
+        $this->view->companyDetail = CompanyService::getCompanyDetail($companyId, $this->currentUser['UserId'], $this->userContext->location);
+
+        $this->view->pageTitle = $this->view->companyDetail['CompanyName'];
+
+        $rstComments = CommentService::listComment($companyId, 0, 0, 0, 1, 20);
+        $this->view->comments = $rstComments['comments'];
+        $this->view->commentTotal = $rstComments['total'];
     }
 
 }

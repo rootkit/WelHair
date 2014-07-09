@@ -22,6 +22,8 @@ class Hair_IndexController extends AbstractFrontendController
 
     public function indexAction()
     {
+        $this->view->pageTitle = '发型';
+
         $gender = intval($this->_request->getParam('gender'));
         $hairStyle = intval($this->_request->getParam('hair_style'));
         $sort = intval($this->_request->getParam('sort'));
@@ -50,6 +52,8 @@ class Hair_IndexController extends AbstractFrontendController
 
     public function detailAction()
     {
+        $this->view->pageTitle = '发型';
+
         $workId = intval($this->_request->getParam('hair_id'));
         $this->view->workDetail = WorkService::getWorkDetail($this->currentUser['UserId'], $this->userContext->location, $workId);
 

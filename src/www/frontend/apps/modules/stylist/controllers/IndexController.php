@@ -21,6 +21,8 @@ class Stylist_IndexController extends AbstractFrontendController
 
     public function indexAction()
     {
+        $this->view->pageTitle = '发型师';
+
         $district = intval($this->_request->getParam('district'));
         $sort = intval($this->_request->getParam('sort'));
 

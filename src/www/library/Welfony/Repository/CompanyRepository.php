@@ -149,6 +149,7 @@ class CompanyRepository extends AbstractRepository
                        C.Address CompanyAddress,
                        C.Status CompanyStatus,
                        C.LogoUrl CompanyLogoUrl,
+                       C.PictureUrl,
                        C.Tel,
                        C.Mobile,
                        C.Address,
