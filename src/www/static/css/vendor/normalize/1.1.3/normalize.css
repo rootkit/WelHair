@@ -1239,6 +1239,12 @@ iframe {
   margin-left: 10px;
   width: 190px;
 }
+.span20-8 {
+  float: left;
+  _display: inline;
+  margin-left: 10px;
+  width: 198px;
+}
 .span19 {
   float: left;
   _display: inline;
@@ -1463,4 +1469,8 @@ a:hover {
   font-style: normal;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+.break-bottom {
+  padding-bottom: 10px;
 }

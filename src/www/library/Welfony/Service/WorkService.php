@@ -236,7 +236,7 @@ class WorkService
                 'AvatarUrl' => $work['StaffAvatarUrl'],
                 'Nickname' => $work['StaffNickname'],
                 'Company' => array(
-                    'CompanyId' => $work['StaffNickname'],
+                    'CompanyId' => $work['CompanyId'],
                     'Name' => $work['CompanyName'],
                     'Address' => $work['CompanyAddress'],
                     'Tel' => $work['CompanyTel'],
