@@ -54,7 +54,73 @@
                         </div>
                     </div>
                 </div>
-                <div class="msgList">
+                <div class="clearfix"></div>
+                <div class="tabList">
+                    <ul>
+                        <li rel="stylist-list" class="active">
+                            <a>发型师</a>
+                        </li>
+                        <li rel="goods-list">
+                            <a>商品</a>
+                        </li>
+                        <li rel="comment-list">
+                            <a>评论</a>
+                        </li>
+                    </ul>
+                </div>
+                <div id="stylist-list" class="msgList">
+                    <div class="card-container">
+                    <?php foreach ($this->staffList as $staff): ?>
+                    <div class="card-list">
+                        <div class="card-list-inner">
+                            <div class="card-img">
+                                <a href="<?php echo $this->baseUrl('stylist/index/detail?stylist_id=' . $staff['UserId']); ?>">
+                                    <img src="<?php echo $staff['AvatarUrl']; ?>" onerror="this.src='<?php echo $this->config->asset->baseUrl; ?>/img/photo-default.png';" />
+                                </a>
+                            </div>
+                            <div class="card-info">
+                                <div class="username">
+                                    <strong>
+                                        <a href="<?php echo $this->baseUrl('stylist/index/detail?stylist_id=' . $staff['UserId']); ?>"><?php echo $staff['Nickname']; ?></a>
+                                    </strong>
+                                </div>
+                                <p class="card-info-first">沙龙：<?php echo $staff['Company']['Name']; ?></p>
+                                <div class="card-action-bar">
+                                    <ul>
+                                        <li><img src="<?php echo $this->config->asset->baseUrl; ?>/img/frontend/iconfont-chanpin.png"><span><?php echo $staff['WorkCount']; ?></span></li>
+                                        <li><img src="<?php echo $this->config->asset->baseUrl; ?>/img/frontend/iconfont-zan.png"><span><?php echo $staff['RateCount']; ?></span></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <?php endforeach; ?>
+                    </div>
+                </div>
+                <div id="goods-list" class="msgList" style="display: none;">
+                    <div class="card-container">
+                    <?php foreach ($this->goodsList as $goods): ?>
+                    <div class="card-list">
+                        <div class="card-list-inner">
+                            <div class="card-img">
+                                <a href="<?php echo $this->baseUrl('goods/index/detail?goods_id=' . $goods['GoodsId']); ?>">
+                                    <img src="<?php echo $goods['PictureUrl'][0]; ?>" onerror="this.src='<?php echo $this->config->asset->baseUrl; ?>/img/photo-default.png';" />
+                                </a>
+                            </div>
+                            <div class="card-info">
+                                <div class="username">
+                                    <strong>
+                                        <a href="<?php echo $this->baseUrl('goods/index/detail?goods_id=' . $goods['GoodsId']); ?>"><?php echo $goods['Name']; ?></a>
+                                    </strong>
+                                </div>
+                                <p class="card-info-first">价格：<?php echo $goods['SellPrice']; ?></p>
+                            </div>
+                        </div>
+                    </div>
+                    <?php endforeach; ?>
+                    </div>
+                </div>
+                <div id="comment-list" class="msgList" style="display: none;">
                     <ul>
                         <?php foreach ($this->comments as $comment): ?>
                         <li>
@@ -111,13 +177,13 @@
                 </div>
                 <div class="data">
                     <span class="count">
-                        <?php echo count($this->staffDetail['Works']); ?>发型师
+                        <?php echo count($this->staffList); ?>发型师
                     </span>
                     <span class="spacer">
                         |
                     </span>
                     <span class="count">
-                        <?php echo count($this->staffDetail['Services']); ?>商品
+                        <?php echo count($this->goodsList); ?>商品
                     </span>
                 </div>
             </div>
@@ -223,6 +289,7 @@ window.onload = function() {
     initMap();
     initShare();
     initLike();
+    initTab();
 }
 
 function initLike() {
@@ -308,6 +375,16 @@ function initShare() {
         }
     };
     with(document) 0[(getElementsByTagName('head')[0] || body).appendChild(createElement('script')).src = 'http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion=' + ~ ( - new Date() / 36e5)];
+}
+
+function initTab() {
+    $('.tabList li').click(function() {
+        $('.tabList li').removeClass('active');
+        $(this).addClass('active');
+
+        $('.msgList').hide();
+        $('#' + $(this).attr('rel')).fadeIn();
+    });
 }
 
 </script>
