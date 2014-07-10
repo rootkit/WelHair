@@ -59,7 +59,7 @@
                     </div>
                 </div>
                 <div class="picbox">
-                    <a href="<?php echo $this->baseUrl('goods/index/detail?goods_id=' . $goods['GoodsId']); ?>">
+                    <a href="<?php echo $this->baseUrl('goods/index/detail?goods_id=' . $goods['GoodsId'] . (isset($goods['Company']) ? '&company_id=' . $goods['Company']['CompanyId'] : '')); ?>">
                         <img src="<?php echo $goods['PictureUrl'][0]; ?>" onerror="this.src='<?php echo $this->config->asset->baseUrl; ?>/img/photo-default.png';" />
                     </a>
                 </div>

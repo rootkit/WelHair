@@ -49,6 +49,10 @@ class Stylist_IndexController extends AbstractFrontendController
 
     public function detailAction()
     {
+        $staffId = intval($this->_request->getParam('stylist_id'));
+        $this->view->staffDetail = StaffService::getStaffDetail($staffId, $this->currentUser['UserId'], $this->userContext->location);
+
+        $this->view->pageTitle = $this->view->staffDetail['Nickname'];
     }
 
 }

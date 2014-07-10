@@ -56,4 +56,13 @@ class Goods_IndexController extends AbstractFrontendController
         }
     }
 
+    public function detailAction()
+    {
+        $goodsId = intval($this->_request->getParam('goods_id'));
+        $companyId = intval($this->_request->getParam('company_id'));
+        $this->view->goodsDetail = GoodsService::getGoodsDetail($goodsId, $companyId, $this->currentUser['UserId'], $this->userContext->location);
+
+        $this->view->pageTitle = $this->view->goodsDetail['Name'];
+    }
+
 }

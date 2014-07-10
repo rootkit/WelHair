@@ -1,0 +1,314 @@
+<div class="projects">
+    <div class="row">
+        <div class="side_left span65">
+            <div class="sideitem">
+                <div id="tbody">
+                    <div id="mainbody">
+                        <img src="<?php echo $this->staffDetail['ProfileBackgroundUrl'][0]; ?>" width="100%" id="mainphoto" />
+                    </div>
+                    <img src="<?php echo $this->config->asset->baseUrl; ?>/img/frontend/goleft.gif" width="11" height="56" id="goleft" />
+                    <img src="<?php echo $this->config->asset->baseUrl; ?>/img/frontend/goright.gif" width="11" height="56" id="goright" />
+                    <div id="photos">
+                        <div id="showArea">
+                            <?php foreach ($this->staffDetail['ProfileBackgroundUrl'] as $pic): ?>
+                            <img src="<?php echo str_replace('480x480', '110x110', $pic); ?>" rel="<?php echo $pic; ?>" />
+                            <?php endforeach; ?>
+                        </div>
+                    </div>
+                    <div id="maincontent">
+                    </div>
+                </div>
+                <div class="salonaddress">
+                    <h2>
+                        <span>
+                            沙龙位置
+                        </span>
+                    </h2>
+                    <ul class="clearfix">
+                        <li class="addressmap">
+                            <input id="latitude" type="hidden" name="latitude" value="<?php echo doubleval($this->staffDetail['Company']['Latitude']); ?>" />
+                            <input id="longitude" type="hidden" name="longitude" value="<?php echo doubleval($this->staffDetail['Company']['Longitude']); ?>" />
+                            <div id="company-map" class="map"></div>
+                        </li>
+                        <li class="addresscontent">
+                            <h3>
+                                <?php echo $this->staffDetail['Company']['Name']; ?>
+                            </h3>
+                            <p>
+                                地址：<?php echo $this->staffDetail['Company']['Address']; ?>
+                            </p>
+                            <p>
+                                电话：<?php echo empty($this->staffDetail['Company']['Mobile']) ? $this->staffDetail['Company']['Tel'] : $this->staffDetail['Company']['Mobile']; ?>
+                            </p>
+                        </li>
+                    </ul>
+                </div>
+                <div class="sidefunc" style="background: #f8f8f8;">
+                    <div class="share">
+                        <div class="bdsharebuttonbox">
+                            <a href="#" class="bds_more" data-cmd="more"></a>
+                            <a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a>
+                            <a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+                            <a href="#" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博"></a>
+                            <a href="#" class="bds_renren" data-cmd="renren" title="分享到人人网"></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+                <?php if (count($this->staffDetail['Services']) > 0): ?>
+                <div class="salonaddress">
+                    <h2>
+                        <span>
+                            服务项目
+                        </span>
+                    </h2>
+                    <div style="padding: 10px;">
+                      <table class="m-table">
+                        <thead>
+                            <tr>
+                                <th>服务名称</th>
+                                <th>原价</th>
+                                <th>现价</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php foreach ($this->staffDetail['Services'] as $data): ?>
+                            <tr>
+                                <td>
+                                    <?php echo $data['Title']; ?>
+                                </td>
+                                <td class="col-center">
+                                    ￥<?php echo number_format($data['OldPrice'], 2); ?>
+                                </td>
+                                <td class="col-center">
+                                    ￥<?php echo number_format($data['Price'], 2); ?>
+                                </td>
+                            </tr>
+                            <?php endforeach; ?>
+                        </tbody>
+                    </table>
+                  </div>
+                </div>
+                <?php endif; ?>
+                <div class="salonaddress">
+                    <h2>
+                        <span>
+                            作品
+                        </span>
+                    </h2>
+                </div>
+                <div id="hair-list" class="msgList break-bottom">
+                    <?php foreach ($this->staffDetail['Works'] as $work): ?>
+                    <div class="span20-8">
+                        <div class="col-md-3 box_shadow clearfix">
+                            <div class="picbox">
+                                <a href="<?php echo $this->baseUrl('hair/index/detail?hair_id=' . $work['WorkId']); ?>">
+                                    <img src="<?php echo $work['PictureUrl'][0]; ?>" onerror="this.src='<?php echo $this->config->asset->baseUrl; ?>/img/photo-default.png';" />
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <?php endforeach; ?>
+                </div>
+            </div>
+        </div>
+        <div class="side_right span33">
+            <div class="c1">
+                <a href="#" class="avatar">
+                    <img src="<?php echo $this->staffDetail['AvatarUrl']; ?>" class="picimg">
+                    <span class="mask_side">
+                    </span>
+                </a>
+            </div>
+            <div class="c2">
+                <div class=" username">
+                    <a href="#">
+                        设计师：<?php echo $this->staffDetail['Nickname']; ?>
+                    </a>
+                </div>
+                <div class=" opt">
+                    <a href="#" class=" btn btn2_xl btn2_l">
+                        <span class="t">
+                            预约
+                        </span>
+                    </a>
+                    <a id="staff_like" data-staff-id="<?php echo $this->staffDetail['UserId']; ?>" href="#" class=" btn btn2_xl btn2_l btn2_1_l">
+                        <img src="<?php echo $this->config->asset->baseUrl; ?>/img/frontend/heart<?php echo $this->staffDetail['IsLiked'] ? '_red' : ''; ?>.png" class="ico">
+                        <span class="t">
+                            收藏
+                        </span>
+                    </a>
+                </div>
+                <div class="data">
+                    <span class="count">
+                        <?php echo count($this->staffDetail['Works']); ?>作品
+                    </span>
+                    <span class="spacer">
+                        |
+                    </span>
+                    <span class="count">
+                        <?php echo count($this->staffDetail['Services']); ?>服务项目
+                    </span>
+                </div>
+            </div>
+            <div class="c3">
+                <div class="salonna">
+                    沙龙名称：
+                    <a href="<?php echo $this->baseUrl('salon/index/detail?salon_id=' . $this->staffDetail['Company']['CompanyId']); ?>">
+                        <?php echo $this->staffDetail['Company']['Name']; ?>
+                    </a>
+                </div>
+                <div class="saloninfo">
+                    <h3>
+                        发型师简介
+                    </h3>
+                    <p>
+                        这家伙什么都没留下...
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&amp;ak=3998daac6ca53a8067263f139b4aadf4"></script>
+<script>
+var browse = window.navigator.appName.toLowerCase();
+var MyMar;
+var speed = 1; //速度，越大越慢
+var spec = 1; //每次滚动的间距, 越大滚动越快
+var minOpa = 50; //滤镜最小值
+var maxOpa = 100; //滤镜最大值
+var spa = 2; //缩略图区域补充数值
+var w = 0;
+spec = (browse.indexOf("microsoft") > -1) ? spec: ((browse.indexOf("opera") > -1) ? spec * 10 : spec * 20);
+function getById(e) {
+    return document.getElementById(e);
+}
+function goleft() {
+    getById('photos').scrollLeft -= spec;
+}
+function goright() {
+    getById('photos').scrollLeft += spec;
+}
+function setOpacity(e, n) {
+    if (browse.indexOf("microsoft") > -1) e.style.filter = 'alpha(opacity=' + n + ')';
+    else e.style.opacity = n / 100;
+}
+getById('goleft').style.cursor = 'pointer';
+getById('goright').style.cursor = 'pointer';
+getById('mainphoto').onmouseover = function() {
+    setOpacity(this, maxOpa);
+}
+getById('mainphoto').onmouseout = function() {
+    setOpacity(this, minOpa);
+}
+getById('goleft').onmouseover = function() {
+    this.src = '<?php echo $this->config->asset->baseUrl; ?>/img/frontend/goleft2.gif';
+    MyMar = setInterval(goleft, speed);
+}
+getById('goleft').onmouseout = function() {
+    this.src = '<?php echo $this->config->asset->baseUrl; ?>/img/frontend/goleft.gif';
+    clearInterval(MyMar);
+}
+getById('goright').onmouseover = function() {
+    this.src = '<?php echo $this->config->asset->baseUrl; ?>/img/frontend/goright2.gif';
+    MyMar = setInterval(goright, speed);
+}
+getById('goright').onmouseout = function() {
+    this.src = '<?php echo $this->config->asset->baseUrl; ?>/img/frontend/goright.gif';
+    clearInterval(MyMar);
+}
+window.onload = function() {
+    setOpacity(getById('mainphoto'), minOpa);
+    var rHtml = '';
+    var p = getById('showArea').getElementsByTagName('img');
+    for (var i = 0; i < p.length; i++) {
+        w += parseInt(p[i].getAttribute('width')) + spa;
+        setOpacity(p[i], minOpa);
+        p[i].onmouseover = function() {
+            setOpacity(this, maxOpa);
+            getById('mainphoto').src = this.getAttribute('rel');
+            getById('mainphoto').setAttribute('name', this.getAttribute('name'));
+            setOpacity(getById('mainphoto'), maxOpa);
+        }
+        p[i].onmouseout = function() {
+            setOpacity(this, minOpa);
+            setOpacity(getById('mainphoto'), minOpa);
+        }
+        rHtml += '<img src="' + p[i].getAttribute('rel') + '" width="0" height="0" alt="" />';
+    }
+    getById('showArea').style.width = parseInt(w) + 'px';
+    var rLoad = document.createElement("div");
+    getById('photos').appendChild(rLoad);
+    rLoad.style.width = "1px";
+    rLoad.style.height = "1px";
+    rLoad.style.overflow = "hidden";
+    rLoad.innerHTML = rHtml;
+
+    initMap();
+    initShare();
+    initLike();
+    initTab();
+}
+
+function initLike() {
+    $('#staff_like').click(function() {
+        var btn = $(this);
+
+        var liked = btn.find('img').attr('src').indexOf('_red') > 0;
+        if (liked) {
+            btn.find('img').attr('src', '<?php echo $this->config->asset->baseUrl; ?>/img/frontend/heart.png');
+        } else {
+            btn.find('img').attr('src', '<?php echo $this->config->asset->baseUrl; ?>/img/frontend/heart_red.png');
+        }
+
+        var opts = {
+            type: "GET",
+            url: '/ajax/staff/like',
+            contentType: "application/json",
+            data: "staff_id=" + btn.attr('data-staff-id') + '&' + "is_like=" + (liked ? 0 : 1),
+            success: function(data) {
+
+            }
+        };
+        $.ajax(opts);
+
+        return false;
+    });
+}
+
+function initMap() {
+  var map = new BMap.Map('company-map');
+  var point = new BMap.Point(document.getElementById('longitude').value, document.getElementById('latitude').value);
+  map.centerAndZoom(point, 15);
+
+  var marker = new BMap.Marker(point, {
+      enableMassClear: false,
+      raiseOnDrag: false
+  });
+
+  map.addOverlay(marker);
+}
+
+function initShare() {
+    window._bd_share_config = {
+        "common": {
+            "bdSnsKey": {},
+            "bdText": "很好的哦",
+            "bdMini": "2",
+            "bdMiniList": false,
+            "bdPic": "",
+            "bdStyle": "2",
+            "bdSize": "24"
+        },
+        "share": {},
+        "selectShare": {
+            "bdContainerClass": null,
+            "bdSelectMiniList": ["qzone", "tsina", "tqq", "renren", "weixin"]
+        }
+    };
+    with(document) 0[(getElementsByTagName('head')[0] || body).appendChild(createElement('script')).src = 'http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion=' + ~ ( - new Date() / 36e5)];
+}
+
+</script>
