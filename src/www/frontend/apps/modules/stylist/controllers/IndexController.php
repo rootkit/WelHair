@@ -52,6 +52,12 @@ class Stylist_IndexController extends AbstractFrontendController
         $staffId = intval($this->_request->getParam('stylist_id'));
         $this->view->staffDetail = StaffService::getStaffDetail($staffId, $this->currentUser['UserId'], $this->userContext->location);
 
+        if (!isset($this->view->staffDetail['ProfileBackgroundUrl'])) {
+            $this->view->staffDetail['ProfileBackgroundUrl'] = array(
+                 $this->config->asset->baseUrl . '/img/photo-default.png'
+            );
+        }
+
         $this->view->pageTitle = $this->view->staffDetail['Nickname'];
     }
 

@@ -127,7 +127,7 @@
                     </a>
                 </div>
                 <div class="opt">
-                    <a<?php echo $this->currentUser ? ' id="stylist_appointment" href="#"' : (' href="' . $this->baseUrl('user/auth/signin?continue=' . $this->continueUrl) . '"'); ?> class="btn btn2_xl btn2_l">
+                    <a<?php echo $this->currentUser ? ' id="stylist_appointment" href="#"' : (' href="' . $this->baseUrl('user/auth/signin?continue=' . $this->continueUrl) . '"'); ?> data-stylist-id="<?php echo $this->staffDetail['UserId']; ?>" class="btn btn2_xl btn2_l">
                         <span class="t">
                             预约
                         </span>
@@ -173,148 +173,15 @@
 
 <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&amp;ak=3998daac6ca53a8067263f139b4aadf4"></script>
 <script>
-var browse = window.navigator.appName.toLowerCase();
-var MyMar;
-var speed = 1; //速度，越大越慢
-var spec = 1; //每次滚动的间距, 越大滚动越快
-var minOpa = 50; //滤镜最小值
-var maxOpa = 100; //滤镜最大值
-var spa = 2; //缩略图区域补充数值
-var w = 0;
-spec = (browse.indexOf("microsoft") > -1) ? spec: ((browse.indexOf("opera") > -1) ? spec * 10 : spec * 20);
-function getById(e) {
-    return document.getElementById(e);
-}
-function goleft() {
-    getById('photos').scrollLeft -= spec;
-}
-function goright() {
-    getById('photos').scrollLeft += spec;
-}
-function setOpacity(e, n) {
-    if (browse.indexOf("microsoft") > -1) e.style.filter = 'alpha(opacity=' + n + ')';
-    else e.style.opacity = n / 100;
-}
-getById('goleft').style.cursor = 'pointer';
-getById('goright').style.cursor = 'pointer';
-getById('mainphoto').onmouseover = function() {
-    setOpacity(this, maxOpa);
-}
-getById('mainphoto').onmouseout = function() {
-    setOpacity(this, minOpa);
-}
-getById('goleft').onmouseover = function() {
-    this.src = '<?php echo $this->config->asset->baseUrl; ?>/img/frontend/goleft2.gif';
-    MyMar = setInterval(goleft, speed);
-}
-getById('goleft').onmouseout = function() {
-    this.src = '<?php echo $this->config->asset->baseUrl; ?>/img/frontend/goleft.gif';
-    clearInterval(MyMar);
-}
-getById('goright').onmouseover = function() {
-    this.src = '<?php echo $this->config->asset->baseUrl; ?>/img/frontend/goright2.gif';
-    MyMar = setInterval(goright, speed);
-}
-getById('goright').onmouseout = function() {
-    this.src = '<?php echo $this->config->asset->baseUrl; ?>/img/frontend/goright.gif';
-    clearInterval(MyMar);
-}
-window.onload = function() {
-    setOpacity(getById('mainphoto'), minOpa);
-    var rHtml = '';
-    var p = getById('showArea').getElementsByTagName('img');
-    for (var i = 0; i < p.length; i++) {
-        w += parseInt(p[i].getAttribute('width')) + spa;
-        setOpacity(p[i], minOpa);
-        p[i].onmouseover = function() {
-            setOpacity(this, maxOpa);
-            getById('mainphoto').src = this.getAttribute('rel');
-            getById('mainphoto').setAttribute('name', this.getAttribute('name'));
-            setOpacity(getById('mainphoto'), maxOpa);
-        }
-        p[i].onmouseout = function() {
-            setOpacity(this, minOpa);
-            setOpacity(getById('mainphoto'), minOpa);
-        }
-        rHtml += '<img src="' + p[i].getAttribute('rel') + '" width="0" height="0" alt="" />';
-    }
-    getById('showArea').style.width = parseInt(w) + 'px';
-    var rLoad = document.createElement("div");
-    getById('photos').appendChild(rLoad);
-    rLoad.style.width = "1px";
-    rLoad.style.height = "1px";
-    rLoad.style.overflow = "hidden";
-    rLoad.innerHTML = rHtml;
 
+window._bd_share_config.common.bdText = "<?php echo $this->staffDetail['Nickname']; ?>";
+
+initSlider();
+$(document).ready(function() {
+    initAppointment();
+    initLike();
     initMap();
     initShare();
-    initLike();
-    initAppointment();
-}
-
-function initLike() {
-    $('#stylist_like').click(function() {
-        var btn = $(this);
-
-        var liked = btn.find('img').attr('src').indexOf('_red') > 0;
-        if (liked) {
-            btn.find('img').attr('src', '<?php echo $this->config->asset->baseUrl; ?>/img/frontend/heart.png');
-        } else {
-            btn.find('img').attr('src', '<?php echo $this->config->asset->baseUrl; ?>/img/frontend/heart_red.png');
-        }
-
-        var opts = {
-            type: "GET",
-            url: '/ajax/stylist/like',
-            contentType: "application/json",
-            data: "stylist_id=" + btn.attr('data-stylist-id') + '&' + "is_like=" + (liked ? 0 : 1),
-            success: function(data) {
-
-            }
-        };
-        $.ajax(opts);
-
-        return false;
-    });
-}
-
-function initMap() {
-  var map = new BMap.Map('company-map');
-  var point = new BMap.Point(document.getElementById('longitude').value, document.getElementById('latitude').value);
-  map.centerAndZoom(point, 15);
-
-  var marker = new BMap.Marker(point, {
-      enableMassClear: false,
-      raiseOnDrag: false
-  });
-
-  map.addOverlay(marker);
-}
-
-function initShare() {
-    window._bd_share_config = {
-        "common": {
-            "bdSnsKey": {},
-            "bdText": "很好的哦",
-            "bdMini": "2",
-            "bdMiniList": false,
-            "bdPic": "",
-            "bdStyle": "2",
-            "bdSize": "24"
-        },
-        "share": {},
-        "selectShare": {
-            "bdContainerClass": null,
-            "bdSelectMiniList": ["qzone", "tsina", "tqq", "renren", "weixin"]
-        }
-    };
-    with(document) 0[(getElementsByTagName('head')[0] || body).appendChild(createElement('script')).src = 'http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion=' + ~ ( - new Date() / 36e5)];
-}
-
-function initAppointment() {
-    $('#stylist_appointment').click(function() {
-        $('<p></p>').dialog();
-    });
-}
+});
 
 </script>

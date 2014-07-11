@@ -1,0 +1,40 @@
+<div class="noti info">
+    请填写所有信息
+</div>
+<p>
+    <label>预约项目：</label>
+</p>
+<table class="m-table">
+    <thead>
+        <tr>
+            <th></th>
+            <th>服务名称</th>
+            <th>原价</th>
+            <th>现价</th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php foreach ($this->staffDetail['Services'] as $data): ?>
+        <tr>
+            <td class="col-center">
+                <input type="radio" name="service_id" value="<?php echo $data['ServiceId']; ?>"></td>
+            <td>
+                <?php echo $data['Title']; ?>
+            </td>
+            <td class="col-center">
+                ￥<?php echo number_format($data['OldPrice'], 2); ?>
+            </td>
+            <td class="col-center">
+                ￥<?php echo number_format($data['Price'], 2); ?>
+            </td>
+        </tr>
+        <?php endforeach; ?>
+    </tbody>
+</table>
+<br/>
+<p>
+    <label>预约时间：</label>
+</p>
+<p>
+    <input name="appointment_date" type="text" value="" datatype="*" class="u-ipt datetime">
+</p>

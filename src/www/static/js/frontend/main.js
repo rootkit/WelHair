@@ -170,6 +170,32 @@ WF = {
             fillAreaSel($(this).val(), $('#sel-district'));
         });
     },
+    initAppintmentForm: function(stylistId, target) {
+        var btnTrigger = window;
+        if (btnTrigger.inAjax) {
+            return;
+        }
+
+        btnTrigger.inAjax = true;
+
+        $.ajax({
+            type: 'get',
+            dataType: 'json',
+            url: '/ajax/appointment/form',
+            data: {
+                'stylist_id': stylistId,
+                'format': 'html'
+            },
+            complete: function(data) {
+                btnTrigger.inAjax = false;
+                target.html(data.responseText);
+                target.find('.datetime').datetimepicker({
+                    timeFormat: "HH:mm",
+                    dateFormat: "yy-mm-dd"
+                });
+            }
+        });
+    },
     getImageSize: function(imgSrc, imgLoaded) {
         var newImg = new Image();
         $(newImg).load(function(){
@@ -188,6 +214,284 @@ WF = {
         });
     }
 };
+
+function initMap() {
+  var map = new BMap.Map('company-map');
+  var point = new BMap.Point(document.getElementById('longitude').value, document.getElementById('latitude').value);
+  map.centerAndZoom(point, 15);
+
+  var marker = new BMap.Marker(point, {
+      enableMassClear: false,
+      raiseOnDrag: false
+  });
+
+  map.addOverlay(marker);
+}
+
+function initAppointment() {
+    $('#stylist_appointment').click(function() {
+        var stylistId = $(this).attr('data-stylist-id');
+
+        var popup = $('<div class="popup-container"></div>');
+        popup.dialog({
+            title: '预约',
+            width: 600,
+            height: 470,
+            modal: true,
+            resizable: 'disable',
+            show: {
+                effect: "fade",
+                duration: 1000
+            },
+            hide: {
+                effect: "fade",
+                duration: 200
+            },
+            buttons: [
+            {
+                text: '预约',
+                click: function () {
+                    if (!(popup.find('input[name=service_id]').val()) > 0 || $.trim(popup.find('input[name=appointment_date]').val()) == '') {
+                        popup.find('.noti').text('请选择所有信息');
+                        return;
+                    }
+
+                    if (window.inAjax) {
+                        return;
+                    }
+
+                    popup.find('.noti').text('加载中 ...');
+                    window.inAjax = 1;
+
+                    $.ajax({
+                        type: "post",
+                        url: '/ajax/appointment',
+                        data: {
+                            stylist_id: stylistId,
+                            service_id: popup.find('input[name=service_id]').val(),
+                            date: popup.find('input[name=appointment_date]').val()
+                        },
+                        success: function (data) {
+                            window.inAjax = 0;
+
+                            if (data.success) {
+                                popup.dialog('close');
+                                WF.showMessage('success', '信息', '添加预约成功');
+                            } else {
+                                popup.find('.noti').text(data.message);
+                            }
+                        },
+                        complete: function (XMLHttpRequest, textStatus) {
+                            window.inAjax = 0;
+                        },
+                        error: function () {
+                            window.inAjax = 0;
+                        }
+                    });
+                }
+            }],
+            open: function () {
+                WF.initAppintmentForm(stylistId, popup);
+            },
+            close: function() {
+                popup.dialog('destroy').remove();
+            }
+        });
+
+        return false;
+    });
+}
+
+function initSlider() {
+    var browse = window.navigator.appName.toLowerCase();
+    var MyMar;
+    var speed = 1; //速度，越大越慢
+    var spec = 1; //每次滚动的间距, 越大滚动越快
+    var minOpa = 50; //滤镜最小值
+    var maxOpa = 100; //滤镜最大值
+    var spa = 2; //缩略图区域补充数值
+    var w = 0;
+    spec = (browse.indexOf("microsoft") > -1) ? spec: ((browse.indexOf("opera") > -1) ? spec * 10 : spec * 20);
+    function getById(e) {
+        return document.getElementById(e);
+    }
+    function goleft() {
+        getById('photos').scrollLeft -= spec;
+    }
+    function goright() {
+        getById('photos').scrollLeft += spec;
+    }
+    function setOpacity(e, n) {
+        if (browse.indexOf("microsoft") > -1) e.style.filter = 'alpha(opacity=' + n + ')';
+        else e.style.opacity = n / 100;
+    }
+    getById('goleft').style.cursor = 'pointer';
+    getById('goright').style.cursor = 'pointer';
+    getById('mainphoto').onmouseover = function() {
+        setOpacity(this, maxOpa);
+    }
+    getById('mainphoto').onmouseout = function() {
+        setOpacity(this, minOpa);
+    }
+    getById('goleft').onmouseover = function() {
+        this.src = globalSetting.staticAssetBaseUrl + '/img/frontend/goleft2.gif';
+        MyMar = setInterval(goleft, speed);
+    }
+    getById('goleft').onmouseout = function() {
+        this.src = globalSetting.staticAssetBaseUrl + '/img/frontend/goleft.gif';
+        clearInterval(MyMar);
+    }
+    getById('goright').onmouseover = function() {
+        this.src = globalSetting.staticAssetBaseUrl + '/img/frontend/goright2.gif';
+        MyMar = setInterval(goright, speed);
+    }
+    getById('goright').onmouseout = function() {
+        this.src = globalSetting.staticAssetBaseUrl + '/img/frontend/goright.gif';
+        clearInterval(MyMar);
+    }
+
+    $(document).ready(function() {
+        setOpacity(getById('mainphoto'), minOpa);
+        var rHtml = '';
+        var p = getById('showArea').getElementsByTagName('img');
+        for (var i = 0; i < p.length; i++) {
+            w += parseInt(p[i].getAttribute('width')) + spa;
+            setOpacity(p[i], minOpa);
+            p[i].onmouseover = function() {
+                setOpacity(this, maxOpa);
+                getById('mainphoto').src = this.getAttribute('rel');
+                getById('mainphoto').setAttribute('name', this.getAttribute('name'));
+                setOpacity(getById('mainphoto'), maxOpa);
+            }
+            p[i].onmouseout = function() {
+                setOpacity(this, minOpa);
+                setOpacity(getById('mainphoto'), minOpa);
+            }
+            rHtml += '<img src="' + p[i].getAttribute('rel') + '" width="0" height="0" alt="" />';
+        }
+        getById('showArea').style.width = parseInt(w) + 'px';
+        var rLoad = document.createElement("div");
+        getById('photos').appendChild(rLoad);
+        rLoad.style.width = "1px";
+        rLoad.style.height = "1px";
+        rLoad.style.overflow = "hidden";
+        rLoad.innerHTML = rHtml;
+    });
+}
+
+function initTab() {
+    $('.tabList li').click(function() {
+        $('.tabList li').removeClass('active');
+        $(this).addClass('active');
+
+        $('.msgList').hide();
+        $('#' + $(this).attr('rel')).fadeIn();
+    });
+}
+
+function initLike() {
+    $('#hair_like').click(function() {
+        var btn = $(this);
+
+        var liked = btn.find('img').attr('src').indexOf('_red') > 0;
+        if (liked) {
+            btn.find('img').attr('src', globalSetting.staticAssetBaseUrl + '/img/frontend/heart.png');
+            btn.find('p').text(parseInt(btn.find('p').text()) - 1);
+        } else {
+            btn.find('img').attr('src', globalSetting.staticAssetBaseUrl + '/img/frontend/heart_red.png');
+            btn.find('p').text(parseInt(btn.find('p').text()) + 1);
+        }
+
+        var opts = {
+            type: "GET",
+            url: '/ajax/hair/like',
+            contentType: "application/json",
+            data: "work_id=" + btn.attr('data-hair-id') + '&' + "is_like=" + (liked ? 0 : 1),
+            success: function(data) {
+
+            }
+        };
+        $.ajax(opts);
+
+        return false;
+    });
+
+    $('#stylist_like').click(function() {
+        var btn = $(this);
+
+        var liked = btn.find('img').attr('src').indexOf('_red') > 0;
+        if (liked) {
+            btn.find('img').attr('src', globalSetting.staticAssetBaseUrl + '/img/frontend/heart.png');
+        } else {
+            btn.find('img').attr('src', globalSetting.staticAssetBaseUrl + '/img/frontend/heart_red.png');
+        }
+
+        var opts = {
+            type: "GET",
+            url: '/ajax/stylist/like',
+            contentType: "application/json",
+            data: "stylist_id=" + btn.attr('data-stylist-id') + '&' + "is_like=" + (liked ? 0 : 1),
+            success: function(data) {
+
+            }
+        };
+        $.ajax(opts);
+
+        return false;
+    });
+
+    $('#goods_like').click(function() {
+        var btn = $(this);
+
+        var liked = btn.find('img').attr('src').indexOf('_red') > 0;
+        if (liked) {
+            btn.find('img').attr('src', globalSetting.staticAssetBaseUrl + '/img/frontend/heart.png');
+        } else {
+            btn.find('img').attr('src', globalSetting.staticAssetBaseUrl + '/img/frontend/heart_red.png');
+        }
+
+        var opts = {
+            type: "GET",
+            url: '/ajax/goods/like',
+            contentType: "application/json",
+            data: "goods_id=" + btn.attr('data-goods-id') + '&' + "is_like=" + (liked ? 0 : 1),
+            success: function(data) {
+
+            }
+        };
+        $.ajax(opts);
+
+        return false;
+    });
+
+    $('#salon_like').click(function() {
+        var btn = $(this);
+
+        var liked = btn.find('img').attr('src').indexOf('_red') > 0;
+        if (liked) {
+            btn.find('img').attr('src', globalSetting.staticAssetBaseUrl + '/img/frontend/heart.png');
+        } else {
+            btn.find('img').attr('src', globalSetting.staticAssetBaseUrl + '/img/frontend/heart_red.png');
+        }
+
+        var opts = {
+            type: "GET",
+            url: '/ajax/salon/like',
+            contentType: "application/json",
+            data: "salon_id=" + btn.attr('data-salon-id') + '&' + "is_like=" + (liked ? 0 : 1),
+            success: function(data) {
+
+            }
+        };
+        $.ajax(opts);
+
+        return false;
+    });
+}
+
+function initShare() {
+    with(document) 0[(getElementsByTagName('head')[0] || body).appendChild(createElement('script')).src = 'http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion=' + ~ ( - new Date() / 36e5)];
+}
 
 $(document).ready(function() {
     WF.init(globalSetting);
