@@ -121,18 +121,18 @@
                 </a>
             </div>
             <div class="c2">
-                <div class=" username">
+                <div class="username">
                     <a href="#">
                         设计师：<?php echo $this->staffDetail['Nickname']; ?>
                     </a>
                 </div>
-                <div class=" opt">
-                    <a href="#" class=" btn btn2_xl btn2_l">
+                <div class="opt">
+                    <a<?php echo $this->currentUser ? ' id="stylist_appointment" href="#"' : (' href="' . $this->baseUrl('user/auth/signin?continue=' . $this->continueUrl) . '"'); ?> class="btn btn2_xl btn2_l">
                         <span class="t">
                             预约
                         </span>
                     </a>
-                    <a id="stylist_like" data-stylist-id="<?php echo $this->staffDetail['UserId']; ?>" href="#" class=" btn btn2_xl btn2_l btn2_1_l">
+                    <a<?php echo $this->currentUser ? ' id="stylist_like" href="#"' : (' href="' . $this->baseUrl('user/auth/signin?continue=' . $this->continueUrl) . '"'); ?> data-stylist-id="<?php echo $this->staffDetail['UserId']; ?>" href="#" class="btn btn2_xl btn2_l btn2_1_l">
                         <img src="<?php echo $this->config->asset->baseUrl; ?>/img/frontend/heart<?php echo $this->staffDetail['IsLiked'] ? '_red' : ''; ?>.png" class="ico">
                         <span class="t">
                             收藏
@@ -249,7 +249,7 @@ window.onload = function() {
     initMap();
     initShare();
     initLike();
-    initTab();
+    initAppointment();
 }
 
 function initLike() {
@@ -309,6 +309,12 @@ function initShare() {
         }
     };
     with(document) 0[(getElementsByTagName('head')[0] || body).appendChild(createElement('script')).src = 'http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion=' + ~ ( - new Date() / 36e5)];
+}
+
+function initAppointment() {
+    $('#stylist_appointment').click(function() {
+        $('<p></p>').dialog();
+    });
 }
 
 </script>

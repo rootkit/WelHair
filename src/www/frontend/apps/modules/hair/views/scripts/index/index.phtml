@@ -64,12 +64,12 @@
             <div class="col-md-3 box_shadow clearfix">
                 <div class="userBox">
                     <div class=" userPic">
-                        <a href="#"><img src="<?php echo $work['Staff']['AvatarUrl']; ?>"></a>
+                        <a href="<?php echo $this->baseUrl('stylist/index/detail?stylist_id=' . $work['Staff']['UserId']); ?>"><img src="<?php echo $work['Staff']['AvatarUrl']; ?>"></a>
                     </div>
                     <div class="pannel">
                         <div class="username">
                             <strong>
-                                <a href="#"><?php echo $work['Staff']['Nickname']; ?></a>
+                                <a href="<?php echo $this->baseUrl('stylist/index/detail?stylist_id=' . $work['Staff']['UserId']); ?>"><?php echo $work['Staff']['Nickname']; ?></a>
                             </strong>
                         </div>
                         <div class="usersalon">沙龙名：<?php echo $work['Staff']['Company']['Name']; ?></div>

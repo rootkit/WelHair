@@ -176,7 +176,7 @@
                     </a>
                 </div>
                 <div class="opt">
-                    <a id="salon_like" data-salon-id="<?php echo $this->companyDetail['CompanyId']; ?>" href="#" class=" btn btn2_xl btn2_l btn2_1_l">
+                    <a<?php echo $this->currentUser ? ' id="salon_like" href="#"' : (' href="' . $this->baseUrl('user/auth/signin?continue=' . $this->continueUrl) . '"'); ?> data-salon-id="<?php echo $this->companyDetail['CompanyId']; ?>" class=" btn btn2_xl btn2_l btn2_1_l">
                         <img src="<?php echo $this->config->asset->baseUrl; ?>/img/frontend/heart<?php echo $this->companyDetail['IsLiked'] ? '_red' : ''; ?>.png" class="ico">
                         <span class="t">
                             收藏

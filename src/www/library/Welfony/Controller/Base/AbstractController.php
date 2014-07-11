@@ -57,6 +57,8 @@ class AbstractController extends \Zend_Controller_Action
 
         $this->config = \Zend_Registry::get('config');
         $this->view->config = $this->config;
+
+        $this->view->continueUrl = str_replace($this->view->baseUrl(), '', $this->_request->getRequestUri());
     }
 
     protected function refreshCurrentUser()
@@ -94,8 +96,7 @@ class AbstractController extends \Zend_Controller_Action
 
     protected function gotoLogin($noContinue = false)
     {
-        $continue = str_replace($this->view->baseUrl(), '', $this->_request->getRequestUri());
-        $this->_redirect(self::$loginUrl . ($noContinue || $continue == '/' ? '' : '?continue=' . $continue));
+        $this->_redirect(self::$loginUrl . ($noContinue || $continue == '/' ? '' : '?continue=' . $this->view->continueUrl));
     }
 
     protected function renderPager($url, $pageNumber, $pageCount, $ajaxfunc = '')
