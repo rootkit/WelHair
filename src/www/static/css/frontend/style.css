@@ -2822,3 +2822,56 @@ button.u-btn-sm {
     margin-bottom: 10px;
     background: #eee;
 }
+
+.tb-stock {
+    position: relative;
+    display: inline;
+    float: left;
+}
+
+.tb-stock a, .tb-stock a:hover {
+    display: block;
+    float: left;
+    width: 26px;
+    height: 26px;
+    border: 1px solid #ccc;
+    line-height: 26px;
+    padding: 0;
+    vertical-align: top;
+    text-align: center;
+    background-color: #ededed;
+    overflow: hidden;
+}
+
+.tb-stock .tb-reduce {
+    border-right: 0!important;
+}
+
+.tb-stock input {
+    display: inline;
+    float: left;
+    margin: 0;
+    padding: 0;
+    width: 48px;
+    height: 26px;
+    font-size: 16px;
+    line-height: 26px;
+    text-align: center;
+    color: #666;
+    border: 1px solid #ccc;
+    outline: 0;
+    background: #fff;
+    ime-mode: disabled;
+    border-right: none;
+}
+
+.price-panel {
+    float: left;
+    padding: 10px;
+    line-height: 20px;
+}
+
+.price-panel .price, .goods-price {
+    font-size: 24px;
+    color: red;
+}

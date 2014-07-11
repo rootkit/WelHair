@@ -61,39 +61,7 @@ WF = {
             }
         );
 
-        $('.u-btns.enable').find('span').click(function() {
-            var cur = $(this);
-            var group = cur.parent();
-
-            if (group.attr('data-type') == 'radio') {
-                group.find('span').each(function() {
-                    var el = $(this);
-                    if (el.get(0) == cur.get(0)) {
-                        el.removeClass('u-btn-c4').addClass('u-btn-c3');
-                    } else {
-                        el.removeClass('u-btn-c3').addClass('u-btn-c4');
-                    }
-                });
-
-                group.find('input[type=hidden]').val(cur.attr('data-value'));
-            }
-
-            if (group.attr('data-type') == 'checkbox') {
-                if (cur.hasClass('u-btn-c3')) {
-                    cur.removeClass('u-btn-c3').addClass('u-btn-c4');
-                } else {
-                    cur.removeClass('u-btn-c4').addClass('u-btn-c3');
-                }
-
-                var values = [];
-                group.find('span.u-btn-c3').each(function() {
-                    var el = $(this);
-                    values.push(el.attr('data-value'));
-                });
-
-                group.find('input[type=hidden]').val(values.join(','));
-            }
-        });
+        initButtonSet($('body'));
 
         $.datepicker.regional['zh-CN'] = {
             closeText: '关闭',
@@ -196,6 +164,32 @@ WF = {
             }
         });
     },
+    initOrderForm: function(goodsId, companyId, target) {
+        var btnTrigger = window;
+        if (btnTrigger.inAjax) {
+            return;
+        }
+
+        btnTrigger.inAjax = true;
+
+        $.ajax({
+            type: 'get',
+            dataType: 'json',
+            url: '/ajax/order/form',
+            data: {
+                'goods_id': goodsId,
+                'company_id': companyId,
+                'format': 'html'
+            },
+            complete: function(data) {
+                btnTrigger.inAjax = false;
+                target.html(data.responseText);
+
+                initButtonSet($('.popup-container'));
+                $('.price-panel .price').html(parseFloat($('input[name=signle_price]').val()) + 10);
+            }
+        });
+    },
     getImageSize: function(imgSrc, imgLoaded) {
         var newImg = new Image();
         $(newImg).load(function(){
@@ -226,6 +220,118 @@ function initMap() {
   });
 
   map.addOverlay(marker);
+}
+
+function initOrder() {
+    $('#goods_order').click(function() {
+        var goodsId = $(this).attr('data-goods-id');
+        var companyId = $(this).attr('data-company-id');
+
+        var popup = $('<div class="popup-container"></div>');
+        popup.dialog({
+            title: '下单',
+            width: 600,
+            height: 470,
+            modal: true,
+            resizable: 'disable',
+            show: {
+                effect: "fade",
+                duration: 1000
+            },
+            hide: {
+                effect: "fade",
+                duration: 200
+            },
+            buttons: [
+            {
+                text: '确定下单',
+                click: function () {
+                    // if (!(popup.find('input[name=service_id]').val()) > 0 || $.trim(popup.find('input[name=appointment_date]').val()) == '') {
+                    //     popup.find('.noti').text('请选择所有信息');
+                    //     return;
+                    // }
+
+                    if (window.inAjax) {
+                        return;
+                    }
+
+                    popup.find('.noti').text('加载中 ...');
+                    window.inAjax = 1;
+
+                    $.ajax({
+                        type: "post",
+                        url: '/ajax/order',
+                        data: {
+                            goods_id: goodsId,
+                            company_id: companyId
+                        },
+                        success: function (data) {
+                            window.inAjax = 0;
+
+                            if (data.success) {
+                                popup.dialog('close');
+                                WF.showMessage('success', '信息', '购买商品成功');
+                            } else {
+                                popup.find('.noti').text(data.message);
+                            }
+                        },
+                        complete: function (XMLHttpRequest, textStatus) {
+                            window.inAjax = 0;
+                        },
+                        error: function () {
+                            window.inAjax = 0;
+                        }
+                    });
+                }
+            }],
+            open: function () {
+                WF.initOrderForm(goodsId, companyId, popup);
+
+                $('.ui-dialog-buttonpane').prepend('<div class="price-panel">订单总价<span class="price"></span>元</div>');
+            },
+            close: function() {
+                popup.dialog('destroy').remove();
+            }
+        });
+
+        return false;
+    });
+}
+
+function initButtonSet(parent) {
+    parent.find('.u-btns.enable').find('span').click(function() {
+        var cur = $(this);
+        var group = cur.parent();
+
+        if (group.attr('data-type') == 'radio') {
+            group.find('span').each(function() {
+                var el = $(this);
+                if (el.get(0) == cur.get(0)) {
+                    el.removeClass('u-btn-c4').addClass('u-btn-c5');
+                } else {
+                    el.removeClass('u-btn-c5').addClass('u-btn-c4');
+                }
+            });
+
+            group.find('input[type=hidden]').val(cur.attr('data-value'));
+        }
+
+        if (group.attr('data-type') == 'checkbox') {
+            if (cur.hasClass('u-btn-c5')) {
+                cur.removeClass('u-btn-c5').addClass('u-btn-c4');
+            } else {
+                cur.removeClass('u-btn-c4').addClass('u-btn-c5');
+            }
+
+            var values = [];
+            group.find('span.u-btn-c5').each(function() {
+                var el = $(this);
+                values.push(el.attr('data-value'));
+            });
+
+            group.find('input[type=hidden]').val(values.join(','));
+        }
+    });
 }
 
 function initAppointment() {

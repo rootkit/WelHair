@@ -139,7 +139,7 @@
                     </a>
                 </div>
                 <div class="opt">
-                    <a id="buy" href="#" class="btn btn2_xl btn2_l">
+                    <a<?php echo $this->currentUser ? ' id="goods_order" href="#"' : (' href="' . $this->baseUrl('user/auth/signin?continue=' . $this->continueUrl) . '"'); ?> data-goods-id="<?php echo $this->goodsDetail['GoodsId']; ?>" data-company-id="<?php echo isset($this->goodsDetail['Company']) ? $this->goodsDetail['Company']['CompanyId'] : 0; ?>" class="btn btn2_xl btn2_l">
                         <span class="t">
                             购买
                         </span>
@@ -190,6 +190,7 @@ $(document).ready(function() {
     initLike();
     initMap();
     initShare();
+    initOrder();
 });
 
 </script>

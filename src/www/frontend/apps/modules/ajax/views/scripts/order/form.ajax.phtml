@@ -1,0 +1,37 @@
+<div class="noti info">
+    请填写所有信息
+</div>
+<?php if (count($this->goodsDetail['Spec']) > 0): ?>
+<p>
+    <label>规格：</label>
+</p>
+<?php foreach ($this->goodsDetail['Spec'] as $spec):?>
+    <p class="clearfix" style="margin: 0 0 10px;">
+        <label style="line-height: 30px;float: left; color: #999;" data-spec-id="<?php echo $spec['SpecId']; ?>"><?php echo $spec['Title']; ?>：</label>
+        <span class="u-btns enable" data-type="radio">
+        <?php foreach ($spec['Values'] as $value): ?>
+        <span class="u-btn u-btn-c4"><?php echo $value['SpecValue']; ?></span>
+        <?php endforeach; ?>
+    </p>
+<?php endforeach; ?>
+<div style="margin: 30px 0;"></div>
+<?php endif; ?>
+
+<p>
+    <label>数量：</label>
+</p>
+<p class="clearfix">
+    <span class="tb-stock">
+        <a href="#" hidefocus="" class="tb-reduce iconfont">&#xf0176;</a>
+        <input type="text" class="tb-text" value="1" maxlength="8" title="请输入购买量">
+        <a href="#" hidefocus="" class="tb-increase iconfont">&#xf0175;</a>&nbsp;&nbsp;件
+    </span>
+</p>
+<div style="margin: 20px 0 10px;border-bottom: 1px dashed #ddd;"></div>
+<p class="clearfix">
+    <span style="float: left;padding-top: 11px;"><label>快递：</label>韵达快递 （默认10元）</span>
+    <span style="float: right;">商品总价：<span class="goods-price">
+        <?php echo floatval($this->goodsDetail['SellPrice']); ?>
+    </span>元</span>
+</p>
+<input type="hidden" value="<?php echo floatval($this->goodsDetail['SellPrice']); ?>" name="signle_price" />
