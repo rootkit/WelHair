@@ -169,7 +169,7 @@
                             $price = '￥' . number_format($priceList[0], 2);
                         }
                     } else {
-                        $price = '￥' . number_format(floatval($goodsDetail['SellPrice']), 2);
+                        $price = '￥' . number_format(floatval($this->goodsDetail['SellPrice']), 2);
                     }
                     ?>
                     <span style="font-size: 16px; font-weight: bold; color: red"><?php echo $price; ?></span>
