@@ -132,7 +132,7 @@
                             预约
                         </span>
                     </a>
-                    <a id="staff_like" data-staff-id="<?php echo $this->staffDetail['UserId']; ?>" href="#" class=" btn btn2_xl btn2_l btn2_1_l">
+                    <a id="stylist_like" data-stylist-id="<?php echo $this->staffDetail['UserId']; ?>" href="#" class=" btn btn2_xl btn2_l btn2_1_l">
                         <img src="<?php echo $this->config->asset->baseUrl; ?>/img/frontend/heart<?php echo $this->staffDetail['IsLiked'] ? '_red' : ''; ?>.png" class="ico">
                         <span class="t">
                             收藏
@@ -253,7 +253,7 @@ window.onload = function() {
 }
 
 function initLike() {
-    $('#staff_like').click(function() {
+    $('#stylist_like').click(function() {
         var btn = $(this);
 
         var liked = btn.find('img').attr('src').indexOf('_red') > 0;
@@ -265,9 +265,9 @@ function initLike() {
 
         var opts = {
             type: "GET",
-            url: '/ajax/staff/like',
+            url: '/ajax/stylist/like',
             contentType: "application/json",
-            data: "staff_id=" + btn.attr('data-staff-id') + '&' + "is_like=" + (liked ? 0 : 1),
+            data: "stylist_id=" + btn.attr('data-stylist-id') + '&' + "is_like=" + (liked ? 0 : 1),
             success: function(data) {
 
             }

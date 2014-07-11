@@ -1,0 +1,322 @@
+<div class="projects">
+    <div class="row">
+        <div class="side_left span65">
+            <div class="sideitem">
+                <div id="tbody">
+                    <div id="mainbody">
+                        <img src="<?php echo $this->goodsDetail['PictureUrl'][0]; ?>" width="100%" id="mainphoto" />
+                    </div>
+                    <img src="<?php echo $this->config->asset->baseUrl; ?>/img/frontend/goleft.gif" width="11" height="56" id="goleft" />
+                    <img src="<?php echo $this->config->asset->baseUrl; ?>/img/frontend/goright.gif" width="11" height="56" id="goright" />
+                    <div id="photos">
+                        <div id="showArea">
+                            <?php foreach ($this->goodsDetail['PictureUrl'] as $pic): ?>
+                            <img src="<?php echo str_replace('480x480', '110x110', $pic); ?>" rel="<?php echo $pic; ?>" />
+                            <?php endforeach; ?>
+                        </div>
+                    </div>
+                    <div id="maincontent">
+                    </div>
+                </div>
+                <?php if (isset($this->goodsDetail['Company'])): ?>
+                <div class="salonaddress">
+                    <h2>
+                        <span>
+                            沙龙位置
+                        </span>
+                    </h2>
+                    <ul>
+                        <li class="addressmap">
+                            <input id="latitude" type="hidden" name="latitude" value="<?php echo doubleval($this->goodsDetail['Company']['Latitude']); ?>" />
+                            <input id="longitude" type="hidden" name="longitude" value="<?php echo doubleval($this->goodsDetail['Company']['Longitude']); ?>" />
+                            <div id="company-map" class="map"></div>
+                        </li>
+                        <li class="addresscontent">
+                            <h3>
+                                <?php echo $this->goodsDetail['Company']['Name']; ?>
+                            </h3>
+                            <p>
+                                地址：<?php echo $this->goodsDetail['Company']['Address']; ?>
+                            </p>
+                            <p>
+                                电话：<?php echo empty($this->goodsDetail['Company']['Mobile']) ? $this->goodsDetail['Company']['Tel'] : $this->goodsDetail['Company']['Mobile']; ?>
+                            </p>
+                        </li>
+                    </ul>
+                </div>
+                <?php endif; ?>
+                <div class="sidefunc">
+                    <div class="share">
+                        <div class="bdsharebuttonbox">
+                            <a href="#" class="bds_more" data-cmd="more"></a>
+                            <a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a>
+                            <a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+                            <a href="#" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博"></a>
+                            <a href="#" class="bds_renren" data-cmd="renren" title="分享到人人网"></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+                <?php if (count($this->goodsDetail['Attributes']) > 0): ?>
+                <div class="salonaddress">
+                    <h2>
+                        <span>
+                            商品属性
+                        </span>
+                    </h2>
+                    <div style="padding: 10px;">
+                      <table class="m-table">
+                        <tbody>
+                            <?php for ($i = 0; $i < ceil(count($this->goodsDetail['Attributes']) / 2); $i++): ?>
+                            <tr>
+                                <th style="width: 100px">
+                                    <?php echo $this->goodsDetail['Attributes'][$i * 2]['Title']; ?>
+                                </th>
+                                <td<?php echo isset($this->goodsDetail['Attributes'][$i * 2 + 1]) ? '' : ' colspan="3"'; ?>>
+                                    <?php echo $this->goodsDetail['Attributes'][$i * 2]['Value']; ?>
+                                </td>
+                                <?php if (isset($this->goodsDetail['Attributes'][$i * 2 + 1])): ?>
+                                <th style="width: 100px">
+                                    <?php echo $this->goodsDetail['Attributes'][$i * 2 + 1]['Title']; ?>
+                                </th>
+                                <td>
+                                    <?php echo $this->goodsDetail['Attributes'][$i * 2 + 1]['Value']; ?>
+                                </td>
+                                <?php endif; ?>
+                            </tr>
+                            <?php endfor; ?>
+                        </tbody>
+                    </table>
+                  </div>
+                </div>
+                <?php endif; ?>
+                <div id="comment-list" class="msgList">
+                    <ul>
+                        <?php foreach ($this->comments as $comment): ?>
+                        <li>
+                            <div class="sideuser">
+                                <div class="userPic">
+                                    <a href="#" class="avatar">
+                                        <img src="<?php echo str_replace('480x480', '110x110', $comment['CreatedBy']['AvatarUrl']); ?>" />
+                                    </a>
+                                </div>
+                                <div class="pannel">
+                                    <div class="username">
+                                        <strong>
+                                            <a href="#">
+                                                <?php echo $comment['CreatedBy']['Nickname']; ?>
+                                            </a>
+                                        </strong>
+                                        <span class="date">
+                                            <?php echo date('m月d日 H:i', strtotime($comment['CreatedDate']));?>
+                                        </span>
+                                    </div>
+                                    <div class="mscontent">
+                                        <p>
+                                            <?php echo $comment['Body']; ?>
+                                        </p>
+                                        <div class="msconent-img">
+                                          <?php if(count($comment['PictureUrl']) > 0): ?>
+                                          <?php foreach ($comment['PictureUrl'] as $pic): ?>
+                                          <img src="<?php echo str_replace('480x480', '110x110', $pic); ?>" rel="<?php echo $pic; ?>" />
+                                          <?php endforeach; ?>
+                                          <?php endif; ?>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <?php endforeach; ?>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="side_right span33">
+            <div class="c2">
+                <div class="username">
+                    <a href="#">
+                        <?php echo $this->goodsDetail['Name']; ?>
+                    </a>
+                </div>
+                <div class="opt">
+                    <a id="buy" href="#" class="btn btn2_xl btn2_l">
+                        <span class="t">
+                            购买
+                        </span>
+                    </a>
+                    <a id="stylist_like" href="<?php echo $this->baseUrl('goods/index/content?goods_id=' . $this->goodsDetail['GoodsId']); ?>" class=" btn btn2_xl btn2_l btn2_1_l">
+                        <span class="t">
+                            图文详情
+                        </span>
+                    </a>
+                </div>
+            </div>
+            <div class="c3">
+                <div class="salonna">
+                    价格：
+                    <?php
+                    $priceList = array();
+                    if (isset($this->goodsDetail['Products']) && count($this->goodsDetail['Products'])) {
+                        foreach ($this->goodsDetail['Products'] as $prod) {
+                            $priceList[] = floatval($prod['Price']);
+                        }
+                    }
+
+                    if (count($priceList) > 0) {
+                        if (max($priceList) > min($priceList)) {
+                            $price = '￥' . number_format(min($priceList), 2) . ' - ￥' . number_format(max($priceList), 2);
+                        } else {
+                            $price = '￥' . number_format($priceList[0], 2);
+                        }
+                    } else {
+                        $price = '￥' . number_format(floatval($goodsDetail['SellPrice']), 2);
+                    }
+                    ?>
+                    <span style="font-size: 16px; font-weight: bold; color: red"><?php echo $price; ?></span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&amp;ak=3998daac6ca53a8067263f139b4aadf4"></script>
+<script>
+var browse = window.navigator.appName.toLowerCase();
+var MyMar;
+var speed = 1; //速度，越大越慢
+var spec = 1; //每次滚动的间距, 越大滚动越快
+var minOpa = 50; //滤镜最小值
+var maxOpa = 100; //滤镜最大值
+var spa = 2; //缩略图区域补充数值
+var w = 0;
+spec = (browse.indexOf("microsoft") > -1) ? spec: ((browse.indexOf("opera") > -1) ? spec * 10 : spec * 20);
+function getById(e) {
+    return document.getElementById(e);
+}
+function goleft() {
+    getById('photos').scrollLeft -= spec;
+}
+function goright() {
+    getById('photos').scrollLeft += spec;
+}
+function setOpacity(e, n) {
+    if (browse.indexOf("microsoft") > -1) e.style.filter = 'alpha(opacity=' + n + ')';
+    else e.style.opacity = n / 100;
+}
+getById('goleft').style.cursor = 'pointer';
+getById('goright').style.cursor = 'pointer';
+getById('mainphoto').onmouseover = function() {
+    setOpacity(this, maxOpa);
+}
+getById('mainphoto').onmouseout = function() {
+    setOpacity(this, minOpa);
+}
+getById('goleft').onmouseover = function() {
+    this.src = '<?php echo $this->config->asset->baseUrl; ?>/img/frontend/goleft2.gif';
+    MyMar = setInterval(goleft, speed);
+}
+getById('goleft').onmouseout = function() {
+    this.src = '<?php echo $this->config->asset->baseUrl; ?>/img/frontend/goleft.gif';
+    clearInterval(MyMar);
+}
+getById('goright').onmouseover = function() {
+    this.src = '<?php echo $this->config->asset->baseUrl; ?>/img/frontend/goright2.gif';
+    MyMar = setInterval(goright, speed);
+}
+getById('goright').onmouseout = function() {
+    this.src = '<?php echo $this->config->asset->baseUrl; ?>/img/frontend/goright.gif';
+    clearInterval(MyMar);
+}
+window.onload = function() {
+    setOpacity(getById('mainphoto'), minOpa);
+    var rHtml = '';
+    var p = getById('showArea').getElementsByTagName('img');
+    for (var i = 0; i < p.length; i++) {
+        w += parseInt(p[i].getAttribute('width')) + spa;
+        setOpacity(p[i], minOpa);
+        p[i].onmouseover = function() {
+            setOpacity(this, maxOpa);
+            getById('mainphoto').src = this.getAttribute('rel');
+            getById('mainphoto').setAttribute('name', this.getAttribute('name'));
+            setOpacity(getById('mainphoto'), maxOpa);
+        }
+        p[i].onmouseout = function() {
+            setOpacity(this, minOpa);
+            setOpacity(getById('mainphoto'), minOpa);
+        }
+        rHtml += '<img src="' + p[i].getAttribute('rel') + '" width="0" height="0" alt="" />';
+    }
+    getById('showArea').style.width = parseInt(w) + 'px';
+    var rLoad = document.createElement("div");
+    getById('photos').appendChild(rLoad);
+    rLoad.style.width = "1px";
+    rLoad.style.height = "1px";
+    rLoad.style.overflow = "hidden";
+    rLoad.innerHTML = rHtml;
+
+    initMap();
+    initShare();
+    initLike();
+    initTab();
+}
+
+function initLike() {
+    $('#goods_like').click(function() {
+        var btn = $(this);
+
+        var liked = btn.find('img').attr('src').indexOf('_red') > 0;
+        if (liked) {
+            btn.find('img').attr('src', '<?php echo $this->config->asset->baseUrl; ?>/img/frontend/heart.png');
+        } else {
+            btn.find('img').attr('src', '<?php echo $this->config->asset->baseUrl; ?>/img/frontend/heart_red.png');
+        }
+
+        var opts = {
+            type: "GET",
+            url: '/ajax/goods/like',
+            contentType: "application/json",
+            data: "goods_id=" + btn.attr('data-goods-id') + '&' + "is_like=" + (liked ? 0 : 1),
+            success: function(data) {
+
+            }
+        };
+        $.ajax(opts);
+
+        return false;
+    });
+}
+
+function initMap() {
+  var map = new BMap.Map('company-map');
+  var point = new BMap.Point(document.getElementById('longitude').value, document.getElementById('latitude').value);
+  map.centerAndZoom(point, 15);
+
+  var marker = new BMap.Marker(point, {
+      enableMassClear: false,
+      raiseOnDrag: false
+  });
+
+  map.addOverlay(marker);
+}
+
+function initShare() {
+    window._bd_share_config = {
+        "common": {
+            "bdSnsKey": {},
+            "bdText": "很好的哦",
+            "bdMini": "2",
+            "bdMiniList": false,
+            "bdPic": "",
+            "bdStyle": "2",
+            "bdSize": "24"
+        },
+        "share": {},
+        "selectShare": {
+            "bdContainerClass": null,
+            "bdSelectMiniList": ["qzone", "tsina", "tqq", "renren", "weixin"]
+        }
+    };
+    with(document) 0[(getElementsByTagName('head')[0] || body).appendChild(createElement('script')).src = 'http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion=' + ~ ( - new Date() / 36e5)];
+}
+
+</script>

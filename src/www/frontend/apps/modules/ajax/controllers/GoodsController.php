@@ -16,7 +16,7 @@
 use Welfony\Controller\Base\AbstractFrontendController;
 use Welfony\Service\UserLikeService;
 
-class Ajax_StaffController extends AbstractFrontendController
+class Ajax_GoodsController extends AbstractFrontendController
 {
 
     public function likeAction()
@@ -26,7 +26,7 @@ class Ajax_StaffController extends AbstractFrontendController
 
         $userLike = array(
             'CreatedBy' => $this->currentUser['UserId'],
-            'UserId' => intval($this->_request->getParam('staff_id')),
+            'CompanyId' => intval($this->_request->getParam('goods_id')),
             'IsLike' => intval($this->_request->getParam('is_like'))
         );
 

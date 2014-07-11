@@ -113,7 +113,7 @@
                                         <a href="<?php echo $this->baseUrl('goods/index/detail?goods_id=' . $goods['GoodsId']); ?>"><?php echo $goods['Name']; ?></a>
                                     </strong>
                                 </div>
-                                <p class="card-info-first">价格：<?php echo $goods['SellPrice']; ?></p>
+                                <p class="card-info-first">价格：<span style="color: #ff2900; font-weight: bold;">￥<?php echo $goods['SellPrice']; ?></span></p>
                             </div>
                         </div>
                     </div>
@@ -173,6 +173,14 @@
                 <div class=" username">
                     <a href="#">
                         <?php echo $this->companyDetail['CompanyName']; ?>
+                    </a>
+                </div>
+                <div class="opt">
+                    <a id="salon_like" data-salon-id="<?php echo $this->companyDetail['CompanyId']; ?>" href="#" class=" btn btn2_xl btn2_l btn2_1_l">
+                        <img src="<?php echo $this->config->asset->baseUrl; ?>/img/frontend/heart<?php echo $this->companyDetail['IsLiked'] ? '_red' : ''; ?>.png" class="ico">
+                        <span class="t">
+                            收藏
+                        </span>
                     </a>
                 </div>
                 <div class="data">
@@ -293,33 +301,7 @@ window.onload = function() {
 }
 
 function initLike() {
-    $('#hair_like').click(function() {
-        var btn = $(this);
-
-        var liked = btn.find('img').attr('src').indexOf('_red') > 0;
-        if (liked) {
-            btn.find('img').attr('src', '<?php echo $this->config->asset->baseUrl; ?>/img/frontend/heart.png');
-            btn.find('p').text(parseInt(btn.find('p').text()) - 1);
-        } else {
-            btn.find('img').attr('src', '<?php echo $this->config->asset->baseUrl; ?>/img/frontend/heart_red.png');
-            btn.find('p').text(parseInt(btn.find('p').text()) + 1);
-        }
-
-        var opts = {
-            type: "GET",
-            url: '/ajax/hair/like',
-            contentType: "application/json",
-            data: "work_id=" + btn.attr('data-hair-id') + '&' + "is_like=" + (liked ? 0 : 1),
-            success: function(data) {
-
-            }
-        };
-        $.ajax(opts);
-
-        return false;
-    });
-
-    $('#staff_like').click(function() {
+    $('#salon_like').click(function() {
         var btn = $(this);
 
         var liked = btn.find('img').attr('src').indexOf('_red') > 0;
@@ -331,9 +313,9 @@ function initLike() {
 
         var opts = {
             type: "GET",
-            url: '/ajax/staff/like',
+            url: '/ajax/salon/like',
             contentType: "application/json",
-            data: "staff_id=" + btn.attr('data-staff-id') + '&' + "is_like=" + (liked ? 0 : 1),
+            data: "salon_id=" + btn.attr('data-salon-id') + '&' + "is_like=" + (liked ? 0 : 1),
             success: function(data) {
 
             }
