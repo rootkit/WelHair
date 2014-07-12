@@ -16,7 +16,9 @@
 use Welfony\Controller\Base\AbstractFrontendController;
 use Welfony\Service\AddressService;
 use Welfony\Service\GoodsService;
+use Welfony\Service\OrderGoodsService;
 use Welfony\Service\OrderService;
+use Welfony\Service\UserService;
 
 class Ajax_OrderController extends AbstractFrontendController
 {
@@ -39,7 +41,88 @@ class Ajax_OrderController extends AbstractFrontendController
             'Num' => intval($this->_request->getParam('goods_count'))
         ));
 
-        $this->_helper->json->sendJson(OrderService::create($reqData));
+        $rstOrderCreate = OrderService::create($reqData);
+        if ($rstOrderCreate['success']) {
+            $orderId = $rstOrderCreate['order']['OrderId'];
+            $orderDetail = OrderService::getOrderDetailById($orderId);
+
+            $userId = $this->currentUser['UserId'];
+
+            if ($userId != $orderDetail['User']['UserId']) {
+                $response['message'] = '不合法的用户信息！';
+                $this->_helper->json->sendJson($response);
+            }
+
+            $user = UserService::getUserById($userId);
+            if (!$user) {
+                $response['message'] = '不合法的用户信息！';
+                $this->_helper->json->sendJson($response);
+            }
+
+            if (floatval($user['Balance']) < $orderDetail['OrderAmount']) {
+                $response['message'] = '用户账户余额不足，请充值！';
+                $response['code'] = 2301;
+                $this->_helper->json->sendJson($response);
+            }
+
+            $log= array(
+                'OrderId' => $orderId,
+                'User' => $user['Username'],
+                'Action'=>'付款',
+                'AddTime'=>date('Y-m-d H:i:s'),
+                'Result'=> '成功',
+                'Note' => '订单【'. $orderDetail['OrderNo'] .'】付款' . $orderDetail['OrderAmount'] . '元'
+            );
+
+            $doc = array(
+                'OrderId' => $orderId,
+                'UserId' => $userId,
+                'Amount' => $orderDetail['OrderAmount'],
+                'CreateTime'=>date('Y-m-d H:i:s'),
+                'PaymentId'=> 1,
+                'AdminId' => 0,
+                'PayStatus'=> 1,
+                'Note' => '用户付款'
+            );
+
+            $userbalancelog = array(
+                'OrderId' => $orderId,
+                'UserId' => $userId,
+                'Amount' => -$orderDetail['OrderAmount'],
+                'IncomeSrc' => 1,
+                'IncomeSrcId' => $orderDetail['OrderNo'],
+                'CreateTime'=>date('Y-m-d H:i:s'),
+                'Status'=> 1,
+                'Description'=> sprintf('订单【%s】付款%.2f元', $orderDetail['OrderNo'], floatval($orderDetail['OrderAmount']))
+            );
+
+            $ordergoods = OrderGoodsService::listAllOrderGoodsByOrder($orderId);
+            $companyId = 0;
+
+            foreach ($ordergoods as $goods) {
+                if (intval($goods['CompanyId']) > 0) {
+                    $companyId = $goods['CompanyId'];
+                } else {
+                    $companyId = 0;
+                }
+            }
+
+            $companybalancelog = array(
+                'OrderId' => $orderId,
+                'CompanyId' => $companyId,
+                'Amount' => $orderDetail['OrderAmount'],
+                'CreateTime'=> date('Y-m-d H:i:s'),
+                'Status'=> 1,
+                'Description'=> sprintf('订单【%s】付款%.2f元', $orderDetail['OrderNo'], floatval($orderDetail['OrderAmount'])),
+                'IncomeSrc' => 1,
+                'IncomeSrcId' => $orderDetail['OrderNo']
+            );
+
+            $order = array('Status'=> 2, 'PayStatus'=> 1);
+            $response = OrderService::payOrder($orderId, $order, $log, $doc, $userbalancelog, $companybalancelog, null);
+        } else {
+            $this->_helper->json->sendJson($rstOrderCreate);
+        }
     }
 
     public function formAction()

@@ -386,6 +386,10 @@ function initOrder() {
                                 popup.dialog('close');
                                 WF.showMessage('success', '信息', '购买商品成功');
                             } else {
+                                if (data.code && data.code == 2301) {
+                                    $('.ui-dialog-buttonset button').attr('disabled', true);
+                                    WF.showMessage('error', '信息', '请充值后到我的订单里重新支付');
+                                }
                                 popup.find('.noti').text(data.message);
                             }
                         },
