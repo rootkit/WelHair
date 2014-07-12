@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout 
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/LOGIN_BLUE"
+    android:orientation="vertical" >
+<!-- <ScrollView 
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:fadingEdge="none"
+     > -->
+        <RelativeLayout
+            android:id="@+id/rel_top"
+            android:layout_marginTop="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+             >
+             <ImageView 
+                 android:id="@+id/back_login"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:layout_alignParentLeft="true"
+                 android:layout_marginLeft="10dp"
+                 android:src="@drawable/iconfont_fanhui"
+                 android:onClick="goBack"/>
+        </RelativeLayout>
+		<ImageView 
+		    android:id="@+id/logo_img"
+		    android:layout_below="@id/rel_top"
+		    android:layout_marginTop="0dp"
+		    android:layout_marginBottom="30dp"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_centerInParent="true"
+            android:src="@drawable/logo"/>
+		 <EditText
+            android:id="@+id/login_nicheng_edit"
+            android:layout_below="@id/logo_img"
+            android:layout_width="fill_parent"
+            android:layout_height="40dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:hint="@string/nicheng"
+            android:background="@color/WHITE"
+            android:textSize="15.0sp" />
+        <EditText
+            android:id="@+id/login_name_edit"
+            android:layout_below="@id/login_nicheng_edit"
+            android:layout_width="fill_parent"
+            android:layout_height="40dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:hint="@string/youxianghuoshoujihao"
+            android:background="@color/WHITE"
+            android:textSize="15.0sp" />
+                    
+        <EditText
+            android:id="@+id/login_pwd_edit"
+            android:layout_below="@id/login_name_edit"
+            android:layout_width="fill_parent"
+            android:layout_height="40dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:hint="@string/mima"
+            android:inputType="textPassword"
+             android:background="@color/WHITE"
+            android:textSize="15.0sp" />
+            
+       <EditText
+            android:id="@+id/login_repeat_pwd_edit"
+            android:layout_below="@id/login_pwd_edit"
+            android:layout_width="fill_parent"
+            android:layout_height="40dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:hint="@string/chongfumima"
+            android:inputType="textPassword"
+             android:background="@color/WHITE"
+            android:textSize="15.0sp" />
+       
+		<LinearLayout 
+			android:id="@+id/login_ll"
+			android:layout_below="@id/login_repeat_pwd_edit"
+			android:layout_width="match_parent"
+			 android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+        android:orientation="horizontal">
+		    
+		    <TextView 
+		            android:id="@+id/register_guke"
+				    android:layout_height="40dp"
+				    android:layout_width="match_parent"
+				    android:layout_marginRight="20dp"
+				    android:layout_weight="1"
+				    android:layout_gravity="center"
+				    android:gravity="center"
+				    android:text="@string/guke"
+				    android:background="@color/GREEN"/>
+				
+				<TextView 
+				    android:id="@+id/register_dresser"
+				    android:layout_height="40dp"
+				    android:layout_width="match_parent"
+				    android:layout_marginLeft="20dp"
+				    android:layout_weight="1"
+				    android:layout_gravity="center"
+				    android:gravity="center"
+				    android:text="@string/activity_bottom_hair_dresser"
+				    android:background="@color/LIGHT_GRAY"/>
+		</LinearLayout>
+
+      
+		
+<!-- </ScrollView> -->
+</RelativeLayout>

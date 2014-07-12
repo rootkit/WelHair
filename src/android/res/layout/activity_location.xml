@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <com.baidu.mapapi.map.MapView
+        android:id="@+id/bmapView"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:clickable="true" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_alignParentBottom="true"
+        android:background="@color/WHITE"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:padding="2dp" >
+        <TextView 
+            android:id="@+id/my_salon"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+            android:text="本店地址"
+            android:clickable="true"
+            android:onClick="moveToMySalon"/>
+        <TextView 
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="@color/line"/>
+        <TextView 
+            android:id="@+id/around_salon"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+            android:text="周边店铺"
+            android:clickable="true"
+            android:onClick="moveToMySalon"/>
+    </LinearLayout>
+
+</RelativeLayout>

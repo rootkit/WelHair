@@ -1,0 +1,55 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/WHITE" 
+    android:orientation="vertical">
+
+ <!--    <include
+        android:id="@+id/title"
+        layout="@layout/base_title" /> -->
+
+    <LinearLayout
+        android:id="@+id/list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="10dp" 
+        android:gravity="center_vertical">
+
+        <TextView
+            android:id="@+id/service_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:text="精简" 
+            android:textSize="20sp"/>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical" 
+            android:gravity="right|center_vertical"
+            android:layout_marginRight="20dp">
+
+            <TextView
+                android:id="@+id/orginal_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" 
+                android:text="原价：80" 
+                android:textSize="20sp"
+                android:textColor="@color/LIGHT_LIGHT_GRAY"/>
+
+            <TextView
+                android:id="@+id/distant_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="折后价：50" 
+                android:textSize="20sp"
+                android:textColor="@color/GREEN"/>
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

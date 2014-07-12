@@ -1,0 +1,57 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/app_bgcolor" 
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <include 
+        android:id="@+id/title_layout"
+        layout="@layout/base_title" />
+    
+    <LinearLayout
+        android:id="@+id/title_label"
+        android:layout_width="match_parent"
+        android:layout_height="31dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"
+        android:background="@anim/shape_rectangle_blue"
+        android:orientation="horizontal"
+        android:padding="1dp" >
+
+        <TextView
+            android:id="@+id/pre_pay"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="未付款"
+            android:textColor="@color/RANGE_BLUE" />
+
+        <TextView
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="@color/RANGE_BLUE" />
+
+        <TextView
+            android:id="@+id/already_pay"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="已付款"
+            android:textColor="@color/RANGE_BLUE" />
+    </LinearLayout>
+	
+     <ListView
+        android:id="@+id/stylist_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:divider="@color/app_bgcolor"
+        android:dividerHeight="10dp"
+        android:background="@anim/shape_rounded_rectangle"/>
+</LinearLayout>

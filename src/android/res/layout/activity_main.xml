@@ -1,0 +1,62 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.hair.salon.MainActivity$MainActivity" 
+    android:background="@color/app_bgcolor">
+
+    <FrameLayout
+        android:id="@+id/container"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        tools:context="com.hair.salon.ui.MainActivity"
+        tools:ignore="MergeRootFrame" />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/grouped_table_view_bg" >
+
+        <RadioGroup
+            android:id="@+id/bottom_radio_group"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:orientation="horizontal" >
+             <RadioButton
+                android:id="@+id/hair_style"
+                style="@style/main_tab_bottom"
+                android:background="@drawable/root_bottom_tab1selected"
+                />
+
+            <RadioButton
+                android:id="@+id/hair_salon"
+                style="@style/main_tab_bottom"
+                android:background="@drawable/root_bottom_tab2"
+                 />
+
+              <RadioButton
+                android:id="@+id/productions"
+                style="@style/main_tab_bottom"
+                android:background="@drawable/root_bottom_tab3"
+                />
+
+            <RadioButton
+                android:id="@+id/hair_dresser"
+                style="@style/main_tab_bottom"
+                android:background="@drawable/root_bottom_tab4"
+                />
+
+            <RadioButton
+                android:id="@+id/my_radiobutton"
+                style="@style/main_tab_bottom"
+                android:background="@drawable/root_bottom_tab5"
+                 />
+        </RadioGroup>
+
+    </FrameLayout>
+
+</LinearLayout>

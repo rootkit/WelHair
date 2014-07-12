@@ -1,0 +1,91 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/app_bgcolor" >
+
+    <include
+        android:id="@+id/title"
+        android:layout_alignParentTop="true"
+        layout="@layout/base_title" />
+
+     <TextView
+        android:id="@+id/vertical_line"
+        android:layout_width="1dp"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/title"
+        android:layout_centerHorizontal="true"
+        android:background="@color/line"
+        android:drawablePadding="5dp"
+        android:gravity="center" />
+    
+    <TextView
+        android:id="@+id/my_works"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/title"
+        android:layout_toLeftOf="@+id/vertical_line"
+        android:layout_marginRight="30dp"
+        android:layout_marginTop="20dp"
+        android:drawablePadding="5dp"
+        android:drawableTop="@drawable/my_works"
+        android:gravity="center"
+        android:text="我的作品" />
+
+    <TextView
+        android:id="@+id/my_services"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/title"
+        android:layout_toRightOf="@+id/vertical_line"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="20dp"
+        android:drawablePadding="5dp"
+        android:drawableTop="@drawable/services"
+        android:gravity="center"
+        android:text="服务项目" />
+
+    <TextView
+        android:id="@+id/horizontal_line"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@+id/my_services"
+        android:layout_marginTop="20dp"
+        android:background="@color/line"
+        android:drawablePadding="5dp"
+        android:gravity="center" />
+    
+    <TextView
+        android:id="@+id/my_clients"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/horizontal_line"
+        android:layout_toLeftOf="@+id/vertical_line"
+        android:layout_marginRight="30dp"
+        android:layout_marginTop="20dp"
+        android:drawablePadding="5dp"
+        android:drawableTop="@drawable/my_clients"
+        android:gravity="center"
+        android:text="我的客户" />
+    <TextView
+        android:id="@+id/my_booking"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/horizontal_line"
+        android:layout_toRightOf="@+id/vertical_line"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="20dp"
+        android:drawablePadding="5dp"
+        android:drawableTop="@drawable/my_booking"
+        android:gravity="center"
+        android:text="我的预约" />
+     <TextView
+        android:id="@+id/horizontal_line_sencond"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@id/my_booking"
+        android:layout_marginTop="20dp"
+        android:background="@color/line"
+        android:drawablePadding="5dp"
+        android:gravity="center" />
+</RelativeLayout>

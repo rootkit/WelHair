@@ -1,0 +1,176 @@
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+    	xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:layout_below="@id/title_layout"
+        android:background="@color/WHITE"
+        android:orientation="vertical" >
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" 
+            android:gravity="center_vertical">
+
+            <com.hair.salon.widget.CircleImageView
+                android:id="@+id/hair_desginer_img"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:src="@drawable/hair_style_img_7" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:gravity="center_vertical" >
+
+                <TextView
+                    android:id="@+id/desinger_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginLeft="10dp"
+                    android:ellipsize="marquee"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
+                    android:maxLength="20"
+                    android:singleLine="true"
+                    android:text="小四" 
+                    android:textSize="20sp"/>
+ 			<TextView
+                android:id="@+id/service_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:text="￥80.00"
+                android:textColor="@color/BLUE_FONT" />
+
+                <TextView
+                    android:id="@+id/salon_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/desinger_name"
+                    android:layout_marginLeft="10dp"
+                    android:text="漂丝丽芳" 
+                    android:textColor="@color/LIGHT_GRAY"/>
+                 <TextView
+                    android:id="@+id/service_progress"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/desinger_name"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="18dp"
+                    android:text="已付款" 
+                    android:textColor="@color/GREEN"/>
+
+                <!-- <TextView
+                    android:id="@+id/salon_address_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/salon_name"
+                    android:layout_marginLeft="10dp"
+                    android:text="@string/activity_salon_address" 
+                    android:textColor="@color/LIGHT_GRAY"/> -->
+
+                <TextView
+                    android:id="@+id/salon_address"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/salon_name"
+                    android:layout_marginLeft="10dp"
+                   
+                    android:ellipsize="marquee"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
+                    android:maxLength="20"
+                    android:singleLine="true"
+                    android:text="会展国际中心" 
+                    android:textColor="@color/LIGHT_GRAY"/>
+            </RelativeLayout>
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_margin="10dp"
+            android:background="@color/LIGHT_GRAY" />
+
+        <RelativeLayout 
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:background="@color/WHITE">
+            <LinearLayout 
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:orientation="vertical">
+                <LinearLayout
+		            android:layout_width="match_parent"
+		            android:layout_height="wrap_content"
+		            android:layout_marginLeft="10dp"
+		            android:layout_marginRight="10dp"
+		            android:background="@color/WHITE"
+		            android:orientation="horizontal" >
+		
+		            <TextView
+		                android:layout_width="wrap_content"
+		                android:layout_height="wrap_content"
+		                android:text="项目：" 
+		                android:textSize="16sp"/>
+		
+		            <TextView
+		                android:id="@+id/appointment_subject"
+		                android:layout_width="wrap_content"
+		                android:layout_height="wrap_content"
+		                android:text="洗剪吹" 
+		                android:textSize="16sp"/>
+		        </LinearLayout>
+		        <LinearLayout
+		            android:layout_width="match_parent"
+		            android:layout_height="wrap_content"
+		            android:layout_marginTop="5dp"
+		            android:layout_marginBottom="10dp"
+		            android:layout_marginLeft="10dp"
+		            android:layout_marginRight="10dp"
+		            android:background="@color/WHITE"
+		            android:orientation="horizontal" >
+		
+		            <TextView
+		                android:layout_width="wrap_content"
+		                android:layout_height="wrap_content"
+		                android:text="时间：" 
+		                android:textSize="16sp"/>
+		
+		            <TextView
+		                android:id="@+id/appointment_time"
+		                android:layout_width="wrap_content"
+		                android:layout_height="wrap_content"
+		                android:text="2014-06-29 15:30:00" 
+		                android:textSize="16sp"/>
+		        </LinearLayout>
+            </LinearLayout>
+            <TextView
+                android:id="@+id/preview_pic"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:background="@color/RED"
+                android:textColor="@color/WHITE"
+                android:text="效果图"/>
+        </RelativeLayout>
+        
+
+        
+    </LinearLayout>
+

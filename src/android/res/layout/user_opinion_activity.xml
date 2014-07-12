@@ -1,0 +1,19 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/app_bgcolor" 
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <include layout="@layout/base_title" />
+    <EditText 
+        android:id="@+id/user_options"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:background="@anim/shape_rounded_rectangle"
+        android:layout_margin="10dp"
+        android:padding="5dp"
+        android:gravity="left|top"/>
+ </LinearLayout>

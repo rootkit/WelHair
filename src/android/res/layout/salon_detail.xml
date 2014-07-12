@@ -1,0 +1,288 @@
+ <LinearLayout
+     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_horizontal"
+        android:background="@color/app_bgcolor"
+        android:orientation="vertical" >
+
+        <include
+            android:id="@+id/title_layout"
+            layout="@layout/base_title" />
+
+<ScrollView 
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+     >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_horizontal"
+        android:orientation="vertical" >
+
+        <ImageView
+            android:id="@+id/salon_detail_img"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:background="@color/WHITE"
+            android:scaleType="fitXY"
+            android:src="@drawable/hair_style_img_4" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:gravity="left|center_vertical"
+            android:orientation="vertical" >
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/line" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+		        android:layout_marginLeft="10dp"
+		        android:layout_marginRight="10dp"
+                android:background="@anim/shape_rounded_rectangle"
+                android:gravity="left|center_vertical"
+                android:orientation="horizontal"
+                android:padding="8dp" >
+
+                <ImageView
+                    android:id="@+id/salon_img"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:src="@drawable/hair_style_img_3" />
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="60dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical" >
+
+                    <TextView
+                        android:id="@+id/salon_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_marginBottom="5dp"
+                        android:text="香格里拉" 
+                        android:textColor="@color/LIGHT_GRAY"
+                        android:textSize="22sp"
+                        />
+
+                    <TextView
+                        android:id="@+id/salon_address_label"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/salon_name"
+                        android:layout_marginTop="5dp"
+                        android:text="@string/activity_salon_distance_label" 
+                        android:textColor="@color/LIGHT_GRAY"/>
+
+                    <TextView
+                        android:id="@+id/salon_address"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/salon_name"
+                        android:layout_marginTop="5dp"
+                        android:layout_toRightOf="@+id/salon_address_label"
+                        android:text="0.5km" 
+                        android:textColor="@color/LIGHT_GRAY"/>
+                </RelativeLayout>
+
+                <ImageView
+                    android:id="@+id/hart_img"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginRight="10dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/lucence_add004" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+		    android:layout_marginLeft="10dp"
+		    android:layout_marginRight="10dp"
+            android:gravity="left|center_vertical"
+            android:orientation="vertical" >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:background="@anim/shape_rounded_rectangle"
+                android:gravity="left|center_vertical"
+                android:orientation="vertical" >
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="8dp"
+                        android:text="地区：" 
+                        android:textColor="@color/LIGHT_GRAY"/>
+
+                    <TextView
+                        android:id="@+id/loction_area"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="8dp"
+                        android:text="山东省 济南市 高新区" 
+                        android:textColor="@color/LIGHT_GRAY"/>
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/LIGHT_LIGHT_GRAY" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="8dp"
+                        android:text="地址：" 
+                        android:textColor="@color/LIGHT_GRAY"/>
+
+                    <TextView
+                        android:id="@+id/loction_address"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:padding="8dp"
+                        android:text="会展中心" 
+                        android:textColor="@color/LIGHT_GRAY"/>
+
+                    <ImageView
+                        android:id="@+id/loc_map_img"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_marginRight="20dp"
+                        android:src="@drawable/lucence_add006" 
+                        android:onClick="goLocation"/>
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/LIGHT_LIGHT_GRAY" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="8dp"
+                        android:text="电话：" 
+                        android:textColor="@color/LIGHT_GRAY"/>
+
+                    <TextView
+                        android:id="@+id/phone_number"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:padding="8dp"
+                        android:text="10086" 
+                        android:textColor="@color/LIGHT_GRAY"/>
+
+                    <ImageView
+                        android:id="@+id/tel_phone_img"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_marginRight="20dp"
+                        android:src="@drawable/lucence_add007" />
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+		    android:layout_marginLeft="10dp"
+		    android:layout_marginRight="10dp"
+            android:background="@anim/shape_rounded_rectangle_blue"
+            android:gravity="center"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:id="@+id/tv_desiginer"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+            	android:layout_marginTop="5dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="设计师(1)" />
+ 			
+            <TextView
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="@color/RANGE_BLUE" />
+            
+            <TextView
+                android:id="@+id/tv_commodity"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+            	android:layout_marginTop="5dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="商品" />
+
+            <TextView
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="@color/RANGE_BLUE" />
+            
+            <TextView
+                android:id="@+id/tv_comment"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+            	android:layout_marginTop="5dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="评论" />
+        </LinearLayout>
+        <ListView
+            android:id="@+id/salonDetailListView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+		    android:layout_marginLeft="10dp"
+		    android:layout_marginRight="10dp"
+            android:dividerHeight="1dp" 
+            android:gravity="center"
+            />
+        </LinearLayout>
+        </ScrollView>
+             
+        
+        
+    </LinearLayout>
+    
+

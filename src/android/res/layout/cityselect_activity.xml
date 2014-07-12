@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/WHITE"
+    android:gravity="center_vertical" >
+<RelativeLayout 
+    android:layout_width="match_parent"
+    android:layout_height="fill_parent"
+    >
+          
+<com.dawningsun.mall.view.ui.SlidingLinearLayout
+        android:id="@+id/slidingid"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+         >
+        <ListView
+            android:id="@+id/custonInfoListView"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:divider="@drawable/line1"
+            android:dividerHeight="1dp"
+             />
+       </com.dawningsun.mall.view.ui.SlidingLinearLayout>
+       
+       <com.dawningsun.mall.view.ui.QuickAlphabeticBar
+        android:id="@+id/fast_scroller"
+        android:layout_width="22dp"
+        android:layout_height="fill_parent"
+        android:layout_alignParentRight="true"
+        android:layout_gravity="top|right|center"
+        android:layout_marginTop="0dip"
+        android:background="@null"
+        android:scaleType="centerInside"
+        android:src="@anim/fast_scroller_selector" />
+ <TextView
+        android:id="@+id/fast_position"
+        android:layout_width="70dip"
+        android:layout_height="70dip"
+        android:layout_centerInParent="true"
+        android:layout_gravity="center_horizontal|top"
+        android:layout_margin="34dip"
+        android:background="@drawable/sort_icon_bg_click"
+        android:gravity="center"
+        android:padding="2dip"
+        android:textColor="#404040"
+        android:textSize="48dip"
+        android:visibility="invisible" />
+    </RelativeLayout>
+</RelativeLayout>

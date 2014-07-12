@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/cityName"
+    android:layout_width="match_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/WHITE"
+    android:orientation="vertical" 
+    >
+    <!-- 首字母 -->
+    <TextView
+        android:id="@+id/alpha"
+        android:layout_width="fill_parent"
+        android:layout_height="30dp"
+        android:background="@drawable/site_bg"
+        android:layout_alignParentLeft="true"
+        android:gravity="center_vertical"
+        android:visibility="gone" />
+    
+	<TextView
+            android:id="@+id/city"
+            android:layout_width="fill_parent"
+            android:layout_height="30dp"
+            android:layout_below="@id/alpha"
+             android:background="@color/WHITE"
+            android:gravity="center_vertical"
+             />
+</RelativeLayout>

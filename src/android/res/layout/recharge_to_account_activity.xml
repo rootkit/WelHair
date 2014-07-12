@@ -1,0 +1,117 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/app_bgcolor"
+    android:orientation="vertical" >
+
+    <include
+        android:id="@+id/title"
+        layout="@layout/base_title" />
+
+
+     <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:paddingBottom="10dp"
+        android:background="@anim/shape_rounded_rectangle">
+
+        <TextView
+            android:id="@+id/account_balance_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:layout_alignParentLeft="true"
+            android:drawableLeft="@drawable/salon_balance_manager"
+            android:drawablePadding="10dp"
+            android:paddingLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:text="账户余额"/>
+        
+         <TextView
+            android:id="@+id/salon_balance"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_toRightOf="@+id/account_balance_label"
+            android:layout_alignBaseline="@+id/account_balance_label"
+            android:layout_marginRight="10dp"
+            android:gravity="center_vertical|right"
+            android:text="￥165.00"/>
+         
+         
+         <TextView
+            android:id="@+id/line1"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_below="@+id/account_balance_label"
+            android:background="@color/line"/>
+              <TextView
+            android:id="@+id/recharge_number_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/jin_e"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/line1"
+            android:drawablePadding="10dp"
+            android:paddingLeft="10dp"
+            android:text="充值金额"/>
+        
+         <EditText
+            android:id="@+id/recharge_number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignBaseline="@+id/recharge_number_label"
+            android:layout_marginRight="10dp"
+            android:background="@color/WHITE"
+            android:text="100.00"/>
+         
+         
+          
+    </RelativeLayout>
+    
+       <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:paddingBottom="10dp"
+        android:background="@anim/shape_rounded_rectangle">
+
+        <TextView
+            android:id="@+id/alipay_style_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:layout_alignParentLeft="true"
+            android:drawableLeft="@drawable/alipay"
+            android:drawablePadding="10dp"
+            android:paddingLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:text="支付宝"/>
+        
+         <TextView
+            android:id="@+id/customer_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="10dp"
+            android:drawablePadding="10dp"
+            android:layout_marginTop="10dp"
+            android:drawableLeft="@drawable/iconfont_iconfontdui" />
+    </RelativeLayout>
+    
+      <Button
+        android:id="@+id/up_to_account"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:gravity="center"
+        android:background="@color/GREEN"
+        android:text="提交"
+        android:textColor="@color/WHITE"/>
+
+</LinearLayout>

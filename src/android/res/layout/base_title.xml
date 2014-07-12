@@ -1,0 +1,52 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="42dp"
+    android:background="@color/title"
+    android:gravity="center_vertical">
+    
+    <TextView
+        android:id="@+id/title_back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" 
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="10dp"
+        android:textColor="@color/WHITE"
+        android:text=""
+        android:layout_centerVertical="true"
+        android:textSize="16sp"
+        android:clickable="true"
+        android:onClick="goBack"/>
+    
+     <TextView
+        android:id="@+id/title_txt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" 
+        android:textColor="@color/WHITE"
+        android:text="用户"
+        android:layout_centerInParent="true"
+        android:textSize="22sp"/>
+     
+     <ImageView
+        android:id="@+id/title_setting"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" 
+        android:layout_alignParentRight="true"
+        android:textColor="@color/WHITE"
+        android:layout_marginRight="20dp"
+        android:layout_centerVertical="true"
+        android:src="@drawable/lucence_add003"
+        android:visibility="gone"/>
+     <TextView
+        android:id="@+id/title_submit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" 
+        android:layout_alignParentRight="true"
+        android:textColor="@color/WHITE"
+        android:layout_marginRight="20dp"
+        android:layout_centerVertical="true"
+        android:text="提交"
+        android:textSize="16sp"
+        android:visibility="gone"/>
+
+</RelativeLayout>

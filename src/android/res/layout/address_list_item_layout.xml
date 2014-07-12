@@ -1,0 +1,66 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <!-- <include
+        android:id="@+id/title"
+        layout="@layout/base_title" /> -->
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal" 
+        android:layout_margin="10dp"
+        android:padding="10dp"
+        android:background="@anim/shape_rounded_rectangle">
+
+        <TextView
+            android:id="@+id/name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_alignParentLeft="true"
+            android:text="小飞" 
+            android:textSize="20dp"/>
+
+        <TextView
+            android:id="@+id/phone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/name"
+            android:layout_marginLeft="20dp"
+            android:text="13801234567" 
+            android:textSize="20dp"/>
+        
+        
+        
+         <ImageView 
+            android:id="@+id/edit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/phone"
+            android:src="@drawable/feedback"
+            android:layout_marginLeft="15dp"/>
+         <ImageView 
+            android:id="@+id/select"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/edit"
+            android:background="@drawable/address_normal"
+            android:layout_marginLeft="5dp"/>
+
+        <TextView
+            android:id="@+id/address"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/name"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:text="会展国际"
+            android:textColor="@color/LIGHT_LIGHT_GRAY"/>
+    </RelativeLayout>
+
+</LinearLayout>

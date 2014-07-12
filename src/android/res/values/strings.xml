@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">发型沙龙</string>
+     
+    <string name="pull_to_refresh_pull_label">下拉刷新</string>
+    <string name="pull_to_refresh_release_label">松开后刷新</string>
+    <string name="pull_to_refresh_refreshing_label">刷新\u2026</string>
+    
+    <string name="pull_to_refresh_footer_release_label">松开后加载</string>
+    <string name="pull_to_refresh_footer_pull_label">上拉加载更多</string>
+    <string name="pull_to_refresh_footer_refreshing_label">加载中\u2026</string>
+    
+    
+    <string name="activity_hari_selection_style">发质</string><!-- 发型？ -->
+    <string name="activity_hari_selection_style_all">所有发质</string>
+    <string name="activity_hari_selection_style_short">短发</string>
+    <string name="activity_hari_selection_style_long">长发</string>
+    <string name="activity_hari_selection_style_spread">编发</string>
+    <string name="activity_hari_selection_style_middle">中发</string>
+    <string name="activity_hari_selection_sex">性别</string>
+    <string name="activity_hari_selection_sex_all">所有</string>
+    <string name="activity_hari_selection_sex_male">男性</string>
+    <string name="activity_hari_selection_sex_female">女性</string>
+    
+    <string name="activity_hari_selection_order">排序</string>
+    <string name="activity_hari_selection_order_distance">距离</string>
+    <string name="activity_hari_selection_order_appraise">评价</string>
+    
+    
+    <string name="activity_bottom_hair_style">发型</string>
+    <string name="activity_bottom_hair_salon">沙龙</string>
+    <string name="activity_bottom_hair_dresser">发型师</string>
+    <string name="activity_bottom_hair_my">我的</string>
+    
+    <string name="activity_hair_detail_for">适合人群</string>
+    <string name="activity_hair_detail_style">发质</string>
+    <string name="activity_hair_detail_amount">发量</string>
+    <string name="activity_hair_detail_large">多密</string>
+    <string name="activity_hair_detail_general">中等</string>
+    <string name="activity_hair_detail_little">偏少</string>
+    <string name="activity_hair_detail_face_shape">脸型</string>
+    <string name="activity_hair_detail_face_shape_round">圆脸</string>
+    <string name="activity_hair_detail_face_shape_long">长脸</string>
+    <string name="activity_hair_detail_face_shape_square">方脸</string>
+    <string name="activity_hair_detail_face_shape_oval">瓜子脸</string>
+    <string name="activity_hair_detail_comments">作品评论(0)</string>
+    
+    <string name="activity_salon_all_area">全部区域</string>
+    <string name="activity_salon_order">排序</string>
+    <string name="activity_salon_search">搜索</string>
+    <string name="activity_salon_address">地址：</string>
+    <string name="activity_salon_distance_label">距离：</string>
+    
+    <string name="activity_title_back">&#060;</string>
+    <!--  <string name="activity_title_back">&lt;</string> -->
+    
+    <string name="zhuce">注册</string>
+    <string name="youxianghuoshoujihao">&#160;&#160;邮箱或手机号</string>
+    <string name="mima">&#160;密码</string>
+    <string name="chongfumima">&#160;重复密码</string>
+    <string name="nicheng">&#160;&#160;昵称</string>
+    <string name="denglu">登录</string>
+    <string name="otherstyletodenglu">或以下方式登录</string>
+    <string name="guke">顾客</string>
+    <string name="kongge">&#160;</string>
+    <string name="kongge_two">&#160;&#160;</string>
+</resources>
+

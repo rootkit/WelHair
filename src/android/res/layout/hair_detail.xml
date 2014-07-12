@@ -1,0 +1,335 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical" >
+
+    <include
+        android:id="@+id/title_layout"
+        android:layout_alignParentTop="true"
+        layout="@layout/base_title" />
+    
+  <ScrollView 
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/app_bgcolor" >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:orientation="vertical" >
+
+
+        <ImageView
+            android:id="@+id/hair_detail_img"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/WHITE"
+            android:scaleType="centerCrop"
+            android:src="@drawable/hair_style_img_1" />
+
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="10dp"
+			android:layout_marginRight="10dp"
+            android:scrollbars="none" >
+
+            <LinearLayout
+                android:id="@+id/hair_detail_img_container"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/WHITE"
+                android:orientation="horizontal"
+                android:padding="8dp" >
+            </LinearLayout>
+        </HorizontalScrollView>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="10dp"
+			android:layout_marginRight="10dp"
+            android:gravity="left|center_vertical"
+            android:orientation="vertical" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:text="@string/activity_bottom_hair_dresser" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/line" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:background="@color/WHITE"
+                android:gravity="left|center_vertical"
+                android:onClick="goHairDresser"
+                android:orientation="horizontal"
+                android:padding="8dp" >
+
+                <com.hair.salon.widget.CircleImageView
+                    android:id="@+id/hair_desinger_img"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:src="@drawable/hair_style_img_1" />
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="60dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical" >
+
+                    <TextView
+                        android:id="@+id/hair_designer_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_marginBottom="5dp"
+                        android:text="沙伊"
+                        android:textColor="@color/BLUE_FONT" />
+
+                    <TextView
+                        android:id="@+id/hair_designer_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginLeft="5dp"
+                        android:layout_toRightOf="@+id/hair_designer_name"
+                        android:text="@string/activity_bottom_hair_dresser"
+                        android:textColor="@color/BLUE_FONT" />
+
+                    <TextView
+                        android:id="@+id/hair_designer_salon"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/hair_designer_name"
+                        android:layout_marginTop="5dp"
+                        android:text="沙宣" 
+                        android:textColor="@color/GRAY"
+                        />
+                </RelativeLayout>
+                
+                <ImageView
+                    android:id="@+id/hair_heart"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginRight="10dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/lucence_add004" />
+            </LinearLayout>
+            
+            <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:gravity="left|center_vertical"
+            android:orientation="vertical" >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:background="@color/WHITE"
+                android:gravity="left|center_vertical"
+                android:orientation="vertical" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="8dp"
+                    android:text="@string/activity_hair_detail_for" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/line" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:background="@color/WHITE"
+                    android:gravity="left|center_vertical"
+                    android:orientation="horizontal"
+                    android:padding="8dp" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/activity_hair_detail_style" />
+
+                    <TextView
+                        android:layout_width="40dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="5dp"
+                        android:background="@color/hair_detail_check_text_false"
+                        android:gravity="center"
+                        android:text="@string/activity_hari_selection_style_short"
+                        android:textColor="@color/WHITE" />
+
+                    <TextView
+                        android:layout_width="40dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
+                        android:background="@color/hair_detail_check_text_true"
+                        android:gravity="center"
+                        android:text="@string/activity_hari_selection_style_long"
+                        android:textColor="@color/WHITE" />
+
+                    <TextView
+                        android:layout_width="40dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
+                        android:background="@color/hair_detail_check_text_false"
+                        android:gravity="center"
+                        android:text="@string/activity_hari_selection_style_spread"
+                        android:textColor="@color/WHITE" />
+
+                    <TextView
+                        android:layout_width="40dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="10dp"
+                        android:background="@color/hair_detail_check_text_false"
+                        android:gravity="center"
+                        android:text="@string/activity_hari_selection_style_middle"
+                        android:textColor="@color/WHITE" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:background="@color/WHITE"
+                    android:gravity="left|center_vertical"
+                    android:orientation="horizontal"
+                    android:padding="8dp" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/activity_hair_detail_amount" />
+
+                    <TextView
+                        android:layout_width="40dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="5dp"
+                        android:background="@color/hair_detail_check_text_false"
+                        android:gravity="center"
+                        android:text="@string/activity_hair_detail_large"
+                        android:textColor="@color/WHITE" />
+
+                    <TextView
+                        android:layout_width="40dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
+                        android:background="@color/hair_detail_check_text_true"
+                        android:gravity="center"
+                        android:text="@string/activity_hair_detail_general"
+                        android:textColor="@color/WHITE" />
+
+                    <TextView
+                        android:layout_width="40dp"
+                        android:layout_height="wrap_content"
+                       android:layout_marginLeft="5dp"
+                        android:layout_marginRight="10dp"
+                        android:background="@color/hair_detail_check_text_false"
+                        android:gravity="center"
+                        android:text="@string/activity_hair_detail_little"
+                        android:textColor="@color/WHITE" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:background="@color/WHITE"
+                    android:gravity="left|center_vertical"
+                    android:orientation="horizontal"
+                    android:padding="8dp" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/activity_hair_detail_face_shape" />
+
+                    <TextView
+                        android:layout_width="40dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="5dp"
+                        android:background="@color/hair_detail_check_text_false"
+                        android:gravity="center"
+                        android:text="@string/activity_hair_detail_face_shape_round"
+                        android:textColor="@color/WHITE" />
+
+                    <TextView
+                        android:layout_width="40dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
+                        android:background="@color/hair_detail_check_text_true"
+                        android:gravity="center"
+                        android:text="@string/activity_hair_detail_face_shape_long"
+                        android:textColor="@color/WHITE" />
+
+                    <TextView
+                        android:layout_width="40dp"
+                        android:layout_height="wrap_content"
+                       android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
+                        android:background="@color/hair_detail_check_text_false"
+                        android:gravity="center"
+                        android:text="@string/activity_hair_detail_face_shape_square"
+                        android:textColor="@color/WHITE" />
+
+                    <TextView
+                        android:layout_width="50dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="10dp"
+                        android:background="@color/hair_detail_check_text_true"
+                        android:gravity="center"
+                        android:text="@string/activity_hair_detail_face_shape_oval"
+                        android:textColor="@color/WHITE" />
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:background="@color/WHITE"
+            android:gravity="left|center_vertical"
+            android:orientation="vertical" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:text="@string/activity_hair_detail_comments" />
+        </LinearLayout>
+        </LinearLayout>
+
+       
+    </LinearLayout>
+
+</ScrollView>
+</LinearLayout>

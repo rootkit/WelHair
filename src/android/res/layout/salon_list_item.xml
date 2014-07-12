@@ -1,0 +1,107 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_margin="8dp"
+    android:background="#ffffff"
+    android:descendantFocusability="blocksDescendants"
+    android:gravity="center_vertical"
+    android:orientation="horizontal" >
+
+    <ImageView
+        android:id="@+id/salon_img"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/hair_style_img_2" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:gravity="center_vertical" >
+
+        <TextView
+            android:id="@+id/salon_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_marginBottom="8dp"
+            android:layout_marginLeft="10dp"
+            android:ellipsize="marquee"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:maxLength="20"
+            android:singleLine="true"
+            android:text="沙芝" 
+            android:textColor="@color/LIGHT_GRAY"/>
+
+        <TextView
+            android:id="@+id/salon_zan"
+            android:layout_width="40dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="18dp"
+            android:layout_marginTop="8dp"
+            android:text="0" 
+            android:textColor="@color/LIGHT_GRAY"/>
+
+        <ImageView
+            android:id="@+id/salon_zan_label"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginBottom="8dp"
+            android:layout_toLeftOf="@+id/salon_zan"
+            android:src="@drawable/rate_hand" />
+
+        <TextView
+            android:id="@+id/salon_address_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/salon_name"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="8dp"
+            android:text="@string/activity_salon_address" 
+            android:textColor="@color/LIGHT_GRAY"/>
+
+        <TextView
+            android:id="@+id/salon_address"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/salon_name"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="8dp"
+            android:layout_toRightOf="@+id/salon_address_label"
+            android:ellipsize="marquee"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:maxLength="20"
+            android:singleLine="true"
+            android:text="会展国际中心" 
+            android:textColor="@color/LIGHT_GRAY"
+            />
+
+        <TextView
+            android:id="@+id/salon_distance"
+            android:layout_width="40dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/salon_name"
+            android:layout_marginRight="18dp"
+            android:layout_marginTop="8dp"
+            android:text="1.5km" 
+            android:textColor="@color/LIGHT_GRAY"/>
+
+        <ImageView
+            android:id="@+id/salon_distance_img"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_below="@+id/salon_zan"
+            android:layout_marginTop="8dp"
+            android:layout_toLeftOf="@+id/salon_distance"
+            android:src="@drawable/iconfont_dingwei" />
+    </RelativeLayout>
+
+</LinearLayout>

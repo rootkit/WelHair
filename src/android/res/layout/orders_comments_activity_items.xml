@@ -1,0 +1,90 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/WHITE" 
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+<RelativeLayout 
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="10dp">
+     <com.hair.salon.widget.CircleImageView
+         android:id="@+id/customer_img"
+         android:layout_width="50dp"
+         android:layout_height="50dp"
+         android:layout_marginLeft="10dp"
+         android:layout_alignParentLeft="true"
+         android:src="@drawable/hair_style_img_7" 
+         app:border_width="1dp"/>
+     <TextView 
+         android:id="@+id/customer_name"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_toRightOf="@id/customer_img"
+         android:layout_marginLeft="5dp"
+         android:textColor="@color/ORANGE_FONT"
+         android:textSize="16sp"/>
+     
+     <TextView 
+         android:id="@+id/comments_context"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_marginTop="5dp"
+         android:layout_below="@id/customer_name"
+         android:layout_toRightOf="@id/customer_img"
+         android:layout_marginLeft="5dp"
+         android:textColor="@color/LIGHT_LIGHT_GRAY"/>
+     <LinearLayout 
+         android:id="@+id/pic_layout"
+         android:layout_width="match_parent"
+         android:layout_height="60dp"
+         android:layout_below="@id/comments_context"
+         android:layout_toRightOf="@id/customer_img"
+         android:layout_marginLeft="5dp"
+         android:orientation="horizontal"
+         android:visibility="gone">
+         <ImageView 
+            android:id="@+id/show_img_one"
+	        android:layout_width="match_parent"
+	        android:layout_height="80dp"
+	        android:layout_weight="1"
+	        android:layout_marginRight="10dp"
+	        android:src="@drawable/hair_style_img_1" />
+          <ImageView 
+            android:id="@+id/show_img_two"
+	        android:layout_width="match_parent"
+	        android:layout_height="80dp"
+	        android:layout_weight="1"
+	        android:layout_marginRight="10dp"
+	        android:src="@drawable/hair_style_img_2" />
+          <ImageView 
+            android:id="@+id/show_img_three"
+	        android:layout_width="match_parent"
+	        android:layout_height="80dp"
+	        android:layout_weight="1"
+	        android:layout_marginRight="10dp"
+	        android:src="@drawable/hair_style_img_3" />
+          <ImageView 
+            android:id="@+id/show_img_four"
+	        android:layout_width="match_parent"
+	        android:layout_height="80dp"
+	        android:layout_weight="1"
+	        android:src="@drawable/hair_style_img_4" />
+          
+     </LinearLayout>
+     <TextView 
+         android:id="@+id/comment_time"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_alignParentRight="true"
+         android:layout_alignBaseline="@id/customer_name"
+         android:layout_marginRight="5dp"
+         android:textColor="@color/BLUE_FONT"/>
+     
+</RelativeLayout>
+    
+ 
+</LinearLayout>

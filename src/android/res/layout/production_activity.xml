@@ -1,0 +1,197 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+   android:layout_height="wrap_content"
+    android:background="@color/app_bgcolor"
+    android:orientation="vertical" >
+
+    <include
+        android:id="@+id/title_layout"
+        android:layout_alignParentTop="true"
+        layout="@layout/base_title" />
+
+    <ScrollView
+        android:id="@+id/scroll_id"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/title_layout" 
+        android:background="@color/app_bgcolor">
+
+        <LinearLayout 
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+            
+            <ImageView
+                    android:id="@+id/hair_detail_img"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/WHITE"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/hair_style_img_1" />
+            
+	             <RelativeLayout 
+	            android:layout_width="match_parent"
+	            android:layout_height="wrap_content"
+	            android:padding="10dp"
+	            android:orientation="horizontal">
+		            <TextView 
+		                android:id="@+id/production_name"
+		                android:layout_width="wrap_content"
+		                android:layout_height="wrap_content"
+		                android:layout_alignParentLeft="true"
+		                android:layout_marginLeft="5dp"
+		                android:textSize="20sp"
+		                android:text="飘柔"/>
+		                <ImageView
+	                        android:id="@+id/hart_img"
+	                        android:layout_gravity="right"
+	                        android:layout_alignParentRight="true"
+	                        android:layout_width="20dp"
+		                    android:layout_height="20dp"
+		                    android:layout_marginRight="5dp"
+	                        android:src="@drawable/lucence_add004" />
+	        	</RelativeLayout>
+	        	
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+	                android:layout_marginLeft="10dp"
+	                android:layout_marginRight="10dp"
+	                android:padding="10dp"
+                    android:background="@anim/shape_rounded_rectangle"
+                    android:gravity="left|center_vertical"
+                    android:orientation="horizontal" >
+
+                    <com.hair.salon.widget.CircleImageView
+                        android:id="@+id/salon_dresser_img"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:src="@drawable/hair_style_img_3" />
+
+                    <RelativeLayout
+                        android:layout_width="0dp"
+                        android:layout_height="60dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical" >
+
+                        <TextView
+                            android:id="@+id/salon_name"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="飘丽丝纺" 
+                            android:textSize="18sp"
+                            android:textColor="@color/LIGHT_GRAY"/>
+
+                        <TextView
+                            android:id="@+id/salon_address"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:layout_below="@id/salon_name"
+                            android:text="济南市经四路" 
+                            android:textColor="@color/LIGHT_GRAY"/>
+                        
+                        <TextView
+                            android:id="@+id/distance_number"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:drawableLeft="@drawable/iconfont_dingwei"
+                            android:layout_alignParentRight="true"
+                            android:layout_alignBaseline="@id/salon_address"
+                            android:text="367千米" 
+                            android:textColor="@color/LIGHT_GRAY"/>
+                    </RelativeLayout>
+			     </LinearLayout>
+
+                
+                
+                  <LinearLayout 
+                      android:id="@+id/ll_tab"
+	                 android:layout_width="match_parent"
+                     android:layout_height="wrap_content"
+                     android:padding="1dp"
+                     android:layout_marginTop="10dp"
+                     android:layout_marginRight="10dp"
+                     android:layout_marginLeft="10dp"
+                     android:layout_marginBottom="80dp"
+                     android:gravity="center_vertical"
+                     android:orientation="horizontal"
+                     android:background="@anim/shape_rectangle_blue">
+	                <TextView 
+	                    android:id="@+id/tuwenxiangqing_tv"
+	                    android:layout_width="wrap_content"
+	                    android:layout_height="30dp"
+	                    android:gravity="center"
+	                    android:layout_weight="1"
+	                    android:textColor="@color/RANGE_BLUE"
+	                    android:text="图文详情"/>
+	                <TextView 
+	                    android:layout_width="1dp"
+	                    android:layout_height="match_parent"
+	                    android:background="@color/RANGE_BLUE"/>
+	                <TextView 
+	                    android:id="@+id/pinglun_tv"
+	                    android:layout_width="wrap_content"
+	                    android:layout_height="30dp"
+	                    android:gravity="center"
+	                    android:layout_weight="1"
+	                    android:textColor="@color/RANGE_BLUE"
+	                    android:text="评论"/>
+	                
+			     </LinearLayout>   
+		  </LinearLayout>
+       </ScrollView>
+        	
+       <RelativeLayout 
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_alignParentBottom="true"
+                android:background="@color/WHITE">
+       <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:orientation="horizontal" 
+                android:layout_marginLeft="10dp"
+                 android:layout_marginRight="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                android:layout_alignParentLeft="true">
+
+            <ImageView
+	           android:id="@+id/plus_img"
+	           android:layout_width="wrap_content"
+		       android:layout_height="wrap_content"
+		       android:scaleType="centerCrop"
+	           android:src="@drawable/count_down" />
+            <TextView 
+                android:id="@+id/buy_number"
+                android:layout_width="40dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:background="@color/WHITE"
+                android:text="1"/>
+             <ImageView
+	                        android:id="@+id/add_img"
+	                        android:layout_width="wrap_content"
+		                    android:layout_height="wrap_content"
+		                    android:layout_gravity="center_vertical"
+		                    android:scaleType="centerCrop"
+	                        android:src="@drawable/count_up" />
+            </LinearLayout>
+            <Button
+                    android:id="@+id/buy_production"
+                    android:layout_width="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_height="30dp"
+                    android:background="@color/RED"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:text="下 单"
+                    android:textColor="@color/WHITE" />
+            </RelativeLayout>
+</RelativeLayout>

@@ -1,0 +1,21 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/app_bgcolor" 
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <include 
+        android:id="@+id/title_layout"
+        layout="@layout/base_title" />
+    
+ <ListView
+        android:id="@+id/stylist_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:divider="@color/app_bgcolor"
+        android:dividerHeight="1dp"
+        android:background="@anim/shape_rounded_rectangle"/>
+</LinearLayout>
