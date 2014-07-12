@@ -1,3 +1,6 @@
+<?php
+use Welfony\Core\Enum\UserRole;
+?>
 <div class="my_left">
     <div class="aside_nav">
         <ul>
@@ -28,8 +31,9 @@
                     </span>
                 </a>
             </li>
+            <?php if ($this->currentUser['Role'] == UserRole::Staff || $this->currentUser['Role'] == UserRole::Manager): ?>
             <li class="navitem<?php echo $this->active == 4 ? ' cur' : ''; ?>">
-                <a href="<?php echo $this->baseUrl('user/salon'); ?>" class="navitema">
+                <a href="<?php echo $this->baseUrl('user/' . ($this->currentUser['Role'] == UserRole::Staff ? 'stylist' : 'salon')); ?>" class="navitema">
                     <i class="nav_Dynamic_48">
                     </i>
                     <span class="nav_item_txt">
@@ -37,6 +41,7 @@
                     </span>
                 </a>
             </li>
+            <?php endif; ?>
         </ul>
     </div>
 </div>

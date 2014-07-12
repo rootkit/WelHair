@@ -136,6 +136,7 @@ class OrderRepository extends AbstractRepository
                      OG.GoodsNums,
                      OG.GoodsWeight,
                      OG.GoodsArray,
+                     OG.CompanyId,
                      (SELECT C.Name FROM Company C WHERE C.CompanyId = OG.CompanyId) CompanyName
 
                    FROM `Order` O

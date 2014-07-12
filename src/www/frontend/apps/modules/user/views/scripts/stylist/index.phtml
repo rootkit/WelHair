@@ -8,7 +8,7 @@
     ?>
     <div class="my_container">
         <?php
-        echo $this->partial('shared/leftnav.phtml', array('active' => 4));
+        echo $this->partial('shared/leftnav.phtml', array('active' => 4, 'currentUser' => $this->currentUser));
         ?>
         <div class="my_right g_mc">
         </div>

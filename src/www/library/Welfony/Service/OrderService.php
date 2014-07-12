@@ -454,6 +454,7 @@ class OrderService
                     'GoodsNums' => $row['GoodsNums'],
                     'GoodsWeight' => $row['GoodsWeight'],
                     'GoodsPrice' => $row['GoodsPrice'],
+                    'CompanyId' => $row['CompanyId'],
                     'CompanyName' => $row['CompanyName']
                 );
 

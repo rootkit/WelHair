@@ -12,7 +12,7 @@ use Welfony\Utility\Converter;
     ?>
     <div class="my_container">
         <?php
-        echo $this->partial('shared/leftnav.phtml', array('active' => 1));
+        echo $this->partial('shared/leftnav.phtml', array('active' => 1, 'currentUser' => $this->currentUser));
         ?>
         <div class="my_right g_mc">
             <ul id="tags">

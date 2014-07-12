@@ -1855,7 +1855,7 @@ html[xmlns] .slides {
 .contentset .cleft {
     float: left;
     min-height: 500px;
-    width: 165px;
+    width: 195px;
 }
 
 .contentset .cright {
@@ -2898,4 +2898,69 @@ button.u-btn-sm {
 .address-sel li a.selected {
     background: #54aede;
     color: #fff;
+}
+
+.timeline {
+    height: auto;
+    overflow: visible;
+    margin-left: 62px;
+    z-index: 2;
+    position: relative;
+    border-left: 2px solid #C0BDB6;
+    padding-top: 3px;
+    min-height: 720px;
+}
+
+.timeline li {
+    display: block;
+    height: 100px;
+}
+
+.timeline li i {
+    display: block;
+    width: 14px;
+    height: 14px;
+    position: relative;
+    margin-left: -8px;
+    top: 22px;
+    z-index: 2;
+
+    background-image: url(../../img/frontend/timeline.png);
+    _background-image: url(../../img/frontend/timeline_ie6.png);
+    background-position: -20px -42px;
+}
+
+.timeline li span {
+    position: relative;
+    display: block;
+    width: 600px;
+    height: 46px;
+    border: 1px solid #ddd;
+    padding: 10px;
+    margin: 0 0 0 30px;
+}
+
+.timeline li span .arrow {
+    background: none;
+    position: absolute;
+    left: -21px;
+    display: block;
+    border: 10px solid #ddd;
+    width: 0;
+    height: 0;
+    padding: 0;
+    margin: 0;
+    border-left: 10px solid transparent;
+    border-top: 10px solid transparent;
+    border-bottom: 10px solid transparent;
+    top: 5px;
+}
+
+.timeline li strong {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    color: #369;
+    font-size: 18px;
+    font-weight: normal;
 }

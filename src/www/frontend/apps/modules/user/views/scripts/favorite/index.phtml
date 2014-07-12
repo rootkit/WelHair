@@ -6,10 +6,9 @@
         'currentUser' => $this->currentUser,
         'userContext' => $this->userContext));
     ?>
-    <!-- 主体内容 开始 -->
     <div class="my_container">
         <?php
-        echo $this->partial('shared/leftnav.phtml', array('active' => 3));
+        echo $this->partial('shared/leftnav.phtml', array('active' => 3, 'currentUser' => $this->currentUser));
         ?>
         <div class="my_right g_mc">
         </div>

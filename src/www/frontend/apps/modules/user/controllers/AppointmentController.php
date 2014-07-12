@@ -12,8 +12,8 @@
 //
 // ==============================================================================
 
-use Welfony\Core\Enum\AppointmentStatus;
 use Welfony\Controller\Base\AbstractFrontendController;
+use Welfony\Core\Enum\AppointmentStatus;
 use Welfony\Service\AppointmentService;
 
 class User_AppointmentController extends AbstractFrontendController

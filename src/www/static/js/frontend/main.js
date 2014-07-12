@@ -781,7 +781,9 @@ function initAddressSel() {
 
         $('input[name=address_id]').val($(this).attr('data-address-id'));
 
-        return false;
+        if ($(this).attr('href') == '#') {
+            return false;
+        }
     });
 }
 

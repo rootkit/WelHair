@@ -8,9 +8,141 @@
     ?>
     <div class="my_container">
         <?php
-        echo $this->partial('shared/leftnav.phtml', array('active' => 2));
+        echo $this->partial('shared/leftnav.phtml', array('active' => 2, 'currentUser' => $this->currentUser));
         ?>
         <div class="my_right g_mc">
+            <ul id="tags">
+                <li<?php echo empty($this->status) ? ' class="selectTag"' : ''; ?>>
+                    <a href="<?php echo $this->baseUrl('user/order'); ?>">
+                        全部
+                    </a>
+                </li>
+                <li<?php echo $this->status == 'unpaid' ? ' class="selectTag"' : ''; ?>>
+                    <a href="<?php echo $this->baseUrl('user/order?status=unpaid'); ?>">
+                        未支付
+                    </a>
+                </li>
+            </ul>
+
+            <div id="tagContent">
+                <div class="tagContent selectTag" id="tagContent0">
+                    <table class="bought-table">
+                        <colgroup>
+                            <col class="baobei" />
+                            <col class="price" />
+                            <col class="trade-status" />
+                            <col class="trade-operate" />
+                        </colgroup>
+                        <thead>
+                            <tr class="col-name">
+                                <th colspan="3">
+                                    项目
+                                </th>
+                                <th>
+                                    费用
+                                </th>
+                                <th>
+                                    状态
+                                </th>
+                                <th>
+                                    操作
+                                </th>
+                            </tr>
+                        </thead>
+                        <?php foreach ($this->orderList as $order): ?>
+                        <tbody>
+                            <tr class="sep-row">
+                                <td colspan="6"></td>
+                            </tr>
+                            <tr class="col-name_1">
+                                <th>
+                                    <span>
+                                        <input name="appointment_id" type="checkbox" value="<?php echo $order['OrderId']; ?>" class="checkinput" />
+                                    </span>
+                                    <span>
+                                        订单号：<?php echo $order['OrderNo']; ?>
+                                    </span>
+                                </th>
+                                <th colspan="5">
+                                    <?php if (isset($order['Goods'][0]['CompanyName'])): ?>
+                                    <a href="<?php echo $this->baseUrl('salon/index/detail?salon_id=' . $order['Goods'][0]['CompanyId']); ?>">
+                                        <?php echo $order['Goods'][0]['CompanyName']; ?>
+                                    </a>
+                                    <?php endif; ?>
+                                </th>
+                            </tr>
+                            <tr class="order-bd">
+                                <td colspan="3">
+                                    <div class="chaterphoto">
+                                        <a href="<?php echo $this->baseUrl('goods/index/detail?goods_id=' . $order['Goods'][0]['GoodsId']); ?>">
+                                            <img src="<?php echo str_replace('480x480', '110x110', $order['Goods'][0]['Img'][0]); ?>" />
+                                            <span class="mask_side_100"></span>
+                                        </a>
+                                    </div>
+                                    <div class="chaterbaobei">
+                                        <ul>
+                                            <li>
+                                                <a href="javascript:;">
+                                                    <?php echo $order['Goods'][0]['Name']; ?>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <span>
+                                                    运费：￥<?php echo number_format($order['PayableFreight'], 2); ?>
+                                                </span>
+                                            </li>
+                                            <?php if (!empty($order['Goods'][0]['SpecDetail'])): ?>
+                                            <li>
+                                                <span>
+                                                    规格：<?php echo $order['Goods'][0]['SpecDetail']; ?>
+                                                </span>
+                                            </li>
+                                            <?php endif; ?>
+                                        </ul>
+                                    </div>
+                                    <div class="chatercount">
+                                        <ul>
+                                            <li>
+                                                ￥<?php echo number_format($order['Goods'][0]['GoodsPrice'], 2); ?>
+                                            </li>
+                                            <li>
+                                                <?php echo $order['Goods'][0]['GoodsNums']; ?>件
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="chateaddress">
+                                        地址：<?php echo $order['ProvinceName'] . ' ' . $order['CityName'] . ' ' . $order['DistrictName'] . ' ' . $order['Address']; ?>
+                                    </div>
+                                </td>
+                                <td>
+                                    ￥<?php echo number_format($order['OrderAmount'], 2); ?>
+                                </td>
+                                <td>
+                                    <?php echo $order['PayStatus']? ( $order['PayStatus']== '1' ? '已支付': '退款'):'未支付'; ?>
+                                </td>
+                                <td>
+                                    <?php if ($order['PayStatus'] == 0): ?>
+                                    <button class="btn btn2_xl btn2_l order-pay" data-order-id="$order['OrderId']">
+                                        <span class="t1">
+                                            立即付款
+                                        </span>
+                                    </button>
+                                    <?php endif; ?>
+                                    <?php if ($order['Status'] == 5): ?>
+                                    <button class="btn btn2_xl btn2_l order-comment" data-order-id="$order['OrderId']">
+                                        <span class="t1">
+                                            我要评论
+                                        </span>
+                                    </button>
+                                    <?php endif; ?>
+                                </td>
+                            </tr>
+                        </tbody>
+                        <?php endforeach; ?>
+                    </table>
+                </div>
+                <?php echo $this->pager; ?>
+            </div>
         </div>
     </div>
 </div>

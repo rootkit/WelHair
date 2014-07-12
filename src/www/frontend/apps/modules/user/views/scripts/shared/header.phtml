@@ -1,3 +1,12 @@
+<?php
+use Welfony\Service\UserPointService;
+
+$totalPoint = 0;
+$userPointList = UserPointService::listAllPointsByUserAndType($this->currentUser['UserId']);
+foreach ($userPointList as $up) {
+    $totalPoint += $up['Value'];
+}
+?>
 <div class="my_banner">
     <div class="my_photo">
         <img src="<?php echo str_replace('480x480', '110x110', $this->currentUser['AvatarUrl']); ?>" alt="<?php echo $this->currentUser['Nickname']; ?>" />
@@ -9,7 +18,7 @@
         </h2>
         <span>
             <a href="<?php echo $this->baseUrl('user/point'); ?>" class="Integral">
-                我的积分:324
+                我的积分:<?php echo $totalPoint; ?>
             </a>
         </span>
     </div>

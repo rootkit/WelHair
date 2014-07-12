@@ -13,6 +13,7 @@
 // ==============================================================================
 
 use Welfony\Controller\Base\AbstractFrontendController;
+use Welfony\Service\UserPointService;
 
 class User_PointController extends AbstractFrontendController
 {
@@ -27,6 +28,7 @@ class User_PointController extends AbstractFrontendController
     public function indexAction()
     {
         $this->view->pageTitle = '我的积分';
+        $this->view->pointList = UserPointService::listAllPointsByUserAndType($this->currentUser['UserId']);
     }
 
 }
