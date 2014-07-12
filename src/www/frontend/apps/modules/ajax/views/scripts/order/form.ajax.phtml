@@ -1,17 +1,22 @@
+<?php
+$hasSpec = count($this->goodsDetail['Spec']) > 0;
+?>
+
 <div class="noti info">
     请填写所有信息
 </div>
-<?php if (count($this->goodsDetail['Spec']) > 0): ?>
+<?php if ($hasSpec): ?>
 <p>
     <label>规格：</label>
 </p>
 <?php foreach ($this->goodsDetail['Spec'] as $spec):?>
     <p class="clearfix" style="margin: 0 0 10px;">
-        <label style="line-height: 30px;float: left; color: #999;" data-spec-id="<?php echo $spec['SpecId']; ?>"><?php echo $spec['Title']; ?>：</label>
-        <span class="u-btns enable" data-type="radio">
-        <?php foreach ($spec['Values'] as $value): ?>
-        <span class="u-btn u-btn-c4"><?php echo $value['SpecValue']; ?></span>
-        <?php endforeach; ?>
+        <label style="line-height: 30px;float: left; color: #999;"><?php echo $spec['Title']; ?>：</label>
+        <span class="u-btns enable" data-type="radio" data-spec-id="<?php echo $spec['SpecId']; ?>">
+            <?php foreach ($spec['Values'] as $value): ?>
+            <span class="u-btn u-btn-c4"><?php echo $value['SpecValue']; ?></span>
+            <?php endforeach; ?>
+        </span>
     </p>
 <?php endforeach; ?>
 <div style="margin: 30px 0;"></div>
@@ -23,7 +28,7 @@
 <p class="clearfix">
     <span class="tb-stock">
         <a href="#" hidefocus="" class="tb-reduce iconfont">&#xf0176;</a>
-        <input type="text" class="tb-text" value="1" maxlength="8" title="请输入购买量">
+        <input name="goods_count" type="text" class="tb-text" value="1" maxlength="8" title="请输入购买量" readonly="readonly">
         <a href="#" hidefocus="" class="tb-increase iconfont">&#xf0175;</a>&nbsp;&nbsp;件
     </span>
 </p>
@@ -31,7 +36,34 @@
 <p class="clearfix">
     <span style="float: left;padding-top: 11px;"><label>快递：</label>韵达快递 （默认10元）</span>
     <span style="float: right;">商品总价：<span class="goods-price">
-        <?php echo floatval($this->goodsDetail['SellPrice']); ?>
+        <?php echo $hasSpec ? '--' : floatval($this->goodsDetail['SellPrice']); ?>
     </span>元</span>
 </p>
-<input type="hidden" value="<?php echo floatval($this->goodsDetail['SellPrice']); ?>" name="signle_price" />
+
+<div style="margin: 20px 0 10px;border-bottom: 1px dashed #ddd;"></div>
+<p>
+    <label>收货地址：</label>
+</p>
+<p>
+    <ul class="address-sel">
+        <?php if (count($this->addressList) > 0): ?>
+        <?php foreach ($this->addressList as $address): ?>
+        <li>
+            <a data-address-id="<?php echo $address['AddressId']; ?>">
+                <strong><?php echo $address['ShippingName']; ?></strong>&nbsp;
+                <span class="mobile"><?php echo $address['Mobile']; ?></span>&nbsp;
+                <span class="address"><?php echo $address['Area']; ?>&nbsp;<?php echo $address['Address']; ?></span>
+            </a>
+        </li>
+        <?php endforeach; ?>
+        <?php else: ?>
+        <li>
+            <a href="<?php echo $this->baseUrl('user/setting/address'); ?>"><i class="iconfont">&#xf0175;</i>&nbsp;添加新收货地址</a>
+        </li>
+        <?php endif; ?>
+    </ul>
+</p>
+<input type="hidden" value="<?php echo $hasSpec ? 0 : floatval($this->goodsDetail['SellPrice']); ?>" name="single_price" />
+<input type="hidden" value="<?php echo base64_encode(json_encode($this->goodsDetail['Products'])); ?>" name="products" />
+<input type="hidden" value="0" name="product_id" />
+<input type="hidden" value="0" name="address_id" />

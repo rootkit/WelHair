@@ -49,8 +49,12 @@ class AddressRepository extends AbstractRepository
         }
 
         $strSql = "SELECT
-                       A.*
+                       A.*,
+                       CONCAT(PA.Name, ' ', PC.Name, ' ', IFNULL(PD.Name, '')) Area
                    FROM Address A
+                   INNER JOIN Area PA ON PA.AreaId = A.Province
+                   INNER JOIN Area PC ON PC.AreaId = A.City
+                   LEFT OUTER JOIN Area PD ON PD.AreaId = A.District
                    WHERE A.AddressId > 0 $filter
                    ORDER BY A.AddressId DESC";
 

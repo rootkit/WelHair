@@ -34,7 +34,7 @@
         FAKIcon *leftIcon = [FAKIonIcons ios7ArrowBackIconWithSize:NAV_BAR_ICON_SIZE];
         [leftIcon addAttribute:NSForegroundColorAttributeName value:[UIColor whiteColor]];
         self.leftNavItemImg =[leftIcon imageWithSize:CGSizeMake(NAV_BAR_ICON_SIZE, NAV_BAR_ICON_SIZE)];
-        
+
     }
     return self;
 }
@@ -51,7 +51,7 @@
     self.addressView = [[AddressView alloc] initWithFrame:CGRectMake(15, self.topBarOffset+10, 290, 80)];
     [self.addressView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(pickAddress)]];
     [self.view addSubview:self.addressView];
-    
+
     if(!self.address) {
         self.addressBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         self.addressBtn.frame = self.addressView.frame;
@@ -95,7 +95,7 @@
 
     UIView *bgImgView = [[UIView alloc] initWithFrame:CGRectMake(5, 5, 290, 300)];
     [detailView addSubview:bgImgView];
-    
+
     UILabel *groupNameLbl = [[UILabel alloc] initWithFrame:CGRectMake(10, 20, 170, 20)];
     groupNameLbl.font = [UIFont systemFontOfSize:14];
     groupNameLbl.numberOfLines = 2;
@@ -103,11 +103,11 @@
     groupNameLbl.textColor = [UIColor colorWithHexString:APP_NAVIGATIONBAR_COLOR];
     groupNameLbl.text = self.order.product.group.name;
     [detailView addSubview:groupNameLbl];
-    
+
     UIView *seperaterView = [[UIView alloc] initWithFrame:CGRectMake(X(groupNameLbl), MaxY(groupNameLbl) + 10, 280, 1)];
     seperaterView.backgroundColor = [UIColor lightGrayColor];
     [detailView addSubview:seperaterView];
-    
+
     UIImageView  *avatorImgView = [[UIImageView alloc] initWithFrame:CGRectMake(10, MaxY(seperaterView) + 10, 60, 60)];
     [detailView addSubview:avatorImgView];
     avatorImgView.layer.borderColor = [[UIColor colorWithHexString:@"e0e0de"] CGColor];
@@ -121,7 +121,7 @@
     productNameLbl.textColor = [UIColor blackColor];
     productNameLbl.text = self.order.product.name;
     [detailView addSubview:productNameLbl];
-    
+
     UILabel *productSpecLbl = [[UILabel alloc] initWithFrame:CGRectMake(MaxX(avatorImgView) + 5, MaxY(productNameLbl), 160, HEIGHT(avatorImgView)*1/3)];
     productSpecLbl.font = [UIFont systemFontOfSize:12];
     productSpecLbl.numberOfLines = 2;
@@ -129,7 +129,7 @@
     productSpecLbl.textColor = [UIColor lightGrayColor];
     productSpecLbl.text = [self.order selectedSpecStr];
     [detailView addSubview:productSpecLbl];
-    
+
     UILabel *priceLbl = [[UILabel alloc] initWithFrame:CGRectMake(MaxX(productNameLbl) + 5, Y(productNameLbl), 100, HEIGHT(avatorImgView)*2/3)];
     priceLbl.font = [UIFont systemFontOfSize:14];
     priceLbl.numberOfLines = 1;
@@ -171,7 +171,7 @@
     [detailView addSubview:totalPriceLbl];
 
     float scrollOffsetY = MaxY(freightPriceLbl) + 20;
-    
+
     float detailHeight =  MIN(scrollOffsetY, [self contentHeightWithNavgationBar:YES withBottomBar:YES] - HEIGHT(self.addressView) - 5);
     detailView.frame = CGRectMake(10, MaxY(cellView) + 5, 300, detailHeight);
     detailView.contentSize = CGSizeMake(300, detailHeight);
@@ -181,7 +181,7 @@
     UIImageView *bgImg = [[UIImageView alloc] initWithFrame:bgImgView.bounds];
     bgImg.image = [[UIImage imageNamed:@"OrderPreviewViewController_Bg"] resizableImageWithCapInsets:UIEdgeInsetsMake(0, 0, 10, 0)];
     [bgImgView insertSubview:bgImg atIndex:0];
-    
+
     UIView *bottomView = [[UIView alloc] initWithFrame:CGRectMake(0, self.topBarOffset + [self contentHeightWithNavgationBar:YES withBottomBar:YES], WIDTH(self.view), kBottomBarHeight )];
     bottomView.backgroundColor =[UIColor whiteColor];
     UIButton *submitBtn = [[UIButton alloc] initWithFrame:CGRectMake(220, 15, 80, 25)];
@@ -212,7 +212,7 @@
     if (![self checkLogin]) {
         return;
     }
-    
+
     if (self.order.address) {
         [SVProgressHUD showWithMaskType:SVProgressHUDMaskTypeClear];
 

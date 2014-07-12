@@ -185,8 +185,11 @@ WF = {
                 btnTrigger.inAjax = false;
                 target.html(data.responseText);
 
-                initButtonSet($('.popup-container'));
-                $('.price-panel .price').html(parseFloat($('input[name=signle_price]').val()) + 10);
+                initButtonSet($('.popup-container'), refreshPrice);
+                initCounter();
+                initAddressSel();
+
+                refreshPrice();
             }
         });
     },
@@ -208,6 +211,110 @@ WF = {
         });
     }
 };
+
+function Base64() {
+
+    // private property
+    _keyStr = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=";
+
+    // public method for encoding
+    this.encode = function (input) {
+        var output = "";
+        var chr1, chr2, chr3, enc1, enc2, enc3, enc4;
+        var i = 0;
+        input = _utf8_encode(input);
+        while (i < input.length) {
+            chr1 = input.charCodeAt(i++);
+            chr2 = input.charCodeAt(i++);
+            chr3 = input.charCodeAt(i++);
+            enc1 = chr1 >> 2;
+            enc2 = ((chr1 & 3) << 4) | (chr2 >> 4);
+            enc3 = ((chr2 & 15) << 2) | (chr3 >> 6);
+            enc4 = chr3 & 63;
+            if (isNaN(chr2)) {
+                enc3 = enc4 = 64;
+            } else if (isNaN(chr3)) {
+                enc4 = 64;
+            }
+            output = output +
+            _keyStr.charAt(enc1) + _keyStr.charAt(enc2) +
+            _keyStr.charAt(enc3) + _keyStr.charAt(enc4);
+        }
+        return output;
+    }
+
+    // public method for decoding
+    this.decode = function (input) {
+        var output = "";
+        var chr1, chr2, chr3;
+        var enc1, enc2, enc3, enc4;
+        var i = 0;
+        input = input.replace(/[^A-Za-z0-9\+\/\=]/g, "");
+        while (i < input.length) {
+            enc1 = _keyStr.indexOf(input.charAt(i++));
+            enc2 = _keyStr.indexOf(input.charAt(i++));
+            enc3 = _keyStr.indexOf(input.charAt(i++));
+            enc4 = _keyStr.indexOf(input.charAt(i++));
+            chr1 = (enc1 << 2) | (enc2 >> 4);
+            chr2 = ((enc2 & 15) << 4) | (enc3 >> 2);
+            chr3 = ((enc3 & 3) << 6) | enc4;
+            output = output + String.fromCharCode(chr1);
+            if (enc3 != 64) {
+                output = output + String.fromCharCode(chr2);
+            }
+            if (enc4 != 64) {
+                output = output + String.fromCharCode(chr3);
+            }
+        }
+        output = _utf8_decode(output);
+        return output;
+    }
+
+    // private method for UTF-8 encoding
+    _utf8_encode = function (string) {
+        string = string.replace(/\r\n/g,"\n");
+        var utftext = "";
+        for (var n = 0; n < string.length; n++) {
+            var c = string.charCodeAt(n);
+            if (c < 128) {
+                utftext += String.fromCharCode(c);
+            } else if((c > 127) && (c < 2048)) {
+                utftext += String.fromCharCode((c >> 6) | 192);
+                utftext += String.fromCharCode((c & 63) | 128);
+            } else {
+                utftext += String.fromCharCode((c >> 12) | 224);
+                utftext += String.fromCharCode(((c >> 6) & 63) | 128);
+                utftext += String.fromCharCode((c & 63) | 128);
+            }
+
+        }
+        return utftext;
+    }
+
+    // private method for UTF-8 decoding
+    _utf8_decode = function (utftext) {
+        var string = "";
+        var i = 0;
+        var c = c1 = c2 = 0;
+        while ( i < utftext.length ) {
+            c = utftext.charCodeAt(i);
+            if (c < 128) {
+                string += String.fromCharCode(c);
+                i++;
+            } else if((c > 191) && (c < 224)) {
+                c2 = utftext.charCodeAt(i+1);
+                string += String.fromCharCode(((c & 31) << 6) | (c2 & 63));
+                i += 2;
+            } else {
+                c2 = utftext.charCodeAt(i+1);
+                c3 = utftext.charCodeAt(i+2);
+                string += String.fromCharCode(((c & 15) << 12) | ((c2 & 63) << 6) | (c3 & 63));
+                i += 3;
+            }
+        }
+        return string;
+    }
+}
 
 function initMap() {
   var map = new BMap.Map('company-map');
@@ -246,10 +353,14 @@ function initOrder() {
             {
                 text: '确定下单',
                 click: function () {
-                    // if (!(popup.find('input[name=service_id]').val()) > 0 || $.trim(popup.find('input[name=appointment_date]').val()) == '') {
-                    //     popup.find('.noti').text('请选择所有信息');
-                    //     return;
-                    // }
+                    if (parseFloat($('input[name=single_price]').val()) <= 0) {
+                        popup.find('.noti').text('请选择正确的商品规格');
+                        return;
+                    }
+                    if (parseInt($('input[name=address_id]').val()) <= 0) {
+                        popup.find('.noti').text('请选择收货地址');
+                        return;
+                    }
 
                     if (window.inAjax) {
                         return;
@@ -263,7 +374,10 @@ function initOrder() {
                         url: '/ajax/order',
                         data: {
                             goods_id: goodsId,
-                            company_id: companyId
+                            company_id: companyId,
+                            address_id: parseInt($('input[name=address_id]').val()),
+                            product_id: parseInt($('input[name=product_id]').val()),
+                            goods_count: parseInt($('input[name=goods_count]').val())
                         },
                         success: function (data) {
                             window.inAjax = 0;
@@ -286,7 +400,6 @@ function initOrder() {
             }],
             open: function () {
                 WF.initOrderForm(goodsId, companyId, popup);
-
                 $('.ui-dialog-buttonpane').prepend('<div class="price-panel">订单总价<span class="price"></span>元</div>');
             },
             close: function() {
@@ -298,7 +411,7 @@ function initOrder() {
     });
 }
 
-function initButtonSet(parent) {
+function initButtonSet(parent, callback) {
     parent.find('.u-btns.enable').find('span').click(function() {
         var cur = $(this);
         var group = cur.parent();
@@ -330,6 +443,10 @@ function initButtonSet(parent) {
             });
 
             group.find('input[type=hidden]').val(values.join(','));
+        }
+
+        if (callback) {
+            callback();
         }
     });
 }
@@ -590,6 +707,75 @@ function initLike() {
             }
         };
         $.ajax(opts);
+
+        return false;
+    });
+}
+
+function initCounter() {
+    $('.tb-increase').click(function() {
+        var txtCount = $(this).parent().find('.tb-text');
+
+        if (parseInt(txtCount.val()) < 100) {
+            txtCount.val(parseInt(txtCount.val()) + 1);
+        }
+
+        refreshPrice();
+
+        return false;
+    });
+    $('.tb-reduce').click(function() {
+        var txtCount = $(this).parent().find('.tb-text');
+
+        if (parseInt(txtCount.val()) > 1) {
+            txtCount.val(parseInt(txtCount.val()) - 1);
+        }
+
+        refreshPrice();
+
+        return false;
+    });
+}
+
+function refreshPrice() {
+    $('.noti').text('请选择所有信息')
+
+    var products = $.parseJSON((new Base64()).decode($('input[name=products]').val()));
+    $.each(products, function() {
+        var prod = this;
+        var specArr = prod.Spec;
+
+        var match = true;
+        $.each (specArr, function() {
+            var spec = this;
+            var specSel = $('span[data-spec-id=' + spec.Id + ']');
+            if (specSel.find('.u-btn-c5').length <= 0 || specSel.find('.u-btn-c5').text() != spec.Value) {
+                return match = false;
+            }
+        });
+
+        if (match) {
+            $('input[name=single_price]').val(prod.Price);
+            $('input[name=product_id]').val(prod.ProductId);
+        }
+    });
+
+    var singlePrice = parseFloat($('input[name=single_price]').val());
+    if (singlePrice <= 0) {
+        $('.price-panel .price, .goods-price').html('--');
+    } else {
+        var goodsCount = parseInt($('input[name=goods_count]').val());
+        $('.goods-price').html(singlePrice * goodsCount);
+        $('.price-panel .price').html(singlePrice * goodsCount + 10);
+    }
+}
+
+function initAddressSel() {
+    $('.address-sel li a').click(function() {
+        $('.address-sel li a').removeClass('selected');
+        $(this).addClass('selected');
+
+        $('input[name=address_id]').val($(this).attr('data-address-id'));
 
         return false;
     });
