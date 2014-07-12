@@ -74,6 +74,7 @@ class AppointmentRepository extends AbstractRepository
         $offset = ($page - 1) * $pageSize;
         $strSql = "SELECT
                        A.AppointmentId,
+                       A.AppointmentNo,
                        A.Status,
                        A.AppointmentDate,
                        A.LastModifiedBy,
@@ -82,6 +83,7 @@ class AppointmentRepository extends AbstractRepository
                        A.CompanyId,
                        A.CompanyName,
                        A.CompanyAddress,
+                       CONCAT(PA.Name, ' ', PC.Name, ' ', IFNULL(PD.Name, '')) CompanyArea,
 
                        A.StaffId,
                        IFNULL(S.Nickname, A.StaffName) StaffName,
@@ -99,6 +101,10 @@ class AppointmentRepository extends AbstractRepository
                    FROM Appointment A
                    INNER JOIN Users U ON U.UserId = A.UserId
                    INNER JOIN Users S ON S.UserId = A.StaffId
+                   INNER JOIN Company C ON C.CompanyId = A.CompanyId
+                   INNER JOIN Area PA ON PA.AreaId = C.Province
+                   INNER JOIN Area PC ON PC.AreaId = C.City
+                   LEFT OUTER JOIN Area PD ON PD.AreaId = C.District
                    WHERE A.UserId > 0 $filter
                    ORDER BY A.AppointmentId DESC
                    LIMIT $offset, $pageSize";

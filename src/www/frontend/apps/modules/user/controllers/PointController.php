@@ -14,20 +14,19 @@
 
 use Welfony\Controller\Base\AbstractFrontendController;
 
-class User_IndexController extends AbstractFrontendController
+class User_PointController extends AbstractFrontendController
 {
 
     public function init()
     {
-        $this->needloginActionList['user'] = array('index' => array('index'));
+        $this->needloginActionList['user'] = array('point' => array('index'));
 
         parent::init();
     }
 
     public function indexAction()
     {
-        $this->view->pageTitle = '个人中心';
-        $this->_redirect($this->view->baseUrl('user/appointment'));
+        $this->view->pageTitle = '我的积分';
     }
 
 }

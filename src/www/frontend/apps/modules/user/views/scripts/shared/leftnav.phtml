@@ -1,0 +1,42 @@
+<div class="my_left">
+    <div class="aside_nav">
+        <ul>
+            <li class="navitem<?php echo $this->active == 1 ? ' cur' : ''; ?>">
+                <a href="<?php echo $this->baseUrl('user/appointment'); ?>" class="navitema">
+                    <i class="nav_appointmen_48">
+                    </i>
+                    <span class="nav_item_txt">
+                        我的预约
+                    </span>
+                </a>
+            </li>
+            <li class="navitem<?php echo $this->active == 2 ? ' cur' : ''; ?>">
+                <a href="<?php echo $this->baseUrl('user/order'); ?>" class="navitema">
+                    <i class="nav_order_48">
+                    </i>
+                    <span class="nav_item_txt">
+                        订单
+                    </span>
+                </a>
+            </li>
+            <li class="navitem<?php echo $this->active == 3 ? ' cur' : ''; ?>">
+                <a href="<?php echo $this->baseUrl('user/favorite'); ?>" class="navitema">
+                    <i class="nav_Collection_48">
+                    </i>
+                    <span class="nav_item_txt">
+                        收藏
+                    </span>
+                </a>
+            </li>
+            <li class="navitem<?php echo $this->active == 4 ? ' cur' : ''; ?>">
+                <a href="<?php echo $this->baseUrl('user/salon'); ?>" class="navitema">
+                    <i class="nav_Dynamic_48">
+                    </i>
+                    <span class="nav_item_txt">
+                        沙龙
+                    </span>
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>

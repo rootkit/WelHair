@@ -1957,25 +1957,20 @@ html[xmlns] .slides {
 }
 
 #tagContent {
-    padding: 25px;
+    padding: 20px 0 20px 20px;
     background-color: #fff;
 }
 
 .tagContent {
     display: none;
     overflow: hidden;
-    padding-top: 10px;
-    padding-right: 5px;
-    padding-bottom: 10px;
-    padding-left: 5px;
     min-height: 600px;
-    width: 98%;
     height: auto;
     color: #474747;
 }
 
 #tagContent div.selectTag {
-    DISPLAY: block;
+    display: block;
 }
 
 .bought-table {
