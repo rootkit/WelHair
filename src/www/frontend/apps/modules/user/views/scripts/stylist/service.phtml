@@ -1,0 +1,78 @@
+<div class="container">
+    <?php
+    echo $this->partial('shared/header.phtml', array(
+        'module' => $this->module,
+        'config' => $this->config,
+        'currentUser' => $this->currentUser,
+        'userContext' => $this->userContext));
+    ?>
+</div>
+<div class="my_container">
+    <?php
+    echo $this->partial('shared/leftnav.phtml', array('active' => 4, 'currentUser' => $this->currentUser));
+    ?>
+    <div class="my_right g_mc">
+        <?php
+        echo $this->partial('shared/topnavstylist.phtml', array('action' => $this->action));
+        ?>
+        <div style="padding: 15px 0 0 15px;">
+            <div class="toolbar">
+                <ul class="clearfix">
+                    <li>
+                        <a href="<?php echo $this->baseUrl('user/stylist/serviceedit'); ?>">
+                            <i class="iconfont">&#xf0175;</i>
+                            添加新服务
+                        </a>
+                    </li>
+                    <li>
+                        <a href="javascript:;">
+                            <i class="iconfont">&#xf013f;</i>
+                            删除服务
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <table class="m-table">
+                <thead>
+                    <tr>
+                        <th class="col-chk"><input id="chk_all" type="checkbox" /></th>
+                        <th>服务名称</th>
+                        <th>原价</th>
+                        <th>现价</th>
+                        <th>创建时间</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php if (count($this->dataList) > 0): ?>
+                    <?php foreach ($this->dataList as $data): ?>
+                    <tr>
+                        <td class="col-center">
+                            <input name="chk_ids[]" value="<?php echo $data['ServiceId']; ?>" type="checkbox" />
+                        </td>
+                        <td>
+                            <a href="<?php echo $this->baseUrl('user/stylist/serviceedit?service_id=' . $data['ServiceId']); ?>">
+                                <?php echo $data['Title']; ?>
+                            </a>
+                        </td>
+                        <td class="col-center">
+                            <?php echo number_format($data['OldPrice'], 2); ?>
+                        </td>
+                        <td class="col-center">
+                            <?php echo number_format($data['Price'], 2); ?>
+                        </td>
+                        <td class="col-center">
+                            <?php echo date('Y-m-d', strtotime($data['CreatedDate'])); ?>
+                        </td>
+                    </tr>
+                    <?php endforeach; ?>
+                    <?php else: ?>
+                    <tr>
+                        <td class="col-center" colspan="6">您还没有添加任何记录</td>
+                    </tr>
+                    <?php endif; ?>
+                </tbody>
+            </table>
+            <?php echo $this->pager; ?>
+        </div>
+    </div>
+</div>

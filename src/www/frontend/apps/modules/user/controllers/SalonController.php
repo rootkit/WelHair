@@ -29,4 +29,24 @@ class User_SalonController extends AbstractFrontendController
         $this->view->pageTitle = '沙龙管理';
     }
 
+    public function infoAction()
+    {
+        $this->view->pageTitle = '沙龙资料';
+    }
+
+    public function stylistAction()
+    {
+        $this->view->pageTitle = '沙龙发型师';
+    }
+
+    public function requestAction()
+    {
+        $this->view->pageTitle = '发型师请求';
+    }
+
+    public function accountAction()
+    {
+        $this->view->pageTitle = '沙龙账户';
+    }
+
 }

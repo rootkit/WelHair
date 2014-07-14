@@ -34,6 +34,7 @@
                 </a>
             </li>
         </ul>
+        <div style="min-height: 600px;">
         <?php
         if (empty($this->filter)) {
             echo $this->partial('shared/hairlist.phtml', array('workList' => $this->dataList));
@@ -48,6 +49,7 @@
             echo $this->partial('shared/goodslist.phtml', array('goodsList' => $this->dataList));
         }
         ?>
+        </div>
         <?php echo $this->pager; ?>
     </div>
 </div>

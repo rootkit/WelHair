@@ -1,0 +1,22 @@
+<ul id="tags">
+    <li class="tags-h<?php echo $this->action == 'hair' ? ' selectTag' : ''; ?>">
+        <a href="<?php echo $this->baseUrl('user/stylist/hair'); ?>">
+            我的作品
+        </a>
+    </li>
+    <li class="tags-h<?php echo $this->action == 'service' ? ' selectTag' : ''; ?>">
+        <a href="<?php echo $this->baseUrl('user/stylist/service'); ?>">
+            我的服务
+        </a>
+    </li>
+    <li class="tags-h<?php echo $this->action == 'client' ? ' selectTag' : ''; ?>">
+        <a href="<?php echo $this->baseUrl('user/stylist/client'); ?>">
+            我的客户
+        </a>
+    </li>
+    <li class="tags-h<?php echo $this->action == 'appointment' ? ' selectTag' : ''; ?>">
+        <a href="<?php echo $this->baseUrl('user/stylist/appointment'); ?>">
+            我的客户预约
+        </a>
+    </li>
+</ul>
