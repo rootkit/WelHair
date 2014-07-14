@@ -1964,6 +1964,7 @@ html[xmlns] .slides {
 }
 
 .tagContent {
+    position: relative;
     display: none;
     overflow: hidden;
     min-height: 600px;
