@@ -1516,7 +1516,6 @@ html[xmlns] .slides {
 }
 
 .my_container {
-    position: relative;
     z-index: 2;
     margin: 0 auto;
     width: 980px;
@@ -1625,7 +1624,6 @@ html[xmlns] .slides {
 }
 
 .my_right {
-    position: relative;
     z-index: 3;
     float: right;
     min-height: 720px;
