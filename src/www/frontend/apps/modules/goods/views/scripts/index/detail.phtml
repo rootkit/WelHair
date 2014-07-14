@@ -188,7 +188,9 @@ window._bd_share_config.common.bdText = "<?php echo $this->goodsDetail['Name']; 
 initSlider();
 $(document).ready(function() {
     initLike();
+    <?php if (isset($this->goodsDetail['Company'])): ?>
     initMap();
+    <?php endif; ?>
     initShare();
     initOrder();
 });
