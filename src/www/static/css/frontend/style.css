@@ -552,7 +552,6 @@ html[xmlns] .slides {
 }
 
 .fliter_foot {
-    position: relative;
     overflow: hidden;
     margin-top: 10px;
     padding: 0 15px;
@@ -1576,8 +1575,8 @@ html[xmlns] .slides {
 }
 
 .nav_Dynamic_48,.nav_appointmen_48, .nav_order_48, .nav_Collection_48 {
-    display: inline-block;
-    margin-left: 26px;
+    display: block;
+    margin: 0 26px;
     width: 48px;
     height: 48px;
     background-image: url(../../img/frontend/navico48.png);

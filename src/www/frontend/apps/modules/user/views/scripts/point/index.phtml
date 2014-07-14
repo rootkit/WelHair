@@ -6,25 +6,25 @@
         'currentUser' => $this->currentUser,
         'userContext' => $this->userContext));
     ?>
-    <div class="my_container">
-        <?php
-        echo $this->partial('shared/leftnav.phtml', array('currentUser' => $this->currentUser));
-        ?>
-        <div class="my_right g_mc">
-            <ul class="timeline">
-                <?php foreach ($this->pointList as $point): ?>
-                <li>
-                    <i></i>
-                    <span>
-                        <i class="arrow"></i>
-                        <?php echo $point['Description']; ?>
-                        <br/>
-                        <?php echo date('Y-m-d', strtotime($point['CreatedDate'])); ?>
-                        <strong><?php echo $point['Value']; ?></strong>
-                    </span>
-                </li>
-                <?php endforeach; ?>
-            </ul>
-        </div>
+</div>
+<div class="my_container">
+    <?php
+    echo $this->partial('shared/leftnav.phtml', array('currentUser' => $this->currentUser));
+    ?>
+    <div class="my_right g_mc">
+        <ul class="timeline">
+            <?php foreach ($this->pointList as $point): ?>
+            <li>
+                <i></i>
+                <span>
+                    <i class="arrow"></i>
+                    <?php echo $point['Description']; ?>
+                    <br/>
+                    <?php echo date('Y-m-d', strtotime($point['CreatedDate'])); ?>
+                    <strong><?php echo $point['Value']; ?></strong>
+                </span>
+            </li>
+            <?php endforeach; ?>
+        </ul>
     </div>
 </div>
