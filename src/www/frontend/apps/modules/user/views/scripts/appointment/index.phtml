@@ -16,17 +16,17 @@ use Welfony\Utility\Converter;
         ?>
         <div class="my_right g_mc">
             <ul id="tags">
-                <li<?php echo empty($this->status) ? ' class="selectTag"' : ''; ?>>
+                <li class="tags-h<?php echo empty($this->status) ? ' selectTag' : ''; ?>">
                     <a href="<?php echo $this->baseUrl('user/appointment'); ?>">
                         全部
                     </a>
                 </li>
-                <li<?php echo $this->status == 'unpaid' ? ' class="selectTag"' : ''; ?>>
+                <li class="tags-h<?php echo $this->status == 'unpaid' ? ' selectTag' : ''; ?>">
                     <a href="<?php echo $this->baseUrl('user/appointment?status=unpaid'); ?>">
                         未支付
                     </a>
                 </li>
-                <li<?php echo $this->status == 'completed' ? ' class="selectTag"' : ''; ?>>
+                <li class="tags-h<?php echo $this->status == 'completed' ? ' selectTag' : ''; ?>">
                     <a href="<?php echo $this->baseUrl('user/appointment?status=completed'); ?>">
                         已完成
                     </a>

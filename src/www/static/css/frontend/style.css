@@ -1919,9 +1919,12 @@ html[xmlns] .slides {
     border-bottom: 1px solid #d7d7d7;
 }
 
+.tags-h {
+    float: left;
+}
+
 #tags li {
     display: block;
-    float: left;
 }
 
 #tags li a {
@@ -2676,7 +2679,7 @@ button.u-btn-sm {
 
 .card-list {
     float: left;
-    width: 50%;
+    width: 49.9%;
 }
 
 .card-list-inner {

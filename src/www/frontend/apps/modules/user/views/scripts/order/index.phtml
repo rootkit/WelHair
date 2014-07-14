@@ -12,12 +12,12 @@
         ?>
         <div class="my_right g_mc">
             <ul id="tags">
-                <li<?php echo empty($this->status) ? ' class="selectTag"' : ''; ?>>
+                <li class="<?php echo empty($this->status) ? ' selectTag' : ''; ?>">
                     <a href="<?php echo $this->baseUrl('user/order'); ?>">
                         全部
                     </a>
                 </li>
-                <li<?php echo $this->status == 'unpaid' ? ' class="selectTag"' : ''; ?>>
+                <li class="<?php echo $this->status == 'unpaid' ? ' selectTag' : ''; ?>">
                     <a href="<?php echo $this->baseUrl('user/order?status=unpaid'); ?>">
                         未支付
                     </a>
