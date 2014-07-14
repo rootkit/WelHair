@@ -16,6 +16,7 @@ use PHPassLib\Hash\PBKDF2 as PassHash;
 use Welfony\Controller\Base\AbstractFrontendController;
 use Welfony\Service\AddressService;
 use Welfony\Service\AreaService;
+use Welfony\Service\DepositService;
 use Welfony\Service\UserService;
 
 class User_SettingController extends AbstractFrontendController
@@ -155,6 +156,51 @@ class User_SettingController extends AbstractFrontendController
         $this->view->provinceList = AreaService::listAreaByParent(0);
         $this->view->cityList = $this->view->addressInfo['Province'] > 0 ? AreaService::listAreaByParent($this->view->addressInfo['Province']) : array();
         $this->view->districtList = $this->view->addressInfo['City'] > 0 ? AreaService::listAreaByParent($this->view->addressInfo['City']) : array();
+    }
+
+    public function accountAction()
+    {
+        $this->view->pageTitle = '我的帐号';
+
+        $userId = $this->currentUser['UserId'];
+
+        if ($this->_request->isPost()) {
+            $reqData = array(
+                'DepositId' => 0,
+                'UserId' => $userId,
+                'Amount' => floatval($this->_request->getParam('amount')),
+                'Status' => 1
+            );
+
+            $result = DepositService::save($reqData);
+            if ($result['success']) {
+                $this->view->successMessage = '充值成功';
+            } else {
+                $this->view->errorMessage = $result['message'];
+            }
+        }
+
+        $user = UserService::getUserById($userId);
+        if ($user) {
+            $this->view->totalBalance = floatval($user['Balance']);
+        } else {
+            $this->view->totalBalance = 0;
+        }
+    }
+
+    public function accounthistoryAction()
+    {
+        $this->view->pageTitle = '充值记录';
+
+        $page = intval($this->_request->getParam('page'));
+        $pageSize = 20;
+
+        $rstDepositList = DepositService::listDeposit($page, $pageSize, $this->currentUser['UserId']);
+        $this->view->depositList = $rstDepositList['deposits'];
+
+        $this->view->pager = $this->renderPager($this->view->baseUrl('user/setting/accounthistory?'),
+                                                $page,
+                                                ceil($rstDepositList['total'] / $pageSize));
     }
 
 }

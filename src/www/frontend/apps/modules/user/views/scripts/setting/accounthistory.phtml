@@ -1,0 +1,60 @@
+<form method="post">
+<div class="my_container">
+    <div class="contentset">
+        <ul id="tags" style="border-bottom:none;" class="cleft">
+            <li>
+                <a href="<?php echo $this->baseUrl('user/setting'); ?>" class="tab_1">
+                    基本信息
+                </a>
+            </li>
+            <li class="selectTag">
+                <a href="<?php echo $this->baseUrl('user/setting/account'); ?>" class="tab_1">
+                    我的帐号
+                </a>
+            </li>
+            <li>
+                <a href="<?php echo $this->baseUrl('user/setting/changepassword'); ?>" class="tab_1">
+                    修改密码
+                </a>
+            </li>
+            <li>
+                <a href="<?php echo $this->baseUrl('user/setting/address'); ?>" class="tab_1">
+                    收货地址
+                </a>
+            </li>
+        </ul>
+        <div id="tagContent" class="cright">
+            <div class="tagContent selectTag" style="padding-right: 15px;">
+                <table class="m-table">
+                    <thead>
+                        <tr>
+                            <th>编号</th>
+                            <th>状态</th>
+                            <th>金额</th>
+                            <th>日期</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php foreach ($this->depositList as $deposit): ?>
+                        <tr>
+                            <td>
+                                <?php echo $deposit['DepositNo']; ?>
+                            </td>
+                            <td>
+                                <?php echo $deposit['Status'] =='0' ? '新建' : '成功'; ?>
+                            </td>
+                            <td>
+                                ￥<?php echo $deposit['Amount']; ?>
+                            </td>
+                            <td>
+                                <?php echo date('Y-m-d H:i', strtotime($deposit['LastUpdateDate'])); ?>
+                            </td>
+                        </tr>
+                        <?php endforeach; ?>
+                    </tbody>
+                </table>
+                <?php echo $this->pager; ?>
+            </div>
+        </div>
+    </div>
+</div>
