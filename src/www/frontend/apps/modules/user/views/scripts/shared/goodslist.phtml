@@ -1,0 +1,37 @@
+<div class="projects" style="width: 860px; margin: 0 0 0 20px;">
+    <div class="row">
+        <?php foreach ($this->goodsList as $goods): ?>
+        <div class="span21-7">
+            <div class="col-md-3 box_shadow clearfix">
+                <div class="userBox">
+                    <?php if (isset($goods['Company'])): ?>
+                    <div class=" userPic">
+                        <a href="<?php echo $this->baseUrl('company/index/detail?company_id=' . $goods['Company']['CompanyId']); ?>"><img src="<?php echo $goods['Company']['LogoUrl']; ?>"></a>
+                    </div>
+                    <?php endif; ?>
+                    <div class="pannel">
+                        <div class="username">
+                            <strong>
+                                <a href="<?php echo $this->baseUrl('goods/index/detail?goods_id=' . $goods['GoodsId']); ?>"><?php echo $goods['Name']; ?></a>
+                            </strong>
+                        </div>
+                        <?php if (isset($goods['Company'])): ?>
+                        <div class="usersalon">沙龙：<?php echo $goods['Company']['Name']; ?></div>
+                        <?php endif; ?>
+                    </div>
+                </div>
+                <div class="picbox">
+                    <a href="<?php echo $this->baseUrl('goods/index/detail?goods_id=' . $goods['GoodsId'] . (isset($goods['Company']) ? '&company_id=' . $goods['Company']['CompanyId'] : '')); ?>">
+                        <img src="<?php echo $goods['PictureUrl'][0]; ?>" onerror="this.src='<?php echo $this->config->asset->baseUrl; ?>/img/photo-default.png';" />
+                    </a>
+                </div>
+                <div class="comtbox" style="text-align: right;">
+                    <a style="margin-right: 10px;" class="remove-fav" data-goods-id="<?php echo  $goods['GoodsId']; ?>">
+                        <i class="iconfont" title="删除商品">&#xf013f;</i>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <?php endforeach; ?>
+    </div>
+</div>

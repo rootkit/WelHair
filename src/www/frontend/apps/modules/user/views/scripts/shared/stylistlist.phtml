@@ -1,0 +1,30 @@
+<div class="projects" style="width: 860px; margin: 0 0 0 20px;">
+    <div class="row">
+        <?php foreach ($this->staffList as $staff): ?>
+        <div class="span21-7">
+            <div class="col-md-3 box_shadow clearfix">
+                <div class="userBox">
+                    <div class="pannel">
+                        <div class="username">
+                            <strong>
+                                <a href="<?php echo $this->baseUrl('stylist/index/detail?stylist_id=' . $staff['UserId']); ?>"><?php echo $staff['Nickname']; ?></a>
+                            </strong>
+                        </div>
+                        <div class="usersalon">沙龙：<?php echo $staff['Company']['Name']; ?></div>
+                    </div>
+                </div>
+                <div class="picbox">
+                    <a href="<?php echo $this->baseUrl('stylist/index/detail?stylist_id=' . $staff['UserId']); ?>">
+                        <img src="<?php echo $staff['AvatarUrl']; ?>" onerror="this.src='<?php echo $this->config->asset->baseUrl; ?>/img/photo-default.png';" />
+                    </a>
+                </div>
+                <div class="comtbox" style="text-align: right;">
+                    <a style="margin-right: 10px;" class="remove-fav" data-stylist-id="<?php echo $staff['UserId']; ?>">
+                        <i class="iconfont" title="删除发型师">&#xf013f;</i>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <?php endforeach; ?>
+    </div>
+</div>

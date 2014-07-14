@@ -102,6 +102,7 @@ class AbstractController extends \Zend_Controller_Action
     protected function renderPager($url, $pageNumber, $pageCount, $ajaxfunc = '')
     {
         $pageNumber = $pageNumber <= 0 ? 1 : $pageNumber;
+        $pageCount = $pageCount <= 0 ? 1 : $pageCount;
 
         $pager = '<div class="m-page m-page-rt">';
         $baseClass = '';

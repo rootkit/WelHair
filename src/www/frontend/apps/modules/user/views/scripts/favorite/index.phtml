@@ -11,6 +11,49 @@
     <?php
     echo $this->partial('shared/leftnav.phtml', array('active' => 3, 'currentUser' => $this->currentUser));
     ?>
-    <div class="my_right g_mc">
+    <div class="my_right g_mc" style="padding-bottom: 20px;">
+        <ul id="tags">
+            <li class="tags-h<?php echo empty($this->filter) ? ' selectTag' : ''; ?>">
+                <a href="<?php echo $this->baseUrl('user/favorite'); ?>">
+                    发型
+                </a>
+            </li>
+            <li class="tags-h<?php echo $this->filter == 'salon' ? ' selectTag' : ''; ?>">
+                <a href="<?php echo $this->baseUrl('user/favorite?filter=salon'); ?>">
+                    沙龙
+                </a>
+            </li>
+            <li class="tags-h<?php echo $this->filter == 'stylist' ? ' selectTag' : ''; ?>">
+                <a href="<?php echo $this->baseUrl('user/favorite?filter=stylist'); ?>">
+                    发型师
+                </a>
+            </li>
+            <li class="tags-h<?php echo $this->filter == 'goods' ? ' selectTag' : ''; ?>">
+                <a href="<?php echo $this->baseUrl('user/favorite?filter=goods'); ?>">
+                    商品
+                </a>
+            </li>
+        </ul>
+        <?php
+        if (empty($this->filter)) {
+            echo $this->partial('shared/hairlist.phtml', array('workList' => $this->dataList));
+        }
+        if ($this->filter == 'salon') {
+            echo $this->partial('shared/salonlist.phtml', array('companyList' => $this->dataList));
+        }
+        if ($this->filter == 'stylist') {
+            echo $this->partial('shared/stylistlist.phtml', array('staffList' => $this->dataList));
+        }
+        if ($this->filter == 'goods') {
+            echo $this->partial('shared/goodslist.phtml', array('goodsList' => $this->dataList));
+        }
+        ?>
+        <?php echo $this->pager; ?>
     </div>
 </div>
+
+<script>
+$(document).ready(function() {
+    initRemoveFav();
+});
+</script>

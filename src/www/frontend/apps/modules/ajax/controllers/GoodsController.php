@@ -26,7 +26,7 @@ class Ajax_GoodsController extends AbstractFrontendController
 
         $userLike = array(
             'CreatedBy' => $this->currentUser['UserId'],
-            'CompanyId' => intval($this->_request->getParam('goods_id')),
+            'GoodsId' => intval($this->_request->getParam('goods_id')),
             'IsLike' => intval($this->_request->getParam('is_like'))
         );
 

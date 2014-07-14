@@ -26,7 +26,7 @@ class Ajax_HairController extends AbstractFrontendController
 
         $userLike = array(
             'CreatedBy' => $this->currentUser['UserId'],
-            'WorkId' => intval($this->_request->getParam('work_id')),
+            'WorkId' => intval($this->_request->getParam('hair_id')),
             'IsLike' => intval($this->_request->getParam('is_like'))
         );
 

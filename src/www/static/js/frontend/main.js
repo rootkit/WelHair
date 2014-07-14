@@ -329,6 +329,78 @@ function initMap() {
   map.addOverlay(marker);
 }
 
+function initComment() {
+    $('.order-comment').click(function() {
+        var orderId = $(this).attr('data-order-id');
+    });
+}
+
+function initOrderPay() {
+    $('.order-pay').click(function() {
+        var orderId = $(this).attr('data-order-id');
+
+        var popup = $('<div class="popup-container"><div class="noti info">&nbsp;</div><p style="text-align: center; margin-top: 20px;">确定要支付订单么？</p></div>');
+        popup.dialog({
+            title: '订单支付',
+            width: 400,
+            height: 260,
+            modal: true,
+            resizable: 'disable',
+            show: {
+                effect: "fade",
+                duration: 1000
+            },
+            hide: {
+                effect: "fade",
+                duration: 200
+            },
+            buttons: [
+            {
+                text: '确定',
+                click: function () {
+                    if (window.inAjax) {
+                        return;
+                    }
+
+                    popup.find('.noti').text('提交中 ...');
+                    window.inAjax = 1;
+
+                    $.ajax({
+                        type: "post",
+                        url: '/ajax/order/pay',
+                        data: {
+                            order_id: orderId
+                        },
+                        success: function (data) {
+                            window.inAjax = 0;
+
+                            if (data.success) {
+                                popup.dialog('close');
+                                WF.showMessage('success', '信息', '支付订单成功！');
+
+                                window.location.reload();
+                            } else {
+                                popup.find('.noti').text(data.message);
+                            }
+                        },
+                        complete: function (XMLHttpRequest, textStatus) {
+                            window.inAjax = 0;
+                        },
+                        error: function () {
+                            window.inAjax = 0;
+                        }
+                    });
+                }
+            }],
+            open: function () {
+            },
+            close: function() {
+                popup.dialog('destroy').remove();
+            }
+        });
+    });
+}
+
 function initOrder() {
     $('#goods_order').click(function() {
         var goodsId = $(this).attr('data-goods-id');
@@ -633,7 +705,7 @@ function initLike() {
             type: "GET",
             url: '/ajax/hair/like',
             contentType: "application/json",
-            data: "work_id=" + btn.attr('data-hair-id') + '&' + "is_like=" + (liked ? 0 : 1),
+            data: "hair_id=" + btn.attr('data-hair-id') + '&' + "is_like=" + (liked ? 0 : 1),
             success: function(data) {
 
             }
@@ -713,6 +785,74 @@ function initLike() {
         $.ajax(opts);
 
         return false;
+    });
+}
+
+function initRemoveFav() {
+    $('.remove-fav').click(function() {
+        var btn = $(this);
+        btn.parent().parent().parent().fadeOut();
+
+        var hairId = btn.attr('data-hair-id');
+        if (hairId > 0) {
+            var opts = {
+                type: "GET",
+                url: '/ajax/hair/like',
+                contentType: "application/json",
+                data: "hair_id=" + hairId + "&is_like=0",
+                success: function(data) {
+                    if (!data.success) {
+                        btn.parent().parent().parent().fadeIn();
+                    }
+                }
+            };
+            $.ajax(opts);
+        }
+        var salonId = btn.attr('data-salon-id');
+        if (salonId > 0) {
+            var opts = {
+                type: "GET",
+                url: '/ajax/salon/like',
+                contentType: "application/json",
+                data: "salon_id=" + salonId + "&is_like=0",
+                success: function(data) {
+                    if (!data.success) {
+                        btn.parent().parent().parent().fadeIn();
+                    }
+                }
+            };
+            $.ajax(opts);
+        }
+        var stylistId = btn.attr('data-stylist-id');
+        if (stylistId > 0) {
+            var opts = {
+                type: "GET",
+                url: '/ajax/stylist/like',
+                contentType: "application/json",
+                data: "stylist_id=" + stylistId + "&is_like=0",
+                success: function(data) {
+                    if (!data.success) {
+                        btn.parent().parent().parent().fadeIn();
+                    }
+                }
+            };
+            $.ajax(opts);
+        }
+        var goodsId = btn.attr('data-goods-id');
+        if (goodsId > 0) {
+            var opts = {
+                type: "GET",
+                url: '/ajax/goods/like',
+                contentType: "application/json",
+                data: "goods_id=" + goodsId + '&' + "&is_like=0",
+                success: function(data) {
+                    if (!data.success) {
+                        btn.parent().parent().parent().fadeIn();
+                    }
+                }
+            };
+            $.ajax(opts);
+        }
     });
 }
 

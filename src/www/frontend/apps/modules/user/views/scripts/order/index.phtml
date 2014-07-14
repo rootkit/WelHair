@@ -119,18 +119,18 @@
                                 ￥<?php echo number_format($order['OrderAmount'], 2); ?>
                             </td>
                             <td>
-                                <?php echo $order['PayStatus']? ( $order['PayStatus']== '1' ? '已支付': '退款'):'未支付'; ?>
+                                <?php echo $order['PayStatus'] ? ( $order['PayStatus']== '1' ? '已支付': '退款'):'未支付'; ?>
                             </td>
                             <td>
                                 <?php if ($order['PayStatus'] == 0): ?>
-                                <button class="btn btn2_xl btn2_l order-pay" data-order-id="$order['OrderId']">
+                                <button class="btn btn2_xl btn2_l order-pay" data-order-id="<?php echo $order['OrderId']; ?>">
                                     <span class="t1">
                                         立即付款
                                     </span>
                                 </button>
                                 <?php endif; ?>
                                 <?php if ($order['Status'] == 5): ?>
-                                <button class="btn btn2_xl btn2_l order-comment" data-order-id="$order['OrderId']">
+                                <button class="btn btn2_xl btn2_l order-comment" data-order-id="<?php echo $order['OrderId']; ?>">
                                     <span class="t1">
                                         我要评论
                                     </span>
@@ -146,3 +146,8 @@
         </div>
     </div>
 </div>
+<script>
+    $(document).ready(function() {
+        initOrderPay();
+    });
+</script>

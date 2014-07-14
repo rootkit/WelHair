@@ -90,6 +90,24 @@
                   </div>
                 </div>
                 <?php endif; ?>
+                <div class="salonaddress">
+                    <h2>
+                        <span>
+                            图文详情
+                        </span>
+                    </h2>
+                    <div style="width: 98%; margin: 10px auto;">
+                        <iframe frameborder="0" src="<?php echo $this->baseUrl('goods/index/content?goods_id=' . $this->goodsDetail['GoodsId']); ?>" style="border: none; width: 100%; min-height: 100px;">
+                        </iframe>
+                    </div>
+                </div>
+                <div class="salonaddress">
+                    <h2>
+                        <span>
+                            评论
+                        </span>
+                    </h2>
+                </div>
                 <div id="comment-list" class="msgList">
                     <ul>
                         <?php foreach ($this->comments as $comment): ?>
@@ -144,9 +162,10 @@
                             购买
                         </span>
                     </a>
-                    <a id="stylist_like" href="<?php echo $this->baseUrl('goods/index/content?goods_id=' . $this->goodsDetail['GoodsId']); ?>" class=" btn btn2_xl btn2_l btn2_1_l">
+                    <a<?php echo $this->currentUser ? ' id="goods_like" href="#"' : (' href="' . $this->baseUrl('user/auth/signin?continue=' . $this->continueUrl) . '"'); ?> data-goods-id="<?php echo $this->goodsDetail['GoodsId']; ?>" class="btn btn2_xl btn2_l btn2_1_l">
+                        <img src="<?php echo $this->config->asset->baseUrl; ?>/img/frontend/heart<?php echo $this->goodsDetail['IsLiked'] ? '_red' : ''; ?>.png" class="ico">
                         <span class="t">
-                            图文详情
+                            收藏
                         </span>
                     </a>
                 </div>
