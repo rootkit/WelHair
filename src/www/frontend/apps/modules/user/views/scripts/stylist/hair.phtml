@@ -15,7 +15,98 @@
         <?php
         echo $this->partial('shared/topnavstylist.phtml', array('action' => $this->action));
         ?>
+        <div style="padding: 15px 0 0 15px;">
+            <div class="toolbar">
+                <ul class="clearfix">
+                    <li>
+                        <a href="<?php echo $this->baseUrl('user/stylist/hairedit'); ?>">
+                            <i class="iconfont">&#xf0175;</i>
+                            添加新作品
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
 
-
+        <div class="projects" style="width: 860px; margin: 0 0 0 20px;">
+            <div class="row">
+                <?php foreach ($this->dataList as $work): ?>
+                <div class="span21-7">
+                    <div class="col-md-3 box_shadow clearfix">
+                        <div class="userBox">
+                            <div class=" userPic">
+                                <a href="<?php echo $this->baseUrl('stylist/index/detail?stylist_id=' . $work['Staff']['UserId']); ?>"><img src="<?php echo $work['Staff']['AvatarUrl']; ?>"></a>
+                            </div>
+                            <div class="pannel">
+                                <div class="username">
+                                    <strong>
+                                        <a href="<?php echo $this->baseUrl('stylist/index/detail?stylist_id=' . $work['Staff']['UserId']); ?>"><?php echo $work['Staff']['Nickname']; ?></a>
+                                    </strong>
+                                </div>
+                                <div class="usersalon"><?php echo $work['Title']; ?></div>
+                            </div>
+                        </div>
+                        <div class="picbox">
+                            <a href="<?php echo $this->baseUrl('user/stylist/hairedit?hair_id=' . $work['WorkId']); ?>">
+                                <img src="<?php echo $work['PictureUrl'][0]; ?>" onerror="this.src='<?php echo $this->config->asset->baseUrl; ?>/img/photo-default.png';" />
+                            </a>
+                        </div>
+                        <div class="comtbox" style="text-align: right;">
+                            <a style="margin-right: 10px;" class="remove-hair" data-hair-id="<?php echo $work['WorkId']; ?>">
+                                <i class="iconfont" title="删除作品">&#xf013f;</i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <?php endforeach; ?>
+            </div>
+        </div>
+        <?php echo $this->pager; ?>
     </div>
 </div>
+<script>
+$('.remove-hair').click(function() {
+    var btn = $(this);
+    var hairId = btn.attr('data-hair-id');
+
+    var popup = $('<p>确定要尽情删除么？此操作不可回滚!</p>');
+
+    popup.dialog({
+            resizable: false,
+            title: '提示',
+            width: 300,
+            height:200,
+            modal: true,
+            draggable: false,
+            buttons: {
+                '确定': function() {
+                    btn.parent().parent().parent().fadeOut();
+                    var opts = {
+                        type: 'POST',
+                        url: '/ajax/hair/batch',
+                        dataType: 'json',
+                        data: {
+                           'ids': hairId,
+                           'act': 'remove'
+                        },
+                        success: function(data, textStatus, jqXHR) {
+                            if (data.success) {
+                                popup.dialog('close');
+                                WF.showMessage('success', '信息', '操作成功！');
+                            } else {
+                                btn.parent().parent().parent().faceIn();
+
+                                WF.showMessage('error', '错误', '操作失败！');
+                            }
+                        }
+                    };
+                    $.ajax(opts);
+                },
+                '取消': function() {
+                    popup.dialog('close');
+                }
+            }
+        });
+    return false;
+});
+</script>

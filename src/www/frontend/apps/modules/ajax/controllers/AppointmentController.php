@@ -13,6 +13,7 @@
 // ==============================================================================
 
 use Welfony\Controller\Base\AbstractFrontendController;
+use Welfony\Core\Enum\AppointmentStatus;
 use Welfony\Service\AppointmentService;
 use Welfony\Service\StaffService;
 
@@ -32,6 +33,20 @@ class Ajax_AppointmentController extends AbstractFrontendController
         $reqData['AppointmentDate'] = $this->_request->getParam('date');
 
         $this->_helper->json->sendJson(AppointmentService::save($reqData));
+    }
+
+    public function completeAction()
+    {
+        $appointmentId = intval($this->_request->getParam('appointment_id'));
+        $reqData = array('Status' => AppointmentStatus::Completed);
+        $this->_helper->json->sendJson(AppointmentService::update($appointmentId, $reqData));
+    }
+
+    public function cancelAction()
+    {
+        $appointmentId = intval($this->_request->getParam('appointment_id'));
+        $reqData = array('Status' => AppointmentStatus::Cancelled);
+        $this->_helper->json->sendJson(AppointmentService::update($appointmentId, $reqData));
     }
 
     public function formAction()

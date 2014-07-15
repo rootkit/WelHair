@@ -335,6 +335,139 @@ function initComment() {
     });
 }
 
+function initAppointAction() {
+    $('.appointment-complete').click(function() {
+        var appointmentId = $(this).attr('data-appointment-id');
+
+        var popup = $('<div class="popup-container"><div class="noti info">&nbsp;</div><p style="text-align: center; margin-top: 20px;">确定已经完成该预约了么？</p></div>');
+        popup.dialog({
+            title: '完成预约',
+            width: 400,
+            height: 260,
+            modal: true,
+            resizable: 'disable',
+            show: {
+                effect: "fade",
+                duration: 1000
+            },
+            hide: {
+                effect: "fade",
+                duration: 200
+            },
+            buttons: [
+            {
+                text: '确定',
+                click: function () {
+                    if (window.inAjax) {
+                        return;
+                    }
+
+                    popup.find('.noti').text('提交中 ...');
+                    window.inAjax = 1;
+
+                    $.ajax({
+                        type: "post",
+                        url: '/ajax/appointment/complete',
+                        data: {
+                            appointment_id: appointmentId
+                        },
+                        success: function (data) {
+                            window.inAjax = 0;
+
+                            if (data.success) {
+                                popup.dialog('close');
+                                WF.showMessage('success', '信息', '完成预约成功！');
+
+                                window.location.reload();
+                            } else {
+                                popup.find('.noti').text(data.message);
+                            }
+                        },
+                        complete: function (XMLHttpRequest, textStatus) {
+                            window.inAjax = 0;
+                        },
+                        error: function () {
+                            window.inAjax = 0;
+                        }
+                    });
+                }
+            }],
+            open: function () {
+            },
+            close: function() {
+                popup.dialog('destroy').remove();
+            }
+        });
+    });
+    $('.appointment-cancel').click(function() {
+        var appointmentId = $(this).attr('data-appointment-id');
+
+        var popup = $('<div class="popup-container"><div class="noti info">&nbsp;</div><p style="text-align: center; margin-top: 20px;">确定要取消该预约了么？</p></div>');
+        popup.dialog({
+            title: '取消预约',
+            width: 400,
+            height: 260,
+            modal: true,
+            resizable: 'disable',
+            show: {
+                effect: "fade",
+                duration: 1000
+            },
+            hide: {
+                effect: "fade",
+                duration: 200
+            },
+            buttons: [
+            {
+                text: '确定',
+                click: function () {
+                    if (window.inAjax) {
+                        return;
+                    }
+
+                    popup.find('.noti').text('提交中 ...');
+                    window.inAjax = 1;
+
+                    $.ajax({
+                        type: "post",
+                        url: '/ajax/appointment/cancel',
+                        data: {
+                            appointment_id: appointmentId
+                        },
+                        success: function (data) {
+                            window.inAjax = 0;
+
+                            if (data.success) {
+                                popup.dialog('close');
+                                WF.showMessage('success', '信息', '取消预约成功！');
+
+                                window.location.reload();
+                            } else {
+                                popup.find('.noti').text(data.message);
+                            }
+                        },
+                        complete: function (XMLHttpRequest, textStatus) {
+                            window.inAjax = 0;
+                        },
+                        error: function () {
+                            window.inAjax = 0;
+                        }
+                    });
+                }
+            }],
+            open: function () {
+            },
+            close: function() {
+                popup.dialog('destroy').remove();
+            }
+
+    });
+    $('.appointment-note').click(function() {
+        var appointmentId = $(this).attr('data-appointment-id');
+
+    });
+}
+
 function initOrderPay() {
     $('.order-pay').click(function() {
         var orderId = $(this).attr('data-order-id');

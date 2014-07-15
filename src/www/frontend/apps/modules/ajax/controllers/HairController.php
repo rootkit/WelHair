@@ -15,6 +15,7 @@
 
 use Welfony\Controller\Base\AbstractFrontendController;
 use Welfony\Service\UserLikeService;
+use Welfony\Service\WorkService;
 
 class Ajax_HairController extends AbstractFrontendController
 {
@@ -31,6 +32,28 @@ class Ajax_HairController extends AbstractFrontendController
         );
 
         $this->_helper->json->sendJson(UserLikeService::save($userLike));
+    }
+
+    public function batchAction()
+    {
+        $action = htmlspecialchars($this->_request->getParam('act'));
+        $ids = htmlspecialchars($this->_request->getParam('ids'));
+        $idList = explode(',', $ids);
+
+        $result = array('success' => true, 'message' => '');
+        switch($action) {
+            case 'remove': {
+                foreach ($idList as $id) {
+                    WorkService::removeById($id);
+                }
+                break;
+            }
+            default: {
+                break;
+            }
+        }
+
+        $this->_helper->json->sendJson($result);
     }
 
 }
