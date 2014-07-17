@@ -26,4 +26,8 @@
 	<color name="LIGHT_LIGHT_GRAY">#D6D6D6</color>
 	<color name="RANGE_BLUE">#2970AA</color>
 	<color name="LOGIN_BLUE">#206BA7</color>
+	
+	<color name="result_view">#b0000000</color>
+    <color name="viewfinder_mask">#60000000</color>
+    <color name="possible_result_points">#c0ffff00</color> 
 </resources>

@@ -13,125 +13,107 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
-        android:paddingBottom="10dp"
-        android:background="@anim/shape_rounded_rectangle">
+        android:background="@anim/shape_rounded_rectangle"
+        android:paddingBottom="10dp" >
 
         <TextView
             android:id="@+id/customer_name_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center_vertical"
             android:layout_alignParentLeft="true"
+            android:layout_marginTop="10dp"
             android:drawableLeft="@drawable/salon_name"
             android:drawablePadding="10dp"
+            android:gravity="center_vertical"
             android:paddingLeft="10dp"
-            android:layout_marginTop="10dp"
-            android:text="用户名"/>
-        
-         <TextView
+            android:text="用户名" />
+
+        <TextView
             android:id="@+id/customer_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_toRightOf="@+id/customer_name_label"
             android:layout_alignBaseline="@+id/customer_name_label"
+            android:layout_alignParentRight="true"
             android:layout_marginRight="10dp"
+            android:layout_toRightOf="@+id/customer_name_label"
             android:gravity="center_vertical|right"
             android:text="小刘" />
     </RelativeLayout>
 
-     <RelativeLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
-        android:background="@anim/shape_rounded_rectangle">
+        android:background="@anim/shape_rounded_rectangle" >
 
         <TextView
             android:id="@+id/account_balance_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center_vertical"
             android:layout_alignParentLeft="true"
+            android:layout_marginTop="10dp"
             android:drawableLeft="@drawable/salon_balance_manager"
             android:drawablePadding="10dp"
+            android:gravity="center_vertical"
             android:paddingLeft="10dp"
-            android:layout_marginTop="10dp"
-            android:text="账户余额"/>
-        
-         <TextView
+            android:text="账户余额" />
+
+        <TextView
             android:id="@+id/salon_balance"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_toRightOf="@+id/account_balance_label"
             android:layout_alignBaseline="@+id/account_balance_label"
+            android:layout_alignParentRight="true"
             android:layout_marginRight="10dp"
+            android:layout_toRightOf="@+id/account_balance_label"
             android:gravity="center_vertical|right"
-            android:text="￥165.00"/>
-         
-         
-         <TextView
+            android:text="￥165.00" />
+
+        <TextView
             android:id="@+id/line1"
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"
             android:layout_below="@+id/account_balance_label"
-            android:background="@color/line"/>
-         <RelativeLayout 
-              android:id="@+id/recharge"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp"
+            android:background="@color/LIGHT_LIGHT_GRAY" />
+
+        <RelativeLayout
+            android:id="@+id/recharge"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingBottom="10dp"
-            android:layout_below="@+id/line1">
-              <TextView
-            android:id="@+id/recharge_records_label"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:drawableLeft="@drawable/recharge"
-            android:layout_alignParentLeft="true"
-            android:drawablePadding="10dp"
-            android:paddingLeft="10dp"
-            android:text="充值记录"/>
-        
-         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_alignBaseline="@+id/recharge_records_label"
-            android:layout_marginRight="10dp"
-            android:background="@drawable/iconfont_qianjin_black"/>
-         </RelativeLayout>
-         <!--  <TextView
-            android:id="@+id/recharge_records_label"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:layout_below="@+id/line1"
-            android:drawableLeft="@drawable/recharge"
-            android:layout_alignParentLeft="true"
-            android:drawablePadding="10dp"
-            android:paddingLeft="10dp"
-            android:text="充值记录"/>
-        
-         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_alignBaseline="@+id/recharge_records_label"
-            android:layout_marginRight="10dp"
-            android:background="@drawable/iconfont_qianjin_black"/> -->
-         
-          
+            android:paddingBottom="10dp" >
+
+            <TextView
+                android:id="@+id/recharge_records_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:drawableLeft="@drawable/recharge"
+                android:drawablePadding="10dp"
+                android:gravity="center_vertical"
+                android:paddingLeft="10dp"
+                android:text="充值记录" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/recharge_records_label"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/iconfont_qianjin_black" />
+        </RelativeLayout>
     </RelativeLayout>
-    
-      <Button
-         android:id="@+id/recharge_to_account"
+
+    <Button
+        android:id="@+id/recharge_to_account"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
-        android:gravity="center"
         android:background="@color/GREEN"
+        android:gravity="center"
         android:text="账户充值"
-        android:textColor="@color/WHITE"/>
+        android:textColor="@color/WHITE" />
 
 </LinearLayout>

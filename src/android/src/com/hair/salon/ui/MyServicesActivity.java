@@ -2,7 +2,6 @@ package com.hair.salon.ui;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -11,14 +10,10 @@ import android.view.View.OnClickListener;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
-
 import com.hair.salon.R;
 import com.hair.salon.adapter.MyServicesAdapter;
-import com.hair.salon.adapter.StylistFragmentAdapter;
 import com.hair.salon.bean.HairStyleBean;
 import com.hair.salon.bean.MyServicesBean;
-import com.hair.salon.bean.SalonBean;
-
 
 
 public class MyServicesActivity extends BaseActivity implements OnClickListener{
@@ -54,17 +49,16 @@ public class MyServicesActivity extends BaseActivity implements OnClickListener{
 	}
 
 
-	private class GetHairStyleTask extends
-	AsyncTask<Void, Void, List<HairStyleBean>> {
+	private class GetHairStyleTask extends AsyncTask<Void, Void, List<MyServicesBean>> {
 
 		@Override
-		protected List<HairStyleBean> doInBackground(Void... params) {
+		protected List<MyServicesBean> doInBackground(Void... params) {
 			return null;
 		}
 		
 		@Override
-		protected void onPostExecute(List<HairStyleBean> result) {
-			result = new ArrayList<HairStyleBean>();
+		protected void onPostExecute(List<MyServicesBean> result) {
+			result = new ArrayList<MyServicesBean>();
 		
 			for (int i = 0; i < 10; i++) {
 				MyServicesBean myServicesBean = new MyServicesBean();

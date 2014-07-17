@@ -57,16 +57,16 @@ public class MyOrderActivity extends BaseActivity implements OnClickListener{
 		changeBgColor(R.id.already_pay);
 	}
 	
-	private class GetHairStyleTask extends	AsyncTask<Void, Void, List<HairStyleBean>> {
+	private class GetHairStyleTask extends	AsyncTask<Void, Void, List<MyOrderBean>> {
 		
 		@Override
-		protected List<HairStyleBean> doInBackground(Void... params) {
+		protected List<MyOrderBean> doInBackground(Void... params) {
 			return null;
 		}
 
 		@Override
-		protected void onPostExecute(List<HairStyleBean> result) {
-			result = new ArrayList<HairStyleBean>();
+		protected void onPostExecute(List<MyOrderBean> result) {
+			result = new ArrayList<MyOrderBean>();
 			for (int i = 0; i < 10; i++) {
 				MyOrderBean myOrderBean = new MyOrderBean();
 				mList.add(myOrderBean);

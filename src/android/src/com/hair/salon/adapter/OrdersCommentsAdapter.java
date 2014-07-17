@@ -1,8 +1,8 @@
 package com.hair.salon.adapter;
 
 import java.util.List;
-
 import android.content.Context;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
@@ -10,6 +10,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
 import com.hair.salon.R;
 import com.hair.salon.bean.OrdersCommentsBean;
 
@@ -45,24 +46,30 @@ public class OrdersCommentsAdapter extends BaseAdapter implements OnClickListene
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		// TODO Auto-generated method stub
-		final Holder holder = new Holder();
+		Holder holder;
 		OrdersCommentsBean ordersCommentsBean = OrdersComments.get(position);
-		View view;
+		//View view;
 		if(convertView == null){
-			view = View.inflate(context, R.layout.orders_comments_activity_items, null);
+			LayoutInflater inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+			convertView = inflater.inflate(R.layout.orders_comments_activity_items, null);
+			holder = new Holder();
+			
+			holder.customer_nameTv = (TextView) convertView.findViewById(R.id.customer_name);
+			holder.comments_contextTv = (TextView) convertView.findViewById(R.id.comments_context);
+			holder.comment_timeTv = (TextView) convertView.findViewById(R.id.comment_time);
+			holder.pic_layoutLl = (LinearLayout) convertView.findViewById(R.id.pic_layout);
+			
+			holder.customer_imgIg = (ImageView) convertView.findViewById(R.id.customer_img);
+			holder.show_img_oneIg = (ImageView) convertView.findViewById(R.id.show_img_one);
+			holder.show_img_twoIg = (ImageView) convertView.findViewById(R.id.show_img_two);
+			holder.show_img_threeIg = (ImageView) convertView.findViewById(R.id.show_img_three);
+			holder.show_img_fourIg = (ImageView) convertView.findViewById(R.id.show_img_four);
+			
+			convertView.setTag(holder);
 		}else{
-			view = convertView;
+			holder = (Holder)convertView.getTag();
 		}
-		holder.customer_nameTv = (TextView) view.findViewById(R.id.customer_name);
-		holder.comments_contextTv = (TextView) view.findViewById(R.id.comments_context);
-		holder.comment_timeTv = (TextView) view.findViewById(R.id.comment_time);
-		holder.pic_layoutLl = (LinearLayout) view.findViewById(R.id.pic_layout);
 		
-		holder.customer_imgIg = (ImageView) view.findViewById(R.id.customer_img);
-		holder.show_img_oneIg = (ImageView) view.findViewById(R.id.show_img_one);
-		holder.show_img_twoIg = (ImageView) view.findViewById(R.id.show_img_two);
-		holder.show_img_threeIg = (ImageView) view.findViewById(R.id.show_img_three);
-		holder.show_img_fourIg = (ImageView) view.findViewById(R.id.show_img_four);
 		
 		holder.customer_nameTv.setText("小刘");
 		holder.comments_contextTv.setText("环境不错，下次还会来的");
@@ -78,7 +85,7 @@ public class OrdersCommentsAdapter extends BaseAdapter implements OnClickListene
 			holder.show_img_twoIg.setImageResource(R.drawable.hair_style_img_3);
 			holder.show_img_fourIg.setImageResource(R.drawable.hair_style_img_4);
 		}
-		return view;
+		return convertView;
 	}
 
 	static class Holder{

@@ -3,6 +3,7 @@ package com.hair.salon.ui;
 import com.hair.salon.R;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
@@ -25,13 +26,15 @@ public class ProductionActivity extends BaseActivity implements OnClickListener{
 	private ImageView plusImg;
 	private Button buyBtn;
 	private LinearLayout llTab;
+	private String isCollect ="0";
+	
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.production_activity);
-		
+		isCollect = "0";
 		title = (TextView)findViewById(R.id.title_txt);
 		title.setText("商品");
 		
@@ -65,6 +68,7 @@ public class ProductionActivity extends BaseActivity implements OnClickListener{
 		// TODO Auto-generated method stub
 		switch(v.getId()){
 			case R.id.hart_img:
+				collectClick(heartImg);
 				break;
 			case R.id.tuwenxiangqing_tv:
 				showTuwenxiangqing();
@@ -79,30 +83,48 @@ public class ProductionActivity extends BaseActivity implements OnClickListener{
 				addNumber();
 				break;
 			case R.id.buy_production:
+				Intent intent = new Intent(ProductionActivity.this,ProductionOrderPreShowActivity.class);
+				startActivity(intent);
 				break;
 			default:
 				break;
 		}
 	}
 	
+	
+	private void collectClick(ImageView hair_heartImg){
+		if("0".equals(isCollect)){
+			isCollect = "1";
+			hair_heartImg.setBackgroundResource(R.drawable.iconfont_xin_full);
+		}else{
+			isCollect = "0";
+			hair_heartImg.setBackgroundResource(R.drawable.lucence_add004);
+		}
+	}
+	
 	private void showTuwenxiangqing(){
-		tuwenxiangqingTv.setBackgroundColor(Color.parseColor("#206BA7"));
+		/*	tuwenxiangqingTv.setBackgroundColor(Color.parseColor("#206BA7"));
 		//tuwenxiangqingTv.setBackgroundResource(R.drawable.toolbar_bg);
 		tuwenxiangqingTv.setTextColor(Color.parseColor("#FFFFFFFF"));
 		pinglunTv.setBackgroundColor(Color.parseColor("#FFFFFFFF"));
 		pinglunTv.setTextColor(Color.parseColor("#206BA7"));
-		llTab.setBackgroundColor(Color.parseColor("#206BA7"));
+		llTab.setBackgroundColor(Color.parseColor("#206BA7"));*/
+		Intent intent = new Intent(ProductionActivity.this,ProductionTuWenXiangQingActivity.class);
+		startActivity(intent);
+		
 		//llTab.setBackground(getResources().getDrawable(R.anim.shape_rounded_rectangle_blue));
 		//llTab.setBackground(getResources().getDrawable(R.anim.shape_rounded_rectangle_blue));
 	}
 	
 	private void showPinglun(){
-		pinglunTv.setBackgroundColor(Color.parseColor("#206BA7"));
+		/*pinglunTv.setBackgroundColor(Color.parseColor("#206BA7"));
 		pinglunTv.setTextColor(Color.parseColor("#FFFFFFFF"));
 		tuwenxiangqingTv.setBackgroundColor(Color.parseColor("#FFFFFFFF"));
 		tuwenxiangqingTv.setTextColor(Color.parseColor("#206BA7"));
-		llTab.setBackgroundColor(Color.parseColor("#206BA7"));
+		llTab.setBackgroundColor(Color.parseColor("#206BA7"));*/
 		//llTab.setBackground(getResources().getDrawable(R.anim.shape_rounded_rectangle_blue));
+		Intent intent = new Intent(ProductionActivity.this,OrdersCommentsActivity.class);
+		startActivity(intent);
 	}
 
 	private void plusNumber(){

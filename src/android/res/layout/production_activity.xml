@@ -112,21 +112,22 @@
                       android:id="@+id/ll_tab"
 	                 android:layout_width="match_parent"
                      android:layout_height="wrap_content"
-                     android:padding="1dp"
                      android:layout_marginTop="10dp"
                      android:layout_marginRight="10dp"
                      android:layout_marginLeft="10dp"
-                     android:layout_marginBottom="80dp"
                      android:gravity="center_vertical"
                      android:orientation="horizontal"
-                     android:background="@anim/shape_rectangle_blue">
+                     android:background="@anim/shape_rounded_rectangle_blue">
 	                <TextView 
 	                    android:id="@+id/tuwenxiangqing_tv"
 	                    android:layout_width="wrap_content"
 	                    android:layout_height="30dp"
 	                    android:gravity="center"
+	                    android:layout_marginTop="5dp"
+	                    android:layout_marginBottom="5dp"
 	                    android:layout_weight="1"
 	                    android:textColor="@color/RANGE_BLUE"
+	                    android:textSize="16sp"
 	                    android:text="图文详情"/>
 	                <TextView 
 	                    android:layout_width="1dp"
@@ -137,11 +138,50 @@
 	                    android:layout_width="wrap_content"
 	                    android:layout_height="30dp"
 	                    android:gravity="center"
+	                    android:layout_marginTop="5dp"
+	                    android:layout_marginBottom="5dp"
 	                    android:layout_weight="1"
 	                    android:textColor="@color/RANGE_BLUE"
+	                    android:textSize="16sp"
 	                    android:text="评论"/>
 	                
-			     </LinearLayout>   
+			     </LinearLayout>
+			     
+                  <LinearLayout 
+	                 android:layout_width="match_parent"
+                     android:layout_height="wrap_content"
+                     android:layout_marginTop="10dp"
+                     android:layout_marginRight="10dp"
+                     android:layout_marginLeft="10dp"
+                     android:layout_marginBottom="80dp"
+                     android:gravity="center_vertical"
+                     android:orientation="horizontal"
+                     android:background="@color/WHITE">
+	                <TextView 
+	                    android:id="@+id/pingpai_label"
+	                    android:layout_width="wrap_content"
+	                    android:layout_height="30dp"
+	                    android:layout_margin="10dp"
+	                    android:gravity="center"
+	                    android:textSize="20sp"
+	                    android:layout_weight="1"
+	                    android:text="品牌"/>
+	                 <TextView 
+	                    android:layout_width="1dp"
+	                    android:layout_height="match_parent"
+	                    android:background="@color/LIGHT_LIGHT_GRAY"/>
+	                <TextView 
+	                    android:id="@+id/pingpai_name"
+	                    android:layout_width="wrap_content"
+	                    android:layout_height="30dp"
+	                    android:layout_margin="10dp"
+	                    android:gravity="left"
+	                    android:layout_weight="3"
+	                    android:textSize="20sp"
+	                    android:text="飘柔"/>
+	                
+			     </LinearLayout>
+                  
 		  </LinearLayout>
        </ScrollView>
         	

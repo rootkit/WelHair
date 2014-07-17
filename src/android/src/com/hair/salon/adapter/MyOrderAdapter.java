@@ -4,16 +4,14 @@ import java.util.List;
 
 import android.content.Context;
 import android.content.Intent;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.hair.salon.R;
-import com.hair.salon.adapter.MyAddressAdapter.Holder;
-import com.hair.salon.bean.MyAddressBean;
 import com.hair.salon.bean.MyOrderBean;
 import com.hair.salon.ui.OrdersCommentsActivity;
 
@@ -47,27 +45,32 @@ public class MyOrderAdapter extends BaseAdapter implements OnClickListener{
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		// TODO Auto-generated method stub
-		final Holder holder = new Holder();
+		Holder holder;
 		MyOrderBean myOrderBean = MyOrder.get(position);
-		View view;
+		//View view;
 		if(convertView == null){
-			view = View.inflate(context, R.layout.my_order_activity_item, null);
+			LayoutInflater inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+			convertView = inflater.inflate(R.layout.my_order_activity_item, null);
+			holder = new Holder();
+			
+			holder.salon_nameTv = (TextView) convertView.findViewById(R.id.salon_name);
+			holder.production_statusTv = (TextView) convertView.findViewById(R.id.production_status);
+			holder.production_nameTv = (TextView) convertView.findViewById(R.id.production_name);
+			holder.production_capacityTv = (TextView) convertView.findViewById(R.id.production_capacity);
+			holder.production_colorTv = (TextView) convertView.findViewById(R.id.production_color);
+			holder.production_priceTv = (TextView) convertView.findViewById(R.id.production_price);
+			holder.production_numberTv = (TextView) convertView.findViewById(R.id.production_number);
+			holder.production_freightTv = (TextView) convertView.findViewById(R.id.production_freight);
+			holder.production_price_combinedTv = (TextView) convertView.findViewById(R.id.production_price_combined);
+			
+			holder.production_imgIg = (ImageView) convertView.findViewById(R.id.production_img);
+			holder.edit_imgIg = (ImageView) convertView.findViewById(R.id.edit_img);
+
+			convertView.setTag(holder);
 		}else{
-			view = convertView;
+			holder = (Holder)convertView.getTag();
 		}
-		holder.salon_nameTv = (TextView) view.findViewById(R.id.salon_name);
-		holder.production_statusTv = (TextView) view.findViewById(R.id.production_status);
-		holder.production_nameTv = (TextView) view.findViewById(R.id.production_name);
-		holder.production_capacityTv = (TextView) view.findViewById(R.id.production_capacity);
-		holder.production_colorTv = (TextView) view.findViewById(R.id.production_color);
-		holder.production_priceTv = (TextView) view.findViewById(R.id.production_price);
-		holder.production_numberTv = (TextView) view.findViewById(R.id.production_number);
-		holder.production_freightTv = (TextView) view.findViewById(R.id.production_freight);
-		holder.production_price_combinedTv = (TextView) view.findViewById(R.id.production_price_combined);
-		
-		holder.production_imgIg = (ImageView) view.findViewById(R.id.production_img);
-		holder.edit_imgIg = (ImageView) view.findViewById(R.id.edit_img);
-		
+				
 		holder.salon_nameTv.setText("欣欣沙龙");
 		holder.production_statusTv.setText("已付款");
 		holder.production_nameTv.setText("Safer洗发水");
@@ -79,7 +82,7 @@ public class MyOrderAdapter extends BaseAdapter implements OnClickListener{
 		holder.production_price_combinedTv.setText("￥25.00");
 		
 		holder.edit_imgIg.setOnClickListener(this);
-		return view;
+		return convertView;
 	}
 
 	static class Holder{

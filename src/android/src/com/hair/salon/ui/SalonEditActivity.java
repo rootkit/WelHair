@@ -125,6 +125,8 @@ public class SalonEditActivity extends BaseActivity implements OnClickListener {
 
 		}
 	}
+	
+	
 
 	public void goLocation(View view){
 		Intent intent = new Intent(this,SalonLocationActivity.class);

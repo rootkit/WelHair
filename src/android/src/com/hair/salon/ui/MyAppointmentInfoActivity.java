@@ -42,17 +42,16 @@ public class MyAppointmentInfoActivity extends BaseActivity implements OnClickLi
 	}
 
 	
-	private class GetHairStyleTask extends
-	AsyncTask<Void, Void, List<HairStyleBean>> {
+	private class GetHairStyleTask extends AsyncTask<Void, Void, List<MyAppointmentInfoBean>> {
 
 		@Override
-		protected List<HairStyleBean> doInBackground(Void... params) {
+		protected List<MyAppointmentInfoBean> doInBackground(Void... params) {
 			return null;
 		}
 		
 		@Override
-		protected void onPostExecute(List<HairStyleBean> result) {
-			result = new ArrayList<HairStyleBean>();
+		protected void onPostExecute(List<MyAppointmentInfoBean> result) {
+			result = new ArrayList<MyAppointmentInfoBean>();
 		
 			for (int i = 0; i < 10; i++) {
 				MyAppointmentInfoBean myAppointmentInfoBean = new MyAppointmentInfoBean();

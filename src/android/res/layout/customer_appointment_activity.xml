@@ -1,0 +1,82 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/app_bgcolor"
+    android:orientation="vertical" >
+
+    <include
+        android:id="@+id/title"
+        layout="@layout/base_title" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="10dp" >
+
+        <RelativeLayout
+            android:id="@+id/customer_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/WHITE"
+            android:padding="10dp" >
+
+            <com.hair.salon.widget.CircleImageView
+                android:id="@+id/customer_img"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_alignParentLeft="true"
+                android:src="@drawable/hair_style_img_7"
+                app:border_width="1dp" />
+
+            <TextView
+                android:id="@+id/customer_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_toRightOf="@id/customer_img"
+                android:textSize="18sp" 
+                android:textColor="@color/BLUE_FONT"/>
+
+            <TextView
+                android:id="@+id/customer_appointment_number"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/customer_name"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="5dp"
+                android:layout_toRightOf="@id/customer_img" 
+                android:textColor="@color/LIGHT_GRAY"/>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:src="@drawable/iconfont_qianjin_gray" />
+        </RelativeLayout>
+
+        <ImageView
+            android:id="@+id/work_photo"
+            android:layout_width="180dp"
+            android:layout_height="180dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="0dp"
+            android:background="@color/WHITE"
+            android:padding="3dp"
+            android:gravity="center"
+            android:src="@drawable/hair_style_img_3" />
+
+        <TextView
+            android:id="@+id/work_photo_date"
+            android:layout_width="100dp"
+            android:layout_height="20dp"
+            android:layout_marginTop="0dp"
+            android:layout_marginLeft="0dp"
+            android:background="@drawable/dateflag_background"
+            android:text="2014/07/10" />
+    </LinearLayout>
+
+</LinearLayout>

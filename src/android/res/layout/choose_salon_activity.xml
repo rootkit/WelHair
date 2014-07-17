@@ -1,0 +1,67 @@
+<LinearLayout 
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/app_bgcolor"
+    android:orientation="vertical">
+     <include layout="@layout/base_title" />
+     
+    <TextView 
+        android:layout_width="wrap_content"
+    	android:layout_height="wrap_content"
+    	android:layout_marginLeft="10dp"
+    	android:layout_marginRight="10dp"
+    	android:layout_marginTop="50dp"
+    	android:textSize="20sp"
+    	android:textColor="@color/LIGHT_LIGHT_GRAY"
+    	android:text="尊敬的用户\n您暂时没有沙龙角色\n请选择添加沙龙(沙龙管理员)\n或作为发型师加入沙龙"/>
+    <RelativeLayout 
+        android:id="@+id/join_salon_layout"
+        android:layout_width="match_parent"
+    	android:layout_height="wrap_content"
+    	android:layout_marginTop="50dp"
+    	android:layout_marginLeft="10dp"
+    	android:layout_marginRight="10dp"
+    	android:padding="10dp"
+    	android:background="@color/WHITE"
+        >
+        <TextView 
+            android:layout_width="wrap_content"
+    		android:layout_height="wrap_content"
+    		android:layout_alignParentLeft="true"
+    		android:textSize="20sp"
+    		android:text="加入沙龙"/>
+        <TextView 
+             android:layout_width="wrap_content"
+    		android:layout_height="wrap_content"
+    		android:layout_alignParentRight="true"
+    		android:textSize="20sp"
+    		android:background="@drawable/iconfont_qianjin_gray"/>
+    </RelativeLayout>
+    
+    <RelativeLayout 
+        android:id="@+id/create_salon_layout"
+        android:layout_width="match_parent"
+    	android:layout_height="wrap_content"
+    	android:layout_marginTop="20dp"
+    	android:layout_marginLeft="10dp"
+    	android:layout_marginRight="10dp"
+    	android:padding="10dp"
+    	android:background="@color/WHITE"
+        >
+        <TextView 
+            android:layout_width="wrap_content"
+    		android:layout_height="wrap_content"
+    		android:layout_alignParentLeft="true"
+    		android:textSize="20sp"
+    		android:text="创建沙龙"/>
+        <TextView 
+             android:layout_width="wrap_content"
+    		android:layout_height="wrap_content"
+    		android:layout_alignParentRight="true"
+    		android:textSize="20sp"
+    		android:background="@drawable/iconfont_qianjin_gray"/>
+    </RelativeLayout>
+    
+    </LinearLayout>

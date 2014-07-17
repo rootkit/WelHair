@@ -1,6 +1,5 @@
 package com.hair.salon.adapter;
 
-
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;

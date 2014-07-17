@@ -2,14 +2,10 @@ package com.hair.salon.ui;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import com.hair.salon.R;
-import com.hair.salon.adapter.OrdersCommentsAdapter;
 import com.hair.salon.adapter.RechargeRecordsAdapter;
 import com.hair.salon.bean.HairStyleBean;
-import com.hair.salon.bean.OrdersCommentsBean;
 import com.hair.salon.bean.RechargeRecordsBean;
-
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
@@ -21,7 +17,6 @@ public class RechargeRecordsActivity extends BaseActivity implements OnClickList
 
 	private TextView title;
 	private TextView back;
-	
 	private ListView mListView;
 	private RechargeRecordsAdapter mAdapter;
 	private List<RechargeRecordsBean> mList = new ArrayList<RechargeRecordsBean>();
@@ -43,16 +38,16 @@ public class RechargeRecordsActivity extends BaseActivity implements OnClickList
 		
 	}
 	
-	private class GetHairStyleTask extends	AsyncTask<Void, Void, List<HairStyleBean>> {
+	private class GetHairStyleTask extends	AsyncTask<Void, Void, List<RechargeRecordsBean>> {
 		
 		@Override
-		protected List<HairStyleBean> doInBackground(Void... params) {
+		protected List<RechargeRecordsBean> doInBackground(Void... params) {
 			return null;
 		}
 
 		@Override
-		protected void onPostExecute(List<HairStyleBean> result) {
-			result = new ArrayList<HairStyleBean>();
+		protected void onPostExecute(List<RechargeRecordsBean> result) {
+			result = new ArrayList<RechargeRecordsBean>();
 			for (int i = 0; i < 10; i++) {
 				RechargeRecordsBean rechargeRecordsBean = new RechargeRecordsBean();
 				mList.add(rechargeRecordsBean);

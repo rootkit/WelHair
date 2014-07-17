@@ -57,16 +57,16 @@ public class MyAddressActivity extends BaseActivity implements OnClickListener{
 	
 
 	private class GetHairStyleTask extends
-	AsyncTask<Void, Void, List<HairStyleBean>> {
+	AsyncTask<Void, Void, List<MyAddressBean>> {
 
 		@Override
-		protected List<HairStyleBean> doInBackground(Void... params) {
+		protected List<MyAddressBean> doInBackground(Void... params) {
 			return null;
 		}
 		
 		@Override
-		protected void onPostExecute(List<HairStyleBean> result) {
-			result = new ArrayList<HairStyleBean>();
+		protected void onPostExecute(List<MyAddressBean> result) {
+			result = new ArrayList<MyAddressBean>();
 		
 			for (int i = 0; i < 10; i++) {
 				MyAddressBean myAddressBean = new MyAddressBean();

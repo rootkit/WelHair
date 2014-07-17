@@ -3,8 +3,10 @@ package com.hair.salon.ui;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -46,6 +48,32 @@ public class HairFragment extends Fragment implements OnClickListener {
 
 	private PopupWindow mPopupWindow;
 
+	private TextView default_orderTv;
+	private TextView latest_styleTv;
+	private TextView latest_welcomeTv;
+	
+	int[] arrOrderId = {R.id.default_order,R.id.latest_style,R.id.latest_welcome};
+	TextView[] arrOrderTv = {default_orderTv,latest_styleTv,latest_welcomeTv};
+	String[] arrOrderContext = new String[3];
+	
+	private TextView hair_style_sex_allTv;
+	private TextView hair_style_sex_maleTv;
+	private TextView hair_style_sex_femaleTv;
+	
+	int[] arrSexId = {R.id.hair_style_sex_all,R.id.hair_style_sex_male,R.id.hair_style_sex_female};
+	TextView[] arrSexTv = {hair_style_sex_allTv,hair_style_sex_maleTv,hair_style_sex_femaleTv};
+	String[] arrSexContext = new String[3];
+	
+	private TextView hair_style_select_allTv;
+	private TextView hair_style_select_shortTv;
+	private TextView hair_style_select_longTv;
+	private TextView hair_style_select_spreadTv;
+	private TextView hair_style_select_middleTv;
+	
+	int[] arrStyleId = {R.id.hair_style_select_all,R.id.hair_style_select_short,R.id.hair_style_select_long,R.id.hair_style_select_spread,R.id.hair_style_select_middle};
+	TextView[] arrStyleTv = {hair_style_select_allTv,hair_style_select_shortTv,hair_style_select_longTv,hair_style_select_spreadTv,hair_style_select_middleTv};
+	String[] arrStyleContext = new String[5];
+	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -136,11 +164,12 @@ public class HairFragment extends Fragment implements OnClickListener {
 		case R.id.hair_selection_order:
 			showOrderSelectionPopup();
 			break;
-		case R.id.title_back:
+		default:
 			break;
 		}
 	}
 
+	
 	/**
 	 * 排序
 	 */
@@ -149,7 +178,27 @@ public class HairFragment extends Fragment implements OnClickListener {
 				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		View view = mLayoutInflater.inflate(R.layout.hair_order_selcet_popup,
 				null);
+		
+		int arrLen = arrOrderTv.length;
+		String orderContext = hairOrderSelection.getText().toString();
+		for(int i = 0;i < arrLen;i++){
+			arrOrderTv[i] = (TextView)view.findViewById(arrOrderId[i]);
+			arrOrderContext[i] = arrOrderTv[i].getText().toString();
+			if(orderContext.equals(this.getString(R.string.activity_hari_selection_order))){
+				
+			}else{
+				if(orderContext.equals(arrOrderContext[i])){
+					arrOrderTv[i].setTextColor(Color.parseColor("#ffff740f"));
+				}else{
+					arrOrderTv[i].setTextColor(Color.parseColor("#FF888888"));
+				}
+			}
+			arrOrderTv[i].setOnClickListener(new PopWindowClick(hairOrderSelection,arrOrderContext[i]));
+		}
+		
 		mPopupWindow = new PopupWindow(view, hairOrderSelection.getWidth(),
+				LayoutParams.WRAP_CONTENT);
+		mPopupWindow = new PopupWindow(view, LayoutParams.MATCH_PARENT,
 				LayoutParams.WRAP_CONTENT);
 		mPopupWindow.setFocusable(true);
 		mPopupWindow.setOutsideTouchable(true);
@@ -165,7 +214,25 @@ public class HairFragment extends Fragment implements OnClickListener {
 		});
 
 		mPopupWindow.showAsDropDown(mSelectionLayout,hairSexSelection.getWidth()*2,0);
+		
 	}
+	
+	class PopWindowClick implements OnClickListener{
+		TextView textViewTv;
+		String selectedContext;
+		public PopWindowClick(TextView textView, String string) {
+			// TODO Auto-generated constructor stub
+			textViewTv = textView;
+			selectedContext = string;
+		}
+
+		@Override
+		public void onClick(View v) {
+			// TODO Auto-generated method stub
+			mPopupWindow.dismiss();
+			textViewTv.setText(selectedContext);
+			
+		}}
 	
 	/**
 	 * 性别
@@ -175,7 +242,27 @@ public class HairFragment extends Fragment implements OnClickListener {
 				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		View view = mLayoutInflater.inflate(R.layout.hair_sex_selcet_popup,
 				null);
-		mPopupWindow = new PopupWindow(view, hairSexSelection.getWidth()*2,
+		/*mPopupWindow = new PopupWindow(view, hairSexSelection.getWidth()*2,
+				LayoutParams.WRAP_CONTENT);*/
+		
+		int arrLen = arrSexTv.length;
+		String sexContext = hairSexSelection.getText().toString();
+		for(int i = 0;i < arrLen;i++){
+			arrSexTv[i] = (TextView)view.findViewById(arrSexId[i]);
+			arrSexContext[i] = arrSexTv[i].getText().toString();
+			if(sexContext.equals(this.getString(R.string.activity_hari_selection_sex))){
+				
+			}else{
+				if(sexContext.equals(arrSexContext[i])){
+					arrSexTv[i].setTextColor(Color.parseColor("#ffff740f"));
+				}else{
+					arrSexTv[i].setTextColor(Color.parseColor("#FF888888"));
+				}
+			}
+			arrSexTv[i].setOnClickListener(new PopWindowClick(hairSexSelection,arrSexContext[i]));
+		}
+		
+		mPopupWindow = new PopupWindow(view, LayoutParams.MATCH_PARENT,
 				LayoutParams.WRAP_CONTENT);
 		mPopupWindow.setFocusable(true);
 		mPopupWindow.setOutsideTouchable(true);
@@ -191,6 +278,7 @@ public class HairFragment extends Fragment implements OnClickListener {
 		});
 
 		mPopupWindow.showAsDropDown(mSelectionLayout,hairStyleSelection.getWidth(),0);
+		//mPopupWindow.showAsDropDown(mSelectionLayout);
 	}
 	
 	/**
@@ -201,6 +289,25 @@ public class HairFragment extends Fragment implements OnClickListener {
 				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		View view = mLayoutInflater.inflate(R.layout.hair_style_selcet_popup,
 				null);
+		
+		
+		int arrLen = arrStyleTv.length;
+		String styleContext = hairStyleSelection.getText().toString();
+		for(int i = 0;i < arrLen;i++){
+			arrStyleTv[i] = (TextView)view.findViewById(arrStyleId[i]);
+			arrStyleContext[i] = arrStyleTv[i].getText().toString();
+			if(styleContext.equals(this.getString(R.string.activity_hari_selection_style))){
+				
+			}else{
+				if(styleContext.equals(arrStyleContext[i])){
+					arrStyleTv[i].setTextColor(Color.parseColor("#ffff740f"));
+				}else{
+					arrStyleTv[i].setTextColor(Color.parseColor("#FF888888"));
+				}
+			}
+			arrStyleTv[i].setOnClickListener(new PopWindowClick(hairStyleSelection,arrStyleContext[i]));
+		}
+		
 		mPopupWindow = new PopupWindow(view, LayoutParams.MATCH_PARENT,
 				LayoutParams.WRAP_CONTENT);
 		// ���ý����ڵ�����

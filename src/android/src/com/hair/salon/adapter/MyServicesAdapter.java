@@ -3,10 +3,9 @@ package com.hair.salon.adapter;
 import java.util.List;
 
 import com.hair.salon.R;
-import com.hair.salon.bean.HairStyleBean;
 import com.hair.salon.bean.MyServicesBean;
-
 import android.content.Context;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -43,23 +42,29 @@ public class MyServicesAdapter extends BaseAdapter{
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		// TODO Auto-generated method stub
-		final Holder holder = new Holder();
+		Holder holder;
 		MyServicesBean orderDetail = MyServices.get(position);
-		View view;
+		//View view;
 		if(convertView == null){
-			view = View.inflate(context, R.layout.services_list_item_layout, null);
+			LayoutInflater inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+			convertView = inflater.inflate(R.layout.services_list_item_layout, null);
+			holder = new Holder();
+			
+			holder.tv_service_name = (TextView) convertView.findViewById(R.id.service_name);
+			holder.tv_orginal_price = (TextView) convertView.findViewById(R.id.orginal_price);
+			holder.tv_distant_price = (TextView) convertView.findViewById(R.id.distant_price);
+			
+			convertView.setTag(holder);
 		}else{
-			view = convertView;
+			holder = (Holder)convertView.getTag();
 		}
-		holder.tv_service_name = (TextView) view.findViewById(R.id.service_name);
-		holder.tv_orginal_price = (TextView) view.findViewById(R.id.orginal_price);
-		holder.tv_distant_price = (TextView) view.findViewById(R.id.distant_price);
+		
 		
 		holder.tv_service_name.setText("烫发");
 		holder.tv_orginal_price.setText("原价：200元");
 		holder.tv_distant_price.setText("折后价：160元");
 		
-		return view;
+		return convertView;
 	}
 	
 	static class Holder{

@@ -1,173 +1,181 @@
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical" >
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
 
     <include
         android:id="@+id/title_layout"
-        android:layout_alignParentTop="true"
         layout="@layout/base_title" />
-    
-  <ScrollView 
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/app_bgcolor" >
-    <LinearLayout
+
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
-        android:orientation="vertical" >
-
-
-        <ImageView
-            android:id="@+id/hair_detail_img"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/WHITE"
-            android:scaleType="centerCrop"
-            android:src="@drawable/hair_style_img_1" />
-
-        <HorizontalScrollView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:layout_marginLeft="10dp"
-			android:layout_marginRight="10dp"
-            android:scrollbars="none" >
-
-            <LinearLayout
-                android:id="@+id/hair_detail_img_container"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@color/WHITE"
-                android:orientation="horizontal"
-                android:padding="8dp" >
-            </LinearLayout>
-        </HorizontalScrollView>
+        android:layout_height="match_parent"
+        android:background="@color/app_bgcolor" >
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:layout_marginLeft="10dp"
-			android:layout_marginRight="10dp"
-            android:gravity="left|center_vertical"
+            android:layout_margin="10dp"
+            android:gravity="center_horizontal"
             android:orientation="vertical" >
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="8dp"
-                android:text="@string/activity_bottom_hair_dresser" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/line" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:background="@color/WHITE"
-                android:gravity="left|center_vertical"
-                android:onClick="goHairDresser"
-                android:orientation="horizontal"
-                android:padding="8dp" >
+                android:orientation="vertical"
+                android:padding="5dp" >
 
-                <com.hair.salon.widget.CircleImageView
-                    android:id="@+id/hair_desinger_img"
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
+                <ImageView
+                    android:id="@+id/hair_detail_img"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@anim/shape_rounded_rectangle"
+                    android:scaleType="centerCrop"
                     android:src="@drawable/hair_style_img_1" />
 
-                <RelativeLayout
-                    android:layout_width="0dp"
-                    android:layout_height="60dp"
-                    android:layout_marginLeft="10dp"
-                    android:layout_weight="1"
-                    android:gravity="center_vertical" >
+                <HorizontalScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:background="@anim/shape_rounded_rectangle"
+                    android:scrollbars="none" >
 
-                    <TextView
-                        android:id="@+id/hair_designer_name"
+                    <LinearLayout
+                        android:id="@+id/hair_detail_img_container"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentLeft="true"
-                        android:layout_marginBottom="5dp"
-                        android:text="沙伊"
-                        android:textColor="@color/BLUE_FONT" />
-
-                    <TextView
-                        android:id="@+id/hair_designer_title"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="5dp"
-                        android:layout_marginLeft="5dp"
-                        android:layout_toRightOf="@+id/hair_designer_name"
-                        android:text="@string/activity_bottom_hair_dresser"
-                        android:textColor="@color/BLUE_FONT" />
-
-                    <TextView
-                        android:id="@+id/hair_designer_salon"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@+id/hair_designer_name"
-                        android:layout_marginTop="5dp"
-                        android:text="沙宣" 
-                        android:textColor="@color/GRAY"
-                        />
-                </RelativeLayout>
-                
-                <ImageView
-                    android:id="@+id/hair_heart"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:layout_marginRight="10dp"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/lucence_add004" />
+                        android:background="@color/WHITE"
+                        android:orientation="horizontal"
+                        android:padding="8dp" >
+                    </LinearLayout>
+                </HorizontalScrollView>
             </LinearLayout>
-            
-            <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:gravity="left|center_vertical"
-            android:orientation="vertical" >
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-                android:background="@color/WHITE"
+                android:background="@anim/shape_rounded_rectangle"
                 android:gravity="left|center_vertical"
                 android:orientation="vertical" >
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:padding="8dp"
-                    android:text="@string/activity_hair_detail_for" />
+                    android:layout_margin="8dp"
+                    android:background="@color/WHITE"
+                    android:text="@string/activity_bottom_hair_dresser"
+                    android:textSize="16sp" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:background="@color/line" />
+                    android:background="@color/LIGHT_LIGHT_GRAY" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="left|center_vertical" >
+
+                    <com.hair.salon.widget.CircleImageView
+                        android:id="@+id/hair_desinger_img"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:layout_margin="8dp"
+                        android:src="@drawable/hair_style_img_1" />
+
+                    <RelativeLayout
+                        android:id="@+id/rl_layout"
+                        android:layout_width="wrap_content"
+                        android:layout_height="60dp"
+                        android:layout_margin="8dp"
+                        android:layout_toRightOf="@id/hair_desinger_img"
+                        android:gravity="center_vertical" >
+
+                        <TextView
+                            android:id="@+id/hair_designer_name"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:text="沙伊"
+                            android:textColor="@color/BLUE_FONT" />
+
+                        <TextView
+                            android:id="@+id/hair_designer_title"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="5dp"
+                            android:layout_alignBaseline="@id/hair_designer_name"
+                            android:layout_toRightOf="@id/hair_designer_name"
+                            android:text="@string/activity_bottom_hair_dresser"
+                            android:textColor="@color/BLUE_FONT" />
+
+                        <TextView
+                            android:id="@+id/hair_designer_salon"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/hair_designer_name"
+                            android:layout_marginTop="5dp"
+                            android:text="沙宣"
+                            android:textColor="@color/GRAY" />
+                    </RelativeLayout>
+
+                    <TextView
+                            android:id="@+id/collect_number"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_alignParentRight="true"
+                            android:layout_marginRight="5dp"
+                            android:text="(1)"
+                            android:textColor="@color/GRAY" />
+                    
+                    <ImageView
+                        android:id="@+id/hair_heart"
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:layout_centerVertical="true"
+                        android:layout_toLeftOf="@id/collect_number"
+                        android:src="@drawable/lucence_add004" />
+                    
+                     
+                </RelativeLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@anim/shape_rounded_rectangle"
+                android:gravity="left|center_vertical"
+                android:orientation="vertical" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:text="@string/activity_hair_detail_for"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/LIGHT_LIGHT_GRAY" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:background="@color/WHITE"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
                     android:gravity="left|center_vertical"
-                    android:orientation="horizontal"
-                    android:padding="8dp" >
+                    android:orientation="horizontal" >
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/activity_hair_detail_style" />
+                        android:text="@string/activity_hair_detail_style"
+                        android:textColor="@color/LIGHT_GRAY" />
 
                     <TextView
                         android:layout_width="40dp"
@@ -213,16 +221,16 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:background="@color/WHITE"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
                     android:gravity="left|center_vertical"
-                    android:orientation="horizontal"
-                    android:padding="8dp" >
+                    android:orientation="horizontal" >
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/activity_hair_detail_amount" />
+                        android:text="@string/activity_hair_detail_amount"
+                        android:textColor="@color/LIGHT_GRAY" />
 
                     <TextView
                         android:layout_width="40dp"
@@ -247,7 +255,7 @@
                     <TextView
                         android:layout_width="40dp"
                         android:layout_height="wrap_content"
-                       android:layout_marginLeft="5dp"
+                        android:layout_marginLeft="5dp"
                         android:layout_marginRight="10dp"
                         android:background="@color/hair_detail_check_text_false"
                         android:gravity="center"
@@ -258,16 +266,17 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:background="@color/WHITE"
+                    android:layout_marginBottom="20dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
                     android:gravity="left|center_vertical"
-                    android:orientation="horizontal"
-                    android:padding="8dp" >
+                    android:orientation="horizontal" >
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/activity_hair_detail_face_shape" />
+                        android:text="@string/activity_hair_detail_face_shape"
+                        android:textColor="@color/LIGHT_GRAY" />
 
                     <TextView
                         android:layout_width="40dp"
@@ -292,7 +301,7 @@
                     <TextView
                         android:layout_width="40dp"
                         android:layout_height="wrap_content"
-                       android:layout_marginLeft="5dp"
+                        android:layout_marginLeft="5dp"
                         android:layout_marginRight="5dp"
                         android:background="@color/hair_detail_check_text_false"
                         android:gravity="center"
@@ -310,26 +319,38 @@
                         android:textColor="@color/WHITE" />
                 </LinearLayout>
             </LinearLayout>
-        </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:background="@color/WHITE"
-            android:gravity="left|center_vertical"
-            android:orientation="vertical" >
-
-            <TextView
-                android:layout_width="wrap_content"
+            <RelativeLayout
+                android:id="@+id/comment_layout"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="8dp"
-                android:text="@string/activity_hair_detail_comments" />
-        </LinearLayout>
-        </LinearLayout>
+                android:layout_marginBottom="20dp"
+                android:layout_marginTop="20dp"
+                android:background="@anim/shape_rounded_rectangle"
+                android:padding="5dp" >
 
-       
-    </LinearLayout>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginLeft="10dp"
+                    android:padding="5dp"
+                    android:text="作品评论(10)"
+                    android:textSize="16sp" />
 
-</ScrollView>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="10dp"
+                    android:padding="5dp"
+                    android:text="查看全部"
+                    android:textColor="@color/LIGHT_GRAY"
+                    android:textSize="12sp" />
+            </RelativeLayout>
+            <!-- </LinearLayout> -->
+        </LinearLayout>
+    </ScrollView>
+
 </LinearLayout>

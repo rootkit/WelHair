@@ -36,12 +36,23 @@
                 android:orientation="horizontal" >
 
                 <com.hair.salon.widget.CircleImageView
+                    android:id="@+id/customer_img"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:src="@drawable/hair_style_img_7" 
                     app:border_width="1dp"/>
-
+			 <Button
+            android:id="@+id/btn_login"
+            android:layout_width="80dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp"
+            android:background="@color/RED"
+            android:text="登录"
+            android:textColor="@color/WHITE" 
+            android:visibility="gone"/>
                 <LinearLayout
+                    android:id="@+id/user_msg_layout"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:layout_marginLeft="10dp"
@@ -52,6 +63,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="2dp"
+                        android:textSize="18sp"
                         android:text="小龙"
                         android:textColor="@color/WHITE" />
 
@@ -75,7 +87,7 @@
             android:orientation="vertical" >
 
             <TextView
-                android:id="@+id/my_salon"
+                android:id="@+id/join_salon"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:drawableLeft="@drawable/my_message"
@@ -83,7 +95,7 @@
                 android:gravity="left|center_vertical"
                 android:padding="10dp"
                 android:background="@anim/shape_rounded_rectangle"
-                android:text="我的沙龙" />
+                android:text="加入沙龙" />
         </LinearLayout>
 
         <LinearLayout
@@ -169,11 +181,12 @@
                 android:text="给我们打分" />
         </LinearLayout>
          <Button
+            android:id="@+id/out_login"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/RED"
             android:layout_marginTop="20dp"
-            android:layout_marginBottom="20dp"
+            android:layout_marginBottom="60dp"
             android:layout_marginLeft="30dp"
             android:layout_marginRight="30dp"
             android:text="退出登录"

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">发型沙龙</string>
+    <string name="app_name">打扮吧</string>
      
     <string name="pull_to_refresh_pull_label">下拉刷新</string>
     <string name="pull_to_refresh_release_label">松开后刷新</string>
@@ -19,13 +19,22 @@
     <string name="activity_hari_selection_style_spread">编发</string>
     <string name="activity_hari_selection_style_middle">中发</string>
     <string name="activity_hari_selection_sex">性别</string>
-    <string name="activity_hari_selection_sex_all">所有</string>
+    <string name="activity_hari_selection_sex_all">所有人</string>
     <string name="activity_hari_selection_sex_male">男性</string>
     <string name="activity_hari_selection_sex_female">女性</string>
     
     <string name="activity_hari_selection_order">排序</string>
+    <string name="default_order_context">默认排序</string>
+    <string name="latest_style_context">最新发型</string>
+    <string name="latest_welcome_context">最受欢迎</string>
     <string name="activity_hari_selection_order_distance">距离</string>
     <string name="activity_hari_selection_order_appraise">评价</string>
+    
+    <string name="all_area_context">全部区域</string>
+    <string name="area_one_context">长清区</string>
+    <string name="area_two_context">槐荫区</string>
+    <string name="area_three_context">历下区</string>
+    <string name="area_four_context">历城区</string>
     
     
     <string name="activity_bottom_hair_style">发型</string>
@@ -56,14 +65,16 @@
     <!--  <string name="activity_title_back">&lt;</string> -->
     
     <string name="zhuce">注册</string>
-    <string name="youxianghuoshoujihao">&#160;&#160;邮箱或手机号</string>
-    <string name="mima">&#160;密码</string>
-    <string name="chongfumima">&#160;重复密码</string>
-    <string name="nicheng">&#160;&#160;昵称</string>
+    <string name="youxianghuoshoujihao">邮箱或手机号</string>
+    <string name="mima">密码</string>
+    <string name="chongfumima">重复密码</string>
+    <string name="nicheng">昵称</string>
     <string name="denglu">登录</string>
     <string name="otherstyletodenglu">或以下方式登录</string>
     <string name="guke">顾客</string>
     <string name="kongge">&#160;</string>
     <string name="kongge_two">&#160;&#160;</string>
+    
+     <string name="scan_text">将二维码放入框内, 即可自动扫描</string>
 </resources>
 

@@ -232,8 +232,8 @@
                 android:id="@+id/tv_desiginer"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="5dp"
-            	android:layout_marginTop="5dp"
+                android:layout_marginBottom="10dp"
+            	android:layout_marginTop="10dp"
                 android:layout_weight="1"
                 android:gravity="center"
                 android:text="设计师(1)" />
@@ -247,8 +247,8 @@
                 android:id="@+id/tv_commodity"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="5dp"
-            	android:layout_marginTop="5dp"
+                android:layout_marginBottom="10dp"
+            	android:layout_marginTop="10dp"
                 android:layout_weight="1"
                 android:gravity="center"
                 android:text="商品" />
@@ -262,13 +262,23 @@
                 android:id="@+id/tv_comment"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="5dp"
-            	android:layout_marginTop="5dp"
+                android:layout_marginBottom="10dp"
+            	android:layout_marginTop="10dp"
                 android:layout_weight="1"
                 android:gravity="center"
                 android:text="评论" />
         </LinearLayout>
-        <ListView
+       <!--  <ListView
+            android:id="@+id/salonDetailListView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+		    android:layout_marginLeft="10dp"
+		    android:layout_marginRight="10dp"
+            android:dividerHeight="1dp" 
+            android:gravity="center"
+            /> -->
+            <com.hair.salon.widget.MyListView
             android:id="@+id/salonDetailListView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

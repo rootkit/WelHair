@@ -8,12 +8,11 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin" >
-
-    <TextView
-        android:id="@+id/hair_style_sex_all"
+<TextView
+        android:id="@+id/default_order"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/activity_hari_selection_order_distance"
+        android:text="@string/default_order_context"
         android:textSize="17sp" 
 		android:textColor="@color/ORANGE_FONT"/>
 
@@ -24,10 +23,24 @@
         android:layout_marginTop="5dp"
         android:background="@color/LIGHT_GRAY" />
     <TextView
-        android:id="@+id/hair_style_sex_male"
+        android:id="@+id/latest_style"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/activity_hari_selection_order_appraise"
+        android:text="@string/latest_style_context"
+        android:textSize="17sp" 
+		android:textColor="@color/GRAY"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginBottom="5dp"
+        android:layout_marginTop="5dp"
+        android:background="@color/LIGHT_GRAY" />
+    <TextView
+        android:id="@+id/latest_welcome"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/latest_welcome_context"
         android:textSize="17sp" 
 		android:textColor="@color/GRAY"/>
 

@@ -40,6 +40,7 @@ public class HairStylistFragment extends Fragment implements OnClickListener {
 	private TextView title;
 	private PopupWindow mPopupWindow;
 	private TextView stylistSelection;
+	private TextView stylistAllSelection;
 	private LinearLayout mSelectionLayout;
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -63,7 +64,8 @@ public class HairStylistFragment extends Fragment implements OnClickListener {
 		rootView.findViewById(R.id.title_back).setVisibility(View.GONE);
 		title.setText("发型师");
 		
-		
+		stylistAllSelection = (TextView) rootView.findViewById(R.id.stylist_all);
+		stylistAllSelection.setOnClickListener(this);
 		stylistSelection = (TextView) rootView.findViewById(R.id.stylist_order);
 		stylistSelection.setOnClickListener(this);
 		mSelectionLayout = (LinearLayout) rootView.findViewById(R.id.stylist_top_layout);
@@ -86,8 +88,7 @@ public class HairStylistFragment extends Fragment implements OnClickListener {
 		return rootView;
 	}
 
-	private class GetHairStyleTask extends
-			AsyncTask<Void, Void, List<HairStyleBean>> {
+	private class GetHairStyleTask extends AsyncTask<Void, Void, List<HairStyleBean>> {
 
 		@Override
 		protected List<HairStyleBean> doInBackground(Void... params) {
@@ -116,7 +117,9 @@ public class HairStylistFragment extends Fragment implements OnClickListener {
 				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		View view = mLayoutInflater.inflate(R.layout.hair_order_selcet_popup,
 				null);
-		mPopupWindow = new PopupWindow(view, stylistSelection.getWidth(),
+		/*mPopupWindow = new PopupWindow(view, stylistSelection.getWidth(),
+				LayoutParams.WRAP_CONTENT);*/
+		mPopupWindow = new PopupWindow(view, LayoutParams.MATCH_PARENT,
 				LayoutParams.WRAP_CONTENT);
 		mPopupWindow.setFocusable(true);
 		mPopupWindow.setOutsideTouchable(true);
@@ -134,11 +137,44 @@ public class HairStylistFragment extends Fragment implements OnClickListener {
 		mPopupWindow.showAsDropDown(mSelectionLayout,stylistSelection.getWidth(),0);
 	}
 	
+	/**
+	 * 全部区域
+	 */
+	private void showAreaSelectionPopup(){
+		LayoutInflater mLayoutInflater = (LayoutInflater) getActivity()
+				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+		View view = mLayoutInflater.inflate(R.layout.hair_area_selcet_popup,
+				null);
+		/*mPopupWindow = new PopupWindow(view, salonSelection.getWidth(),
+				LayoutParams.WRAP_CONTENT);*/
+		mPopupWindow = new PopupWindow(view, LayoutParams.MATCH_PARENT,
+				LayoutParams.WRAP_CONTENT);
+		mPopupWindow.setFocusable(true);
+		mPopupWindow.setOutsideTouchable(true);
+		mPopupWindow.setBackgroundDrawable(new BitmapDrawable());
+		mPopupWindow.setTouchInterceptor(new OnTouchListener() {
+			public boolean onTouch(View view, MotionEvent event) {
+				if (event.getAction() == MotionEvent.ACTION_OUTSIDE) {
+					mPopupWindow.dismiss();
+					return true;
+				}
+				return false;
+			}
+		});
+		
+		mPopupWindow.showAsDropDown(mSelectionLayout,stylistAllSelection.getWidth(),0);
+	}
+	
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
 			case R.id.stylist_order:
 				showOrderSelectionPopup();
+				break;
+			case R.id.stylist_all:
+				showAreaSelectionPopup();
+				break;
+			default:
 				break;
 		}
 	}

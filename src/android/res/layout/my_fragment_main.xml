@@ -55,7 +55,7 @@
         	    android:src="@drawable/yazi"
         	    />
           <LinearLayout
-        android:layout_width="match_parent"
+       android:layout_width="match_parent"
         android:layout_height="wrap_content" 
         android:orientation="vertical"
         android:layout_marginTop="10dp"
@@ -147,6 +147,6 @@
         	    android:text="客户预约"
         	    android:padding="10dp"
         	    android:gravity="left|center_vertical"
-        	    android:drawableLeft="@drawable/my_message"/>
+        	    android:drawableLeft="@drawable/iconfont_shijian"/>
           </LinearLayout>
 </LinearLayout>

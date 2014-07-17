@@ -49,16 +49,16 @@ public class OrdersCommentsActivity extends BaseActivity implements OnClickListe
 		new GetHairStyleTask().execute();
 	}
 	
-	private class GetHairStyleTask extends	AsyncTask<Void, Void, List<HairStyleBean>> {
+	private class GetHairStyleTask extends	AsyncTask<Void, Void, List<OrdersCommentsBean>> {
 		
 		@Override
-		protected List<HairStyleBean> doInBackground(Void... params) {
+		protected List<OrdersCommentsBean> doInBackground(Void... params) {
 			return null;
 		}
 
 		@Override
-		protected void onPostExecute(List<HairStyleBean> result) {
-			result = new ArrayList<HairStyleBean>();
+		protected void onPostExecute(List<OrdersCommentsBean> result) {
+			result = new ArrayList<OrdersCommentsBean>();
 			for (int i = 0; i < 10; i++) {
 				OrdersCommentsBean ordersCommentsBean = new OrdersCommentsBean();
 				mList.add(ordersCommentsBean);

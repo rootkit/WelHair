@@ -13,7 +13,6 @@
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
         android:orientation="horizontal" 
-        android:layout_margin="10dp"
         android:padding="10dp"
         android:background="@anim/shape_rounded_rectangle">
 

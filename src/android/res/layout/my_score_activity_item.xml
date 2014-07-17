@@ -1,0 +1,74 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/WHITE" 
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+<RelativeLayout 
+    android:id="@+id/customer_layout"
+    android:layout_width="match_parent"
+    android:layout_height="100dp"
+    >
+    
+    <ImageView
+        android:id="@+id/circle_img"
+        android:layout_width="10dp"
+    	android:layout_height="10dp"
+    	android:layout_centerVertical="true"
+    	android:layout_marginLeft="20dp"
+    	android:src="@drawable/iconfont_sss"
+    />"
+     <TextView 
+        android:id="@+id/below_line"
+        android:layout_width="5dp"
+    	android:layout_height="match_parent"
+    	android:layout_below="@id/circle_img"
+    	android:layout_marginTop="-2dp"
+    	android:background="@color/BLUE_FONT"
+    	android:layout_marginLeft="22dp"/>
+     <TextView 
+        android:id="@+id/up_line"
+        android:layout_width="5dp"
+    	android:layout_height="match_parent"
+    	android:layout_marginBottom="-2dp"
+    	android:layout_above="@id/circle_img"
+    	android:background="@color/BLUE_FONT"
+    	android:layout_marginLeft="22dp"/>
+     
+     
+      <TextView 
+        android:id="@+id/event_desc"
+        android:layout_width="wrap_content"
+    	android:layout_height="wrap_content"
+    	android:layout_centerVertical="true"
+    	android:layout_toRightOf="@id/circle_img"
+    	android:layout_marginLeft="20dp"
+    	android:textSize="20sp"/>
+      
+       <TextView 
+        android:id="@+id/score_number"
+        android:layout_width="wrap_content"
+    	android:layout_height="wrap_content"
+    	android:layout_marginTop="20dp"
+    	android:layout_alignParentRight="true"
+    	android:layout_marginRight="20dp"
+    	android:textSize="20sp"
+    	android:textColor="@color/BLUE_FONT"/>
+       
+        <TextView 
+        android:id="@+id/happen_date"
+        android:layout_width="wrap_content"
+    	android:layout_height="wrap_content"
+    	android:layout_below="@id/event_desc"
+    	android:layout_marginTop="0dp"
+    	android:layout_alignParentRight="true"
+    	android:layout_marginRight="20dp"
+    	android:textSize="20sp"
+    	android:textColor="@color/LIGHT_LIGHT_GRAY"/>
+      
+</RelativeLayout>
+
+     
+</LinearLayout>

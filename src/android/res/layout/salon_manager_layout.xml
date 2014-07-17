@@ -13,156 +13,178 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
-        android:background="@anim/shape_rounded_rectangle">
+        android:paddingBottom="10dp"
+        android:background="@anim/shape_rounded_rectangle" >
 
         <TextView
             android:id="@+id/salon_name_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center_vertical"
             android:layout_alignParentLeft="true"
+            android:layout_marginTop="10dp"
             android:drawableLeft="@drawable/salon_name"
             android:drawablePadding="10dp"
+            android:gravity="center_vertical"
             android:paddingLeft="10dp"
-            android:layout_marginTop="10dp"
-            android:text="沙龙名称"/>
-        
-         <TextView
+            android:text="沙龙名称" />
+
+        <TextView
             android:id="@+id/salon_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_toRightOf="@+id/salon_name_label"
             android:layout_alignBaseline="@+id/salon_name_label"
+            android:layout_alignParentRight="true"
             android:layout_marginRight="10dp"
+            android:layout_toRightOf="@+id/salon_name_label"
             android:gravity="center_vertical|right"
             android:text="你好么" />
-         
-         
-         <TextView
+
+        <TextView
             android:id="@+id/line"
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"
             android:layout_below="@+id/salon_name_label"
-            android:background="@color/line"/>
-         
-          <TextView
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp"
+            android:background="@color/LIGHT_LIGHT_GRAY" />
+
+        <RelativeLayout
+            android:id="@+id/approval_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/line" >
+
+           <TextView
             android:id="@+id/approval_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/line"
-            android:drawableLeft="@drawable/work_flow_manager"
+            android:gravity="center_vertical"
             android:layout_alignParentLeft="true"
+            android:drawableLeft="@drawable/work_flow_manager"
             android:drawablePadding="10dp"
             android:paddingLeft="10dp"
-            android:paddingBottom="10dp"
             android:text="审批管理"/>
         
          <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:layout_alignBaseline="@+id/approval_label"
+            android:layout_alignBaseline="@id/approval_label"
             android:layout_marginRight="10dp"
-            android:background="@drawable/iconfont_qianjin_black"/>
-         
+            android:background="@drawable/iconfont_qianjin_gray"  
+            android:textSize="16sp"/>
+            
+        </RelativeLayout>
     </RelativeLayout>
 
-     <RelativeLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
-        android:background="@anim/shape_rounded_rectangle">
+        android:background="@anim/shape_rounded_rectangle" >
 
         <TextView
             android:id="@+id/salon_balance_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center_vertical"
             android:layout_alignParentLeft="true"
+            android:layout_marginTop="10dp"
             android:drawableLeft="@drawable/salon_balance_manager"
             android:drawablePadding="10dp"
+            android:gravity="center_vertical"
             android:paddingLeft="10dp"
-            android:layout_marginTop="10dp"
-            android:text="沙龙余额"/>
-        
-         <TextView
+            android:text="沙龙余额" />
+
+        <TextView
             android:id="@+id/salon_balance"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_toRightOf="@+id/salon_balance_label"
             android:layout_alignBaseline="@+id/salon_balance_label"
+            android:layout_alignParentRight="true"
             android:layout_marginRight="10dp"
+            android:layout_toRightOf="@+id/salon_balance_label"
             android:gravity="center_vertical|right"
-            android:text="￥160.00"/>
-         
-         
-         <TextView
+            android:text="￥160.00" />
+
+        <TextView
             android:id="@+id/line1"
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"
             android:layout_below="@+id/salon_balance_label"
-            android:background="@color/line"/>
-         
-          <TextView
-            android:id="@+id/salon_earnings_label"
-            android:layout_width="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp"
+            android:background="@color/LIGHT_LIGHT_GRAY" />
+
+        <RelativeLayout
+            android:id="@+id/salon_earnings_layout"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/line1"
-            android:drawableLeft="@drawable/salon_earnings"
-            android:layout_alignParentLeft="true"
-            android:drawablePadding="10dp"
-            android:paddingLeft="10dp"
-            android:text="沙龙收益"/>
-        
-         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_alignBaseline="@+id/salon_earnings_label"
-            android:layout_marginRight="10dp"
-            android:background="@drawable/iconfont_qianjin_black"/>
-         
-           <TextView
+            android:layout_below="@id/line1" >
+
+            <TextView
+                android:id="@+id/salon_earnings_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:layout_alignParentLeft="true"
+                android:drawableLeft="@drawable/salon_earnings"
+                android:drawablePadding="10dp"
+                android:paddingLeft="10dp"
+                android:text="沙龙收益" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/salon_earnings_label"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/iconfont_qianjin_gray" />
+        </RelativeLayout>
+
+        <TextView
             android:id="@+id/line2"
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:layout_marginTop="10dp"
+            android:layout_below="@+id/salon_earnings_layout"
             android:layout_marginBottom="10dp"
-            android:layout_below="@+id/salon_earnings_label"
-            android:background="@color/line"/>
-          <TextView
-            android:id="@+id/withdrawal_records"
-            android:layout_width="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@color/LIGHT_LIGHT_GRAY" />
+
+        <RelativeLayout
+            android:id="@+id/withdrawal_layout"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/line2"
-            android:drawableLeft="@drawable/withdrawal_records_img"
-            android:layout_alignParentLeft="true"
-            android:drawablePadding="10dp"
-            android:paddingLeft="10dp"
-            android:paddingBottom="10dp"
-            android:text="提现记录"/>
-        
-         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_alignBaseline="@+id/withdrawal_records"
-            android:layout_marginRight="10dp"
-            android:background="@drawable/iconfont_qianjin_black"/>
+            android:layout_below="@id/line2" >
+
+            <TextView
+                android:id="@+id/withdrawal_records"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:gravity="center_vertical"
+                android:drawableLeft="@drawable/withdrawal_records_img"
+                android:drawablePadding="10dp"
+                android:paddingBottom="10dp"
+                android:paddingLeft="10dp"
+                android:text="提现记录" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/withdrawal_records"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/iconfont_qianjin_gray" />
+        </RelativeLayout>
     </RelativeLayout>
-    
-      <Button
+
+    <Button
+        android:id="@+id/withdrawal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
-        android:gravity="center"
         android:background="@color/GREEN"
-        android:text="提现"/>
+        android:gravity="center"
+        android:text="提现" />
 
 </LinearLayout>

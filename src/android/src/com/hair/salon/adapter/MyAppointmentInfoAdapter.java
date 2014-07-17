@@ -3,13 +3,11 @@ package com.hair.salon.adapter;
 import java.util.List;
 
 import com.hair.salon.R;
-import com.hair.salon.adapter.MyAddressAdapter.Holder;
-import com.hair.salon.bean.MyAddressBean;
 import com.hair.salon.bean.MyAppointmentInfoBean;
 import com.hair.salon.ui.ShowHairActivity;
-
 import android.content.Context;
 import android.content.Intent;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
@@ -47,28 +45,30 @@ public class MyAppointmentInfoAdapter extends BaseAdapter implements OnClickList
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-		final Holder holder = new Holder();
+		Holder holder;
 		MyAppointmentInfoBean myAppointmentInfoBean = myAppointmentInfo.get(position);
-		View view;
 		if(convertView == null){
-			view = View.inflate(context, R.layout.my_appointment_info_item, null);
+			LayoutInflater inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+			convertView = inflater.inflate(R.layout.my_appointment_info_item, null);
+			holder = new Holder();
+
+			holder.hair_desginer_imgIg = (ImageView) convertView.findViewById(R.id.hair_desginer_img);
+			holder.desinger_nameTv = (TextView) convertView.findViewById(R.id.desinger_name);
+			holder.service_priceTv = (TextView) convertView.findViewById(R.id.service_price);
+			holder.salon_nameTv = (TextView) convertView.findViewById(R.id.salon_name);
+			holder.service_progressTv = (TextView) convertView.findViewById(R.id.service_progress);
+			
+			holder.salon_addressTv = (TextView) convertView.findViewById(R.id.salon_address);
+			holder.appointment_subjectTv = (TextView) convertView.findViewById(R.id.appointment_subject);
+			holder.appointment_timeTv = (TextView) convertView.findViewById(R.id.appointment_time);
+			holder.preview_picTv = (TextView) convertView.findViewById(R.id.preview_pic);
+			
+			convertView.setTag(holder);
 		}else{
-			view = convertView;
+			holder = (Holder)convertView.getTag();
 		}
 		
-		holder.hair_desginer_imgIg = (ImageView) view.findViewById(R.id.hair_desginer_img);
-		holder.desinger_nameTv = (TextView) view.findViewById(R.id.desinger_name);
-		holder.service_priceTv = (TextView) view.findViewById(R.id.service_price);
-		holder.salon_nameTv = (TextView) view.findViewById(R.id.salon_name);
-		holder.service_progressTv = (TextView) view.findViewById(R.id.service_progress);
-		
-		holder.salon_addressTv = (TextView) view.findViewById(R.id.salon_address);
-		holder.appointment_subjectTv = (TextView) view.findViewById(R.id.appointment_subject);
-		holder.appointment_timeTv = (TextView) view.findViewById(R.id.appointment_time);
-		holder.preview_picTv = (TextView) view.findViewById(R.id.preview_pic);
-		
 		holder.hair_desginer_imgIg.setImageResource(R.drawable.hair_style_img_7);;
-		
 		holder.desinger_nameTv.setText("小张");
 		holder.service_priceTv.setText("￥80");
 		holder.salon_nameTv.setText("飘丝丽坊");
@@ -78,7 +78,7 @@ public class MyAppointmentInfoAdapter extends BaseAdapter implements OnClickList
 		holder.appointment_timeTv.setText("06-12 16:20");
 		
 		holder.preview_picTv.setOnClickListener(this);
-		return view;
+		return convertView;
 	}
 
 	

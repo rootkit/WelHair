@@ -1,0 +1,251 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/app_bgcolor"
+    android:orientation="vertical" >
+
+    <include
+        android:id="@+id/title"
+        layout="@layout/base_title" />
+
+    <!-- <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:paddingBottom="10dp"
+        android:background="@anim/shape_rounded_rectangle">
+
+        <TextView
+            android:id="@+id/customer_name_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:layout_alignParentLeft="true"
+            android:drawableLeft="@drawable/salon_name"
+            android:drawablePadding="10dp"
+            android:paddingLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:text="用户名"/>
+        
+         <TextView
+            android:id="@+id/customer_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_toRightOf="@+id/customer_name_label"
+            android:layout_alignBaseline="@+id/customer_name_label"
+            android:layout_marginRight="10dp"
+            android:gravity="center_vertical|right"
+            android:text="小刘" />
+    </RelativeLayout> -->
+
+     <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:paddingBottom="10dp"
+        android:background="@anim/shape_rounded_rectangle">
+
+        <TextView
+            android:id="@+id/account_balance_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:layout_alignParentLeft="true"
+            android:drawableLeft="@drawable/salon_balance_manager"
+            android:drawablePadding="10dp"
+            android:paddingLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:text="当前余额"/>
+        
+         <TextView
+            android:id="@+id/recent_balance"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_toRightOf="@+id/account_balance_label"
+            android:layout_alignBaseline="@+id/account_balance_label"
+            android:layout_marginRight="10dp"
+            android:gravity="center_vertical|right"
+            android:text="￥165.00"/>
+         
+         
+         <TextView
+            android:id="@+id/line0"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_below="@+id/account_balance_label"
+            android:background="@color/LIGHT_LIGHT_GRAY"/>
+            <TextView
+            android:id="@+id/recharge_number_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:layout_alignParentLeft="true"
+            android:drawableLeft="@drawable/jin_e"
+            android:layout_below="@+id/line0"
+            android:drawablePadding="10dp"
+            android:paddingLeft="10dp"
+            android:text="提现金额"/>
+        
+         <EditText
+            android:id="@+id/recharge_number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignBaseline="@+id/recharge_number_label"
+            android:layout_marginRight="10dp"
+            android:textColor="@color/LIGHT_LIGHT_GRAY"
+            android:background="@color/WHITE"
+            android:hint="0.00" 
+            android:digits="1234567890." 
+    		android:singleLine="true"
+            android:textSize="16sp"/>
+         
+         </RelativeLayout>
+         
+     <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:paddingBottom="10dp"
+        android:background="@anim/shape_rounded_rectangle">
+
+        <TextView
+            android:id="@+id/alipay_style_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:layout_alignParentLeft="true"
+            android:drawableLeft="@drawable/alipay"
+            android:drawablePadding="10dp"
+            android:paddingLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:text="银行名称"/>
+        
+         <EditText
+            android:id="@+id/bank_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignBaseline="@+id/alipay_style_label"
+            android:layout_marginRight="10dp"
+            android:textColor="@color/LIGHT_LIGHT_GRAY"
+            android:background="@color/WHITE"
+            android:hint="银行的名称" 
+            android:textSize="16sp"/>
+          <TextView
+            android:id="@+id/line1"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_below="@+id/alipay_style_label"
+            android:background="@color/LIGHT_LIGHT_GRAY"/>
+          
+           <TextView
+            android:id="@+id/opencard_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:layout_alignParentLeft="true"
+            android:drawableLeft="@drawable/opencard"
+             android:layout_below="@+id/line1"
+            android:drawablePadding="10dp"
+            android:paddingLeft="10dp"
+            android:text="开户行"/>
+        
+         <EditText
+            android:id="@+id/opencard_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignBaseline="@+id/opencard_label"
+            android:layout_marginRight="10dp"
+            android:textColor="@color/LIGHT_LIGHT_GRAY"
+            android:background="@color/WHITE"
+            android:hint="开户行的名称" 
+            android:textSize="16sp"/>
+         
+          <TextView
+            android:id="@+id/line2"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_below="@+id/opencard_label"
+            android:background="@color/LIGHT_LIGHT_GRAY"/>
+          
+           <TextView
+            android:id="@+id/bankcard_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:layout_alignParentLeft="true"
+            android:drawableLeft="@drawable/bankcard"
+             android:layout_below="@+id/line2"
+            android:drawablePadding="10dp"
+            android:paddingLeft="10dp"
+            android:text="银行卡号"/>
+        
+         <EditText
+            android:id="@+id/bankcard_number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignBaseline="@+id/bankcard_label"
+            android:layout_marginRight="10dp"
+            android:textColor="@color/LIGHT_LIGHT_GRAY"
+            android:background="@color/WHITE"
+            android:hint="银行卡号"
+            android:textSize="16sp" />
+         
+         
+          <TextView
+            android:id="@+id/line3"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_below="@+id/bankcard_label"
+            android:background="@color/LIGHT_LIGHT_GRAY"/>
+          
+           <TextView
+            android:id="@+id/bankaccount_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:layout_alignParentLeft="true"
+            android:drawableLeft="@drawable/bankaccount"
+             android:layout_below="@+id/line3"
+            android:drawablePadding="10dp"
+            android:paddingLeft="10dp"
+            android:text="持卡人"/>
+        
+         <EditText
+            android:id="@+id/bankaccount_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignBaseline="@+id/bankaccount_label"
+            android:layout_marginRight="10dp"
+            android:textColor="@color/LIGHT_LIGHT_GRAY"
+            android:background="@color/WHITE"
+            android:hint="持卡人姓名" 
+            android:textSize="16sp"/>
+    </RelativeLayout>
+    
+      <Button
+         android:id="@+id/recharge_to_account"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:gravity="center"
+        android:background="@color/GREEN"
+        android:text="提交"
+        android:textColor="@color/WHITE"/>
+
+</LinearLayout>

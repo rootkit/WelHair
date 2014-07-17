@@ -7,9 +7,11 @@ import com.hair.salon.R;
 import com.hair.salon.adapter.HairFragmentAdapter;
 import com.hair.salon.bean.HairStyleBean;
 import com.hair.salon.bean.ProductionsBean;
+import com.hair.salon.ui.SalonFragment.PopWindowClick;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -42,6 +44,25 @@ public class ProductionsFragment extends Fragment implements OnClickListener{
 	private ProductionsFragmentAdapter mAdapter;
 	private List<ProductionsBean> mList = new ArrayList<ProductionsBean>();
 	private PopupWindow mPopupWindow;
+	private TextView productionsAllSelection;
+	
+	private TextView default_orderTv;
+	private TextView latest_styleTv;
+	private TextView latest_welcomeTv;
+	
+	int[] arrOrderId = {R.id.default_order,R.id.latest_style,R.id.latest_welcome};
+	TextView[] arrOrderTv = {default_orderTv,latest_styleTv,latest_welcomeTv};
+	String[] arrOrderContext = new String[3];
+	
+	private TextView all_areaTv;
+	private TextView area_oneTv;
+	private TextView area_twoTv;
+	private TextView area_threeTv;
+	private TextView area_fourTv;
+	
+	int[] arrAreaId = {R.id.all_area,R.id.area_one,R.id.area_two,R.id.area_three,R.id.area_four};
+	TextView[] arrAreaTv = {all_areaTv,area_oneTv,area_twoTv,area_threeTv,area_fourTv};
+	String[] arrAreaContext = new String[5];
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -69,21 +90,19 @@ public class ProductionsFragment extends Fragment implements OnClickListener{
 		settingImage.setVisibility(View.VISIBLE);
 		settingImage.setImageResource(R.drawable.lucence_add008);
 		settingImage.setOnClickListener(this);
-		settingImage.setOnClickListener(this);
 		
 		mSelectionLayout = (LinearLayout) rootView.findViewById(R.id.productions_selection_layout);
+		
+		productionsAllSelection = (TextView) rootView.findViewById(R.id.productions_all_areas);
+		productionsAllSelection.setOnClickListener(this);
 		productionsSelection = (TextView) rootView.findViewById(R.id.productions_order);
 		productionsSelection.setOnClickListener(this);
 		
 		mGridView = (GridView) rootView.findViewById(R.id.productions_grid);
-
 		mAdapter = new ProductionsFragmentAdapter(getActivity(), mList);
-
 		mGridView.setAdapter(mAdapter);
-
 		new GetProductionsTask().execute();
-
-		 mGridView.setOnItemClickListener(new OnItemClickListener() {
+		mGridView.setOnItemClickListener(new OnItemClickListener() {
 		
 		 @Override
 		 public void onItemClick(AdapterView<?> parent, View view,
@@ -126,6 +145,13 @@ public class ProductionsFragment extends Fragment implements OnClickListener{
 				showOrderSelectionPopup();
 				break;
 			case R.id.title_setting:
+				Intent nintent = new Intent(getActivity(),QrCodeShowActivity.class);
+				getActivity().startActivity(nintent);
+				break;
+			case R.id.productions_all_areas:
+				showAreaSelectionPopup();
+				break;
+			default:
 				break;
 		}
 	}
@@ -139,7 +165,28 @@ public class ProductionsFragment extends Fragment implements OnClickListener{
 				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		View view = mLayoutInflater.inflate(R.layout.hair_order_selcet_popup,
 				null);
-		mPopupWindow = new PopupWindow(view, productionsSelection.getWidth(),
+		
+		int arrLen = arrOrderTv.length;
+		String orderContext = productionsSelection.getText().toString();
+		for(int i = 0;i < arrLen;i++){
+			arrOrderTv[i] = (TextView)view.findViewById(arrOrderId[i]);
+			arrOrderContext[i] = arrOrderTv[i].getText().toString();
+			if(orderContext.equals(this.getString(R.string.activity_hari_selection_order))){
+				
+			}else{
+				if(orderContext.equals(arrOrderContext[i])){
+					arrOrderTv[i].setTextColor(Color.parseColor("#ffff740f"));
+				}else{
+					arrOrderTv[i].setTextColor(Color.parseColor("#FF888888"));
+				}
+			}
+			arrOrderTv[i].setOnClickListener(new PopWindowClick(productionsSelection,arrOrderContext[i]));
+		}
+		
+		
+		/*mPopupWindow = new PopupWindow(view, productionsSelection.getWidth(),
+				LayoutParams.WRAP_CONTENT);*/
+		mPopupWindow = new PopupWindow(view, LayoutParams.MATCH_PARENT,
 				LayoutParams.WRAP_CONTENT);
 		mPopupWindow.setFocusable(true);
 		mPopupWindow.setOutsideTouchable(true);
@@ -155,5 +202,69 @@ public class ProductionsFragment extends Fragment implements OnClickListener{
 		});
 
 		mPopupWindow.showAsDropDown(mSelectionLayout,productionsSelection.getWidth(),0);
+	}
+	
+	class PopWindowClick implements OnClickListener{
+		TextView textViewTv;
+		String selectedContext;
+		public PopWindowClick(TextView textView, String string) {
+			// TODO Auto-generated constructor stub
+			textViewTv = textView;
+			selectedContext = string;
+		}
+
+		@Override
+		public void onClick(View v) {
+			// TODO Auto-generated method stub
+			mPopupWindow.dismiss();
+			textViewTv.setText(selectedContext);
+			
+		}}
+	
+	/**
+	 * 全部区域
+	 */
+	private void showAreaSelectionPopup(){
+		LayoutInflater mLayoutInflater = (LayoutInflater) getActivity()
+				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+		View view = mLayoutInflater.inflate(R.layout.hair_area_selcet_popup,
+				null);
+		
+		int arrLen = arrAreaTv.length;
+		String areaContext = productionsSelection.getText().toString();
+		for(int i = 0;i < arrLen;i++){
+			arrAreaTv[i] = (TextView)view.findViewById(arrAreaId[i]);
+			arrAreaContext[i] = arrAreaTv[i].getText().toString();
+			if(areaContext.equals(this.getString(R.string.all_area_context))){
+				
+			}else{
+				if(areaContext.equals(arrAreaContext[i])){
+					arrAreaTv[i].setTextColor(Color.parseColor("#ffff740f"));
+				}else{
+					arrAreaTv[i].setTextColor(Color.parseColor("#FF888888"));
+				}
+			}
+			arrAreaTv[i].setOnClickListener(new PopWindowClick(productionsAllSelection,arrAreaContext[i]));
+		}
+		
+		
+		/*mPopupWindow = new PopupWindow(view, salonSelection.getWidth(),
+				LayoutParams.WRAP_CONTENT);*/
+		mPopupWindow = new PopupWindow(view, LayoutParams.MATCH_PARENT,
+				LayoutParams.WRAP_CONTENT);
+		mPopupWindow.setFocusable(true);
+		mPopupWindow.setOutsideTouchable(true);
+		mPopupWindow.setBackgroundDrawable(new BitmapDrawable());
+		mPopupWindow.setTouchInterceptor(new OnTouchListener() {
+			public boolean onTouch(View view, MotionEvent event) {
+				if (event.getAction() == MotionEvent.ACTION_OUTSIDE) {
+					mPopupWindow.dismiss();
+					return true;
+				}
+				return false;
+			}
+		});
+
+		mPopupWindow.showAsDropDown(mSelectionLayout,productionsAllSelection.getWidth(),0);
 	}
 }

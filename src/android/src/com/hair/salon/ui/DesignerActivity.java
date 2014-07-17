@@ -43,15 +43,16 @@ public class DesignerActivity extends BaseActivity implements OnClickListener {
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.my_works:
-			Intent worksIntent = new Intent(this,MyWorksActivity.class);
+			Intent worksIntent = new Intent(DesignerActivity.this,MyWorksActivity.class);
 			startActivity(worksIntent);
 			break;
 		case R.id.my_services:
-			Intent servicesIntent = new Intent(this,MyServicesActivity.class);
+			Intent servicesIntent = new Intent(DesignerActivity.this,MyServicesActivity.class);
 			startActivity(servicesIntent);
 			break;
 		case R.id.my_clients:
-
+			Intent mycustomersIntent = new Intent(DesignerActivity.this,MyCustomersActivity.class);
+			startActivity(mycustomersIntent);
 			break;
 		case R.id.my_booking:
 			Intent customer_appointmentintent = new Intent(DesignerActivity.this,MyAppointmentInfoActivity.class);

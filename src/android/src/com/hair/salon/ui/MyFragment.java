@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.hair.salon.R;
@@ -111,18 +112,18 @@ public class MyFragment extends Fragment implements OnClickListener {
 			case R.id.my_salon:
 				Intent salonintent = new Intent(getActivity(),MySalonActivity.class);
 				startActivity(salonintent);
+				break;
 			case R.id.my_account:
 				Intent my_accountintent = new Intent(getActivity(),MyAccountActivity.class);
 				startActivity(my_accountintent);
 				break;
 			case R.id.my_message:
-				/*Intent scoreintent = new Intent(getActivity(),MyScoreActivity.class);
-				startActivity(scoreintent);*/
+				Intent mymessagesintent = new Intent(getActivity(),MyMessagesActivity.class);
+				startActivity(mymessagesintent);
 				break;
-			
 			case R.id.my_customer:
-				/*Intent settingIntent = new Intent(getActivity(),SettingsActivity.class);
-				startActivity(settingIntent);*/
+				Intent mycustomersIntent = new Intent(getActivity(),MyCustomersActivity.class);
+				startActivity(mycustomersIntent);
 				break;
 			case R.id.customer_appointment:
 				Intent customer_appointmentintent = new Intent(getActivity(),MyAppointmentInfoActivity.class);

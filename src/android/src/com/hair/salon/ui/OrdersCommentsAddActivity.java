@@ -10,7 +10,9 @@ import com.hair.salon.bean.OrdersCommentsBean;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageView;
@@ -99,6 +101,57 @@ public class OrdersCommentsAddActivity extends BaseActivity implements OnClickLi
 				break;
 		}
 	}
+	
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+		if (resultCode == RESULT_OK) {
+			ImageView photo;
+			switch (requestCode) {
+			case 1:
+				photo = mImgeAdd1;
+				break;
+			case 2:
+				photo = mImgeAdd2;
+				break;
+			case 3:
+				photo = mImgeAdd3;
+				break;
+			case 4:
+				photo = mImgeAdd4;
+				break;
+			default:
+				photo = mImgeAdd1;
+				break;
+			}
+
+			if (data != null) {
+				Uri mImageCaptureUri = data.getData();
+				if (mImageCaptureUri != null) {
+					Bitmap image;
+					try {
+						image = MediaStore.Images.Media.getBitmap(
+								this.getContentResolver(), mImageCaptureUri);
+						if (image != null) {
+							photo.setImageBitmap(image);
+						}
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+				} else {
+					Bundle extras = data.getExtras();
+					if (extras != null) {
+						Bitmap image = extras.getParcelable("data");
+						if (image != null) {
+							photo.setImageBitmap(image);
+						}
+					}
+				}
+			}
+
+		}
+	}
+	
 
 	private void changeBgColor(int id){
 		TextView tvObj;

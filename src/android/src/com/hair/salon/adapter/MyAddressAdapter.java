@@ -8,14 +8,13 @@ import com.hair.salon.ui.AddAddressActivity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.View.OnLayoutChangeListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 public class MyAddressAdapter extends BaseAdapter implements OnClickListener{
 
@@ -49,19 +48,24 @@ public class MyAddressAdapter extends BaseAdapter implements OnClickListener{
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		// TODO Auto-generated method stub
-		final Holder holder = new Holder();
+		Holder holder;
 		MyAddressBean myAddressBean = MyAddresss.get(position);
-		View view;
 		if(convertView == null){
-			view = View.inflate(context, R.layout.address_list_item_layout, null);
+			LayoutInflater inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+			convertView = inflater.inflate(R.layout.address_list_item_layout, null);
+			holder = new Holder();
+			//view = View.inflate(context, R.layout.address_list_item_layout, null);
+			holder.tv_name = (TextView) convertView.findViewById(R.id.name);
+			holder.tv_phone = (TextView) convertView.findViewById(R.id.phone);
+			holder.tv_address = (TextView) convertView.findViewById(R.id.address);
+			holder.editImg = (ImageView) convertView.findViewById(R.id.edit);
+			holder.selectImg = (ImageView) convertView.findViewById(R.id.select);
+			
+			convertView.setTag(holder);
 		}else{
-			view = convertView;
+			holder = (Holder)convertView.getTag();
 		}
-		holder.tv_name = (TextView) view.findViewById(R.id.name);
-		holder.tv_phone = (TextView) view.findViewById(R.id.phone);
-		holder.tv_address = (TextView) view.findViewById(R.id.address);
-		holder.editImg = (ImageView) view.findViewById(R.id.edit);
-		holder.selectImg = (ImageView) view.findViewById(R.id.select);
+		
 		
 		holder.tv_name.setText("小飞");
 		holder.tv_phone.setText("13837383738");
@@ -69,7 +73,7 @@ public class MyAddressAdapter extends BaseAdapter implements OnClickListener{
 		
 		holder.editImg.setOnClickListener(this);
 		holder.selectImg.setOnClickListener(this);
-		return view;
+		return convertView;
 	}
 
 	

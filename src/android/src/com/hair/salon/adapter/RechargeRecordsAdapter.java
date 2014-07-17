@@ -3,11 +3,9 @@ package com.hair.salon.adapter;
 import java.util.List;
 
 import com.hair.salon.R;
-import com.hair.salon.adapter.OrdersCommentsAdapter.Holder;
-import com.hair.salon.bean.OrdersCommentsBean;
 import com.hair.salon.bean.RechargeRecordsBean;
-
 import android.content.Context;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
@@ -46,27 +44,30 @@ public class RechargeRecordsAdapter extends BaseAdapter implements OnClickListen
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		// TODO Auto-generated method stub
-		final Holder holder = new Holder();
+		Holder holder;
 		RechargeRecordsBean rechargeRecordsBean = RechargeRecords.get(position);
-		View view;
+		//View view;
 		if(convertView == null){
-			view = View.inflate(context, R.layout.recharge_records_activity_item, null);
+			LayoutInflater inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+			convertView = inflater.inflate(R.layout.recharge_records_activity_item, null);
+			holder = new Holder();
+			
+			holder.recharge_statusTv = (TextView) convertView.findViewById(R.id.recharge_status);
+			holder.recharge_amountTv = (TextView) convertView.findViewById(R.id.recharge_amount);
+			holder.recharge_timeTv = (TextView) convertView.findViewById(R.id.recharge_time);
+			holder.record_numberTv = (TextView) convertView.findViewById(R.id.record_number);
+			
+			convertView.setTag(holder);
 		}else{
-			view = convertView;
+			holder = (Holder)convertView.getTag();
 		}
-		holder.recharge_statusTv = (TextView) view.findViewById(R.id.recharge_status);
-		holder.recharge_amountTv = (TextView) view.findViewById(R.id.recharge_amount);
-		holder.recharge_timeTv = (TextView) view.findViewById(R.id.recharge_time);
-		holder.record_numberTv = (TextView) view.findViewById(R.id.record_number);
-		
-		
 		
 		holder.recharge_statusTv.setText("交易成功");
 		holder.recharge_amountTv.setText("100.00");
 		holder.recharge_timeTv.setText("07-08 08:26");
 		holder.record_numberTv.setText("充值【20140630123426238963】");
 		
-		return view;
+		return convertView;
 	}
 	
 	

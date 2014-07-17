@@ -52,6 +52,7 @@
             android:layout_height="40dp"
             android:layout_marginLeft="30dp"
             android:layout_marginRight="30dp"
+            android:padding="10dp"
             android:hint="@string/youxianghuoshoujihao"
             android:background="@color/WHITE"
             android:textSize="15.0sp" >
@@ -66,6 +67,7 @@
             android:layout_marginLeft="30dp"
             android:layout_marginRight="30dp"
             android:hint="@string/mima"
+            android:padding="10dp"
             android:inputType="textPassword"
             android:background="@color/WHITE"
             android:textSize="15.0sp" >

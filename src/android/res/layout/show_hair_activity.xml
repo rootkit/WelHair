@@ -9,12 +9,12 @@
         android:id="@+id/title_layout"
         layout="@layout/base_title" />
 
-   <!--  <ListView
+    <ListView
         android:id="@+id/stylist_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/title_layout"
         android:divider="@color/app_bgcolor"
-        android:dividerHeight="10dp" /> -->
+        android:dividerHeight="10dp" />
 
 </RelativeLayout>

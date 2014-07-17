@@ -158,8 +158,7 @@ public class AddWorkActivity extends BaseActivity implements OnClickListener {
 	@Override
 	public void onClick(View v) {
 
-		Intent intent = new Intent(AddWorkActivity.this,
-				SelectPicPopupWindow.class);
+		Intent intent = new Intent(AddWorkActivity.this,SelectPicPopupWindow.class);
 		switch (v.getId()) {
 		case R.id.img_add1:
 			startActivityForResult(intent, 1);

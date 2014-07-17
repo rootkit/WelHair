@@ -13,24 +13,32 @@
         android:layout_height="wrap_content" 
         android:orientation="horizontal"
         android:background="@color/WHITE"
-        android:padding="10dp">
+        android:paddingTop="15dp"
+        android:paddingBottom="15dp"
+        android:paddingLeft="20dp">
         <TextView 
             android:layout_width="wrap_content"
         	android:layout_height="wrap_content"
         	android:text="我的积分:"
-        	android:textSize="18sp"/>
+        	android:textSize="22sp"/>
         <TextView 
             android:layout_width="wrap_content"
         	android:layout_height="wrap_content"
-        	android:text="30"
-        	android:textSize="18sp"
+        	android:text="35"
+        	android:textSize="22sp"
         	android:textColor="@color/BLUE_FONT"/>
         </LinearLayout>
-<ImageView 
+	<ImageView 
         	    android:id="@+id/image_yazi"
         	    android:layout_width="fill_parent"
         	    android:layout_height="wrap_content"
         	    android:layout_marginTop="-2dp"
         	    android:src="@drawable/yazi"
         	    />
+	 <ListView
+        android:id="@+id/stylist_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:divider="@color/app_bgcolor"
+        android:dividerHeight="0dp"/>
 </LinearLayout>

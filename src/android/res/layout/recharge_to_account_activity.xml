@@ -42,20 +42,21 @@
          
          
          <TextView
-            android:id="@+id/line1"
+            android:id="@+id/line0"
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp"
             android:layout_below="@+id/account_balance_label"
-            android:background="@color/line"/>
+            android:background="@color/LIGHT_LIGHT_GRAY"/>
               <TextView
             android:id="@+id/recharge_number_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:drawableLeft="@drawable/jin_e"
+            android:gravity="center_vertical"
             android:layout_alignParentLeft="true"
-            android:layout_below="@+id/line1"
+            android:drawableLeft="@drawable/jin_e"
+             android:layout_below="@+id/line0"
             android:drawablePadding="10dp"
             android:paddingLeft="10dp"
             android:text="充值金额"/>
@@ -67,8 +68,10 @@
             android:layout_alignParentRight="true"
             android:layout_alignBaseline="@+id/recharge_number_label"
             android:layout_marginRight="10dp"
+            android:textColor="@color/LIGHT_LIGHT_GRAY"
             android:background="@color/WHITE"
-            android:text="100.00"/>
+            android:hint="10.00"
+            android:textSize="16sp" />
          
          
           
@@ -100,7 +103,8 @@
             android:layout_alignParentRight="true"
             android:layout_marginRight="10dp"
             android:drawablePadding="10dp"
-            android:layout_marginTop="10dp"
+            android:gravity="center_vertical"
+            android:layout_centerVertical="true"
             android:drawableLeft="@drawable/iconfont_iconfontdui" />
     </RelativeLayout>
     

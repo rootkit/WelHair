@@ -5,7 +5,9 @@ import com.hair.salon.R;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -15,6 +17,7 @@ public class RechargeToAccountActivity extends BaseActivity implements OnClickLi
 	private TextView back;
 	
 	private Button recharge_to_accountBtn;
+	private EditText recharge_numberEt;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +33,8 @@ public class RechargeToAccountActivity extends BaseActivity implements OnClickLi
 	}
 	
 	private void initView(){
+		recharge_numberEt = (EditText)findViewById(R.id.recharge_number);
+		recharge_numberEt.setInputType(EditorInfo.TYPE_CLASS_PHONE);
 	//	recharge_to_accountBtn = (Button)findViewById(R.id.up_to_account);
 		//recharge_to_accountBtn.setOnClickListener(this);
 	}

@@ -82,27 +82,25 @@ public class MyCollectionInfoActivity extends BaseActivity implements OnClickLis
 	}
 
 	
-	private class GetHairStyleTask extends
-	AsyncTask<Void, Void, List<HairStyleBean>> {
-
-@Override
-protected List<HairStyleBean> doInBackground(Void... params) {
-	return null;
-}
-
-@Override
-protected void onPostExecute(List<HairStyleBean> result) {
-	result = new ArrayList<HairStyleBean>();
-
-	for (int i = 0; i < 10; i++) {
-		SalonBean salonBean = new SalonBean();
-		mList.add(salonBean);
+	private class GetHairStyleTask extends AsyncTask<Void, Void, List<SalonBean>> {
+		@Override
+		protected List<SalonBean> doInBackground(Void... params) {
+			return null;
+		}
+		
+		@Override
+		protected void onPostExecute(List<SalonBean> result) {
+			result = new ArrayList<SalonBean>();
+		
+			for (int i = 0; i < 10; i++) {
+				SalonBean salonBean = new SalonBean();
+				mList.add(salonBean);
+			}
+			mAdapter.notifyDataSetChanged();
+		
+			super.onPostExecute(result);
+		}
 	}
-	mAdapter.notifyDataSetChanged();
-
-	super.onPostExecute(result);
-}
-}
 	
 	
 	@Override
