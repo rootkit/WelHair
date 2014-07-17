@@ -31,6 +31,10 @@
                                 <a href="javascript:;"><?php echo $client['Nickname']; ?></a>
                             </strong>
                         </div>
+                        <p class="card-info-first" style="margin-top: 20px;">
+                            <a class="btn btn2_xl btn2_l" href="<?php echo $this->baseUrl('user/stylist/clientappointment?client_id=' . $client['UserId']);?>">查看所有预约</a>
+                            <a class="btn btn2_xl btn2_l" href="<?php echo $this->baseUrl('user/stylist/clientnote?client_id=' . $client['UserId']);?>">查看所有效果图</a>
+                        </p>
                         <div class="card-action-bar">
                             <ul>
                                 <li><span>累计预约：<?php echo $client['AppointmentCount']; ?></span></li>

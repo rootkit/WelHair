@@ -13,27 +13,12 @@ use Welfony\Utility\Converter;
 </div>
 <div class="my_container">
     <?php
-    echo $this->partial('shared/leftnav.phtml', array('active' => 1, 'currentUser' => $this->currentUser));
+    echo $this->partial('shared/leftnav.phtml', array('active' => 4, 'currentUser' => $this->currentUser));
     ?>
     <div class="my_right g_mc">
-        <ul id="tags">
-            <li class="tags-h<?php echo empty($this->status) ? ' selectTag' : ''; ?>">
-                <a href="<?php echo $this->baseUrl('user/appointment'); ?>">
-                    全部
-                </a>
-            </li>
-            <li class="tags-h<?php echo $this->status == 'unpaid' ? ' selectTag' : ''; ?>">
-                <a href="<?php echo $this->baseUrl('user/appointment?status=unpaid'); ?>">
-                    未支付
-                </a>
-            </li>
-            <li class="tags-h<?php echo $this->status == 'completed' ? ' selectTag' : ''; ?>">
-                <a href="<?php echo $this->baseUrl('user/appointment?status=completed'); ?>">
-                    已完成
-                </a>
-            </li>
-        </ul>
-
+        <?php
+        echo $this->partial('shared/topnavstylist.phtml', array('action' => $this->action));
+        ?>
         <div id="tagContent">
             <div class="tagContent selectTag" id="tagContent0">
                 <table class="bought-table">
@@ -82,8 +67,8 @@ use Welfony\Utility\Converter;
                         <tr class="order-bd">
                             <td colspan="3">
                                 <div class="chaterphoto">
-                                    <a href="<?php echo $this->baseUrl('stylist/index/detail?stylist_id=' . $appointment['StaffId']); ?>">
-                                        <img src="<?php echo str_replace('480x480', '110x110', $appointment['StaffAvatarUrl']); ?>" />
+                                    <a href="javascript:;">
+                                        <img src="<?php echo str_replace('480x480', '110x110', $appointment['AvatarUrl']); ?>" />
                                         <span class="mask_side_100"></span>
                                     </a>
                                 </div>
@@ -96,7 +81,7 @@ use Welfony\Utility\Converter;
                                         </li>
                                         <li>
                                             <span>
-                                                设计师：<?php echo $appointment['StaffName']; ?>
+                                                预约人：<?php echo $appointment['Nickname']; ?>
                                             </span>
                                         </li>
                                         <li>
@@ -127,19 +112,26 @@ use Welfony\Utility\Converter;
                                 <?php echo Converter::appointmentStatusFromEnumToString($appointment['Status']); ?>
                             </td>
                             <td>
-                                <?php if ($appointment['Status'] == AppointmentStatus::Pending): ?>
-                                <button class="btn btn2_xl btn2_l appointment-pay" data-appointment-id="<?php echo $appointment['AppointmentId']; ?>">
+                                <?php if ($appointment['Status'] == AppointmentStatus::Paid): ?>
+                                <button class="btn btn2_xl btn2_l appointment-complete" data-appointment-id="<?php echo $appointment['AppointmentId']; ?>">
                                     <span class="t1">
-                                        立即付款
+                                        完成
+                                    </span>
+                                </button>
+                                <br/>
+                                <br/>
+                                <button class="btn btn2_xl btn2_l appointment-cancel" data-appointment-id="<?php echo $appointment['AppointmentId']; ?>">
+                                    <span class="t1">
+                                        取消
                                     </span>
                                 </button>
                                 <?php endif; ?>
                                 <?php if ($appointment['Status'] == AppointmentStatus::Completed): ?>
-                                <button class="btn btn2_xl btn2_l<?php echo $appointment['IsLiked'] == 0 ? ' appointment-like' : ''; ?>" data-appointment-id="<?php echo $appointment['AppointmentId']; ?>">
+                                <a class="btn btn2_xl btn2_l appointment-note" href="<?php echo $this->baseUrl('user/appointment/note?appointment_id=' . $appointment['AppointmentId']); ?>">
                                     <span class="t1">
-                                        <?php echo $appointment['IsLiked'] == 0 ? '赞' : '已赞'; ?>
+                                        效果图
                                     </span>
-                                </button>
+                                </a>
                                 <?php endif; ?>
                             </td>
                         </tr>
@@ -151,40 +143,3 @@ use Welfony\Utility\Converter;
         </div>
     </div>
 </div>
-<script type="text/javascript">
-$(document).ready(function() {
-    $('.appointment-like').click(function() {
-        var btn = $(this);
-        var appointmentId = btn.attr('data-appointment-id');
-
-        if (window.inAjax) {
-            return;
-        }
-
-        window.inAjax = 1;
-        $.ajax({
-            type: "post",
-            url: '/ajax/appointment/like',
-            data: {
-                appointment_id: appointmentId
-            },
-            success: function (data) {
-                window.inAjax = 0;
-
-                if (data.success) {
-                    btn.removeClass('.appointment-like');
-                    btn.find('span').text('已赞');
-                } else {
-                    popup.find('.noti').text(data.message);
-                }
-            },
-            complete: function (XMLHttpRequest, textStatus) {
-                window.inAjax = 0;
-            },
-            error: function () {
-                window.inAjax = 0;
-            }
-        });
-    });
-});
-</script>

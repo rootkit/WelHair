@@ -19,9 +19,11 @@ use Welfony\Core\Enum\Gender;
 use Welfony\Core\Enum\HairAmount;
 use Welfony\Core\Enum\HairStyle;
 use Welfony\Core\Enum\StaffStatus;
+use Welfony\Service\AppointmentNoteService;
 use Welfony\Service\AppointmentService;
 use Welfony\Service\ServiceService;
 use Welfony\Service\StaffService;
+use Welfony\Service\UserService;
 use Welfony\Service\WorkService;
 
 class User_StylistController extends AbstractFrontendController
@@ -29,7 +31,7 @@ class User_StylistController extends AbstractFrontendController
 
     public function init()
     {
-        $this->needloginActionList['user'] = array('stylist' => array('index', 'hair', 'service', 'client', 'appointment'));
+        $this->needloginActionList['user'] = array('stylist' => array('index', 'hair', 'service', 'client', 'clientnote', 'clientappointment', 'appointment'));
         parent::init();
     }
 
@@ -183,6 +185,42 @@ class User_StylistController extends AbstractFrontendController
         $this->view->pager = $this->renderPager($this->view->baseUrl('user/stylist/client?'),
                                                 $page,
                                                 ceil($rstClientList['total'] / $pageSize));
+    }
+
+    public function clientappointmentAction()
+    {
+        $this->view->pageTitle = '客户预约';
+
+        $page = intval($this->_request->getParam('page'));
+        $pageSize = 20;
+
+        $userId = intval($this->_request->getParam('client_id'));
+
+        $rstAppointment = AppointmentService::listAllAppointments($page, $pageSize, $this->currentUser['UserId'], $userId, array(AppointmentStatus::Paid, AppointmentStatus::Cancelled, AppointmentStatus::Completed));
+
+        $this->view->appointmentList = $rstAppointment['appointments'];
+
+        $this->view->pager = $this->renderPager($this->view->baseUrl('user/stylist/clientappointment?client_id=' . $userId),
+                                                $page,
+                                                ceil($rstAppointment['total'] / $pageSize));
+    }
+
+    public function clientnoteAction()
+    {
+        $this->view->pageTitle = '客户效果图';
+
+        $page = intval($this->_request->getParam('page'));
+        $pageSize = 20;
+
+        $userId = intval($this->_request->getParam('client_id'));
+        $this->view->userInfo = UserService::getUserById($userId);
+
+        $rstNotes = AppointmentNoteService::listNoteByStaffAndUser($this->currentUser['UserId'], $userId, $page, $pageSize);
+        $this->view->dataList = $rstNotes['appointmentNotes'];
+
+        $this->view->pager = $this->renderPager($this->view->baseUrl('user/stylist/clientnote?client_id=' . $userId),
+                                                $page,
+                                                ceil($rstNotes['total'] / $pageSize));
     }
 
     public function appointmentAction()

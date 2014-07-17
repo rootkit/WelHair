@@ -985,6 +985,7 @@ html[xmlns] .slides {
     background-image: -ms-linear-gradient(top,#ee4548,#e53a3d);
     background-image: -o-linear-gradient(top,#ee4548,#e53a3d);
     background-image: linear-gradient(top,#1ee4548,#e53a3d);
+    color: #fff !important;
 }
 
 .btn2_1, .btn2_1_l, .btn2_1_xl {

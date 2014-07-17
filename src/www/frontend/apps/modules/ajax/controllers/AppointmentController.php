@@ -49,6 +49,13 @@ class Ajax_AppointmentController extends AbstractFrontendController
         $this->_helper->json->sendJson(AppointmentService::update($appointmentId, $reqData));
     }
 
+    public function likeAction()
+    {
+        $appointmentId = intval($this->_request->getParam('appointment_id'));
+        $reqData = array('IsLiked' => 1);
+        $this->_helper->json->sendJson(AppointmentService::update($appointmentId, $reqData));
+    }
+
     public function formAction()
     {
         $staffId = intval($this->_request->getParam('stylist_id'));

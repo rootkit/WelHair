@@ -16,22 +16,6 @@
         echo $this->partial('shared/topnavstylist.phtml', array('action' => $this->action));
         ?>
         <div style="padding: 15px 0 0 15px;">
-            <div class="toolbar">
-                <ul class="clearfix">
-                    <li>
-                        <a href="<?php echo $this->baseUrl('user/stylist/appointment'); ?>">
-                            <i class="iconfont">&#xf0112;</i>
-                            返回
-                        </a>
-                    </li>
-                    <li>
-                        <a href="<?php echo $this->baseUrl('user/appointment/noteedit?appointment_id=' . $this->appointmentId); ?>">
-                            <i class="iconfont">&#xf0175;</i>
-                            添加新效果图
-                        </a>
-                    </li>
-                </ul>
-            </div>
             <div class="Dynamic_gmc">
                 <div id="tagContent0" class="selectTag">
                     <?php foreach ($this->dataList as $note): ?>
