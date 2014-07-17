@@ -21,6 +21,7 @@ use Welfony\Core\Enum\HairStyle;
 use Welfony\Core\Enum\StaffStatus;
 use Welfony\Service\AppointmentService;
 use Welfony\Service\ServiceService;
+use Welfony\Service\StaffService;
 use Welfony\Service\WorkService;
 
 class User_StylistController extends AbstractFrontendController
@@ -171,6 +172,17 @@ class User_StylistController extends AbstractFrontendController
     public function clientAction()
     {
         $this->view->pageTitle = '我的客户';
+
+        $page = intval($this->_request->getParam('page'));
+        $pageSize = 20;
+
+        $rstClientList = StaffService::listAllClients($page, $pageSize, $this->currentUser['UserId']);
+
+        $this->view->dataList = $rstClientList['clients'];
+
+        $this->view->pager = $this->renderPager($this->view->baseUrl('user/stylist/client?'),
+                                                $page,
+                                                ceil($rstClientList['total'] / $pageSize));
     }
 
     public function appointmentAction()
