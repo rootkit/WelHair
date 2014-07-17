@@ -1,0 +1,328 @@
+所有API请求都携带统一Http请求头信息，如果不携带此头信息，部分API请求会失败。具体格式如下：
+参数名称：WH-Context
+参数内容格式：{"currentUserId": 1001, "currentLocation": "latitude,longitude"}
+注意：currentUserId是当前登录用户的UserId，latitude和longitude为当前用户的地理位置坐标。
+
+
+发型师 API
+
+=========================================================
+1. 获得发型师列表
+GET /staffs
+
+PS: IsLiked: 是否此发型被当前用户收藏
+---------------------------------------------------------
+
+Params:
+    page: 分页-当前页数
+    pageSize: 分页-每页记录数
+    searchText: 发型师搜索字段
+    companyId: 沙龙Id（用于列出指定沙龙内的发型师）
+    city: 城市Id
+    district: 区Id
+    sort: 排序（默认排序=0，离我最近=1，评分最高=2，作品数量=2）
+
+Response:
+{
+    total: "2",
+    staffs: [
+        {
+            UserId: "1004",
+            Nickname: "发型师小王",
+            AvatarUrl: "http://welhair.com/static/media/2014/04/29/MjAxNDA0MjkwMzU5MjQ1MzVmNWJkYzBiMDYw_480x480.jpg",
+            Email: "bijiasuo2006@yeah.net",
+            EmailVerified: "0",
+            Mobile: "13938393839",
+            MobileVerified: "0",
+            MaxWorkId: "9",
+            WorkCount: "1",
+            Rate: "5.0000",
+            RateCount: "2",
+            IsLiked: "0",
+            Company: {
+                CompanyId: "4",
+                Name: "你好么沙龙",
+                Address: "沙龙的地址",
+                Latitude: "39.920667",
+                Longitude: "116.397595",
+                Distance: "364579.2218"
+            }
+        }
+    ]
+}
+
+=========================================================
+2. 获得收藏的发型师列表
+GET /staffs/liked
+---------------------------------------------------------
+
+Params:
+    page: 分页-当前页数
+    pageSize: 分页-每页记录数
+
+Response:
+{
+    total: "1",
+    staffs: [
+        {
+            UserId: "1004",
+            Nickname: "发型师小王",
+            AvatarUrl: "http://welhair.com/static/media/2014/04/29/MjAxNDA0MjkwMzU5MjQ1MzVmNWJkYzBiMDYw_480x480.jpg",
+            Email: "bijiasuo2006@yeah.net",
+            EmailVerified: "0",
+            Mobile: "13853135662",
+            MobileVerified: "0",
+            MaxWorkId: "9",
+            WorkCount: "1",
+            Rate: "5.0000",
+            IsLiked: "1",
+            Company: {
+                CompanyId: "4",
+                Name: "你好么沙龙",
+                Address: "沙龙的地址",
+                Latitude: "39.920667",
+                Longitude: "116.397595",
+                Distance: "364579.2218"
+            }
+        }
+    ]
+}
+
+=========================================================
+3. 获得发型师详情
+GET /staffs/:staffId
+
+PS: Status:发型师状态（通过审核=1，未通过审核=2，正在审核=3），RateCount: 客户预约后赞的总数
+---------------------------------------------------------
+
+Response:
+{
+    UserId: "1004",
+    Company: {
+        CompanyId: "4",
+        Name: "你好么沙龙",
+        Address: "沙龙的地址",
+        Status: "1",
+        LogoUrl: "http://welhair.com/static/media/2014/04/16/MjAxNDA0MTYwOTA0MDU1MzRlN2ZjNTMyNjZm_480x480.jpg",
+        Latitude: "39.920667",
+        Longitude: "116.397595",
+        Rate: "5.0000",
+        Tel: "1393837383",
+        Mobile: "13938373837",
+        City: "340800",
+        Distance: "364579.2218",
+        PictureUrl: [
+            "http://welhair.com/static/media/2014/04/08/MjAxNDA0MDgwMjAwMzE1MzQzOTA3ZmQ4YzA0_480x480.jpg",
+            "http://welhair.com/static/media/2014/04/16/MjAxNDA0MTYwOTAzNTY1MzRlN2ZiYzdhNDYx_480x480.jpg"
+        ]
+    },
+    Services: [
+        {
+            ServiceId: "2",
+            Title: "精剪",
+            OldPrice: "20.00",
+            Price: "10.00"
+        },
+        {
+            ServiceId: "3",
+            Title: "烫发",
+            OldPrice: "120.00",
+            Price: "80.00"
+        }
+    ],
+    Works: [
+        {
+            WorkId: "9",
+            Title: "432432",
+            PictureUrl: [
+                "http://welhair.com/static/media/2014/07/15/MjAxNDA3MTUwODMzNDM1M2M1MWZhNzAzZGRm_480x480.jpg"
+            ]
+        }
+    ],
+    Username: "eliu04",
+    Nickname: "发型师小王",
+    AvatarUrl: "http://welhair.com/static/media/2014/04/29/MjAxNDA0MjkwMzU5MjQ1MzVmNWJkYzBiMDYw_480x480.jpg",
+    Email: "bijiasuo2006@yeah.net",
+    Mobile: "13853135662",
+    EmailVerified: "0",
+    MobileVerified: "0",
+    Role: "3",
+    Status: "1",
+    IsLiked: "0",
+    RateCount: "2",
+    ProfileBackgroundUrl: [
+        "http://welhair.com/static/media/2014/04/29/MjAxNDA0MjkwMzQyNDY1MzVmNTdmNjcyMDI2_480x480.jpg",
+        "http://welhair.com/static/media/2014/04/29/MjAxNDA0MjkwMzQ1MzU1MzVmNTg5Zjc1NmI0_480x480.jpg"
+    ]
+}
+
+=========================================================
+4. 获得发型师评论列表
+GET /staffs/:staffId/comments
+---------------------------------------------------------
+
+Params:
+    page: 分页-当前页数
+    pageSize: 分页-每页记录数
+
+Response:
+{
+    total: "1",
+    comments: [
+        {
+            CommentId: "34",
+            Rate: "5",
+            Body: "非常时尚",
+            PictureUrl: ["http://115.28.208.165/static/media/2014/04/21/MjAxNDA0MjExMDE3NTg1MzU1Mjg5NjY4NDgz_480x480.jpg"],
+            CreatedDate: "2014-07-08 09:26:58",
+            CreatedBy: {
+                UserId: "1001",
+                Username: "eliu03",
+                Nickname: "小刘",
+                Email: "bijiasuo2006@hotmail.com",
+                AvatarUrl: "http://115.28.208.165/static/media/2014/04/21/MjAxNDA0MjExMDE3NTg1MzU1Mjg5NjY4NDgz_480x480.jpg"
+            }
+        }
+    ]
+}
+
+=========================================================
+5. 获得发型师的客户列表
+GET /staffs/:staffId/clients
+---------------------------------------------------------
+
+Params:
+    page: 分页-当前页数
+    pageSize: 分页-每页记录数
+
+Response:
+{
+    total: 1,
+    clients: [
+        {
+            UserId: "1001",
+            Nickname: "小飞",
+            Username: "eliu",
+            AvatarUrl: "http://welhair.com/static/media/2014/07/07/MjAxNDA3MDcwNzU0NDE1M2JhOGE4MWI4NDE0_480x480.jpg",
+            ProfileBackgroundUrl: [],
+            CompletedAppointmentCount: "10",
+            AppointmentCount: "13"
+        }
+    ]
+}
+
+=========================================================
+6. 获得发型师的作品列表
+GET /staffs/:staffId/works
+---------------------------------------------------------
+
+Params:
+    page: 分页-当前页数
+    pageSize: 分页-每页记录数
+
+Response:
+{
+    total: "1",
+    works: [
+        {
+            WorkId: "9",
+            UserId: "1004",
+            Title: "432432",
+            PictureUrl: [
+                "http://welhair.com/static/media/2014/07/15/MjAxNDA3MTUwODMzNDM1M2M1MWZhNzAzZGRm_480x480.jpg"
+            ],
+            Gender: "1",
+            Face: "1",
+            HairStyle: "4",
+            HairAmount: "2",
+            CreatedDate: "2014-07-15 20:33:46",
+            LastModifiedDate: null,
+            Nickname: "发型师小王",
+            AvatarUrl: "http://welhair.com/static/media/2014/04/29/MjAxNDA0MjkwMzU5MjQ1MzVmNWJkYzBiMDYw_480x480.jpg",
+            Staff: {
+                UserId: "1004",
+                AvatarUrl: "http://welhair.com/static/media/2014/04/29/MjAxNDA0MjkwMzU5MjQ1MzVmNWJkYzBiMDYw_480x480.jpg",
+                Nickname: "发型师小王"
+            }
+        }
+    ]
+}
+
+=========================================================
+7. 获得发型师的服务列表
+GET /staffs/:staffId/services
+---------------------------------------------------------
+
+Params:
+    page: 分页-当前页数
+    pageSize: 分页-每页记录数
+
+Response:
+{
+    total: "1",
+    services: [
+        {
+            ServiceId: "3",
+            UserId: "1004",
+            Title: "烫发",
+            OldPrice: "120.00",
+            Price: "80.00",
+            CreatedDate: "2014-04-12 11:32:54",
+            LastModifiedDate: null,
+            Nickname: "发型师小王"
+        }
+    ]
+}
+
+=========================================================
+8. 添加发型师评论
+POST /staffs/:staffId/comments
+---------------------------------------------------------
+
+Request:
+{
+    "UserId": 1004,
+    "Rate": 5,
+    "Body": "1"
+    "PictureUrl": ["http://115.28.208.165/static/media/2014/04/21/MjAxNDA0MjExMDE3NTg1MzU1Mjg5NjY4NDgz_480x480.jpg"],
+    "CreatedBy": "1001",
+}
+
+Response:
+{
+    "success": false,
+    "comment": {
+        CommentId: "34",
+        Rate: "5",
+        Body: "非常时尚",
+        PictureUrl: ["http://115.28.208.165/static/media/2014/04/21/MjAxNDA0MjExMDE3NTg1MzU1Mjg5NjY4NDgz_480x480.jpg"],
+        CreatedDate: "2014-07-08 09:26:58",
+        CreatedBy: {
+            UserId: "1001",
+            Username: "eliu03",
+            Nickname: "小刘",
+            Email: "bijiasuo2006@hotmail.com",
+            AvatarUrl: "http://115.28.208.165/static/media/2014/04/21/MjAxNDA0MjExMDE3NTg1MzU1Mjg5NjY4NDgz_480x480.jpg"
+        }
+    }
+}
+
+=========================================================
+9. 收藏发型师
+POST /staffs/:staffId/likes
+
+PS: CreatedBy：收藏人Id，IsLike为1表示收藏、0取消收藏
+---------------------------------------------------------
+
+Request:
+{
+    "UserId": 1003
+    "CreatedBy": 1001,
+    "IsLike": 0
+}
+
+Response:
+{
+    "success": true,
+    "message": "添加收藏成功"
+}

@@ -1,0 +1,110 @@
+所有API请求都携带统一Http请求头信息，如果不携带此头信息，部分API请求会失败。具体格式如下：
+参数名称：WH-Context
+参数内容格式：{"currentUserId": 1001, "currentLocation": "latitude,longitude"}
+注意：currentUserId是当前登录用户的UserId，latitude和longitude为当前用户的地理位置坐标。
+
+
+订单 API
+
+=========================================================
+1. 获得客户订单列表
+GET /users/:userId/orders
+
+PS: IsLiked: 用户是否对预约点赞
+---------------------------------------------------------
+
+Params:
+    page: 分页-当前页数
+    pageSize: 分页-每页记录数
+
+Response:
+{
+    total: "4",
+    orders: [
+        {
+            OrderId: "20",
+            User: {
+                UserId: "1003",
+                Username: "wh8ulypexa",
+                Nickname: "管理员小菲林",
+                Email: "bijiasuo2006@yahoo.com",
+                AvatarUrl: "http://welhair.com/static/img/avatar-default.jpg"
+            },
+            Goods: [
+                {
+                    OrderGoodsId: "19",
+                    GoodsId: "7",
+                    ProductsId: "59",
+                    Img: [
+                        "http://welhair.com/static/media/2014/06/10/MjAxNDA2MTAwMzUxNDM1Mzk2YjkwZmIyZDBl_480x480.jpg"
+                    ],
+                    GoodsNums: "1",
+                    GoodsWeight: "0.00",
+                    GoodsPrice: "20.00",
+                    CompanyId: "0",
+                    CompanyName: null,
+                    Name: "沐浴露",
+                    SpecDetail: "形状：长形"
+                }
+            ],
+            OrderNo: "20140612113632907535",
+            Postscript: "",
+            Status: "1",
+            PayType: "1",
+            PayStatus: "0",
+            Distribution: "1",
+            DistributionStatus: "0",
+            ProvinceName: "安徽省",
+            CityName: "安庆市",
+            DistrictName: "",
+            Address: "送房间里的卡就疯狂啦",
+            AcceptName: "小李1",
+            Mobile: "19383738373",
+            OrderAmount: "30.00",
+            PayableAmount: "20.00",
+            PayableFreight: "10.00",
+            CreateTime: "2014-06-12 11:36:32",
+            SendTime: null,
+            CompletionTime: null,
+            AcceptTime: null
+        }
+    ]
+}
+
+=========================================================
+2. 添加订单
+POST /orders
+---------------------------------------------------------
+
+Request:
+{
+    "UserId": 1001,
+    "AddressId": 2,
+    "PayType": 1,
+    "Distribution": 1,
+    "Items": [
+        {
+            "GoodsId": 3,
+            "CompanyId": 5,
+            "ProductId": 4,
+            "Num": 1
+        }
+    ]
+}
+
+
+Response:
+{
+    "success": true
+}
+
+=========================================================
+3. 支付订单
+POST /orders/:orderId/pay
+---------------------------------------------------------
+
+Response:
+{
+    "success": false,
+    "message": "账户余额不足，请充值。"
+}

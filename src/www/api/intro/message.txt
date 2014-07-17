@@ -1,0 +1,80 @@
+所有API请求都携带统一Http请求头信息，如果不携带此头信息，部分API请求会失败。具体格式如下：
+参数名称：WH-Context
+参数内容格式：{"currentUserId": 1001, "currentLocation": "latitude,longitude"}
+注意：currentUserId是当前登录用户的UserId，latitude和longitude为当前用户的地理位置坐标。
+
+
+聊天 API
+
+=========================================================
+1. 获得聊天记录
+GET /messages/to/:toId/from/:fromId
+---------------------------------------------------------
+
+Params:
+    page: 分页-当前页数
+    pageSize: 分页-每页记录数
+
+Response:
+{
+    total: "1",
+    messages: [
+        {
+            MessageId: "14",
+            Body: "你好么",
+            CreatedDate: "2014-05-05 09:37:48",
+            MediaType: "1",
+            MediaUrl: "",
+            FromUserId: "1001",
+            FromUsername: "eliu",
+            FromNickname: "小飞",
+            FromAvatarUrl: "http://welhair.com/static/media/2014/07/07/MjAxNDA3MDcwNzU0NDE1M2JhOGE4MWI4NDE0_480x480.jpg",
+            ToUserId: "1004",
+            ToUsername: "eliu04",
+            ToNickname: "发型师小王",
+            ToAvatarUrl: "http://welhair.com/static/media/2014/04/29/MjAxNDA0MjkwMzU5MjQ1MzVmNWJkYzBiMDYw_480x480.jpg"
+        }
+    ]
+}
+
+=========================================================
+2. 获得回话列表
+GET /users/:userId/messages/conversations
+---------------------------------------------------------
+Response:
+{
+    total: 2,
+    conversations: [
+        {
+            UserId: "1001",
+            Username: "eliu",
+            Nickname: "小飞",
+            AvatarUrl: "http://welhair.com/static/media/2014/07/07/MjAxNDA3MDcwNzU0NDE1M2JhOGE4MWI4NDE0_480x480.jpg",
+            MessageConversationId: "1",
+            NewMessageCount: "0",
+            NewMessageSummary: "",
+            NewMessageDate: ""
+        },
+        {
+            UserId: "1003",
+            Username: "wh8ulypexa",
+            Nickname: "管理员小菲林",
+            AvatarUrl: "http://welhair.com/static/img/avatar-default.jpg",
+            MessageConversationId: "3",
+            NewMessageCount: "0",
+            NewMessageSummary: "",
+            NewMessageDate: ""
+        }
+    ]
+}
+
+=========================================================
+3. 删除回话
+POST /messages/conversations/:conversationId/remove
+---------------------------------------------------------
+
+Response:
+{
+    "success": true,
+    "message": "删除成功"
+}

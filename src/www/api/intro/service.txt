@@ -1,0 +1,45 @@
+所有API请求都携带统一Http请求头信息，如果不携带此头信息，部分API请求会失败。具体格式如下：
+参数名称：WH-Context
+参数内容格式：{"currentUserId": 1001, "currentLocation": "latitude,longitude"}
+注意：currentUserId是当前登录用户的UserId，latitude和longitude为当前用户的地理位置坐标。
+
+
+发型师服务 API
+
+=========================================================
+1. 添加服务
+POST /services
+
+PS: UserId发型师Id
+---------------------------------------------------------
+
+Request:
+{
+    "Title": "烫发",
+    "OldPrice": 100,
+    "Price": 80,
+    "UserId": 1001
+}
+
+Response:
+{
+    "success": true,
+    "service": {
+        "ServiceId": 3,
+        "Title": "烫发",
+        "OldPrice": 100,
+        "Price": 80,
+        "UserId": 1001
+    }
+}
+
+=========================================================
+2. 删除服务
+POST /services/:serviceId/remove
+---------------------------------------------------------
+
+Response:
+{
+    "success": true,
+    "message": "删除成功"
+}

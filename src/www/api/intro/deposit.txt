@@ -1,0 +1,59 @@
+所有API请求都携带统一Http请求头信息，如果不携带此头信息，部分API请求会失败。具体格式如下：
+参数名称：WH-Context
+参数内容格式：{"currentUserId": 1001, "currentLocation": "latitude,longitude"}
+注意：currentUserId是当前登录用户的UserId，latitude和longitude为当前用户的地理位置坐标。
+
+
+充值 API
+
+=========================================================
+1. 充值记录
+GET /users/:userId/deposit
+
+PS: Status充值状态（成功=1，不成功=0）
+---------------------------------------------------------
+
+Params:
+    page: 分页-当前页数
+    pageSize: 分页-每页记录数
+
+Response:
+{
+    total:1,
+    deposits: [
+        {
+            DepositId: "17",
+            UserId: "1003",
+            Amount: "100.00",
+            CreateTime: "2014-06-12 17:43:21",
+            Status: "1",
+            Description: null,
+            AccountNo: null,
+            AccountName: null,
+            Comments: null,
+            LastUpdateDate: "2014-06-12 17:43:21",
+            DepositNo: "20140612174321734225",
+            Username: "wh8ulypexa",
+            Nickname: "管理员小菲林"
+        }
+    ]
+}
+
+=========================================================
+2. 充值
+POST /users/:userId/deposit
+
+PS: Status充值状态（成功=1，不成功=0）
+---------------------------------------------------------
+
+Request:
+{
+    "Amount": 100,
+    "Status": 1
+}
+
+Response:
+{
+    "success": true,
+    "message": "充值成功"
+}

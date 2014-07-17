@@ -1,0 +1,208 @@
+所有API请求都携带统一Http请求头信息，如果不携带此头信息，部分API请求会失败。具体格式如下：
+参数名称：WH-Context
+参数内容格式：{"currentUserId": 1001, "currentLocation": "latitude,longitude"}
+注意：currentUserId是当前登录用户的UserId，latitude和longitude为当前用户的地理位置坐标。
+
+
+预约 API
+
+=========================================================
+1. 获得客户预约列表
+GET /users/:userId/appointments
+
+PS: IsLiked: 用户是否对预约点赞
+---------------------------------------------------------
+
+Params:
+    page: 分页-当前页数
+    pageSize: 分页-每页记录数
+
+Response:
+{
+    total: "1",
+    appointments: [
+        {
+            AppointmentId: "20",
+            AppointmentNo: "20140606151057723000",
+            Status: "1",
+            AppointmentDate: "2014-06-06 15:10:51",
+            LastModifiedBy: null,
+            CreatedDate: "2014-06-06 15:10:57",
+            CompanyId: "4",
+            CompanyName: "你好么沙龙",
+            CompanyAddress: "沙龙的地址",
+            CompanyArea: "安徽省 安庆市 岳西县",
+            StaffId: "1004",
+            StaffName: "发型师小王",
+            StaffAvatarUrl: "http://welhair.com/static/media/2014/04/29/MjAxNDA0MjkwMzU5MjQ1MzVmNWJkYzBiMDYw_480x480.jpg",
+            UserId: "1001",
+            Nickname: "小飞",
+            Username: "eliu",
+            AvatarUrl: "http://welhair.com/static/media/2014/07/07/MjAxNDA3MDcwNzU0NDE1M2JhOGE4MWI4NDE0_480x480.jpg",
+            ServiceId: "2",
+            ServiceTitle: "精剪",
+            Price: "10.00",
+            IsLiked: "0"
+        }
+    ]
+}
+
+=========================================================
+2. 获得发型师被预约列表
+GET /staffs/:staffId/appointments
+
+PS: IsLiked: 用户是否对预约点赞
+---------------------------------------------------------
+
+Params:
+    page: 分页-当前页数
+    pageSize: 分页-每页记录数
+
+Response:
+{
+    total: "1",
+    appointments: [
+        {
+            AppointmentId: "27",
+            AppointmentNo: "20140714175845345817",
+            Status: "2",
+            AppointmentDate: "2014-07-31 00:00:00",
+            LastModifiedBy: null,
+            CreatedDate: "2014-07-14 17:58:45",
+            CompanyId: "4",
+            CompanyName: "你好么沙龙",
+            CompanyAddress: "沙龙的地址",
+            CompanyArea: "安徽省 安庆市 岳西县",
+            StaffId: "1004",
+            StaffName: "发型师小王",
+            StaffAvatarUrl: "http://welhair.com/static/media/2014/04/29/MjAxNDA0MjkwMzU5MjQ1MzVmNWJkYzBiMDYw_480x480.jpg",
+            UserId: "1014",
+            Nickname: "bb",
+            Username: "whhulu9aqa",
+            AvatarUrl: "http://welhair.com/static/img/avatar-default.jpg",
+            ServiceId: "2",
+            ServiceTitle: "精剪",
+            Price: "10.00",
+            IsLiked: "0"
+        }
+    ]
+}
+
+=========================================================
+3. 添加预约
+POST /appointments
+---------------------------------------------------------
+
+Request:
+{
+    "UserId": 1001,
+    "StaffId": 1004,
+    "ServiceId": 1,
+    "AppointmentDate": "2014-07-31 00:00:00"
+}
+
+
+Response:
+{
+    "success": false,
+    "message": "账户余额不足，请充值。"
+}
+
+=========================================================
+4. 更新预约
+PUT /appointments/:appointmentId
+
+PS: Status: 预约状态（为支付=0，已支付=1，已完成=2，已退款=3，已取消=4）
+---------------------------------------------------------
+
+Request:
+{
+    "IsLiked": 1,
+    "Status": 1
+}
+
+
+Response:
+{
+    "success": false,
+    "message": "账户余额不足，请充值。"
+}
+
+=========================================================
+5. 根据预约获得预约备注列表
+GET /appointments/:appointmentId/note
+---------------------------------------------------------
+
+Params:
+    page: 分页-当前页数
+    pageSize: 分页-每页记录数
+
+Response:
+{
+    total: "1",
+    appointmentNotes: [
+        {
+            AppointmentNoteId: "5",
+            Body: "这里是内容",
+            PictureUrl: [
+                "http://welhair.com/static/media/2014/05/29/MjAxNDA1MjkxMDMyMDQ1Mzg2OWMyNDg5Nzgy_480x480.jpg"
+            ],
+            CreatedDate: "2014-05-29 10:32:16",
+            Client: {
+                UserId: "1018",
+                Username: "whxy6ale7a",
+                Nickname: "f4",
+                Email: "f4@qq.com",
+                AvatarUrl: "http://welhair.com/static/img/avatar-default.jpg"
+            }
+        }
+    ]
+}
+
+=========================================================
+6. 根据发型师和用户获得预约备注列表
+GET /appointments/note/staff/:staffId/user/:userId
+---------------------------------------------------------
+
+Params:
+    page: 分页-当前页数
+    pageSize: 分页-每页记录数
+
+Response:
+{
+    total: "1",
+    appointmentNotes: [
+        {
+            AppointmentNoteId: "5",
+            Body: "这里是内容",
+            PictureUrl: [
+                "http://welhair.com/static/media/2014/05/29/MjAxNDA1MjkxMDMyMDQ1Mzg2OWMyNDg5Nzgy_480x480.jpg"
+            ],
+            CreatedDate: "2014-05-29 10:32:16",
+            Client: {
+                UserId: "1018",
+                Username: "whxy6ale7a",
+                Nickname: "f4",
+                Email: "f4@qq.com",
+                AvatarUrl: "http://welhair.com/static/img/avatar-default.jpg"
+            }
+        }
+    ]
+}
+
+=========================================================
+7. 添加预约备注
+POST /appointments/:appointmentId/note
+---------------------------------------------------------
+
+Request:
+{
+    "Body": "这里是内容",
+    "PictureUrl": ["http://welhair.com/static/media/2014/07/07/MjAxNDA3MDcwNzU0NDE1M2JhOGE4MWI4NDE0_480x480.jpg"]
+}
+
+Response:
+{
+    success: true,
+    message: "添加成功"
+}

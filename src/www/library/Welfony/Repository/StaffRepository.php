@@ -25,7 +25,7 @@ class StaffRepository extends AbstractRepository
         $strSql = "SELECT
                      COUNT(1) `Total`
                    FROM Users U
-                   INNER JOIN CompanyUser CU ON CU.UserId = U.UserId AND CU.Status = 1 
+                   INNER JOIN CompanyUser CU ON CU.UserId = U.UserId AND CU.Status = 1
                    INNER JOIN Company C ON CU.CompanyId = C.CompanyId
                    WHERE U.Role = 3 AND (? = '' || U.Nickname LIKE ? || U.Username LIKE ?) AND (? = 0 || CU.CompanyId = ?) AND (? = 0 || C.City = ?) AND (? = 0 || C.District= ?)
                    LIMIT 1";
@@ -96,7 +96,6 @@ class StaffRepository extends AbstractRepository
                        COUNT(DISTINCT A.UserId) `Total`
                    FROM Appointment A
                    WHERE A.Status > 0 AND A.StaffId = ?
-                   GROUP BY A.UserId
                    LIMIT 1";
 
         $row = $this->conn->fetchAssoc($strSql, array($staffId));

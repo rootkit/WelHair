@@ -1,0 +1,261 @@
+所有API请求都携带统一Http请求头信息，如果不携带此头信息，部分API请求会失败。具体格式如下：
+参数名称：WH-Context
+参数内容格式：{"currentUserId": 1001, "currentLocation": "latitude,longitude"}
+注意：currentUserId是当前登录用户的UserId，latitude和longitude为当前用户的地理位置坐标。
+
+
+用户 API
+
+=========================================================
+1. 获得用户详情
+GET /users/:userId
+---------------------------------------------------------
+
+Response:
+{
+    success: false,
+    user: {
+        UserId: "1003",
+        Role: "2",
+        Username: "wh8ulypexa",
+        Nickname: "管理员小菲林",
+        Email: "bijiasuo2006@yahoo.com",
+        EmailVerified: "0",
+        Mobile: "",
+        MobileVerified: "0",
+        Birthday: null,
+        Gender: "1",
+        AvatarUrl: "http://welhair.com/static/img/avatar-default.jpg",
+        ProfileBackgroundUrl: ["http://welhair.com/static/img/avatar-default.jpg"],
+        ReferralUserId: null,
+        Reward: "0",
+        CreatedDate: "2014-04-08 13:59:57",
+        LastModifiedDate: "2014-06-12 14:19:03",
+        Balance: "50.00"
+    }
+}
+
+=========================================================
+2. 获得用户几分
+GET /users/:userId/points
+---------------------------------------------------------
+
+Response:
+[
+    {
+        UserPointId: "3",
+        Type: "1",
+        UserId: "1003",
+        Value: "10",
+        Description: "新用户注册",
+        CreatedDate: "2014-04-08 13:59:57"
+    }
+]
+
+=========================================================
+3. 获得用户余额
+GET /users/:userId/balance
+---------------------------------------------------------
+
+Response:
+[
+    {
+        UserPointId: "3",
+        Type: "1",
+        UserId: "1003",
+        Value: "10",
+        Description: "新用户注册",
+        CreatedDate: "2014-04-08 13:59:57"
+    }
+]
+
+=========================================================
+4. 更改用户信息
+PUT /users/:userId
+---------------------------------------------------------
+
+Request:
+{
+    "UserId": "1003",
+    "Username": "wh8ulypexa",
+    "Nickname": "管理员小菲林",
+    "Email": "bijiasuo2006@yahoo.com",
+    "EmailVerified": "0",
+    "Mobile": "13839383738",
+    "AvatarUrl": "http://welhair.com/static/img/avatar-default.jpg",
+    "ProfileBackgroundUrl": ["http://welhair.com/static/img/avatar-default.jpg"],
+    "Balance": 50.00
+}
+
+Response:
+{
+    "success": false,
+    "message": "用户信息不合法"
+}
+
+=========================================================
+5. 登录（通过社交网站）
+POST /users/signin/social
+
+PS: Type = Sina：5，QQ：6，Taobao：7
+---------------------------------------------------------
+
+Request:
+{
+    "Id": "AUE803"
+    "Type": 1,
+    "Nickname": "社交网站获得的用户名"
+}
+
+Response:
+{
+    "success": true,
+    "user": {
+        "UserId": "1003",
+        "Username": "wh8ulypexa",
+        "Nickname": "管理员小菲林",
+        "Email": "bijiasuo2006@yahoo.com",
+        "EmailVerified": "0",
+        "Mobile": "13839383738",
+        "AvatarUrl": "http://welhair.com/static/img/avatar-default.jpg",
+        "ProfileBackgroundUrl": ["http://welhair.com/static/img/avatar-default.jpg"],
+        "Balance": 50.00
+    }
+}
+
+=========================================================
+6. 登录（通过邮箱）
+POST /users/signin/email
+---------------------------------------------------------
+
+Request:
+{
+    "Email": "demo@welfony.com"
+    "Password": "Your Password"
+}
+
+Response:
+{
+    "success": true,
+    "user": {
+        "UserId": "1003",
+        "Username": "wh8ulypexa",
+        "Nickname": "管理员小菲林",
+        "Email": "bijiasuo2006@yahoo.com",
+        "EmailVerified": "0",
+        "Mobile": "13839383738",
+        "AvatarUrl": "http://welhair.com/static/img/avatar-default.jpg",
+        "ProfileBackgroundUrl": ["http://welhair.com/static/img/avatar-default.jpg"],
+        "Balance": 50.00
+    }
+}
+
+=========================================================
+7. 登录（通过邮箱）
+POST /users/signin/mobile
+---------------------------------------------------------
+
+Request:
+{
+    "Mobile": "13839383938"
+    "Password": "Your Password"
+}
+
+Response:
+{
+    "success": true,
+    "user": {
+        "UserId": "1003",
+        "Username": "wh8ulypexa",
+        "Nickname": "管理员小菲林",
+        "Email": "bijiasuo2006@yahoo.com",
+        "EmailVerified": "0",
+        "Mobile": "13839383738",
+        "AvatarUrl": "http://welhair.com/static/img/avatar-default.jpg",
+        "ProfileBackgroundUrl": ["http://welhair.com/static/img/avatar-default.jpg"],
+        "Balance": 50.00
+    }
+}
+
+=========================================================
+8. 收藏用户/取消收藏
+POST /users/:userId/follow
+
+PS: UserId：被收藏人Id，CreatedBy：收藏人Id，IsLike为1表示收藏、0取消收藏
+---------------------------------------------------------
+
+Request:
+{
+    "UserId": 1003
+    "CreatedBy": 1004,
+    "IsLike": 0
+}
+
+Response:
+{
+    "success": true,
+    "message": "添加收藏成功"
+}
+
+=========================================================
+9. 添加用户设备唯一标示
+POST /users/device
+
+PS: Type = iOS: 1, Android: 2
+---------------------------------------------------------
+
+Request:
+{
+    "Type": 1
+    "Token": "设备唯一标示号"
+}
+
+Response:
+{
+    "success": false,
+    "message": "不合法设备号"
+}
+
+=========================================================
+10. 删除用户设备唯一标示
+POST /users/device/remove
+
+PS: Type = iOS: 1, Android: 2
+---------------------------------------------------------
+
+Request:
+{
+    "Type": 1
+    "Token": "设备唯一标示号"
+}
+
+Response:
+{
+    "success": false,
+    "message": "不合法设备号"
+}
+
+=========================================================
+11. 获得客户的发型师列表
+GET /staffs/mystaffs
+---------------------------------------------------------
+
+Params:
+    page: 分页-当前页数
+    pageSize: 分页-每页记录数
+
+Response:
+{
+    total: 1,
+    staffs: [
+        {
+            UserId: "1001",
+            Nickname: "小飞",
+            Username: "eliu",
+            AvatarUrl: "http://welhair.com/static/media/2014/07/07/MjAxNDA3MDcwNzU0NDE1M2JhOGE4MWI4NDE0_480x480.jpg",
+            ProfileBackgroundUrl: [],
+            AppointmentCount: "13"
+        }
+    ]
+}
+

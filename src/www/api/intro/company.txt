@@ -1,0 +1,402 @@
+所有API请求都携带统一Http请求头信息，如果不携带此头信息，部分API请求会失败。具体格式如下：
+参数名称：WH-Context
+参数内容格式：{"currentUserId": 1001, "currentLocation": "latitude,longitude"}
+注意：currentUserId是当前登录用户的UserId，latitude和longitude为当前用户的地理位置坐标。
+
+
+沙龙 API
+
+=========================================================
+1. 获得沙龙列表
+GET /companies
+
+PS: IsLiked: 是否此发型被当前用户收藏
+---------------------------------------------------------
+
+Params:
+    page: 分页-当前页数
+    pageSize: 分页-每页记录数
+    searchText: 沙龙搜索字段
+    city: 城市Id
+    district: 区Id
+    sort: 排序（默认排序=0，离我最近=1）
+
+Response:
+{
+    total: "4",
+    companies: [
+        {
+            CompanyId: "5",
+            Name: "小天沙龙",
+            LogoUrl: "http://welhair.com/static/media/2014/05/18/MjAxNDA1MTgwMzQ5NTE1Mzc4NjYxZjY0YzIw_480x480.jpg",
+            PictureUrl: [
+                "http://welhair.com/static/media/2014/05/18/MjAxNDA1MTgwMzUwNDU1Mzc4NjY1NWViMTVj_480x480.jpg"
+            ],
+            Tel: "13938373837",
+            Mobile: "13837383736",
+            Address: "高新区管委会",
+            Latitude: "36.775793",
+            Longitude: "117.126295",
+            Rate: "0.0000",
+            RateCount: "0",
+            Distance: "13745.054",
+            IsLiked: "0",
+            StaffCount: "1",
+            CommentCount: "0"
+        }
+    ]
+}
+
+=========================================================
+2. 获得附近沙龙列表（用于地图）
+GET /companies
+
+PS: distance: 列出周边1000米因内的沙龙
+---------------------------------------------------------
+
+Params:
+    distance: 1000
+
+Response:
+[
+    {
+        CompanyId: "5",
+        Name: "小天沙龙",
+        LogoUrl: "http://welhair.com/static/media/2014/05/18/MjAxNDA1MTgwMzQ5NTE1Mzc4NjYxZjY0YzIw_480x480.jpg",
+        PictureUrl: [
+        "http://welhair.com/static/media/2014/05/18/MjAxNDA1MTgwMzUwNDU1Mzc4NjY1NWViMTVj_480x480.jpg"
+        ],
+        Tel: "13938373837",
+        Mobile: "13837383736",
+        Address: "高新区管委会",
+        Latitude: "36.775793",
+        Longitude: "117.126295",
+        Distance: "13745.054"
+    }
+]
+
+=========================================================
+3. 获得收藏的沙龙列表
+GET /companies/liked
+---------------------------------------------------------
+
+Params:
+    page: 分页-当前页数
+    pageSize: 分页-每页记录数
+
+Response:
+{
+    total: "1",
+    companies: [
+        {
+            CompanyId: "3",
+            Name: "你好沙龙好么",
+            LogoUrl: "http://welhair.com/static/media/2014/04/08/MjAxNDA0MDgwMTU0MTY1MzQzOGYwOGUyMmY0_480x480.jpg",
+            PictureUrl: [
+                "http://welhair.com/static/media/2014/04/08/MjAxNDA0MDgwMTU0NTA1MzQzOGYyYWJkOWYx_480x480.jpg"
+            ],
+            Tel: "13938373837",
+            Mobile: "13938474847",
+            Address: "地址在这里",
+            Latitude: "39.920584",
+            Longitude: "116.410100",
+            Rate: "0.0000",
+            Distance: "364407.592",
+            IsLiked: "1",
+            StaffCount: "0",
+            CommentCount: "0"
+        }
+    ]
+}
+
+=========================================================
+4. 获得沙龙详情
+GET /companies/:companyId
+
+PS: Disatance：距离用户多少米，IsLiked: 是否此发型被当前用户收藏
+---------------------------------------------------------
+
+Response:
+{
+    CompanyId: "4",
+    CompanyName: "你好么沙龙",
+    CompanyAddress: "沙龙的地址",
+    CompanyStatus: "1",
+    CompanyLogoUrl: "http://welhair.com/static/media/2014/04/16/MjAxNDA0MTYwOTA0MDU1MzRlN2ZjNTMyNjZm_480x480.jpg",
+    PictureUrl: [
+        "http://welhair.com/static/media/2014/04/08/MjAxNDA0MDgwMjAwMzE1MzQzOTA3ZmQ4YzA0_480x480.jpg",
+        "http://welhair.com/static/media/2014/04/16/MjAxNDA0MTYwOTAzNTY1MzRlN2ZiYzdhNDYx_480x480.jpg"
+    ],
+    Tel: "1393837383",
+    Mobile: "13938373837",
+    Address: "沙龙的地址",
+    Latitude: "39.920667",
+    Longitude: "116.397595",
+    Region: "安徽省 安庆市 岳西县",
+    IsLiked: "0",
+    Distance: "364579.2218"
+}
+
+=========================================================
+5. 获得沙龙余额
+GET /companies/:companyId/balance
+---------------------------------------------------------
+
+Response:
+{
+    success: true,
+    balance: 390
+}
+
+=========================================================
+6. 获得沙龙收益
+GET /companies/:companyId/revenues
+
+PS: Type: 收益来源（商品购买=1，发型师预约=2）
+---------------------------------------------------------
+
+Response:
+{
+    total: "2",
+    revenues: [
+        {
+            CompanyId: "4",
+            Amount: "30.00",
+            CreateTime: "2014-07-14 17:59:19",
+            Type: "2",
+            Status: "1",
+            ClientUserId: "1014",
+            ClientNickname: "bb",
+            ClientAvatarUrl: "http://welhair.com/static/img/avatar-default.jpg",
+            StaffUserId: "0",
+            StaffNickname: "fdas",
+            ServiceName: ""
+        },
+        {
+            CompanyId: "4",
+            Amount: "10.00",
+            CreateTime: "2014-07-14 17:58:45",
+            Type: "1",
+            Status: "1",
+            ClientUserId: "1014",
+            ClientNickname: "bb",
+            ClientAvatarUrl: "http://welhair.com/static/img/avatar-default.jpg",
+            StaffUserId: "1004",
+            StaffNickname: "发型师小王",
+            ServiceName: "精剪"
+        }
+    ]
+}
+
+=========================================================
+7. 列出沙龙中的发型师
+GET /companies/:companyId/staffs
+
+PS: isApproved: 是否通过审核
+---------------------------------------------------------
+
+Params:
+    isApproved: 1
+
+Response:
+{
+    total: "1",
+    staffes: [
+        {
+            UserId: "1002",
+            Role: "2",
+            Username: "whetaze4yz",
+            Nickname: "bijiasuo2006@gmail.com",
+            Email: "bijiasuo2006@gmail.com",
+            EmailVerified: "0",
+            Mobile: "",
+            MobileVerified: "0",
+            Birthday: null,
+            Gender: "1",
+            AvatarUrl: "http://welhair.com/static/img/avatar-default.jpg",
+            ProfileBackgroundUrl: "",
+            ReferralUserId: null,
+            Reward: "0",
+            CreatedDate: "2014-04-08 13:53:24",
+            LastModifiedDate: null,
+            Balance: "100.00",
+            CompanyName: "你好沙龙好么",
+            CompanyUserId: "2",
+            Status: "1",
+            StaffCreatedDate: "2014-04-08 13:54:52"
+        }
+    ]
+}
+
+=========================================================
+8. 更改沙龙中的发型师的状态
+POST /companies/:companyId/staffs/:staffId/status
+
+PS: IsApproved: 是否通过审核
+---------------------------------------------------------
+
+Request:
+{
+    IsApproved: 1
+}
+
+Response:
+{
+    "success": false,
+    "message": "发型师不存在！"
+}
+
+=========================================================
+9. 删除沙龙中的发型师
+POST /companies/:companyId/staffs/:staffId/remove
+---------------------------------------------------------
+
+Response:
+{
+    "success": false,
+    "message": "发型师不存在！"
+}
+
+=========================================================
+10. 获得沙龙评论列表
+GET /companies/:companyId/comments
+---------------------------------------------------------
+
+Params:
+    page: 分页-当前页数
+    pageSize: 分页-每页记录数
+
+Response:
+{
+    total: "1",
+    comments: [
+        {
+            CommentId: "34",
+            Rate: "5",
+            Body: "非常时尚",
+            PictureUrl: ["http://115.28.208.165/static/media/2014/04/21/MjAxNDA0MjExMDE3NTg1MzU1Mjg5NjY4NDgz_480x480.jpg"],
+            CreatedDate: "2014-07-08 09:26:58",
+            CreatedBy: {
+                UserId: "1001",
+                Username: "eliu03",
+                Nickname: "小刘",
+                Email: "bijiasuo2006@hotmail.com",
+                AvatarUrl: "http://115.28.208.165/static/media/2014/04/21/MjAxNDA0MjExMDE3NTg1MzU1Mjg5NjY4NDgz_480x480.jpg"
+            }
+        }
+    ]
+}
+
+=========================================================
+11. 添加沙龙评论
+POST /companies/:companyId/comments
+
+PS: Rate:评分（1，2，3，4，5）
+---------------------------------------------------------
+
+Request:
+{
+    "CompanyId": 4,
+    "Rate": 5,
+    "Body": "1"
+    "PictureUrl": ["http://115.28.208.165/static/media/2014/04/21/MjAxNDA0MjExMDE3NTg1MzU1Mjg5NjY4NDgz_480x480.jpg"],
+    "CreatedBy": "1001",
+}
+
+Response:
+{
+    "success": false,
+    "comment": {
+        CommentId: "34",
+        Rate: "5",
+        Body: "非常时尚",
+        PictureUrl: ["http://115.28.208.165/static/media/2014/04/21/MjAxNDA0MjExMDE3NTg1MzU1Mjg5NjY4NDgz_480x480.jpg"],
+        CreatedDate: "2014-07-08 09:26:58",
+        CreatedBy: {
+            UserId: "1001",
+            Username: "eliu03",
+            Nickname: "小刘",
+            Email: "bijiasuo2006@hotmail.com",
+            AvatarUrl: "http://115.28.208.165/static/media/2014/04/21/MjAxNDA0MjExMDE3NTg1MzU1Mjg5NjY4NDgz_480x480.jpg"
+        }
+    }
+}
+
+=========================================================
+12. 收藏沙龙
+POST /companies/:companyId/likes
+
+PS: CreatedBy：收藏人Id，IsLike为1表示收藏、0取消收藏
+---------------------------------------------------------
+
+Request:
+{
+    "CompanyId": 4
+    "CreatedBy": 1001,
+    "IsLike": 0
+}
+
+Response:
+{
+    "success": true,
+    "message": "添加收藏成功"
+}
+
+=========================================================
+13. 添加沙龙
+POST /companies
+---------------------------------------------------------
+
+Request:
+{
+    "Name": "沙龙名字",
+    "Tel": 60696069,
+    "Mobile": 13938393839,
+    "Province": 20300,
+    "City": 20300,
+    "District": 20300,
+    "Address": "沙龙详细地址",
+    "PictureUrl": [http://115.28.208.165/static/media/2014/04/21/MjAxNDA0MjExMDE3NTg1MzU1Mjg5NjY4NDgz_480x480.jpg],
+    "CreatedBy": 1001,
+    "IsLike": 0
+}
+
+Response:
+{
+    "success": false,
+    "message": "添加沙龙失败！"
+}
+
+=========================================================
+14. 加入沙龙
+POST /companies/:companyId/join
+---------------------------------------------------------
+
+Response:
+{
+    "success": false,
+    "message": "您的请求正在审核中，请耐心等待。"
+}
+
+=========================================================
+15. 更新沙龙
+PUT /companies/:companyId
+---------------------------------------------------------
+
+Request:
+{
+    "Name": "沙龙名字",
+    "Tel": 60696069,
+    "Mobile": 13938393839,
+    "Province": 20300,
+    "City": 20300,
+    "District": 20300,
+    "Address": "沙龙详细地址",
+    "PictureUrl": [http://115.28.208.165/static/media/2014/04/21/MjAxNDA0MjExMDE3NTg1MzU1Mjg5NjY4NDgz_480x480.jpg]
+}
+
+Response:
+{
+    "success": true,
+    "message": "更新成功"
+}

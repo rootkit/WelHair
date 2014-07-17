@@ -122,6 +122,9 @@ class StaffService
         $clientList = StaffRepository::getInstance()->getAllClient($staffId, $page, $pageSize);
         $clients = array();
         foreach ($clientList as $client) {
+            if ($client['ProfileBackgroundUrl']) {
+                $client['ProfileBackgroundUrl'] = json_decode($client['ProfileBackgroundUrl'], true);
+            }
             $clients[] = $client;
         }
 
@@ -137,6 +140,9 @@ class StaffService
         $staffList = StaffRepository::getInstance()->getMyStaffs($userId, $page, $pageSize);
         $staffs = array();
         foreach ($staffList as $staff) {
+            if ($staff['ProfileBackgroundUrl']) {
+                $staff['ProfileBackgroundUrl'] = json_decode($staff['ProfileBackgroundUrl'], true);
+            }
             $staffs[] = $staff;
         }
 

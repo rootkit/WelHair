@@ -156,7 +156,7 @@ class UserController extends AbstractAPIController
         $response = array('success' => false, 'message' => '');
 
         if (!isset($reqData['Type']) || empty($reqData['Type'])) {
-            $response['message'] = '请输入邮箱！';
+            $response['message'] = '非法的社交类型！';
         } else {
             $response = UserService::signInWithSocial($reqData, intval($reqData['Type']));
         }

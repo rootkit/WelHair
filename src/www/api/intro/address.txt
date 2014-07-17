@@ -1,0 +1,100 @@
+所有API请求都携带统一Http请求头信息，如果不携带此头信息，部分API请求会失败。具体格式如下：
+参数名称：WH-Context
+参数内容格式：{"currentUserId": 1001, "currentLocation": "latitude,longitude"}
+注意：currentUserId是当前登录用户的UserId，latitude和longitude为当前用户的地理位置坐标。
+
+
+收货地址 API
+
+=========================================================
+1. 获得收货地址列表
+GET /users/:userId/addresses
+---------------------------------------------------------
+
+Params:
+    page: 分页-当前页数
+    pageSize: 分页-每页记录数
+
+Response:
+{
+    total: 1,
+    addresses: [
+        {
+            AddressId: "5",
+            UserId: "1004",
+            ShippingName: "小飞",
+            Province: "340000",
+            City: "340800",
+            District: "0",
+            Mobile: "13839383738",
+            Address: "这里是地址",
+            IsDefault: "0",
+            CreatedDate: "2014-06-10 16:10:09",
+            LastModifiedDate: null,
+            Area: "安徽省 安庆市 "
+        }
+    ]
+}
+
+=========================================================
+2. 添加收货地址
+POST /addresses
+---------------------------------------------------------
+
+Request:
+{
+    "UserId": 1001,
+    "ShippingName": "小六",
+    "Mobile": "13839383738",
+    "Province": 200393,
+    "City": 2339383,
+    "Address": "胡站国际",
+    "IsDefault": 0
+}
+
+Response:
+{
+    "success": true,
+}
+
+=========================================================
+3. 更新收货地址
+PUT /addresses/:addressId
+---------------------------------------------------------
+
+Request:
+{
+    "AddressId": 1001,
+    "UserId": 1001,
+    "ShippingName": "小六",
+    "Mobile": "13839383738",
+    "Province": 200393,
+    "City": 2339383,
+    "Address": "胡站国际",
+    "IsDefault": 0
+}
+
+Response:
+{
+    "success": true,
+}
+
+=========================================================
+4. 删除收货地址
+POST /addresses/:addressId/remove
+---------------------------------------------------------
+
+Response:
+{
+    "success": true,
+}
+
+=========================================================
+5. 设置收货地址为默认地址
+POST /addresses/:addressId/default
+---------------------------------------------------------
+
+Response:
+{
+    "success": true,
+}

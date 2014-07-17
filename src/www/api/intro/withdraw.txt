@@ -1,0 +1,64 @@
+所有API请求都携带统一Http请求头信息，如果不携带此头信息，部分API请求会失败。具体格式如下：
+参数名称：WH-Context
+参数内容格式：{"currentUserId": 1001, "currentLocation": "latitude,longitude"}
+注意：currentUserId是当前登录用户的UserId，latitude和longitude为当前用户的地理位置坐标。
+
+
+取款 API
+
+=========================================================
+1. 取款记录
+GET /companies/:companyId/withdraws
+
+PS: Status充值状态（成功=1，不成功=0）
+---------------------------------------------------------
+
+Params:
+    page: 分页-当前页数
+    pageSize: 分页-每页记录数
+
+Response:
+{
+    withdrawals: [
+        {
+            WithdrawalId: "11",
+            UserId: null,
+            Amount: "20.00",
+            CreateTime: "2014-06-10 16:13:37",
+            Status: "1",
+            Description: null,
+            CompanyId: "4",
+            Bank: "山东支行",
+            OpenAccountBank: "山东支行",
+            AccountNo: "6228333939393939",
+            AccountName: "",
+            Comments: null,
+            LastUpdateDate: "2014-06-10 16:13:37",
+            WithdrawalNo: "20140610161337257904",
+            Name: "你好么沙龙"
+        }
+    ],
+    total: "1"
+}
+
+=========================================================
+2. 取款
+POST /companies/:companyId/withdraws
+
+PS: Status充值状态（成功=1，不成功=0）
+---------------------------------------------------------
+
+Request:
+{
+    "Bank": "招行银行",
+    "OpenAccountBank": "上海分行",
+    "AccountNo": "6225837383838383",
+    "Amount": 100,
+    "Status": 1
+}
+
+Response:
+{
+    "success": false,
+    "message": "请设置正确的金额！"
+}

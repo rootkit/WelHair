@@ -399,6 +399,7 @@ function initAppointAction() {
             }
         });
     });
+
     $('.appointment-cancel').click(function() {
         var appointmentId = $(this).attr('data-appointment-id');
 
@@ -460,8 +461,9 @@ function initAppointAction() {
             close: function() {
                 popup.dialog('destroy').remove();
             }
-
+        });
     });
+
     $('.appointment-note').click(function() {
         var appointmentId = $(this).attr('data-appointment-id');
 

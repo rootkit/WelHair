@@ -164,13 +164,13 @@ class AppointmentService
         $result = array('success' => false, 'message' => '');
 
         $oldAppointment = AppointmentRepository::getInstance()->findAppointmentById($appointmentId);
-        
+
         if(isset($data['IsLiked']) && intval($data['IsLiked']) == 1){
             $result['success'] = AppointmentRepository::getInstance()->update($appointmentId, $data);
             $result['message'] = $result['success'] ? '点赞！' : '取消点赞！';
             return $result;
         }
-        
+
         if ($oldAppointment['Status'] == AppointmentStatus::Completed || $oldAppointment['Status'] == AppointmentStatus::Cancelled) {
             $result['message'] = '此预约不可更改！';
             return $result;

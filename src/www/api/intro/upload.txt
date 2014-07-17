@@ -1,0 +1,22 @@
+所有API请求都携带统一Http请求头信息，如果不携带此头信息，部分API请求会失败。具体格式如下：
+参数名称：WH-Context
+参数内容格式：{"currentUserId": 1001, "currentLocation": "latitude,longitude"}
+注意：currentUserId是当前登录用户的UserId，latitude和longitude为当前用户的地理位置坐标。
+
+
+上传图片 API
+
+=========================================================
+1. 上传图片
+POST /upload/image
+
+PS: file name应该默认为uploadfile
+---------------------------------------------------------
+
+Response:
+{
+    "OriginalUrl": "http://welhair.com/static/media/2014/07/15/MjAxNDA3MTUwODMzNDM1M2M1MWZhNzAzZGRm.jpg",
+    "SquareUrl": "http://welhair.com/static/media/2014/07/15/MjAxNDA3MTUwODMzNDM1M2M1MWZhNzAzZGRm_square.jpg",
+    "Thumb480Url": "http://welhair.com/static/media/2014/07/15/MjAxNDA3MTUwODMzNDM1M2M1MWZhNzAzZGRm_480x480.jpg",
+    "Thumb110Url": "http://welhair.com/static/media/2014/07/15/MjAxNDA3MTUwODMzNDM1M2M1MWZhNzAzZGRm_110x110.jpg"
+}
