@@ -14,6 +14,8 @@
 // ==============================================================================
 
 use Welfony\Controller\Base\AbstractFrontendController;
+use Welfony\Core\Enum\StaffStatus;
+use Welfony\Service\StaffService;
 use Welfony\Service\UserLikeService;
 
 class Ajax_StylistController extends AbstractFrontendController
@@ -31,6 +33,23 @@ class Ajax_StylistController extends AbstractFrontendController
         );
 
         $this->_helper->json->sendJson(UserLikeService::save($userLike));
+    }
+
+    public function approveAction()
+    {
+        $this->_helper->viewRenderer->setNoRender(true);
+        $this->_helper->layout->disableLayout();
+
+        $staffDetail = StaffService::getStaffDetail($this->currentUser['UserId'], $this->currentUser['UserId'], $this->userContext->location);
+        $companyId = $staffDetail['Company']['CompanyId'];
+
+        $staffId = intval($this->_request->getParam('stylist_id'));
+        $isApproved = intval($this->_request->getParam('is_approved'));
+
+        $staff = StaffService::getStaffByCompanyAndUser($companyId, $staffId);
+
+        $this->_helper->json->sendJson(array('success' => StaffService::saveCompanyStaffByCompanyUser($staff['CompanyUserId'], $isApproved == 1 ? StaffStatus::Valid : StaffStatus::Invalid)));
+
     }
 
 }

@@ -15,5 +15,35 @@
         <?php
         echo $this->partial('shared/topnavsalon.phtml', array('action' => $this->action));
         ?>
+        <div style="padding: 15px 0 20px 15px;">
+            <div class="card-container">
+                <?php foreach ($this->staffList as $staff): ?>
+                <div class="card-list">
+                    <div class="card-list-inner">
+                        <div class="card-img">
+                            <a href="<?php echo $this->baseUrl('stylist/index/detail?stylist_id=' . $staff['UserId']); ?>">
+                                <img src="<?php echo $staff['AvatarUrl']; ?>" onerror="this.src='<?php echo $this->config->asset->baseUrl; ?>/img/photo-default.png';" />
+                            </a>
+                        </div>
+                        <div class="card-info">
+                            <div class="username">
+                                <strong>
+                                    <a href="<?php echo $this->baseUrl('stylist/index/detail?stylist_id=' . $staff['UserId']); ?>"><?php echo $staff['Nickname']; ?></a>
+                                </strong>
+                            </div>
+                            <div class="card-action-bar">
+                                <ul>
+                                    <li><img src="<?php echo $this->config->asset->baseUrl; ?>/img/frontend/iconfont-chanpin.png"><span>*</span</li>
+                                    <li><img src="<?php echo $this->config->asset->baseUrl; ?>/img/frontend/iconfont-zan.png"><span>*</span</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <?php endforeach; ?>
+            </div>
+            <div class="clearfix"></div>
+            <?php echo $this->pager; ?>
+        </div>
     </div>
 </div>

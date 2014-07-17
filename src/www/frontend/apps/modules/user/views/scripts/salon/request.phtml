@@ -15,5 +15,108 @@
         <?php
         echo $this->partial('shared/topnavsalon.phtml', array('action' => $this->action));
         ?>
+        <div style="padding: 15px 0 20px 15px;">
+            <div class="card-container">
+                <?php foreach ($this->staffList as $staff): ?>
+                <div class="card-list">
+                    <div class="card-list-inner">
+                        <div class="card-img">
+                            <a href="<?php echo $this->baseUrl('stylist/index/detail?stylist_id=' . $staff['UserId']); ?>">
+                                <img src="<?php echo $staff['AvatarUrl']; ?>" onerror="this.src='<?php echo $this->config->asset->baseUrl; ?>/img/photo-default.png';" />
+                            </a>
+                        </div>
+                        <div class="card-info">
+                            <div class="username">
+                                <strong>
+                                    <a href="<?php echo $this->baseUrl('stylist/index/detail?stylist_id=' . $staff['UserId']); ?>"><?php echo $staff['Nickname']; ?></a>
+                                </strong>
+                            </div>
+                            <p class="card-info-first" style="margin-top: 20px;">
+                                <a class="btn btn2_xl btn2_l accept-stylist" href="javascript:;" data-stylist-id="<?php echo $staff['UserId']; ?>">接受</a>
+                                <a class="btn btn2_xl btn2_l decline-stylist"  data-stylist-id="<?php echo $staff['UserId']; ?>">拒绝</a>
+                            </p>
+                            <div class="card-action-bar">
+                                <ul>
+                                    <li><img src="<?php echo $this->config->asset->baseUrl; ?>/img/frontend/iconfont-chanpin.png"><span>*</span</li>
+                                    <li><img src="<?php echo $this->config->asset->baseUrl; ?>/img/frontend/iconfont-zan.png"><span>*</span</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <?php endforeach; ?>
+            </div>
+            <div class="clearfix"></div>
+            <?php echo $this->pager; ?>
+        </div>
     </div>
 </div>
+
+<script>
+$(document).ready(function() {
+    $('.accept-stylist, .decline-stylist').click(function() {
+        var btn = $(this);
+        var popup = $('<div class="popup-container"><div class="noti info">&nbsp;</div><p style="text-align: center; margin-top: 20px;">确定要' + (btn.hasClass('decline-stylist') ? '拒绝' : '批准') + '该发型师么？</p></div>');
+        popup.dialog({
+            title: '确定',
+            width: 400,
+            height: 260,
+            modal: true,
+            resizable: 'disable',
+            show: {
+                effect: "fade",
+                duration: 1000
+            },
+            hide: {
+                effect: "fade",
+                duration: 200
+            },
+            buttons: [
+            {
+                text: '确定',
+                click: function () {
+                    if (window.inAjax) {
+                        return;
+                    }
+
+                    popup.find('.noti').text('提交中 ...');
+                    window.inAjax = 1;
+
+                    $.ajax({
+                        type: "post",
+                        url: '/ajax/stylist/approve',
+                        data: {
+                            stylist_id: btn.attr('data-stylist-id'),
+                            is_approved: btn.hasClass('decline-stylist') ? 0 : 1
+                        },
+                        success: function (data) {
+                            window.inAjax = 0;
+
+                            if (data.success) {
+                                popup.dialog('close');
+                                WF.showMessage('success', '信息', btn.hasClass('decline-stylist') ? '批准成功！' : '拒绝成功！');
+
+                                window.location.reload();
+                            } else {
+                                popup.find('.noti').text(data.message);
+                            }
+                        },
+                        complete: function (XMLHttpRequest, textStatus) {
+                            window.inAjax = 0;
+                        },
+                        error: function () {
+                            window.inAjax = 0;
+                        }
+                    });
+                }
+            }],
+            open: function () {
+            },
+            close: function() {
+                popup.dialog('destroy').remove();
+            }
+        });
+        return false;
+    });
+});
+</script>
