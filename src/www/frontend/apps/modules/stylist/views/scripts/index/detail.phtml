@@ -4,7 +4,7 @@
             <div class="sideitem">
                 <div id="tbody">
                     <div id="mainbody">
-                        <img src="<?php echo $this->staffDetail['ProfileBackgroundUrl'][0]; ?>" width="100%" id="mainphoto" />
+                        <img src="<?php echo count($this->staffDetail['ProfileBackgroundUrl']) > 0 ? $this->staffDetail['ProfileBackgroundUrl'][0] : ''; ?>" width="100%" id="mainphoto" />
                     </div>
                     <img src="<?php echo $this->config->asset->baseUrl; ?>/img/frontend/goleft.gif" width="11" height="56" id="goleft" />
                     <img src="<?php echo $this->config->asset->baseUrl; ?>/img/frontend/goright.gif" width="11" height="56" id="goright" />
