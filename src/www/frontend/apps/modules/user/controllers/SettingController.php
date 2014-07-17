@@ -22,6 +22,12 @@ use Welfony\Service\UserService;
 class User_SettingController extends AbstractFrontendController
 {
 
+    public function init()
+    {
+        $this->needloginActionList['user'] = array('setting' => array('index', 'changepassword', 'address', 'addressedit', 'account', 'accounthistory'));
+        parent::init();
+    }
+
     public function indexAction()
     {
         $this->view->pageTitle = '帐号设置';

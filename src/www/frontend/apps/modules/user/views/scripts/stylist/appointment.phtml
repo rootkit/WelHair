@@ -128,11 +128,11 @@ use Welfony\Utility\Converter;
                                 </button>
                                 <?php endif; ?>
                                 <?php if ($appointment['Status'] == AppointmentStatus::Completed): ?>
-                                <button class="btn btn2_xl btn2_l appointment-note" data-appointment-id="<?php echo $appointment['AppointmentId']; ?>">
+                                <a class="btn btn2_xl btn2_l appointment-note" href="<?php echo $this->baseUrl('user/appointment/note?appointment_id=' . $appointment['AppointmentId']); ?>">
                                     <span class="t1">
                                         效果图
                                     </span>
-                                </button>
+                                </a>
                                 <?php endif; ?>
                             </td>
                         </tr>

@@ -1659,8 +1659,8 @@ html[xmlns] .slides {
 .Dynamicitem {
     display: inline;
     float: left;
-    padding: 1%;
-    width: 98%;
+    padding: 0;
+    margin-bottom: 10px;
 }
 
 .Dynamicitem .photo {
@@ -1678,10 +1678,11 @@ html[xmlns] .slides {
 .Dynamicitem .dcontent {
     float: left;
     padding: 10px;
-    width: 472px;
+    width: 730px;
     border: 1px solid #e1e1e1;
     border-radius: 8px;
     background: #fff;
+    margin-left: 18px;
 }
 
 .date {
@@ -1711,7 +1712,6 @@ html[xmlns] .slides {
 
 .Dynamicitem .dcontent .dbody ul .cdetail p {
     color: #999;
-    text-indent: 2em;
 }
 
 .Dynamicitem .dcontent .dfooter {
@@ -1726,7 +1726,7 @@ html[xmlns] .slides {
 .Dynamicitem .darrow {
     position: relative;
     top: 10px;
-    left: 1px;
+    left: 19px;
     float: left;
     width: 25px;
     height: 48px;

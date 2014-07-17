@@ -28,12 +28,7 @@ class User_StylistController extends AbstractFrontendController
 
     public function init()
     {
-        $this->needloginActionList['user'] = array('stylist' => array('index'));
-        $this->needloginActionList['user'] = array('stylist' => array('hair'));
-        $this->needloginActionList['user'] = array('stylist' => array('service'));
-        $this->needloginActionList['user'] = array('stylist' => array('client'));
-        $this->needloginActionList['user'] = array('stylist' => array('appointment'));
-
+        $this->needloginActionList['user'] = array('stylist' => array('index', 'hair', 'service', 'client', 'appointment'));
         parent::init();
     }
 
