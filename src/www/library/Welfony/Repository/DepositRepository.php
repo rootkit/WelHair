@@ -83,6 +83,17 @@ class DepositRepository extends AbstractRepository
         return $this->conn->fetchAssoc($strSql, array($id));
     }
 
+    public function findDepositByDepositNo($depositNo)
+    {
+        $strSql = 'SELECT
+                       D.*
+                   FROM Deposit D
+                   WHERE D.DepositNo = ?
+                   LIMIT 1';
+
+        return $this->conn->fetchAssoc($strSql, array($depositNo));
+    }
+
     public function save($data)
     {
         if( isset($data['Nickname'])) unset($data['Nickname']);

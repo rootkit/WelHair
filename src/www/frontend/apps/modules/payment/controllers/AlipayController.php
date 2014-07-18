@@ -14,6 +14,7 @@
 
 use Alipay\AlipayNotify;
 use Welfony\Controller\Base\AbstractFrontendController;
+use Welfony\Service\DepositService;
 
 class Payment_AlipayController extends AbstractFrontendController
 {
@@ -30,30 +31,16 @@ class Payment_AlipayController extends AbstractFrontendController
         $this->_helper->viewRenderer->setNoRender(true);
         $this->_helper->layout->disableLayout();
 
-        $this->prepareConfig();
-
-        $alipayNotify = new AlipayNotify($this->alipayConfig);
-
-        $verifyResult = $alipayNotify->verifyReturn();
-        if ($verifyResult) {
-            $depositNo = $this->_request->getParam('out_trade_no');
-            $alipayTradeNo = $this->_request->getParam('trade_no');
-            $alipayTradeStatus = $this->_request->getParam('trade_status');
-
-            if ($alipayTradeStatus == 'TRADE_FINISHED' || $alipayTradeStatus == 'TRADE_SUCCESS') {
-            } else {
-                echo "trade_status=" . $alipayTradeStatus;
-            }
-        } else {
-            echo '失败了';
-        }
+        $this->processTrade();
     }
 
     public function returnAction()
     {
-        $this->_helper->viewRenderer->setNoRender(true);
-        $this->_helper->layout->disableLayout();
+        $this->view->success = $this->processTrade();
+    }
 
+    private function processTrade()
+    {
         $this->prepareConfig();
 
         $alipayNotify = new AlipayNotify($this->alipayConfig);
@@ -65,11 +52,20 @@ class Payment_AlipayController extends AbstractFrontendController
             $alipayTradeStatus = $this->_request->getParam('trade_status');
 
             if ($alipayTradeStatus == 'TRADE_FINISHED' || $alipayTradeStatus == 'TRADE_SUCCESS') {
+                $deposit = DepositService::getDepositByDepositNo($depositNo);
+                if ($deposit) {
+                    $deposit['Status'] = 1;
+                    $deposit['ExternalId'] = $alipayTradeNo;
+                }
+
+                DepositService::save($deposit);
+
+                return true;
             } else {
-                echo "trade_status=" . $alipayTradeStatus;
+                return false;
             }
         } else {
-            echo '失败了';
+            return false;
         }
     }
 

@@ -1,0 +1,25 @@
+<div class="my_container">
+    <div class="my_right g_mc" style="width: 960px;">
+        <div id="tagContent">
+            <div class="tagContent selectTag" style="padding-left: 0;">
+                <div class="grid-button-container">
+                    <?php if ($this->success): ?>
+                    <div class="grid-button full-width">
+                        <a href="<?php echo $this->baseUrl('user/setting/accounthistory'); ?>">
+                            <i class="iconfont">&#xf00b2;</i>
+                            <h2>充值成功！</h2>
+                        </a>
+                    </div>
+                    <?php else: ?>
+                    <div class="grid-button full-width">
+                        <a href="<?php echo $this->baseUrl('user/setting/accounthistory'); ?>">
+                            <i class="iconfont">&#xf014e;</i>
+                            <h2>充值失败！</h2>
+                        </a>
+                    </div>
+                    <?php endif; ?>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

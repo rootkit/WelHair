@@ -22,9 +22,14 @@ class DepositService
 
     public static function getDepositById($id)
     {
-        return  DepositRepository::getInstance()->findDepositById($id);
-
+        return DepositRepository::getInstance()->findDepositById($id);
     }
+
+    public static function getDepositByDepositNo($depositNo)
+    {
+        return DepositRepository::getInstance()->findDepositByDepositNo($depositNo);
+    }
+
     public static function listDeposit($pageNumber, $pageSize, $userId = null)
     {
         $pageNumber = $pageNumber <= 0 ? 1 : $pageNumber;
