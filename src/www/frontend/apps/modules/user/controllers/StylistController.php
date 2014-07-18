@@ -14,12 +14,14 @@
 
 use Welfony\Controller\Base\AbstractFrontendController;
 use Welfony\Core\Enum\AppointmentStatus;
+use Welfony\Core\Enum\CompanyStatus;
 use Welfony\Core\Enum\Face;
 use Welfony\Core\Enum\Gender;
 use Welfony\Core\Enum\HairAmount;
 use Welfony\Core\Enum\HairStyle;
 use Welfony\Core\Enum\StaffStatus;
 use Welfony\Core\Enum\UserRole;
+use Welfony\Service\AreaService;
 use Welfony\Service\AppointmentNoteService;
 use Welfony\Service\AppointmentService;
 use Welfony\Service\CompanyService;
@@ -30,6 +32,8 @@ use Welfony\Service\WorkService;
 
 class User_StylistController extends AbstractFrontendController
 {
+
+    private $staffStatus;
 
     public function init()
     {
@@ -43,6 +47,13 @@ class User_StylistController extends AbstractFrontendController
 
         if ($this->currentUser['Role'] != UserRole::Staff) {
             $this->_redirect($this->view->baseUrl(''));
+        }
+
+        $this->staffStatus = StaffStatus::Unknown;
+
+        $staff = StaffService::getStaffDetail($this->currentUser['UserId']);
+        if ($staff && $staff['Company']) {
+            $this->staffStatus = $staff['Status'];
         }
 
         if (!in_array($this->view->action, array('salon', 'createsalon', 'joinsalon'))) {
@@ -257,11 +268,82 @@ class User_StylistController extends AbstractFrontendController
     public function salonAction()
     {
         $this->view->pageTitle = '我的沙龙';
+
+        $this->view->staffStatus = $this->staffStatus;
     }
 
     public function createsalonAction()
     {
         $this->view->pageTitle = '创建沙龙';
+
+        $company = array(
+            'CompanyId' => intval($this->_request->getParam('company_id')),
+            'LogoUrl' => '',
+            'Name' => '',
+            'Status' => CompanyStatus::Invalid,
+            'Tel' => '',
+            'Mobile' => '',
+            'Province' => '',
+            'City' => '',
+            'District' => '',
+            'Address' => '',
+            'Latitude' => 36.682785,
+            'Longitude' => 117.024967,
+            'PictureUrl' => array()
+        );
+
+        if ($this->_request->isPost()) {
+            $companyName = htmlspecialchars($this->_request->getParam('companyname'));
+            $logoUrl = $this->_request->getParam('logo_url');
+            $tel = htmlspecialchars($this->_request->getParam('tel'));
+            $mobile = htmlspecialchars($this->_request->getParam('mobile'));
+            $province = intval($this->_request->getParam('province'));
+            $city = intval($this->_request->getParam('city'));
+            $district = intval($this->_request->getParam('district'));
+            $address = htmlspecialchars($this->_request->getParam('address'));
+            $latitude = doubleval($this->_request->getParam('latitude'));
+            $longitude = doubleval($this->_request->getParam('longitude'));
+            $pictureUrl = $this->_request->getParam('company_picture_url');
+
+            $company['Name'] = $companyName;
+            $company['LogoUrl'] = $logoUrl;
+            $company['Tel'] = $tel;
+            $company['Mobile'] = $mobile;
+            $company['Province'] = $province;
+            $company['City'] = $city;
+            $company['District'] = $district;
+            $company['Address'] = $address;
+            $company['Latitude'] = $latitude;
+            $company['Longitude'] = $longitude;
+            $company['PictureUrl'] = $pictureUrl ? $pictureUrl : array();
+            $company['Status'] = CompanyStatus::Requested;
+            $company['CreatedBy'] = $this->currentUser['UserId'];
+
+            $result = CompanyService::save($company);
+            if ($result['success']) {
+                if ($company['CompanyId'] <= 0) {
+                    $company['CompanyId'] = $result['company']['CompanyId'];
+                }
+
+                StaffService::saveCompanyStaff($this->currentUser['UserId'], $company['CompanyId'], StaffStatus::Requested);
+
+                $this->_redirect($this->view->baseUrl('user/stylist/salon'));
+            } else {
+                $this->view->errorMessage = $result['message'];
+            }
+        } else {
+            if ($company['CompanyId'] > 0) {
+                $company = CompanyService::getCompanyById($company['CompanyId']);
+                if (!$company) {
+                    // process not exist logic;
+                }
+            }
+        }
+
+        $this->view->companyInfo = $company;
+        $this->view->provinceList = AreaService::listAreaByParent(0);
+        $this->view->cityList = intval($company['Province']) > 0 ? AreaService::listAreaByParent($company['Province']) : array();
+        $this->view->districtList = intval($company['City']) > 0 ? AreaService::listAreaByParent($company['City']) : array();
     }
 
     public function joinsalonAction()
@@ -285,7 +367,7 @@ class User_StylistController extends AbstractFrontendController
 
     private function checkPermission($redirectUrl = '')
     {
-        if ($this->currentUser['IsApproved']) {
+        if ($this->staffStatus == StaffStatus::Valid) {
             if ($redirectUrl) {
                 $this->_redirect($redirectUrl);
             }

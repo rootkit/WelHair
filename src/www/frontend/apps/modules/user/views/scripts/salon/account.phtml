@@ -15,5 +15,75 @@
         <?php
         echo $this->partial('shared/topnavsalon.phtml', array('action' => $this->action));
         ?>
+        <div style="padding: 15px 0 0 15px;">
+            <div class="toolbar">
+                <ul class="clearfix">
+                    <li>
+                        <a href="<?php echo $this->baseUrl('user/salon/withdrawhistory'); ?>">
+                            <i class="iconfont">&#xf0150;</i>
+                            提现记录
+                        </a>
+                    </li>
+                    <li>
+                        <a href="<?php echo $this->baseUrl('user/salon/revenue'); ?>">
+                            <i class="iconfont">&#xf0106;</i>
+                            沙龙收益
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="m-form">
+                <form id="frm-note-info" method="post">
+                    <fieldset>
+                        <div class="formitm">
+                            <label class="lab">沙龙名称：</label>
+                            <div class="ipt">
+                                <?php echo $this->companyInfo['Name']; ?>
+                            </div>
+                        </div>
+                        <div class="formitm">
+                            <label class="lab">账户余额：</label>
+                            <div class="ipt">
+                                ￥<?php echo number_format($this->companyInfo['Amount'], 2); ?>
+                            </div>
+                        </div>
+                        <div style="border-bottom: 1px dashed #ddd; margin: 15px 0 0;"></div>
+                        <div class="formitm">
+                            <label class="lab">提现金额：</label>
+                            <div class="ipt">
+                                <input name="amount" type="text" value="" datatype="*" class="u-ipt"/>
+                            </div>
+                        </div>
+                        <div class="formitm">
+                            <label class="lab">银行名称：</label>
+                            <div class="ipt">
+                                <input name="bank" type="text" value="" datatype="*" class="u-ipt"/>
+                            </div>
+                        </div>
+                        <div class="formitm">
+                            <label class="lab">开户行：</label>
+                            <div class="ipt">
+                                <input name="openaccountbank" type="text" value="" datatype="*" class="u-ipt"/>
+                            </div>
+                        </div>
+                        <div class="formitm">
+                            <label class="lab">银行卡号：</label>
+                            <div class="ipt">
+                                <input name="accountno" type="text" value="" datatype="*" class="u-ipt"/>
+                            </div>
+                        </div>
+                        <div class="formitm">
+                            <label class="lab">持卡人姓名：</label>
+                            <div class="ipt">
+                                <input name="accountname" type="text" value="" datatype="*" class="u-ipt"/>
+                            </div>
+                        </div>
+                        <div class="formitm formitm-1">
+                            <button class="u-btn u-btn-submit" type="button">确定</button>
+                        </div>
+                    </fieldset>
+                </form>
+            </div>
+        </div>
     </div>
 </div>

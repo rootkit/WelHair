@@ -1,0 +1,112 @@
+<div class="container">
+    <?php
+    echo $this->partial('shared/header.phtml', array(
+        'module' => $this->module,
+        'config' => $this->config,
+        'currentUser' => $this->currentUser,
+        'userContext' => $this->userContext));
+    ?>
+</div>
+<div class="my_container">
+    <?php
+    echo $this->partial('shared/leftnav.phtml', array('active' => 4, 'currentUser' => $this->currentUser));
+    ?>
+    <div class="my_right g_mc">
+        <?php
+        echo $this->partial('shared/topnavsalon.phtml', array('action' => $this->action));
+        ?>
+        <div id="tagContent">
+            <div class="toolbar">
+                <ul class="clearfix">
+                    <li>
+                        <a href="<?php echo $this->baseUrl('user/salon/account'); ?>">
+                            <i class="iconfont">&#xf0112;</i>
+                            返回
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="tagContent selectTag" id="tagContent0">
+                <table class="bought-table">
+                    <colgroup>
+                        <col class="baobei" />
+                        <col class="price" />
+                        <col class="trade-status" />
+                    </colgroup>
+                    <thead>
+                        <tr class="col-name">
+                            <th colspan="3">
+                                项目
+                            </th>
+                            <th>
+                                费用
+                            </th>
+                            <th>
+                                状态
+                            </th>
+                        </tr>
+                    </thead>
+                    <?php foreach ($this->dataList as $revenue): ?>
+                    <tbody>
+                        <tr class="sep-row">
+                            <td colspan="5"></td>
+                        </tr>
+                        <tr class="col-name_1">
+                            <th>
+                                <span>
+                                    日期：<?php echo date('Y-m-d H:i', strtotime($revenue['CreateTime'])); ?>
+                                </span>
+                            </th>
+                            <th colspan="4">
+                            </th>
+                        </tr>
+                        <tr class="order-bd">
+                            <td colspan="3">
+                                <div class="chaterphoto">
+                                    <a href="javascript:;">
+                                        <img src="<?php echo str_replace('480x480', '110x110', $revenue['ClientAvatarUrl']); ?>" />
+                                        <span class="mask_side_100"></span>
+                                    </a>
+                                </div>
+                                <div class="chaterbaobei">
+                                    <ul>
+                                        <li>
+                                            <a href="javascript:;">
+                                                <?php echo $revenue['ClientNickname']; ?>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <span>
+                                                类型：<?php echo $revenue['Type'] == 2 ? '商品购买' : '预约'; ?>
+                                            </span>
+                                        </li>
+                                        <?php if (!empty($revenue['ServiceName'])): ?>
+                                        <li>
+                                            <span>
+                                                服务：<?php echo $revenue['ServiceName']; ?>
+                                            </span>
+                                        </li>
+                                        <?php endif; ?>
+                                    </ul>
+                                </div>
+                                <div class="chatercount">
+                                </div>
+                                <div class="chateaddress">
+
+                                </div>
+                            </td>
+                            <td>
+                                ￥<?php echo number_format($revenue['Amount'], 2); ?>
+                            </td>
+                            <td>
+                                <?php echo $revenue['Status']== '1' ? '成功': '失败'; ?>
+                            </td>
+                        </tr>
+                    </tbody>
+                    <?php endforeach; ?>
+                </table>
+            </div>
+            <?php echo $this->pager; ?>
+        </div>
+    </div>
+</div>

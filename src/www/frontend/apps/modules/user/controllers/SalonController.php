@@ -18,14 +18,16 @@ use Welfony\Core\Enum\UserRole;
 use Welfony\Service\AreaService;
 use Welfony\Service\CompanyService;
 use Welfony\Service\StaffService;
+use Welfony\Service\WithdrawalService;
 
 class User_SalonController extends AbstractFrontendController
 {
 
+    private $companyId;
+
     public function init()
     {
         $this->needloginActionList['user'] = array('salon' => array('index', 'info', 'stylist', 'request', 'account'));
-
         parent::init();
     }
 
@@ -36,6 +38,9 @@ class User_SalonController extends AbstractFrontendController
         if ($this->currentUser['Role'] != UserRole::Manager) {
             $this->_redirect($this->view->baseUrl(''));
         }
+
+        $staffDetail = StaffService::getStaffDetail($this->currentUser['UserId']);
+        $this->companyId = $staffDetail['Company']['CompanyId'];
     }
 
     public function indexAction()
@@ -48,8 +53,7 @@ class User_SalonController extends AbstractFrontendController
     {
         $this->view->pageTitle = '沙龙资料';
 
-        $staffDetail = StaffService::getStaffDetail($this->currentUser['UserId'], $this->currentUser['UserId'], $this->userContext->location);
-        $company = CompanyService::getCompanyById($staffDetail['Company']['CompanyId']);
+        $company = CompanyService::getCompanyById($this->companyId);
 
         if ($this->_request->isPost()) {
             $companyName = htmlspecialchars($this->_request->getParam('companyname'));
@@ -114,10 +118,7 @@ class User_SalonController extends AbstractFrontendController
         $page = intval($this->_request->getParam('page'));
         $pageSize = 20;
 
-        $staffDetail = StaffService::getStaffDetail($this->currentUser['UserId'], $this->currentUser['UserId'], $this->userContext->location);
-        $companyId = $staffDetail['Company']['CompanyId'];
-
-        $rstStaffList = StaffService::listAllStaff($companyId, StaffStatus::Valid, $page, $pageSize);
+        $rstStaffList = StaffService::listAllStaff($this->companyId, StaffStatus::Valid, $page, $pageSize);
 
         $this->view->staffList = $rstStaffList['staffes'];
         $this->view->pager = $this->renderPager($this->view->baseUrl('user/salon/stylist?'),
@@ -132,10 +133,7 @@ class User_SalonController extends AbstractFrontendController
         $page = intval($this->_request->getParam('page'));
         $pageSize = 20;
 
-        $staffDetail = StaffService::getStaffDetail($this->currentUser['UserId'], $this->currentUser['UserId'], $this->userContext->location);
-        $companyId = $staffDetail['Company']['CompanyId'];
-
-        $rstStaffList = StaffService::listAllStaff($companyId, StaffStatus::Requested, $page, $pageSize);
+        $rstStaffList = StaffService::listAllStaff($this->companyId, StaffStatus::Requested, $page, $pageSize);
 
         $this->view->staffList = $rstStaffList['staffes'];
         $this->view->pager = $this->renderPager($this->view->baseUrl('user/salon/stylist?'),
@@ -146,6 +144,57 @@ class User_SalonController extends AbstractFrontendController
     public function accountAction()
     {
         $this->view->pageTitle = '沙龙账户';
+
+        if ($this->_request->isPost()) {
+            $reqData = array();
+            $reqData['WithdrawalId'] = 0;
+            $reqData['CompanyId'] = $this->companyId;
+            $reqData['Status'] = 0;
+            $reqData['Amount'] = floatval($this->_request->getParam('amount'));
+            $reqData['Bank'] = htmlspecialchars($this->_request->getParam('bank'));
+            $reqData['OpenAccountBank'] = htmlspecialchars($this->_request->getParam('openaccountbank'));
+            $reqData['AccountNo'] = htmlspecialchars($this->_request->getParam('accountno'));
+            $reqData['AccountName'] = htmlspecialchars($this->_request->getParam('accountname'));
+
+            $result = WithdrawalService::save($reqData);
+            if ($result['success']) {
+                $this->view->successMessage = '提交请求成功！';
+                $this->_redirect($this->view->baseUrl('user/salon/withdrawhistory'));
+            } else {
+                $this->view->errorMessage = $result['message'];
+            }
+        }
+        $this->view->companyInfo = CompanyService::getCompanyById($this->companyId);
+    }
+
+    public function withdrawhistoryAction()
+    {
+        $this->view->pageTitle = '提现记录';
+
+        $page = intval($this->_request->getParam('page'));
+        $pageSize = 20;
+
+        $rstWithdrawHistory = WithdrawalService::listCompanyWithdrawal($page, $pageSize, $this->companyId);
+
+        $this->view->dataList = $rstWithdrawHistory['withdrawals'];
+        $this->view->pager = $this->renderPager($this->view->baseUrl('user/salon/withdrawhistory?'),
+                                                $page,
+                                                ceil($rstWithdrawHistory['total'] / $pageSize));
+    }
+
+    public function revenueAction()
+    {
+        $this->view->pageTitle = '沙龙收益';
+
+        $page = intval($this->_request->getParam('page'));
+        $pageSize = 20;
+
+        $rstCompanyRevenue = CompanyService::getCompanyRevenue($this->companyId, $page, $pageSize);
+
+        $this->view->dataList = $rstCompanyRevenue['revenues'];
+        $this->view->pager = $this->renderPager($this->view->baseUrl('user/salon/revenue?'),
+                                                $page,
+                                                ceil($rstCompanyRevenue['total'] / $pageSize));
     }
 
 }

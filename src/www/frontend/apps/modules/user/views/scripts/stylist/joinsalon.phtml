@@ -34,7 +34,7 @@
                                 </strong>
                             </div>
                             <p class="card-info-first" style="margin-top: 20px;">
-                                <a class="btn btn2_xl btn2_l" href="javascript:;">加入</a>
+                                <a class="btn btn2_xl btn2_l join-salon" href="javascript:;" data-salon-id="<?php echo $company['CompanyId']; ?>">加入</a>
                             </p>
                             <div class="card-action-bar">
                                 <ul>
@@ -55,5 +55,68 @@
     $('#search_button').click(function() {
         var baseUrl = "<?php echo $this->baseUrl('user/stylist/joinsalon'); ?>";
         window.location = baseUrl + '?s=' + encodeURI($.trim($('#search_text').val()));
+    });
+
+    $('.join-salon').click(function() {
+        var salonId = $(this).attr('data-salon-id');
+        var popup = $('<div class="popup-container"><div class="noti info">&nbsp;</div><p style="text-align: center; margin-top: 20px;">确定要加入该沙龙么？</p></div>');
+        popup.dialog({
+            title: '确认',
+            width: 400,
+            height: 260,
+            modal: true,
+            resizable: 'disable',
+            show: {
+                effect: "fade",
+                duration: 1000
+            },
+            hide: {
+                effect: "fade",
+                duration: 200
+            },
+            buttons: [
+            {
+                text: '确定',
+                click: function () {
+                    if (window.inAjax) {
+                        return;
+                    }
+
+                    popup.find('.noti').text('提交中 ...');
+                    window.inAjax = 1;
+
+                    $.ajax({
+                        type: "post",
+                        url: '/ajax/salon/join',
+                        data: {
+                            salon_id: salonId
+                        },
+                        success: function (data) {
+                            window.inAjax = 0;
+
+                            if (data.success) {
+                                popup.dialog('close');
+                                WF.showMessage('success', '信息', '您的请求正在审核中，请耐心等待。');
+
+                                window.location = '/user/stylist/salon';
+                            } else {
+                                popup.find('.noti').text(data.message);
+                            }
+                        },
+                        complete: function (XMLHttpRequest, textStatus) {
+                            window.inAjax = 0;
+                        },
+                        error: function () {
+                            window.inAjax = 0;
+                        }
+                    });
+                }
+            }],
+            open: function () {
+            },
+            close: function() {
+                popup.dialog('destroy').remove();
+            }
+        });
     });
 </script>

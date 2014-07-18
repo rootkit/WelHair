@@ -1,3 +1,6 @@
+<?php
+use Welfony\Core\Enum\StaffStatus;
+?>
 <div class="container">
     <?php
     echo $this->partial('shared/header.phtml', array(
@@ -15,6 +18,14 @@
         <div id="tagContent">
             <div class="tagContent selectTag" id="tagContent0">
                 <div class="grid-button-container">
+                    <?php if ($this->staffStatus == StaffStatus::Requested): ?>
+                    <div class="grid-button full-width">
+                        <a href="<?php echo $this->baseUrl('user/stylist/salon'); ?>">
+                            <i class="iconfont">&#xf00b0;</i>
+                            <h2>您的请求正在审核中，请耐心等待 ...</h2>
+                        </a>
+                    </div>
+                    <?php else: ?>
                     <div class="grid-button">
                         <a href="<?php echo $this->baseUrl('user/stylist/createsalon'); ?>">
                             <i class="iconfont">&#xf0043;</i>
@@ -27,6 +38,7 @@
                             <h2>加入沙龙</h2>
                         </a>
                     </div>
+                    <?php endif; ?>
                 </div>
             </div>
         </div>

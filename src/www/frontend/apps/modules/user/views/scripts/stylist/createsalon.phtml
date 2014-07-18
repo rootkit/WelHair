@@ -1,3 +1,10 @@
+<?php
+use \Welfony\Utility\Util;
+
+
+$this->headScript()
+     ->appendFile('http://api.map.baidu.com/api?v=2.0&ak=' . $this->config->map->baidu->ak);
+?>
 <div class="container">
     <?php
     echo $this->partial('shared/header.phtml', array(
@@ -16,9 +23,581 @@
         echo $this->partial('shared/topnavstylist.phtml', array('action' => $this->action));
         ?>
 
-        <div id="tagContent">
-            <div class="tagContent selectTag" id="tagContent0">
+        <div style="padding: 15px 0 20px 15px;">
+            <div class="m-form">
+                <form id="frm-company-info" method="post">
+                    <fieldset>
+                        <div class="formitm">
+                            <label class="lab">Logo：</label>
+                            <div class="ipt">
+                                <span class="u-img2">
+                                    <a href="javascript:;">
+                                        <img id="complany-logo-image" src="<?php echo $this->companyInfo['LogoUrl']; ?>" alt="">
+                                        <input id="complany-logo-url" type="hidden" name="logo_url" value="<?php echo $this->companyInfo['LogoUrl']; ?>" />
+                                    </a>
+                                </span>
+                                <a id="complany-logo-update-thumb" class="update-thumb" href="#">调整缩略图</a>
+                            </div>
+                        </div>
+                        <div class="formitm">
+                            <label class="lab"></label>
+                            <div class="ipt">
+                                <div id="complany-logo-uploader"></div>
+                            </div>
+                        </div>
+                        <div class="formitm">
+                            <label class="lab">沙龙名称：</label>
+                            <div class="ipt">
+                                <input name="companyname" type="text" value="<?php echo $this->companyInfo['Name']; ?>" datatype="s4-30" errormsg="沙龙名称至少4个字符，最多30个字符！" class="u-ipt"/>
+                                <p>4~30个字符，包括字母，数字，下划线以字母开头，字母或数字结尾</p>
+                            </div>
+                        </div>
+                        <div class="formitm">
+                            <label class="lab">联系电话：</label>
+                            <div class="ipt">
+                                <input name="tel" type="text" value="<?php echo $this->companyInfo['Tel']; ?>" datatype="tel" class="u-ipt"/>
+                                <p>格式：（地区号-）用户号（-分机号）如010-66668888-123</p>
+                            </div>
+                        </div>
+                        <div class="formitm">
+                            <label class="lab">手机：</label>
+                            <div class="ipt">
+                                <input name="mobile" type="text" value="<?php echo $this->companyInfo['Mobile']; ?>" datatype="m" class="u-ipt"/>
+                            </div>
+                        </div>
+                        <div class="formitm">
+                            <label class="lab">地区：</label>
+                            <div class="ipt v-l-650">
+                                <select id="sel-province" name="province" class="u-sel">
+                                    <option value="">请选择</option>
+                                    <?php foreach ($this->provinceList as $province): ?>
+                                    <option value="<?php echo $province['AreaId']; ?>"<?php echo $this->companyInfo['Province'] == $province['AreaId'] ? ' selected' : ''; ?>><?php echo $province['Name']; ?></option>
+                                    <?php endforeach; ?>
+                                </select>
+                                <select id="sel-city" name="city" class="u-sel">
+                                    <option value="">请选择</option>
+                                    <?php foreach ($this->cityList as $city): ?>
+                                    <option value="<?php echo $city['AreaId']; ?>"<?php echo $this->companyInfo['City'] == $city['AreaId'] ? ' selected' : ''; ?>><?php echo $city['Name']; ?></option>
+                                    <?php endforeach; ?>
+                                </select>
+                                <select id="sel-district" name="district" class="u-sel" datatype="*">
+                                    <option value="">请选择</option>
+                                    <?php foreach ($this->districtList as $district): ?>
+                                    <option value="<?php echo $district['AreaId']; ?>"<?php echo $this->companyInfo['District'] == $district['AreaId'] ? ' selected' : ''; ?>><?php echo $district['Name']; ?></option>
+                                    <?php endforeach; ?>
+                                </select>
+                                <p>正确设置地区有利于无GPS用户搜索</p>
+                            </div>
+                        </div>
+                        <div class="formitm">
+                            <label class="lab">详细地址：</label>
+                            <div class="ipt">
+                                <input name="address" type="text" value="<?php echo $this->companyInfo['Address']; ?>" datatype="*" class="u-ipt"/>
+                            </div>
+                        </div>
+                        <div class="formitm">
+                            <label class="lab">区域：</label>
+                            <div class="ipt">
+                                <input id="map-search-input" type="text" class="u-ipt"/>
+                                <button id="map-search" class="u-btn u-btn-c3" type="button">
+                                    <i class="iconfont">&#xf012c;</i>
+                                </button>
+                                <p>点击地图或标注获取坐标</p>
+                            </div>
+                        </div>
+                        <div class="formitm">
+                            <label class="lab"></label>
+                            <div class="ipt">
+                                <input id="latitude" type="hidden" name="latitude" value="<?php echo doubleval($this->companyInfo['Latitude']); ?>" />
+                                <input id="longitude" type="hidden" name="longitude" value="<?php echo doubleval($this->companyInfo['Longitude']); ?>" />
+                                <div id="company-map" class="map"></div>
+                            </div>
+                        </div>
+                        <div class="formitm">
+                            <label class="lab">沙龙展示图：</label>
+                            <div class="ipt">
+                                <ul class="formimglst clearfix">
+                                    <?php foreach ($this->companyInfo['PictureUrl'] as $pic): ?>
+                                    <li>
+                                        <span class="u-img2">
+                                            <a href="javascript:;">
+                                                <img class="company-picture" src="<?php echo $pic; ?>" />
+                                            </a>
+                                        </span>
+                                        <input type="hidden" value="<?php echo $pic; ?>" name="company_picture_url[]" />
+                                        <a style="visibility: hidden;" href="#">调整缩略图</a>
+                                        <a class="remove-thumb" href="#">移除</a>
+                                    </li>
+                                    <?php endforeach; ?>
+                                    <li<?php echo count($this->companyInfo['PictureUrl']) >= 3 ? ' style="display: none;"' : ''; ?>>
+                                        <span class="u-img2">
+                                            <a id="company-image-uploader"></a>
+                                        </span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="formitm formitm-1">
+                            <input type="hidden" name="company_id" value="0" />
+                            <button class="u-btn u-btn-submit" type="button">确定</button>
+                        </div>
+                    </fieldset>
+                </form>
             </div>
         </div>
     </div>
 </div>
+<script type="text/javascript">
+$(function() {
+    $('#frm-company-info').Validform({
+        tiptype: 3
+    });
+
+    function initMap() {
+        var map = new BMap.Map('company-map');
+        var point = new BMap.Point(document.getElementById('longitude').value, document.getElementById('latitude').value);
+        map.centerAndZoom(point, 15);
+        map.enableScrollWheelZoom();
+
+        var marker = new BMap.Marker(point, {
+            enableMassClear: false,
+            raiseOnDrag: true
+        });
+        marker.enableDragging();
+        marker.addEventListener('dragend', function(e) {
+            setMapResult(e.point.lng, e.point.lat);
+        });
+
+        map.addOverlay(marker);
+
+        map.addEventListener('click', function(e){
+            if(!(e.overlay)){
+                map.clearOverlays();
+                marker.show();
+                marker.setPosition(e.point);
+
+                setMapResult(e.point.lng, e.point.lat);
+            }
+        });
+
+        var local = new BMap.LocalSearch(map, {
+            renderOptions:{map: map},
+            pageCapacity: 1
+        });
+        local.setSearchCompleteCallback(function(results) {
+            if(local.getStatus() !== BMAP_STATUS_SUCCESS) {
+                WF.showMessage('info', '信息', '没有找到您所输入的区域信息');
+            } else {
+                 marker.hide();
+
+                 var poi = results.getPoi(0);
+                 if (poi) {
+                    setMapResult(poi.point.lng, poi.point.lat);
+                 }
+             }
+        });
+        local.setMarkersSetCallback(function(pois) {
+            for (var i = pois.length; i--;) {
+                var marker = pois[i].marker;
+                marker.addEventListener('click', function(e) {
+                    marker_trick = true;
+
+                    var pos = this.getPosition();
+                    setMapResult(pos.lng, pos.lat);
+                });
+            }
+        });
+
+        document.getElementById('map-search').onclick = function() {
+            local.search(document.getElementById('map-search-input').value);
+        };
+        document.getElementById('map-search-input').onkeyup = function(e) {
+            console.log('a');
+            var me = this;
+            e = e || window.event;
+            var keycode = e.keyCode;
+            if (keycode === 13) {
+                local.search(document.getElementById('map-search-input').value);
+            }
+        };
+    }
+
+    function setMapResult(lng, lat) {
+        document.getElementById('latitude').value = lat;
+        document.getElementById('longitude').value = lng;
+    }
+
+    function initUploader() {
+        var liUploader = $('#company-image-uploader').parent().parent();
+        function updateLiUploaderStatus() {
+            if ($('input[name="company_picture_url[]"]').length >= 3) {
+                liUploader.hide();
+            } else {
+                liUploader.show();
+            }
+        }
+        function bindRemove() {
+            $('.formimglst .remove-thumb').click(function() {
+                $(this).parent().fadeOut('normal', function() {
+                    $(this).remove();
+                    updateLiUploaderStatus();
+                });
+
+                return false;
+            });
+        }
+        bindRemove();
+
+        var popup = $(' \
+            <div class="crop-container"> \
+                <div class="crop-content"> \
+                    <img class="crop-img-o" src=""/> \
+                    <input type="hidden" name="x1" value="" /> \
+                    <input type="hidden" name="y1" value="" /> \
+                    <input type="hidden" name="x2" value="" /> \
+                    <input type="hidden" name="y2" value="" /> \
+                </div> \
+                <div class="crop-preview"> \
+                    <p>拖拽或缩放曲线框，<br/>生成方形图片。</p> \
+                    <div class="crop-preview-110"> \
+                        <img class="crop-img-preview-110" src="" /> \
+                    </div> \
+                    <p>110*110像素</p> \
+                    <div class="crop-preview-64"> \
+                        <img class="crop-img-preview-64" src="" /> \
+                    </div> \
+                    <p>64*64像素</p> \
+                    <div class="crop-preview-30"> \
+                        <img class="crop-img-preview-30" src="" /> \
+                    </div> \
+                    <p>30*30像素</p> \
+                </div> \
+            </div> \
+        ');
+
+        $('#complany-logo-update-thumb').click(function() {
+            var crop = null;
+            var imgUrl = $('#complany-logo-image').attr('data-ori');
+            if (!imgUrl) {
+                WF.showMessage('error', '注意', '请先上传一张图片');
+                return false;
+            }
+
+            $(popup).dialog({
+                resizable: false,
+                title: '编辑缩略图',
+                width: 600,
+                height:500,
+                modal: true,
+                draggable: false,
+                buttons: {
+                    '保存': function() {
+                        var opts = {
+                            type: 'POST',
+                            url: WF.setting.apiBaseUrl + '/upload/image/crop',
+                            dataType: 'json',
+                            data: {
+                                x1: $('input[name="x1"]').val(),
+                                y1: $('input[name="y1"]').val(),
+                                x2: $('input[name="x2"]').val(),
+                                y2: $('input[name="y2"]').val(),
+                                img: $('#complany-logo-image').attr('data-ori')
+                            },
+                            success: function(data, textStatus, jqXHR) {
+                                $('#complany-logo-image').attr('src', $('#complany-logo-image').attr('data-110') + '?timestamp=' + new Date().getTime());
+                                popup.dialog('close');
+                            }
+                        };
+                        $.ajax(opts);
+                    },
+                    '取消': function() {
+                        $(this).dialog('close');
+                    }
+                },
+                open: function() {
+                    var imgO = popup.find('.crop-img-o');
+                    imgO.attr('src', imgUrl);
+
+                    var imgPreview110 = popup.find('.crop-img-preview-110');
+                    imgPreview110.attr('src', imgUrl);
+
+                    var imgPreview64 = popup.find('.crop-img-preview-64');
+                    imgPreview64.attr('src', imgUrl);
+
+                    var imgPreview30 = popup.find('.crop-img-preview-30');
+                    imgPreview30.attr('src', imgUrl);
+
+                    WF.getImageSize(imgUrl, function(width, height) {
+                        if (width >= height) {
+                            imgO.css('width', imgO.parent().width())
+                                .css('height', 'auto')
+                                .css('margin-top', (imgO.parent().height() - imgO.height()) / 2)
+                                .show();
+                        } else {
+                            imgO.css('height', imgO.parent().height())
+                            .css('width', 'auto')
+                            .css('margin-left', (imgO.parent().width() - imgO.width()) / 2)
+                            .show();
+                        }
+
+                        crop = imgO.imgAreaSelect({
+                            instance: true,
+                            handles: true,
+                            aspectRatio: '1:1',
+                            onSelectEnd: function(img, selection) {
+                                var rate = width / imgO.width();
+
+                                $('input[name="x1"]').val(selection.x1 * rate);
+                                $('input[name="y1"]').val(selection.y1 * rate);
+                                $('input[name="x2"]').val(selection.x2 * rate);
+                                $('input[name="y2"]').val(selection.y2 * rate);
+                            },
+                            onSelectChange: function(img, selection) {
+                                var imgOWith = imgO.width();
+                                var imgOHeight = imgO.height();
+
+                                var scaleX = 110 / (selection.width || 1);
+                                var scaleY = 110 / (selection.height || 1);
+                                imgPreview110.css({
+                                    width: Math.round(scaleX * imgOWith) + 'px',
+                                    height: Math.round(scaleY * imgOHeight) + 'px',
+                                    marginLeft: '-' + Math.round(scaleX * selection.x1) + 'px',
+                                    marginTop: '-' + Math.round(scaleY * selection.y1) + 'px'
+                                });
+
+                                scaleX = 64 / (selection.width || 1);
+                                scaleY = 64 / (selection.height || 1);
+                                imgPreview64.css({
+                                    width: Math.round(scaleX * imgOWith) + 'px',
+                                    height: Math.round(scaleY * imgOHeight) + 'px',
+                                    marginLeft: '-' + Math.round(scaleX * selection.x1) + 'px',
+                                    marginTop: '-' + Math.round(scaleY * selection.y1) + 'px'
+                                });
+
+                                scaleX = 30 / (selection.width || 1);
+                                scaleY = 30 / (selection.height || 1);
+                                imgPreview30.css({
+                                    width: Math.round(scaleX * imgOWith) + 'px',
+                                    height: Math.round(scaleY * imgOHeight) + 'px',
+                                    marginLeft: '-' + Math.round(scaleX * selection.x1) + 'px',
+                                    marginTop: '-' + Math.round(scaleY * selection.y1) + 'px'
+                                });
+                            }
+                        });
+                    });
+                },
+                close: function() {
+                    if (crop) {
+                        crop.remove(true);
+                    }
+                    popup.dialog('destroy').remove();
+                }
+            });
+
+            return false;
+        });
+
+        $('#complany-logo-uploader').uploadify({
+            fileObjName: 'uploadfile',
+            width: 78,
+            height: 32,
+            multi: false,
+            checkExisting: false,
+            preventCaching: false,
+            fileExt: '*.jpg;*.jpeg;*.png',
+            fileDesc: 'Image file (.jpg, .jpeg, .png)',
+            buttonText: '选择文件',
+            swf: WF.setting.staticAssetBaseUrl + '/swf/uploadify.swf',
+            uploader: WF.setting.apiBaseUrl + '/upload/image',
+            onUploadError: function(file, errorCode, errorMsg, errorString) {
+                console.log(errorString);
+            },
+            onUploadSuccess: function(file, data, response) {
+                var result = $.parseJSON(data);
+                if (result.success !== false) {
+                    $('#complany-logo-image').attr('src', result.Thumb110Url)
+                                      .attr('data-110', result.Thumb110Url)
+                                      .attr('data-ori', result.OriginalUrl);
+                    $('#complany-logo-url').val(result.Thumb480Url);
+                } else {
+                    WF.showMessage('error', '错误', '上传失败，请重试！');
+                }
+            }
+        });
+
+        $('#company-image-uploader').uploadify({
+            fileObjName: 'uploadfile',
+            width: 102,
+            height: 102,
+            multi: false,
+            checkExisting: false,
+            preventCaching: false,
+            fileExt: '*.jpg;*.jpeg;*.png',
+            fileDesc: 'Image file (.jpg, .jpeg, .png)',
+            buttonText: '<i class="iconfont">&#xf0175;</i>',
+            swf: WF.setting.staticAssetBaseUrl + '/swf/uploadify.swf',
+            uploader: WF.setting.apiBaseUrl + '/upload/image',
+            onUploadError: function(file, errorCode, errorMsg, errorString) {
+                console.log(errorString);
+            },
+            onUploadSuccess: function(file, data, response) {
+                var result = $.parseJSON(data);
+                if (result.success !== false) {
+                    var imgTemplate = $(' \
+                        <li> \
+                            <span class="u-img2"> \
+                                <a href="javascript:;"> \
+                                    <img class="company-picture" /> \
+                                </a> \
+                            </span> \
+                            <input type="hidden" value="" name="company_picture_url[]" /> \
+                            <a class="company-picture-update update-thumb" href="#">调整缩略图</a> \
+                            <a class="remove-thumb" href="#">移除</a> \
+                        </li> \
+                    ');
+
+                    imgTemplate.find('img').attr('src', result.Thumb110Url)
+                                           .attr('data-110', result.Thumb110Url)
+                                           .attr('data-ori', result.OriginalUrl);
+                    imgTemplate.find('input[type=hidden]').val(result.Thumb480Url);
+
+                    imgTemplate.insertBefore(liUploader).hide().fadeIn();
+
+                    bindRemove();
+
+                    imgTemplate.find('.update-thumb').click(function() {
+                        var crop = null;
+                        var img = $(this).parent().find('.company-picture');
+                        var imgUrl = img.attr('data-ori');
+                        if (!imgUrl) {
+                            WF.showMessage('error', '注意', '请先上传一张图片');
+                            return false;
+                        }
+
+                        $(popup).dialog({
+                            resizable: false,
+                            title: '编辑缩略图',
+                            width: 600,
+                            height:500,
+                            modal: true,
+                            draggable: false,
+                            buttons: {
+                                '保存': function() {
+                                    var opts = {
+                                        type: 'POST',
+                                        url: WF.setting.apiBaseUrl + '/upload/image/crop',
+                                        dataType: 'json',
+                                        data: {
+                                            x1: $('input[name="x1"]').val(),
+                                            y1: $('input[name="y1"]').val(),
+                                            x2: $('input[name="x2"]').val(),
+                                            y2: $('input[name="y2"]').val(),
+                                            img: img.attr('data-ori')
+                                        },
+                                        success: function(data, textStatus, jqXHR) {
+                                            img.attr('src', img.attr('data-110') + '?timestamp=' + new Date().getTime());
+                                            popup.dialog('close');
+                                        }
+                                    };
+                                    $.ajax(opts);
+                                },
+                                '取消': function() {
+                                    $(this).dialog('close');
+                                }
+                            },
+                            open: function() {
+                                var imgO = popup.find('.crop-img-o');
+                                imgO.attr('src', imgUrl);
+
+                                var imgPreview110 = popup.find('.crop-img-preview-110');
+                                imgPreview110.attr('src', imgUrl).removeAttr('style');
+
+                                var imgPreview64 = popup.find('.crop-img-preview-64');
+                                imgPreview64.attr('src', imgUrl).removeAttr('style');
+
+                                var imgPreview30 = popup.find('.crop-img-preview-30');
+                                imgPreview30.attr('src', imgUrl).removeAttr('style');
+
+                                WF.getImageSize(imgUrl, function(width, height) {
+                                    if (width >= height) {
+                                        imgO.css('width', imgO.parent().width())
+                                            .css('height', 'auto')
+                                            .css('margin-top', (imgO.parent().height() - imgO.height()) / 2)
+                                            .show();
+                                    } else {
+                                        imgO.css('height', imgO.parent().height())
+                                        .css('width', 'auto')
+                                        .css('margin-left', (imgO.parent().width() - imgO.width()) / 2)
+                                        .show();
+                                    }
+
+                                    crop = imgO.imgAreaSelect({
+                                        instance: true,
+                                        handles: true,
+                                        aspectRatio: '1:1',
+                                        onSelectEnd: function(img, selection) {
+                                            var rate = width / imgO.width();
+
+                                            $('input[name="x1"]').val(selection.x1 * rate);
+                                            $('input[name="y1"]').val(selection.y1 * rate);
+                                            $('input[name="x2"]').val(selection.x2 * rate);
+                                            $('input[name="y2"]').val(selection.y2 * rate);
+                                        },
+                                        onSelectChange: function(img, selection) {
+                                            var imgOWith = imgO.width();
+                                            var imgOHeight = imgO.height();
+
+                                            var scaleX = 110 / (selection.width || 1);
+                                            var scaleY = 110 / (selection.height || 1);
+                                            imgPreview110.css({
+                                                width: Math.round(scaleX * imgOWith) + 'px',
+                                                height: Math.round(scaleY * imgOHeight) + 'px',
+                                                marginLeft: '-' + Math.round(scaleX * selection.x1) + 'px',
+                                                marginTop: '-' + Math.round(scaleY * selection.y1) + 'px'
+                                            });
+
+                                            scaleX = 64 / (selection.width || 1);
+                                            scaleY = 64 / (selection.height || 1);
+                                            imgPreview64.css({
+                                                width: Math.round(scaleX * imgOWith) + 'px',
+                                                height: Math.round(scaleY * imgOHeight) + 'px',
+                                                marginLeft: '-' + Math.round(scaleX * selection.x1) + 'px',
+                                                marginTop: '-' + Math.round(scaleY * selection.y1) + 'px'
+                                            });
+
+                                            scaleX = 30 / (selection.width || 1);
+                                            scaleY = 30 / (selection.height || 1);
+                                            imgPreview30.css({
+                                                width: Math.round(scaleX * imgOWith) + 'px',
+                                                height: Math.round(scaleY * imgOHeight) + 'px',
+                                                marginLeft: '-' + Math.round(scaleX * selection.x1) + 'px',
+                                                marginTop: '-' + Math.round(scaleY * selection.y1) + 'px'
+                                            });
+                                        }
+                                    });
+                                });
+                            },
+                            close: function() {
+                                if (crop) {
+                                    crop.remove(true);
+                                }
+                                popup.dialog('destroy').remove();
+                            }
+                        });
+
+                        return false;
+                    });
+
+                    updateLiUploaderStatus();
+                } else {
+                    WF.showMessage('error', '错误', '上传失败，请重试！');
+                }
+            }
+        });
+    }
+
+    initMap();
+    initUploader();
+    WF.initAreaSelector();
+});
+</script>
