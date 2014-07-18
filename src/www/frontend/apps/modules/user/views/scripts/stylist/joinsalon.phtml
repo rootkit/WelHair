@@ -1,0 +1,59 @@
+<div class="container">
+    <?php
+    echo $this->partial('shared/header.phtml', array(
+        'module' => $this->module,
+        'config' => $this->config,
+        'currentUser' => $this->currentUser,
+        'userContext' => $this->userContext));
+    ?>
+</div>
+<div class="my_container">
+    <?php
+    echo $this->partial('shared/leftnav.phtml', array('active' => 4, 'currentUser' => $this->currentUser));
+    ?>
+    <div class="my_right g_mc">
+        <div id="tagContent">
+            <div class="tagContent selectTag" id="tagContent0">
+                <div class="super-search">
+                    <input id="search_text" type="input" class="u-ipt" value="<?php echo $this->searchText; ?>" style="width: 400px;" />
+                    <a id="search_button" class="u-btn u-btn-submit" type="button"><i class="iconfont">&#xf012c;</i></a>
+                </div>
+                <div class="card-container">
+                <?php foreach ($this->dataList as $company): ?>
+                <div class="card-list search-result">
+                    <div class="card-list-inner">
+                        <div class="card-img">
+                            <a href="javascript:;">
+                                <img src="<?php echo $company['LogoUrl']; ?>" onerror="this.src='<?php echo $this->config->asset->baseUrl; ?>/img/photo-default.png';" />
+                            </a>
+                        </div>
+                        <div class="card-info">
+                            <div class="username">
+                                <strong>
+                                    <a href="javascript:;"><?php echo $company['Name']; ?></a>
+                                </strong>
+                            </div>
+                            <p class="card-info-first" style="margin-top: 20px;">
+                                <a class="btn btn2_xl btn2_l" href="javascript:;">加入</a>
+                            </p>
+                            <div class="card-action-bar">
+                                <ul>
+                                    <li><img src="<?php echo $this->config->asset->baseUrl; ?>/img/frontend/review.png"><span><?php echo $company['CommentCount']; ?></span></li>
+                                    <li><img src="<?php echo $this->config->asset->baseUrl; ?>/img/frontend/iconfont-zan.png"><span><?php echo $company['RateCount']; ?></span></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <?php endforeach; ?>
+                </div>
+            </div><?php echo $this->pager; ?>
+        </div>
+    </div>
+</div>
+<script>
+    $('#search_button').click(function() {
+        var baseUrl = "<?php echo $this->baseUrl('user/stylist/joinsalon'); ?>";
+        window.location = baseUrl + '?s=' + encodeURI($.trim($('#search_text').val()));
+    });
+</script>

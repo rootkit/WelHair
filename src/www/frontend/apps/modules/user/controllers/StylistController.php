@@ -19,8 +19,10 @@ use Welfony\Core\Enum\Gender;
 use Welfony\Core\Enum\HairAmount;
 use Welfony\Core\Enum\HairStyle;
 use Welfony\Core\Enum\StaffStatus;
+use Welfony\Core\Enum\UserRole;
 use Welfony\Service\AppointmentNoteService;
 use Welfony\Service\AppointmentService;
+use Welfony\Service\CompanyService;
 use Welfony\Service\ServiceService;
 use Welfony\Service\StaffService;
 use Welfony\Service\UserService;
@@ -31,15 +33,26 @@ class User_StylistController extends AbstractFrontendController
 
     public function init()
     {
-        $this->needloginActionList['user'] = array('stylist' => array('index', 'hair', 'service', 'client', 'clientnote', 'clientappointment', 'appointment'));
+        $this->needloginActionList['user'] = array('stylist' => array('index', 'hair', 'service', 'client', 'clientnote', 'clientappointment', 'appointment', 'createsalon', 'joinsalon', 'salon'));
         parent::init();
+    }
+
+    public function preDispatch()
+    {
+        parent::preDispatch();
+
+        if ($this->currentUser['Role'] != UserRole::Staff) {
+            $this->_redirect($this->view->baseUrl(''));
+        }
+
+        if (!in_array($this->view->action, array('salon', 'createsalon', 'joinsalon'))) {
+            $this->checkPermission($this->view->action == 'index' ? $this->view->baseUrl('user/stylist/hair') : '');
+        }
     }
 
     public function indexAction()
     {
         $this->view->pageTitle = '发型师管理';
-
-        $this->_redirect($this->view->baseUrl('user/stylist/hair'));
     }
 
     public function hairAction()
@@ -239,6 +252,46 @@ class User_StylistController extends AbstractFrontendController
         $this->view->pager = $this->renderPager($this->view->baseUrl('user/stylist/appointment?'),
                                                 $page,
                                                 ceil($rstAppointment['total'] / $pageSize));
+    }
+
+    public function salonAction()
+    {
+        $this->view->pageTitle = '我的沙龙';
+    }
+
+    public function createsalonAction()
+    {
+        $this->view->pageTitle = '创建沙龙';
+    }
+
+    public function joinsalonAction()
+    {
+        $this->view->pageTitle = '加入沙龙';
+
+        $this->view->searchText = htmlspecialchars($this->_request->getParam('s'));
+
+        $page = intval($this->_request->getParam('page'));
+        $pageSize = 20;
+
+        $searchResult = CompanyService::search($this->currentUser['UserId'], $this->view->searchText, $this->userContext->area['City']['AreaId'], 0, 0, $this->userContext->location, $page, $pageSize);
+        $this->view->dataList = $searchResult['companies'];
+
+        $this->view->params = array('s' => $this->view->searchText);
+
+        $this->view->pager = $this->renderPager($this->view->baseUrl('user/stylist/joinsalon?' . http_build_query($this->view->params)),
+                                                $page,
+                                                ceil($searchResult['total'] / $pageSize));
+    }
+
+    private function checkPermission($redirectUrl = '')
+    {
+        if ($this->currentUser['IsApproved']) {
+            if ($redirectUrl) {
+                $this->_redirect($redirectUrl);
+            }
+        } else {
+            $this->_redirect($this->view->baseUrl('user/stylist/salon'));
+        }
     }
 
 }

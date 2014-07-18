@@ -1,0 +1,34 @@
+<div class="container">
+    <?php
+    echo $this->partial('shared/header.phtml', array(
+        'module' => $this->module,
+        'config' => $this->config,
+        'currentUser' => $this->currentUser,
+        'userContext' => $this->userContext));
+    ?>
+</div>
+<div class="my_container">
+    <?php
+    echo $this->partial('shared/leftnav.phtml', array('active' => 4, 'currentUser' => $this->currentUser));
+    ?>
+    <div class="my_right g_mc">
+        <div id="tagContent">
+            <div class="tagContent selectTag" id="tagContent0">
+                <div class="grid-button-container">
+                    <div class="grid-button">
+                        <a href="<?php echo $this->baseUrl('user/stylist/createsalon'); ?>">
+                            <i class="iconfont">&#xf0043;</i>
+                            <h2>创建沙龙</h2>
+                        </a>
+                    </div>
+                    <div class="grid-button">
+                        <a href="<?php echo $this->baseUrl('user/stylist/joinsalon'); ?>">
+                            <i class="iconfont">&#xf014d;</i>
+                            <h2>加入沙龙</h2>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

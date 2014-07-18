@@ -14,6 +14,7 @@
 
 use Welfony\Controller\Base\AbstractFrontendController;
 use Welfony\Core\Enum\StaffStatus;
+use Welfony\Core\Enum\UserRole;
 use Welfony\Service\AreaService;
 use Welfony\Service\CompanyService;
 use Welfony\Service\StaffService;
@@ -23,9 +24,18 @@ class User_SalonController extends AbstractFrontendController
 
     public function init()
     {
-        $this->needloginActionList['user'] = array('salon' => array('index'));
+        $this->needloginActionList['user'] = array('salon' => array('index', 'info', 'stylist', 'request', 'account'));
 
         parent::init();
+    }
+
+    public function preDispatch()
+    {
+        parent::preDispatch();
+
+        if ($this->currentUser['Role'] != UserRole::Manager) {
+            $this->_redirect($this->view->baseUrl(''));
+        }
     }
 
     public function indexAction()

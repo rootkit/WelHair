@@ -1660,8 +1660,8 @@ html[xmlns] .slides {
 .Dynamicitem {
     display: inline;
     float: left;
-    padding: 0;
     margin-bottom: 10px;
+    padding: 0;
 }
 
 .Dynamicitem .photo {
@@ -1678,12 +1678,12 @@ html[xmlns] .slides {
 
 .Dynamicitem .dcontent {
     float: left;
+    margin-left: 18px;
     padding: 10px;
     width: 730px;
     border: 1px solid #e1e1e1;
     border-radius: 8px;
     background: #fff;
-    margin-left: 18px;
 }
 
 .date {
@@ -3132,4 +3132,46 @@ button.u-btn-sm {
     display: block;
 }
 
+.grid-button-container {
+    width: 100%;
+}
 
+.grid-button-container .grid-button {
+    float: left;
+    margin: 0 -1px -1px 0;
+    width: 428px;
+    height: 428px;
+    border: 1px dashed #ccc;
+}
+
+.grid-button-container .grid-button a {
+    display: block;
+    padding: 140px 0 20px;
+    width: 100%;
+    height: 268px;
+    text-align: center;
+}
+
+.grid-button-container .grid-button a:hover,
+.grid-button-container .grid-button a:hover {
+    background: #eee;
+}
+
+.grid-button-container .grid-button i {
+    display: block;
+    font-size: 80px;
+}
+
+.grid-button-container .grid-button h2 {
+    font-size: 16px;
+    color: #737373;
+}
+
+.super-search {
+    padding-bottom: 10px;
+    border-bottom: 1px solid #ccc;
+}
+
+.search-result .card-list-inner {
+    border-left: 1px #e1e1e1 dashed;
+}
