@@ -2,7 +2,8 @@
     "name": "welfony/welhair",
     "autoload": {
         "psr-0": {
-            "Welfony": "library"
+            "Welfony": "library",
+            "Alipay": "library"
         }
     },
     "require": {

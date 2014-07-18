@@ -7,6 +7,6 @@ $baseDir = dirname($vendorDir);
 
 return array(
     $vendorDir . '/guzzlehttp/streams/src/functions.php',
-    $vendorDir . '/guzzlehttp/guzzle/src/functions.php',
     $vendorDir . '/phpseclib/phpseclib/phpseclib/Crypt/Random.php',
+    $vendorDir . '/guzzlehttp/guzzle/src/functions.php',
 );

@@ -12,12 +12,14 @@
 //
 // ==============================================================================
 
+use Alipay\AlipaySubmit;
 use PHPassLib\Hash\PBKDF2 as PassHash;
 use Welfony\Controller\Base\AbstractFrontendController;
 use Welfony\Service\AddressService;
 use Welfony\Service\AreaService;
 use Welfony\Service\DepositService;
 use Welfony\Service\UserService;
+use Welfony\Utility\Util;
 
 class User_SettingController extends AbstractFrontendController
 {
@@ -175,12 +177,12 @@ class User_SettingController extends AbstractFrontendController
                 'DepositId' => 0,
                 'UserId' => $userId,
                 'Amount' => floatval($this->_request->getParam('amount')),
-                'Status' => 1
+                'Status' => 0
             );
 
             $result = DepositService::save($reqData);
             if ($result['success']) {
-                $this->view->successMessage = '充值成功';
+                $this->payWithAilipay($result['deposit']['DepositNo'], $result['deposit']['Amount']);
             } else {
                 $this->view->errorMessage = $result['message'];
             }
@@ -207,6 +209,41 @@ class User_SettingController extends AbstractFrontendController
         $this->view->pager = $this->renderPager($this->view->baseUrl('user/setting/accounthistory?'),
                                                 $page,
                                                 ceil($rstDepositList['total'] / $pageSize));
+    }
+
+    private function payWithAilipay($transactionNo, $amount)
+    {
+        $alipayConfig = array();
+        $alipayConfig['partner'] = $this->config->alipay->partner;
+        $alipayConfig['key'] = $this->config->alipay->key;
+        $alipayConfig['sign_type'] = strtoupper('MD5');
+        $alipayConfig['input_charset']= strtolower('utf-8');
+        $alipayConfig['cacert'] = $this->config->cert->path . '/alipay.pem';
+        $alipayConfig['transport'] = 'http';
+
+        $parameter = array(
+            'service' => 'create_direct_pay_by_user',
+            'partner' => trim($alipayConfig['partner']),
+            'payment_type'  => '1',
+            'notify_url'    => $this->config->frontend->baseUrl . '/payment/alipay/notify',
+            'return_url'    => $this->config->frontend->baseUrl . '/payment/alipay/return',
+            'seller_email'  => $this->config->alipay->email,
+            'out_trade_no'  => $transactionNo,
+            'subject'   => '充值测试',
+            'total_fee' => $amount,
+            'body'  => '账户充值',
+            'show_url'  => $this->config->frontend->baseUrl,
+            'anti_phishing_key' => '',
+            'exter_invoke_ip'   => Util::getRealIp(),
+            '_input_charset'    => trim(strtolower($alipayConfig['input_charset']))
+        );
+
+        $alipaySubmit = new AlipaySubmit($alipayConfig);
+
+        $html_text = $alipaySubmit->buildRequestForm($parameter, 'get', '确认');
+        echo $html_text;
+
+        die();
     }
 
 }

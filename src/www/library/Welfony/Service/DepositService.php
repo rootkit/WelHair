@@ -52,7 +52,6 @@ class DepositService
     public static function listAllDeposit()
     {
         return $searchResult = DepositRepository::getInstance()->getAllDeposit();
-
     }
 
     public static function save($data)
@@ -126,7 +125,7 @@ class DepositService
     public static function succeedDeposit($data)
     {
         $result = array('success' => false, 'message' => '');
-        $r = DepositRepository::getInstance()->succeed($data['WithdrawalId']);
+        $r = DepositRepository::getInstance()->succeed($data['DepositId']);
         if ($r) {
 
             $result['success'] = true;
