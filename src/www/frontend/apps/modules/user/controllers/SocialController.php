@@ -13,7 +13,9 @@
 // ==============================================================================
 
 use EvaOAuth\Service as OAuthService;
+use Welfony\Auth\SocialAuthAdapter;
 use Welfony\Controller\Base\AbstractFrontendController;
+use Welfony\Core\Enum\SocialType;
 use Welfony\Service\UserService;
 
 class User_SocialController extends AbstractFrontendController
@@ -50,12 +52,23 @@ class User_SocialController extends AbstractFrontendController
 
     public function sinaAction()
     {
+        $oauth = new OAuthService();
+        $oauth->setOptions(array(
+            'callbackUrl' => $this->config->frontend->baseUrl . '/user/social/accesssina',
+            'consumerKey' => $this->oauthConfig['oauth']['oauth2']['weibo']['consumer_key'],
+            'consumerSecret' => $this->oauthConfig['oauth']['oauth2']['weibo']['consumer_secret']
+        ));
+        $oauth->initAdapter('Weibo', 'Oauth2');
+
+        $requestToken = $oauth->getAdapter()->getRequestToken();
+        $oauth->getStorage()->saveRequestToken($requestToken);
+        $requestTokenUrl = $oauth->getAdapter()->getRequestTokenUrl();
+
+        header("location: $requestTokenUrl");
     }
 
     public function accessqqAction()
     {
-        $type = htmlspecialchars($this->_request->getParam('type'));
-
         $oauth = new OAuthService();
         $oauth->setOptions(array(
             'callbackUrl' => $this->config->frontend->baseUrl . '/user/social/accessqq',
@@ -70,159 +83,63 @@ class User_SocialController extends AbstractFrontendController
         $oauth->getStorage()->saveAccessToken($accessTokenArray);
         $oauth->getStorage()->clearRequestToken();
 
-        p($accessTokenArray);
+        $socialData = array(
+            'Id' => $accessTokenArray['remoteUserId'],
+            'Username' => $accessTokenArray['remoteUserName']
+        );
+
+        $auth = \Zend_Auth::getInstance();
+        $authAdapter = new SocialAuthAdapter($socialData, SocialType::QQ);
+
+        $auth->authenticate($authAdapter);
+
+        $this->_redirect('/');
+    }
+
+    public function accesssinaAction()
+    {
+        $oauth = new OAuthService();
+        $oauth->setOptions(array(
+            'callbackUrl' => $this->config->frontend->baseUrl . '/user/social/accesssina',
+            'consumerKey' => $this->oauthConfig['oauth']['oauth2']['weibo']['consumer_key'],
+            'consumerSecret' => $this->oauthConfig['oauth']['oauth2']['weibo']['consumer_secret']
+        ));
+        $oauth->initAdapter('Weibo', 'Oauth2');
+
+        $requestToken = $oauth->getStorage()->getRequestToken();
+        $accessToken = $oauth->getAdapter()->getAccessToken($_GET, $requestToken);
+        $accessTokenArray = $oauth->getAdapter()->accessTokenToArray($accessToken);
+        $oauth->getStorage()->saveAccessToken($accessTokenArray);
+        $oauth->getStorage()->clearRequestToken();
+
+        $socialData = array(
+            'Id' => $accessTokenArray['remoteUserId'],
+            'Username' => $accessTokenArray['remoteUserName']
+        );
+
+        $auth = \Zend_Auth::getInstance();
+        $authAdapter = new SocialAuthAdapter($socialData, SocialType::Sina);
+
+        $auth->authenticate($authAdapter);
+
+        $this->_redirect('/');
     }
 
     private function initConfig()
     {
         $this->oauthConfig = array(
             'oauth' => array(
-                'request_url_path' => '/oauth/',
-                'access_url_path' => '/oauth/access/',
-                'login_url_path' => '/',
-                'oauth1' => array(
-                    'twitter' => array(
-                        'enable' => 0,
-                        'consumer_key' => '',
-                        'consumer_secret' => ''
-                    ),
-                    'douban' => array(
-                        'enable' => 0,
-                        'consumer_key' => '',
-                        'consumer_secret' => ''
-                    ),
-                    'weibo' => array(
-                        'enable' => 0,
-                        'consumer_key' => '',
-                        'consumer_secret' => '',
-                    ),
-                    'flickr' => array(
-                        'enable' => 0,
-                        'consumer_key' => '',
-                        'consumer_secret' => ''
-                    ),
-                    'dropbox' => array(
-                        'enable' => 0,
-                        'consumer_key' => '',
-                        'consumer_secret' => ''
-                    ),
-                    'linkedin' => array(
-                        'enable' => 0,
-                        'consumer_key' => '',
-                        'consumer_secret' => ''
-                    ),
-                    'yahoo' => array(
-                        'enable' => 0,
-                        'consumer_key' => '',
-                        'consumer_secret' => ''
-                    ),
-                    'sohu' => array(
-                        'enable' => 0,
-                        'consumer_key' => '',
-                        'consumer_secret' => ''
-                    ),
-                    'tianya' => array(
-                        'enable' => 0,
-                        'consumer_key' => '',
-                        'consumer_secret' => ''
-                    ),
-                ),
                 'oauth2' => array(
-                    'facebook' => array(
-                        'enable' => 0,
-                        'consumer_key' => '',
-                        'consumer_secret' => ''
-                    ),
                     'weibo' => array(
-                        'enable' => 0,
-                        'consumer_key' => '',
-                        'consumer_secret' => ''
-                    ),
-                    'baidu' => array(
-                        'enable' => 0,
-                        'consumer_key' => '',
-                        'consumer_secret' => ''
-                    ),
-                    'douban' => array(
-                        'enable' => 0,
-                        'consumer_key' => '',
-                        'consumer_secret' => ''
-                    ),
-                    'qihoo' => array(
-                        'enable' => 0,
-                        'consumer_key' => '',
-                        'consumer_secret' => ''
-                    ),
-                    'taobao' => array(
-                        'enable' => 0,
-                        'consumer_key' => '',
-                        'consumer_secret' => ''
+                        'enable' => 1,
+                        'consumer_key' => '3633538182',
+                        'consumer_secret' => 'Secret：b3ec01b688f9ccaa49c64048a7953998'
                     ),
                     'tencent' => array(
                         'enable' => 1,
                         'consumer_key' => '101061921',
                         'consumer_secret' => '65ee635188efe517af93da656e8777da'
-                    ),
-                    'qzone' => array(
-                        'enable' => 0,
-                        'consumer_key' => '',
-                        'consumer_secret' => ''
-                    ),
-                    'renren' => array(
-                        'enable' => 0,
-                        'consumer_key' => '',
-                        'consumer_secret' => ''
-                    ),
-                    'tqq' => array(
-                        'enable' => 0,
-                        'consumer_key' => '',
-                        'consumer_secret' => ''
-                    ),
-                    'kaixin' => array(
-                        'enable' => 0,
-                        'consumer_key' => '',
-                        'consumer_secret' => ''
-                    ),
-                    'pengyou' => array(
-                        'enable' => 0,
-                        'consumer_key' => '',
-                        'consumer_secret' => ''
-                    ),
-                    'qplus' => array(
-                        'enable' => 0,
-                        'consumer_key' => '',
-                        'consumer_secret' => ''
-                    ),
-                    'msn' => array(
-                        'enable' => 0,
-                        'consumer_key' => '',
-                        'consumer_secret' => ''
-                    ),
-                    'google' => array(
-                        'enable' => 0,
-                        'consumer_key' => '',
-                        'consumer_secret' => ''
-                    ),
-                    'github' => array(
-                        'enable' => 0,
-                        'consumer_key' => '',
-                        'consumer_secret' => ''
-                    ),
-                    'foursquare' => array(
-                        'enable' => 0,
-                        'consumer_key' => '',
-                        'consumer_secret' => ''
-                    ),
-                    'disqus' => array(
-                        'enable' => 0,
-                        'consumer_key' => '',
-                        'consumer_secret' => ''
-                    ),
-                    'netease' => array(
-                        'enable' => 0,
-                        'consumer_key' => '',
-                        'consumer_secret' => ''
-                    ),
+                    )
                 )
             ),
         );
