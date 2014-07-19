@@ -1,0 +1,3 @@
+[submodule "src/www/vendor/allovince/evaoauth"]
+	path = src/www/vendor/allovince/evaoauth
+	url = git://github.com/AlloVince/EvaOAuth.git
