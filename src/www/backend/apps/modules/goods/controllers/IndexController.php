@@ -237,37 +237,15 @@ class Goods_IndexController extends AbstractAdminController
         $this->_helper->viewRenderer->setNoRender(true);
         $this->_helper->layout->disableLayout();
 
-        $goodsId =  $this->_request->getParam('goodsid');
-        $productId = $this->_request->getParam('productsid');
-        $companyId = $this->_request->getParam('companyid');
+        $goodsId = intval($this->_request->getParam('goodsid'));
+        $companyId = intval($this->_request->getParam('companyid'));
 
         if (!$goodsId) {
             return;
         }
 
-        $goods = GoodsService::getGoodsById($goodsId);
-        $product = array();
-        $products=ProductsService::listAllProductsByGoods($goodsId);
-        if ($productId) {
-            foreach ($products as $p) {
-                if ($p['ProductsId'] == $productId) {
-                    $product = $p;
-                }
-            }
-        }
-
-        $company = array();
-        $companies = CompanyService::listAllByGoods($goodsId);
+        $value= $this->config->frontend->baseUrl . '/goods/index/detail?goods_id=' . $goodsId;
         if ($companyId) {
-            foreach ($companies as $c) {
-                if ($c['CompanyId'] == $companyId) {
-                    $company = $c;
-                }
-            }
-        }
-
-        $value= "http://welhair.com/goods/$goodsId?goods_id=$goodsId";
-        if ($company) {
             $value .= '&company_id=' . $companyId;
         }
         \PHPQRCode\QRcode::png($value, false, 0, 15, 2);

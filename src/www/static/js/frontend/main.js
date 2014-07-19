@@ -400,6 +400,11 @@ function initComment(hairId, salonId, stylistId, goodsId) {
     }
 
     function showDialog(hairId, salonId, stylistId, goodsId) {
+        if (!WF.setting.userIsSignedIn) {
+            window.location = '/user/auth/signin';
+            return;
+        }
+
         var btnTrigger = window;
         if (btnTrigger.inAjax) {
             return;

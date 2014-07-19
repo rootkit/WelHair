@@ -2,7 +2,8 @@
     var globalSetting = {
         baseUrl: '<?php echo $this->baseUrl(''); ?>',
         apiBaseUrl: '<?php echo $this->config->api->baseUrl; ?>',
-        staticAssetBaseUrl: '<?php echo $this->config->asset->baseUrl; ?>'
+        staticAssetBaseUrl: '<?php echo $this->config->asset->baseUrl; ?>',
+        userIsSignedIn: <?php echo $this->currentUser ? 'true' : 'false'; ?>
     };
 
     window._bd_share_config = {

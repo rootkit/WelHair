@@ -14,6 +14,7 @@
 
 use Welfony\Controller\Base\AbstractFrontendController;
 use Welfony\Service\AreaService;
+use Welfony\Service\CompanyService;
 use Welfony\Service\GoodsService;
 
 class Goods_IndexController extends AbstractFrontendController
@@ -65,6 +66,26 @@ class Goods_IndexController extends AbstractFrontendController
         $this->view->goodsDetail = GoodsService::getGoodsDetail($goodsId, $companyId, $this->currentUser['UserId'], $this->userContext->location);
 
         $this->view->pageTitle = $this->view->goodsDetail['Name'];
+    }
+
+    public function qrcodeAction()
+    {
+        $this->_helper->viewRenderer->setNoRender(true);
+        $this->_helper->layout->disableLayout();
+
+        $goodsId = intval($this->_request->getParam('goods_id'));
+        $companyId = intval($this->_request->getParam('salon_id'));
+
+        if (!$goodsId) {
+            return;
+        }
+
+        $value= $this->config->frontend->baseUrl . '/goods/index/detail?goods_id=' . $goodsId;
+
+        if ($companyId) {
+            $value .= '&company_id=' . $companyId;
+        }
+        \PHPQRCode\QRcode::png($value, false, 0, 15, 2);
     }
 
 }
