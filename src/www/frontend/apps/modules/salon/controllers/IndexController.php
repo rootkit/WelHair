@@ -14,7 +14,6 @@
 
 use Welfony\Controller\Base\AbstractFrontendController;
 use Welfony\Service\AreaService;
-use Welfony\Service\CommentService;
 use Welfony\Service\CompanyService;
 use Welfony\Service\GoodsService;
 use Welfony\Service\StaffService;
@@ -62,10 +61,6 @@ class Salon_IndexController extends AbstractFrontendController
 
         $rstGoodsList = GoodsService::listByCompany($companyId, 1, 1000);
         $this->view->goodsList = $rstGoodsList['goods'];
-
-        $rstComments = CommentService::listComment($companyId, 0, 0, 0, 1, 20);
-        $this->view->comments = $rstComments['comments'];
-        $this->view->commentTotal = $rstComments['total'];
     }
 
 }

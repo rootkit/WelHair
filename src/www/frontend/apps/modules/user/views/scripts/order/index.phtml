@@ -130,7 +130,7 @@
                                 </button>
                                 <?php endif; ?>
                                 <?php if ($order['Status'] == 5): ?>
-                                <button class="btn btn2_xl btn2_l order-comment" data-order-id="<?php echo $order['OrderId']; ?>">
+                                <button class="btn btn2_xl btn2_l order-comment" data-goods-id="<?php echo $order['Goods'][0]['GoodsId']; ?>">
                                     <span class="t1">
                                         我要评论
                                     </span>
@@ -149,5 +149,6 @@
 <script>
     $(document).ready(function() {
         initOrderPay();
+        initComment(0, 0, 0, <?php echo $order['Goods'][0]['GoodsId']; ?>);
     });
 </script>

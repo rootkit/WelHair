@@ -108,44 +108,7 @@
                         </span>
                     </h2>
                 </div>
-                <div id="comment-list" class="msgList">
-                    <ul>
-                        <?php foreach ($this->comments as $comment): ?>
-                        <li>
-                            <div class="sideuser">
-                                <div class="userPic">
-                                    <a href="#" class="avatar">
-                                        <img src="<?php echo str_replace('480x480', '110x110', $comment['CreatedBy']['AvatarUrl']); ?>" />
-                                    </a>
-                                </div>
-                                <div class="pannel">
-                                    <div class="username">
-                                        <strong>
-                                            <a href="#">
-                                                <?php echo $comment['CreatedBy']['Nickname']; ?>
-                                            </a>
-                                        </strong>
-                                        <span class="date">
-                                            <?php echo date('m月d日 H:i', strtotime($comment['CreatedDate']));?>
-                                        </span>
-                                    </div>
-                                    <div class="mscontent">
-                                        <p>
-                                            <?php echo $comment['Body']; ?>
-                                        </p>
-                                        <div class="msconent-img">
-                                          <?php if(count($comment['PictureUrl']) > 0): ?>
-                                          <?php foreach ($comment['PictureUrl'] as $pic): ?>
-                                          <img src="<?php echo str_replace('480x480', '110x110', $pic); ?>" rel="<?php echo $pic; ?>" />
-                                          <?php endforeach; ?>
-                                          <?php endif; ?>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                        <?php endforeach; ?>
-                    </ul>
+                <div id="comment-list" data-hair-id="0" data-goods-id="<?php echo $this->goodsDetail['GoodsId']; ?>" data-stylist-id="0" data-salon-id="0" class="msgList">
                 </div>
             </div>
         </div>
@@ -211,6 +174,7 @@ $(document).ready(function() {
     initMap();
     <?php endif; ?>
     initShare();
+    initComment(0, 0, 0, <?php echo $this->goodsDetail['GoodsId']; ?>);
     initOrder();
 });
 

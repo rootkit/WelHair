@@ -1,0 +1,36 @@
+<div class="m-form">
+    <div class="noti info">请填写所有信息</div>
+    <form id="frm-comment-info" method="post">
+        <fieldset>
+            <div class="formitm">
+                <label class="lab">评分：</label>
+                <div class="ipt">
+                    <span class="u-btns enable" data-type="radio">
+                        <span class="u-btn u-btn-c4" data-value="1">好</span>
+                        <span class="u-btn u-btn-c4" data-value="3">很好</span>
+                        <span class="u-btn u-btn-c5" data-value="5">非常好</span>
+                        <input type="hidden" name="comment_rate" value="5" />
+                    </span>
+                </div>
+            </div>
+            <div class="formitm">
+                <label class="lab">上图：</label>
+                <div class="ipt">
+                    <ul class="formimglst clearfix">
+                        <li>
+                            <span class="u-img2">
+                                <a id="comment-image-uploader"></a>
+                            </span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="formitm">
+                <label class="lab">评论内容：</label>
+                <div class="ipt">
+                    <textarea name="comment_body" datatype="*" cols="60" rows="4" style="border: 1px solid #ccc; padding: 10px;"></textarea>
+                </div>
+            </div>
+        </fieldset>
+    </form>
+</div>

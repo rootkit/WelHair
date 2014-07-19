@@ -14,7 +14,6 @@
 
 use Welfony\Controller\Base\AbstractFrontendController;
 use Welfony\Service\AreaService;
-use Welfony\Service\CommentService;
 use Welfony\Service\GoodsService;
 
 class Goods_IndexController extends AbstractFrontendController
@@ -66,10 +65,6 @@ class Goods_IndexController extends AbstractFrontendController
         $this->view->goodsDetail = GoodsService::getGoodsDetail($goodsId, $companyId, $this->currentUser['UserId'], $this->userContext->location);
 
         $this->view->pageTitle = $this->view->goodsDetail['Name'];
-
-        $rstComments = CommentService::listComment(0, 0, 0, $goodsId, 1, 20);
-        $this->view->comments = $rstComments['comments'];
-        $this->view->commentTotal = $rstComments['total'];
     }
 
 }

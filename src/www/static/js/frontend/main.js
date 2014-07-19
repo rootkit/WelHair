@@ -329,9 +329,207 @@ function initMap() {
   map.addOverlay(marker);
 }
 
-function initComment() {
+function initComment(hairId, salonId, stylistId, goodsId) {
+    function initUploader() {
+        var liUploader = $('#comment-image-uploader').parent().parent();
+        function updateLiUploaderStatus() {
+            if ($('input[name="comment_picture_url[]"]').length >= 4) {
+                liUploader.hide();
+            } else {
+                liUploader.show();
+            }
+        }
+        function bindRemove() {
+            $('.formimglst .remove-thumb').click(function() {
+                $(this).parent().fadeOut('normal', function() {
+                    $(this).remove();
+                    updateLiUploaderStatus();
+                });
+
+                return false;
+            });
+        }
+        bindRemove();
+
+        $('#comment-image-uploader').uploadify({
+            fileObjName: 'uploadfile',
+            width: 102,
+            height: 102,
+            multi: false,
+            checkExisting: false,
+            preventCaching: false,
+            fileExt: '*.jpg;*.jpeg;*.png',
+            fileDesc: 'Image file (.jpg, .jpeg, .png)',
+            buttonText: '<i class="iconfont">&#xf0175;</i>',
+            swf: WF.setting.staticAssetBaseUrl + '/swf/uploadify.swf',
+            uploader: WF.setting.apiBaseUrl + '/upload/image',
+            onUploadError: function(file, errorCode, errorMsg, errorString) {
+                console.log(errorString);
+            },
+            onUploadSuccess: function(file, data, response) {
+                var result = $.parseJSON(data);
+                if (result.success !== false) {
+                    var imgTemplate = $(' \
+                        <li> \
+                            <span class="u-img2"> \
+                                <a href="javascript:;"> \
+                                    <img class="comment-picture" /> \
+                                </a> \
+                            </span> \
+                            <input type="hidden" value="" name="comment_picture_url[]" /> \
+                            <a style="display: inline-block; width: 55px;" href="javascript:;">&nbsp;</a> \
+                            <a class="remove-thumb" href="#">移除</a> \
+                        </li> \
+                    ');
+
+                    imgTemplate.find('img').attr('src', result.Thumb110Url)
+                                           .attr('data-110', result.Thumb110Url)
+                                           .attr('data-ori', result.OriginalUrl);
+                    imgTemplate.find('input[type=hidden]').val(result.Thumb480Url);
+
+                    imgTemplate.insertBefore(liUploader).hide().fadeIn();
+
+                    bindRemove();
+
+                    updateLiUploaderStatus();
+                } else {
+                    WF.showMessage('error', '错误', '上传失败，请重试！');
+                }
+            }
+        });
+    }
+
+    function showDialog(hairId, salonId, stylistId, goodsId) {
+        var btnTrigger = window;
+        if (btnTrigger.inAjax) {
+            return;
+        }
+
+        btnTrigger.inAjax = true;
+
+        $.ajax({
+            type: 'get',
+            dataType: 'json',
+            url: '/ajax/comment/form',
+            data: {
+                'goods_id': goodsId,
+                'hair_id': hairId,
+                'salon_id': salonId,
+                'styist_id': stylistId,
+                'format': 'html'
+            },
+            complete: function(data) {
+                btnTrigger.inAjax = false;
+                var popup = $(data.responseText);
+
+                popup.dialog({
+                    title: '评论',
+                    width: 640,
+                    height: 540,
+                    modal: true,
+                    resizable: 'disable',
+                    buttons: [
+                    {
+                        text: '确定',
+                        click: function () {
+                            if (window.inAjax) {
+                                return;
+                            }
+
+                            popup.find('.noti').text('提交中 ...');
+                            window.inAjax = 1;
+
+                            var pictureUrl = [];
+
+                            $("input[name='comment_picture_url[]']").each(function() {
+                                pictureUrl.push($(this).val());
+                            });
+
+                            $.ajax({
+                                type: "post",
+                                url: '/ajax/comment/create',
+                                data: {
+                                    'goods_id': goodsId,
+                                    'hair_id': hairId,
+                                    'salon_id': salonId,
+                                    'styist_id': stylistId,
+                                    'rate': popup.find('input[name=comment_rate]').val(),
+                                    'body': popup.find('textarea[name=comment_body]').val(),
+                                    'picture_url': JSON.stringify(pictureUrl)
+                                },
+                                success: function (data) {
+                                    window.inAjax = 0;
+
+                                    if (data.success) {
+                                        popup.dialog('close');
+                                        WF.showMessage('success', '信息', '添加评论成功！');
+
+                                        if (goodsId > 0) {
+
+                                        } else {
+                                            refreshComment(1);
+                                        }
+                                    } else {
+                                        popup.find('.noti').text(data.message);
+                                    }
+                                },
+                                complete: function (XMLHttpRequest, textStatus) {
+                                    window.inAjax = 0;
+                                },
+                                error: function () {
+                                    window.inAjax = 0;
+                                }
+                            });
+                        }
+                    }],
+                    open: function () {
+                        initButtonSet($('#frm-comment-info'));
+                        initUploader();
+                    },
+                    close: function() {
+                        popup.dialog('destroy').remove();
+                    }
+                });
+            }
+        });
+    }
+
     $('.order-comment').click(function() {
-        var orderId = $(this).attr('data-order-id');
+        var goodsId = $(this).attr('data-goods-id');
+        showDialog(0, 0, 0, goodsId);
+    });
+    $('.hair-comment').click(function() {
+        var hairId = $(this).attr('data-hair-id');
+        showDialog(hairId, 0, 0, 0);
+    });
+    $('.salon-comment').click(function() {
+        var salonId = $(this).attr('data-salon-id');
+        showDialog(0, salonId, 0, 0);
+    });
+
+    refreshComment(1);
+}
+
+function refreshComment(page) {
+    var msgList = $('#comment-list');
+    $.ajax({
+        type: 'get',
+        dataType: 'json',
+        url: '/ajax/comment/list',
+        data: {
+            'goods_id': msgList.attr('data-goods-id'),
+            'hair_id': msgList.attr('data-hair-id'),
+            'salon_id': msgList.attr('data-salon-id'),
+            'styist_id': msgList.attr('data-stylist-id'),
+            'page': page,
+            'format': 'html'
+        },
+        complete: function(data) {
+            msgList.html(data.responseText);
+        },
+        error: function () {
+            window.inAjax = 0;
+        }
     });
 }
 
@@ -818,8 +1016,12 @@ function initTab() {
         $('.tabList li').removeClass('active');
         $(this).addClass('active');
 
-        $('.msgList').hide();
+        $('.msgList, .add-comment').hide();
         $('#' + $(this).attr('rel')).fadeIn();
+
+        if ($(this).attr('rel') == 'comment-list') {
+            $('.add-comment').fadeIn();
+        }
     });
 }
 

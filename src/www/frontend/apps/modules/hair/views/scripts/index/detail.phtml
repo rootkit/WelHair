@@ -127,44 +127,19 @@
                         </div>
                     </div>
                 </div>
-                <div class="msgList">
-                    <ul>
-                        <?php foreach ($this->comments as $comment): ?>
-                        <li>
-                            <div class="sideuser">
-                                <div class="userPic">
-                                    <a href="#" class="avatar">
-                                        <img src="<?php echo str_replace('480x480', '110x110', $comment['CreatedBy']['AvatarUrl']); ?>" />
-                                    </a>
-                                </div>
-                                <div class="pannel">
-                                    <div class="username">
-                                        <strong>
-                                            <a href="#">
-                                                <?php echo $comment['CreatedBy']['Nickname']; ?>
-                                            </a>
-                                        </strong>
-                                        <span class="date">
-                                            <?php echo date('m月d日 H:i', strtotime($comment['CreatedDate']));?>
-                                        </span>
-                                    </div>
-                                    <div class="mscontent">
-                                        <p>
-                                            <?php echo $comment['Body']; ?>
-                                        </p>
-                                        <div class="msconent-img">
-                                          <?php if(count($comment['PictureUrl']) > 0): ?>
-                                          <?php foreach ($comment['PictureUrl'] as $pic): ?>
-                                          <img src="<?php echo str_replace('480x480', '110x110', $pic); ?>" rel="<?php echo $pic; ?>" />
-                                          <?php endforeach; ?>
-                                          <?php endif; ?>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                        <?php endforeach; ?>
-                    </ul>
+                <div id="comments" class="salonaddress">
+                    <h2>
+                        <span>
+                            评论
+                        </span>
+                        <a class="add-comment hair-comment" data-hair-id="<?php echo $this->workDetail['WorkId']; ?>">
+                            <i class="iconfont">&#xf0199;</i>
+                            我要评论
+                        </a>
+                    </h2>
+                </div>
+                <div id="comment-list" data-hair-id="<?php echo $this->workDetail['WorkId']; ?>" data-goods-id="0" data-stylist-id="0" data-salon-id="0" class="msgList">
+
                 </div>
             </div>
         </div>
@@ -234,6 +209,7 @@ initSlider();
 $(document).ready(function() {
     initAppointment();
     initLike();
+    initComment(<?php echo $this->workDetail['WorkId']; ?>, 0, 0, 0);
     initMap();
     initShare();
 });

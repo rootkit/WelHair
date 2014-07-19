@@ -13,7 +13,6 @@
 // ==============================================================================
 
 use Welfony\Controller\Base\AbstractFrontendController;
-use Welfony\Service\CommentService;
 use Welfony\Service\StaffService;
 use Welfony\Service\WorkService;
 
@@ -56,10 +55,6 @@ class Hair_IndexController extends AbstractFrontendController
 
         $workId = intval($this->_request->getParam('hair_id'));
         $this->view->workDetail = WorkService::getWorkDetail($this->currentUser['UserId'], $this->userContext->location, $workId);
-
-        $rstComments = CommentService::listComment(0, $workId, 0, 0, 1, 20);
-        $this->view->comments = $rstComments['comments'];
-        $this->view->commentTotal = $rstComments['total'];
 
         $this->view->staffDetail = StaffService::getStaffDetail($this->view->workDetail['Staff']['UserId'], $this->currentUser['UserId'], $this->userContext->location);
     }
